@@ -9,7 +9,8 @@ build_for_arch() {
     echo "Building for $arch..."
     dotnet publish -r osx-$arch -c Release /p:PublishSingleFile=true \
         /p:IncludeAllContentForSelfExtract=true /p:IncludeNativeLibrariesForSelfExtract=true \
-        /p:EnableCompressionInSingleFile=true --self-contained true -o "$OUTPUT_DIR/osx-$arch"
+        /p:EnableCompressionInSingleFile=true /p:PublishReadyToRun=true \
+        --self-contained true -o "$OUTPUT_DIR/osx-$arch"
 }
 
 build_for_arch "x64"

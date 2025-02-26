@@ -17,10 +17,19 @@ public static class PathManager
     public static string DolphinFilePath => (string)SettingsManager.DOLPHIN_LOCATION.Get();
     public static string UserFolderPath => (string)SettingsManager.USER_FOLDER_PATH.Get();
     
-    // Wheel wizard's appdata paths  (dont have to be expressions since they dont depend on user input like the others)
-    public static readonly string WheelWizardAppdataPath =
-        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CT-MKWII");
+    // Wheel wizard's appdata paths  (dont have to be expressions since they dont depend on user input like the others)f
+    public static readonly string WheelWizardAppdataPath = Path.Combine(GetAppDataFolder(), "CT-MKWII");
     public static readonly string WheelWizardConfigFilePath = Path.Combine(WheelWizardAppdataPath, "config.json");
+
+    // Keep config in ~/.config for MacOS
+    private static string GetAppDataFolder()
+{
+    if (OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
+    {
+        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".config");
+    }
+    return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+}
     
     // helper paths for folders used across multiple files
     public static string RiivolutionWhWzFolderPath => Path.Combine(LoadFolderPath, "Riivolution", "WheelWizard");

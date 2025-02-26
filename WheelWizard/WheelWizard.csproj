@@ -3,7 +3,7 @@
         <!-- Program Config -->
         <StartupObject>WheelWizard.Program</StartupObject>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <RootNamespace>WheelWizard</RootNamespace>
         <Nullable>enable</Nullable>
         <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
@@ -20,7 +20,7 @@
         <DefineConstants>WINDOWS</DefineConstants>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+    <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64' or '$(RuntimeIdentifier)' == 'linux-arm64'">
         <DefineConstants>LINUX</DefineConstants>
     </PropertyGroup>
 
