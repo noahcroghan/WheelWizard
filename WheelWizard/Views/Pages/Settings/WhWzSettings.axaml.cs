@@ -69,15 +69,25 @@ public partial class WhWzSettings : UserControl
         if (DolphinExeInput.Text != "")
             return;
         
-        var folderPath = PathManager.TryFindUserFolderPath();
+        var folderPath = await PathManager.TryFindUserFolderPath();
         if (!string.IsNullOrEmpty(folderPath))
             DolphinUserPathInput.Text = folderPath;
     }
 
+
     private async void DolphinExeBrowse_OnClick(object sender, RoutedEventArgs e)
     {
-        //if on linux
-
+        var executableFileType = new FilePickerFileType("Executable files")
+        {
+            Patterns = Environment.OSVersion.Platform switch
+            {
+                PlatformID.Win32NT => new[] { "*.exe" },
+                PlatformID.Unix => new[] { "*", "*.sh" }, 
+                PlatformID.MacOSX => new[] { "*", "*.app" },
+                _ => new[] { "*" } // Fallback
+            }
+        };
+        
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
             if (IsFlatpakDolphinInstalled()) 
@@ -112,30 +122,7 @@ public partial class WhWzSettings : UserControl
             DolphinExeInput.Text = "flatpak run org.DolphinEmu.dolphin-emu";
             return;
         }
-        
-        AfterIF:
-        if (DolphinExeInput.Text != "")
-            return;
-        
-        var folderPath = await PathManager.TryFindUserFolderPath();
-        if (!string.IsNullOrEmpty(folderPath))
-            DolphinUserPathInput.Text = folderPath;
-    }
 
-    private async void DolphinExeBrowse_OnClick(object sender, RoutedEventArgs e)
-    {
-        //if on linux
-        // Define platform-specific executable patterns
-        var executableFileType = new FilePickerFileType("Executable files")
-        {
-            Patterns = Environment.OSVersion.Platform switch
-            {
-                PlatformID.Win32NT => new[] { "*.exe" },
-                PlatformID.Unix => new[] { "*", "*.sh" }, 
-                PlatformID.MacOSX => new[] { "*", "*.app" },
-                _ => new[] { "*" } // Fallback
-            }
-        };
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
@@ -171,7 +158,15 @@ public partial class WhWzSettings : UserControl
 
             return; // do not do normal selection for MacOS
         }
-            
+        
+        AfterIF:
+        if (DolphinExeInput.Text != "")
+            return;
+        
+        var folderPath = await PathManager.TryFindUserFolderPath();
+        if (!string.IsNullOrEmpty(folderPath))
+            DolphinUserPathInput.Text = folderPath;
+        
         var filePath = await FilePickerHelper.OpenSingleFileAsync("Select Dolphin Emulator", new[] { executableFileType });
         if (!string.IsNullOrEmpty(filePath))
         {
