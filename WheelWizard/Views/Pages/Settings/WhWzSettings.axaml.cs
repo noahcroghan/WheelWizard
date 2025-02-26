@@ -126,7 +126,7 @@ public partial class WhWzSettings : UserControl
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            var dolphinAppPath = PathManager.TryToFindApplicationPath();
+            var dolphinAppPath = await PathManager.TryToFindApplicationPath();
             if (!string.IsNullOrEmpty(dolphinAppPath))
             {
                 var result = await new YesNoWindow()
@@ -162,10 +162,6 @@ public partial class WhWzSettings : UserControl
         AfterIF:
         if (DolphinExeInput.Text != "")
             return;
-        
-        var folderPath = await PathManager.TryFindUserFolderPath();
-        if (!string.IsNullOrEmpty(folderPath))
-            DolphinUserPathInput.Text = folderPath;
         
         var filePath = await FilePickerHelper.OpenSingleFileAsync("Select Dolphin Emulator", new[] { executableFileType });
         if (!string.IsNullOrEmpty(filePath))

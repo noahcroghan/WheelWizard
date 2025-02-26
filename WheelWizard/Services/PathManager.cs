@@ -70,7 +70,7 @@ public static class PathManager
         return FileHelper.DirectoryExists(documentsPath) ? documentsPath : null;
     }
 
-    public static string? TryToFindApplicationPath() {
+    public async static Task<string?> TryToFindApplicationPath() {
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
