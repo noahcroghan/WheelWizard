@@ -19,10 +19,12 @@ public static class SettingValues
     
     public static readonly double[] WindowScales = { 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.8, 2 };
     
-    public static readonly Dictionary<string, string> GFXRenderers = new()
+    public static readonly Dictionary<string, string> GFXRenderers = new() //Display name, value
     {
-        { "DirectX 11 (Default)", "D3D11" },
-        { "DirectX 12", "D3D12" },
+#if WINDOWS
+    { "DirectX 11 (Default)", "D3D11" },
+    { "DirectX 12", "D3D12" },
+#endif
         { "Vulkan", "Vulkan" },
         { "OpenGL", "OGL" }
     };

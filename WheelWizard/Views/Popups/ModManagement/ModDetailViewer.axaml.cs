@@ -289,6 +289,7 @@ public partial class ModDetailViewer : UserControl
     private void UnInstall_Click(object sender, RoutedEventArgs e)
     {
         ModManager.Instance.DeleteModById(CurrentMod._idRow);
+        LoadModDetailsAsync(CurrentMod._idRow);
         UpdateDownloadButtonState(CurrentMod._idRow);
     }
 }
