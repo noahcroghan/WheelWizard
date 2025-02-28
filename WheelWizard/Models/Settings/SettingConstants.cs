@@ -25,8 +25,12 @@ public static class SettingValues
     { "DirectX 11 (Default)", "D3D11" },
     { "DirectX 12", "D3D12" },
 #endif
+# if MACOS
+    { "Metal (Mac Recommended)", "Metal" },
+#endif
         { "Vulkan", "Vulkan" },
         { "OpenGL", "OGL" }
+
     };
     
     public static readonly Dictionary<int,Func<string>> RrLanguages = new()
