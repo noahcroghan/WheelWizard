@@ -24,9 +24,10 @@ public partial class SettingsPage : UserControl
         part1 = "Dev";
         DevButton.IsVisible = true;
 #endif
-       
+        // We intentionally use preprocessor directives (#if, #elif, #endif) instead of Environment.OSVersion  
+        // because 'part2' represents the OS this code was built for, not the OS it is currently running on.
 #if WINDOWS
-       part2 = "Windows";
+        part2 = "Windows";
 #elif LINUX
         part2 = "Linux";
 #elif MACOS
