@@ -37,9 +37,9 @@
         <StyleInclude Source="Components/StandardLibrary/EmptyPageInfo.axaml"/>
         <StyleInclude Source="Components/StandardLibrary/FormFieldLabel.axaml"/>
         <StyleInclude Source="Components/StandardLibrary/LoadingIcon.axaml"/>
+        <StyleInclude Source="Components/StandardLibrary/SidebarRadioButton.axaml"/>
         
         <!-- PAGE SPECIFIC COMPONENTS -->
-        <StyleInclude Source="Components/WhWzLibrary/SidebarRadioButton.axaml"/>
         <StyleInclude Source="Components/WhWzLibrary/ModBrowserListItem.axaml"/>
         <StyleInclude Source="Components/WhWzLibrary/DetailedProfileBox.axaml"/>
         <StyleInclude Source="Components/WhWzLibrary/FriendsListItem.axaml"/>

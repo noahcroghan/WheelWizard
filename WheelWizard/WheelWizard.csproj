@@ -457,6 +457,10 @@
         <Compile Update="Views\Pages\RoomDetailsPage.axaml.cs">
           <DependentUpon>RoomDetailsPage.axaml</DependentUpon>
         </Compile>
+        <Compile Update="Views\Components\StandardLibrary\SidebarRadioButton.axaml.cs">
+          <DependentUpon>SidebarRadioButton.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
 
     </ItemGroup>
     

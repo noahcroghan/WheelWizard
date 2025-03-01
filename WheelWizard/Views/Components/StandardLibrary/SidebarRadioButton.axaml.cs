@@ -1,14 +1,17 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
 using System;
 using WheelWizard.Views.Pages;
 
-namespace WheelWizard.Views.Components.WhWzLibrary;
+namespace WheelWizard.Views.Components.StandardLibrary;
 
 public partial class SidebarRadioButton : RadioButton
 {
+    private Border? _hoverEffect;
+    
     public static readonly StyledProperty<Geometry> IconDataProperty =
         AvaloniaProperty.Register<SidebarRadioButton, Geometry>(nameof(IconData));
 
@@ -52,6 +55,25 @@ public partial class SidebarRadioButton : RadioButton
     {
         get => GetValue(BoxTipProperty);
         set => SetValue(BoxTipProperty, value);
+    }
+
+    protected override void OnPointerMoved(PointerEventArgs e)
+    {
+        base.OnPointerMoved(e);
+        if (_hoverEffect == null) return;
+        
+        var position = e.GetPosition(this);
+        
+        var left = position.X - (_hoverEffect.Width / 2);
+        var top = position.Y - (_hoverEffect.Height / 2);
+        
+        _hoverEffect.Margin = new Thickness(left, top, 0, 0);
+    }
+
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
+        _hoverEffect = e.NameScope.Find<Border>("PART_HoverEffect");
     }
     
     protected override void OnPointerPressed(PointerPressedEventArgs e)
