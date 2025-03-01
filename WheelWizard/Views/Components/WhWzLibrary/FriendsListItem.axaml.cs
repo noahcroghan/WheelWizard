@@ -18,6 +18,15 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(IsOnlineProperty, value);
     }
     
+    public static readonly StyledProperty<bool> HasBadgesProperty =
+        AvaloniaProperty.Register<FriendsListItem, bool>(nameof(HasBadges));
+    public bool HasBadges
+    {
+        get => GetValue(HasBadgesProperty);
+        set => SetValue(HasBadgesProperty, value);
+    }
+
+    
     public static readonly StyledProperty<Mii?> MiiProperty =
         AvaloniaProperty.Register<FriendsListItem, Mii?>(nameof(Mii));
     public Mii? Mii

@@ -41,6 +41,7 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
         }
     }
 
+    public bool HasBadges => false;
     public PlayerWinPosition WinPosition => FriendCodeManager.GetWinPosition(FriendCode);
     
     public string MiiName

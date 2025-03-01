@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Threading;
+using Avalonia.Media;
 using System;
 using System.Globalization;
 using WheelWizard.Services;
@@ -10,8 +9,6 @@ using WheelWizard.Services.Settings;
 using WheelWizard.Services.UrlProtocol;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Utilities.RepeatedTasks;
-using WheelWizard.Views.Pages;
-using WheelWizard.Views.Pages.Settings;
 
 namespace WheelWizard.Views;
 
@@ -92,6 +89,61 @@ public class ViewUtils
         }
         return default;
     }
-    
-}
 
+    #region Colors
+    public static class Colors
+    {
+        public static Color Warning50 = GetColor("Warning50");
+        public static Color Warning100 = GetColor("Warning100");
+        public static Color Warning200 = GetColor("Warning200");
+        public static Color Warning300 = GetColor("Warning300");
+        public static Color Warning400 = GetColor("Warning400");
+        public static Color Warning500 = GetColor("Warning500");
+        public static Color Warning600 = GetColor("Warning600");
+        public static Color Warning700 = GetColor("Warning700");
+        public static Color Warning800 = GetColor("Warning800");
+        public static Color Warning900 = GetColor("Warning900");
+        public static Color Warning950 = GetColor("Warning950");
+        
+        public static Color Danger50 = GetColor("Danger50");
+        public static Color Danger100 = GetColor("Danger100");
+        public static Color Danger200 = GetColor("Danger200");
+        public static Color Danger300 = GetColor("Danger300");
+        public static Color Danger400 = GetColor("Danger400");
+        public static Color Danger500 = GetColor("Danger500");
+        public static Color Danger600 = GetColor("Danger600");
+        public static Color Danger700 = GetColor("Danger700");
+        public static Color Danger800 = GetColor("Danger800");
+        public static Color Danger900 = GetColor("Danger900");
+        public static Color Danger950 = GetColor("Danger950");
+        
+        public static Color Primary50 = GetColor("Primary50");
+        public static Color Primary100 = GetColor("Primary100");
+        public static Color Primary200 = GetColor("Primary200");
+        public static Color Primary300 = GetColor("Primary300");
+        public static Color Primary400 = GetColor("Primary400");
+        public static Color Primary500 = GetColor("Primary500");
+        public static Color Primary600 = GetColor("Primary600");
+        public static Color Primary700 = GetColor("Primary700");
+        public static Color Primary800 = GetColor("Primary800");
+        public static Color Primary900 = GetColor("Primary900");
+        public static Color Primary950 = GetColor("Primary950");
+        
+        public static Color Neutral50 = GetColor("Neutral50");
+        public static Color Neutral100 = GetColor("Neutral100");
+        public static Color Neutral200 = GetColor("Neutral200");
+        public static Color Neutral300 = GetColor("Neutral300");
+        public static Color Neutral400 = GetColor("Neutral400");
+        public static Color Neutral500 = GetColor("Neutral500");
+        public static Color Neutral600 = GetColor("Neutral600");
+        public static Color Neutral700 = GetColor("Neutral700");
+        public static Color Neutral800 = GetColor("Neutral800");
+        public static Color Neutral900 = GetColor("Neutral900");
+        public static Color Neutral950 = GetColor("Neutral950");
+        
+        public static Color Black = GetColor("Black");
+        
+        private static Color GetColor(string name) => (Color)Application.Current.FindResource(name);
+    }
+    #endregion
+}

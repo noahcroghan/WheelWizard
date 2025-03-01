@@ -65,6 +65,7 @@
                                                  Vr="{Binding Vr}" 
                                                  Br="{Binding Br}"
                                                  Mii="{Binding Mii}"
+                                                 HasBadges="{Binding HasBadges}"
                                                  IsOnline="{Binding IsOnline}"
                                                  TotalLosses="{Binding Losses}"
                                                  TotalWon="{Binding Wins}"

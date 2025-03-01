@@ -305,21 +305,26 @@ public partial class WhWzSettings : UserControl
 
     private void TogglePathSettings(bool enable)
     {
-        if (!SettingsHelper.PathsSetupCorrectly() && !enable)
+        if (enable)
         {
-            var color = (Color)Application.Current.FindResource("Warning600");
-            LocationBorder.BorderBrush = new SolidColorBrush(color);
+            LocationBorder.BorderBrush = new SolidColorBrush(ViewUtils.Colors.Neutral900);
+        }
+        else if (!SettingsHelper.PathsSetupCorrectly())
+        {
+            LocationBorder.BorderBrush = new SolidColorBrush(ViewUtils.Colors.Warning400);
             LocationEditButton.Variant = Components.StandardLibrary.Button.ButtonsVariantType.Warning;
             LocationWarningIcon.IsVisible = true;
+            LocationBorderBlur.Background = new SolidColorBrush(ViewUtils.Colors.Warning600);
         }
         else
         {
-            var color = (Color)Application.Current.FindResource("Primary600");
-            LocationBorder.BorderBrush = new SolidColorBrush(color);
+            LocationBorder.BorderBrush = new SolidColorBrush(ViewUtils.Colors.Primary400);
             LocationEditButton.Variant = Components.StandardLibrary.Button.ButtonsVariantType.Primary;
             LocationWarningIcon.IsVisible = false;
+            LocationBorderBlur.Background = new SolidColorBrush(ViewUtils.Colors.Primary600);
         }
-
+        
+        LocationBorderBlur.IsVisible = !enable;
         LocationInputFields.IsEnabled = enable;
         LocationEditButton.IsVisible = !enable;
         LocationSaveButton.IsVisible = enable;

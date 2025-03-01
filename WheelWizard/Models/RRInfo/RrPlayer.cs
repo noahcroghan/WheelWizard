@@ -31,5 +31,6 @@ public class RrPlayer
         }
     }
     
+    public bool HasBadges => false;
     public PlayerWinPosition WinPosition => FriendCodeManager.GetWinPosition(Fc);
 }

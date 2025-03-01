@@ -61,7 +61,7 @@
      <Style Selector="components|Button:pointerover">
         <Setter Property="Cursor" Value="Hand"/>
     </Style>
-    
+
     <!-- DEFAULT -->
     <Style Selector="components|Button.Default">
         <Setter Property="Foreground" Value="{StaticResource Neutral300}" />

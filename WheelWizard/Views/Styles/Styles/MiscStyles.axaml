@@ -13,7 +13,7 @@
         <Setter Property="Padding" Value="10" />
         <!-- When there is an error or something, you can change the color here to something, then the edge also changes -->
         <Setter Property="BorderBrush" Value="{StaticResource Neutral900}" />
-        <Setter Property="BorderThickness" Value="3" />
+        <Setter Property="BorderThickness" Value="1" />
     </Style>
     
 

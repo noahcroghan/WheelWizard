@@ -139,7 +139,7 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border Classes="BoxItemBackground">
-                            <Grid ColumnDefinitions="Auto,140,100,100">
+                            <Grid ColumnDefinitions="Auto,140,85,85,90">
                                 <Border Grid.Column="0" CornerRadius="999999" ClipToBounds="True" 
                                         Background="{StaticResource Neutral950}" Width="50" Height="50" Margin="0,3">
                                     <miiComp:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
@@ -170,6 +170,12 @@
                                                Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                Margin="10,0,0,0"/>
                                 </StackPanel>
+                                
+                                <Border Grid.Column="4" Background="{StaticResource Neutral950}" HorizontalAlignment="Left"
+                                        IsVisible="{Binding HasBadges}"
+                                        CornerRadius="6" Height="40" Width="40" BorderThickness="1" BorderBrush="{StaticResource Neutral600}">
+                                    
+                                </Border>
                             </Grid>
                         </Border>
                     </DataTemplate>
