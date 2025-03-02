@@ -37,7 +37,27 @@ public static class PathManager
     
     //this is not the folder your save file is located in, but its the folder where every Region folder is, so the save file is in SaveFolderPath/Region
     public static string SaveFolderPath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "Save" ,"RetroWFC");
-    public static string LoadFolderPath => Path.Combine(UserFolderPath, "Load");
+
+    //todo: find a way to clean this up so its not just alot of if statements
+    public static string LoadFolderPath
+    {
+        get
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return Path.Combine(UserFolderPath, "Load");
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return Path.Combine(UserFolderPath, "data", "dolphin-emu", "Load");
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return Path.Combine(UserFolderPath, "Load"); // TODO: Check this path
+            }
+            throw new PlatformNotSupportedException("Unsupported operating system");
+        }
+    }
 
     public static string ConfigFolderPath
     {
@@ -49,7 +69,7 @@ public static class PathManager
             }
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                return Path.Combine(Environment.GetEnvironmentVariable("HOME") ?? "/", ".var", "app", "org.DolphinEmu.dolphin-emu", "config", "dolphin-emu");
+                return Path.Combine(UserFolderPath, "config", "dolphin-emu");
             }
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
@@ -58,7 +78,26 @@ public static class PathManager
             throw new PlatformNotSupportedException("Unsupported operating system");
         }
     }
-    public static string WiiFolderPath => Path.Combine(UserFolderPath, "Wii");
+
+    public static string WiiFolderPath
+    {
+        get
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return Path.Combine(UserFolderPath, "Wii");
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return Path.Combine(UserFolderPath, "data", "dolphin-emu", "Wii");
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return Path.Combine(UserFolderPath, "Wii"); // TODO: Check this path
+            }
+            throw new PlatformNotSupportedException("Unsupported operating system");
+        }
+    }
 
 
     public async static Task<string?> TryFindUserFolderPath()
@@ -76,7 +115,12 @@ public static class PathManager
 
         var documentsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             "Dolphin Emulator");
-        return FileHelper.DirectoryExists(documentsPath) ? documentsPath : null;
+        if (FileHelper.DirectoryExists(documentsPath)) return documentsPath;
+
+        //linux path returns The location until the paths split into Config and Data
+        var linuxPath = LinuxDolphinInstaller.TryFindUserFolderPath();
+        
+        return linuxPath;
     }
 
     public async static Task<string?> TryToFindApplicationPath() {
