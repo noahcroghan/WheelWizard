@@ -4,11 +4,22 @@
     <Design.PreviewWith>
         <Border Padding="2" Background="{StaticResource Neutral950}">
             <UniformGrid Columns="2">
-                <controls:Badge Margin="5" Width="31" Height="31" Variant="WhWzDev" />
-                <controls:Badge Margin="5" Width="31" Height="31" Variant="RrDev" />
-                <controls:Badge Margin="5" Width="31" Height="31" Variant="GoldWinner" />
-                <controls:Badge Margin="5" Width="31" Height="31" Variant="SilverWinner" />
-                <controls:Badge Margin="5" Width="31" Height="31" Variant="BronzeWinner" />
+                <!-- Just so you know, the border is not necessary, its just here to also show the bounding box-->
+                <Border Width="31" Height="31" Margin="5" CornerRadius="999" Background="{StaticResource Neutral900}">
+                    <controls:Badge Variant="WhWzDev"/>
+                </Border>
+                <Border Width="31" Height="31" Margin="5" CornerRadius="999" Background="{StaticResource Neutral900}">
+                    <controls:Badge Variant="RrDev"/>
+                </Border>
+                <Border Width="31" Height="31" Margin="5" CornerRadius="999" Background="{StaticResource Neutral900}">
+                    <controls:Badge Variant="GoldWinner"/>
+                </Border>
+                <Border Width="31" Height="31" Margin="5" CornerRadius="999" Background="{StaticResource Neutral900}">
+                    <controls:Badge Variant="SilverWinner"/>
+                </Border>
+                <Border Width="31" Height="31" Margin="5" CornerRadius="999" Background="{StaticResource Neutral900}">
+                    <controls:Badge Variant="BronzeWinner"/>
+                </Border>
             </UniformGrid>
         </Border>
     </Design.PreviewWith>
@@ -44,7 +55,7 @@
                     
                     <Path Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"
                           Fill="{StaticResource Primary900}" Data="{StaticResource Code}"
-                          Stretch="Uniform"/>
+                          Stretch="Uniform" />
                 </Grid>
             </ControlTemplate>
         </Setter>
@@ -72,17 +83,16 @@
     <Style Selector="controls|Badge.GoldWinner">
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid RowDefinitions="1*,2*,2*" ColumnDefinitions="1*, 3*, 4*, 3*, 1*">
-                    <Border Grid.Row="1" Grid.Column="2"
+                <Grid RowDefinitions="1*, 2*, 2*" ColumnDefinitions="1*, 2*, 1*">
+                    <Border Grid.Row="1" Grid.Column="1"
                             CornerRadius="999" Background="{StaticResource Warning100}" />
                     
-                    <Path Grid.Column="1" Grid.Row="0" Grid.RowSpan="999" Grid.ColumnSpan="3"
+                    <Path Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3"
                           Fill="{StaticResource Warning600}" Data="{StaticResource Award}"
-                          Stretch="UniformToFill">
+                          Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Path.RenderTransform>
                             <TransformGroup>
                                 <RotateTransform Angle="21"/>
-                                <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
                             </TransformGroup>
                         </Path.RenderTransform>
                     </Path>
@@ -91,20 +101,20 @@
         </Setter>
     </Style>
     
+    
     <Style Selector="controls|Badge.SilverWinner">
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid RowDefinitions="1*,2*,2*" ColumnDefinitions="1*, 3*, 4*, 3*, 1*">
-                    <Border Grid.Row="1" Grid.Column="2"
+                <Grid RowDefinitions="1*, 2*, 2*" ColumnDefinitions="1*, 2*, 1*">
+                    <Border Grid.Row="1" Grid.Column="1"
                             CornerRadius="999" Background="{StaticResource Neutral50}" />
                     
-                    <Path Grid.Column="1" Grid.Row="0" Grid.RowSpan="999" Grid.ColumnSpan="3"
+                    <Path Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3"
                           Fill="{StaticResource Neutral400}" Data="{StaticResource Award}"
-                          Stretch="UniformToFill">
+                          Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Path.RenderTransform>
                             <TransformGroup>
                                 <RotateTransform Angle="21"/>
-                                <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
                             </TransformGroup>
                         </Path.RenderTransform>
                     </Path>
@@ -116,17 +126,15 @@
     <Style Selector="controls|Badge.BronzeWinner">
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid RowDefinitions="1*,2*,2*" ColumnDefinitions="1*, 3*, 4*, 3*, 1*">
-                    <Border Grid.Row="1" Grid.Column="2"
-                            CornerRadius="999" Background="#FFD19D" />
+                <Grid RowDefinitions="1*, 2*, 2*" ColumnDefinitions="1*, 2*, 1*">
+                    <Border Grid.Row="1" Grid.Column="1" CornerRadius="999" Background="#FFD19D" />
                     
-                    <Path Grid.Column="1" Grid.Row="0" Grid.RowSpan="999" Grid.ColumnSpan="3"
+                    <Path Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Grid.ColumnSpan="3"
                           Fill="#EC5616" Data="{StaticResource Award}"
-                          Stretch="UniformToFill">
+                          Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Path.RenderTransform>
                             <TransformGroup>
                                 <RotateTransform Angle="21"/>
-                                <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
                             </TransformGroup>
                         </Path.RenderTransform>
                     </Path>

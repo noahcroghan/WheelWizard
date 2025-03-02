@@ -6,7 +6,7 @@ using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Helpers;
 
-    public static class DownloadHelper
+public static class DownloadHelper
 {
     private const int MaxRetries = 5;
     private const int TimeoutInSeconds = 30; // Adjust as needed

@@ -1,10 +1,10 @@
 ﻿using WheelWizard.Services.Settings;
 
-namespace WheelWizard.Services;
+namespace WheelWizard.Helpers;
 
-public class LinuxHelper
+public static class EnvHelper
 {
-    public static string DetectPackageManager()
+    public static string DetectLinuxPackageManager()
     {
         if (LinuxDolphinInstaller.IsValidCommand("apt")) return "apt-get";
         if (LinuxDolphinInstaller.IsValidCommand("dnf")) return "dnf";

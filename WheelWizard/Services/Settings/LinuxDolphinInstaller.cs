@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using WheelWizard.Helpers;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Services.Settings;
@@ -127,7 +128,7 @@ public static class LinuxDolphinInstaller
             return true;
 
         // Detect the package manager
-        var packageManager = LinuxHelper.DetectPackageManager();
+        var packageManager = EnvHelper.DetectLinuxPackageManager();
         if (string.IsNullOrEmpty(packageManager))
             return false; // Unsupported distro
 

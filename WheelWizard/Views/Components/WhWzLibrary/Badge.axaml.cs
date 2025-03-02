@@ -3,21 +3,12 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using System;
+using WheelWizard.Models.Enums;
 
 namespace WheelWizard.Views.Components.WhWzLibrary;
 
 public class Badge : TemplatedControl
 {
-    public enum BadgeVariant
-    {
-        None, // None is the default and should be the first enum value
-        WhWzDev,
-        RrDev,
-        GoldWinner,
-        SilverWinner,
-        BronzeWinner
-    }
-    
     public static readonly StyledProperty<BadgeVariant> VariantProperty =
         AvaloniaProperty.Register<Badge, BadgeVariant>(nameof(Variant));
 
