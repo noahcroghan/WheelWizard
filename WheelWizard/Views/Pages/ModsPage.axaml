@@ -117,13 +117,17 @@
                                      <components:Button HorizontalAlignment="Right" 
                                                         IconData="{StaticResource ArrowUp}" 
                                                         IconSize="15" Padding="10,3"
-                                                        Click="ButtonUp_OnClick"
-                                                        Variant="Default"/>
+                                                        Click="ButtonUp_OnClick"/>
                                      <components:Button HorizontalAlignment="Right" 
                                                         IconData="{StaticResource ArrowDown}" 
                                                         IconSize="15" Padding="10,3"
-                                                        Click="ButtonDown_OnClick"
-                                                        Variant="Default"/>
+                                                        Click="ButtonDown_OnClick"/>
+                                     
+                                     <StackPanel.Styles>
+                                         <Style Selector="ListBoxItem Border.BoxItemBackground:pointerover components|Button">
+                                             <Setter Property="Variant" Value="UglyLight"/>
+                                         </Style>
+                                     </StackPanel.Styles>
                                  </StackPanel>
                              </StackPanel>
                              

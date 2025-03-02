@@ -6,6 +6,8 @@
         <Border Padding="20" Background="{StaticResource Neutral950}">
             <StackPanel Spacing="5">
                 <components:Button Width="150" Text="Default" Variant="Default"/>
+                <components:Button Width="150" Text="Ugly Light" Variant="UglyLight"/>
+                <!-- Ugly light is not ugly actually, its just because i don't want you to use it unless strictly necessary-->
                 <components:Button Width="150" Text="Primary" Variant="Primary"/>
                 <components:Button Width="150" Text="Secondary" Variant="Warning" />
                 <components:Button Width="150" Text="Danger" Variant="Danger" FontSize="30"/>
@@ -118,6 +120,19 @@
         <Setter Property="Background" Value="{StaticResource Primary500}" />
     </Style>
     
+    <!-- UGLY LIGHT -->
+    <Style Selector="components|Button.UglyLight">
+        <Setter Property="Foreground" Value="{StaticResource Neutral200}" />
+        <Setter Property="Background" Value="{StaticResource Neutral500}" />
+    </Style>
+    <Style Selector="components|Button.UglyLight:pointerover">
+        <Setter Property="Foreground" Value="{StaticResource Neutral200}" />
+        <Setter Property="Background" Value="{StaticResource Neutral400}" />
+    </Style>
+    <Style Selector="components|Button.UglyLight:pressed">
+        <Setter Property="Foreground" Value="{StaticResource Neutral200}" />
+        <Setter Property="Background" Value="{StaticResource Neutral300}" />
+    </Style>
         
     <Style Selector="components|Button:disabled /template/ Border">
         <Setter Property="Background" Value="{StaticResource Neutral800}" />

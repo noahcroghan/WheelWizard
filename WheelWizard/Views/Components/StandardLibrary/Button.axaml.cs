@@ -23,7 +23,8 @@ public class Button : Avalonia.Controls.Button // Change to TemplatedControl
         Primary,
         Warning,
         Default,
-        Danger
+        Danger,
+        UglyLight,
     }
     
     // Constructor
