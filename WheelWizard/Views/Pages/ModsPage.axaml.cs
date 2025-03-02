@@ -178,4 +178,21 @@ public partial class ModsPage : UserControl, INotifyPropertyChanged
         if(parent?.Content is Mod mod) return mod;
         return null;
     }
+
+    private void ButtonUp_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var mod = GetParentsMod(e);
+        if (mod == null) return;
+        
+        Console.WriteLine($"Up {mod.Title}");
+    }
+    
+    private void ButtonDown_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var mod = GetParentsMod(e);
+        if (mod == null) return;
+        
+        Console.WriteLine($"Down {mod.Title}");
+    }
+    
 }

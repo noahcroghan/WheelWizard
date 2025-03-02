@@ -79,7 +79,7 @@
          <ListBox Grid.Row="1" x:Name="ModsListBox" ItemsSource="{Binding Mods}" Margin="10,5">
              <ListBox.ItemTemplate>
                  <DataTemplate>
-                     <Border Classes="BoxItemBackground">
+                     <Border Classes="BoxItemBackground" Height="50">
                          <Grid>
                              <Grid.ColumnDefinitions>
                                  <ColumnDefinition Width="50" />
@@ -112,8 +112,20 @@
                                          </Style>
                                      </TextBox.Styles>
                                  </TextBox>
+                                 
+                                 <StackPanel Margin="10,0,0,0">
+                                     <components:Button HorizontalAlignment="Right" 
+                                                        IconData="{StaticResource ArrowUp}" 
+                                                        IconSize="15" Padding="10,3"
+                                                        Click="ButtonUp_OnClick"
+                                                        Variant="Default"/>
+                                     <components:Button HorizontalAlignment="Right" 
+                                                        IconData="{StaticResource ArrowDown}" 
+                                                        IconSize="15" Padding="10,3"
+                                                        Click="ButtonDown_OnClick"
+                                                        Variant="Default"/>
+                                 </StackPanel>
                              </StackPanel>
-                            
                              
                              <!-- <components:StateBox Grid.Column="1" IconSize="0" Text="{Binding Priority}"
                                                   TipText="Priority" Variant="Dark" TipPlacement="Top"
