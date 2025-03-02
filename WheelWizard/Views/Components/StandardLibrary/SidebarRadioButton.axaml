@@ -42,7 +42,7 @@
                 BorderThickness="0" >
           <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClipToBounds="True">
             
-            <Border CornerRadius="99999" IsVisible="False" Opacity="0.5" Name="PART_HoverEffect"
+            <Border CornerRadius="99999" IsVisible="False" Opacity="0.3" Name="PART_HoverEffect"
                     HorizontalAlignment="Left" VerticalAlignment="Top"
                     Background="{StaticResource Primary200}" Height="50" Width="50" Effect="blur(150)">
               
