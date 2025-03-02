@@ -5,6 +5,7 @@ using WheelWizard.Models.Enums;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.RRInfo;
 using WheelWizard.Models.Settings;
+using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Utilities;
 
@@ -42,7 +43,7 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
     }
 
     public bool HasBadges => false;
-    public PlayerWinPosition WinPosition => FriendCodeManager.GetWinPosition(FriendCode);
+    public BadgeVariant[] BadgeVariants => BadgeManager.Instance.GetBadgeVariants(FriendCode);
     
     public string MiiName
     {

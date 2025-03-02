@@ -11,7 +11,9 @@ public static class Endpoints
     public const string RRDiscordUrl = "https://discord.gg/yH3ReN8EhQ";
 
     // Wheel Wizard
-    public const string WhWzStatusUrl = "https://raw.githubusercontent.com/TeamWheelWizard/WheelWizard-Data/main/status.json";
+    public const string WhWzDataUrl = "https://raw.githubusercontent.com/TeamWheelWizard/WheelWizard-Data/main/";
+    public const string WhWzStatusUrl = WhWzDataUrl + "status.json";
+    public const string WhWzBadgesUrl = WhWzDataUrl + "badges.json";
     public const string WhWzLatestReleasesUrl = "https://api.github.com/repos/TeamWheelWizard/WheelWizard/releases/latest";
     public const string WhWzDiscordUrl = "https://discord.gg/vZ7T2wJnsq";
     public const string WhWzGithubUrl = "https://github.com/TeamWheelWizard/WheelWizard";

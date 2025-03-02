@@ -1,5 +1,6 @@
 using Avalonia;
 using System;
+using WheelWizard.Services;
 using WheelWizard.Services.Installation;
 using WheelWizard.Services.Installation.AutoUpdater;
 using WheelWizard.Services.Settings;
@@ -26,6 +27,7 @@ public class Program
     private static void Setup()
     {
         SettingsManager.Instance.LoadSettings();
+        BadgeManager.Instance.LoadBadges();
         UrlProtocolManager.SetWhWzSchemeAsync();
         AutoUpdater.CheckForUpdatesAsync();
     }
