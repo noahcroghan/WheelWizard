@@ -461,6 +461,10 @@
           <DependentUpon>SidebarRadioButton.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
+        <Compile Update="Views\Components\WhWzLibrary\PlayerListItem.axaml.cs">
+          <DependentUpon>PlayerListItem.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
 
     </ItemGroup>
     

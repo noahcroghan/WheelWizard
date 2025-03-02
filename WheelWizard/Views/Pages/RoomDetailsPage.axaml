@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignHeight="876" d:DesignWidth="456"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+             xmlns:whwzcomp="clr-namespace:WheelWizard.Views.Components.WhWzLibrary"
              xmlns:components="clr-namespace:WheelWizard.Views.Components.StandardLibrary"
              xmlns:miiComp="using:WheelWizard.Views.Components.WhWzLibrary.MiiImages"
              x:Class="WheelWizard.Views.Pages.RoomDetailsPage">
@@ -77,46 +78,14 @@
                      SelectionChanged="PlayerView_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Classes="BoxItemBackground">
-                            <Grid ColumnDefinitions="Auto,140,85,85,90">
-                                <Border Grid.Column="0" CornerRadius="999999" ClipToBounds="True" 
-                                        Background="{StaticResource Neutral950}" Width="50" Height="50" Margin="0,3">
-                                    <miiComp:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                                            LoadingColor="{StaticResource Neutral600}"
-                                                            Mii="{Binding FirstMii}"
-                                                            FallBackColor="{StaticResource Neutral600}"
-                                                            ImageVariant="SMALL"/>
-                                </Border>
-           
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center" >
-                                    <components:FormFieldLabel Text="{Binding Name}"  Margin="10,0,0,0"/>
-                                    <TextBlock Text="{Binding Fc}" FontSize="14" 
-                                               Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                               Margin="10,0,0,0"/>
-                                </StackPanel>
-                                
-                                
-                                <StackPanel Grid.Column="2" VerticalAlignment="Center" >
-                                    <components:FormFieldLabel Text="Vr"  Margin="10,0,0,0"/>
-                                    <TextBlock Text="{Binding Ev}" FontSize="14" 
-                                               Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                               Margin="10,0,0,0"/>
-                                </StackPanel>
-                                
-                                <StackPanel Grid.Column="3" VerticalAlignment="Center" >
-                                    <components:FormFieldLabel Text="Br"  Margin="10,0,0,0"/>
-                                    <TextBlock Text="{Binding Eb}" FontSize="14" 
-                                               Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                               Margin="10,0,0,0"/>
-                                </StackPanel>
-                                
-                                <Border Grid.Column="4" Background="{StaticResource Neutral950}" HorizontalAlignment="Left"
-                                        IsVisible="{Binding HasBadges}"
-                                        CornerRadius="6" Height="40" Width="40" BorderThickness="1" BorderBrush="{StaticResource Neutral600}">
-                                    
-                                </Border>
-                            </Grid>
-                        </Border>
+                        <whwzcomp:PlayerListItem 
+                            UserName="{Binding Name}"
+                            FriendCode="{Binding Fc}"
+                            Br="{Binding Eb}"
+                            Vr="{Binding Ev}"
+                            Mii="{Binding FirstMii}"
+                            HasBadges="{Binding HasBadges}"
+                            />
                     </DataTemplate>
                 </ListBox.ItemTemplate>
                 

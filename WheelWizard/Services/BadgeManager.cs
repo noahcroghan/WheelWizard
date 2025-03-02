@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WheelWizard.Helpers;
 using WheelWizard.Models.Enums;
 using WheelWizard.Views.Components.WhWzLibrary;
 
@@ -8,35 +9,43 @@ namespace WheelWizard.Services;
 
 public class BadgeManager
 {
+    public readonly Dictionary<BadgeVariant, string> BadgeToolTip = new()
+    {
+        {BadgeVariant.None, "Whoops, the devs made an oopsie!"},
+        {BadgeVariant.WhWzDev, "Wheel Wizard Developer"},
+        {BadgeVariant.RrDev, "Retro Rewind Developer"},
+        {BadgeVariant.Translator, "Translator"},
+        {BadgeVariant.GoldWinner, "This is an award winning player"},
+        {BadgeVariant.SilverWinner, "This is an award winning player"},
+        {BadgeVariant.BronzeWinner, "This is an award winning player"}
+    };
+    
+    public Dictionary<string,BadgeVariant[]> BadgeData { get; private set; }
+    
     public static BadgeManager Instance { get; } = new();
     private BadgeManager() { }
-    public void LoadBadges()
+    public async void LoadBadges()
     {
-   
+        var response = await HttpClientHelper.GetAsync<Dictionary<string,string[]>>(Endpoints.WhWzBadgesUrl);
+        if (response?.Content == null || !response.Succeeded) return;
+        
+        BadgeData = response.Content.ToDictionary(
+            kvp => kvp.Key,
+            kvp => kvp.Value
+                .Select(b => Enum.TryParse(b, out BadgeVariant v) ? v : BadgeVariant.None)
+                .Where(b => b != BadgeVariant.None)
+                .ToArray()
+        );
     }
-
-    // private static readonly string[] _firstPlaces = new[]
-    // {
-    //     "4343-3434-3434",
-    //     "2277-7727-2227"
-    // };
-
-    // private static readonly string[] _secondPlaces = new[]
-    // {
-    //     "1251-5622-1012",
-    //     "0000-0202-1121"
-    // };
-
-    // private static readonly string[] _thirdPlaces = new[]
-    // {
-    //     "3955-9063-2091",
-    //     "4988-1656-7319"
-    // };
+    
     public BadgeVariant[] GetRandomBadgeVariants(int? seed = null)
     {
         var random = seed == null ? new Random() : new Random(seed.Value);
-        var allVariants = Enum.GetValues(typeof(BadgeVariant)) as BadgeVariant[];
-        var numberOfBadges = random.Next(0, 5);
+        var allVariants = Enum.GetValues(typeof(BadgeVariant))
+            .Cast<BadgeVariant>()
+            .Where(variant => variant != BadgeVariant.None)
+            .ToArray();
+        var numberOfBadges = random.Next(0, 5); // 1 to 4 badges
 
         var selectedVariants = new List<BadgeVariant>();
         for (var i = 0; i < numberOfBadges; i++)
@@ -51,7 +60,7 @@ public class BadgeManager
     
     public BadgeVariant[] GetBadgeVariants(string friendCode)
     {
-        return GetRandomBadgeVariants();
+        return BadgeData.ContainsKey(friendCode) ? BadgeData[friendCode] : [];
     }
 
     public IEnumerable<Badge> GetBadges(string friendCode) => GetBadges(GetBadgeVariants(friendCode));

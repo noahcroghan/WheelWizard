@@ -4,11 +4,23 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
 using System;
 using WheelWizard.Models.Enums;
+using WheelWizard.Services;
 
 namespace WheelWizard.Views.Components.WhWzLibrary;
 
 public class Badge : TemplatedControl
 {
+
+    public static readonly StyledProperty<string> HoverTipProperty =
+        AvaloniaProperty.Register<Badge, string>(nameof(HoverTip), 
+            BadgeManager.Instance.BadgeToolTip[BadgeVariant.None]);
+    public string HoverTip
+    {
+        get => GetValue(HoverTipProperty);
+        set => SetValue(HoverTipProperty, value);
+    }
+
+    
     public static readonly StyledProperty<BadgeVariant> VariantProperty =
         AvaloniaProperty.Register<Badge, BadgeVariant>(nameof(Variant));
 
@@ -25,8 +37,8 @@ public class Badge : TemplatedControl
         {
             Classes.Remove(enumType.ToString());
         }
-        Console.WriteLine("Variant + " + variant);
         Classes.Add(variant.ToString());
+        HoverTip = BadgeManager.Instance.BadgeToolTip[variant];
     }
     
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)

@@ -113,9 +113,16 @@
                         
                         <Border Grid.Column="2" Background="{StaticResource Neutral950}" HorizontalAlignment="Left"
                                 VerticalAlignment="Top" Margin="10,10,0,0" x:Name="PART_BadgeBorder"
-                                CornerRadius="6" Height="40" Width="100" BorderThickness="1" 
+                                CornerRadius="6" Height="40" Width="105" BorderThickness="1" 
                                 IsVisible="{TemplateBinding HasBadges}"
                                 BorderBrush="{StaticResource Neutral600}">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" Padding="3">
+                                <StackPanel Orientation="Horizontal" x:Name="PART_BadgeContainer" Spacing="3">
+                                    <controls:Badge Variant="Translator" Width="30" Height="30"/>
+                                    <controls:Badge Variant="WhWzDev" Width="30" Height="30"/>
+                                    <controls:Badge Variant="RrDev" Width="30" Height="30"/>
+                                </StackPanel>
+                            </ScrollViewer>
                         </Border>
                         
                         <components:Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top"

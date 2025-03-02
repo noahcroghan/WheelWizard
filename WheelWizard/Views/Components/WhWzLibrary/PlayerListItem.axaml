@@ -1,0 +1,89 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:WheelWizard.Views.Components.WhWzLibrary"
+        xmlns:components="using:WheelWizard.Views.Components.StandardLibrary"
+        xmlns:miiComp="using:WheelWizard.Views.Components.WhWzLibrary.MiiImages">
+    <Design.PreviewWith>
+        <StackPanel Background="{StaticResource Neutral950}">
+            <controls:PlayerListItem Width="428" Height="124"
+                                      FriendCode="1234-5678-9012"
+                                      UserName="Lum Patch"
+                                      Vr="5000" Br="5000"
+                                      HasBadges="True"/>
+            
+            <controls:PlayerListItem Width="428" Height="124"
+                                     FriendCode="1234-5678-9012"
+                                     UserName="Someone Else"
+                                     Vr="5000" Br="5000"
+                                     HasBadges="True"/> 
+            
+            <controls:PlayerListItem Width="428" Height="124"
+                                     FriendCode="1234-5678-9012"
+                                     UserName="WantToBeeMe"
+                                     Vr="5000" Br="5000"
+                                     HasBadges="False"/>
+            
+            <controls:PlayerListItem Width="428" Height="124"
+                                     FriendCode="1234-5678-9012"
+                                     UserName="Random Guy"
+                                     Vr="5000" Br="5000"
+                                     HasBadges="False"/>
+            
+            <controls:PlayerListItem Width="428" Height="124"
+                                     FriendCode="1234-5678-9012"
+                                     UserName="Someone Else"
+                                     Vr="5000" Br="5000"
+                                     HasBadges="False"/> 
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|PlayerListItem">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Classes="BoxItemBackground">
+                    <Grid ColumnDefinitions="Auto,130,80,70,*">
+                        <Border Grid.Column="0" CornerRadius="999999" ClipToBounds="True" 
+                                Background="{StaticResource Neutral950}" Width="50" Height="50" Margin="0,3">
+                            <miiComp:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                    LoadingColor="{StaticResource Neutral600}"
+                                                    Mii="{TemplateBinding Mii}"
+                                                    FallBackColor="{StaticResource Neutral600}"
+                                                    ImageVariant="SMALL"/>
+                        </Border>
+           
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" >
+                            <components:FormFieldLabel Text="{TemplateBinding UserName}"  Margin="10,0,0,0"/>
+                            <TextBlock Text="{TemplateBinding FriendCode}" FontSize="14" 
+                                       Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Margin="10,0,0,0"/>
+                        </StackPanel>
+                        
+                        
+                        <StackPanel Grid.Column="2" VerticalAlignment="Center" >
+                            <components:FormFieldLabel Text="Vr"  Margin="10,0,0,0"/>
+                            <TextBlock Text="{TemplateBinding Vr}" FontSize="14" 
+                                       Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Margin="10,0,0,0"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="3" VerticalAlignment="Center" >
+                            <components:FormFieldLabel Text="Br"  Margin="10,0,0,0"/>
+                            <TextBlock Text="{TemplateBinding Br}" FontSize="14" 
+                                       Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                       Margin="10,0,0,0"/>
+                        </StackPanel>
+                        
+                        <Border Grid.Column="4" Background="Transparent" HorizontalAlignment="Stretch"
+                                IsVisible="{TemplateBinding HasBadges}" Margin="0,0,5,0"
+                                CornerRadius="6" Height="40" BorderThickness="1" BorderBrush="{StaticResource Neutral600}">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                <StackPanel Orientation="Horizontal" x:Name="PART_BadgeContainer" Spacing="3">
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid> 
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

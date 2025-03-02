@@ -32,6 +32,6 @@ public class RrPlayer
         }
     }
     
-    public bool HasBadges => false;
     public BadgeVariant[] BadgeVariants => BadgeManager.Instance.GetBadgeVariants(Fc);
+    public bool HasBadges => BadgeVariants.Length != 0;
 }

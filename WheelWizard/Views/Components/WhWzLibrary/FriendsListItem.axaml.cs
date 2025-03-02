@@ -3,8 +3,10 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using System;
+using System.Linq;
 using WheelWizard.Models.GameData;
 using WheelWizard.Models.MiiImages;
+using WheelWizard.Services;
 
 namespace WheelWizard.Views.Components.WhWzLibrary;
 
@@ -25,7 +27,6 @@ public class FriendsListItem : TemplatedControl
         get => GetValue(HasBadgesProperty);
         set => SetValue(HasBadgesProperty, value);
     }
-
     
     public static readonly StyledProperty<Mii?> MiiProperty =
         AvaloniaProperty.Register<FriendsListItem, Mii?>(nameof(Mii));
@@ -99,6 +100,19 @@ public class FriendsListItem : TemplatedControl
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
+        var container = e.NameScope.Find<StackPanel>("PART_BadgeContainer");
+        if (container != null)
+        {
+            container.Children.Clear();
+            var badges = BadgeManager.Instance.GetBadges(FriendCode);
+            foreach (var badge in badges)
+            {
+                badge.Height = 30;
+                badge.Width = 30;
+                container.Children.Add(badge);
+            }
+        }
+        
         var viewRoomButton = e.NameScope.Find<StandardLibrary.Button>("ViewRoomButton");
         if (viewRoomButton != null)
             viewRoomButton.Click += ViewRoom;

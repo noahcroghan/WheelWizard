@@ -42,8 +42,8 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
         }
     }
 
-    public bool HasBadges => false;
     public BadgeVariant[] BadgeVariants => BadgeManager.Instance.GetBadgeVariants(FriendCode);
+    public bool HasBadges => BadgeVariants.Length != 0;
     
     public string MiiName
     {
