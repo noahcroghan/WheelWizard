@@ -87,40 +87,46 @@ public partial class WhWzSettings : UserControl
                 _ => new[] { "*" } // Fallback
             }
         };
-        
+
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            if (IsFlatpakDolphinInstalled()) 
+            if (IsFlatpakDolphinInstalled() && DolphinExeInput.Text == "")
             {
                 DolphinExeInput.Text = "flatpak run org.DolphinEmu.dolphin-emu";
                 return;
             }
+
+            if (IsFlatpakDolphinInstalled() || DolphinExeInput.Text != "") return;
+
             var wantsAutomaticInstall = await new YesNoWindow()
                 .SetMainText("Invalid configuration.")
-                .SetExtraText("The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it?")
+                .SetExtraText(
+                    "The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it?")
                 .SetButtonText("Install", "Manual").AwaitAnswer();
-            if (!wantsAutomaticInstall) 
-                goto AfterIF; 
-            
-            var progressWindow = new ProgressWindow()
-                .SetGoal("Installing Dolphin Emulator")
-                .SetExtraText("This may take a while depending on your internet connection.");
-            TogglePathSettings(true);
-            progressWindow.Show();
-            var progress = new Progress<int>(progressWindow.UpdateProgress);
-            var success = await LinuxDolphinInstaller.InstallFlatpakDolphin(progress);
-            progressWindow.Close();
-            if (!success)
+            if (wantsAutomaticInstall)
             {
-                await new MessageBoxWindow()
-                    .SetMessageType(MessageBoxWindow.MessageType.Error)
-                    .SetTitleText("Failed to install Dolphin")
-                    .SetInfoText("The installation of Dolphin Emulator failed. Please try manually installing flatpak dolphin.")
-                    .ShowDialog();
+                var progressWindow = new ProgressWindow()
+                    .SetGoal("Installing Dolphin Emulator")
+                    .SetExtraText("This may take a while depending on your internet connection.");
+                TogglePathSettings(true);
+                progressWindow.Show();
+                var progress = new Progress<int>(progressWindow.UpdateProgress);
+                var success = await LinuxDolphinInstaller.InstallFlatpakDolphin(progress);
+                progressWindow.Close();
+                if (!success)
+                {
+                    await new MessageBoxWindow()
+                        .SetMessageType(MessageBoxWindow.MessageType.Error)
+                        .SetTitleText("Failed to install Dolphin")
+                        .SetInfoText(
+                            "The installation of Dolphin Emulator failed. Please try manually installing flatpak dolphin.")
+                        .ShowDialog();
+                    return;
+                }
+
+                DolphinExeInput.Text = "flatpak run org.DolphinEmu.dolphin-emu";
                 return;
             }
-            DolphinExeInput.Text = "flatpak run org.DolphinEmu.dolphin-emu";
-            return;
         }
 
 
@@ -155,21 +161,14 @@ public partial class WhWzSettings : UserControl
                 var executablePath = Path.Combine(folders[0].Path.LocalPath, "Contents", "MacOS", "Dolphin");
                 DolphinExeInput.Text = executablePath;
             }
-
             return; // do not do normal selection for MacOS
         }
-        
-        AfterIF:
-        if (DolphinExeInput.Text != "")
-            return;
         
         var filePath = await FilePickerHelper.OpenSingleFileAsync("Select Dolphin Emulator", new[] { executableFileType });
         if (!string.IsNullOrEmpty(filePath))
         {
             DolphinExeInput.Text = filePath;
         }
-
-        
     }
     
     private bool IsFlatpakDolphinInstalled()
