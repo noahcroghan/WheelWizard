@@ -10,7 +10,6 @@ namespace WheelWizard.Services.Settings;
 
 public class WhWzSettingManager
 {
-    private static string ConfigFilePath => Path.Combine(PathManager.WheelWizardAppdataPath, "config.json");
     private bool _loaded;
     private readonly Dictionary<string, WhWzSetting> _settings = new();
     
@@ -37,7 +36,7 @@ public class WhWzSettingManager
             settingsToSave[name] = setting.Get();
         }
         var jsonString = JsonSerializer.Serialize(settingsToSave, new JsonSerializerOptions { WriteIndented = true });
-        FileHelper.WriteAllTextSafe(ConfigFilePath, jsonString);
+        FileHelper.WriteAllTextSafe(PathManager.WheelWizardConfigFilePath, jsonString);
     }
     
     public void LoadSettings()
@@ -47,7 +46,7 @@ public class WhWzSettingManager
 
         _loaded = true;
         // even if it will now return early, that means its still done loading since then there is nothing to load
-        var jsonString = FileHelper.ReadAllTextSafe(ConfigFilePath);
+        var jsonString = FileHelper.ReadAllTextSafe(PathManager.WheelWizardConfigFilePath);
         if (jsonString == null)
             return;
         jsonString.Trim('\0');
