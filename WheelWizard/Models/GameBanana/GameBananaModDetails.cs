@@ -26,6 +26,21 @@ public class GameBananaModDetails
     public int? _nDownloadCount { get; set; }
     public string? _sModelName { get; set; }
     // public List<string> _aTags { get; set; } // (e.g., "Stable", "In Development")
+
+    public static GameBananaModDetails LoadingMod()
+    {
+        return new GameBananaModDetails()
+        {
+            _sName = "LOADING",
+            _sText = "LOADING",
+            _sModelName = "LOADING",
+            _aSubmitter = new GameBananaSubmitter()
+            {
+                _sName = "LOADING",
+                _sProfileUrl = "LOADING"
+            },
+        };
+    }
 }
 
 /*

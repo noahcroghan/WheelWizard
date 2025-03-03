@@ -64,7 +64,8 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
         try
         {
             var result = await GamebananaSearchHandler.SearchModsAsync(searchTerm, page, ModsPerPage);
-
+            Mods.Where(mod => mod._sName == "LOADING").ToList().ForEach(mod => Mods.Remove(mod));
+            
             if (result is { Succeeded: true, Content: not null })
             {
                 var metadata = result.Content._aMetadata;
@@ -73,13 +74,10 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
                     .ToList();
                 if (newMods.Count > 0)
                 {
-                    Dispatcher.UIThread.InvokeAsync(() =>
+                    foreach (var mod in newMods)
                     {
-                        foreach (var mod in newMods)
-                        {
-                            Mods.Add(mod);
-                        }
-                    });
+                        Mods.Add(mod);
+                    }
                     _hasMoreMods = !metadata._bIsComplete;
                     _currentPage = page;
                 }
@@ -88,23 +86,26 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
                     // If no new mods were fetched, rely on metadata
                     _hasMoreMods = !result.Content._aMetadata._bIsComplete;
                 }
+
+                if (_hasMoreMods)
+                    Mods.Add(GameBananaModDetails.LoadingMod());
             }
             else
             {
-                Dispatcher.UIThread.InvokeAsync(() =>
-                {
-                    new YesNoWindow().SetMainText("Failed to load mods")
-                        .SetExtraText("An error occurred while loading mods.");
-                });
+                new MessageBoxWindow()
+                    .SetTitleText("Failed to load mods")
+                    .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                    .SetInfoText("Failed to find new mods. Make sure the request has at least 2 characters")
+                    .Show();
             }
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                new YesNoWindow().SetMainText("Failed to load mods")
-                    .SetExtraText("An error occurred while loading mods." + ex.Message);
-            });
+            new MessageBoxWindow()
+                .SetTitleText("Failed to load mods")
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetInfoText($"Something went wrong while trying to load mods. Error: {e}")
+                .Show();
         }
         finally
         {
