@@ -12,7 +12,7 @@ public class BadgeManager
     public readonly Dictionary<BadgeVariant, string> BadgeToolTip = new()
     {
         {BadgeVariant.None, "Whoops, the devs made an oopsie!"},
-        {BadgeVariant.WhWzDev, "Wheel Wizard Developer"},
+        {BadgeVariant.WhWzDev, "Wheel Wizard Developer (hiii!)"},
         {BadgeVariant.RrDev, "Retro Rewind Developer"},
         {BadgeVariant.Translator, "Translator"},
         {BadgeVariant.GoldWinner, "This is an award winning player"},
