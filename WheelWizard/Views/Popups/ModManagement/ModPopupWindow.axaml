@@ -39,7 +39,8 @@
                                                           ModTitle="{Binding _sName}"
                                                           ModAuthor="{Binding _aSubmitter._sName}"
                                                           ViewCount="{Binding _nViewCount}"
-                                                          LikeCount="{Binding _nLikeCount}"/>
+                                                          LikeCount="{Binding _nLikeCount}"
+                                                          ImageUrl="{Binding FirstImageUrl}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>

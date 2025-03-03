@@ -57,12 +57,13 @@
                         
                         <!-- Image -->
                         <Border Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="PART_ImageBorder"
-                                CornerRadius="6,0,0,6" Background="{StaticResource Neutral700}"/>
-                        <!--
-                        <Image Grid.Column="0" Width="90" Height="90" 
-                               Source="{Binding FirstImageUrl}" 
-                               Stretch="UniformToFill" 
-                               Margin="0,0,10,0"/> -->
+                                CornerRadius="6,0,0,6" Background="{StaticResource Neutral700}"
+                                ClipToBounds="True">
+                            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                   Stretch="UniformToFill" x:Name="ThumbnailImage" />
+                        </Border>
+                    
+                     
                         
                         <!-- Text -->
                         <StackPanel Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="6">

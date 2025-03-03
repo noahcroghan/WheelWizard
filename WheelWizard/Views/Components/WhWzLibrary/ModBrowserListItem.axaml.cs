@@ -1,5 +1,9 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Media.Imaging;
+using System.IO;
+using System.Net.Http;
 
 namespace WheelWizard.Views.Components.WhWzLibrary;
 
@@ -49,6 +53,31 @@ public class ModBrowserListItem : TemplatedControl
         get => GetValue(LikeCountProperty);
         set => SetValue(LikeCountProperty, value);
     }
+    
+    public static readonly StyledProperty<string?> ImageUrlProperty =
+        AvaloniaProperty.Register<ModBrowserListItem, string?>(nameof( ImageUrl));
 
+    public string? ImageUrl
+    {
+        get => GetValue(ImageUrlProperty);
+        set => SetValue(ImageUrlProperty, value);
+    }
+    
+    protected override async void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
+        var image = e.NameScope.Find<Image>("ThumbnailImage");
+        if(image == null || ImageUrl == null) return;
+        
+        using var httpClient = new HttpClient();
+        var response = await httpClient.GetAsync(ImageUrl);
+        response.EnsureSuccessStatusCode();
+
+        await using var stream = await response.Content.ReadAsStreamAsync();
+        var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        memoryStream.Position = 0;
+        image.Source = new Bitmap(memoryStream);
+    }
 }
 

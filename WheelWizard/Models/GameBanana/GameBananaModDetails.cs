@@ -25,6 +25,8 @@ public class GameBananaModDetails
 
     public int? _nDownloadCount { get; set; }
     public string? _sModelName { get; set; }
+    
+    public string? FirstImageUrl => _aPreviewMedia.FirstImageUrl;
     // public List<string> _aTags { get; set; } // (e.g., "Stable", "In Development")
 
     public static GameBananaModDetails LoadingMod()
