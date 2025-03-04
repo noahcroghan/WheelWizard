@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using WheelWizard.Models.GameBanana;
 using WheelWizard.Services.GameBanana;
@@ -29,6 +30,9 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
 
     private const int ModsPerPage = 15;
     private const double ScrollThreshold = 50; // Adjusted threshold for earlier loading
+    
+    private CancellationTokenSource? _loadCancellationToken;
+
 
     private string _currentSearchTerm = "";
 
@@ -156,11 +160,14 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
     /// </summary>
     private async void ModListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
+        _loadCancellationToken?.Cancel(); //this cancels the previous load task if it's still running
+        _loadCancellationToken = new CancellationTokenSource();
+
         var modId = -1;
         if (ModListView.SelectedItem is GameBananaModDetails selectedMod)
             modId = selectedMod._idRow;
-        
-        await ModDetailViewer.LoadModDetailsAsync(modId);
+        await ModDetailViewer.LoadModDetailsAsync(modId, cancellationToken: _loadCancellationToken.Token);
+
     }
     
     // Implement INotifyPropertyChanged
