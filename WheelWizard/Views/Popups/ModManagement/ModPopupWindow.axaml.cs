@@ -166,8 +166,14 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
         var modId = -1;
         if (ModListView.SelectedItem is GameBananaModDetails selectedMod)
             modId = selectedMod._idRow;
-        await ModDetailViewer.LoadModDetailsAsync(modId, cancellationToken: _loadCancellationToken.Token);
-
+        try
+        {
+            await ModDetailViewer.LoadModDetailsAsync(modId, cancellationToken: _loadCancellationToken.Token);
+        }
+        catch (TaskCanceledException)
+        {
+            // Ignore
+        }
     }
     
     // Implement INotifyPropertyChanged
