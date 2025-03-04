@@ -245,9 +245,12 @@ public static class ModInstallation
                 Directory.CreateDirectory(modDirectory);
             }
             await Task.Run(() => ProcessFile(filePath, modDirectory, progressWindow));
-
             
-            var priority    = ModManager.Instance.Mods.Max(m => m.Priority) + 1;
+            var priority = 1;
+            if (ModManager.Instance.Mods.Count > 0)
+                 priority = ModManager.Instance.Mods.Max(m => m.Priority) + 1;
+            
+
             // Create Mod instance
             var newMod = new Mod
             {
