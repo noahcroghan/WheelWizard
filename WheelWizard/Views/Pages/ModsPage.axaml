@@ -116,7 +116,9 @@
                                  <TextBlock Text="Priority: " FontSize="14" Foreground="{StaticResource Neutral100}"
                                             VerticalAlignment="Center" Margin="10,0,0,0"/>
                                  <TextBox Text="{Binding Priority, Mode=OneWay}" Classes="dark"
-                                          LostFocus="InputElement_OnLostFocus" Padding="0" x:Name="VisibleWithRows"
+                                          LostFocus="InputElement_OnLostFocus" Padding="0" 
+                                          KeyDown="PriorityText_OnKeyDown"
+                                          x:Name="VisibleWithRows"
                                           MinWidth="25" MaxWidth="50" MinHeight="30" Height="30">
                                      <TextBox.Styles>
                                          <Style Selector="TextBox /template/ DockPanel#PART_InnerDockPanel">

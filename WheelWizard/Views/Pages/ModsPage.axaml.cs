@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using System;
@@ -186,7 +187,7 @@ public partial class ModsPage : UserControl, INotifyPropertyChanged
         var mod = GetParentsMod(e);
         if (mod == null) return;
         
-        Console.WriteLine($"Up {mod.Title}");
+        ModManager.DecreasePriority(mod);
     }
     
     private void ButtonDown_OnClick(object? sender, RoutedEventArgs e)
@@ -194,7 +195,7 @@ public partial class ModsPage : UserControl, INotifyPropertyChanged
         var mod = GetParentsMod(e);
         if (mod == null) return;
         
-        Console.WriteLine($"Down {mod.Title}");
+        ModManager.IncreasePriority(mod);
     }
 
     private void ToggleModsPageView_OnClick(object? sender, RoutedEventArgs e)
@@ -217,5 +218,11 @@ public partial class ModsPage : UserControl, INotifyPropertyChanged
             if(asRows) elementToSwapClass.Classes.Add("Rows");
             else elementToSwapClass.Classes.Remove("Rows");
         }
+    }
+
+    private void PriorityText_OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key != Key.Enter || sender is not TextBox textBox) return;
+        ViewUtils.FindParent<ListBoxItem>(e.Source)?.Focus();
     }
 }

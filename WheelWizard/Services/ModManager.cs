@@ -339,4 +339,72 @@ public class ModManager : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     #endregion
+
+    public void DecreasePriority(Mod mod)
+    {
+        if (Mods.IndexOf(mod) == -1)
+        {
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Cannot find mod")
+                .SetInfoText("Cannot find the mod to decrease priority.")
+                .Show();
+            return;
+        }
+        if (mod.Priority == 0 || Mods.Count == 1)
+        {
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .SetTitleText("Cannot decrease priority")
+                .SetInfoText("Cannot decrease priority of the first mod.")
+                .Show();
+            return;
+        }
+ 
+        // Find mod with next lower priority value
+        var modAbove = Mods.Where(m => m.Priority < mod.Priority)
+            .OrderByDescending(m => m.Priority)
+            .FirstOrDefault();
+        if (modAbove == null) return;
+        
+        (modAbove.Priority, mod.Priority) = (mod.Priority, modAbove.Priority);
+
+        SortModsByPriority();
+        SaveModsAsync();
+    }
+
+    public void IncreasePriority(Mod mod)
+    {
+        if (Mods.IndexOf(mod) == -1)
+        {
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Cannot find mod")
+                .Show();
+            return;
+        }
+    
+        if (mod.Priority == Mods.Max(m => m.Priority) || Mods.Count == 1)
+        {
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .SetTitleText("Cannot increase priority")
+                .SetInfoText("Cannot increase priority of the last mod.")
+                .Show();
+            return;
+        }
+    
+        // Find mod with next higher priority value
+        var modBelow = Mods.Where(m => m.Priority > mod.Priority)
+            .OrderBy(m => m.Priority)
+            .FirstOrDefault();
+    
+        if (modBelow == null) return; // Should not happen but just in case
+    
+        // Swap priorities
+        (modBelow.Priority, mod.Priority) = (mod.Priority, modBelow.Priority);
+
+        SortModsByPriority();
+        SaveModsAsync();
+    }
 }
