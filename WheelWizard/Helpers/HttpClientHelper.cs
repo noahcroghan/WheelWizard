@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using WheelWizard.Models;
 
@@ -94,6 +96,34 @@ public static class HttpClientHelper
 
         return result;
     }
+    
+    public static async Task<HttpClientResult<Stream>> GetStreamAsync(string url, CancellationToken cancellationToken = default)
+    {
+        HttpClientResult<Stream> result;
+        try
+        {
+            var response = await HttpClient.GetAsync(url, cancellationToken);
+            result = new HttpClientResult<Stream>()
+            {
+                StatusCode = (int)response.StatusCode,
+                Succeeded = response.IsSuccessStatusCode,
+                StatusMessage = response.ReasonPhrase
+            };
+
+            if (response.IsSuccessStatusCode)
+            {
+                var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
+                result.Content = stream;
+            }
+        }
+        catch (Exception e)
+        {
+            result = GetErrorResult<Stream>(e);
+        }
+
+        return result;
+    }
+
 
     private static HttpClientResult<T> GetErrorResult<T>(Exception e)
     {

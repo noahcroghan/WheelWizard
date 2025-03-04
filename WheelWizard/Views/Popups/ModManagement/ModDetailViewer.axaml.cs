@@ -61,98 +61,99 @@ public partial class ModDetailViewer : UserControl
     /// <param name="ModId">The ID of the mod to load.</param>
     /// <param name="newDownloadUrl">The download URL to use instead of the one from the mod details.</param>
     public async Task<bool> LoadModDetailsAsync(int ModId, string? newDownloadUrl = null, CancellationToken cancellationToken = default)
-{
-    // Check if cancellation has been requested before starting
-    if (cancellationToken.IsCancellationRequested) return false;
-    // Set the UI to show loading state
-    loadingVisual = true;
-    loading = true;
-    ResetVisibility();
-
-    // Retrieve the mod details.
-    // If GamebananaSearchHandler.GetModDetailsAsync supports cancellation,
-    // consider passing the token as a parameter.
-    var modDetailsResult = await GamebananaSearchHandler.GetModDetailsAsync(ModId);
-    if (cancellationToken.IsCancellationRequested) return false;
-
-    if (!modDetailsResult.Succeeded || modDetailsResult.Content == null)
     {
-        CurrentMod = null;
-        NoDetailsView.Title = "Failed to retrieve mod info";
-        NoDetailsView.BodyText = modDetailsResult.StatusMessage ?? "An error occurred while fetching mod details.";
+        // Check if cancellation has been requested before starting
+        if (cancellationToken.IsCancellationRequested) return false;
+        // Set the UI to show loading state
+        loadingVisual = true;
+        loading = true;
+        ResetVisibility();
+    
+        // Retrieve the mod details.
+        // If GamebananaSearchHandler.GetModDetailsAsync supports cancellation,
+        // consider passing the token as a parameter.
+        var modDetailsResult = await GamebananaSearchHandler.GetModDetailsAsync(ModId);
+        if (cancellationToken.IsCancellationRequested) return false;
+    
+        if (!modDetailsResult.Succeeded || modDetailsResult.Content == null)
+        {
+            CurrentMod = null;
+            NoDetailsView.Title = "Failed to retrieve mod info";
+            NoDetailsView.BodyText = modDetailsResult.StatusMessage ?? "An error occurred while fetching mod details.";
+            
+            loading = false;
+            loadingVisual = false;
+            ResetVisibility();
+            return false;
+        }
+    
+        CurrentMod = modDetailsResult.Content;
+    
+        // Update the UI with mod details
+        ModTitle.Text = CurrentMod._sName;
+        AuthorButton.Text = CurrentMod._aSubmitter._sName;
+        LikesCountBox.Text = CurrentMod._nLikeCount.ToString();
+        ViewsCountBox.Text = CurrentMod._nViewCount.ToString();
+        DownloadsCountBox.Text = CurrentMod._nDownloadCount.ToString();
+    
+        // Wrap the mod description in a div tag so that CSS can be applied
+        ModDescriptionHtmlPanel.Text = $"<body>{CurrentMod._sText}</body>";
+        CurrentMod.OverrideDownloadUrl = newDownloadUrl;
+        UpdateDownloadButtonState(ModId);
+    
+        // Clear any previous images and reset banner visibility
+        ImageCarousel.Items.Clear();
+        BannerImage.IsVisible = false;
+    
+        // If there are no images to load, finish up early
+        if (CurrentMod._aPreviewMedia?._aImages == null || !CurrentMod._aPreviewMedia._aImages.Any())
+        {
+            loading = false;
+            loadingVisual = false;
+            ResetVisibility();
+            return true;
+        }
+    
+        // Load images sequentially
+        foreach (var image in CurrentMod._aPreviewMedia._aImages)
+        {
+            if (cancellationToken.IsCancellationRequested) return false;
+    
+            var fullImageUrl = $"{image._sBaseUrl}/{image._sFile}";
+    
+            var streamResult = await HttpClientHelper.GetStreamAsync(fullImageUrl, cancellationToken);
+            if (!streamResult.Succeeded || streamResult.Content == null)
+            {
+                continue;
+            }
+    
+            // Get the image stream with cancellation support
+            await using var stream = streamResult.Content;
+            var memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream, cancellationToken);
+            memoryStream.Position = 0;
+    
+            // Create a bitmap from the memory stream
+            var bitmap = new Bitmap(memoryStream);
+    
+            // Add the bitmap to the image carousel
+            ImageCarousel.Items.Add(new { FullImageUrl = bitmap });
+    
+            // Set the first loaded image as the banner if not already set
+            if (!BannerImage.IsVisible)
+            {
+                BannerImage.IsVisible = true;
+                BannerImage.Source = bitmap;
+            }
+        }
+    
+        // Reset the loading state once all operations have completed
+        loading = false;
+        loadingVisual = false;
+        ResetVisibility();
         
-        loading = false;
-        loadingVisual = false;
-        ResetVisibility();
-        return false;
-    }
-
-    CurrentMod = modDetailsResult.Content;
-
-    // Update the UI with mod details
-    ModTitle.Text = CurrentMod._sName;
-    AuthorButton.Text = CurrentMod._aSubmitter._sName;
-    LikesCountBox.Text = CurrentMod._nLikeCount.ToString();
-    ViewsCountBox.Text = CurrentMod._nViewCount.ToString();
-    DownloadsCountBox.Text = CurrentMod._nDownloadCount.ToString();
-
-    // Wrap the mod description in a div tag so that CSS can be applied
-    ModDescriptionHtmlPanel.Text = $"<body>{CurrentMod._sText}</body>";
-    CurrentMod.OverrideDownloadUrl = newDownloadUrl;
-    UpdateDownloadButtonState(ModId);
-
-    // Clear any previous images and reset banner visibility
-    ImageCarousel.Items.Clear();
-    BannerImage.IsVisible = false;
-
-    // If there are no images to load, finish up early
-    if (CurrentMod._aPreviewMedia?._aImages == null || !CurrentMod._aPreviewMedia._aImages.Any())
-    {
-        loading = false;
-        loadingVisual = false;
-        ResetVisibility();
         return true;
     }
-
-    // Load images sequentially
-    foreach (var image in CurrentMod._aPreviewMedia._aImages)
-    {
-        if (cancellationToken.IsCancellationRequested) return false;
-
-        var fullImageUrl = $"{image._sBaseUrl}/{image._sFile}";
-
-        using var httpClient = new HttpClient();
-        // Pass the cancellation token to the HTTP GET call
-        var response = await httpClient.GetAsync(fullImageUrl, cancellationToken);
-        response.EnsureSuccessStatusCode();
-
-        // Get the image stream with cancellation support
-        await using var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
-        var memoryStream = new MemoryStream();
-        await stream.CopyToAsync(memoryStream, cancellationToken);
-        memoryStream.Position = 0;
-
-        // Create a bitmap from the memory stream
-        var bitmap = new Bitmap(memoryStream);
-
-        // Add the bitmap to the image carousel
-        ImageCarousel.Items.Add(new { FullImageUrl = bitmap });
-
-        // Set the first loaded image as the banner if not already set
-        if (!BannerImage.IsVisible)
-        {
-            BannerImage.IsVisible = true;
-            BannerImage.Source = bitmap;
-        }
-    }
-
-    // Reset the loading state once all operations have completed
-    loading = false;
-    loadingVisual = false;
-    ResetVisibility();
-    
-    return true;
-}
 
     
     private void UpdateDownloadButtonState(int modId)
