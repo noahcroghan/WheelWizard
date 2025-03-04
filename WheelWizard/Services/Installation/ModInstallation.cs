@@ -246,6 +246,8 @@ public static class ModInstallation
             }
             await Task.Run(() => ProcessFile(filePath, modDirectory, progressWindow));
 
+            
+            var priority    = ModManager.Instance.Mods.Max(m => m.Priority) + 1;
             // Create Mod instance
             var newMod = new Mod
             {
@@ -253,7 +255,7 @@ public static class ModInstallation
                 Title = givenModName,
                 Author = author,
                 ModID = modID,
-                Priority = 0 // Default priority; can be adjusted as needed
+                Priority = priority
             };
 
             // Save INI file
