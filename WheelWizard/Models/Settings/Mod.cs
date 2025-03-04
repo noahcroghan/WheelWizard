@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using WheelWizard.Services;
 
 namespace WheelWizard.Models.Settings;
 
@@ -15,6 +16,22 @@ public class Mod : INotifyPropertyChanged
     private string _author;
     private int _modID;
     private int _priority; // New property for mod priority
+
+    private bool IsLowest => _priority == ModManager.Instance.GetLowestActivePriority();
+    private bool IsHighest => _priority == ModManager.Instance.GetHighestActivePriority();
+
+    public Mod()
+    {
+        ModManager.Instance.PropertyChanged += OnModManagerChanged;
+    }
+
+    private void OnModManagerChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName != nameof(ModManager.Instance.Mods)) return;
+        OnPropertyChanged(nameof(IsLowest));
+        OnPropertyChanged(nameof(IsHighest));
+    }
+
 
     public bool IsEnabled
     {

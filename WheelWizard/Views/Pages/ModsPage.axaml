@@ -136,10 +136,12 @@
                                      <components:Button HorizontalAlignment="Right" 
                                                         IconData="{StaticResource ChevronUp}" 
                                                         IconSize="15" Padding="10,3"
+                                                        IsEnabled="{Binding IsLowest, Converter={x:Static BoolConverters.Not}}"
                                                         Click="ButtonUp_OnClick"/>
                                      <components:Button HorizontalAlignment="Right" 
                                                         IconData="{StaticResource ChevronDown}" 
                                                         IconSize="15" Padding="10,3"
+                                                        IsEnabled="{Binding IsHighest, Converter={x:Static BoolConverters.Not}}"
                                                         Click="ButtonDown_OnClick"/>
                                      
                                      <StackPanel.Styles>

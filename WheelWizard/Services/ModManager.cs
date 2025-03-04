@@ -351,7 +351,7 @@ public class ModManager : INotifyPropertyChanged
                 .Show();
             return;
         }
-        if (mod.Priority == 0 || Mods.Count == 1)
+        if (mod.Priority == GetLowestActivePriority() || Mods.Count == 1)
         {
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Warning)
@@ -384,7 +384,7 @@ public class ModManager : INotifyPropertyChanged
             return;
         }
     
-        if (mod.Priority == Mods.Max(m => m.Priority) || Mods.Count == 1)
+        if (mod.Priority == GetHighestActivePriority() || Mods.Count == 1)
         {
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Warning)
@@ -407,4 +407,7 @@ public class ModManager : INotifyPropertyChanged
         SortModsByPriority();
         SaveModsAsync();
     }
+    
+    public int GetLowestActivePriority() =>Mods.Min(m => m.Priority);
+    public int GetHighestActivePriority() => Mods.Max(m => m.Priority);
 }
