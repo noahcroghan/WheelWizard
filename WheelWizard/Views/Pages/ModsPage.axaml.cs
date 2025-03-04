@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WheelWizard.Models.Settings;
 using WheelWizard.Services;
+using WheelWizard.Services.Settings;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.ModManagement;
 using ModPopupWindow = WheelWizard.Views.Popups.ModManagement.ModPopupWindow;
@@ -19,7 +20,7 @@ public partial class ModsPage : UserControl, INotifyPropertyChanged
 {
     public ModManager ModManager => ModManager.Instance;
     public ObservableCollection<Mod> Mods => ModManager.Mods;
-
+    
     private bool _hasMods;
     public bool HasMods
     {
@@ -39,6 +40,7 @@ public partial class ModsPage : UserControl, INotifyPropertyChanged
         DataContext = this;
         ModManager.PropertyChanged += OnModsChanged;
         ModManager.ReloadAsync();
+        SetModsViewVariant();
     }
 
     private void OnModsChanged(object? sender, PropertyChangedEventArgs e)
@@ -194,5 +196,26 @@ public partial class ModsPage : UserControl, INotifyPropertyChanged
         
         Console.WriteLine($"Down {mod.Title}");
     }
-    
+
+    private void ToggleModsPageView_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var current = (bool)SettingsManager.PREFERS_MODS_ROW_VIEW.Get();
+        SettingsManager.PREFERS_MODS_ROW_VIEW.Set(!current);
+        SetModsViewVariant();
+    }
+
+    private void SetModsViewVariant()
+    {
+        Control[] elementsToSwapClasses = [ToggleButton, ModsListBox];
+        var asRows = (bool)SettingsManager.PREFERS_MODS_ROW_VIEW.Get();
+        
+        foreach (var elementToSwapClass in elementsToSwapClasses)
+        {
+            if(asRows) elementToSwapClass.Classes.Remove("Blocks");
+            else elementToSwapClass.Classes.Add("Blocks");
+            
+            if(asRows) elementToSwapClass.Classes.Add("Rows");
+            else elementToSwapClass.Classes.Remove("Rows");
+        }
+    }
 }

@@ -55,11 +55,28 @@
      <Grid Grid.Row="1" x:Name="PageWithMods" RowDefinitions="*, 12*" IsVisible="{Binding HasMods}">
          <Grid Grid.Row="0" Margin="10,0"  >
               
-             <CheckBox Grid.Column="0" Classes="Switch"  x:Name="EnableAllCheckbox"
-                       HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5"
-                       Click="ToggleButton_OnIsCheckedChanged"
-                       Content="{x:Static lang:Common.Action_EnableAll}" />
+             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="0"
+                         Orientation="Horizontal">
+                 <CheckBox Classes="Switch" x:Name="EnableAllCheckbox"
+                           VerticalAlignment="Center" Margin="0,5,30,5"
+                           Click="ToggleButton_OnIsCheckedChanged"
+                           Content="{x:Static lang:Common.Action_EnableAll}" />
              
+                 <components:Button HorizontalAlignment="Right" VerticalAlignment="Center" IconSize="26"
+                                    Click="ToggleModsPageView_OnClick" x:Name="ToggleButton"
+                                    Padding="13,7">
+                     <components:Button.Styles>
+                         <!-- If the current Style is blocks, then the button should show the rows icon -->
+                         <Style Selector="components|Button.Blocks">
+                            <Setter Property="IconData" Value="{StaticResource TableBars}"/>
+                        </Style>
+                         <Style Selector="components|Button">
+                             <Setter Property="IconData" Value="{StaticResource TableBlocks}"/>
+                         </Style>
+                     </components:Button.Styles>
+                 </components:Button>
+             </StackPanel>
+            
              <!-- THIS IS A COOL IDEA, BUT IT HAS TO BE SUPPORTED FIRST
              <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6" HorizontalAlignment="Right">
                  <components:FormFieldLabel Text="Sort by:" VerticalAlignment="Center"/>
@@ -99,7 +116,7 @@
                                  <TextBlock Text="Priority: " FontSize="14" Foreground="{StaticResource Neutral100}"
                                             VerticalAlignment="Center" Margin="10,0,0,0"/>
                                  <TextBox Text="{Binding Priority, Mode=OneWay}" Classes="dark"
-                                          LostFocus="InputElement_OnLostFocus" Padding="0"
+                                          LostFocus="InputElement_OnLostFocus" Padding="0" x:Name="VisibleWithRows"
                                           MinWidth="25" MaxWidth="50" MinHeight="30" Height="30">
                                      <TextBox.Styles>
                                          <Style Selector="TextBox /template/ DockPanel#PART_InnerDockPanel">
@@ -113,13 +130,13 @@
                                      </TextBox.Styles>
                                  </TextBox>
                                  
-                                 <StackPanel Margin="10,0,0,0">
+                                 <StackPanel Margin="10,0,0,0" Spacing="2" x:Name="VisibleWithBlocks">
                                      <components:Button HorizontalAlignment="Right" 
-                                                        IconData="{StaticResource ArrowUp}" 
+                                                        IconData="{StaticResource ChevronUp}" 
                                                         IconSize="15" Padding="10,3"
                                                         Click="ButtonUp_OnClick"/>
                                      <components:Button HorizontalAlignment="Right" 
-                                                        IconData="{StaticResource ArrowDown}" 
+                                                        IconData="{StaticResource ChevronDown}" 
                                                         IconSize="15" Padding="10,3"
                                                         Click="ButtonDown_OnClick"/>
                                      
@@ -129,6 +146,15 @@
                                          </Style>
                                      </StackPanel.Styles>
                                  </StackPanel>
+                                 
+                                 <StackPanel.Styles>
+                                     <Style Selector="ListBox.Rows ListBoxItem StackPanel#VisibleWithBlocks">
+                                         <Setter Property="IsVisible" Value="False"/>
+                                     </Style>
+                                     <Style Selector="ListBox.Blocks ListBoxItem TextBox#VisibleWithRows">
+                                         <Setter Property="IsVisible" Value="False"/>
+                                     </Style>
+                                 </StackPanel.Styles>
                              </StackPanel>
                              
                              <!-- <components:StateBox Grid.Column="1" IconSize="0" Text="{Binding Priority}"
