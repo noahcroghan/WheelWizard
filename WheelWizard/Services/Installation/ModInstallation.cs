@@ -5,10 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
 using WheelWizard.Models.Settings;
-using WheelWizard.WPFViews.Popups.Generic;
+using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Services.Installation;
 public static class ModInstallation
@@ -48,6 +46,7 @@ public static class ModInstallation
             {
                 // Backward compatibility: Load from JSON and convert to INI
                 var json = await File.ReadAllTextAsync(_configFilePath);
+                json = json.Trim('\0');
                 var modDataList = JsonSerializer.Deserialize<ObservableCollection<ModData>>(json) ?? new ObservableCollection<ModData>();
 
                 foreach (var modData in modDataList)
@@ -141,7 +140,10 @@ public static class ModInstallation
                 
                 // Update the progress window
                 var progress = (int)((processedEntries / (double)totalEntries) * 100);
-                progressWindow.Dispatcher.Invoke(() => progressWindow.UpdateProgress(progress));
+                Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                {
+                progressWindow.UpdateProgress(progress);
+                });
                 
                 // Normalize entry path by removing empty folder segments
                 var sanitizedKey = string.Join(Path.DirectorySeparatorChar.ToString(),
@@ -178,9 +180,6 @@ public static class ModInstallation
             throw new Exception($"Failed to extract archive file: {ex.Message}");
         }
     }
-
-
-
     
     private static IArchive OpenArchive(string filePath, string extension)
     {
@@ -228,12 +227,15 @@ public static class ModInstallation
             // Check if a mod with the same name already exists
             if (ModExists(ModManager.Instance.Mods, givenModName))
             {
-                MessageBoxWindow.ShowDialog($"Mod with name '{givenModName}' already exists.");
+                new MessageBoxWindow()
+                    .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                    .SetTitleText("Invalid Mod name")
+                    .SetInfoText($"Mod with name '{givenModName}' already exists.").Show();
                 return;
             }
 
             // Initialize progress window
-            progressWindow = new ProgressWindow("Installing Mod", Application.Current.MainWindow);
+            progressWindow = new ProgressWindow("Installing Mod");
             progressWindow.SetGoal("Extracting files...");
             progressWindow.Show();
 
@@ -243,6 +245,11 @@ public static class ModInstallation
                 Directory.CreateDirectory(modDirectory);
             }
             await Task.Run(() => ProcessFile(filePath, modDirectory, progressWindow));
+            
+            var priority = 1;
+            if (ModManager.Instance.Mods.Count > 0)
+                 priority = ModManager.Instance.Mods.Max(m => m.Priority) + 1;
+            
 
             // Create Mod instance
             var newMod = new Mod
@@ -251,7 +258,7 @@ public static class ModInstallation
                 Title = givenModName,
                 Author = author,
                 ModID = modID,
-                Priority = 0 // Default priority; can be adjusted as needed
+                Priority = priority
             };
 
             // Save INI file
@@ -261,12 +268,19 @@ public static class ModInstallation
             // Add to ModManager
             ModManager.Instance.AddMod(newMod);
 
-            MessageBoxWindow.ShowDialog($"Mod '{givenModName}' installed successfully.",
-                MessageBoxWindow.MessageType.Message);
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Message)
+                .SetTitleText("Successfully installed mod!")
+                .SetInfoText($"Mod '{givenModName}' installed successfully.")
+                .Show();
         }
         catch (Exception ex)
         {
-            MessageBoxWindow.ShowDialog($"Failed to install mod: {ex.Message}");
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .SetTitleText("Failed to install mod!")
+                .SetInfoText($"Error: {ex.Message}")
+                .Show();
         }
         finally
         {
@@ -274,4 +288,3 @@ public static class ModInstallation
         }
     }
 }
-

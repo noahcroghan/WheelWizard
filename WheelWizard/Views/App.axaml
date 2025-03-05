@@ -1,0 +1,52 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:WheelWizard.Views.Converters"
+             x:Class="WheelWizard.Views.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- CONSTANTS -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="Styles/Resources/Constants.axaml"/>
+                <ResourceInclude Source="Styles/Resources/Icons.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- CONVERTERS -->
+            <converters:IsEqualToConverter x:Key="IsEqualTo"/>
+        </ResourceDictionary>
+    </Application.Resources>
+
+             
+    <Application.Styles>
+        <FluentTheme />
+        <!-- STYLES -->
+        <StyleInclude Source="Styles/Styles/ButtonStyles.axaml"/>
+        <StyleInclude Source="Styles/Styles/TextStyles.axaml"/>
+        <StyleInclude Source="Styles/Styles/ToggleButtonStyles.axaml"/>
+        <StyleInclude Source="Styles/Styles/MiscStyles.axaml"/>
+        <StyleInclude Source="Styles/Styles/TextBoxStyles.axaml"/>
+        <StyleInclude Source="Styles/Styles/DropdownStyles.axaml"/>
+
+        <!-- STANDARD COMPONENTS -->
+        <StyleInclude Source="Components/StandardLibrary/IconLabel.axaml"/>
+        <StyleInclude Source="Components/StandardLibrary/IconLabelButton.axaml"/>
+        <StyleInclude Source="Components/StandardLibrary/Button.axaml"/>
+        <StyleInclude Source="Components/StandardLibrary/StateBox.axaml"/>
+        <StyleInclude Source="Components/StandardLibrary/EmptyPageInfo.axaml"/>
+        <StyleInclude Source="Components/StandardLibrary/FormFieldLabel.axaml"/>
+        <StyleInclude Source="Components/StandardLibrary/LoadingIcon.axaml"/>
+        <StyleInclude Source="Components/StandardLibrary/SidebarRadioButton.axaml"/>
+        
+        <!-- PAGE SPECIFIC COMPONENTS -->
+        <StyleInclude Source="Components/WhWzLibrary/ModBrowserListItem.axaml"/>
+        <StyleInclude Source="Components/WhWzLibrary/DetailedProfileBox.axaml"/>
+        <StyleInclude Source="Components/WhWzLibrary/FriendsListItem.axaml"/>
+        <StyleInclude Source="Components/WhWzLibrary/CurrentUserProfile.axaml"/>
+        <StyleInclude Source="Components/WhWzLibrary/PlayerListItem.axaml"/>
+        <StyleInclude Source="Components/WhWzLibrary/Badge.axaml"/>
+        <StyleInclude Source="Components/WhWzLibrary/MiiImages/MiiImageLoader.axaml"/>
+        <StyleInclude Source="Components/WhWzLibrary/MiiImages/MiiCarousel.axaml"/>
+    </Application.Styles>
+</Application>

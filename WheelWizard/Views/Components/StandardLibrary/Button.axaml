@@ -1,0 +1,143 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:components="clr-namespace:WheelWizard.Views.Components.StandardLibrary">
+
+    <Design.PreviewWith>
+        <Border Padding="20" Background="{StaticResource Neutral950}">
+            <StackPanel Spacing="5">
+                <components:Button Width="150" Text="Default" Variant="Default"/>
+                <components:Button Width="150" Text="Ugly Light" Variant="UglyLight"/>
+                <!-- Ugly light is not ugly actually, its just because i don't want you to use it unless strictly necessary-->
+                <components:Button Width="150" Text="Primary" Variant="Primary"/>
+                <components:Button Width="150" Text="Secondary" Variant="Warning" />
+                <components:Button Width="150" Text="Danger" Variant="Danger" FontSize="30"/>
+                <components:Button x:Name="PlayButton"
+                                   IsEnabled="False" 
+                                   Variant="Warning"
+                                   Text="Loading..."
+                                   IconData="{StaticResource ArrowRight}"
+                                   IconSize="15"
+                                   Margin="0,20,0,0" />
+
+                <components:Button x:Name="DolphinButton"
+                                   IsEnabled="False"
+                                   IconData="{StaticResource WheelIcon}"
+                                   IconSize="25"
+                                   ToolTip.Tip="Launch Dolphin"
+                                   ToolTip.Placement="Bottom"
+                                   ToolTip.ShowDelay="50"
+                                   HorizontalAlignment="Center" Margin="0,6,0,0" />
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="components|Button">
+        <!-- Set Defaults -->
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource GlobalCornerRadius}" />
+        <Setter Property="Padding" Value="16,10" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}"
+                        Padding="{TemplateBinding Padding}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <components:IconLabel
+                        IconData="{TemplateBinding IconData}"
+                        IconSize="{TemplateBinding IconSize}"
+                        Text="{TemplateBinding Text}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Foreground="{TemplateBinding Foreground}"
+                    />
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    
+    <!-- ================
+     THE ACTUAL COLORS: 
+     ================ -->
+     <Style Selector="components|Button:pointerover">
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
+    <!-- DEFAULT -->
+    <Style Selector="components|Button.Default">
+        <Setter Property="Foreground" Value="{StaticResource Neutral300}" />
+        <Setter Property="Background" Value="{StaticResource Neutral700}" />
+    </Style>
+    <Style Selector="components|Button.Default:pointerover">
+        <Setter Property="Foreground" Value="{StaticResource Neutral300}" />
+        <Setter Property="Background" Value="{StaticResource Neutral600}" />
+    </Style>
+    <Style Selector="components|Button.Default:pressed">
+        <Setter Property="Foreground" Value="{StaticResource Neutral300}" />
+        <Setter Property="Background" Value="{StaticResource Neutral500}" />
+    </Style>
+    
+    <!-- DANGER -->
+    <Style Selector="components|Button.Danger">
+        <Setter Property="Foreground" Value="{StaticResource Danger100}" />
+        <Setter Property="Background" Value="{StaticResource Danger700}" />
+    </Style>
+    <Style Selector="components|Button.Danger:pointerover">
+        <Setter Property="Foreground" Value="{StaticResource Danger50}" />
+        <Setter Property="Background" Value="{StaticResource Danger600}" />
+    </Style>
+    <Style Selector="components|Button.Danger:pressed">
+        <Setter Property="Foreground" Value="{StaticResource Danger50}" />
+        <Setter Property="Background" Value="{StaticResource Danger400}" />
+    </Style>
+    
+    <!-- WARNING -->
+    <Style Selector="components|Button.Warning">
+        <Setter Property="Foreground" Value="{StaticResource Warning100}" />
+        <Setter Property="Background" Value="{StaticResource Warning700}" />
+    </Style>
+    <Style Selector="components|Button.Warning:pointerover">
+        <Setter Property="Foreground" Value="{StaticResource Warning50}" />
+        <Setter Property="Background" Value="{StaticResource Warning600}" />
+    </Style>
+    <Style Selector="components|Button.Warning:pressed">
+        <Setter Property="Foreground" Value="{StaticResource Warning50}" />
+        <Setter Property="Background" Value="{StaticResource Warning500}" />
+    </Style>
+    
+    <!-- PRIMARY -->
+    <Style Selector="components|Button.Primary">
+        <Setter Property="Foreground" Value="{StaticResource Primary50}" />
+        <Setter Property="Background" Value="{StaticResource Primary700}" />
+    </Style>
+    <Style Selector="components|Button.Primary:pointerover">
+        <Setter Property="Foreground" Value="{StaticResource Primary50}" />
+        <Setter Property="Background" Value="{StaticResource Primary600}" />
+    </Style>
+    <Style Selector="components|Button.Primary:pressed">
+        <Setter Property="Foreground" Value="{StaticResource Primary50}" />
+        <Setter Property="Background" Value="{StaticResource Primary500}" />
+    </Style>
+    
+    <!-- UGLY LIGHT -->
+    <Style Selector="components|Button.UglyLight">
+        <Setter Property="Foreground" Value="{StaticResource Neutral200}" />
+        <Setter Property="Background" Value="{StaticResource Neutral500}" />
+    </Style>
+    <Style Selector="components|Button.UglyLight:pointerover">
+        <Setter Property="Foreground" Value="{StaticResource Neutral200}" />
+        <Setter Property="Background" Value="{StaticResource Neutral400}" />
+    </Style>
+    <Style Selector="components|Button.UglyLight:pressed">
+        <Setter Property="Foreground" Value="{StaticResource Neutral200}" />
+        <Setter Property="Background" Value="{StaticResource Neutral300}" />
+    </Style>
+        
+    <Style Selector="components|Button:disabled /template/ Border">
+        <Setter Property="Background" Value="{StaticResource Neutral800}" />
+    </Style>
+    <Style Selector="components|Button:disabled /template/ components|IconLabel">
+        <Setter Property="Foreground" Value="{StaticResource Neutral950}" />
+    </Style>
+</Styles>

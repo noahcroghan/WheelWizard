@@ -1,0 +1,45 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="Border.SettingsBlockStyle">
+        <Setter Property="Background" Value="{StaticResource Neutral900}" />
+        <Setter Property="CornerRadius" Value="{StaticResource GlobalCornerRadius}" />
+        <Setter Property="Margin" Value="0,0,0,7" />
+        <Setter Property="Padding" Value="10" />
+        <!-- When there is an error or something, you can change the color here to something, then the edge also changes -->
+        <Setter Property="BorderBrush" Value="{StaticResource Neutral900}" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    
+
+    <Style Selector="ListBoxItem">
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+    <Style Selector="ListBox">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter, ListBoxItem:selected /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+    
+    <Style Selector="ListBoxItem Border.BoxItemBackground">
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="Margin" Value="0,3"/>
+        <Setter Property="Padding" Value="7,0"/>
+        <Setter Property="Background" Value="{StaticResource Neutral900}"/>
+    </Style>
+    <Style Selector="ListBoxItem Border.BoxItemBackground:pointerover">
+        <Setter Property="Background" Value="{StaticResource Neutral700}"/>
+    </Style>
+    
+    <Style Selector="ToolTip, ContextMenu">
+        <Setter Property="Background" Value="{StaticResource BlackIsh}"/>
+        <Setter Property="Foreground" Value="{StaticResource Neutral300}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+</Styles>

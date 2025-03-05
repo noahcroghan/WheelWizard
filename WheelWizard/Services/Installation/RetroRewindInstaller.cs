@@ -1,12 +1,9 @@
-﻿using WheelWizard.Services.Settings;
-using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
-using System.Windows;
 using WheelWizard.Helpers;
 using WheelWizard.Resources.Languages;
-using WheelWizard.WPFViews.Popups.Generic;
+using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Services.Installation;
 
@@ -24,7 +21,7 @@ public static class RetroRewindInstaller
 
     public static async Task<bool> HandleNotInstalled()
     {
-        var result = new YesNoWindow()
+        var result = await new YesNoWindow()
             .SetMainText(Phrases.PopupText_RRNotDeterment)
             .SetExtraText(Phrases.PopupText_DownloadRR)
             .AwaitAnswer();
@@ -37,7 +34,7 @@ public static class RetroRewindInstaller
 
     public static async Task<bool> HandleOldVersion()
     {
-        var result = new YesNoWindow()
+        var result = await new YesNoWindow()
             .SetMainText(Phrases.PopupText_RRToOld)
             .SetExtraText(Phrases.PopupText_ReinstallRR)
             .AwaitAnswer();
@@ -58,25 +55,17 @@ public static class RetroRewindInstaller
             var rksysQuestion = new YesNoWindow()
                                 .SetMainText(Phrases.PopupText_OldRksysFound)
                                 .SetExtraText(Phrases.PopupText_OldRksysFoundExplained);
-            if (rksysQuestion.AwaitAnswer()) 
+            if (await rksysQuestion.AwaitAnswer()) 
                 await backupOldrksys();
 
-        }
-        if (HasOldRR())
-        {
-            var retroRewindFound = new YesNoWindow()
-                                .SetMainText(Phrases.PopupText_OldRRFound)
-                                .SetExtraText(Phrases.PopupText_OldRRFoundExplained);
-            if (retroRewindFound.AwaitAnswer()) 
-            {
-                HandleMovingOldRR();
-                return;
-            }
         }
         var serverResponse = await HttpClientHelper.GetAsync<string>(Endpoints.RRUrl);
         if (!serverResponse.Succeeded)
         {
-            MessageBoxWindow.ShowDialog(Phrases.PopupText_CouldNotConnectServer);
+            await new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .SetTitleText("Could not connect to the server")
+                .SetInfoText(Phrases.PopupText_CouldNotConnectServer).ShowDialog();
             return;
         }
         var tempZipPath = Path.Combine(PathManager.LoadFolderPath, "Temp", "RetroRewind.zip");
@@ -86,7 +75,7 @@ public static class RetroRewindInstaller
 
     public static async Task ReinstallRR()
     {
-        var result = new YesNoWindow()
+        var result = await new YesNoWindow()
             .SetMainText(Phrases.PopupText_ReinstallRR)
             .SetExtraText(Phrases.PopupText_ReinstallQuestion)
             .AwaitAnswer();
@@ -116,13 +105,6 @@ public static class RetroRewindInstaller
         Directory.Move(oldRRFolder, newRRFolder);
        
     }
-    public static bool HasOldRR()
-    {
-        var oldRRFolder = Path.Combine(PathManager.LoadFolderPath, "Riivolution", "RetroRewind6");
-        var oldRRXml = Path.Combine(PathManager.LoadFolderPath, "Riivolution", "riivolution", "RetroRewind6.xml");
-        return Directory.Exists(oldRRFolder) && File.Exists(oldRRXml);
-    }
-
     private static async Task DownloadAndExtractRetroRewind(string tempZipPath)
     {
         var progressWindow = new ProgressWindow(Phrases.PopupText_InstallingRR);

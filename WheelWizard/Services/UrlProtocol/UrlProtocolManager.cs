@@ -1,16 +1,21 @@
-﻿using Microsoft.Win32;
+﻿#if WINDOWS
+using Microsoft.Win32;
+#endif
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
-using WheelWizard.WPFViews.Popups.ModManagment;
+using WheelWizard.Views.Popups.Generic;
+using WheelWizard.Views.Popups.ModManagement;
 
 namespace WheelWizard.Services.UrlProtocol;
 
 public class UrlProtocolManager
 {
     public const string ProtocolName = "wheelwizard";
+
+    #region Windows only
+    
+#if WINDOWS
     public static void RegisterCustomScheme(string schemeName)
     {
         var currentExecutablePath = Process.GetCurrentProcess().MainModule!.FileName;
@@ -31,8 +36,13 @@ public class UrlProtocolManager
         var protocolKey = $@"SOFTWARE\Classes\{schemeName}";
         return Registry.CurrentUser.OpenSubKey(protocolKey) != null;
     }
+        public static void RemoveCustomScheme(string schemeName)
+    {
+        var protocolKey = $@"SOFTWARE\Classes\{schemeName}";
+        Registry.CurrentUser.DeleteSubKeyTree(protocolKey);
+    }
 
-    async public static void SetWhWzSchemeAsync()
+    async private static void SetWhWzSchemeAsyncInternally()
     {
         var currentExecutablePath = Process.GetCurrentProcess().MainModule!.FileName;
         var protocolKey = $@"SOFTWARE\Classes\{ProtocolName}";
@@ -64,58 +74,27 @@ public class UrlProtocolManager
             }
         }
     }
+#endif
     
-    public static void RemoveCustomScheme(string schemeName)
+    async public static void SetWhWzSchemeAsync()
     {
-        var protocolKey = $@"SOFTWARE\Classes\{schemeName}";
-        Registry.CurrentUser.DeleteSubKeyTree(protocolKey);
+#if WINDOWS
+        SetWhWzSchemeAsyncInternally();
+#endif
     }
-
-    public static void ShowPopupForLaunchUrl(string url)
-    {
-        try
-        {
-            // Remove the protocol prefix
-            string content = url.Replace("wheelwizard://", "").Trim();
-            // Remove any trailing slash
-            content = content.TrimEnd('/');
-
-            // Parse ModID and DownloadURL
-            string[] parts = content.Split(',');
-
-            if (!int.TryParse(parts[0], out int modID))
-            {
-                throw new FormatException($"Invalid ModID: {parts[0]}");
-            }
-            string downloadURL = parts.Length > 1 ? parts[1] : null;
-            var modPopup = new ModIndependentWindow();
-            modPopup.LoadModAsync(1234);
-            modPopup.ShowDialog();
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Error handling URL: {ex.Message}", "WheelWizard Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
+    #endregion
 
     public static async Task ShowPopupForLaunchUrlAsync(string url)
     {
+        // Remove the protocol prefix
+        var content = url.Replace("wheelwizard://", "").Trim().TrimEnd('/');
+        var parts = content.Split(',');
         try
         {
-            // Remove the protocol prefix
-            string content = url.Replace("wheelwizard://", "").Trim();
-
-            // Remove any trailing slash
-            content = content.TrimEnd('/');
-
-            // Parse ModID and DownloadURL
-            string[] parts = content.Split(',');
-
-            if (!int.TryParse(parts[0], out int modID))
-            {
+            if (!int.TryParse(parts[0], out var modID))
                 throw new FormatException($"Invalid ModID: {parts[0]}");
-            }
-            string downloadURL = parts.Length > 1 ? parts[1] : null;
+            
+            var downloadURL = parts.Length > 1 ? parts[1] : null;
             var modPopup = new ModIndependentWindow();
             await modPopup.LoadModAsync(modID, downloadURL);
             modPopup.ShowDialog();
@@ -123,7 +102,11 @@ public class UrlProtocolManager
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Error handling URL: {ex.Message}", "WheelWizard Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Couldn't load URL")
+                .SetInfoText($"Error handling URL: {ex.Message}")
+                .Show();
         }
     }
 }

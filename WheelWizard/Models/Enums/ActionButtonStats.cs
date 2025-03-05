@@ -2,13 +2,12 @@
 
 public enum WheelWizardStatus
 {
+    Loading,
     NoServer,
     NoDolphin,
     ConfigNotFinished,
-    NoRR,
-    NoRRActive,
-    RRNotReady,
+    NotInstalled,
     NoServerButInstalled,
     OutOfDate,
-    UpToDate
+    Ready
 }

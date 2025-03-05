@@ -1,0 +1,43 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:components="using:WheelWizard.Views.Components.StandardLibrary"
+        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.WhWzLibrary.MiiImages">
+    <Design.PreviewWith>
+        <Border Background="{StaticResource Neutral950}" Width="600" Height="600">
+            <miiImages:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                                     HeightAsScalingReference="True" FallBackColor="{StaticResource Neutral700}"
+                                     />
+        </Border>
+    </Design.PreviewWith>
+
+    <Style Selector="miiImages|MiiImageLoader">
+        <Setter Property="FallBackColor" Value="{StaticResource Neutral700}" />
+        <Setter Property="LoadingColor" Value="{StaticResource Neutral900}" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="MiiImageContainer"
+                      ClipToBounds="True">
+                    <components:LoadingIcon HorizontalAlignment="Center" VerticalAlignment="Stretch" x:Name="MiiLoadingIcon"
+                                            Foreground="{TemplateBinding LoadingColor}"
+                                            IsVisible="{TemplateBinding MiiImage, Converter={x:Static ObjectConverters.IsNull} }"/>
+                    
+                    <PathIcon x:Name="MiiFallBackIcon" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                              Foreground="{TemplateBinding FallBackColor}" Data="{StaticResource User}">
+                        <PathIcon.IsVisible>
+                            <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                <Binding Path="MiiLoaded" RelativeSource="{RelativeSource TemplatedParent}"
+                                         Converter="{x:Static BoolConverters.Not}"/>
+                                <Binding Path="MiiImage" RelativeSource="{RelativeSource TemplatedParent}"
+                                         Converter="{x:Static ObjectConverters.IsNotNull}" />
+                            </MultiBinding>
+                        </PathIcon.IsVisible>
+                    </PathIcon>
+                    
+                    <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                           IsVisible="{TemplateBinding MiiLoaded}"
+                           Source="{TemplateBinding MiiImage, Mode=OneWay}"/>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

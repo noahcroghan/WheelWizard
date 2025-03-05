@@ -11,10 +11,14 @@ public static class Endpoints
     public const string RRDiscordUrl = "https://discord.gg/yH3ReN8EhQ";
 
     // Wheel Wizard
-    public const string WhWzStatusUrl = "https://raw.githubusercontent.com/patchzyy/WheelWizard/main/status.txt";
-    public const string WhWzLatestReleasesUrl = "https://api.github.com/repos/patchzyy/WheelWizard/releases/latest";
+    public const string WhWzDataUrl = "https://raw.githubusercontent.com/TeamWheelWizard/WheelWizard-Data/main/";
+    public const string WhWzStatusUrl = WhWzDataUrl + "status.json";
+    public const string WhWzBadgesUrl = WhWzDataUrl + "badges.json";
+    public const string WhWzLatestReleasesUrl = "https://api.github.com/repos/TeamWheelWizard/WheelWizard/releases/latest";
+    //search depth 3 releases
+    public const string WhWzReleasesUrl = "https://api.github.com/repos/TeamWheelWizard/WheelWizard/releases?per_page=3";
     public const string WhWzDiscordUrl = "https://discord.gg/vZ7T2wJnsq";
-    public const string WhWzGithubUrl = "https://github.com/patchzyy/WheelWizard";
+    public const string WhWzGithubUrl = "https://github.com/TeamWheelWizard/WheelWizard";
     public const string SupportLink = "https://ko-fi.com/wheelwizard";
 
     // Other

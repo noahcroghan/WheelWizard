@@ -1,0 +1,39 @@
+﻿<popups:PopupContent x:Class="WheelWizard.Views.Popups.Generic.ProgressWindow"
+                    xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:popups="clr-namespace:WheelWizard.Views.Popups" ClipToBounds="False"
+                    mc:Ignorable="d" d:DesignHeight="170" d:DesignWidth="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Goal Description -->
+        <Border Grid.Row="0" Background="{StaticResource Primary500}" Margin="-10" >
+            <TextBlock Margin="10" x:Name="GoalTextBlock"
+                       Classes="TitleText" FontSize="18"
+                       HorizontalAlignment="Left" VerticalAlignment="Center"
+                       Foreground="{StaticResource Primary50}" />
+        </Border>
+
+        <!-- Extra Information -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10">
+            <TextBlock Classes="BodyText" x:Name="ExtraTextBlock"
+                       FontSize="14" HorizontalAlignment="Left" Margin="0,10,0,0" />
+            <TextBlock Classes="BodyText" x:Name="LiveTextBlock"
+                       FontSize="14" HorizontalAlignment="Left" Margin="0,10,0,0" />
+        </StackPanel>
+
+        <!-- Progress Bar -->
+        <ProgressBar Grid.Row="1" VerticalAlignment="Bottom" x:Name="ProgressBar" Height="20"
+                     Minimum="0" Maximum="100" Value="0"
+                     IsIndeterminate="False"
+                     BorderThickness="0"
+                     Foreground="{StaticResource Primary500}" 
+                     Background="{StaticResource BackgroundLineColor}"
+                     Margin="0,0,0,10"/>
+    </Grid>
+</popups:PopupContent>

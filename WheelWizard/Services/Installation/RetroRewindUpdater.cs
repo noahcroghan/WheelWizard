@@ -5,10 +5,9 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using WheelWizard.Helpers;
 using WheelWizard.Resources.Languages;
-using WheelWizard.WPFViews.Popups.Generic;
+using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Services.Installation;
 
@@ -36,7 +35,11 @@ public static class RetroRewindUpdater
             var currentVersion = RetroRewindInstaller.CurrentRRVersion();
             if (await IsRRUpToDate(currentVersion))
             {
-                MessageBoxWindow.ShowDialog(Phrases.PopupText_RRUpToDate);
+                await new MessageBoxWindow()
+                    .SetMessageType(MessageBoxWindow.MessageType.Message)
+                    .SetTitleText(Phrases.PopupText_RRUpToDate)
+                    .SetInfoText(Phrases.PopupText_RRUpToDate)
+                    .ShowDialog();
                 return true;
             }
 
@@ -50,7 +53,7 @@ public static class RetroRewindUpdater
         }
         catch (Exception e)
         {
-            MessageBoxWindow.ShowDialog($"Failed to update Retro Rewind\n: {e.Message}");
+            AbortingUpdate($"Reason: {e.Message}");
             return false;
         }
     }
@@ -60,7 +63,7 @@ public static class RetroRewindUpdater
         var allVersions = await GetAllVersionData();
         var updatesToApply = GetUpdatesToApply(currentVersion, allVersions);
 
-        var progressWindow = new ProgressWindow(Phrases.PopupText_UpdateRR);
+        var progressWindow = new  ProgressWindow(Phrases.PopupText_UpdateRR);
         progressWindow.Show();
 
         // Step 1: Get the version we are updating to
@@ -70,7 +73,7 @@ public static class RetroRewindUpdater
         var deleteSuccess = await ApplyFileDeletionsBetweenVersions(currentVersion, targetVersion);
         if (!deleteSuccess)
         {
-            MessageBoxWindow.ShowDialog(Phrases.PopupText_FailedUpdateDelete);
+            AbortingUpdate(Phrases.PopupText_FailedUpdateDelete);
             progressWindow.Close();
             return false;
         }
@@ -83,8 +86,8 @@ public static class RetroRewindUpdater
             var success = await DownloadAndApplyUpdate(update, updatesToApply.Count, i + 1, progressWindow);
             if (!success)
             {
-                MessageBoxWindow.ShowDialog(Phrases.PopupText_FailedUpdateApply);
                 progressWindow.Close();
+                AbortingUpdate(Phrases.PopupText_FailedUpdateApply);
                 return false;
             }
 
@@ -109,40 +112,23 @@ public static class RetroRewindUpdater
                 //because we are actually getting the path from the server,
                 //we need to make sure we are not getting hacked, so we check if the path is in the riivolution folder
                 var resolvedPath = Path.GetFullPath(new FileInfo(filePath).FullName);
-                if (!resolvedPath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase))
+                if (!resolvedPath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase) ||
+                    !filePath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase) ||
+                    filePath.Contains(".."))
                 {
-                    // I rather not translate this message, makes it easier to check where a given error came from
-                    MessageBoxWindow.ShowDialog("Invalid file path detected. Aborting. Please contact the developers.\n Server error: " + resolvedPath);
+                    AbortingUpdate("Invalid file path detected. Please contact the developers.\n Server error: " + resolvedPath);
                     return false;
                 }
-                if (!filePath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase))
-                {
-                    // I rather not translate this message, makes it easier to check where a given error came from
-                    MessageBoxWindow.ShowDialog("Invalid file path detected. Aborting. Please contact the developers.\n Server error: " + filePath );
-                    return false;
-                }
-                if (filePath.Contains(".."))
-                {
-                    // I rather not translate this message, makes it easier to check where a given error came from
-                    MessageBoxWindow.ShowDialog("Invalid file path detected. Aborting. Please contact the developers.\n Server error: " + filePath );
-                    return false;
-                }
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
-                else if (Directory.Exists(filePath))
-                {
-                    Directory.Delete(filePath, recursive: true);
-                }
+                
+                if (File.Exists(filePath))  File.Delete(filePath);
+                else if (Directory.Exists(filePath)) Directory.Delete(filePath, recursive: true);
             }
 
             return true;
         }
         catch (Exception e)
         {
-            // I rather not translate this message, makes it easier to check where a given error came from
-            MessageBoxWindow.ShowDialog($"Failed to delete files: {e.Message}");
+            AbortingUpdate($"Failed to delete files: {e.Message}");
             return false;
         }
     }
@@ -289,5 +275,14 @@ public static class RetroRewindUpdater
                 }
             }
         }
+    }
+
+    public static void AbortingUpdate(string reason)
+    {
+        new MessageBoxWindow()
+            .SetMessageType(MessageBoxWindow.MessageType.Error)
+            .SetTitleText("Aborting RR Update")
+            .SetInfoText(reason)
+            .Show();
     }
 }

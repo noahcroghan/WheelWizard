@@ -2,11 +2,11 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using WheelWizard.WPFViews.Popups.Generic;
+using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Helpers;
 
-    public static class DownloadHelper
+public static class DownloadHelper
 {
     private const int MaxRetries = 5;
     private const int TimeoutInSeconds = 30; // Adjust as needed
@@ -40,7 +40,8 @@ namespace WheelWizard.Helpers;
             response.EnsureSuccessStatusCode();
             if (response.RequestMessage == null || response.RequestMessage.RequestUri == null)
             {
-                MessageBoxWindow.ShowDialog("Failed to resolve final URL.");
+                // Do we want this error?
+                // new MessageBoxWindow().SetTitleText("Failed to resolve final URL.").Show();
                 return null;
             }
 
@@ -83,7 +84,7 @@ namespace WheelWizard.Helpers;
                 downloadedBytes += bytesRead;
 
                 var progress = totalBytes == -1 ? 0 : (int)((float)downloadedBytes / totalBytes * 100);
-                progressPopupWindow.Dispatcher.Invoke(() => progressPopupWindow.UpdateProgress(progress));
+                progressPopupWindow.UpdateProgress(progress);
             }
 
             success = true; // Download completed successfully
@@ -93,32 +94,38 @@ namespace WheelWizard.Helpers;
             attempt++;
             if (attempt >= MaxRetries)
             {
-                new YesNoWindow().SetMainText("Download timed out")
-                    .SetExtraText($"The download timed out after {MaxRetries} attempts.");
+                new MessageBoxWindow()
+                    .SetMessageType(MessageBoxWindow.MessageType.Error)
+                    .SetTitleText("Download timed out")
+                    .SetInfoText($"The download timed out after {MaxRetries} attempts.");
                 break;
             }
 
             var delay = (int)Math.Pow(2, attempt) * 1000;
             await Task.Delay(delay);
-            progressPopupWindow.Dispatcher.Invoke(() =>
-                progressPopupWindow.SetExtraText($"Retrying... Attempt {attempt + 1} of {MaxRetries}"));
+            progressPopupWindow.SetExtraText($"Retrying... Attempt {attempt + 1} of {MaxRetries}");
         }
         catch (HttpRequestException ex)
         {
             attempt++;
             if (attempt >= MaxRetries)
             {
-                MessageBoxWindow.ShowDialog($"An HTTP error occurred after {MaxRetries} attempts: {ex.Message}");
+                new MessageBoxWindow()
+                    .SetMessageType(MessageBoxWindow.MessageType.Error)
+                    .SetTitleText("Tried to many times")
+                    .SetInfoText($"An HTTP error occurred after {MaxRetries} attempts: {ex.Message}").Show();
                 break;
             }
             var delay = (int)Math.Pow(2, attempt) * 1000;
             await Task.Delay(delay);
-            progressPopupWindow.Dispatcher.Invoke(() =>
-                progressPopupWindow.SetExtraText($"Retrying... Attempt {attempt + 1} of {MaxRetries}"));
+            progressPopupWindow.SetExtraText($"Retrying... Attempt {attempt + 1} of {MaxRetries}");
         }
         catch (Exception ex)
         {
-            MessageBoxWindow.ShowDialog($"An error occurred while downloading the file: {ex.Message}");
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Download error")
+                .SetInfoText($"An error occurred while downloading the file: {ex.Message}").Show();
             break;
         }
     }

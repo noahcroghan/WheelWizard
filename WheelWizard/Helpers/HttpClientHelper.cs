@@ -1,12 +1,15 @@
 using Newtonsoft.Json;
 using System;
+using System.IO;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using WheelWizard.Models;
 
 namespace WheelWizard.Helpers;
 
+
+//todo: Use static HttpClient with pooled connection lifetime https://stackoverflow.com/a/77379657
 public static class HttpClientHelper
 {
     // This is bool here is just for testing purposes and should never be used in the production code.
@@ -16,7 +19,7 @@ public static class HttpClientHelper
     private static readonly Lazy<HttpClient> LazyHttpClient = new Lazy<HttpClient>(() =>
     {
         var client = new HttpClient();
-        client.DefaultRequestHeaders.UserAgent.ParseAdd("WheelWizard/1.0");
+        client.DefaultRequestHeaders.UserAgent.ParseAdd("WheelWizard/2.0");
         return client;
     });
     
@@ -24,7 +27,7 @@ public static class HttpClientHelper
 
     public static async Task<HttpClientResult<T>> PostAsync<T>(string url, HttpContent? body)
     {
-    #if !RELEASE_BUILD
+    #if DEBUG
         if (!FakeConnectionToInternet)
             return GetErrorResult<T>(new ("No internet connection"));
     #endif
@@ -60,7 +63,7 @@ public static class HttpClientHelper
 
     public static async Task<HttpClientResult<T>> GetAsync<T>(string url)
     {
-    #if !RELEASE_BUILD
+    #if DEBUG
         if (!FakeConnectionToInternet)
             return GetErrorResult<T>(new ("No internet connection"));
     #endif
@@ -93,6 +96,34 @@ public static class HttpClientHelper
 
         return result;
     }
+    
+    public static async Task<HttpClientResult<Stream>> GetStreamAsync(string url, CancellationToken cancellationToken = default)
+    {
+        HttpClientResult<Stream> result;
+        try
+        {
+            var response = await HttpClient.GetAsync(url, cancellationToken);
+            result = new HttpClientResult<Stream>()
+            {
+                StatusCode = (int)response.StatusCode,
+                Succeeded = response.IsSuccessStatusCode,
+                StatusMessage = response.ReasonPhrase
+            };
+
+            if (response.IsSuccessStatusCode)
+            {
+                var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
+                result.Content = stream;
+            }
+        }
+        catch (Exception e)
+        {
+            result = GetErrorResult<Stream>(e);
+        }
+
+        return result;
+    }
+
 
     private static HttpClientResult<T> GetErrorResult<T>(Exception e)
     {
@@ -134,25 +165,21 @@ public static class HttpClientHelper
     
     public static void CleanupConnections()
     {
-        if (LazyHttpClient.IsValueCreated)
-        {
-            HttpClient.DefaultRequestHeaders.Clear();
-            HttpClient.CancelPendingRequests();
-        }
+        if (!LazyHttpClient.IsValueCreated) return;
+        HttpClient.DefaultRequestHeaders.Clear();
+        HttpClient.CancelPendingRequests();
     }
     
     public static void ResetHttpClient()
     {
         if (LazyHttpClient.IsValueCreated)
-        {
             HttpClient.Dispose();
-        }
         
         // This will force the creation of a new HttpClient on the next use
         new Lazy<HttpClient>(() =>
         {
             var client = new HttpClient();
-            client.DefaultRequestHeaders.UserAgent.ParseAdd("WheelWizard/1.0");
+            client.DefaultRequestHeaders.UserAgent.ParseAdd("WheelWizard/2.0");
             return client;
         });
     }

@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Text;
+using System.Security.Cryptography;
 using WheelWizard.Services.WiiManagement.SaveData;
 
 namespace WheelWizard.Utilities.Generators;
 
 public class FriendCodeGenerator
 {
-    
     public static string GetFriendCode(byte[] data, int offset)
     {
         var pid = BigEndianBinaryReader.BufferToUint32(data, offset);
