@@ -30,6 +30,8 @@ public class GameDataLoader : RepeatedTaskManager
     {
         get
         {
+            if (string.IsNullOrWhiteSpace(PathManager.RiivolutionWhWzFolderPath))
+                return string.Empty;
             var path = Path.Combine(PathManager.RiivolutionWhWzFolderPath, "riivolution", "save", "RetroWFC");
             if (Directory.Exists(path)) 
                 return path;

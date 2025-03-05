@@ -8,6 +8,9 @@ public class GithubRelease
     public string TagName { get; set; }
     [JsonPropertyName("assets")]
     public GithubAsset[] Assets { get; set; }
+    
+    [JsonPropertyName("prerelease")]
+    public bool Prerelease{ get; set; }
 }
 
 public class GithubAsset

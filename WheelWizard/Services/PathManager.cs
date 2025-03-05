@@ -53,7 +53,8 @@ public static class PathManager
             }
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                return Path.Combine(UserFolderPath, "Load"); // TODO: Check this path
+                if (string.IsNullOrWhiteSpace(UserFolderPath)) return "";
+                return Path.Combine(UserFolderPath, "Load");
             }
             throw new PlatformNotSupportedException("Unsupported operating system");
         }

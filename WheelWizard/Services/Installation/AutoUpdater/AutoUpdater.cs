@@ -4,7 +4,7 @@ namespace WheelWizard.Services.Installation.AutoUpdater;
 
 public class AutoUpdater
 {
-    public const string CurrentVersion = "2.0.0";
+    public const string CurrentVersion = "1.0.0";
     public static async void CheckForUpdatesAsync()
     {
         IUpdaterPlatform autoUpdaterPlatform = new AutoUpdaterFallback();
@@ -15,7 +15,7 @@ public class AutoUpdater
 #elif MACOS
         // MacOS updater
 #endif
-        IAutoUpdateHandler updateHandler = new AutoUpdaterHandler(autoUpdaterPlatform);
+        var updateHandler = new AutoUpdaterHandler(autoUpdaterPlatform);
         
         //todo: how to run this in a background thread?
         await updateHandler.CheckForUpdatesAsync();

@@ -2,9 +2,6 @@
 echo Building for Windows...
 call build-win.bat
 
-echo Building for Windows ARM...
-call build-win-arm.bat
-
 echo Building for Linux...
 call build-linux.bat
 

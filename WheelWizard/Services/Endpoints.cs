@@ -15,6 +15,8 @@ public static class Endpoints
     public const string WhWzStatusUrl = WhWzDataUrl + "status.json";
     public const string WhWzBadgesUrl = WhWzDataUrl + "badges.json";
     public const string WhWzLatestReleasesUrl = "https://api.github.com/repos/TeamWheelWizard/WheelWizard/releases/latest";
+    //search depth 3 releases
+    public const string WhWzReleasesUrl = "https://api.github.com/repos/TeamWheelWizard/WheelWizard/releases?per_page=3";
     public const string WhWzDiscordUrl = "https://discord.gg/vZ7T2wJnsq";
     public const string WhWzGithubUrl = "https://github.com/TeamWheelWizard/WheelWizard";
     public const string SupportLink = "https://ko-fi.com/wheelwizard";

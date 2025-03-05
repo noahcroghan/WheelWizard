@@ -1,4 +1,5 @@
 ﻿using Semver;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using WheelWizard.Helpers;
@@ -8,24 +9,12 @@ using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Services.Installation.AutoUpdater;
 
-interface IAutoUpdateHandler   
-{
-    /// <summary>
-    /// The current version of the application.
-    /// </summary>
-    string CurrentVersion { get; }
 
-    /// <summary>
-    /// Runs the entire update process flow (checks for updates, downloads, and installs them).
-    /// </summary>
-    Task CheckForUpdatesAsync();
-}
-
-public class AutoUpdaterHandler : IAutoUpdateHandler
+public class AutoUpdaterHandler
 {
     private readonly IUpdaterPlatform _updaterPlatform;
     //todo: look into assembly versioning c# best practices 
-    public virtual string CurrentVersion => Installation.AutoUpdater.AutoUpdater.CurrentVersion;
+    public virtual string CurrentVersion => AutoUpdater.CurrentVersion;
 
     public AutoUpdaterHandler(IUpdaterPlatform updaterPlatform)
     {
@@ -58,7 +47,7 @@ public class AutoUpdaterHandler : IAutoUpdateHandler
     
     private async Task<GithubRelease?> GetLatestReleaseAsync()
     {
-        var response = await HttpClientHelper.GetAsync<string>(Endpoints.WhWzLatestReleasesUrl);
+        var response = await HttpClientHelper.GetAsync<string>(Endpoints.WhWzReleasesUrl);
         if (!response.Succeeded || response.Content is null)
         {
             // If it failed, it can be due to many reasons. We don't want to always throw an error,
@@ -76,11 +65,34 @@ public class AutoUpdaterHandler : IAutoUpdateHandler
             return null;
         }
         response.Content = response.Content.Trim('\0');
-        var latestRelease = JsonSerializer.Deserialize<GithubRelease>(response.Content);
-        if (latestRelease?.TagName is null) return null;
-        
+        var releases = JsonSerializer.Deserialize<List<GithubRelease>>(response.Content);
+        if (releases is null || releases.Count == 0) return null;
+
+        // Get the current version
         var currentVersion = SemVersion.Parse(CurrentVersion, SemVersionStyles.Any);
-        var latestVersion = SemVersion.Parse(latestRelease.TagName.TrimStart('v'), SemVersionStyles.Any);
-        return currentVersion.ComparePrecedenceTo(latestVersion) < 0 ? latestRelease : null;
+
+        // Iterate over the latest 3 releases and find the newest one that has an asset for this platform
+        GithubRelease? bestMatch = null;
+        SemVersion? bestVersion = null;
+
+        foreach (var release in releases)
+        {
+            if (release.TagName is null) continue;
+            if (release.Prerelease) continue;
+
+            var releaseVersion = SemVersion.Parse(release.TagName.TrimStart('v'), SemVersionStyles.Any);
+            if (releaseVersion.ComparePrecedenceTo(currentVersion) <= 0) continue;
+
+            var asset = _updaterPlatform.GetAssetForCurrentPlatform(release);
+            if (asset is null) continue;
+
+            if (bestVersion is null || releaseVersion.ComparePrecedenceTo(bestVersion) > 0)
+            {
+                bestMatch = release;
+                bestVersion = releaseVersion;
+            }
+        }
+
+        return bestMatch;
     }
 }
