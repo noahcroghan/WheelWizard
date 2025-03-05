@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Github;
@@ -14,9 +15,19 @@ public class AutoUpdaterLinux : IUpdaterPlatform
 {
     public GithubAsset? GetAssetForCurrentPlatform(GithubRelease release)
     {
-        // Locate the Linux asset based on an identifier in the URL.
+        string identifier;
+        if (RuntimeInformation.ProcessArchitecture == Architecture.Arm ||
+            RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+        {
+            identifier = "WheelWizard_arm64_Linux";
+        }
+        else
+        {
+            identifier = "WheelWizard_Linux";
+        }
+        
         return release.Assets.FirstOrDefault(asset =>
-            asset.BrowserDownloadUrl.Contains("WheelWizard_Linux", StringComparison.OrdinalIgnoreCase));
+            asset.BrowserDownloadUrl.Contains(identifier, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task ExecuteUpdateAsync(string downloadUrl)
