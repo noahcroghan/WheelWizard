@@ -4,7 +4,7 @@ namespace WheelWizard.Services.Installation.AutoUpdater;
 
 public class AutoUpdater
 {
-    public const string CurrentVersion = "1.0.0";
+    public const string CurrentVersion = "2.0.1";
     public static async void CheckForUpdatesAsync()
     {
         IUpdaterPlatform autoUpdaterPlatform = new AutoUpdaterFallback();
