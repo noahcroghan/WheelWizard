@@ -128,12 +128,21 @@ public static class RetroRewindInstaller
 
     private static bool hasOldrksys()
     {
-        var rrWfc = Path.Combine(PathManager.LoadFolderPath, "Riivolution", "riivolution", "save", "RetroWFC");
-        if (!Directory.Exists(rrWfc)) 
-            return false;
-        
-        var rksysFiles = Directory.GetFiles(rrWfc, "rksys.dat", SearchOption.AllDirectories);
-        return rksysFiles.Length > 0;
+        var rrWfcPaths = new[]
+        {
+            Path.Combine(PathManager.LoadFolderPath, "Riivolution", "riivolution", "save", "RetroWFC"),
+            Path.Combine(PathManager.LoadFolderPath, "Riivolution", "save", "RetroWFC")
+        };
+
+        foreach (var rrWfc in rrWfcPaths)
+        {
+            if (!Directory.Exists(rrWfc)) continue;
+            var rksysFiles = Directory.GetFiles(rrWfc, "rksys.dat", SearchOption.AllDirectories);
+            if (rksysFiles.Length > 0)
+                return true;
+        }
+
+        return false;
     }
 
     private static async Task backupOldrksys()
