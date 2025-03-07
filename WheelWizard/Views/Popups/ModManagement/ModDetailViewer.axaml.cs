@@ -208,10 +208,10 @@ public partial class ModDetailViewer : UserControl
 
             var url = downloadUrls.First();
             var fileName = GetFileNameFromUrl(url);
-            var filePath = Path.Combine(ModsLaunchHelper.TempModsFolderPath, fileName);
+            var filePath = Path.Combine(PathManager.TempModsFolderPath, fileName);
             await DownloadHelper.DownloadToLocationAsync(url, filePath, progressWindow);
             progressWindow.Close();
-            var file = Directory.GetFiles(ModsLaunchHelper.TempModsFolderPath).FirstOrDefault();
+            var file = Directory.GetFiles(PathManager.TempModsFolderPath).FirstOrDefault();
             if (file == null)
             {
                 new MessageBoxWindow()
@@ -246,11 +246,11 @@ public partial class ModDetailViewer : UserControl
                     .SetTitleText("Mod name Invalid.")
                     .SetInfoText("Mod name contains invalid characters.")
                     .Show();
-                Directory.Delete(ModsLaunchHelper.TempModsFolderPath, true);
+                Directory.Delete(PathManager.TempModsFolderPath, true);
                 return;
             }
             await ModInstallation.InstallModFromFileAsync(file, modName ,author, modId);
-            Directory.Delete(ModsLaunchHelper.TempModsFolderPath, true);
+            Directory.Delete(PathManager.TempModsFolderPath, true);
         }
         catch (Exception ex)
         {
@@ -268,7 +268,7 @@ public partial class ModDetailViewer : UserControl
     /// </summary>
     private static async Task PrepareToDownloadFile()
     {
-        var tempFolder = ModsLaunchHelper.TempModsFolderPath;
+        var tempFolder = PathManager.TempModsFolderPath;
         if (Directory.Exists(tempFolder))
         {
             Directory.Delete(tempFolder, true);

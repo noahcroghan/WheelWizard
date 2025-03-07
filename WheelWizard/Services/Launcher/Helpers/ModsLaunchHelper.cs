@@ -11,13 +11,9 @@ namespace WheelWizard.Services.Launcher.Helpers;
 
 public static class ModsLaunchHelper
 {
+    public static readonly string MyStuffFolderPath = PathManager.MyStuffFolderPath;
+    public static readonly string ModsFolderPath = PathManager.ModsFolderPath;
     public static readonly string[] AcceptedModExtensions = { "*.szs", "*.arc", "*.brstm", "*.brsar", "*.thp" };
-    //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
-    //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
-    //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly 
-    public static string MyStuffFolderPath => Path.Combine(PathManager.RetroRewind6FolderPath, "MyStuff");
-    public static string ModsFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CT-MKWII", "Mods");
-    public static string TempModsFolderPath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CT-MKWII", "Mods", "Temp");
     
     public static async Task PrepareModsForLaunch()
     {

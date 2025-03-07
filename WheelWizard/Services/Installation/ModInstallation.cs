@@ -11,25 +11,19 @@ using WheelWizard.Views.Popups.Generic;
 namespace WheelWizard.Services.Installation;
 public static class ModInstallation
 {
-    private static readonly string _configFilePath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "CT-MKWII", "Mods", "modconfig.json");
-
-    private static readonly string _modsDirectory = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-        "CT-MKWII", "Mods");
-
+    private static readonly string ModsFolderPath = PathManager.ModsFolderPath;
+    private static readonly string ConfigFilePath = PathManager.ModConfigFilePath;
     public static async Task<ObservableCollection<Mod>> LoadModsAsync()
     {
         var mods = new ObservableCollection<Mod>();
         try
         {
             // Ensure the mods directory exists
-            if (!Directory.Exists(_modsDirectory))
-                Directory.CreateDirectory(_modsDirectory);
+            if (!Directory.Exists(ModsFolderPath))
+                Directory.CreateDirectory(ModsFolderPath);
 
             // Check for INI files first
-            var iniFiles = Directory.GetFiles(_modsDirectory, "*.ini", SearchOption.AllDirectories);
+            var iniFiles = Directory.GetFiles(ModsFolderPath, "*.ini", SearchOption.AllDirectories);
             if (iniFiles.Any())
             {
                 foreach (var iniFile in iniFiles)
@@ -42,10 +36,10 @@ public static class ModInstallation
                     }
                 }
             }
-            else if (File.Exists(_configFilePath))
+            else if (File.Exists(ConfigFilePath))
             {
                 // Backward compatibility: Load from JSON and convert to INI
-                var json = await File.ReadAllTextAsync(_configFilePath);
+                var json = await File.ReadAllTextAsync(ConfigFilePath);
                 json = json.Trim('\0');
                 var modDataList = JsonSerializer.Deserialize<ObservableCollection<ModData>>(json) ?? new ObservableCollection<ModData>();
 
@@ -72,7 +66,7 @@ public static class ModInstallation
                 }
 
                 // Delete the JSON config after conversion
-                File.Delete(_configFilePath);
+                File.Delete(ConfigFilePath);
             }
         }
         catch (Exception ex)
@@ -100,9 +94,9 @@ public static class ModInstallation
             }
 
             // Optionally, delete the JSON config if it exists to ensure future loads use INI
-            if (File.Exists(_configFilePath))
+            if (File.Exists(ConfigFilePath))
             {
-                File.Delete(_configFilePath);
+                File.Delete(ConfigFilePath);
             }
         }
         catch (Exception ex)
@@ -112,7 +106,7 @@ public static class ModInstallation
     }
 
     public static string GetModDirectoryPath(string modName) =>
-        Path.Combine(_modsDirectory, modName);
+        Path.Combine(ModsFolderPath, modName);
 
     public static bool ModExists(ObservableCollection<Mod> mods, string modName) =>
         mods.Any(mod => mod.Title.Equals(modName, StringComparison.OrdinalIgnoreCase));
