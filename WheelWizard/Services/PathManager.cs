@@ -20,8 +20,17 @@ public static class PathManager
     // Wheel wizard's appdata paths  (dont have to be expressions since they dont depend on user input like the others)f
     public static readonly string WheelWizardAppdataPath = Path.Combine(GetAppDataFolder(), "CT-MKWII");
     public static readonly string WheelWizardConfigFilePath = Path.Combine(WheelWizardAppdataPath, "config.json");
+    public static readonly string ModsFolderPath = Path.Combine(WheelWizardAppdataPath, "Mods");
+    public static readonly string ModConfigFilePath = Path.Combine(ModsFolderPath, "modconfig.json");
+    public static readonly string TempModsFolderPath = Path.Combine(ModsFolderPath, "Temp");
+    
+    
+    //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
+    //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
+    //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly 
+    public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
 
-    // Keep config in ~/.config for MacOS
+    // Keep config in ~/.config for MacOS and Linux, and in AppData for Windows
     private static string GetAppDataFolder()
 {
     if (OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
