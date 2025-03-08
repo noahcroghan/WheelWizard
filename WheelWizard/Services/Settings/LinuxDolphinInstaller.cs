@@ -18,8 +18,8 @@ public static class LinuxDolphinInstaller
         {
             var processInfo = new ProcessStartInfo
             {
-                FileName = "/bin/sh",
-                Arguments = $"-c \"command -v {command.Split(' ').First()}\"",
+                FileName = "/usr/bin/env",
+                Arguments = $"sh -c \"command -v {command.Split(' ').First()}\"",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
@@ -208,8 +208,8 @@ public static class LinuxDolphinInstaller
 
         return true;
     }
-    
-    
+
+
     //this should return null if not found since functions above require it
     public static string? TryFindUserFolderPath()
     {
