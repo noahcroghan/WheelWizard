@@ -19,18 +19,16 @@ public static class PathManager
     public static readonly string WheelWizardConfigFilePath = Path.Combine(WheelWizardAppdataPath, "config.json");
     public static readonly string ModsFolderPath = Path.Combine(WheelWizardAppdataPath, "Mods");
     public static readonly string ModConfigFilePath = Path.Combine(ModsFolderPath, "modconfig.json");
-    
-    //TempFolders
     public static readonly string TempModsFolderPath = Path.Combine(ModsFolderPath, "Temp");
     public static readonly string RetroRewindTempFile = Path.Combine(TempModsFolderPath, "RetroRewind.zip");
     public static string RetroRewindVersionFile => Path.Combine(RetroRewind6FolderPath, "version.txt");
+    public static string WiiDbFile => Path.Combine(PathManager.WiiFolderPath, "shared2", "menu", "FaceLib", "RFL_DB.dat");
 
     
     //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
     //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
     //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly 
-    public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
-    public static string GetModDirectoryPath(string modName) => Path.Combine(ModsFolderPath, modName);
+    
 
     // Keep config in ~/.config for MacOS
     private static string GetAppDataFolder()
@@ -43,6 +41,8 @@ public static class PathManager
 }
     
     // helper paths for folders used across multiple files
+    public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
+    public static string GetModDirectoryPath(string modName) => Path.Combine(ModsFolderPath, modName);
     public static string RiivolutionWhWzFolderPath => Path.Combine(LoadFolderPath, "Riivolution", "WheelWizard");
     public static string RetroRewind6FolderPath => Path.Combine(RiivolutionWhWzFolderPath, "RetroRewind6");
     
@@ -54,18 +54,14 @@ public static class PathManager
     {
         get
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
+                if (string.IsNullOrWhiteSpace(UserFolderPath)) return "";
                 return Path.Combine(UserFolderPath, "Load");
             }
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
                 return Path.Combine(UserFolderPath, "data", "dolphin-emu", "Load");
-            }
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                if (string.IsNullOrWhiteSpace(UserFolderPath)) return "";
-                return Path.Combine(UserFolderPath, "Load");
             }
             throw new PlatformNotSupportedException("Unsupported operating system");
         }
