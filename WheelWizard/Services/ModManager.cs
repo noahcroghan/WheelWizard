@@ -182,8 +182,8 @@ public class ModManager : INotifyPropertyChanged
     
     var oldTitle = selectedMod.Title;
 
-    var oldDirectoryName = ModInstallation.GetModDirectoryPath(oldTitle);
-    var newDirectoryName = ModInstallation.GetModDirectoryPath(newTitle);
+    var oldDirectoryName = PathManager.GetModDirectoryPath(oldTitle);
+    var newDirectoryName = PathManager.GetModDirectoryPath(newTitle);
 
     // Check if the old directory exists
     if (!Directory.Exists(oldDirectoryName)) return;
@@ -236,7 +236,7 @@ public class ModManager : INotifyPropertyChanged
         var areTheySure = await new YesNoWindow().SetMainText(Humanizer.ReplaceDynamic(Phrases.PopupText_SureDeleteQuestion, selectedMod.Title)).AwaitAnswer();
         if (!areTheySure) return;
 
-        var modDirectory = ModInstallation.GetModDirectoryPath(selectedMod.Title);
+        var modDirectory = PathManager.GetModDirectoryPath(selectedMod.Title);
 
         if (!Directory.Exists(modDirectory))
         {
@@ -264,7 +264,7 @@ public class ModManager : INotifyPropertyChanged
 
     public void OpenModFolder(Mod selectedMod)
     {
-        var modDirectory = ModInstallation.GetModDirectoryPath(selectedMod.Title);
+        var modDirectory = PathManager.GetModDirectoryPath(selectedMod.Title);
         if (Directory.Exists(modDirectory))
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
