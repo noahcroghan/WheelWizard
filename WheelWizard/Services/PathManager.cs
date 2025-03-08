@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
 using WheelWizard.Helpers;
 using WheelWizard.Services.Settings;
 
@@ -41,20 +38,19 @@ public static class PathManager
     public static readonly string WheelWizardConfigFilePath = Path.Combine(WheelWizardAppdataPath, "config.json");
     public static readonly string ModsFolderPath = Path.Combine(WheelWizardAppdataPath, "Mods");
     public static readonly string ModConfigFilePath = Path.Combine(ModsFolderPath, "modconfig.json");
-
-    //TempFolders
     public static readonly string TempModsFolderPath = Path.Combine(ModsFolderPath, "Temp");
     public static readonly string RetroRewindTempFile = Path.Combine(TempModsFolderPath, "RetroRewind.zip");
     public static string RetroRewindVersionFile => Path.Combine(RetroRewind6FolderPath, "version.txt");
+    public static string WiiDbFile => Path.Combine(PathManager.WiiFolderPath, "shared2", "menu", "FaceLib", "RFL_DB.dat");
 
 
     //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
     //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
-    //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly
-    public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
-    public static string GetModDirectoryPath(string modName) => Path.Combine(ModsFolderPath, modName);
+    //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly 
 
     // helper paths for folders used across multiple files
+    public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
+    public static string GetModDirectoryPath(string modName) => Path.Combine(ModsFolderPath, modName);
     public static string RiivolutionWhWzFolderPath => Path.Combine(LoadFolderPath, "Riivolution", "WheelWizard");
     public static string RetroRewind6FolderPath => Path.Combine(RiivolutionWhWzFolderPath, "RetroRewind6");
 

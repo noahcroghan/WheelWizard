@@ -1,11 +1,7 @@
 ﻿using IniParser;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Threading.Tasks;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;

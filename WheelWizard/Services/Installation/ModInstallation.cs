@@ -1,10 +1,6 @@
 ﻿using SharpCompress.Archives;
-using System;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
 using System.Text.Json;
-using System.Threading.Tasks;
 using WheelWizard.Models.Settings;
 using WheelWizard.Views.Popups.Generic;
 

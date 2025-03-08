@@ -1,13 +1,8 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Settings;
@@ -137,8 +132,8 @@ public partial class WhWzSettings : UserControl
             if (!string.IsNullOrEmpty(dolphinAppPath))
             {
                 var result = await new YesNoWindow()
-                    .SetMainText($"{Phrases.PopupText_DolphinFoundText}\n{dolphinAppPath}")
-                    .SetExtraText("If you dont know what all of this means, just click yes :)")
+                    .SetMainText("Dolphin Emulator found.")
+                    .SetExtraText($"{Phrases.PopupText_DolphinFoundText}\n{dolphinAppPath}")
                     .AwaitAnswer();
 
                 if (result)

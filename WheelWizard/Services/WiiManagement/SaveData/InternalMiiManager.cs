@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 namespace WheelWizard.Services.WiiManagement.SaveData;
 
 public static class InternalMiiManager
 {
-    private static readonly string WiiDbFile = Path.Combine(PathManager.WiiFolderPath, "shared2", "menu", "FaceLib", "RFL_DB.dat");
+    private static readonly string WiiDbFile = PathManager.WiiDbFile;
 
     private const int MiiLength = 74; // Each Mii block is 74 bytes
     private static readonly byte[] emptyMii = new byte[MiiLength];
