@@ -32,6 +32,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         Instance = this;
         Initialized += ViewUtils.OnInitialized;
         InitializeComponent();
+        AddLayer();
         
         OnSettingChanged(SettingsManager.SAVED_WINDOW_SCALE);
         SettingsManager.WINDOW_SCALE.Subscribe(this);

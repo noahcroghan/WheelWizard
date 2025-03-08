@@ -60,18 +60,19 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
     public Action BeforeClose { get; set; } = () => { };
     
     // Most (if not all) of these parameters should be set in the popup you create, and not kept as a parameter for that popup
-    public PopupWindow(bool allowClose, bool allowLayoutInteraction, bool isTopMost, string title = "", Vector? size = null)
+    public PopupWindow(bool allowClose, bool allowParentInteraction, bool isTopMost, string title = "", Vector? size = null)
     {
-        size ??= new(400, 200);
+        size ??= new Vector(400, 200);
         IsTopMost = isTopMost;
         CanClose = allowClose;
         WindowTitle = title;
-        AllowLayoutInteraction = allowLayoutInteraction;
+        AllowParentInteraction = allowParentInteraction;
         var mainWindow = ViewUtils.GetLayout();
         if(mainWindow.IsVisible)
             Owner = mainWindow;
         
         InitializeComponent();
+        AddLayer();
         DataContext = this;
 
         var scaleFactor = (double)SettingsManager.WINDOW_SCALE.Get();
@@ -88,11 +89,6 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
     private void PopupWindow_Loaded(object? sender, RoutedEventArgs e)
     {
         BeforeOpen();
-        AddLayer();
-        
-        if (AllowLayoutInteraction) return;
-        
-        ViewUtils.GetLayout().SetInteractable(false);
     }
     
     protected void TopBar_PointerPressed(object? sender, PointerPressedEventArgs e)
@@ -107,9 +103,6 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
     {
         BeforeClose();
         RemoveLayer();
-        
-        if (!AllowLayoutInteraction)
-            ViewUtils.GetLayout().SetInteractable(true);
         
         base.OnClosed(e);
     }
