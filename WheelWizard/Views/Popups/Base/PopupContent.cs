@@ -5,11 +5,11 @@ namespace WheelWizard.Views.Popups;
 
 public abstract class PopupContent : UserControl
 {
-    public PopupWindow Window { get; private set; }
+    public Base.PopupWindow Window { get; private set; }
     
     protected PopupContent(bool allowClose, bool allowLayoutInteraction, bool isTopMost, string title = "", Vector? size = null)
     {
-        Window = new PopupWindow(allowClose, allowLayoutInteraction, isTopMost, title, size)
+        Window = new Base.PopupWindow(allowClose, allowLayoutInteraction, isTopMost, title, size)
         {
             PopupContent = { Content = this },
             BeforeClose = BeforeClose,

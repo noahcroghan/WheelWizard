@@ -191,8 +191,6 @@ public partial class ModDetailViewer : UserControl
                 return;
             }
             
-            //todo: fix die stomme bug
-            
             var progressWindow = new ProgressWindow($"Downloading {CurrentMod._sName}");
             progressWindow.Show();
             progressWindow.SetExtraText("Loading...");

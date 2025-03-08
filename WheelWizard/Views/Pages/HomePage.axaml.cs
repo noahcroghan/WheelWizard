@@ -87,16 +87,16 @@ public partial class HomePage : UserControl
 
     private async static void Download()
     {
-        ViewUtils.GetLayout().DisableEverything();
+        ViewUtils.GetLayout().SetInteractable(false);
         await currentLauncher.Install();
-        ViewUtils.GetLayout().EnableEverything();
+        ViewUtils.GetLayout().SetInteractable(true);
     }
 
     private async static void Update()
     {
-        ViewUtils.GetLayout().DisableEverything();
+        ViewUtils.GetLayout().SetInteractable(false);
         await currentLauncher.Update();
-        ViewUtils.GetLayout().EnableEverything();
+        ViewUtils.GetLayout().SetInteractable(true);
     }
     
     private void PlayButton_Click(object? sender, RoutedEventArgs e)
