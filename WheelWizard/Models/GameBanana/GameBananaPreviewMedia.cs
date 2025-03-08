@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace WheelWizard.Models.GameBanana;
 
 public class GameBananaPreviewMedia

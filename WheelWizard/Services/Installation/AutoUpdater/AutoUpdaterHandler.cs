@@ -1,7 +1,5 @@
 ﻿using Semver;
-using System.Collections.Generic;
 using System.Text.Json;
-using System.Threading.Tasks;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Github;
 using WheelWizard.Resources.Languages;
