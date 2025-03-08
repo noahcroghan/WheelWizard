@@ -59,12 +59,12 @@ public partial class WhWzSettings : UserControl
         return "Custom: " + percentageString;
     }
 
-    private async void AutoFillPaths()
+    private void AutoFillPaths()
     {
         if (DolphinExeInput.Text != "")
             return;
         
-        var folderPath = await PathManager.TryFindUserFolderPath();
+        var folderPath = PathManager.TryFindUserFolderPath();
         if (!string.IsNullOrEmpty(folderPath))
             DolphinUserPathInput.Text = folderPath;
     }
@@ -127,7 +127,7 @@ public partial class WhWzSettings : UserControl
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
-            var dolphinAppPath = await PathManager.TryToFindApplicationPath();
+            var dolphinAppPath = PathManager.TryToFindApplicationPath();
             if (!string.IsNullOrEmpty(dolphinAppPath))
             {
                 var result = await new YesNoWindow()
@@ -221,7 +221,7 @@ public partial class WhWzSettings : UserControl
         }
 
         // Attempt to find Dolphin's default path if no valid folder is set
-        var folderPath = await PathManager.TryFindUserFolderPath();
+        var folderPath = PathManager.TryFindUserFolderPath();
         if (!string.IsNullOrEmpty(folderPath))
         {
             // Ask the user if they want to use the automatically found folder

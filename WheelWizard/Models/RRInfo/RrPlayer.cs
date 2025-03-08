@@ -16,7 +16,7 @@ public class RrPlayer
     public required string Fc { get; set; }
     public string Ev { get; set; } = "--"; // private games don't have EV and EB
     public string Eb { get; set; } = "--";
-    public required List<Mii> Mii { get; set; } = [];
+    public List<Mii> Mii { get; set; } = [];
 
     public int PlayerCount => int.Parse(Count);
     public Mii? FirstMii => Mii.Count <= 0 ? null : Mii[0];

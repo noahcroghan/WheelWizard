@@ -27,13 +27,11 @@ public class GameDataLoader : RepeatedTaskManager
         {
             if (string.IsNullOrWhiteSpace(PathManager.RiivolutionWhWzFolderPath))
                 return string.Empty;
-            var path = Path.Combine(PathManager.RiivolutionWhWzFolderPath, "riivolution", "save", "RetroWFC");
-            if (Directory.Exists(path)) 
-                return path;
-
+            if (Directory.Exists(PathManager.SaveFolderPath)) 
+                return PathManager.SaveFolderPath;
             try
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(PathManager.SaveFolderPath);
             }
             catch (Exception ex)
             {
@@ -43,7 +41,7 @@ public class GameDataLoader : RepeatedTaskManager
                     .SetInfoText($"Error: {ex.Message}")
                     .Show();
             }
-            return path;
+            return PathManager.SaveFolderPath;
         }
     }
 

@@ -14,7 +14,7 @@ public static class PathManager
     public static string DolphinFilePath => (string)SettingsManager.DOLPHIN_LOCATION.Get();
     public static string UserFolderPath => (string)SettingsManager.USER_FOLDER_PATH.Get();
     
-    // Wheel wizard's appdata paths  (dont have to be expressions since they dont depend on user input like the others)f
+    // Wheel wizard's appdata paths  (dont have to be expressions since they dont depend on user input like the others)
     public static readonly string WheelWizardAppdataPath = Path.Combine(GetAppDataFolder(), "CT-MKWII");
     public static readonly string WheelWizardConfigFilePath = Path.Combine(WheelWizardAppdataPath, "config.json");
     public static readonly string ModsFolderPath = Path.Combine(WheelWizardAppdataPath, "Mods");
@@ -22,7 +22,7 @@ public static class PathManager
     public static readonly string TempModsFolderPath = Path.Combine(ModsFolderPath, "Temp");
     public static readonly string RetroRewindTempFile = Path.Combine(TempModsFolderPath, "RetroRewind.zip");
     public static string RetroRewindVersionFile => Path.Combine(RetroRewind6FolderPath, "version.txt");
-    public static string WiiDbFile => Path.Combine(PathManager.WiiFolderPath, "shared2", "menu", "FaceLib", "RFL_DB.dat");
+    public static string WiiDbFile => Path.Combine(WiiFolderPath, "shared2", "menu", "FaceLib", "RFL_DB.dat");
 
     
     //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
@@ -108,7 +108,7 @@ public static class PathManager
     }
 
 
-    public async static Task<string?> TryFindUserFolderPath()
+    public static string? TryFindUserFolderPath()
     {
         var appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "Dolphin Emulator");
@@ -131,7 +131,7 @@ public static class PathManager
         return linuxPath;
     }
 
-    public async static Task<string?> TryToFindApplicationPath() {
+    public static string? TryToFindApplicationPath() {
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {

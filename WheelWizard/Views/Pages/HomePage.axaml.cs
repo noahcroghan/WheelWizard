@@ -85,14 +85,14 @@ public partial class HomePage : UserControl
     private static void LaunchGame() => currentLauncher.Launch();
     private static void NavigateToSettings() => ViewUtils.NavigateToPage(new SettingsPage());
 
-    private async static void Download()
+    private static async void Download()
     {
         ViewUtils.GetLayout().SetInteractable(false);
         await currentLauncher.Install();
         ViewUtils.GetLayout().SetInteractable(true);
     }
 
-    private async static void Update()
+    private static async void Update()
     {
         ViewUtils.GetLayout().SetInteractable(false);
         await currentLauncher.Update();
