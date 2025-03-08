@@ -1,7 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using WheelWizard.Services.UrlProtocol;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WheelWizard.Views;
 
