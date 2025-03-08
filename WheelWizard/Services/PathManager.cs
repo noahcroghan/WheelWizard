@@ -9,7 +9,6 @@ public static class PathManager
     // IMPORTANT: To keep things consistent all paths should be Attrib expressions,
     //            and either end with `FilePath` or `FolderPath`
 
-    public static string AppDataFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     public static string HomeFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
     // Paths set by the user
@@ -34,7 +33,7 @@ public static class PathManager
     private static string LinuxDolphinNativeRelDataSubFolderPath => Path.Combine(".local", "share", LinuxDolphinRelSubFolderPath);
 
     // Wheel wizard's appdata paths  (dont have to be expressions since they dont depend on user input like the others)f
-    public static readonly string WheelWizardAppdataPath = Path.Combine(AppDataFolderPath, "CT-MKWII");
+    public static readonly string WheelWizardAppdataPath = Path.Combine(GetAppDataFolder(), "CT-MKWII");
     public static readonly string WheelWizardConfigFilePath = Path.Combine(WheelWizardAppdataPath, "config.json");
     public static readonly string ModsFolderPath = Path.Combine(WheelWizardAppdataPath, "Mods");
     public static readonly string ModConfigFilePath = Path.Combine(ModsFolderPath, "modconfig.json");
@@ -47,6 +46,17 @@ public static class PathManager
     //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
     //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
     //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly 
+
+  
+    // Keep config in ~/.config for macOS
+    private static string GetAppDataFolder()
+    {
+        if (OperatingSystem.IsMacOS())
+        {
+            return Path.Combine(HomeFolderPath, ".config"); // ~ is the home directory
+        }
+        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+    }
 
     // helper paths for folders used across multiple files
     public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
@@ -173,12 +183,12 @@ public static class PathManager
 
     public static string? TryFindUserFolderPath()
     {
-        var appDataPath = Path.Combine(AppDataFolderPath, "Dolphin Emulator");
+        var appDataPath = Path.Combine(GetAppDataFolder(), "Dolphin Emulator");
         if (FileHelper.DirectoryExists(appDataPath))
             return appDataPath;
 
         // Macos path
-        var libraryPath = Path.Combine(AppDataFolderPath, "Dolphin");
+        var libraryPath = Path.Combine(GetAppDataFolder(), "Dolphin");
         if (FileHelper.DirectoryExists(libraryPath))
             return libraryPath;
 
