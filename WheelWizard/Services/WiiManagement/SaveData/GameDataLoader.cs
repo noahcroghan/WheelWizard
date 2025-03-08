@@ -21,7 +21,7 @@ public class GameDataLoader : RepeatedTaskManager
     /// The path to where the “rksys.dat” folder structure is expected to live, e.g.
     ///   ..\path\to\Riivolution\riivolution\save\RetroWFC\RMCP\rksys.dat
     /// </summary>
-    private static string SaveFilePath
+    private static string? SaveFilePath
     {
         get
         {
@@ -35,11 +35,8 @@ public class GameDataLoader : RepeatedTaskManager
             }
             catch (Exception ex)
             {
-                new MessageBoxWindow()
-                    .SetMessageType(MessageBoxWindow.MessageType.Error)
-                    .SetTitleText($"creating save directory failed")
-                    .SetInfoText($"Error: {ex.Message}")
-                    .Show();
+                //do nothing until user directory is resolved.
+                return null;
             }
             return PathManager.SaveFolderPath;
         }
@@ -190,7 +187,7 @@ public class GameDataLoader : RepeatedTaskManager
 
             // Region is often found near offset 0x23308 + 0x3802 in RKGD. This code is a partial guess.
             // In practice, region might be read differently depending on your rksys layout.
-            RegionId = (BigEndianBinaryReader.BufferToUint16(_saveData, 0x23308 + 0x3802) / 4096),
+            RegionId = BigEndianBinaryReader.BufferToUint16(_saveData, 0x23308 + 0x3802) / 4096,
         };
 
         ParseFriends(user, offset);
@@ -298,9 +295,9 @@ public class GameDataLoader : RepeatedTaskManager
                 }
             }
 
-            var saveFileFolder = Path.Combine(SaveFilePath, RRRegionManager.ConvertRegionToGameID(currentRegion));
+            var saveFileFolder = Path.Combine(SaveFilePath, RRRegionManager.ConvertRegionToGameId(currentRegion));
             var saveFile = Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
-            return (saveFile.Length == 0) ? null : File.ReadAllBytes(saveFile[0]);
+            return saveFile.Length == 0 ? null : File.ReadAllBytes(saveFile[0]);
         }
         catch
         {
@@ -452,10 +449,10 @@ public class GameDataLoader : RepeatedTaskManager
     
     private bool SaveRksysToFile()
     {
-        if (_saveData == null) return false;
+        if (_saveData == null || SaveFilePath == null) return false;
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
-        var saveFolder = Path.Combine(SaveFilePath, RRRegionManager.ConvertRegionToGameID(currentRegion));
+        var saveFolder = Path.Combine(SaveFilePath, RRRegionManager.ConvertRegionToGameId(currentRegion));
 
         try
         {

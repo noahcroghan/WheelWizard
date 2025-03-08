@@ -30,15 +30,15 @@ public static class PathManager
     //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly 
     
 
-    // Keep config in ~/.config for MacOS
+    // Keep config in ~/.config for macOS
     private static string GetAppDataFolder()
-{
-    if (OperatingSystem.IsMacOS())
     {
-        return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".config");
+        if (OperatingSystem.IsMacOS())
+        {
+            return Path.Combine("~", ".config"); // ~ is the home directory
+        }
+        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     }
-    return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-}
     
     // helper paths for folders used across multiple files
     public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
