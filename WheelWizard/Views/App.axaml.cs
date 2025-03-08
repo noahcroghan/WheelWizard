@@ -1,13 +1,22 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using WheelWizard.Services.UrlProtocol;
 
 namespace WheelWizard.Views;
 
-public partial class App : Application
+public class App : Application
 {
+    /// <summary>
+    /// Gets the service provider configured for this application.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Thrown if the application is not initialized yet.</exception>
+    public static IServiceProvider Services =>
+        (Current as App)?._serviceProvider ?? throw new InvalidOperationException("The application is not initialized yet.");
+
+    private IServiceProvider? _serviceProvider;
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -20,9 +29,11 @@ public partial class App : Application
             desktop.MainWindow = new Layout();
         }
 
+        var services = new ServiceCollection();
+        services.AddWheelWizardServices();
+
+        _serviceProvider = services.BuildServiceProvider();
+
         base.OnFrameworkInitializationCompleted();
     }
-
- 
-
 }
