@@ -127,7 +127,7 @@ public static class ModInstallation
                 processedEntries++;
                 
                 // Update the progress window
-                var progress = (int)((processedEntries / (double)totalEntries) * 100);
+                var progress = (int)(processedEntries / (double)totalEntries * 100);
                 Avalonia.Threading.Dispatcher.UIThread.Post(() =>
                 {
                 progressWindow.UpdateProgress(progress);

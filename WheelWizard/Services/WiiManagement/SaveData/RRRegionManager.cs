@@ -14,7 +14,7 @@ public class RRRegionManager
                 continue;
 
             // Build the folder path using the region's game ID
-            var regionFolderName = RRRegionManager.ConvertRegionToGameID(region);
+            var regionFolderName = ConvertRegionToGameID(region);
             var regionFolderPath = Path.Combine(PathManager.SaveFolderPath, regionFolderName);
 
             // Check if the directory exists

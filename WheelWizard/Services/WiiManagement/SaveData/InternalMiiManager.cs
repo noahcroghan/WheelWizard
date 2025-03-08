@@ -50,7 +50,7 @@ public static class InternalMiiManager
         ms.Seek(0x4, SeekOrigin.Begin);
         for (var i = 0; i < 100; i++)
         {
-            var block = (i < allMiis.Count) ? allMiis[i] : emptyMii;
+            var block = i < allMiis.Count ? allMiis[i] : emptyMii;
             ms.Write(block, 0, MiiLength);
         }
         const int crcOffset = 0x1F1DE;
