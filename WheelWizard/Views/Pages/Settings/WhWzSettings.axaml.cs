@@ -131,8 +131,8 @@ public partial class WhWzSettings : UserControl
             if (!string.IsNullOrEmpty(dolphinAppPath))
             {
                 var result = await new YesNoWindow()
-                    .SetMainText($"{Phrases.PopupText_DolphinFoundText}\n{dolphinAppPath}")
-                    .SetExtraText("If you dont know what all of this means, just click yes :)")
+                    .SetMainText("Dolphin Emulator found.")
+                    .SetExtraText($"{Phrases.PopupText_DolphinFoundText}\n{dolphinAppPath}")
                     .AwaitAnswer();
 
                 if (result)
