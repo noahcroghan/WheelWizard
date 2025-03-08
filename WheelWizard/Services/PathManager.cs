@@ -45,15 +45,15 @@ public static class PathManager
 
     //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
     //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
-    //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly 
+    //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly
 
-  
+
     // Keep config in ~/.config for macOS
     private static string GetAppDataFolder()
     {
         if (OperatingSystem.IsMacOS())
         {
-            return Path.Combine(HomeFolderPath, ".config"); // ~ is the home directory
+            //return Path.Combine(HomeFolderPath, ".config"); // ~ is the home directory
         }
         return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     }
