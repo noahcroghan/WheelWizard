@@ -22,18 +22,23 @@ public static class PathManager
     public static readonly string WheelWizardConfigFilePath = Path.Combine(WheelWizardAppdataPath, "config.json");
     public static readonly string ModsFolderPath = Path.Combine(WheelWizardAppdataPath, "Mods");
     public static readonly string ModConfigFilePath = Path.Combine(ModsFolderPath, "modconfig.json");
-    public static readonly string TempModsFolderPath = Path.Combine(ModsFolderPath, "Temp");
     
+    //TempFolders
+    public static readonly string TempModsFolderPath = Path.Combine(ModsFolderPath, "Temp");
+    public static readonly string RetroRewindTempFile = Path.Combine(TempModsFolderPath, "RetroRewind.zip");
+    public static string RetroRewindVersionFile => Path.Combine(RetroRewind6FolderPath, "version.txt");
+
     
     //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
     //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
     //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly 
     public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
+    public static string GetModDirectoryPath(string modName) => Path.Combine(ModsFolderPath, modName);
 
-    // Keep config in ~/.config for MacOS and Linux, and in AppData for Windows
+    // Keep config in ~/.config for MacOS
     private static string GetAppDataFolder()
 {
-    if (OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
+    if (OperatingSystem.IsMacOS())
     {
         return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".config");
     }
