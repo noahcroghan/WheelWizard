@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net;
-using WheelWizard.Models.GameBanana;
+﻿using WheelWizard.Models.GameBanana;
 
 namespace WheelWizard.Services.GameBanana;
 

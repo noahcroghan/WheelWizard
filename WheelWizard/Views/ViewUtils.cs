@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using System;
 using System.Globalization;
 using WheelWizard.Services;
 using WheelWizard.Services.LiveData;

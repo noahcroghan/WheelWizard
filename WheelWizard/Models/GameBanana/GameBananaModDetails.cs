@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace WheelWizard.Models.GameBanana;
+﻿namespace WheelWizard.Models.GameBanana;
 
 public class GameBananaModDetails
 {

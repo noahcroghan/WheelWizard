@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.IO.Compression;
-using System.Threading.Tasks;
+﻿using System.IO.Compression;
 using WheelWizard.Helpers;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Views.Popups.Generic;
