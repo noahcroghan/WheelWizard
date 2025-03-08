@@ -1,6 +1,5 @@
 ﻿using Avalonia.Interactivity;
 using Avalonia.Threading;
-using System.Threading.Tasks;
 using WheelWizard.Helpers;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.WiiManagement;

@@ -1,20 +1,11 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using WheelWizard.Helpers;
 using WheelWizard.Models.GameBanana;
 using WheelWizard.Services;
 using WheelWizard.Services.GameBanana;
 using WheelWizard.Services.Installation;
-using WheelWizard.Services.Launcher;
-using WheelWizard.Services.Launcher.Helpers;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Views.Popups.ModManagement;

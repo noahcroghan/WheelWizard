@@ -1,10 +1,6 @@
 ﻿using Avalonia.Media.Imaging;
 using Newtonsoft.Json;
 using SkiaSharp;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using WheelWizard.Helpers;
 using WheelWizard.Models.MiiImages;
 

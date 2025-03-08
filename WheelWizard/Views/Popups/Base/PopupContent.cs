@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls;
-using System.Threading.Tasks;
 
 namespace WheelWizard.Views.Popups;
 
