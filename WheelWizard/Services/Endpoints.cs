@@ -7,7 +7,6 @@ public static class Endpoints
     public const string RRZipUrl = RRUrl + "RetroRewind/zip/RetroRewind.zip";
     public const string RRVersionUrl = RRUrl + "RetroRewind/RetroRewindVersion.txt";
     public const string RRVersionDeleteUrl = RRUrl + "RetroRewind/RetroRewindDelete.txt";
-    public const string RRGroupsUrl = "http://zplwii.xyz/api/groups";
     public const string RRDiscordUrl = "https://discord.gg/yH3ReN8EhQ";
 
     /// <summary>
