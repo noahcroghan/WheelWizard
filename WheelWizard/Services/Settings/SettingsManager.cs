@@ -16,6 +16,10 @@ public class SettingsManager
             if (!FileHelper.DirectoryExists(value as string ?? string.Empty))
                 return false;
 
+            // We cannot determine the validity of the user folder path in that case
+            if (string.IsNullOrWhiteSpace(DOLPHIN_LOCATION.Get() as string))
+                return true;
+
             string[] requiredSubdirectories = { PathManager.LoadFolderPath, PathManager.ConfigFolderPath, PathManager.WiiFolderPath };
             foreach (string requiredSubdirectory in requiredSubdirectories)
             {
