@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using WheelWizard.Helpers;
+using WheelWizard.Services;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Services.Settings;
@@ -10,26 +11,7 @@ public static class LinuxDolphinInstaller
 {
     public static bool IsValidCommand(string command)
     {
-        try
-        {
-            var processInfo = new ProcessStartInfo
-            {
-                FileName = "/usr/bin/env",
-                Arguments = $"sh -c \"command -v {command.Split(' ').First()}\"",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-            };
-
-            using var process = Process.Start(processInfo);
-            process.WaitForExit();
-            return process.ExitCode == 0;
-        }
-        catch
-        {
-            return false;
-        }
+        return PathManager.IsValidUnixCommand(command);
     }
 
     public static bool IsDolphinInstalledInFlatpak()

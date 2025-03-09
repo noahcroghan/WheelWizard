@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
 using WheelWizard.Services.Settings;
@@ -47,6 +48,33 @@ public static class PathManager
     //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
     //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly
 
+    public static bool IsValidUnixCommand(string command)
+    {
+        try
+        {
+            var processInfo = new ProcessStartInfo
+            {
+                FileName = "/usr/bin/env",
+                ArgumentList = {
+                    "sh",
+                    "-c",
+                    $"command -v ${command}",
+                },
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true,
+            };
+
+            using var process = Process.Start(processInfo);
+            process.WaitForExit();
+            return process.ExitCode == 0;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
     // Keep config in ~/.config for macOS
     private static string GetAppDataFolder()

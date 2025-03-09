@@ -63,12 +63,24 @@ public partial class WhWzSettings : UserControl
     {
         if (DolphinExeInput.Text != "")
             return;
-        
+
         var folderPath = PathManager.TryFindUserFolderPath();
         if (!string.IsNullOrEmpty(folderPath))
             DolphinUserPathInput.Text = folderPath;
     }
 
+    private string WrapOnWhiteSpace(string inputText)
+    {
+        if (inputText.Any(character => Char.IsWhiteSpace(character)))
+            return $"\"{inputText}\"";
+
+        return inputText;
+    }
+
+    private async void AssignWrappedDolphinExeInput(string inputText)
+    {
+        DolphinExeInput.Text = WrapOnWhiteSpace(inputText);
+    }
 
     private async void DolphinExeBrowse_OnClick(object sender, RoutedEventArgs e)
     {
@@ -138,7 +150,7 @@ public partial class WhWzSettings : UserControl
 
                 if (result)
                 {
-                    DolphinExeInput.Text = dolphinAppPath;
+                    AssignWrappedDolphinExeInput(dolphinAppPath);
                     return;
                 }
             }
@@ -156,7 +168,7 @@ public partial class WhWzSettings : UserControl
             if (folders.Count >= 1)
             {
                 var executablePath = Path.Combine(folders[0].Path.LocalPath, "Contents", "MacOS", "Dolphin");
-                DolphinExeInput.Text = executablePath;
+                AssignWrappedDolphinExeInput(executablePath);
             }
             return; // do not do normal selection for MacOS
         }
@@ -164,7 +176,15 @@ public partial class WhWzSettings : UserControl
         var filePath = await FilePickerHelper.OpenSingleFileAsync("Select Dolphin Emulator", new[] { executableFileType });
         if (!string.IsNullOrEmpty(filePath))
         {
-            DolphinExeInput.Text = filePath;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                // On Windows, the file path is directly used as the executable, not in some command
+                DolphinExeInput.Text = filePath;
+            }
+            else
+            {
+                AssignWrappedDolphinExeInput(filePath);
+            }
         }
     }
 

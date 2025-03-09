@@ -1,5 +1,6 @@
-using WheelWizard.Models.Enums;
+using System;
 using System.Runtime.InteropServices;
+using WheelWizard.Models.Enums;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Settings;
 using WheelWizard.Services;
@@ -37,13 +38,17 @@ public class SettingsManager
             var pathOrCommand = value as string ?? string.Empty;
             if (string.IsNullOrWhiteSpace(pathOrCommand))
                 return false;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+
+            if (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX)
             {
-                if (PathManager.IsFlatpakDolphinFilePath(pathOrCommand) && !LinuxDolphinInstaller.IsDolphinInstalledInFlatpak())
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
-                    return false;
+                    if (PathManager.IsFlatpakDolphinFilePath(pathOrCommand) && !LinuxDolphinInstaller.IsDolphinInstalledInFlatpak())
+                    {
+                        return false;
+                    }
                 }
-                return FileHelper.FileExists(pathOrCommand) || LinuxDolphinInstaller.IsValidCommand(pathOrCommand);
+                return FileHelper.FileExists(pathOrCommand) || PathManager.IsValidUnixCommand(pathOrCommand);
             }
 
             return FileHelper.FileExists(pathOrCommand);
