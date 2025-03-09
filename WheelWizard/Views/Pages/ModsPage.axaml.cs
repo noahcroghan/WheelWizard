@@ -217,7 +217,7 @@ public partial class ModsPage : UserControl, INotifyPropertyChanged
 
     private void PriorityText_OnKeyDown(object? sender, KeyEventArgs e)
     {
-        if (e.Key != Key.Enter || sender is not TextBox textBox) return;
+        if (e.Key != Key.Enter || sender is not TextBox) return;
         ViewUtils.FindParent<ListBoxItem>(e.Source)?.Focus();
     }
 }

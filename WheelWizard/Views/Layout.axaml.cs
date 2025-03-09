@@ -16,8 +16,11 @@ using WheelWizard.Views.Pages;
 
 namespace WheelWizard.Views;
 
-public partial class Layout : Window, IRepeatedTaskListener, ISettingListener
+public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListener
 {
+    protected override Control InteractionOverlay => DisabledDarkenEffect;
+    protected override Control InteractionContent => CompleteGrid;
+    
     public const double WindowHeight = 876;
     public const double WindowWidth = 656;
     public static Layout Instance { get; private set; }
@@ -29,6 +32,7 @@ public partial class Layout : Window, IRepeatedTaskListener, ISettingListener
         Instance = this;
         Initialized += ViewUtils.OnInitialized;
         InitializeComponent();
+        AddLayer();
         
         OnSettingChanged(SettingsManager.SAVED_WINDOW_SCALE);
         SettingsManager.WINDOW_SCALE.Subscribe(this);
@@ -150,18 +154,6 @@ public partial class Layout : Window, IRepeatedTaskListener, ISettingListener
         if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             BeginMoveDrag(e);
     }
-    
-    public void DisableEverything()
-    {
-        DisabledDarkenEffect.IsVisible = true;
-        CompleteGrid.IsEnabled = false;
-    }
-
-    public void EnableEverything()
-    {
-        CompleteGrid.IsEnabled = true;
-        DisabledDarkenEffect.IsVisible = false;
-    } 
 
     private void CloseButton_Click(object? sender, RoutedEventArgs e) => Close();
     private void MinimizeButton_Click(object? sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;

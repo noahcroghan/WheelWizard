@@ -14,7 +14,7 @@ public class RRRegionManager
                 continue;
 
             // Build the folder path using the region's game ID
-            var regionFolderName = RRRegionManager.ConvertRegionToGameID(region);
+            var regionFolderName = ConvertRegionToGameId(region);
             var regionFolderPath = Path.Combine(PathManager.SaveFolderPath, regionFolderName);
 
             // Check if the directory exists
@@ -31,7 +31,7 @@ public class RRRegionManager
             validRegions.Add(MarioKartWiiEnums.Regions.None);
         return validRegions;
     }
-    public static string ConvertRegionToGameID(MarioKartWiiEnums.Regions region) => region switch
+    public static string ConvertRegionToGameId(MarioKartWiiEnums.Regions region) => region switch
     {
         MarioKartWiiEnums.Regions.None => "",
         MarioKartWiiEnums.Regions.America => "RMCE",

@@ -35,7 +35,6 @@
         <PackageReference Include="Avalonia.HtmlRenderer" Version="11.0.0"/>
         <PackageReference Include="ini-parser" Version="2.5.2"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
 
         <!-- Everyhitng specifically for Avalonia -->
         <PackageReference Include="Avalonia" Version="11.2.4"/>

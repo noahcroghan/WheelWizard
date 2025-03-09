@@ -1,8 +1,10 @@
+// ReSharper disable InconsistentNaming
+
 namespace WheelWizard.Models.GameBanana;
 
 public class GameBananaPreviewMedia
 {
-    public List<Image> _aImages { get; set; }
+    public List<Image> _aImages { get; set; } = [];
     public string? FirstImageUrl => _aImages.Count > 0 ? $"{_aImages[0]._sBaseUrl}/{_aImages[0]._sFile}" : null;
     public class Image
     {

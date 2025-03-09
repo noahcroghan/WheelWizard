@@ -73,7 +73,7 @@ public class UrlProtocolManager
     }
 #endif
     
-    async public static void SetWhWzSchemeAsync()
+    public static async void SetWhWzSchemeAsync()
     {
 #if WINDOWS
         SetWhWzSchemeAsyncInternally();
