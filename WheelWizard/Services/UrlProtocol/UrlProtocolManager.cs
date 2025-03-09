@@ -1,6 +1,7 @@
 ﻿#if WINDOWS
 using Microsoft.Win32;
 #endif
+using System.Diagnostics;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.ModManagement;
 
