@@ -25,7 +25,7 @@ public class GameDataLoader : RepeatedTaskManager
     {
         get
         {
-            if (string.IsNullOrWhiteSpace(PathManager.RiivolutionWhWzFolderPath))
+            if (string.IsNullOrWhiteSpace(PathManager.UserFolderPath))
                 return string.Empty;
             if (Directory.Exists(PathManager.SaveFolderPath)) 
                 return PathManager.SaveFolderPath;
