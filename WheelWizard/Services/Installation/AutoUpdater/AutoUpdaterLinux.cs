@@ -110,6 +110,7 @@ echo 'Update completed successfully.'
                 ArgumentList = {
                     "chmod",
                     "+x",
+                    "--",
                     scriptFilePath,
                 },
                 CreateNoWindow = true,
@@ -130,6 +131,7 @@ echo 'Update completed successfully.'
             FileName = "/usr/bin/env",
             ArgumentList = {
                 "sh",
+                "--",
                 scriptFilePath,
             },
             CreateNoWindow = false,

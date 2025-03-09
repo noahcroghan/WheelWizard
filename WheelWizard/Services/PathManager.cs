@@ -58,7 +58,8 @@ public static class PathManager
                 ArgumentList = {
                     "sh",
                     "-c",
-                    $"command -v ${command}",
+                    "--",
+                    $"command -v -- ${command}",
                 },
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,

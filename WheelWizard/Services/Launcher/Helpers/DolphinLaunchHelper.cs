@@ -38,6 +38,7 @@ public static class DolphinLaunchHelper
                 startInfo.FileName = "/usr/bin/env";
                 startInfo.ArgumentList.Add("sh");
                 startInfo.ArgumentList.Add("-c");
+                startInfo.ArgumentList.Add("--");
                 startInfo.ArgumentList.Add($"{dolphinLocation} {arguments}");
                 startInfo.UseShellExecute = false;
             }
