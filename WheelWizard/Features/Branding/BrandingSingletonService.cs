@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection;
-using WheelWizard.Services;
+﻿using WheelWizard.Services;
 
 namespace WheelWizard.Branding;
 
@@ -21,7 +19,9 @@ public class BrandingSingletonService : IBrandingSingletonService
     {
         DisplayName = "Wheel Wizard",
         Identifier = "WheelWizard",
-        Version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion ?? "0.0.0",
+        Version = "2.0.1", 
+        // TODO: When we deploy using Github workflows we can use the FileVersion
+        // Version = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion ?? "0.0.0",
         RepositoryUrl = new(Endpoints.WhWzGithubUrl),
         DiscordUrl = new(Endpoints.WhWzDiscordUrl),
         SupportUrl = new(Endpoints.SupportLink)
