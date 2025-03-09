@@ -5,9 +5,9 @@ using WheelWizard.Models.Github;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Views.Popups.Generic;
 
-namespace WheelWizard.Services.Installation.AutoUpdater;
+namespace WheelWizard.AutoUpdating.Platforms;
 
-public class AutoUpdaterWindows : IUpdaterPlatform
+public class WindowsUpdatePlatform : IUpdatePlatform
 {
     public GithubAsset? GetAssetForCurrentPlatform(GithubRelease release)
     {

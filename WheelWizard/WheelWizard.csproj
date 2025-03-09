@@ -34,7 +34,15 @@
         <!-- Everyhitng from the OG Wheel wizard project -->
         <PackageReference Include="Avalonia.HtmlRenderer" Version="11.0.0"/>
         <PackageReference Include="ini-parser" Version="2.5.2"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1"/>
+        <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0"/>
+
+        <!-- Code analyzers -->
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
 
         <!-- Everyhitng specifically for Avalonia -->
         <PackageReference Include="Avalonia" Version="11.2.4"/>

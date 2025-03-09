@@ -5,6 +5,7 @@ using WheelWizard.Models;
 namespace WheelWizard.Helpers;
 
 //todo: Use static HttpClient with pooled connection lifetime https://stackoverflow.com/a/77379657
+// TODO: Refactor this in separate services for each api domain 
 public static class HttpClientHelper
 {
     // This is bool here is just for testing purposes and should never be used in the production code.

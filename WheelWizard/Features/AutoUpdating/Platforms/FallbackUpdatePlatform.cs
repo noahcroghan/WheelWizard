@@ -1,18 +1,24 @@
 ﻿using Semver;
+using WheelWizard.Branding;
 using WheelWizard.Models.Github;
 using WheelWizard.Views.Popups.Generic;
 
+namespace WheelWizard.AutoUpdating.Platforms;
 
-namespace WheelWizard.Services.Installation.AutoUpdater;
-
-public class AutoUpdaterFallback : IUpdaterPlatform
+/// <summary>
+/// Fallback platform if we have no platform 
+/// </summary>
+public class FallbackUpdatePlatform(IBrandingSingletonService brandingService) : IUpdatePlatform
 {
-    //add this because it searches multiple times, but this popup can only happen once anyways :)
-    private bool _shown = false;
+    // Add this because it searches multiple times, but this popup can only happen once anyways :)
+    private bool _shown;
+
     public GithubAsset? GetAssetForCurrentPlatform(GithubRelease release)
     {
+        var installedVersion = brandingService.Branding.Version;
+        
         var latestVersion = SemVersion.Parse(release.TagName.TrimStart('v'), SemVersionStyles.Any);
-        var currentVersion = SemVersion.Parse(AutoUpdater.CurrentVersion, SemVersionStyles.Any);
+        var currentVersion = SemVersion.Parse(installedVersion, SemVersionStyles.Any);
         if (currentVersion.ComparePrecedenceTo(latestVersion) >= 0) return null;
         if (_shown) return null;
         _shown = true;
@@ -21,12 +27,12 @@ public class AutoUpdaterFallback : IUpdaterPlatform
             new MessageBoxWindow()
                 .SetTitleText("New Wheel Wizard version")
                 .SetInfoText("There is a new Wheel Wizard version available!\n" +
-                             $"Version {release.TagName.TrimStart('v')} (You are currently on {AutoUpdater.CurrentVersion})\n" +
+                             $"Version {release.TagName.TrimStart('v')} (You are currently on {installedVersion})\n" +
                              "You can manually update it by going to the github releases at: " +
                              "https://github.com/patchzyy/WheelWizard/releases")
                 .Show();
         });
-        
+
         return null;
     }
 
