@@ -59,7 +59,7 @@ public static class PathManager
                     "sh",
                     "-c",
                     "--",
-                    $"command -v -- ${command}",
+                    $"command -v -- {command}",
                 },
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
