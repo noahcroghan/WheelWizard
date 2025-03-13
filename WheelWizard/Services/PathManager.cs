@@ -83,7 +83,7 @@ public static class PathManager
         if (OperatingSystem.IsMacOS())
         {
             // TODO: Check if we don't actually need this anymore and spaces in paths work
-            //return Path.Combine(HomeFolderPath, ".config"); // ~ is the home directory
+            return Path.Combine(HomeFolderPath, ".config"); // ~ is the home directory
         }
         return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     }
