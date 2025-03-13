@@ -21,7 +21,7 @@ public class GameDataLoader : RepeatedTaskManager
     /// The path to where the “rksys.dat” folder structure is expected to live, e.g.
     ///   ..\path\to\Riivolution\riivolution\save\RetroWFC\RMCP\rksys.dat
     /// </summary>
-    private static string? SaveFilePath
+    private static string? TryCreateSaveFolderPath
     {
         get
         {
@@ -35,8 +35,8 @@ public class GameDataLoader : RepeatedTaskManager
             }
             catch (Exception ex)
             {
-                //do nothing until user directory is resolved.
-                return null;
+                // Do nothing until user directory is resolved.
+                return string.Empty;
             }
             return PathManager.SaveFolderPath;
         }
@@ -276,7 +276,7 @@ public class GameDataLoader : RepeatedTaskManager
     {
         try
         {
-            if (!Directory.Exists(SaveFilePath))
+            if (!Directory.Exists(TryCreateSaveFolderPath))
                 return null;
 
             var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
@@ -295,7 +295,7 @@ public class GameDataLoader : RepeatedTaskManager
                 }
             }
 
-            var saveFileFolder = Path.Combine(SaveFilePath, RRRegionManager.ConvertRegionToGameId(currentRegion));
+            var saveFileFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
             var saveFile = Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
             return saveFile.Length == 0 ? null : File.ReadAllBytes(saveFile[0]);
         }
@@ -449,10 +449,10 @@ public class GameDataLoader : RepeatedTaskManager
     
     private bool SaveRksysToFile()
     {
-        if (_saveData == null || SaveFilePath == null) return false;
+        if (_saveData == null || string.IsNullOrWhiteSpace(TryCreateSaveFolderPath)) return false;
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
-        var saveFolder = Path.Combine(SaveFilePath, RRRegionManager.ConvertRegionToGameId(currentRegion));
+        var saveFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
 
         try
         {

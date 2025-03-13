@@ -88,14 +88,14 @@ public static class PathManager
         return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     }
 
-    // helper paths for folders used across multiple files
+    // Helper paths for folders used across multiple files
     public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
     public static string GetModDirectoryPath(string modName) => Path.Combine(ModsFolderPath, modName);
     public static string RiivolutionWhWzFolderPath => Path.Combine(LoadFolderPath, "Riivolution", "WheelWizard");
     public static string RetroRewind6FolderPath => Path.Combine(RiivolutionWhWzFolderPath, "RetroRewind6");
 
-    //this is not the folder your save file is located in, but its the folder where every Region folder is, so the save file is in SaveFolderPath/Region
-    public static string SaveFolderPath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "Save" ,"RetroWFC");
+    // This is not the folder your save file is located in, but its the folder where every Region folder is, so the save file is in SaveFolderPath/Region
+    public static string SaveFolderPath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "save" ,"RetroWFC");
 
     public static string LinuxDolphinFullConfigSubFolderPath
     {
