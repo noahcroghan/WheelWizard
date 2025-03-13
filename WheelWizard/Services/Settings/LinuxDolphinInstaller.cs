@@ -124,12 +124,12 @@ public static class LinuxDolphinInstaller
             return true;
 
         // Detect the package manager
-        var packageManager = EnvHelper.DetectLinuxPackageManager();
-        if (string.IsNullOrEmpty(packageManager))
+        var packageManagerCommand = EnvHelper.DetectLinuxPackageManagerInstallCommand();
+        if (string.IsNullOrEmpty(packageManagerCommand))
             return false; // Unsupported distro
 
         // Install Flatpak
-        var exitCode = await RunProcessWithProgressAsync("pkexec", $"{packageManager} install -y flatpak", progress);
+        var exitCode = await RunProcessWithProgressAsync("pkexec", $"{packageManagerCommand} flatpak", progress);
         if (exitCode is 127 or 126) //this is error unauthorized
         {
             Dispatcher.UIThread.InvokeAsync(() =>
