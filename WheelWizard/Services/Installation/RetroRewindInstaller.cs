@@ -108,7 +108,8 @@ public static class RetroRewindInstaller
         var rrWfcPaths = new[]
         {
             Path.Combine(PathManager.SaveFolderPath),
-            Path.Combine(PathManager.LoadFolderPath, "Riivolution", "save", "RetroWFC")
+            Path.Combine(PathManager.LoadFolderPath, "Riivolution", "save", "RetroWFC"),
+            Path.Combine(PathManager.LoadFolderPath, "riivolution", "Save", "RetroWFC"),
         };
 
         foreach (var rrWfc in rrWfcPaths)
