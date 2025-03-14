@@ -14,7 +14,8 @@ public class SettingsManager
     public static Setting USER_FOLDER_PATH = new WhWzSetting(typeof(string),"UserFolderPath", "")
         .SetValidation(value =>
         {
-            if (!FileHelper.DirectoryExists(value as string ?? string.Empty))
+            var userFolderPath = value as string ?? string.Empty;
+            if (!FileHelper.DirectoryExists(userFolderPath))
                 return false;
 
             // We cannot determine the validity of the user folder path in that case
@@ -26,6 +27,13 @@ public class SettingsManager
             {
                 if (!FileHelper.DirectoryExists(requiredSubdirectory))
                     return false;
+            }
+
+            if (PathManager.IsFlatpakDolphinFilePath() &&
+                !(PathManager.LinuxDolphinFlatpakDataDir.Equals(userFolderPath) &&
+                  PathManager.LinuxDolphinFlatpakConfigDir.Equals(PathManager.ConfigFolderPath)))
+            {
+                return false;
             }
 
             return true;

@@ -79,8 +79,8 @@ public static class PathManager
     private static string LinuxDolphinRelSubFolderPath => "dolphin-emu";
 
     private static string LinuxDolphinFlatpakAppDataFolderPath => Path.Combine(HomeFolderPath, ".var", "app", "org.DolphinEmu.dolphin-emu");
-    private static string LinuxDolphinFlatpakDataDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "data", LinuxDolphinRelSubFolderPath);
-    private static string LinuxDolphinFlatpakConfigDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "config", LinuxDolphinRelSubFolderPath);
+    public static string LinuxDolphinFlatpakDataDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "data", LinuxDolphinRelSubFolderPath);
+    public static string LinuxDolphinFlatpakConfigDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "config", LinuxDolphinRelSubFolderPath);
 
     private static string EmptyLinuxPathIfRelative(string path)
     {
@@ -188,7 +188,7 @@ public static class PathManager
         return true;
     }
 
-    private static bool IsFlatpakDolphinFilePath()
+    public static bool IsFlatpakDolphinFilePath()
     {
         return IsFlatpakDolphinFilePath(DolphinFilePath);
     }
