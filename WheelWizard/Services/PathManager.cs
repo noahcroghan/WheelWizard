@@ -208,10 +208,14 @@ public static class PathManager
 
     private static string? TryFindLinuxNativeUserFolderPath()
     {
-        if (Directory.Exists(LinuxHostXdgConfigHome) && Directory.Exists(LinuxHostXdgDataHome))
+        if (IsFlatpakSandboxed)
         {
-            if (Directory.Exists(LinuxDolphinHostNativeInstallConfigDir) && Directory.Exists(LinuxDolphinHostNativeInstallDataDir))
-                return LinuxDolphinHostNativeInstallDataDir;
+            if (Directory.Exists(LinuxHostXdgConfigHome) && Directory.Exists(LinuxHostXdgDataHome))
+            {
+                if (Directory.Exists(LinuxDolphinHostNativeInstallConfigDir) && Directory.Exists(LinuxDolphinHostNativeInstallDataDir))
+                    return LinuxDolphinHostNativeInstallDataDir;
+            }
+            return null;
         }
 
         if (Directory.Exists(LinuxDolphinNativeInstallConfigDir) && Directory.Exists(LinuxDolphinNativeInstallDataDir))
