@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
 using WheelWizard.Services.Settings;
@@ -17,22 +18,8 @@ public static class PathManager
     public static string DolphinFilePath => (string)SettingsManager.DOLPHIN_LOCATION.Get();
     public static string UserFolderPath => (string)SettingsManager.USER_FOLDER_PATH.Get();
 
-    private static string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-    private static string LinuxDolphinLegacyRelSubFolderPath => ".dolphin-emu";
-    private static string LinuxDolphinLegacyFolderPath => Path.Combine(HomeFolderPath, LinuxDolphinLegacyRelSubFolderPath);
-    private static string LinuxDolphinRelSubFolderPath => "dolphin-emu";
-    // The User Folder on Linux is the "data folder", so we just go up the hierarchy
-    private static string LinuxDolphinFlatpakFullConfigSubFolderPath => Path.GetFullPath(
-        Path.Combine(
-            UserFolderPath,
-            "..", "..", "config", LinuxDolphinRelSubFolderPath));
-    private static string LinuxDolphinNativeFullConfigSubFolderPath => Path.GetFullPath(
-        Path.Combine(
-            UserFolderPath,
-            "..", "..", "..", ".config", LinuxDolphinRelSubFolderPath));
-    private static string LinuxDolphinNativeRelConfigSubFolderPath => Path.Combine(".config", LinuxDolphinRelSubFolderPath);
-    private static string LinuxDolphinFlatpakRelDataSubFolderPath => Path.Combine("data", LinuxDolphinRelSubFolderPath);
-    private static string LinuxDolphinNativeRelDataSubFolderPath => Path.Combine(".local", "share", LinuxDolphinRelSubFolderPath);
+    private static string AppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+    private static string LocalAppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
     // Wheel wizard's appdata paths  (dont have to be expressions since they dont depend on user input like the others)f
     public static readonly string WheelWizardAppdataPath = Path.Combine(AppDataFolder, "CT-MKWII");
@@ -87,17 +74,55 @@ public static class PathManager
     // This is not the folder your save file is located in, but its the folder where every Region folder is, so the save file is in SaveFolderPath/Region
     public static string SaveFolderPath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "save" ,"RetroWFC");
 
-    public static string LinuxDolphinFullConfigSubFolderPath
+    private static string LinuxDolphinLegacyRelSubFolderPath => ".dolphin-emu";
+    private static string LinuxDolphinLegacyFolderPath => Path.Combine(HomeFolderPath, LinuxDolphinLegacyRelSubFolderPath);
+    private static string LinuxDolphinRelSubFolderPath => "dolphin-emu";
+
+    private static string LinuxDolphinFlatpakAppDataFolderPath => Path.Combine(HomeFolderPath, ".var", "app", "org.DolphinEmu.dolphin-emu");
+    private static string LinuxDolphinFlatpakDataDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "data", LinuxDolphinRelSubFolderPath);
+    private static string LinuxDolphinFlatpakConfigDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "config", LinuxDolphinRelSubFolderPath);
+
+    private static string EmptyLinuxPathIfRelative(string path)
+    {
+        return path.StartsWith('/') ? path : string.Empty;
+    }
+
+    private static string LinuxXdgDataHome => LocalAppDataFolder;
+    private static string LinuxXdgConfigHome => AppDataFolder;
+    private static string LinuxHostXdgDataHome => EmptyLinuxPathIfRelative(Environment.GetEnvironmentVariable("HOST_XDG_DATA_HOME") ?? string.Empty);
+    private static string LinuxHostXdgConfigHome => EmptyLinuxPathIfRelative(Environment.GetEnvironmentVariable("HOST_XDG_CONFIG_HOME") ?? string.Empty);
+
+    private static string LinuxDolphinHostNativeInstallConfigDir => Path.Combine(LinuxHostXdgConfigHome, LinuxDolphinRelSubFolderPath);
+    private static string LinuxDolphinHostNativeInstallDataDir => Path.Combine(LinuxHostXdgDataHome, LinuxDolphinRelSubFolderPath);
+    private static string LinuxDolphinNativeInstallConfigDir => Path.Combine(LinuxXdgConfigHome, LinuxDolphinRelSubFolderPath);
+    private static string LinuxDolphinNativeInstallDataDir => Path.Combine(LinuxXdgDataHome, LinuxDolphinRelSubFolderPath);
+
+    public static string DetermineCorrectLinuxDolphinNativeConfigDir
+    {
+        get
+        {
+            if (LinuxDolphinHostNativeInstallDataDir.Equals(UserFolderPath) && !LinuxDolphinNativeInstallDataDir.Equals(UserFolderPath))
+            {
+                return LinuxDolphinHostNativeInstallConfigDir;
+            }
+            else
+            {
+                return LinuxDolphinNativeInstallConfigDir;
+            }
+        }
+    }
+
+    public static string LinuxDolphinConfigDir
     {
         get
         {
             if (IsFlatpakDolphinFilePath())
             {
-                return LinuxDolphinFlatpakFullConfigSubFolderPath;
+                return LinuxDolphinFlatpakConfigDir;
             }
             else
             {
-                return LinuxDolphinNativeFullConfigSubFolderPath;
+                return DetermineCorrectLinuxDolphinNativeConfigDir;
             }
         }
     }
@@ -120,7 +145,7 @@ public static class PathManager
             {
                 try
                 {
-                    return LinuxDolphinFullConfigSubFolderPath;
+                    return LinuxDolphinConfigDir;
                 }
                 catch (Exception ex)
                 {
@@ -164,23 +189,11 @@ public static class PathManager
         return IsFlatpakDolphinFilePath(DolphinFilePath);
     }
 
-    //this should return null if not found since functions above require it
+    // This should return null if not found since functions above require it
     private static string? TryFindLinuxFlatpakUserFolderPath()
     {
-        // First, try the default Flatpak location.
-        var flatpakUserFolder = Path.Combine(HomeFolderPath, ".var", "app", "org.DolphinEmu.dolphin-emu");
-        if (Directory.Exists(flatpakUserFolder))
-            return Path.Combine(flatpakUserFolder, LinuxDolphinFlatpakRelDataSubFolderPath);
-
-        // Next, check if there's an override provided via FLATPAK_USER_DIR.
-        var flatpakOverride = Environment.GetEnvironmentVariable("FLATPAK_USER_DIR");
-        if (!string.IsNullOrEmpty(flatpakOverride))
-        {
-            // Often the structure remains the same.
-            flatpakUserFolder = Path.Combine(flatpakOverride, "org.DolphinEmu.dolphin-emu");
-            if (Directory.Exists(flatpakUserFolder))
-                return Path.Combine(flatpakUserFolder, LinuxDolphinFlatpakRelDataSubFolderPath);
-        }
+        if (Directory.Exists(LinuxDolphinFlatpakAppDataFolderPath))
+            return Path.Combine(LinuxDolphinFlatpakDataDir);
 
         // If not found, return null.
         return null;
@@ -188,10 +201,14 @@ public static class PathManager
 
     private static string? TryFindLinuxNativeUserFolderPath()
     {
-        var manualInstallConfigDir = Path.Combine(HomeFolderPath, LinuxDolphinNativeRelConfigSubFolderPath);
-        var manualInstallDataDir = Path.Combine(HomeFolderPath, LinuxDolphinNativeRelDataSubFolderPath);
-        if (Directory.Exists(manualInstallConfigDir) && Directory.Exists(manualInstallDataDir))
-            return manualInstallDataDir;
+        if (Directory.Exists(LinuxHostXdgConfigHome) && Directory.Exists(LinuxHostXdgDataHome))
+        {
+            if (Directory.Exists(LinuxDolphinHostNativeInstallConfigDir) && Directory.Exists(LinuxDolphinHostNativeInstallDataDir))
+                return LinuxDolphinHostNativeInstallDataDir;
+        }
+
+        if (Directory.Exists(LinuxDolphinNativeInstallConfigDir) && Directory.Exists(LinuxDolphinNativeInstallDataDir))
+            return LinuxDolphinNativeInstallDataDir;
 
         if (Directory.Exists(LinuxDolphinLegacyFolderPath))
             return LinuxDolphinLegacyFolderPath;
