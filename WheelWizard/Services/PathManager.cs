@@ -87,7 +87,10 @@ public static class PathManager
         return path.StartsWith('/') ? path : string.Empty;
     }
 
-    private static bool IsFlatpakSandboxed => !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("FLATPAK_ID"));
+    public static bool IsFlatpakSandboxed()
+    {
+        return !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("FLATPAK_ID"));
+    }
 
     private static string LinuxXdgDataHome => LocalAppDataFolder;
     private static string LinuxXdgConfigHome => AppDataFolder;
@@ -103,7 +106,7 @@ public static class PathManager
     {
         get
         {
-            if (IsFlatpakSandboxed)
+            if (IsFlatpakSandboxed())
             {
                 if (LinuxDolphinHostNativeInstallDataDir.Equals(UserFolderPath))
                 {
@@ -208,7 +211,7 @@ public static class PathManager
 
     private static string? TryFindLinuxNativeUserFolderPath()
     {
-        if (IsFlatpakSandboxed)
+        if (IsFlatpakSandboxed())
         {
             if (Directory.Exists(LinuxHostXdgConfigHome) && Directory.Exists(LinuxHostXdgDataHome))
             {
