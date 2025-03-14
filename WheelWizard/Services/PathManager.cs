@@ -87,10 +87,12 @@ public static class PathManager
         return path.StartsWith('/') ? path : string.Empty;
     }
 
+    private static bool IsFlatpakSandboxed => !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("FLATPAK_ID"));
+
     private static string LinuxXdgDataHome => LocalAppDataFolder;
     private static string LinuxXdgConfigHome => AppDataFolder;
-    private static string LinuxHostXdgDataHome => EmptyLinuxPathIfRelative(Environment.GetEnvironmentVariable("HOST_XDG_DATA_HOME") ?? string.Empty);
-    private static string LinuxHostXdgConfigHome => EmptyLinuxPathIfRelative(Environment.GetEnvironmentVariable("HOST_XDG_CONFIG_HOME") ?? string.Empty);
+    private static string LinuxHostXdgDataHome => EmptyLinuxPathIfRelative(Environment.GetEnvironmentVariable("HOST_XDG_DATA_HOME") ?? Path.Combine(HomeFolderPath, ".local", "share"));
+    private static string LinuxHostXdgConfigHome => EmptyLinuxPathIfRelative(Environment.GetEnvironmentVariable("HOST_XDG_CONFIG_HOME") ?? Path.Combine(HomeFolderPath, ".config"));
 
     private static string LinuxDolphinHostNativeInstallConfigDir => Path.Combine(LinuxHostXdgConfigHome, LinuxDolphinRelSubFolderPath);
     private static string LinuxDolphinHostNativeInstallDataDir => Path.Combine(LinuxHostXdgDataHome, LinuxDolphinRelSubFolderPath);
@@ -101,18 +103,19 @@ public static class PathManager
     {
         get
         {
-            if (LinuxDolphinHostNativeInstallDataDir.Equals(UserFolderPath) && !LinuxDolphinNativeInstallDataDir.Equals(UserFolderPath))
+            if (IsFlatpakSandboxed)
             {
-                return LinuxDolphinHostNativeInstallConfigDir;
+                if (LinuxDolphinHostNativeInstallDataDir.Equals(UserFolderPath))
+                {
+                    return LinuxDolphinHostNativeInstallConfigDir;
+                }
             }
             else if (LinuxDolphinNativeInstallDataDir.Equals(UserFolderPath))
             {
                 return LinuxDolphinNativeInstallConfigDir;
             }
-            else
-            {
-                return string.Empty;
-            }
+
+            return string.Empty;
         }
     }
 
