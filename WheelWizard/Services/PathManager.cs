@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
 using WheelWizard.Services.Settings;
@@ -17,6 +17,7 @@ public static class PathManager
     public static string DolphinFilePath => (string)SettingsManager.DOLPHIN_LOCATION.Get();
     public static string UserFolderPath => (string)SettingsManager.USER_FOLDER_PATH.Get();
 
+    private static string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     private static string LinuxDolphinLegacyRelSubFolderPath => ".dolphin-emu";
     private static string LinuxDolphinLegacyFolderPath => Path.Combine(HomeFolderPath, LinuxDolphinLegacyRelSubFolderPath);
     private static string LinuxDolphinRelSubFolderPath => "dolphin-emu";
@@ -34,7 +35,7 @@ public static class PathManager
     private static string LinuxDolphinNativeRelDataSubFolderPath => Path.Combine(".local", "share", LinuxDolphinRelSubFolderPath);
 
     // Wheel wizard's appdata paths  (dont have to be expressions since they dont depend on user input like the others)f
-    public static readonly string WheelWizardAppdataPath = Path.Combine(GetAppDataFolder(), "CT-MKWII");
+    public static readonly string WheelWizardAppdataPath = Path.Combine(AppDataFolder, "CT-MKWII");
     public static readonly string WheelWizardConfigFilePath = Path.Combine(WheelWizardAppdataPath, "config.json");
     public static readonly string ModsFolderPath = Path.Combine(WheelWizardAppdataPath, "Mods");
     public static readonly string ModConfigFilePath = Path.Combine(ModsFolderPath, "modconfig.json");
@@ -75,17 +76,6 @@ public static class PathManager
         {
             return false;
         }
-    }
-
-    // Keep config in ~/.config for macOS
-    private static string GetAppDataFolder()
-    {
-        if (OperatingSystem.IsMacOS())
-        {
-            // TODO: Check if we don't actually need this anymore and spaces in paths work
-            return Path.Combine(HomeFolderPath, ".config"); // ~ is the home directory
-        }
-        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     }
 
     // Helper paths for folders used across multiple files
@@ -147,7 +137,6 @@ public static class PathManager
     {
         get
         {
-            // TODO: Check if this path is valid on macOS
             return Path.Combine(UserFolderPath, "Wii");
         }
     }
@@ -213,12 +202,12 @@ public static class PathManager
 
     public static string? TryFindUserFolderPath()
     {
-        var appDataPath = Path.Combine(GetAppDataFolder(), "Dolphin Emulator");
+        var appDataPath = Path.Combine(AppDataFolder, "Dolphin Emulator");
         if (FileHelper.DirectoryExists(appDataPath))
             return appDataPath;
 
         // Macos path
-        var libraryPath = Path.Combine(GetAppDataFolder(), "Dolphin");
+        var libraryPath = Path.Combine(AppDataFolder, "Dolphin");
         if (FileHelper.DirectoryExists(libraryPath))
             return libraryPath;
 
