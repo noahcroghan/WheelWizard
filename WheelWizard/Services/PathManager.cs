@@ -105,9 +105,13 @@ public static class PathManager
             {
                 return LinuxDolphinHostNativeInstallConfigDir;
             }
-            else
+            else if (LinuxDolphinNativeInstallDataDir.Equals(UserFolderPath))
             {
                 return LinuxDolphinNativeInstallConfigDir;
+            }
+            else
+            {
+                return string.Empty;
             }
         }
     }
