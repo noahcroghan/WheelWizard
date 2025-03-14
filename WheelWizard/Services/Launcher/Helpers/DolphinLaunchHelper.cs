@@ -24,7 +24,6 @@ public static class DolphinLaunchHelper
     private static bool IsFixableFlatpakGamePath(string gameFilePath)
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
-            PathManager.IsFlatpakSandboxed() &&
             PathManager.IsFlatpakDolphinFilePath())
         {
             // Because with the file picker on a Flatpak build, we get XDG portal paths like this...

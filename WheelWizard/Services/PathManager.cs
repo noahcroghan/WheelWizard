@@ -87,7 +87,7 @@ public static class PathManager
         return path.StartsWith('/') ? path : string.Empty;
     }
 
-    public static bool IsFlatpakSandboxed()
+    private static bool IsFlatpakSandboxed()
     {
         return !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("FLATPAK_ID"));
     }
