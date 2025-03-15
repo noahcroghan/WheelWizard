@@ -22,7 +22,7 @@ public class RrRoomsSingletonService(IServiceScopeFactory scopeFactory, ILogger<
             if (response.IsSuccessful)
                 return response.Content;
 
-            logger.LogError("Failed to get rooms from ZplWii API: {StatusCode} {ReasonPhrase}", response.StatusCode, response.ReasonPhrase);
+            logger.LogError("Failed to get rooms from ZplWii API: {@Error}", response.Error);
             return [];
         }
         catch (HttpRequestException ex) when (ex.InnerException is SocketException socketException)

@@ -10,7 +10,7 @@ public class RrRoom
     public required DateTime Created { get; set; }
     public required string Type { get; set; }
     public required bool Suspend { get; set; }
-    public required string Host { get; set; } // the key of player in the players map (that started the room)
+    public string? Host { get; set; } // the key of player in the players map (that started the room)
     public string? Rk { get; set; } // RK does not exists in private rooms
     public required Dictionary<string, RrPlayer> Players { get; set; }
 
@@ -55,5 +55,5 @@ public class RrRoom
         _ => IsPublic ? "Unknown Mode" : "Private Room"
     };
 
-    public Mii? HostMii => Players.GetValueOrDefault(Host)?.FirstMii;
+    public Mii? HostMii => !string.IsNullOrEmpty(Host) ? Players.GetValueOrDefault(Host)?.FirstMii : null;
 }
