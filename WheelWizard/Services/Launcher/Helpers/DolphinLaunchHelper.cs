@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Popups.Generic;
 
@@ -17,32 +18,29 @@ public static class DolphinLaunchHelper
             process.Kill();
         }
     }
-    
+
     public static void LaunchDolphin(string arguments = "", bool shellExecute = false)
     {
         try
         {
             var startInfo = new ProcessStartInfo();
-            
+
             var dolphinLocation = (string)SettingsManager.DOLPHIN_LOCATION.Get();
-            if (dolphinLocation.Contains("flatpak"))
-            {
-                startInfo.FileName = "flatpak";
-                startInfo.Arguments = $"run org.DolphinEmu.dolphin-emu {arguments}";
-                startInfo.UseShellExecute = false;
-            }
-            else if (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX)
-            {
-                startInfo.FileName = "/bin/bash";
-                startInfo.Arguments = $"-c \"{dolphinLocation} {arguments}\"";
-                startInfo.UseShellExecute = false;
-            }
-            else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // Windows builds
                 startInfo.FileName = dolphinLocation;
                 startInfo.Arguments = arguments;
                 startInfo.UseShellExecute = shellExecute;
+            }
+            else
+            {
+                startInfo.FileName = "/usr/bin/env";
+                startInfo.ArgumentList.Add("sh");
+                startInfo.ArgumentList.Add("-c");
+                startInfo.ArgumentList.Add("--");
+                startInfo.ArgumentList.Add($"{dolphinLocation} {arguments}");
+                startInfo.UseShellExecute = false;
             }
 
             Process.Start(startInfo);

@@ -80,7 +80,7 @@ public class LinuxUpdatePlatform : IUpdatePlatform
         var originalFileName = Path.GetFileName(currentFilePath);
         var newFileName = Path.GetFileName(newFilePath);
 
-        var scriptContent = $@"#!/bin/bash
+        var scriptContent = $@"#!/usr/bin/env sh
 echo 'Starting update process...'
 
 # Give a short delay to ensure the application has exited
@@ -106,8 +106,13 @@ echo 'Update completed successfully.'
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = "chmod",
-                Arguments = $"+x \"{scriptFilePath}\"",
+                FileName = "/usr/bin/env",
+                ArgumentList = {
+                    "chmod",
+                    "+x",
+                    "--",
+                    scriptFilePath,
+                },
                 CreateNoWindow = true,
                 UseShellExecute = false
             })?.WaitForExit();
@@ -123,8 +128,12 @@ echo 'Update completed successfully.'
 
         var processStartInfo = new ProcessStartInfo
         {
-            FileName = "bash",
-            Arguments = $"\"{scriptFilePath}\"",
+            FileName = "/usr/bin/env",
+            ArgumentList = {
+                "sh",
+                "--",
+                scriptFilePath,
+            },
             CreateNoWindow = false,
             UseShellExecute = false,
             WorkingDirectory = currentFolder

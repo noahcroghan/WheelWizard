@@ -4,12 +4,13 @@ namespace WheelWizard.Helpers;
 
 public static class EnvHelper
 {
-    public static string DetectLinuxPackageManager()
+    public static string DetectLinuxPackageManagerInstallCommand()
     {
-        if (LinuxDolphinInstaller.IsValidCommand("apt")) return "apt-get";
-        if (LinuxDolphinInstaller.IsValidCommand("dnf")) return "dnf";
-        if (LinuxDolphinInstaller.IsValidCommand("yum")) return "yum";
-        if (LinuxDolphinInstaller.IsValidCommand("pacman")) return "pacman -S";
-        return LinuxDolphinInstaller.IsValidCommand("zypper") ? "zypper" : string.Empty; // Unknown package manager
+        if (LinuxDolphinInstaller.IsValidCommand("apt")) return "apt install -y";
+        if (LinuxDolphinInstaller.IsValidCommand("apt-get")) return "apt-get -y install";
+        if (LinuxDolphinInstaller.IsValidCommand("dnf")) return "dnf -y install";
+        if (LinuxDolphinInstaller.IsValidCommand("yum")) return "yum -y install";
+        if (LinuxDolphinInstaller.IsValidCommand("pacman")) return "pacman --noconfirm -S";
+        return LinuxDolphinInstaller.IsValidCommand("zypper") ? "zypper --non-interactive install" : string.Empty; // Unknown package manager
     }
 }

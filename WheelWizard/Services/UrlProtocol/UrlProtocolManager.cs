@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.ModManagement;
 
