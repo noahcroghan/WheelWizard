@@ -25,7 +25,7 @@ public class Program
     {
         SettingsManager.Instance.LoadSettings();
         BadgeManager.Instance.LoadBadges();
-        UrlProtocolManager.SetWhWzSchemeAsync();
+        UrlProtocolManager.SetWhWzScheme();
     }
 
 
