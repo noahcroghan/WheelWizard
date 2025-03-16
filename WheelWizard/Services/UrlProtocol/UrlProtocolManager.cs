@@ -1,4 +1,6 @@
+#if WINDOWS
 using Microsoft.Win32;
+#endif
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.ModManagement;
 
@@ -8,6 +10,7 @@ public static class UrlProtocolManager
 {
     private const string ProtocolName = "wheelwizard";
 
+#if WINDOWS
     private static void RegisterCustomScheme(string schemeName)
     {
         if (!OperatingSystem.IsWindows())
@@ -58,9 +61,13 @@ public static class UrlProtocolManager
         }
     }
 
+#endif
+
     public static void SetWhWzScheme()
     {
+#if WINDOWS
         SetWhWzSchemeInternally();
+#endif
     }
 
     public static async Task ShowPopupForLaunchUrlAsync(string url)
