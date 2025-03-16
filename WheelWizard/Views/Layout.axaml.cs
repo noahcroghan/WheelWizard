@@ -32,7 +32,6 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     public Layout()
     {
         Instance = this;
-        Initialized += ViewUtils.OnInitialized;
         InitializeComponent();
         AddLayer();
 
@@ -58,6 +57,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     {
         _brandingService = App.Services.GetRequiredService<IBrandingSingletonService>();
         Title = _brandingService.Branding.DisplayName;
+        ViewUtils.OnLoaded();
     }
     protected override void OnLoaded(RoutedEventArgs e)
     {
