@@ -1,6 +1,5 @@
 using Avalonia;
 using WheelWizard.Services;
-using WheelWizard.Services.Installation.AutoUpdater;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.UrlProtocol;
 
@@ -15,19 +14,18 @@ public class Program
         Setup();
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
-    
+
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<Views.App>()
-                     .UsePlatformDetect()
-                     .WithInterFont()
-                     .LogToTrace();
+            .UsePlatformDetect()
+            .WithInterFont()
+            .LogToTrace();
 
     private static void Setup()
     {
         SettingsManager.Instance.LoadSettings();
         BadgeManager.Instance.LoadBadges();
-        UrlProtocolManager.SetWhWzSchemeAsync();
-        AutoUpdater.CheckForUpdatesAsync();
+        UrlProtocolManager.SetWhWzScheme();
     }
 
 
@@ -50,4 +48,4 @@ public class Program
 
         Console.WriteLine($"Application start [mode: {modeCheck}, os: {osCheck}]");
     }
-} 
+}

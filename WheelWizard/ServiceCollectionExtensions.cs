@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using WheelWizard.AutoUpdating;
+using WheelWizard.Branding;
+using WheelWizard.RrRooms;
 
 namespace WheelWizard;
 
@@ -9,6 +11,8 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static void AddWheelWizardServices(this IServiceCollection services)
     {
-        // TODO: Add services here
+        services.AddAutoUpdating();
+        services.AddBranding();
+        services.AddRrRooms();
     }
 }

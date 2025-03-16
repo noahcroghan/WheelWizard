@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using WheelWizard.Helpers;
-using WheelWizard.Services;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Services.Settings;
