@@ -49,7 +49,6 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
 
         NavigateToPage(new HomePage());
         InitializeManagers();
-
 #if DEBUG
         KitchenSinkButton.IsVisible = true;
 #endif
@@ -58,6 +57,11 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     protected override void OnInitialized()
     {
         _brandingService = App.Services.GetRequiredService<IBrandingSingletonService>();
+        Title = _brandingService.Branding.DisplayName;
+    }
+    protected override void OnLoaded(RoutedEventArgs e)
+    {
+        TitleLabel.Text = _brandingService.Branding.DisplayName;
     }
 
     public void OnSettingChanged(Setting setting)

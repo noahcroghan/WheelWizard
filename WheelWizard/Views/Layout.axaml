@@ -8,8 +8,7 @@
         xmlns:comps="clr-namespace:WheelWizard.Views.Components.StandardLibrary"
         xmlns:pages="clr-namespace:WheelWizard.Views.Pages"
         xmlns:settings="clr-namespace:WheelWizard.Views.Pages.Settings"
-        Height="876" Width="656" Title="Wheel Wizard" 
-        WindowStartupLocation="CenterScreen"
+        Height="876" Width="656" WindowStartupLocation="CenterScreen"
         SystemDecorations="None"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome" 
@@ -39,8 +38,7 @@
         </DockPanel>
         
         <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom">
-            <comps:IconLabel IconData="{StaticResource WheelIcon}"
-                             Text="Wheel Wizard"
+            <comps:IconLabel IconData="{StaticResource WheelIcon}" x:Name="TitleLabel"
                              Foreground="{StaticResource Neutral400}"
                              FontSize="20"
                              Margin="10,10,0,0"
