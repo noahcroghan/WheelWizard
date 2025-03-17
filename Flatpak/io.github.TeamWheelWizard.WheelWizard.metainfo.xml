@@ -3,7 +3,7 @@
   <id>io.github.TeamWheelWizard.WheelWizard</id>
   <name>Wheel Wizard</name>
   <summary>Mario Kart Wii Mod Manager &amp; Retro Rewind Auto Updater</summary>
-  <developer id="io.github.TeamWheelWizard">
+  <developer id="io.github.teamwheelwizard">
     <name>TeamWheelWizard</name>
   </developer>
 
@@ -23,6 +23,10 @@
       with several online features.
     </p>
   </description>
+
+  <categories>
+    <category>Game</category>
+  </categories>
 
   <screenshots>
     <screenshot type="default">
