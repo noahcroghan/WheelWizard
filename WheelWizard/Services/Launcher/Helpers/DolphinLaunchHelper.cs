@@ -26,11 +26,20 @@ public static class DolphinLaunchHelper
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
             PathManager.IsFlatpakDolphinFilePath())
         {
-            // Because with the file picker on a Flatpak build, we get XDG portal paths like this...
-            // We can fix Flatpak Dolphin to gain access to this path though.
-            string fixablePattern = @"^/run/user/(\d+)/doc";
-            Regex fixablePatternRegex = new Regex(fixablePattern);
-            return fixablePatternRegex.IsMatch(gameFilePath);
+            // Because with the file picker on a Flatpak build, we get XDG portal paths like these...
+            // We can fix Flatpak Dolphin to gain access to this game file path though.
+            string xdgRuntimeDir = Environment.GetEnvironmentVariable("XDG_RUNTIME_DIR") ?? string.Empty;
+            if (PathManager.IsRelativeLinuxPath(xdgRuntimeDir))
+            {
+                string fixablePattern = @"^/run/user/(\d+)/doc";
+                Regex fixablePatternRegex = new Regex(fixablePattern);
+                return fixablePatternRegex.IsMatch(gameFilePath);
+            }
+            else
+            {
+                string xdgRuntimeDirDocPath = Path.Combine(xdgRuntimeDir, "doc");
+                return gameFilePath.StartsWith(xdgRuntimeDirDocPath);
+            }
         }
         return false;
     }
@@ -56,9 +65,9 @@ public static class DolphinLaunchHelper
                     UseShellExecute = false
                 })?.WaitForExit();
             }
-            catch (Exception ex)
+            catch
             {
-            // Ignore failed export
+                // Ignore failed export
             }
         }
     }

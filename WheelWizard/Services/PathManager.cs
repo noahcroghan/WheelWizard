@@ -82,9 +82,14 @@ public static class PathManager
     public static string LinuxDolphinFlatpakDataDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "data", LinuxDolphinRelSubFolderPath);
     public static string LinuxDolphinFlatpakConfigDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "config", LinuxDolphinRelSubFolderPath);
 
-    private static string EmptyLinuxPathIfRelative(string path)
+    public static bool IsRelativeLinuxPath(string path)
     {
-        return path.StartsWith('/') ? path : string.Empty;
+        return !path.StartsWith('/');
+    }
+
+    private static string? NullIfRelativeLinuxPath(string path)
+    {
+        return IsRelativeLinuxPath(path) ? null : path;
     }
 
     private static bool IsFlatpakSandboxed()
@@ -94,8 +99,8 @@ public static class PathManager
 
     private static string LinuxXdgDataHome => LocalAppDataFolder;
     private static string LinuxXdgConfigHome => AppDataFolder;
-    private static string LinuxHostXdgDataHome => EmptyLinuxPathIfRelative(Environment.GetEnvironmentVariable("HOST_XDG_DATA_HOME") ?? Path.Combine(HomeFolderPath, ".local", "share"));
-    private static string LinuxHostXdgConfigHome => EmptyLinuxPathIfRelative(Environment.GetEnvironmentVariable("HOST_XDG_CONFIG_HOME") ?? Path.Combine(HomeFolderPath, ".config"));
+    private static string LinuxHostXdgDataHome => NullIfRelativeLinuxPath(Environment.GetEnvironmentVariable("HOST_XDG_DATA_HOME") ?? string.Empty) ?? Path.Combine(HomeFolderPath, ".local", "share");
+    private static string LinuxHostXdgConfigHome => NullIfRelativeLinuxPath(Environment.GetEnvironmentVariable("HOST_XDG_CONFIG_HOME") ?? string.Empty) ?? Path.Combine(HomeFolderPath, ".config");
 
     private static string LinuxDolphinHostNativeInstallConfigDir => Path.Combine(LinuxHostXdgConfigHome, LinuxDolphinRelSubFolderPath);
     private static string LinuxDolphinHostNativeInstallDataDir => Path.Combine(LinuxHostXdgDataHome, LinuxDolphinRelSubFolderPath);
