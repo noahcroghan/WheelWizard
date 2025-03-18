@@ -42,4 +42,15 @@
         <Setter Property="Foreground" Value="{StaticResource Neutral300}"/>
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
+    
+    <Style Selector="MenuItem">
+        <Setter Property="Foreground" Value="{StaticResource Neutral300}"/>
+    </Style>
+    <Style Selector="MenuItem:pointerover /template/ ContentPresenter">
+        <Setter Property="Foreground" Value="{StaticResource Neutral50}"/>
+    </Style>
+    
+    <Style Selector="ContextMenu Separator">
+        <Setter Property="Background" Value="{StaticResource Neutral900}"/>
+    </Style>
 </Styles>
