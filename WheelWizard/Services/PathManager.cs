@@ -24,6 +24,7 @@ public static class PathManager
     // Wheel wizard's appdata paths  (dont have to be expressions since they dont depend on user input like the others)f
     public static readonly string WheelWizardAppdataPath = Path.Combine(AppDataFolder, "CT-MKWII");
     public static readonly string WheelWizardConfigFilePath = Path.Combine(WheelWizardAppdataPath, "config.json");
+    public static readonly string RrLaunchJsonFilePath = Path.Combine(WheelWizardAppdataPath, "RR.json");
     public static readonly string ModsFolderPath = Path.Combine(WheelWizardAppdataPath, "Mods");
     public static readonly string ModConfigFilePath = Path.Combine(ModsFolderPath, "modconfig.json");
     public static readonly string TempModsFolderPath = Path.Combine(ModsFolderPath, "Temp");
@@ -73,6 +74,7 @@ public static class PathManager
 
     // This is not the folder your save file is located in, but its the folder where every Region folder is, so the save file is in SaveFolderPath/Region
     public static string SaveFolderPath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "save" ,"RetroWFC");
+    public static string XmlFilePath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "RetroRewind6.xml");
 
     private static string LinuxDolphinLegacyRelSubFolderPath => ".dolphin-emu";
     private static string LinuxDolphinLegacyFolderPath => Path.Combine(HomeFolderPath, LinuxDolphinLegacyRelSubFolderPath);
@@ -183,20 +185,25 @@ public static class PathManager
 
     public static bool IsFlatpakDolphinFilePath(string filePath)
     {
-        string[] flatpakFilePathSubStrings = { "flatpak", "run", "org.DolphinEmu.dolphin-emu" };
         if (string.IsNullOrWhiteSpace(filePath))
         {
             // Prioritize Flatpak Dolphin installation if no file path has been saved yet, so return true
             return true;
         }
-        foreach (string substring in flatpakFilePathSubStrings)
+        string flatpakRunCommand = "flatpak run";
+        string dolphinAppId = "org.DolphinEmu.dolphin-emu";
+        string[] possibleFlatpakDolphinCommands =
         {
-            if (!filePath.Contains(substring))
-            {
-                return false;
-            }
+            $"{flatpakRunCommand} {dolphinAppId}",
+            $"{flatpakRunCommand} --system {dolphinAppId}",
+            $"{flatpakRunCommand} --user {dolphinAppId}",
+        };
+        foreach (string possibleFlatpakDolphinCommand in possibleFlatpakDolphinCommands)
+        {
+            if (possibleFlatpakDolphinCommand.Equals(filePath))
+                return true;
         }
-        return true;
+        return false;
     }
 
     public static bool IsFlatpakDolphinFilePath()

@@ -7,9 +7,9 @@ namespace WheelWizard.Services.Launcher.Helpers;
 
 public static class RetroRewindLaunchHelper
 {
-    private static string XmlFilePath => Path.Combine(PathManager.RiivolutionWhWzFolderPath, "riivolution", "RetroRewind6.xml");
-    private static string JsonFilePath => Path.Combine(PathManager.WheelWizardAppdataPath, "RR.json");
-    
+    private static string XmlFilePath => PathManager.XmlFilePath;
+    private static string JsonFilePath => PathManager.RrLaunchJsonFilePath;
+
     public static void GenerateLaunchJson()
     {
         var language = (int)SettingsManager.RR_LANGUAGE.Get();
@@ -47,7 +47,7 @@ public static class RetroRewindLaunchHelper
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         });
-        
+
         File.WriteAllText(JsonFilePath, jsonString);
     }
 }

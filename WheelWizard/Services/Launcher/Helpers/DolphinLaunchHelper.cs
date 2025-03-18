@@ -23,8 +23,7 @@ public static class DolphinLaunchHelper
 
     private static bool IsFixableFlatpakGamePath(string gameFilePath)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
-            PathManager.IsFlatpakDolphinFilePath())
+        if (PathManager.IsFlatpakDolphinFilePath())
         {
             // Because with the file picker on a Flatpak build, we get XDG portal paths like these...
             // We can fix Flatpak Dolphin to gain access to this game file path though.
@@ -44,7 +43,7 @@ public static class DolphinLaunchHelper
         return false;
     }
 
-    private static void TryFixFlatpakGameFileAccess()
+    private static bool TryFixFlatpakGameFileAccess()
     {
         var gameFilePath = PathManager.GameFilePath;
         if (IsFixableFlatpakGamePath(gameFilePath))
@@ -61,22 +60,43 @@ public static class DolphinLaunchHelper
                         "--",
                         gameFilePath,
                     },
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
                     CreateNoWindow = true,
                     UseShellExecute = false
                 })?.WaitForExit();
+                return true;
             }
             catch
             {
                 // Ignore failed export
             }
         }
+        return false;
+    }
+
+    private static string FixFlatpakDolphinPermissions(string flatpakDolphinLocation)
+    {
+        string fixedFlatpakDolphinLocation = flatpakDolphinLocation;
+        var addReadOnlyFilesystemPerm = (string newFilesystemPerm) =>
+        {
+            string flatpakRunCommand = "flatpak run";
+            fixedFlatpakDolphinLocation = fixedFlatpakDolphinLocation.Replace(
+                flatpakRunCommand,
+                $"{flatpakRunCommand} --filesystem=\"{newFilesystemPerm}\":ro");
+        };
+        if (!TryFixFlatpakGameFileAccess())
+        {
+            addReadOnlyFilesystemPerm(PathManager.GameFilePath);
+        }
+        addReadOnlyFilesystemPerm(PathManager.RrLaunchJsonFilePath);
+        return fixedFlatpakDolphinLocation;
     }
 
     public static void LaunchDolphin(string arguments = "", bool shellExecute = false)
     {
         try
         {
-            TryFixFlatpakGameFileAccess();
             var startInfo = new ProcessStartInfo();
 
             var dolphinLocation = (string)SettingsManager.DOLPHIN_LOCATION.Get();
@@ -93,6 +113,11 @@ public static class DolphinLaunchHelper
                 startInfo.ArgumentList.Add("sh");
                 startInfo.ArgumentList.Add("-c");
                 startInfo.ArgumentList.Add("--");
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
+                    PathManager.IsFlatpakDolphinFilePath())
+                {
+                    dolphinLocation = FixFlatpakDolphinPermissions(dolphinLocation);
+                }
                 startInfo.ArgumentList.Add($"{dolphinLocation} {arguments}");
                 startInfo.UseShellExecute = false;
             }

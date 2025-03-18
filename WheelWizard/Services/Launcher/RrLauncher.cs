@@ -12,7 +12,7 @@ namespace WheelWizard.Services.Launcher;
 public class RrLauncher : ILauncher
 {
     public string GameTitle { get; } = "RetroRewind";
-    private static string RrLaunchJsonFilePath => Path.Combine(PathManager.WheelWizardAppdataPath, "RR.json");
+    private static string RrLaunchJsonFilePath => PathManager.RrLaunchJsonFilePath;
 
     public async Task Launch()
     {
