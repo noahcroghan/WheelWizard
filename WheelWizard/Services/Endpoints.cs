@@ -3,7 +3,7 @@ namespace WheelWizard.Services;
 public static class Endpoints
 {
     // Retro Rewind
-    public const string RRUrl = "http://update.zplwii.xyz:8000/";
+    public const string RRUrl = "http://update.rwfc.net:8000/";
     public const string RRZipUrl = RRUrl + "RetroRewind/zip/RetroRewind.zip";
     public const string RRVersionUrl = RRUrl + "RetroRewind/RetroRewindVersion.txt";
     public const string RRVersionDeleteUrl = RRUrl + "RetroRewind/RetroRewindDelete.txt";
@@ -12,7 +12,7 @@ public static class Endpoints
     /// <summary>
     /// The base address for accessing room data
     /// </summary>
-    public const string ZplWiiBaseAddress = "http://zplwii.xyz";
+    public const string RwfcBaseAddress = "http://rwfc.net";
 
     // Wheel Wizard
     public const string WhWzDataUrl = "https://raw.githubusercontent.com/TeamWheelWizard/WheelWizard-Data/main/";

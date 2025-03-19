@@ -14,8 +14,8 @@ public class RrRoomsSingletonServiceTests
         // Arrange
         var roomId = Guid.NewGuid().ToString();
 
-        var zplWiiApiMock = Substitute.For<IZplWiiApi>();
-        var apiResponseMock = Substitute.For<IApiResponse<List<ZplWiiRoom>>>();
+        var zplWiiApiMock = Substitute.For<IRwfcApi>();
+        var apiResponseMock = Substitute.For<IApiResponse<List<RwfcRoom>>>();
 
         zplWiiApiMock.GetWiiGroupsAsync().ReturnsForAnyArgs(apiResponseMock);
 
@@ -47,10 +47,10 @@ public class RrRoomsSingletonServiceTests
     public async Task GetRoomsAsyncWithUnsuccessfulResponse_ReturnsEmptyList()
     {
         // Arrange
-        var apiResponseMock = Substitute.For<IApiResponse<List<ZplWiiRoom>>>();
+        var apiResponseMock = Substitute.For<IApiResponse<List<RwfcRoom>>>();
         apiResponseMock.IsSuccessful.Returns(false);
 
-        var zplWiiApiMock = Substitute.For<IZplWiiApi>();
+        var zplWiiApiMock = Substitute.For<IRwfcApi>();
         zplWiiApiMock.GetWiiGroupsAsync().ReturnsForAnyArgs(apiResponseMock);
 
         var roomsService = CreateRoomService(zplWiiApiMock);
@@ -67,7 +67,7 @@ public class RrRoomsSingletonServiceTests
     public async Task GetRoomsAsyncWithHttpException_ReturnsEmptyList()
     {
         // Arrange
-        var zplWiiApiMock = Substitute.For<IZplWiiApi>();
+        var zplWiiApiMock = Substitute.For<IRwfcApi>();
 
         zplWiiApiMock.GetWiiGroupsAsync()
             .Throws(new HttpRequestException("Failed to connect to ZplWii API", new SocketException((int)SocketError.HostNotFound)));
@@ -81,11 +81,11 @@ public class RrRoomsSingletonServiceTests
         Assert.Empty(rooms);
     }
 
-    private static RrRoomsSingletonService CreateRoomService(IZplWiiApi zplWiiApiMock)
+    private static RrRoomsSingletonService CreateRoomService(IRwfcApi rwfcApiMock)
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddLogging();
-        serviceCollection.AddTransient<IZplWiiApi>(_ => zplWiiApiMock);
+        serviceCollection.AddTransient<IRwfcApi>(_ => rwfcApiMock);
         serviceCollection.AddSingleton<RrRoomsSingletonService>();
 
         var serviceProvider = serviceCollection.BuildServiceProvider();

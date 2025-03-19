@@ -8,7 +8,7 @@ public static class RrRoomsExtensions
 {
     public static IServiceCollection AddRrRooms(this IServiceCollection services)
     {
-        services.AddRefitClient<IZplWiiApi>(new()
+        services.AddRefitClient<IRwfcApi>(new()
         {
             ContentSerializer = new SystemTextJsonContentSerializer(new()
             {
@@ -18,7 +18,7 @@ public static class RrRoomsExtensions
         {
             client.ConfigureWheelWizardClient(sp);
 
-            client.BaseAddress = new(Endpoints.ZplWiiBaseAddress);
+            client.BaseAddress = new(Endpoints.RwfcBaseAddress);
         }).AddStandardResilienceHandler();
 
         services.AddSingleton<IRrRoomsSingletonService, RrRoomsSingletonService>();

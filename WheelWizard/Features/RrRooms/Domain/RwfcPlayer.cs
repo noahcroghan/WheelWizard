@@ -1,6 +1,6 @@
 ﻿namespace WheelWizard.RrRooms;
 
-public sealed class ZplWiiPlayer
+public sealed class RwfcPlayer
 {
     public required string Count { get; set; }
     public required string Pid { get; set; }
@@ -11,5 +11,5 @@ public sealed class ZplWiiPlayer
     public required string Fc { get; set; }
     public string Ev { get; set; } = "--";
     public string Eb { get; set; } = "--";
-    public List<ZplMii> Mii { get; set; } = [];
+    public List<RwfcMii> Mii { get; set; } = [];
 }
