@@ -1,14 +1,14 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
-        xmlns:controls="using:WheelWizard.Views.Components.WhWzLibrary"
-        xmlns:components="using:WheelWizard.Views.Components.StandardLibrary"
-        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.WhWzLibrary.MiiImages">
+        xmlns:components="using:WheelWizard.Views.Components"
+        xmlns:components1="clr-namespace:WheelWizard.Views.Components"
+        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages">
     <Design.PreviewWith>
         <StackPanel Orientation="Horizontal">
             <Border Padding="10" Background="{StaticResource Neutral950}"
                     Width="440">
-                <controls:DetailedProfileBox FriendCode="1234-5678-9012"
+                <components1:DetailedProfileBox FriendCode="1234-5678-9012"
                                              UserName="Lum Patch"
                                              IsChecked="True"
                                              Vr="5000" Br="5000"
@@ -17,7 +17,7 @@
             </Border>
             <Border Padding="10" Background="{StaticResource Neutral950}"
                     Width="440">
-                <controls:DetailedProfileBox FriendCode="1234-5678-9012"
+                <components1:DetailedProfileBox FriendCode="1234-5678-9012"
                                              UserName="Lum Patch"
                                              IsChecked="False"
                                              Vr="5000" Br="5000"
@@ -28,7 +28,7 @@
       
     </Design.PreviewWith>
 
-    <Style Selector="controls|DetailedProfileBox">
+    <Style Selector="components1|DetailedProfileBox">
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Background="{StaticResource Neutral900}" CornerRadius="6" BorderThickness="1"
@@ -142,7 +142,7 @@
         </Setter>
     </Style>
     
-    <Style Selector="controls|DetailedProfileBox[IsOnline=true]">
+    <Style Selector="components1|DetailedProfileBox[IsOnline=true]">
         <Style Selector="^ /template/ Border#PART_HeadBorderFace, ^ /template/ Border#PART_MainBorder">
             <Setter Property="BorderBrush" Value="{StaticResource Primary400}"/>
         </Style>

@@ -2,7 +2,7 @@
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 
-namespace WheelWizard.Views.Components.StandardLibrary;
+namespace WheelWizard.Views.Components;
 
 public class EmptyPageInfo : TemplatedControl
 {

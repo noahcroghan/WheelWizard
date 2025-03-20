@@ -4,7 +4,7 @@ using Avalonia.Controls.Primitives;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services;
 
-namespace WheelWizard.Views.Components.WhWzLibrary;
+namespace WheelWizard.Views.Components;
 
 public class PlayerListItem : TemplatedControl
 {

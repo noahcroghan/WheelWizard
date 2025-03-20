@@ -5,7 +5,7 @@ using Avalonia.Input;
 using Avalonia.Media;
 using WheelWizard.Views.Pages;
 
-namespace WheelWizard.Views.Components.StandardLibrary;
+namespace WheelWizard.Views.Components;
 
 public partial class SidebarRadioButton : RadioButton
 {

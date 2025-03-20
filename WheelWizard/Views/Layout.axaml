@@ -5,9 +5,9 @@
         mc:Ignorable="d" d:DesignHeight="876" d:DesignWidth="656"
         x:Class="WheelWizard.Views.Layout"
         xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
-        xmlns:comps="clr-namespace:WheelWizard.Views.Components.StandardLibrary"
         xmlns:pages="clr-namespace:WheelWizard.Views.Pages"
         xmlns:settings="clr-namespace:WheelWizard.Views.Pages.Settings"
+        xmlns:components="clr-namespace:WheelWizard.Views.Components"
         Height="876" Width="656" WindowStartupLocation="CenterScreen"
         SystemDecorations="None"
         ExtendClientAreaToDecorationsHint="True"
@@ -38,7 +38,7 @@
         </DockPanel>
         
         <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom">
-            <comps:IconLabel IconData="{StaticResource WheelIcon}" x:Name="TitleLabel"
+            <components:IconLabel IconData="{StaticResource WheelIcon}" x:Name="TitleLabel"
                              Foreground="{StaticResource Neutral400}"
                              FontSize="20"
                              Margin="10,10,0,0"
@@ -61,11 +61,11 @@
                         x:Name="ContentArea" Margin="{StaticResource EdgeGap}"/>
         
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
-            <comps:StateBox x:Name="PlayerCountBox" Text="0" Variant="Dark"
+            <components:StateBox x:Name="PlayerCountBox" Text="0" Variant="Dark"
                                   IconData="{StaticResource UserCouple}"
                                   TipText="{x:Static lang:Phrases.Hover_PlayersOnline_0}"
                                   Margin="10,0,0,0" />
-            <comps:StateBox x:Name="RoomCountBox" Text="0" Variant="Dark"
+            <components:StateBox x:Name="RoomCountBox" Text="0" Variant="Dark"
                             IconData="{StaticResource RoomUsers}"
                             TipText="{x:Static lang:Phrases.Hover_RoomsOnline_0}"
                             Margin="10,0,0,0" />
@@ -113,36 +113,36 @@
         <TextBlock Text="{x:Static lang:Common.Term_General}" Classes="SidebarSectionText"
                    VerticalAlignment="Bottom" Grid.Row="2" />
         <StackPanel x:Name="SidePanelButtons" Grid.Column="0" Grid.Row="3" Width="192" VerticalAlignment="Top">
-            <comps:SidebarRadioButton IconData="{StaticResource Home}"
+            <components:SidebarRadioButton IconData="{StaticResource Home}"
                                         Text="{x:Static lang:Common.PageTitle_Home}"
                                         PageType="{x:Type pages:HomePage}"
                                         IsChecked="True"/>
-            <comps:SidebarRadioButton IconData="{StaticResource UserCircle}"
+            <components:SidebarRadioButton IconData="{StaticResource UserCircle}"
                                         PageType="{x:Type pages:UserProfilePage}"
                                         Text="{x:Static lang:Common.PageTitle_MyProfiles}" x:Name="MyProfilesButton"/>
-            <comps:SidebarRadioButton IconData="{StaticResource CubesStacked}"
+            <components:SidebarRadioButton IconData="{StaticResource CubesStacked}"
                                         PageType="{x:Type pages:ModsPage}"
                                         Text="{x:Static lang:Common.PageTitle_Mods}"/>
             <TextBlock Text="{x:Static lang:Common.Term_Online}" Classes="SidebarSectionText" />
-            <comps:SidebarRadioButton IconData="{StaticResource RoomUsers}"
+            <components:SidebarRadioButton IconData="{StaticResource RoomUsers}"
                                         PageType="{x:Type pages:RoomsPage}"
                                         Text="{x:Static lang:Common.PageTitle_Rooms}" x:Name="RoomsButton"/>
-            <comps:SidebarRadioButton IconData="{StaticResource Friends}"
+            <components:SidebarRadioButton IconData="{StaticResource Friends}"
                                         Text="{x:Static lang:Common.PageTitle_Friends}" x:Name="FriendsButton"
                                         PageType="{x:Type pages:FriendsPage}"
                                         BoxText="0/0"/>
 
             <TextBlock Text="{x:Static lang:Common.Term_Other}" Classes="SidebarSectionText" />
-            <comps:SidebarRadioButton IconData="{StaticResource Settings}"
+            <components:SidebarRadioButton IconData="{StaticResource Settings}"
                                         PageType="{x:Type settings:SettingsPage}"
                                         Text="{x:Static lang:Common.PageTitle_Settings}" x:Name="SettingsButton"/>
-            <comps:SidebarRadioButton IconData="{StaticResource Spinner}" IsVisible="False"
+            <components:SidebarRadioButton IconData="{StaticResource Spinner}" IsVisible="False"
                                         Text="Kitchen Sink" x:Name="KitchenSinkButton"/>
         </StackPanel>
         
         <Border Grid.Column="0" Grid.Row="4" Background="{StaticResource Neutral800}">
             <StackPanel VerticalAlignment="Center" Spacing="5">
-                <comps:IconLabelButton IconData="{StaticResource DiscordIcon}"
+                <components:IconLabelButton IconData="{StaticResource DiscordIcon}"
                                        Text="{x:Static lang:Phrases.Sidebar_Link_Discord}"
                                        Foreground="{StaticResource Neutral400}"
                                        HoverForeground="{StaticResource Primary300}"
@@ -150,7 +150,7 @@
                                        Click="Discord_Click"
                                        Margin="10,0,0,0"
                                        IconSize="20" />
-                <comps:IconLabelButton IconData="{StaticResource GithubIcon}"
+                <components:IconLabelButton IconData="{StaticResource GithubIcon}"
                                        Text="{x:Static lang:Phrases.Sidebar_Link_Github}"
                                        Foreground="{StaticResource Neutral400}"
                                        HoverForeground="{StaticResource Primary300}"
@@ -158,7 +158,7 @@
                                        Click="Github_Click"
                                        Margin="10,0,0,0"
                                        IconSize="20" />
-                <comps:IconLabelButton IconData="{StaticResource CoffeeIcon}"
+                <components:IconLabelButton IconData="{StaticResource CoffeeIcon}"
                                        Text="{x:Static lang:Phrases.Sidebar_Link_Support}"
                                        Foreground="{StaticResource Neutral400}"
                                        HoverForeground="{StaticResource Primary300}"

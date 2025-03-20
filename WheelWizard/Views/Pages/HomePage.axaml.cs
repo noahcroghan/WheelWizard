@@ -9,7 +9,7 @@ using WheelWizard.Services.Launcher;
 using WheelWizard.Services.Launcher.Helpers;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Pages.Settings;
-using Button = WheelWizard.Views.Components.StandardLibrary.Button;
+using Button = WheelWizard.Views.Components.Button;
 
 namespace WheelWizard.Views.Pages;
 

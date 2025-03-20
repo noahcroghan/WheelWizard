@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="656" d:DesignHeight="876"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
-             xmlns:components="clr-namespace:WheelWizard.Views.Components.StandardLibrary"
-             xmlns:whwzCom="using:WheelWizard.Views.Components.WhWzLibrary"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
              x:Class="WheelWizard.Views.Pages.RoomsPage">
    <Grid>
         <Grid.RowDefinitions>
@@ -138,7 +137,7 @@
                      SelectionChanged="PlayerView_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <whwzCom:PlayerListItem 
+                        <components:PlayerListItem 
                             UserName="{Binding Name}"
                             FriendCode="{Binding Fc}"
                             Br="{Binding Eb}"

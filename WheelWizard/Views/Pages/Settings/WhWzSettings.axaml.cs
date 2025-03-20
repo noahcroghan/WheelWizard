@@ -10,6 +10,7 @@ using WheelWizard.Resources.Languages;
 using WheelWizard.Services;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Popups.Generic;
+using Button = WheelWizard.Views.Components.Button;
 
 namespace WheelWizard.Views.Pages.Settings;
 
@@ -310,14 +311,14 @@ public partial class WhWzSettings : UserControl
         else if (!SettingsHelper.PathsSetupCorrectly())
         {
             LocationBorder.BorderBrush = new SolidColorBrush(ViewUtils.Colors.Warning400);
-            LocationEditButton.Variant = Components.StandardLibrary.Button.ButtonsVariantType.Warning;
+            LocationEditButton.Variant = Button.ButtonsVariantType.Warning;
             LocationWarningIcon.IsVisible = true;
             LocationBorderBlur.Background = new SolidColorBrush(ViewUtils.Colors.Warning600);
         }
         else
         {
             LocationBorder.BorderBrush = new SolidColorBrush(ViewUtils.Colors.Primary400);
-            LocationEditButton.Variant = Components.StandardLibrary.Button.ButtonsVariantType.Primary;
+            LocationEditButton.Variant = Button.ButtonsVariantType.Primary;
             LocationWarningIcon.IsVisible = false;
             LocationBorderBlur.Background = new SolidColorBrush(ViewUtils.Colors.Primary600);
         }

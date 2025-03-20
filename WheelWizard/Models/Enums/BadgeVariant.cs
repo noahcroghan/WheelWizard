@@ -6,6 +6,7 @@ public enum BadgeVariant
     WhWzDev,
     RrDev,
     Translator,
+    TranslatorLead,
     GoldWinner,
     SilverWinner,
     BronzeWinner

@@ -6,7 +6,9 @@
         <entry key="WheelWizard/Views/App.axaml" value="WheelWizard/WheelWizard.csproj" />
         <entry key="WheelWizard/Views/Components/StandardLibrary/Button.axaml" value="WheelWizard/WheelWizard.csproj" />
         <entry key="WheelWizard/Views/Components/StandardLibrary/EmptyPageInfo.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/FormFieldLabel.axaml" value="WheelWizard/WheelWizard.csproj" />
         <entry key="WheelWizard/Views/Components/StandardLibrary/IconLabel.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/IconLabelButton.axaml" value="WheelWizard/WheelWizard.csproj" />
         <entry key="WheelWizard/Views/Components/StandardLibrary/LoadingIcon.axaml" value="WheelWizard/WheelWizard.csproj" />
         <entry key="WheelWizard/Views/Components/StandardLibrary/SidebarRadioButton.axaml" value="WheelWizard/WheelWizard.csproj" />
         <entry key="WheelWizard/Views/Components/StandardLibrary/StateBox.axaml" value="WheelWizard/WheelWizard.csproj" />

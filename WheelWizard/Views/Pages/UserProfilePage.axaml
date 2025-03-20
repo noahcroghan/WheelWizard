@@ -4,9 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="656" d:DesignHeight="876"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
-             xmlns:components="clr-namespace:WheelWizard.Views.Components.StandardLibrary"
-             xmlns:whwzComps="clr-namespace:WheelWizard.Views.Components.WhWzLibrary"
-             xmlns:whwzMiiComps="clr-namespace:WheelWizard.Views.Components.WhWzLibrary.MiiImages"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
              x:Class="WheelWizard.Views.Pages.UserProfilePage">
    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
        <Grid.RowDefinitions>
@@ -58,14 +57,14 @@
        </StackPanel>
        
        <Grid Grid.Row="1">
-           <whwzComps:DetailedProfileBox x:Name="CurrentUserProfile" 
-                                         OnChecked="CheckBox_SetPrimaryUser" ViewRoomAction="ViewRoom_OnClick"
-                                         VerticalAlignment="Top" HorizontalAlignment="Stretch"
-                                         Mii="{Binding CurrentMii}"
-                                         OnRename="ChangeMiiName"
-                                         Margin="0,10,0,0" />
+           <components:DetailedProfileBox x:Name="CurrentUserProfile" 
+                                          OnChecked="CheckBox_SetPrimaryUser" ViewRoomAction="ViewRoom_OnClick"
+                                          VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                                          Mii="{Binding CurrentMii}"
+                                          OnRename="ChangeMiiName"
+                                          Margin="0,10,0,0" />
            
-           <whwzMiiComps:MiiCarousel VerticalAlignment="Bottom" HorizontalAlignment="Center"
+           <miiImages:MiiCarousel VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                      Mii="{Binding CurrentMii}"
                                      x:Name="CurrentUserCarousel" Height="280"/>
            

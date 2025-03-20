@@ -3,7 +3,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using WheelWizard.Models.MiiImages;
 
-namespace WheelWizard.Views.Components.WhWzLibrary.MiiImages;
+namespace WheelWizard.Views.Components.MiiImages;
 
 public class MiiCarousel : BaseMiiImage
 {
@@ -49,11 +49,11 @@ public class MiiCarousel : BaseMiiImage
                 miiImage.RenderTransform = new TranslateTransform(CurrentCarouselInstance * Height, 0);
         }
         
-        var rotateLeft = e.NameScope.Find<WheelWizard.Views.Components.StandardLibrary.Button>("RotateLeftButton");
+        var rotateLeft = e.NameScope.Find<Button>("RotateLeftButton");
         if (rotateLeft != null)
             rotateLeft.Click += RotateLeft;
         
-        var rotateRight = e.NameScope.Find<WheelWizard.Views.Components.StandardLibrary.Button>("RotateRightButton");
+        var rotateRight = e.NameScope.Find<Button>("RotateRightButton");
         if (rotateRight != null)
             rotateRight.Click += RotateRight;
     }
