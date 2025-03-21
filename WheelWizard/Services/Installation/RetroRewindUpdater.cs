@@ -16,7 +16,7 @@ public static class RetroRewindUpdater
     private static async Task<string> GetLatestVersionString()
     {
         var response = await HttpClientHelper.GetAsync<string>(Endpoints.RRVersionUrl);
-        if (response.Succeeded && response.Content != null) 
+        if (response.Succeeded && response.Content != null)
             return response.Content.Split('\n').Last().Split(' ')[0];
         new YesNoWindow().SetMainText(Phrases.PopupText_FailCheckUpdates).AwaitAnswer();
         return "Failed to check for updates";
@@ -57,7 +57,7 @@ public static class RetroRewindUpdater
         var allVersions = await GetAllVersionData();
         var updatesToApply = GetUpdatesToApply(currentVersion, allVersions);
 
-        var progressWindow = new  ProgressWindow(Phrases.PopupText_UpdateRR);
+        var progressWindow = new ProgressWindow(Phrases.PopupText_UpdateRR);
         progressWindow.Show();
 
         // Step 1: Get the version we are updating to
@@ -76,7 +76,7 @@ public static class RetroRewindUpdater
         for (var i = 0; i < updatesToApply.Count; i++)
         {
             var update = updatesToApply[i];
-        
+
             var success = await DownloadAndApplyUpdate(update, updatesToApply.Count, i + 1, progressWindow);
             if (!success)
             {
@@ -92,7 +92,7 @@ public static class RetroRewindUpdater
         progressWindow.Close();
         return true;
     }
-    
+
     private static async Task<bool> ApplyFileDeletionsBetweenVersions(string currentVersion, string targetVersion)
     {
         try
@@ -113,8 +113,8 @@ public static class RetroRewindUpdater
                     AbortingUpdate("Invalid file path detected. Please contact the developers.\n Server error: " + resolvedPath);
                     return false;
                 }
-                
-                if (File.Exists(filePath))  File.Delete(filePath);
+
+                if (File.Exists(filePath)) File.Delete(filePath);
                 else if (Directory.Exists(filePath)) Directory.Delete(filePath, recursive: true);
             }
 
@@ -126,7 +126,7 @@ public static class RetroRewindUpdater
             return false;
         }
     }
-    
+
     private static List<(string Version, string Path)> GetDeletionsToApply(
         string currentVersion, string targetVersion, List<(string Version, string Path)> allDeletions)
     {
@@ -218,7 +218,7 @@ public static class RetroRewindUpdater
     }
 
     private static async Task<bool> DownloadAndApplyUpdate(
-        (string Version, string Url, string Path, string Description) update, 
+        (string Version, string Url, string Path, string Description) update,
         int totalUpdates, int currentUpdateIndex, ProgressWindow popupWindow)
     {
         var tempZipPath = Path.GetTempFileName();
@@ -229,9 +229,9 @@ public static class RetroRewindUpdater
 
             popupWindow.UpdateProgress(100);
             popupWindow.SetExtraText(Common.State_Extracting);
-            var extractionPath = PathManager.RiivolutionWhWzFolderPath;
-            Directory.CreateDirectory(extractionPath);
-            ExtractZipFile(finalFile, extractionPath);
+            var destinationDirectoryPath = PathManager.RiivolutionWhWzFolderPath;
+            Directory.CreateDirectory(destinationDirectoryPath);
+            ExtractZipFile(finalFile, destinationDirectoryPath);
             if (File.Exists(finalFile))
                 File.Delete(finalFile);
         }
@@ -244,30 +244,42 @@ public static class RetroRewindUpdater
         return true;
     }
 
-    private static void ExtractZipFile(string zipFilePath, string extractionPath)
+    private static void ExtractZipFile(string path, string destinationDirectory)
     {
-        using (var archive = ZipFile.OpenRead(zipFilePath))
+        using var archive = ZipFile.OpenRead(path);
+
+        // Absolute path of the destination directory
+        var absoluteDestinationPath = Path.GetFullPath(destinationDirectory + Path.DirectorySeparatorChar);
+
+        foreach (var entry in archive.Entries)
         {
-            foreach (var entry in archive.Entries)
+            if (entry.FullName.EndsWith("desktop.ini", StringComparison.OrdinalIgnoreCase))
+                continue; // Skip the desktop.ini file
+
+            // Get the full path of the file
+            var destinationPath = Path.GetFullPath(Path.Combine(destinationDirectory, entry.FullName));
+
+            // Check for directory traversal attacks
+            if (!destinationPath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal))
             {
-                if (entry.FullName.EndsWith("desktop.ini", StringComparison.OrdinalIgnoreCase))
-                {
-                    continue; // Skip the desktop.ini file
-                }
-
-                var destinationPath = Path.Combine(extractionPath, entry.FullName);
-
-                // Create the directory if it doesn't exist
-                if (entry.FullName.EndsWith("/"))
-                {
-                    Directory.CreateDirectory(destinationPath);
-                }
-                else
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
-                    entry.ExtractToFile(destinationPath, overwrite: true);
-                }
+                AbortingUpdate("The file path is outside the destination directory. Please contact the developers.");
+                return;
             }
+
+            // If the entry is a directory, create it
+            if (entry.FullName.EndsWith(Path.DirectorySeparatorChar))
+            {
+                Directory.CreateDirectory(destinationPath);
+                continue;
+            }
+
+            // Create directory if it doesn't exist
+            var directoryName = Path.GetDirectoryName(destinationPath);
+            if (!string.IsNullOrEmpty(directoryName))
+                Directory.CreateDirectory(directoryName);
+
+            // Extract the file
+            entry.ExtractToFile(destinationPath, overwrite: true);
         }
     }
 
