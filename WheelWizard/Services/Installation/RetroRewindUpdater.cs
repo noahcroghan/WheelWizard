@@ -267,7 +267,7 @@ public static class RetroRewindUpdater
             }
 
             // If the entry is a directory, create it
-            if (entry.FullName.EndsWith(Path.DirectorySeparatorChar))
+            if (entry.FullName.EndsWith(Path.AltDirectorySeparatorChar))
             {
                 Directory.CreateDirectory(destinationPath);
                 continue;
