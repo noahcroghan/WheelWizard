@@ -1,11 +1,13 @@
-﻿using WheelWizard.Helpers;
-using WheelWizard.Utilities.RepeatedTasks;
+﻿using WheelWizard.Utilities.RepeatedTasks;
+using WheelWizard.Views;
+using WheelWizard.WheelWizardData;
+using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.Services.LiveData;
 
 public class LiveAlertsManager : RepeatedTaskManager
 {
-    public LiveStatus? Status { get; private set; }
+    public WhWzStatus? Status { get; private set; }
     
     private static LiveAlertsManager? _instance;
     public static LiveAlertsManager Instance => _instance ??= new LiveAlertsManager();
@@ -14,38 +16,7 @@ public class LiveAlertsManager : RepeatedTaskManager
 
     protected override async Task ExecuteTaskAsync()
     {
-        var response = await HttpClientHelper.GetAsync<LiveStatus>(Endpoints.WhWzStatusUrl);
-        Status = response.Content ?? new()
-        {
-            Message = "Can't connect to the servers. \nYou might experience internet connection issues.", 
-            Variant = "warning"
-        };
-    }
-
-    public class LiveStatus
-    {
-        public required string Variant { get; set; }
-        public required string Message { get; set; }
-        public LiveStatusVariant StatusVariant => Variant.ToLower() switch
-            {
-                "warning" => LiveStatusVariant.Warning,
-                "error" => LiveStatusVariant.Error,
-                "success" => LiveStatusVariant.Success,
-                "info" => LiveStatusVariant.Info,
-                "party" => LiveStatusVariant.Party,
-                "question" => LiveStatusVariant.Question,
-                _ => LiveStatusVariant.None
-            };
-    }
-
-    public enum LiveStatusVariant
-    {
-        None,
-        Warning,
-        Error,
-        Success,
-        Info,
-        Party,
-        Question
+        var whWzDataService = App.Services.GetRequiredService<IWhWzDataSingletonService>();
+        Status = await whWzDataService.GetStatusAsync();
     }
 }

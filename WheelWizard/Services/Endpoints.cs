@@ -10,7 +10,7 @@ public static class Endpoints
     /// <summary>
     /// The base address for accessing the WheelWizard data (data that we control)
     /// </summary>
-    public const string WhWzDataBaseAddress = "https://raw.githubusercontent.com/TeamWheelWizard/WheelWizard-Data/main/";
+    public const string WhWzDataBaseAddress = "https://raw.githubusercontent.com/TeamWheelWizard/WheelWizard-Data/main";
     
     // TODO: Refactor all the URLs seen below
 

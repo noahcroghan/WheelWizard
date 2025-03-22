@@ -1,6 +1,10 @@
 ﻿using Refit;
+using System.ComponentModel;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using WheelWizard.Services;
+using WheelWizard.Shared;
+using WheelWizard.Shared.JsonConverters;
 using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.WheelWizardData;
@@ -14,7 +18,11 @@ public static class WhWzDataExtensions
             ContentSerializer = new SystemTextJsonContentSerializer(new()
             {
                 PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-                Converters = { new BadgeVariantConverter() }
+                Converters =
+                {
+                    new EnumWithFallbackConverter<BadgeVariant>(),
+                    new JsonStringEnumConverter()
+                }
             })
         }).ConfigureHttpClient((sp, client) =>
         {

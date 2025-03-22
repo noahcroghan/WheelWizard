@@ -11,4 +11,3 @@ public enum BadgeVariant
     SilverWinner,
     BronzeWinner
 }
-

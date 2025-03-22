@@ -13,6 +13,7 @@ using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Pages;
+using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.Views;
 
@@ -151,13 +152,13 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
 
     private void UpdateLiveAlert(LiveAlertsManager sender)
     {
-        var visible = sender.Status != null && sender.Status.StatusVariant != LiveAlertsManager.LiveStatusVariant.None;
+        var visible = sender.Status != null && sender.Status.Variant != WhWzStatusVariant.None;
         LiveStatusBorder.IsVisible = visible;
         if (!visible) return;
 
         ToolTip.SetTip(LiveStatusBorder, sender.Status!.Message);
         LiveStatusBorder.Classes.Clear();
-        LiveStatusBorder.Classes.Add(sender.Status!.StatusVariant.ToString());
+        LiveStatusBorder.Classes.Add(sender.Status!.Variant.ToString());
     }
 
     private void TopBar_PointerPressed(object? sender, PointerPressedEventArgs e)
