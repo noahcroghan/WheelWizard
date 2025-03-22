@@ -249,7 +249,7 @@ public static class RetroRewindUpdater
         using var archive = ZipFile.OpenRead(path);
 
         // Absolute path of the destination directory
-        var absoluteDestinationPath = Path.GetFullPath(destinationDirectory + Path.DirectorySeparatorChar);
+        var absoluteDestinationPath = Path.GetFullPath(destinationDirectory + Path.AltDirectorySeparatorChar);
 
         foreach (var entry in archive.Entries)
         {
