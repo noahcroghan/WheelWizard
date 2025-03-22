@@ -1,6 +1,5 @@
 ﻿using Avalonia.Threading;
 using Semver;
-using System.Runtime.InteropServices;
 using WheelWizard.AutoUpdating.Platforms;
 using WheelWizard.Branding;
 using WheelWizard.GitHub;
@@ -28,7 +27,7 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
         if (latestRelease?.TagName is null)
             return;
 
-        var asset = GetAsset(latestRelease);
+        var asset = updatePlatform.GetAssetForCurrentPlatform(latestRelease);
         if (asset is null)
             return;
 
@@ -91,7 +90,7 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
             var releaseVersion = SemVersion.Parse(release.TagName.TrimStart('v'), SemVersionStyles.Any);
             if (releaseVersion.ComparePrecedenceTo(currentVersion) <= 0) continue;
 
-            var asset = GetAsset(release);
+            var asset = updatePlatform.GetAssetForCurrentPlatform(release);
             if (asset is null)
                 continue;
 
@@ -103,12 +102,5 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
         }
 
         return bestMatch;
-    }
-
-    private GithubAsset? GetAsset(GithubRelease release)
-    {
-        var assetName = $"WheelWizard.{release.TagName}.{RuntimeInformation.RuntimeIdentifier}.zip";
-        var asset = release.Assets.FirstOrDefault(x => x.Name == assetName);
-        return asset ?? updatePlatform.GetAssetForCurrentPlatform(release);
     }
 }
