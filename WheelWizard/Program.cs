@@ -1,7 +1,4 @@
 using Avalonia;
-using WheelWizard.Services;
-using WheelWizard.Services.Settings;
-using WheelWizard.Services.UrlProtocol;
 
 namespace WheelWizard;
 

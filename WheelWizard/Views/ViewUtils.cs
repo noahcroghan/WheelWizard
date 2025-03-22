@@ -2,10 +2,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using System.Globalization;
-using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Settings;
-using WheelWizard.Services.UrlProtocol;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Utilities.RepeatedTasks;
 
