@@ -1,12 +1,12 @@
 ﻿using Avalonia.Threading;
 using Semver;
-using System.Text.Json;
+using System.Runtime.InteropServices;
 using WheelWizard.AutoUpdating.Platforms;
 using WheelWizard.Branding;
+using WheelWizard.GitHub;
+using WheelWizard.GitHub.Domain;
 using WheelWizard.Helpers;
-using WheelWizard.Models.Github;
 using WheelWizard.Resources.Languages;
-using WheelWizard.Services;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.AutoUpdating;
@@ -16,9 +16,10 @@ public interface IAutoUpdaterSingletonService
     public Task CheckForUpdatesAsync();
 }
 
-public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandingSingletonService brandingSingletonService) : IAutoUpdaterSingletonService
+public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandingSingletonService brandingService, IGitHubSingletonService gitHubService)
+    : IAutoUpdaterSingletonService
 {
-    private string CurrentVersion => brandingSingletonService.Branding.Version;
+    private string CurrentVersion => brandingService.Branding.Version;
 
     public async Task CheckForUpdatesAsync()
     {
@@ -26,7 +27,8 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
         var latestRelease = await GetLatestReleaseAsync();
         if (latestRelease?.TagName is null)
             return;
-        var asset = updatePlatform.GetAssetForCurrentPlatform(latestRelease);
+
+        var asset = GetAsset(latestRelease);
         if (asset is null)
             return;
 
@@ -52,31 +54,24 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
 
     private async Task<GithubRelease?> GetLatestReleaseAsync()
     {
-        var response = await HttpClientHelper.GetAsync<string>(Endpoints.WhWzReleasesUrl);
-        if (!response.Succeeded || response.Content is null)
+        var releases = await gitHubService.GetReleasesAsync("TeamWheelWizard", "WheelWizard");
+        if (releases.IsFailure)
         {
-            // If it failed, it can be due to many reasons. We don't want to always throw an error,
-            // since most of the time its simply because the Wi-Fi is not on or something
-            // It's not useful to send that error in that case so we filter those out first.
-            if (response.StatusCodeGroup != 4 && response.StatusCode is not 503 and not 504)
+            await Dispatcher.UIThread.InvokeAsync(async () =>
             {
-                await Dispatcher.UIThread.InvokeAsync(async () =>
-                {
-                    await new MessageBoxWindow()
-                        .SetMessageType(MessageBoxWindow.MessageType.Error)
-                        .SetTitleText("Failed to check for updates")
-                        .SetInfoText("An error occurred while checking for updates. Please try again later. " +
-                                     "\nError: " + response.StatusMessage)
-                        .ShowDialog();
-                });
-            }
+                await new MessageBoxWindow()
+                    .SetMessageType(MessageBoxWindow.MessageType.Error)
+                    .SetTitleText("Failed to check for updates")
+                    .SetInfoText("An error occurred while checking for updates. Please try again later. " +
+                                 "\nError: " + releases.Error.Message)
+                    .ShowDialog();
+            });
 
             return null;
         }
 
-        response.Content = response.Content.Trim('\0');
-        var releases = JsonSerializer.Deserialize<List<GithubRelease>>(response.Content);
-        if (releases is null || releases.Count == 0) return null;
+        if (releases.Value.Count == 0)
+            return null;
 
         // Get the current version
         var currentVersion = SemVersion.Parse(CurrentVersion, SemVersionStyles.Any);
@@ -85,7 +80,7 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
         GithubRelease? bestMatch = null;
         SemVersion? bestVersion = null;
 
-        foreach (var release in releases)
+        foreach (var release in releases.Value)
         {
             if (release.TagName == null!)
                 continue;
@@ -96,7 +91,7 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
             var releaseVersion = SemVersion.Parse(release.TagName.TrimStart('v'), SemVersionStyles.Any);
             if (releaseVersion.ComparePrecedenceTo(currentVersion) <= 0) continue;
 
-            var asset = updatePlatform.GetAssetForCurrentPlatform(release);
+            var asset = GetAsset(release);
             if (asset is null)
                 continue;
 
@@ -108,5 +103,12 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
         }
 
         return bestMatch;
+    }
+
+    private GithubAsset? GetAsset(GithubRelease release)
+    {
+        var assetName = $"WheelWizard.{release.TagName}.{RuntimeInformation.RuntimeIdentifier}.zip";
+        var asset = release.Assets.FirstOrDefault(x => x.Name == assetName);
+        return asset ?? updatePlatform.GetAssetForCurrentPlatform(release);
     }
 }

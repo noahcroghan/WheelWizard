@@ -1,6 +1,6 @@
 ﻿using Semver;
 using WheelWizard.Branding;
-using WheelWizard.Models.Github;
+using WheelWizard.GitHub.Domain;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.AutoUpdating.Platforms;

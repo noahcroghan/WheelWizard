@@ -22,9 +22,14 @@ public class RRLiveRooms : RepeatedTaskManager
         var roomsService = App.Services.GetRequiredService<IRrRoomsSingletonService>();
 
         var rooms = await roomsService.GetRoomsAsync();
+        if (rooms.IsFailure)
+        {
+            CurrentRooms = [];
+            return;
+        }
 
         // This is here because we don't want to break existing code that uses the old model
-        var rrRooms = rooms.Select(room => new RrRoom
+        var rrRooms = rooms.Value.Select(room => new RrRoom
         {
             Id = room.Id,
             Game = room.Game,
@@ -52,7 +57,7 @@ public class RRLiveRooms : RepeatedTaskManager
                     }).ToList()
                 })
         }).ToList();
-        
+
         CurrentRooms = rrRooms;
     }
 }

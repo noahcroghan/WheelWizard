@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using NSubstitute.ExceptionExtensions;
 using Refit;
+using System.Net;
 using System.Net.Sockets;
 using WheelWizard.RrRooms;
 
@@ -39,7 +40,9 @@ public class RrRoomsSingletonServiceTests
         var rooms = await roomsService.GetRoomsAsync();
 
         // Assert
-        var room = Assert.Single(rooms);
+        Assert.True(rooms.IsSuccess);
+
+        var room = Assert.Single(rooms.Value);
         Assert.Equal(roomId, room.Id);
     }
 
@@ -47,8 +50,11 @@ public class RrRoomsSingletonServiceTests
     public async Task GetRoomsAsyncWithUnsuccessfulResponse_ReturnsEmptyList()
     {
         // Arrange
+        var apiException = await ApiException.Create(new(), new("GET"), new() { StatusCode = HttpStatusCode.InternalServerError }, new());
+
         var apiResponseMock = Substitute.For<IApiResponse<List<RwfcRoom>>>();
         apiResponseMock.IsSuccessful.Returns(false);
+        apiResponseMock.Error.Returns(apiException);
 
         var zplWiiApiMock = Substitute.For<IRwfcApi>();
         zplWiiApiMock.GetWiiGroupsAsync().ReturnsForAnyArgs(apiResponseMock);
@@ -60,7 +66,7 @@ public class RrRoomsSingletonServiceTests
         var rooms = await roomsService.GetRoomsAsync();
 
         // Assert
-        Assert.Empty(rooms);
+        Assert.True(rooms.IsFailure);
     }
 
     [Fact(DisplayName = "Get rooms async with http exception, returns empty list")]
@@ -78,7 +84,7 @@ public class RrRoomsSingletonServiceTests
         var rooms = await roomsService.GetRoomsAsync();
 
         // Assert
-        Assert.Empty(rooms);
+        Assert.True(rooms.IsFailure);
     }
 
     private static RrRoomsSingletonService CreateRoomService(IRwfcApi rwfcApiMock)
