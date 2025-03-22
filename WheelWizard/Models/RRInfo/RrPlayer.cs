@@ -1,6 +1,6 @@
-using WheelWizard.Models.Enums;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services;
+using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.Models.RRInfo;
 

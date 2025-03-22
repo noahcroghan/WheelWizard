@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
 using WheelWizard.Helpers;
-using WheelWizard.Models.Enums;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
 using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
+using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.Models.GameData;
 

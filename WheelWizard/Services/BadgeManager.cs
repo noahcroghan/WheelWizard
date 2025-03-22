@@ -1,6 +1,6 @@
 ﻿using WheelWizard.Helpers;
-using WheelWizard.Models.Enums;
 using WheelWizard.Views.Components;
+using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.Services;
 

@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.Primitives;
-using WheelWizard.Models.Enums;
 using WheelWizard.Services;
+using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.Views.Components;
 
