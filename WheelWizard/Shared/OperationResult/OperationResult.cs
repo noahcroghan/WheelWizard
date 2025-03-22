@@ -52,12 +52,4 @@ public class OperationResult
     public static OperationResult<T> Ok<T>(T value) => new(value);
 
     public static implicit operator OperationResult(OperationError error) => new(error);
-
-    public static implicit operator OperationResult(bool isSuccess)
-    {
-        if (!isSuccess)
-            throw new InvalidOperationException("Cannot implicitly convert a successful OperationResult to a failed OperationResult.");
-
-        return new();
-    }
 }

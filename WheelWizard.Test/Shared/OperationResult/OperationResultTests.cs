@@ -28,29 +28,6 @@ public class OperationResultTests
         Assert.True(operationResult.IsSuccess);
     }
 
-    [Fact(DisplayName = "Implicit result from true, should have correct state")]
-    public void ImplicitResultFromTrue_ShouldHaveCorrectState()
-    {
-        // Act
-        OperationResult operationResult = true;
-
-        // Assert
-        Assert.Null(operationResult.Error);
-        Assert.False(operationResult.IsFailure);
-        Assert.True(operationResult.IsSuccess);
-    }
-
-    [Fact(DisplayName = "Implicit result from false, should throw exception")]
-    public void ImplicitResultFromFalse_ShouldThrowException()
-    {
-        // Assert
-        Assert.Throws<InvalidOperationException>(() =>
-        {
-            // Act
-            OperationResult _ = false;
-        });
-    }
-
     [Fact(DisplayName = "New failure result, should have correct state")]
     public void NewFailureResult_ShouldHaveCorrectState()
     {
