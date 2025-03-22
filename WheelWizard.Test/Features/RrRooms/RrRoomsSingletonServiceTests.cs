@@ -63,10 +63,10 @@ public class RrRoomsSingletonServiceTests
 
 
         // Act
-        var rooms = await roomsService.GetRoomsAsync();
+        var roomsResult = await roomsService.GetRoomsAsync();
 
         // Assert
-        Assert.True(rooms.IsFailure);
+        Assert.True(roomsResult.IsFailure);
     }
 
     [Fact(DisplayName = "Get rooms async with http exception, returns empty list")]
@@ -81,10 +81,10 @@ public class RrRoomsSingletonServiceTests
         var roomsService = CreateRoomService(zplWiiApiMock);
 
         // Act
-        var rooms = await roomsService.GetRoomsAsync();
+        var roomsResult = await roomsService.GetRoomsAsync();
 
         // Assert
-        Assert.True(rooms.IsFailure);
+        Assert.True(roomsResult.IsFailure);
     }
 
     private static RrRoomsSingletonService CreateRoomService(IRwfcApi rwfcApiMock)

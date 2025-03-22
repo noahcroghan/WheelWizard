@@ -53,8 +53,8 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
 
     private async Task<GithubRelease?> GetLatestReleaseAsync()
     {
-        var releases = await gitHubService.GetReleasesAsync("TeamWheelWizard", "WheelWizard");
-        if (releases.IsFailure)
+        var releasesResult = await gitHubService.GetReleasesAsync("TeamWheelWizard", "WheelWizard");
+        if (releasesResult.IsFailure)
         {
             await Dispatcher.UIThread.InvokeAsync(async () =>
             {
@@ -62,14 +62,14 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
                     .SetMessageType(MessageBoxWindow.MessageType.Error)
                     .SetTitleText("Failed to check for updates")
                     .SetInfoText("An error occurred while checking for updates. Please try again later. " +
-                                 "\nError: " + releases.Error.Message)
+                                 "\nError: " + releasesResult.Error.Message)
                     .ShowDialog();
             });
 
             return null;
         }
 
-        if (releases.Value.Count == 0)
+        if (releasesResult.Value.Count == 0)
             return null;
 
         // Get the current version
@@ -79,7 +79,7 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
         GithubRelease? bestMatch = null;
         SemVersion? bestVersion = null;
 
-        foreach (var release in releases.Value)
+        foreach (var release in releasesResult.Value)
         {
             if (release.TagName == null!)
                 continue;
