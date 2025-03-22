@@ -58,7 +58,6 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     {
         _brandingService = App.Services.GetRequiredService<IBrandingSingletonService>();
         Title = _brandingService.Branding.DisplayName;
-        ViewUtils.OnLoaded();
     }
     protected override void OnLoaded(RoutedEventArgs e)
     {
@@ -80,8 +79,8 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
 
     private void InitializeManagers()
     {
-        LiveAlertsManager.Instance.Subscribe(this);
-        LiveAlertsManager.Instance.Start(); // Temporary code, should be moved to a more appropriate location
+        WhWzStatusManager.Instance.Subscribe(this);
+        WhWzStatusManager.Instance.Start(); // Temporary code, should be moved to a more appropriate location
         RRLiveRooms.Instance.Subscribe(this);
         RRLiveRooms.Instance.Start(); // Temporary code, should be moved to a more appropriate location
         GameDataLoader.Instance.Subscribe(this);
@@ -113,7 +112,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
             case RRLiveRooms liveRooms:
                 UpdatePlayerAndRoomCount(liveRooms);
                 break;
-            case LiveAlertsManager liveAlerts:
+            case WhWzStatusManager liveAlerts:
                 UpdateLiveAlert(liveAlerts);
                 break;
         }
@@ -150,7 +149,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         };
     }
 
-    private void UpdateLiveAlert(LiveAlertsManager sender)
+    private void UpdateLiveAlert(WhWzStatusManager sender)
     {
         var visible = sender.Status != null && sender.Status.Variant != WhWzStatusVariant.None;
         LiveStatusBorder.IsVisible = visible;

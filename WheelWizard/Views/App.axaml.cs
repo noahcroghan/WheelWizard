@@ -2,6 +2,9 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using WheelWizard.AutoUpdating;
+using WheelWizard.Services;
+using WheelWizard.Services.Settings;
+using WheelWizard.Services.UrlProtocol;
 
 namespace WheelWizard.Views;
 
@@ -23,11 +26,34 @@ public class App : Application
 
         _serviceProvider = services.BuildServiceProvider();
 
+        Setup();
+
         AvaloniaXamlLoader.Load(this);
     }
 
+    private static void Setup()
+    {
+        SettingsManager.Instance.LoadSettings();
+        _ = BadgeManager.Instance.LoadBadgesAsync();
+        UrlProtocolManager.SetWhWzScheme();
+        
+        
+    }
+
+    private static void OpenGameBananaModWindow()
+    {
+        var args = Environment.GetCommandLineArgs();
+        ModManager.Instance.ReloadAsync();
+        if (args.Length <= 1) return; 
+        var protocolArgument = args[1];
+        _ = UrlProtocolManager.ShowPopupForLaunchUrlAsync(protocolArgument);
+    }
+    
+    
     private static async void OnInitializedAsync()
     {
+        OpenGameBananaModWindow();
+            
         try
         {
             var updateService = Services.GetRequiredService<IAutoUpdaterSingletonService>();

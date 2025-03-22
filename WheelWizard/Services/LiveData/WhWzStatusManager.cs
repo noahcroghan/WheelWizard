@@ -5,14 +5,14 @@ using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.Services.LiveData;
 
-public class LiveAlertsManager : RepeatedTaskManager
+public class WhWzStatusManager : RepeatedTaskManager
 {
     public WhWzStatus? Status { get; private set; }
     
-    private static LiveAlertsManager? _instance;
-    public static LiveAlertsManager Instance => _instance ??= new LiveAlertsManager();
+    private static WhWzStatusManager? _instance;
+    public static WhWzStatusManager Instance => _instance ??= new WhWzStatusManager();
 
-    private LiveAlertsManager() : base(90) { }
+    private WhWzStatusManager() : base(90) { }
 
     protected override async Task ExecuteTaskAsync()
     {

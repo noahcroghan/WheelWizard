@@ -1,5 +1,7 @@
 ﻿using WheelWizard.Helpers;
+using WheelWizard.Views;
 using WheelWizard.Views.Components;
+using WheelWizard.WheelWizardData;
 using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.Services;
@@ -8,7 +10,7 @@ public class BadgeManager
 {
     public readonly Dictionary<BadgeVariant, string> BadgeToolTip = new()
     {
-        {BadgeVariant.None, "Whoops, the devs made an oopsie!"},
+        {BadgeVariant.None, "This is not a badge"},
         {BadgeVariant.WhWzDev, "Wheel Wizard Developer (hiii!)"},
         {BadgeVariant.RrDev, "Retro Rewind Developer"},
         {BadgeVariant.Translator, "Translator"},
@@ -21,18 +23,15 @@ public class BadgeManager
     public Dictionary<string,BadgeVariant[]> BadgeData { get; private set; }
     
     public static BadgeManager Instance { get; } = new();
-    private BadgeManager() { }
-    public async void LoadBadges()
+
+    public async Task LoadBadgesAsync()
     {
-        var response = await HttpClientHelper.GetAsync<Dictionary<string,string[]>>(Endpoints.WhWzBadgesUrl);
-        if (response?.Content == null || !response.Succeeded) return;
+        var whWzDataService = App.Services.GetRequiredService<IWhWzDataSingletonService>();
+        var response = await whWzDataService.GetBadgesAsync();
         
-        BadgeData = response.Content.ToDictionary(
+        BadgeData = response.ToDictionary(
             kvp => kvp.Key,
-            kvp => kvp.Value
-                .Select(b => Enum.TryParse(b, out BadgeVariant v) ? v : BadgeVariant.None)
-                .Where(b => b != BadgeVariant.None)
-                .ToArray()
+            kvp => kvp.Value.Where(b => b != BadgeVariant.None).ToArray()
         );
     }
     

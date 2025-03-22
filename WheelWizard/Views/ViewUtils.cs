@@ -22,15 +22,6 @@ public static class ViewUtils
         });
     }
     
-    public static void OnLoaded()
-    {
-        var args = Environment.GetCommandLineArgs();
-        ModManager.Instance.ReloadAsync();
-        if (args.Length <= 1) return; 
-        var protocolArgument = args[1];
-        _ = UrlProtocolManager.ShowPopupForLaunchUrlAsync(protocolArgument);
-    }
-    
     public static Layout GetLayout() => Layout.Instance;
     public static void NavigateToPage(UserControl page)
     {
@@ -63,7 +54,7 @@ public static class ViewUtils
             // Unsubscribing is not really necessary. But i guess it prevents memory leaks when
             // someone is refreshing the window a lot (happens when changing the language e.g.
             // So they would have to change the language like 1000 of times in a row)
-            LiveAlertsManager.Instance.Unsubscribe(oldListener);
+            WhWzStatusManager.Instance.Unsubscribe(oldListener);
             RRLiveRooms.Instance.Unsubscribe(oldListener);
             GameDataLoader.Instance.Unsubscribe(oldListener);
         }

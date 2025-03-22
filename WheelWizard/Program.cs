@@ -11,7 +11,6 @@ public class Program
     public static void Main(string[] args)
     {
         PrintStartUpMessage();
-        Setup();
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
@@ -20,14 +19,6 @@ public class Program
             .UsePlatformDetect()
             .WithInterFont()
             .LogToTrace();
-
-    private static void Setup()
-    {
-        SettingsManager.Instance.LoadSettings();
-        BadgeManager.Instance.LoadBadges();
-        UrlProtocolManager.SetWhWzScheme();
-    }
-
 
     private static void PrintStartUpMessage()
     {
