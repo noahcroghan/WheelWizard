@@ -53,7 +53,7 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
 
     private async Task<GithubRelease?> GetLatestReleaseAsync()
     {
-        var releasesResult = await gitHubService.GetReleasesAsync("TeamWheelWizard", "WheelWizard");
+        var releasesResult = await gitHubService.GetReleasesAsync();
         if (releasesResult.IsFailure)
         {
             await Dispatcher.UIThread.InvokeAsync(async () =>

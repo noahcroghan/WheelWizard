@@ -10,23 +10,19 @@ public interface IGitHubSingletonService
     /// <summary>
     /// Get the releases for a GitHub repository.
     /// </summary>
-    /// <param name="owner">The owner of the repository.</param>
-    /// <param name="repository">The name of the repository.</param>
-    /// <param name="count">The number of releases to get.</param>
-    /// <returns>A list of releases for the repository.</returns>
-    Task<OperationResult<List<GithubRelease>>> GetReleasesAsync(string owner, string repository, int count = 3);
+    Task<OperationResult<List<GithubRelease>>> GetReleasesAsync();
 }
 
 public class GitHubSingletonService(IServiceScopeFactory scopeFactory, ILogger<RrRoomsSingletonService> logger) : IGitHubSingletonService
 {
-    public async Task<OperationResult<List<GithubRelease>>> GetReleasesAsync(string owner, string repository, int count = 3)
+    public async Task<OperationResult<List<GithubRelease>>> GetReleasesAsync()
     {
         using var scope = scopeFactory.CreateScope();
         var api = scope.ServiceProvider.GetRequiredService<IGitHubApi>();
 
         try
         {
-            var response = await api.GetReleasesAsync(owner, repository, count);
+            var response = await api.GetReleasesAsync("TeamWheelWizard", "WheelWizard");
             if (response.IsSuccessful)
                 return response.Content;
 
