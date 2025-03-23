@@ -44,11 +44,11 @@ public partial class TextInputWindow : PopupContent
     public TextInputWindow SetAllowCustomChars(bool allow)
     {
         allowCustomChars = allow;
-        CustomChars.IsVisible = allow;
+        CustomCharsButton.IsVisible = allow;
         // This is not really reversible, but that is also not really a problem, since when do we even want to sue that
         if (allow)
         {
-            var newSize = new Vector(Window.InternalSize.X, Window.InternalSize.Y + 400);
+            var newSize = new Vector(Window.InternalSize.X, Window.InternalSize.Y + 40);
             Window.SetWindowSize(newSize);
         }
         return this;
@@ -147,6 +147,14 @@ public partial class TextInputWindow : PopupContent
         var sameAsInitial = InputField.Text == initialText;
         var empty = string.IsNullOrWhiteSpace(InputField.Text);
         SubmitButton.IsEnabled = !sameAsInitial && !empty;
+    }
+    
+    private void CustomCharsButton_Click(object sender, EventArgs e)
+    {
+        CustomChars.IsVisible = true;
+        CustomCharsButton.IsVisible = false;
+        var newSize = new Vector(Window.InternalSize.X, Window.InternalSize.Y + 370);
+        Window.SetWindowSize(newSize);
     }
 
     // Handle Submit button click

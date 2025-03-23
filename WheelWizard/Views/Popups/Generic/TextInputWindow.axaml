@@ -23,6 +23,13 @@
                      Margin="0,5,0,0"/>
         </StackPanel>
         
+        <components:IconLabelButton Grid.Row="1"  x:Name="CustomCharsButton"
+                                    Foreground="{StaticResource Primary300}"
+                                    HoverForeground="{StaticResource Primary200}"
+                                    IconData="{StaticResource ArrowDown}"
+                                    IsIconLeft="False"
+                                    IsEnabled="True" Text="View Custom Characters" IsVisible="False"
+                            Click="CustomCharsButton_Click" Margin="0,0,0,5"/>
         <UniformGrid Columns="10" Grid.Row="1" x:Name="CustomChars" IsVisible="False" Margin="0,0,0,5">
           <!--This will be filled with buttons of all the special chars -->   
         </UniformGrid>
