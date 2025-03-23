@@ -105,9 +105,21 @@
                     <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  Grid.RowSpan="3" CornerRadius="999"
                             Background="#CB01AE"/>
                     
-                    <Path Grid.Column="2" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"
-                          Fill="#550C48" Data="{StaticResource Translation}"
-                          Stretch="Uniform" />
+                    <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"
+                          RowDefinitions="5.5*,3*,0*" ColumnDefinitions="0.6*,5*,4*">
+                        <Path Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                              Fill="#550C48" Data="{StaticResource StarIcon}"
+                              Stretch="Uniform" />
+                    </Grid>
+                  
+                    <Grid Grid.Column="2" Grid.Row="2" 
+                          RowDefinitions="0*,10*,1*" ColumnDefinitions="1*,10*,0*">
+                        <Path Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                              Fill="#550C48" Data="{StaticResource Translation}"
+                              Stretch="Uniform" />
+                    </Grid>
+                    
+                    
                 </Grid>
             </ControlTemplate>
         </Setter>
