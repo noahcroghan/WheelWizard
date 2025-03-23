@@ -23,7 +23,7 @@
        <ScrollViewer Grid.Row="0"  HorizontalScrollBarVisibility="Auto">
            <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Left"
                        x:Name="RadioButtons">
-               <!-- DONT ADD ANYTHING TO THIS STACK PANEL OR YOU WILL RUIN THE LAYOUT -->
+               <!-- DON'T ADD ANYTHING TO THIS STACK PANEL OR YOU WILL RUIN THE LAYOUT -->
                <!-- WE ARE LAZY IN THE CODE, AND SO WE USE CHILD INDEXING TO GET THE RADIO BUTTONS -->
                <RadioButton Classes="TopBar"
                             Click="TopBarRadio_OnClick" Tag="0" 

@@ -486,4 +486,8 @@
         <AdditionalFiles Include="Views\Styles\Styles\TextStyles.axaml"/>
         <AdditionalFiles Include="Views\Styles\Util\IconExampleComponent.axaml"/>
     </ItemGroup>
+
+    <ItemGroup>
+        <AvaloniaResource Include="Resources\Fonts\ctmkf.ttf" />
+    </ItemGroup>
 </Project>

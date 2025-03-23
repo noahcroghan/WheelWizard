@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
 using WheelWizard.Models.MiiImages;
@@ -376,26 +377,15 @@ public class GameDataLoader : RepeatedTaskManager
 
         var newName = await renamePopup.ShowDialog();
         if (string.IsNullOrWhiteSpace(newName)) return;
-
+        newName = Regex.Replace(newName, @"\s+", " ");
+        
         // Basic checks
-        if (newName.Length > 10)
+        if (newName.Length is > 10 or < 3)
         {
-            InvalidNameMessage("Names must be at most 10 characters long.");
+            InvalidNameMessage("Names must be between 3 and 10 characters long.");
             return;
         }
-        if (newName.Length < 3)
-        {
-            InvalidNameMessage("Names must be at least 3 characters long.");
-            return;
-        }
-        if (!newName.All(char.IsLetterOrDigit))
-        {
-            if (!newName.Any(char.IsWhiteSpace))
-            {
-                InvalidNameMessage("Names can only contain letters and numbers.");
-                return;
-            }
-        }
+
         if (newName.Length > 10)
             newName = newName.Substring(0, 10);
         user.MiiData.Mii.Name = newName; // This should be updated just in case someone uses it, but its not the one that updates the profile page
