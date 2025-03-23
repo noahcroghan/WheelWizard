@@ -215,8 +215,10 @@ public partial class ModDetailViewer : UserControl
                 author = CurrentMod._aSubmitter._sName;
             
             var modId = CurrentMod._idRow;
-            var popup = new TextInputWindow().setLabelText("Mod Name");
-            popup.PopulateText(CurrentMod._sName);
+            var popup = new TextInputWindow()
+                .SetMainText("Mod Name")
+                .SetInitialText(CurrentMod._sName)
+                .SetPlaceholderText("Enter mod name...");
             var modName = await popup.ShowDialog();
             if (string.IsNullOrEmpty(modName))
             {

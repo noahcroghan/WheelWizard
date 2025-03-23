@@ -370,10 +370,12 @@ public class GameDataLoader : RepeatedTaskManager
             return;
         }
         var currentName = user.MiiData.Mii.Name ?? "";
-        var renamePopup = new TextInputWindow()
-            .setLabelText($"Enter new name for {currentName}:");
-
-        renamePopup.PopulateText(currentName);
+        var renamePopup =  new TextInputWindow()
+                .SetMainText($"Enter new name")
+                .SetExtraText($"Changing name from: {currentName}")
+                .SetAllowCustomChars(true)
+                .SetInitialText(currentName)
+                .SetPlaceholderText(currentName);
 
         var newName = await renamePopup.ShowDialog();
         if (string.IsNullOrWhiteSpace(newName)) return;
