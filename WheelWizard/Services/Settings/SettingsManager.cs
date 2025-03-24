@@ -29,11 +29,14 @@ public class SettingsManager
                     return false;
             }
 
-            if (PathManager.IsFlatpakDolphinFilePath() &&
-                !(PathManager.LinuxDolphinFlatpakDataDir.Equals(userFolderPath) &&
-                  PathManager.LinuxDolphinFlatpakConfigDir.Equals(PathManager.ConfigFolderPath)))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                return false;
+                if (PathManager.IsFlatpakDolphinFilePath() &&
+                    !(PathManager.LinuxDolphinFlatpakDataDir.Equals(userFolderPath) &&
+                      PathManager.LinuxDolphinFlatpakConfigDir.Equals(PathManager.ConfigFolderPath)))
+                {
+                    return false;
+                }
             }
 
             return true;
