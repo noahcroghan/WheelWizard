@@ -94,6 +94,8 @@ public static class DolphinLaunchHelper
             addFilesystemPerm(PathManager.UserFolderPath, ":rw");
         }
         addFilesystemPerm(PathManager.RrLaunchJsonFilePath, ":ro");
+        addFilesystemPerm(PathManager.XmlFilePath, ":ro");
+        addFilesystemPerm(PathManager.RiivolutionWhWzFolderPath, ":ro");
         return fixedFlatpakDolphinLocation;
     }
 
