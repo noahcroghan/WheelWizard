@@ -78,18 +78,22 @@ public static class DolphinLaunchHelper
     private static string FixFlatpakDolphinPermissions(string flatpakDolphinLocation)
     {
         string fixedFlatpakDolphinLocation = flatpakDolphinLocation;
-        var addReadOnlyFilesystemPerm = (string newFilesystemPerm) =>
+        var addFilesystemPerm = (string newFilesystemPerm, string mode = "") =>
         {
             string flatpakRunCommand = "flatpak run";
             fixedFlatpakDolphinLocation = fixedFlatpakDolphinLocation.Replace(
                 flatpakRunCommand,
-                $"{flatpakRunCommand} --filesystem=\"{newFilesystemPerm}\":ro");
+                $"{flatpakRunCommand} --filesystem=\"{newFilesystemPerm}\"{mode}");
         };
         if (!TryFixFlatpakGameFileAccess())
         {
-            addReadOnlyFilesystemPerm(PathManager.GameFilePath);
+            addFilesystemPerm(PathManager.GameFilePath, ":ro");
         }
-        addReadOnlyFilesystemPerm(PathManager.RrLaunchJsonFilePath);
+        if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(PathManager.UserFolderPath))
+        {
+            addFilesystemPerm(PathManager.UserFolderPath, ":rw");
+        }
+        addFilesystemPerm(PathManager.RrLaunchJsonFilePath, ":ro");
         return fixedFlatpakDolphinLocation;
     }
 
