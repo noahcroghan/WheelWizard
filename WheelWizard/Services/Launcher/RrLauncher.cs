@@ -12,7 +12,7 @@ namespace WheelWizard.Services.Launcher;
 public class RrLauncher : ILauncher
 {
     public string GameTitle { get; } = "RetroRewind";
-    private static string RrLaunchJsonFilePath => Path.Combine(PathManager.WheelWizardAppdataPath, "RR.json");
+    private static string RrLaunchJsonFilePath => PathManager.RrLaunchJsonFilePath;
 
     public async Task Launch()
     {
@@ -37,7 +37,7 @@ public class RrLauncher : ILauncher
             RetroRewindLaunchHelper.GenerateLaunchJson();
             var dolphinLaunchType = (bool)SettingsManager.LAUNCH_WITH_DOLPHIN.Get() ? "" : "-b";
             DolphinLaunchHelper.LaunchDolphin(
-                $"{dolphinLaunchType} -e \"{RrLaunchJsonFilePath}\" --config=Dolphin.Core.EnableCheats=False"
+                $"{dolphinLaunchType} -e \"{Path.GetFullPath(RrLaunchJsonFilePath)}\" --config=Dolphin.Core.EnableCheats=False"
                 );
         }
         catch (Exception ex)

@@ -9,29 +9,55 @@ namespace WheelWizard.Services.Settings;
 public class SettingsManager
 {
     #region Wheel Wizard Settings
-    public static Setting USER_FOLDER_PATH = new WhWzSetting(typeof(string),"UserFolderPath", "")
+    public static Setting USER_FOLDER_PATH = new WhWzSetting(typeof(string), "UserFolderPath", "")
         .SetValidation(value =>
         {
             var userFolderPath = value as string ?? string.Empty;
             if (!FileHelper.DirectoryExists(userFolderPath))
                 return false;
 
+            string dolphinLocation = DOLPHIN_LOCATION.Get() as string ?? string.Empty;
+
             // We cannot determine the validity of the user folder path in that case
-            if (string.IsNullOrWhiteSpace(DOLPHIN_LOCATION.Get() as string))
+            if (string.IsNullOrWhiteSpace(dolphinLocation))
                 return true;
 
-            string[] requiredSubdirectories = { PathManager.LoadFolderPath, PathManager.ConfigFolderPath, PathManager.WiiFolderPath };
-            foreach (string requiredSubdirectory in requiredSubdirectories)
+            // If we want to use a split XDG dolphin config,
+            // this only really works as expected if certain conditions are met
+            // (we cannot simply pass `-u` to Dolphin since that would put the `Config` directory
+            // inside the data directory and not use the XDG config directory, leading to two different configs).
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && PathManager.IsLinuxDolphinConfigSplit())
             {
-                if (!FileHelper.DirectoryExists(requiredSubdirectory))
-                    return false;
-            }
+                // Only verify the folders in this situation since Load/Wii and Config are split
+                string[] requiredSubdirectories = { PathManager.LoadFolderPath, PathManager.ConfigFolderPath, PathManager.WiiFolderPath };
+                foreach (string requiredSubdirectory in requiredSubdirectories)
+                {
+                    if (!FileHelper.DirectoryExists(requiredSubdirectory))
+                        return false;
+                }
 
-            if (PathManager.IsFlatpakDolphinFilePath() &&
-                !(PathManager.LinuxDolphinFlatpakDataDir.Equals(userFolderPath) &&
-                  PathManager.LinuxDolphinFlatpakConfigDir.Equals(PathManager.ConfigFolderPath)))
-            {
-                return false;
+                // In this case, Dolphin would use `EMBEDDED_USER_DIR` which is the portable `user` directory
+                // in the current directory (the directory of the WheelWizard executable).
+                // This means a split dolphin user folder and config cannot work...
+                if (FileHelper.DirectoryExists("user"))
+                    return false;
+
+                // The Dolphin executable directory with `portable.txt` case
+                if (FileHelper.FileExists(Path.Combine(PathManager.GetDolphinExeDirectory(), "portable.txt")))
+                    return false;
+
+                // The value of this environment variable would be used instead if it was somehow set
+                string environmentVariableToAvoid = "DOLPHIN_EMU_USERPATH";
+
+                if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(environmentVariableToAvoid)))
+                    return false;
+
+                if (dolphinLocation.Contains(environmentVariableToAvoid, StringComparison.Ordinal))
+                    return false;
+
+                // `~/.dolphin-emu` would be used if it exists
+                if (!PathManager.IsFlatpakDolphinFilePath() && FileHelper.DirectoryExists(PathManager.LinuxDolphinLegacyFolderPath))
+                    return false;
             }
 
             return true;

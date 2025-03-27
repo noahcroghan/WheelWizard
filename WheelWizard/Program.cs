@@ -1,4 +1,7 @@
 using Avalonia;
+using System;
+using System.Diagnostics;
+using System.IO;
 using WheelWizard.Services;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.UrlProtocol;
@@ -23,6 +26,8 @@ public class Program
 
     private static void Setup()
     {
+        // Resolve all relative paths based on the WheelWizard executable's directory
+        Environment.CurrentDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
         SettingsManager.Instance.LoadSettings();
         BadgeManager.Instance.LoadBadges();
         UrlProtocolManager.SetWhWzScheme();
