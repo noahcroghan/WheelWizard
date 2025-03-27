@@ -8,11 +8,6 @@ namespace WheelWizard.Services.Settings;
 
 public static class LinuxDolphinInstaller
 {
-    public static bool IsValidCommand(string command)
-    {
-        return PathManager.IsValidUnixCommand(command);
-    }
-
     public static bool IsDolphinInstalledInFlatpak()
     {
         try
@@ -91,7 +86,7 @@ public static class LinuxDolphinInstaller
     /// <returns>True if Flatpak is available; otherwise, false.</returns>
     public static bool isFlatPakInstalled()
     {
-        return IsValidCommand("flatpak");
+        return EnvHelper.IsValidUnixCommand("flatpak");
     }
 
     /// <summary>

@@ -2,7 +2,6 @@
 using Microsoft.Win32;
 #endif
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
@@ -43,35 +42,6 @@ public static class PathManager
     //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
     //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly
 
-    public static bool IsValidUnixCommand(string command)
-    {
-        try
-        {
-            var processInfo = new ProcessStartInfo
-            {
-                FileName = "/usr/bin/env",
-                ArgumentList = {
-                    "sh",
-                    "-c",
-                    "--",
-                    $"command -v -- {command}",
-                },
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-            };
-
-            using var process = Process.Start(processInfo);
-            process.WaitForExit();
-            return process.ExitCode == 0;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
     // Helper paths for folders used across multiple files
     public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
     public static string GetModDirectoryPath(string modName) => Path.Combine(ModsFolderPath, modName);
@@ -92,20 +62,14 @@ public static class PathManager
     public static string LinuxDolphinFlatpakDataDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "data", LinuxDolphinRelSubFolderPath);
     public static string LinuxDolphinFlatpakConfigDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "config", LinuxDolphinRelSubFolderPath);
 
-    public static bool IsRelativeLinuxPath(string path)
-    {
-        return !path.StartsWith('/');
-    }
-
     private static string? NullIfRelativeLinuxPath(string path)
     {
-        return IsRelativeLinuxPath(path) ? null : path;
+        return EnvHelper.NullIfRelativeLinuxPath(path);
     }
 
     private static bool IsFlatpakSandboxed()
     {
-        return File.Exists("/.flatpak-info") &&
-            !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("FLATPAK_ID"));
+        return EnvHelper.IsFlatpakSandboxed();
     }
 
     private static string LinuxXdgDataHome => LocalAppDataFolder;
