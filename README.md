@@ -6,7 +6,7 @@
   </a>
 </p>
 
-<p align="center" xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title" rel="cc:attributionURL" href="https://github.com/TeamWheelWizard/WheelWizard">Wheel wizard</a> by <span property="cc:attributionName">Patchzy and WantToBeeMe</span> is licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC-SA 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
+<p align="center"><a href="https://github.com/TeamWheelWizard/WheelWizard">Wheel wizard</a> by <span>Patchzy and WantToBeeMe</span> is licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">GNU General Public License v3.0</a></p>
 
 # Wheel Wizard
 
@@ -70,6 +70,11 @@ We understand that security is paramount when downloading software. We encourage
 - Join our [Discord community](https://discord.gg/vZ7T2wJnsq) if you have any questions or concerns.
 
 Remember, while we assure you of our software's safety, it's always good practice to exercise caution when downloading and running new applications.
+
+## License
+
+Wheel Wizard is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html).  
+You are free to use, modify, and distribute this software, provided any derivative works are also licensed under the GPL v3.0.
 
 ## Sources
 
