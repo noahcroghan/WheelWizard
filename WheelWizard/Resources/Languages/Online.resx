@@ -81,4 +81,7 @@
     <data name="Stat_RoomID" xml:space="preserve">
         <value>Room ID</value>
     </data>
+    <data name="Stat_AverageRoomVr" xml:space="preserve">
+        <value>Avarage VR</value>
+    </data>
 </root>

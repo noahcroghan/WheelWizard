@@ -12,7 +12,6 @@
             <RowDefinition Height="40" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}" Height="1" HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom" />
         
@@ -22,6 +21,17 @@
         <TextBlock Grid.Row="0" Text="{x:Static lang:Common.PageTitle_RoomDetails}"
                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
                    Classes="PageTitleText" />
+        
+        <StackPanel  
+            Grid.Row="0" 
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="10"
+            Grid.Column="0">
+            <components:FormFieldLabel Text="{x:Static lang:Online.Stat_AverageRoomVr}" Margin="0,0,2,0" />
+            <!-- <SelectableTextBlock Text="{Binding Room.AverageVr}" Classes="BodyText" /> -->
+            <components:StateBox IconSize="0" Text="{Binding Room.AverageVr}"></components:StateBox>
+        </StackPanel>
 
         <components:IconLabelButton Grid.Row="0" 
                                IconData="{StaticResource ArrowLeft}"
