@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using WheelWizard.Helpers;
 using WheelWizard.Services;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Popups.Generic;
@@ -29,7 +30,7 @@ public static class DolphinLaunchHelper
             // Because with the file picker on a Flatpak build, we get XDG portal paths like these...
             // We can fix Flatpak Dolphin to gain access to this game file path though.
             string xdgRuntimeDir = Environment.GetEnvironmentVariable("XDG_RUNTIME_DIR") ?? string.Empty;
-            if (PathManager.IsRelativeLinuxPath(xdgRuntimeDir))
+            if (EnvHelper.IsRelativeLinuxPath(xdgRuntimeDir))
             {
                 string fixablePattern = @"^/run/user/(\d+)/doc";
                 Regex fixablePatternRegex = new Regex(fixablePattern);

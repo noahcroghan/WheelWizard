@@ -80,7 +80,7 @@ public class SettingsManager
                         return false;
                     }
                 }
-                return FileHelper.FileExists(pathOrCommand) || PathManager.IsValidUnixCommand(pathOrCommand);
+                return FileHelper.FileExists(pathOrCommand) || EnvHelper.IsValidUnixCommand(pathOrCommand);
             }
 
             return FileHelper.FileExists(pathOrCommand);
