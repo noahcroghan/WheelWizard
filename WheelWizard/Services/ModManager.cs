@@ -137,7 +137,10 @@ public class ModManager : INotifyPropertyChanged
 
     private async Task CombineFilesIntoSingleModAsync(string[] filePaths)
     {
-        var modName = await new TextInputWindow().setLabelText("Enter Mod Name").ShowDialog();
+        var modName = await new TextInputWindow()
+            .SetMainText("Mod name:")
+            .SetPlaceholderText("Enter mod name...")
+            .ShowDialog();
         if (!IsValidName(modName)) return;
         var tempZipPath = Path.Combine(Path.GetTempPath(), $"{modName}.zip");
         try
@@ -172,59 +175,63 @@ public class ModManager : INotifyPropertyChanged
     
     public async void RenameMod(Mod selectedMod)
     {
-    var newTitle = await new TextInputWindow().setLabelText("Enter Mod Title").ShowDialog();
+        var oldTitle = selectedMod.Title;
+        var newTitle = await  new TextInputWindow()
+            .SetMainText("Mod Name")
+            .SetInitialText(oldTitle)
+            .SetExtraText($"Changing name from: {oldTitle}")
+            .SetPlaceholderText("Enter mod name...")
+            .ShowDialog();
+        
+        if (!IsValidName(newTitle)) return;
+        
+        var oldDirectoryName = PathManager.GetModDirectoryPath(oldTitle);
+        var newDirectoryName = PathManager.GetModDirectoryPath(newTitle);
 
-    if (!IsValidName(newTitle)) return;
-    
-    var oldTitle = selectedMod.Title;
+        // Check if the old directory exists
+        if (!Directory.Exists(oldDirectoryName)) return;
+        
+        // var oldIniPath = Path.Combine(oldDirectoryName, $"{oldTitle}.ini");
+        
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
 
-    var oldDirectoryName = PathManager.GetModDirectoryPath(oldTitle);
-    var newDirectoryName = PathManager.GetModDirectoryPath(newTitle);
-
-    // Check if the old directory exists
-    if (!Directory.Exists(oldDirectoryName)) return;
-    
-    // var oldIniPath = Path.Combine(oldDirectoryName, $"{oldTitle}.ini");
-    
-    GC.Collect();
-    GC.WaitForPendingFinalizers();
-
-    // Rename the mod directory first
-    try
-    {
-        Directory.Move(oldDirectoryName, newDirectoryName);
-        var newIniPath = Path.Combine(newDirectoryName, $"{newTitle}.ini");
-        var updatedOldIniPath = Path.Combine(newDirectoryName, $"{oldTitle}.ini");
-        if (File.Exists(updatedOldIniPath))
+        // Rename the mod directory first
+        try
         {
-            File.Move(updatedOldIniPath, newIniPath);
-            // Update the mod name inside the .ini file
-            var parser = new FileIniDataParser();
-            var data = parser.ReadFile(newIniPath);
-            data["Mod"]["Name"] = newTitle;
-            parser.WriteFile(newIniPath, data);
-        }
+            Directory.Move(oldDirectoryName, newDirectoryName);
+            var newIniPath = Path.Combine(newDirectoryName, $"{newTitle}.ini");
+            var updatedOldIniPath = Path.Combine(newDirectoryName, $"{oldTitle}.ini");
+            if (File.Exists(updatedOldIniPath))
+            {
+                File.Move(updatedOldIniPath, newIniPath);
+                // Update the mod name inside the .ini file
+                var parser = new FileIniDataParser();
+                var data = parser.ReadFile(newIniPath);
+                data["Mod"]["Name"] = newTitle;
+                parser.WriteFile(newIniPath, data);
+            }
 
-        // Update the selectedMod's title
-        selectedMod.Title = newTitle;
-        await selectedMod.SaveToIniAsync(newIniPath);
-        SaveModsAsync();
-        OnPropertyChanged(nameof(Mods));
-    }
-    catch (IOException ex)
-    {
-        ErrorOccurred($"Failed to rename mod directory: {ex.Message}");
-    }
-    finally
-    {
-        if (Directory.Exists(oldDirectoryName))
-        {
-            Directory.Delete(oldDirectoryName, true);
+            // Update the selectedMod's title
+            selectedMod.Title = newTitle;
+            await selectedMod.SaveToIniAsync(newIniPath);
+            SaveModsAsync();
+            OnPropertyChanged(nameof(Mods));
         }
+        catch (IOException ex)
+        {
+            ErrorOccurred($"Failed to rename mod directory: {ex.Message}");
+        }
+        finally
+        {
+            if (Directory.Exists(oldDirectoryName))
+            {
+                Directory.Delete(oldDirectoryName, true);
+            }
+        }
+     
+        ReloadAsync();
     }
- 
-    ReloadAsync();
-}
 
 
     public async void DeleteMod(Mod selectedMod)

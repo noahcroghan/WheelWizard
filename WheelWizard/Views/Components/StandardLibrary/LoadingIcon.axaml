@@ -1,35 +1,35 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:WheelWizard.Views.Components.StandardLibrary">
+        xmlns:components="clr-namespace:WheelWizard.Views.Components">
     <Design.PreviewWith >
         <StackPanel Orientation="Vertical" Spacing="5" Background="Black">
             <StackPanel Orientation="Horizontal" Spacing="5">
                 <Border Background="{StaticResource Neutral950}" Padding="10" CornerRadius="3">
-                    <controls:LoadingIcon VerticalAlignment="Center"/>
+                    <components:LoadingIcon VerticalAlignment="Center"/>
                 </Border>
          
                 <Border Background="{StaticResource Neutral950}" Padding="10" CornerRadius="3">
-                    <controls:LoadingIcon AdditionalText="Loading..." VerticalAlignment="Center"/>
+                    <components:LoadingIcon AdditionalText="Loading..." VerticalAlignment="Center"/>
                 </Border>
 
                 <Border Background="{StaticResource Neutral900}" Padding="10" CornerRadius="3">
-                    <controls:LoadingIcon Foreground="{StaticResource Neutral600}"
+                    <components:LoadingIcon Foreground="{StaticResource Neutral600}"
                                           AdditionalText="Color changed" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="5">
                 <Border Background="{StaticResource Neutral950}" Padding="10" CornerRadius="3">
-                    <controls:LoadingIcon VerticalAlignment="Center" IconSize="45"/>
+                    <components:LoadingIcon VerticalAlignment="Center" IconSize="45"/>
                 </Border>
 
                 <Border Background="{StaticResource Neutral900}" Padding="10" CornerRadius="3">
-                    <controls:LoadingIcon Foreground="{StaticResource Neutral600}" FontSize="20"
+                    <components:LoadingIcon Foreground="{StaticResource Neutral600}" FontSize="20"
                                           AdditionalText="Font size change" VerticalAlignment="Center"/>
                 </Border>
             </StackPanel>
         </StackPanel>
     </Design.PreviewWith>
-    <Style Selector="controls|LoadingIcon">
+    <Style Selector="components|LoadingIcon">
    <Setter Property="Foreground" Value="{StaticResource Neutral800}"/>
         <Setter Property="Template">
             

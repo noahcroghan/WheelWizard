@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="WheelWizard/Views/App.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/Button.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/EmptyPageInfo.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/FormFieldLabel.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/IconLabel.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/IconLabelButton.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/LoadingIcon.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/SidebarRadioButton.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/StandardLibrary/StateBox.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/Badge.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/CurrentMiiProfile.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/CurrentUserProfile.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/DetailedProfileBox.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/FriendsListItem.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/MiiCarousel.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/MiiImageLoader.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/MiiImages/FriendsListItem.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/MiiImages/MiiCarousel.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/MiiImages/MiiImageLoader.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/ModBrowserListItem.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/PlayerListItem.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Components/WhWzLibrary/SidebarRadioButton.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Layout.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/FriendsPage.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/HomePage.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/ModsPage.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/NotFoundPage.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/RoomDetailsPage.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/RoomsPage.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/Settings/OtherSettings.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/Settings/SettingsPage.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/Settings/VideoSettings.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/Settings/WhWzSettings.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Pages/UserProfilePage.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/Base/PopupWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/DevPopupWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/DevToolWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/Generic/MessageBoxWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/Generic/ProgressWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/Generic/TextInputWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/Generic/YesNoWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/MiiCarouselWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/ModManagement/ModDetailViewer.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/ModManagement/ModIndependentWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/ModManagement/ModPopupWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/PopupWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Popups/ProgressWindow.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Styles/Resources/Constants.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Styles/Resources/Icons.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Styles/Styles/DropdownStyles.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Styles/Styles/MiscStyles.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Styles/Styles/TextBoxStyles.axaml" value="WheelWizard/WheelWizard.csproj" />
+        <entry key="WheelWizard/Views/Styles/Styles/TextStyles.axaml" value="WheelWizard/WheelWizard.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

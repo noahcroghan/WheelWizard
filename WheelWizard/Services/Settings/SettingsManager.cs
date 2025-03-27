@@ -1,10 +1,7 @@
-using System;
-using System.IO;
 using System.Runtime.InteropServices;
 using WheelWizard.Models.Enums;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Settings;
-using WheelWizard.Services;
 using WheelWizard.Services.Other;
 
 namespace WheelWizard.Services.Settings;
@@ -12,7 +9,7 @@ namespace WheelWizard.Services.Settings;
 public class SettingsManager
 {
     #region Wheel Wizard Settings
-    public static Setting USER_FOLDER_PATH = new WhWzSetting(typeof(string),"UserFolderPath", "")
+    public static Setting USER_FOLDER_PATH = new WhWzSetting(typeof(string), "UserFolderPath", "")
         .SetValidation(value =>
         {
             var userFolderPath = value as string ?? string.Empty;

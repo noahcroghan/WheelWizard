@@ -1,11 +1,11 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:WheelWizard.Views.Components.StandardLibrary">
+        xmlns:components="clr-namespace:WheelWizard.Views.Components">
     <Design.PreviewWith>
-        <controls:IconLabelButton />
+        <components:IconLabelButton />
     </Design.PreviewWith>
 
-    <Style Selector="controls|IconLabelButton">
+    <Style Selector="components|IconLabelButton">
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Template">
             <ControlTemplate>
@@ -14,20 +14,20 @@
                         BorderThickness="{TemplateBinding BorderThickness}">
                   
                     
-                    <controls:IconLabel Text="{TemplateBinding Text}"
+                    <components:IconLabel Text="{TemplateBinding Text}"
                                         Foreground="{TemplateBinding Foreground}"
                                         FontSize="{TemplateBinding FontSize}"
                                         IconSize="{TemplateBinding IconSize}"
                                         IconData="{TemplateBinding IconData}"
                                         IsUnderlined="{TemplateBinding IsUnderlined}"
                                         IsIconLeft="{TemplateBinding IsIconLeft}">
-                        <controls:IconLabel.Styles>
-                            <Style Selector="controls|IconLabel:pointerover">
-                                <Setter Property="Foreground" Value="{Binding HoverForeground, RelativeSource={RelativeSource AncestorType=controls:IconLabelButton}}"/>
+                        <components:IconLabel.Styles>
+                            <Style Selector="components|IconLabel:pointerover">
+                                <Setter Property="Foreground" Value="{Binding HoverForeground, RelativeSource={RelativeSource AncestorType=components:IconLabelButton}}"/>
                                 <Setter Property="IsUnderlined" Value="True" />
                             </Style>
-                        </controls:IconLabel.Styles>
-                    </controls:IconLabel>
+                        </components:IconLabel.Styles>
+                    </components:IconLabel>
                 </Border>
             </ControlTemplate>
         </Setter>

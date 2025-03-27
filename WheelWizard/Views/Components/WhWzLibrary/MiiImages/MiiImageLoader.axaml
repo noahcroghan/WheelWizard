@@ -1,7 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:components="using:WheelWizard.Views.Components.StandardLibrary"
-        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.WhWzLibrary.MiiImages">
+        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
+        xmlns:components="clr-namespace:WheelWizard.Views.Components">
     <Design.PreviewWith>
         <Border Background="{StaticResource Neutral950}" Width="600" Height="600">
             <miiImages:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 

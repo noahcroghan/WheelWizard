@@ -1,9 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives; // Add this for PlacementMode
+using Avalonia.Controls.Primitives;
 using Avalonia.Media;
+// Add this for PlacementMode
 
-namespace WheelWizard.Views.Components.StandardLibrary;
+namespace WheelWizard.Views.Components;
 
 public partial class StateBox : TemplatedControl // Change to TemplatedControl
 {

@@ -3,7 +3,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using WheelWizard.Services;
-using WheelWizard.Services.Installation.AutoUpdater;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.UrlProtocol;
 
@@ -21,9 +20,9 @@ public class Program
 
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<Views.App>()
-                     .UsePlatformDetect()
-                     .WithInterFont()
-                     .LogToTrace();
+            .UsePlatformDetect()
+            .WithInterFont()
+            .LogToTrace();
 
     private static void Setup()
     {
@@ -31,8 +30,7 @@ public class Program
         Environment.CurrentDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
         SettingsManager.Instance.LoadSettings();
         BadgeManager.Instance.LoadBadges();
-        UrlProtocolManager.SetWhWzSchemeAsync();
-        AutoUpdater.CheckForUpdatesAsync();
+        UrlProtocolManager.SetWhWzScheme();
     }
 
 

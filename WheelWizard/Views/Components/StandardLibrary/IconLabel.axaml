@@ -1,39 +1,39 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:WheelWizard.Views.Components.StandardLibrary">
+        xmlns:components="clr-namespace:WheelWizard.Views.Components">
     <Design.PreviewWith>
         <Border Background="{StaticResource Neutral950}" Padding="10" >
             <StackPanel Spacing="10">
                 <!-- EXAMPLES: -->
                 <TextBlock Foreground="{StaticResource Neutral400}" Text="Examples:" Padding="0,10,0,0" />
-                <controls:IconLabel Text="Text only" 
+                <components:IconLabel Text="Text only" 
                                   Foreground="White" 
                                   FontSize="16" />
                   
-                <controls:IconLabel Text="Sample Text" 
+                <components:IconLabel Text="Sample Text" 
                                     IconData="{StaticResource WheelIcon}"
                                     Foreground="White" 
                                     FontSize="16" />
 
-                <controls:IconLabel Text="Right Icon" 
+                <components:IconLabel Text="Right Icon" 
                                     IconData="{StaticResource WheelIcon}"
                                     Foreground="LightBlue" 
                                     FontSize="14"
                                     IsIconLeft="False" />
 
-                <controls:IconLabel Text="Underlined" 
+                <components:IconLabel Text="Underlined" 
                                     IconData="{StaticResource WheelIcon}"
                                     Foreground="Yellow" 
                                     FontSize="18"
                                     IsUnderlined="True" />
 
-                <controls:IconLabel Text="Larger Icon" 
+                <components:IconLabel Text="Larger Icon" 
                                     IconData="{StaticResource WheelIcon}"
                                     Foreground="Orange" 
                                     FontSize="16"
                                     IconSize="50" />
                 
-                <controls:IconLabel
+                <components:IconLabel
                     IconData="{StaticResource WheelIcon}"
                     IconSize="40"
                     Foreground="White" />
@@ -43,27 +43,27 @@
                 <TextBlock Foreground="{StaticResource Neutral400}" Text="Bounding Boxes:" Padding="0,10,0,0" />
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <Border Background="Red" HorizontalAlignment="Left">
-                        <controls:IconLabel 
+                        <components:IconLabel 
                             IconData="{StaticResource WheelIcon}"
                             Foreground="White" 
                             FontSize="14" />
                     </Border>
                     
                     <Border Background="Red" HorizontalAlignment="Left">
-                        <controls:IconLabel 
+                        <components:IconLabel 
                             Text="abc"
                             Foreground="White" 
                             FontSize="14" />
                     </Border>
                     <Border Background="Red" HorizontalAlignment="Left">
-                        <controls:IconLabel 
+                        <components:IconLabel 
                             Text="abc"
                             IconData="{StaticResource WheelIcon}"
                             Foreground="White" 
                             FontSize="14" />
                     </Border>
                     <Border Background="Red" HorizontalAlignment="Left">
-                        <controls:IconLabel 
+                        <components:IconLabel 
                             Text="abc"
                             IsIconLeft="False"
                             IconData="{StaticResource WheelIcon}"
@@ -75,7 +75,7 @@
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="controls|IconLabel">
+    <Style Selector="components|IconLabel">
         <!-- Set Defaults -->
         <Setter Property="Template">
             <ControlTemplate>
@@ -120,7 +120,7 @@
                                Foreground="{TemplateBinding Foreground}"
                                TextWrapping="Wrap">
                         <TextBlock.Styles>
-                            <Style Selector="controls|IconLabel[IsUnderlined=True] TextBlock">
+                            <Style Selector="components|IconLabel[IsUnderlined=True] TextBlock">
                                 <Setter Property="TextDecorations">
                                     <Setter.Value>
                                         <TextDecorationCollection>

@@ -3,7 +3,7 @@ using Avalonia.Controls.Primitives;
 using WheelWizard.Models.Enums;
 using WheelWizard.Services;
 
-namespace WheelWizard.Views.Components.WhWzLibrary;
+namespace WheelWizard.Views.Components;
 
 public class Badge : TemplatedControl
 {

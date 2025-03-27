@@ -4,7 +4,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Media;
 using Avalonia.Threading;
 
-namespace WheelWizard.Views.Components.WhWzLibrary.MiiImages;
+namespace WheelWizard.Views.Components.MiiImages;
 
 public class MiiImageLoader : BaseMiiImage
 {
@@ -67,7 +67,7 @@ public class MiiImageLoader : BaseMiiImage
         }
             
             
-        var loadingIcon = e.NameScope.Find<StandardLibrary.LoadingIcon>("MiiLoadingIcon");
+        var loadingIcon = e.NameScope.Find<LoadingIcon>("MiiLoadingIcon");
         var fallbackIcon = e.NameScope.Find<PathIcon>("MiiFallBackIcon");
         
         Dispatcher.UIThread.Post(() =>

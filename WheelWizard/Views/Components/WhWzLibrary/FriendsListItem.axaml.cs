@@ -5,7 +5,7 @@ using Avalonia.Interactivity;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services;
 
-namespace WheelWizard.Views.Components.WhWzLibrary;
+namespace WheelWizard.Views.Components;
 
 public class FriendsListItem : TemplatedControl
 {
@@ -110,7 +110,7 @@ public class FriendsListItem : TemplatedControl
             }
         }
         
-        var viewRoomButton = e.NameScope.Find<StandardLibrary.Button>("ViewRoomButton");
+        var viewRoomButton = e.NameScope.Find<Button>("ViewRoomButton");
         if (viewRoomButton != null)
             viewRoomButton.Click += ViewRoom;
     }

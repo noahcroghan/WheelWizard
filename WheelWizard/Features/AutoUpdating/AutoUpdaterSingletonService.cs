@@ -1,47 +1,53 @@
 ﻿using Avalonia.Threading;
 using Semver;
 using System.Text.Json;
+using WheelWizard.AutoUpdating.Platforms;
+using WheelWizard.Branding;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Github;
 using WheelWizard.Resources.Languages;
+using WheelWizard.Services;
 using WheelWizard.Views.Popups.Generic;
 
-namespace WheelWizard.Services.Installation.AutoUpdater;
+namespace WheelWizard.AutoUpdating;
 
-public class AutoUpdaterHandler
+public interface IAutoUpdaterSingletonService
 {
-    private readonly IUpdaterPlatform _updaterPlatform;
+    public Task CheckForUpdatesAsync();
+}
 
-    //todo: look into assembly versioning c# best practices 
-    public virtual string CurrentVersion => AutoUpdater.CurrentVersion;
-
-    public AutoUpdaterHandler(IUpdaterPlatform updaterPlatform)
-    {
-        _updaterPlatform = updaterPlatform;
-    }
+public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandingSingletonService brandingSingletonService) : IAutoUpdaterSingletonService
+{
+    private string CurrentVersion => brandingSingletonService.Branding.Version;
 
     public async Task CheckForUpdatesAsync()
     {
+        // TODO: How to run this in a background thread?
         var latestRelease = await GetLatestReleaseAsync();
         if (latestRelease?.TagName is null)
             return;
-        var asset = _updaterPlatform.GetAssetForCurrentPlatform(latestRelease);
+        var asset = updatePlatform.GetAssetForCurrentPlatform(latestRelease);
         if (asset is null)
             return;
 
         var latestVersion = SemVersion.Parse(latestRelease.TagName.TrimStart('v'), SemVersionStyles.Any);
         var popupExtraText = Humanizer.ReplaceDynamic(Phrases.PopupText_NewVersionWhWz, latestVersion, CurrentVersion)!;
-        await Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(async () =>
+
+
+        var shouldUpdate = false;
+        await Dispatcher.UIThread.InvokeAsync(async () =>
         {
-            var updateQuestion = await new YesNoWindow()
+            shouldUpdate = await new YesNoWindow()
                 .SetButtonText(Common.Action_Update, Common.Action_MaybeLater)
                 .SetMainText(Phrases.PopupText_WhWzUpdateAvailable)
                 .SetExtraText(popupExtraText)
                 .AwaitAnswer();
-            if (!updateQuestion)
-                return;
-            await _updaterPlatform.ExecuteUpdateAsync(asset.BrowserDownloadUrl);
         });
+
+        if (!shouldUpdate)
+            return;
+
+        await updatePlatform.ExecuteUpdateAsync(asset.BrowserDownloadUrl);
     }
 
     private async Task<GithubRelease?> GetLatestReleaseAsync()
@@ -50,7 +56,7 @@ public class AutoUpdaterHandler
         if (!response.Succeeded || response.Content is null)
         {
             // If it failed, it can be due to many reasons. We don't want to always throw an error,
-            // since most of the times its simply because the wifi is not on or something
+            // since most of the time its simply because the Wi-Fi is not on or something
             // It's not useful to send that error in that case so we filter those out first.
             if (response.StatusCodeGroup != 4 && response.StatusCode is not 503 and not 504)
             {
@@ -81,14 +87,18 @@ public class AutoUpdaterHandler
 
         foreach (var release in releases)
         {
-            if (release.TagName is null) continue;
-            if (release.Prerelease) continue;
+            if (release.TagName == null!)
+                continue;
+
+            if (release.Prerelease)
+                continue;
 
             var releaseVersion = SemVersion.Parse(release.TagName.TrimStart('v'), SemVersionStyles.Any);
             if (releaseVersion.ComparePrecedenceTo(currentVersion) <= 0) continue;
 
-            var asset = _updaterPlatform.GetAssetForCurrentPlatform(release);
-            if (asset is null) continue;
+            var asset = updatePlatform.GetAssetForCurrentPlatform(release);
+            if (asset is null)
+                continue;
 
             if (bestVersion is null || releaseVersion.ComparePrecedenceTo(bestVersion) > 0)
             {

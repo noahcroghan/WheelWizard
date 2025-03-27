@@ -1,20 +1,20 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:WheelWizard.Views.Components.StandardLibrary">
+        xmlns:components="clr-namespace:WheelWizard.Views.Components">
     <Design.PreviewWith>
         <StackPanel Background="{StaticResource Neutral950}" Orientation="Horizontal" Spacing="10">
-            <controls:EmptyPageInfo />
+            <components:EmptyPageInfo />
             
-            <controls:EmptyPageInfo Title="Different Text" 
+            <components:EmptyPageInfo Title="Different Text" 
                                     BodyText="With different text and stuff, so you can edit that however you want " />
             
-            <controls:EmptyPageInfo IconData="{StaticResource RoadWarning}" 
+            <components:EmptyPageInfo IconData="{StaticResource RoadWarning}" 
                                     Title="Different Icon"
                                     BodyText="This is an example that even has a different icon that you can override"/>
         </StackPanel>
     </Design.PreviewWith>
 
-    <Style Selector="controls|EmptyPageInfo">
+    <Style Selector="components|EmptyPageInfo">
         <!-- Set Defaults -->
         <Setter Property="IconData" Value="{StaticResource FlatWheel}"/>
      

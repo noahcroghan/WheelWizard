@@ -6,9 +6,9 @@ using Avalonia.Media.Imaging;
 using System.ComponentModel;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services.Settings;
-using WheelWizard.Views.Components.WhWzLibrary.MiiImages;
+using WheelWizard.Views.Components.MiiImages;
 
-namespace WheelWizard.Views.Components.WhWzLibrary;
+namespace WheelWizard.Views.Components;
 
 public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
 {
@@ -136,15 +136,15 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         if (checkBox != null)
             checkBox.Checked += OnChecked;
         
-        var viewRoomButton  = e.NameScope.Find<StandardLibrary.Button>("ViewRoomButton");
+        var viewRoomButton  = e.NameScope.Find<Button>("ViewRoomButton");
         if (viewRoomButton != null)
             viewRoomButton.Click += ViewRoom;
         
-        var changeNameButton  = e.NameScope.Find<StandardLibrary.IconLabelButton>("EditMiiName");
+        var changeNameButton  = e.NameScope.Find<IconLabelButton>("EditMiiName");
         if (changeNameButton != null) 
             changeNameButton.Click += OnRename;
         
-        var copyFcButton  = e.NameScope.Find<StandardLibrary.IconLabelButton>("CopyFcButton");
+        var copyFcButton  = e.NameScope.Find<IconLabelButton>("CopyFcButton");
         if (copyFcButton != null) 
             copyFcButton.Click += CopyFriendCode;
         

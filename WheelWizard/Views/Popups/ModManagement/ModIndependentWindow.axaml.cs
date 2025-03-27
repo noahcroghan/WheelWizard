@@ -11,7 +11,7 @@ public partial class ModIndependentWindow : PopupContent
         InitializeComponent();
     }
     
-    public async Task LoadModAsync(int modId, string newDownloadUrl = null)
+    public async Task LoadModAsync(int modId, string? newDownloadUrl = null)
     {
         await ModDetailViewer.LoadModDetailsAsync(modId, newDownloadUrl);
     }

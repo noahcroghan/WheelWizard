@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using WheelWizard.Helpers;
 using WheelWizard.Models.GameBanana;
 
 namespace WheelWizard.Services.GameBanana;
 
 using System.Threading.Tasks;
-using Helpers;
 using Models;
 
 public class GamebananaSearchHandler
