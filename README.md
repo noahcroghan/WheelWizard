@@ -71,6 +71,11 @@ We understand that security is paramount when downloading software. We encourage
 
 Remember, while we assure you of our software's safety, it's always good practice to exercise caution when downloading and running new applications.
 
+## License
+
+Wheel Wizard is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html).  
+You are free to use, modify, and distribute this software, provided any derivative works are also licensed under the GPL v3.0.
+
 ## Sources
 
 Retro Rewind was made by ZPL. More information about Retro Rewind can be found on the [Tockdom Wiki](https://wiki.tockdom.com/wiki/Retro_Rewind).
