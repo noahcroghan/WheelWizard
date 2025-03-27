@@ -294,12 +294,18 @@ public partial class WhWzSettings : UserControl
     private void CancelButton_OnClick(object sender, RoutedEventArgs e) => TogglePathSettings(false);
     private void EditButton_OnClick(object sender, RoutedEventArgs e) => TogglePathSettings(true);
 
-    private void Folder_Click(object sender, RoutedEventArgs e)
+    private void WhWzFolder_Click(object sender, RoutedEventArgs e)
     {
         if (!Directory.Exists(PathManager.WheelWizardAppdataPath))
             Directory.CreateDirectory(PathManager.WheelWizardAppdataPath);
 
         FilePickerHelper.OpenFolderInFileManager(PathManager.WheelWizardAppdataPath);
+    }
+    private void GameFileFolder_Click(object? sender, RoutedEventArgs e)
+    {
+        if (!Directory.Exists(PathManager.RiivolutionWhWzFolderPath))
+            return; //Button should be disabled
+        FilePickerHelper.OpenFolderInFileManager(PathManager.RiivolutionWhWzFolderPath);
     }
 
     private void TogglePathSettings(bool enable)
@@ -332,6 +338,7 @@ public partial class WhWzSettings : UserControl
         DolphinExeInput.Text = PathManager.DolphinFilePath;
         MarioKartInput.Text = PathManager.GameFilePath;
         DolphinUserPathInput.Text = PathManager.UserFolderPath;
+        OpenGameFolderButton.IsEnabled = Directory.Exists(PathManager.RiivolutionWhWzFolderPath);
     }
 
     private async void WindowScaleDropdown_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -381,4 +388,6 @@ public partial class WhWzSettings : UserControl
 
     private void EnableAnimations_OnClick(object sender, RoutedEventArgs e) =>
         SettingsManager.ENABLE_ANIMATIONS.Set(EnableAnimations.IsChecked == true);
+
+
 }

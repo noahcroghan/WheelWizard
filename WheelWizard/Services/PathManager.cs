@@ -36,7 +36,8 @@ public static class PathManager
     public static readonly string TempModsFolderPath = Path.Combine(ModsFolderPath, "Temp");
     public static readonly string RetroRewindTempFile = Path.Combine(TempModsFolderPath, "RetroRewind.zip");
     public static string RetroRewindVersionFile => Path.Combine(RetroRewind6FolderPath, "version.txt");
-    public static string WiiDbFile => Path.Combine(WiiFolderPath, "shared2", "menu", "FaceLib", "RFL_DB.dat");
+    public static string WiiDbFolder => Path.Combine(WiiFolderPath, "shared2", "menu", "FaceLib");
+    public static string WiiDbFile => Path.Combine(WiiDbFolder, "RFL_DB.dat");
 
 
     //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)

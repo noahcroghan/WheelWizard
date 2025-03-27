@@ -3,6 +3,7 @@ using Avalonia.Interactivity;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
+using WheelWizard.Services;
 using WheelWizard.Services.Installation;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Popups.Generic;
@@ -35,6 +36,7 @@ public partial class OtherSettings : UserControl
     {
         DisableForce.IsChecked = (bool)SettingsManager.FORCE_WIIMOTE.Get();
         LaunchWithDolphin.IsChecked = (bool)SettingsManager.LAUNCH_WITH_DOLPHIN.Get();
+        OpenSaveFolderButton.IsEnabled = Directory.Exists(PathManager.WiiDbFolder);
     }
 
     private void ForceLoadSettings()
@@ -122,4 +124,9 @@ public partial class OtherSettings : UserControl
     }
 
     private async void Reinstall_RetroRewind(object sender, RoutedEventArgs e) => await RetroRewindInstaller.ReinstallRR();
+
+    private void OpenSaveFolder_OnClick(object? sender, RoutedEventArgs e)
+    {
+        FilePickerHelper.OpenFolderInFileManager(PathManager.WiiDbFolder);
+    }
 }
