@@ -90,6 +90,7 @@ public partial class HomePage : UserControl
         ViewUtils.GetLayout().SetInteractable(false);
         await currentLauncher.Install();
         ViewUtils.GetLayout().SetInteractable(true);
+        ViewUtils.NavigateToPage(new HomePage());
     }
 
     private static async void Update()
@@ -97,6 +98,7 @@ public partial class HomePage : UserControl
         ViewUtils.GetLayout().SetInteractable(false);
         await currentLauncher.Update();
         ViewUtils.GetLayout().SetInteractable(true);
+        ViewUtils.NavigateToPage(new HomePage());
     }
     
     private void PlayButton_Click(object? sender, RoutedEventArgs e)
