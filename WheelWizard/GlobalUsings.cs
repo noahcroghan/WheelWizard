@@ -1,2 +1,2 @@
 ﻿global using Microsoft.Extensions.DependencyInjection;
-global using WheelWizard.Extensions;
+global using WheelWizard.Shared;

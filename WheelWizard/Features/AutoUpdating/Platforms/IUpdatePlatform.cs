@@ -1,4 +1,4 @@
-﻿using WheelWizard.Models.Github;
+﻿using WheelWizard.GitHub.Domain;
 
 namespace WheelWizard.AutoUpdating.Platforms;
 

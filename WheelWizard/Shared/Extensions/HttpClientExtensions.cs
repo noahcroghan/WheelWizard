@@ -1,6 +1,6 @@
 ﻿using WheelWizard.Branding;
 
-namespace WheelWizard.Extensions;
+namespace WheelWizard.Shared;
 
 public static class HttpClientExtensions
 {

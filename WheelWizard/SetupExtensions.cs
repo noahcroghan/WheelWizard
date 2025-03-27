@@ -1,10 +1,11 @@
 ﻿using WheelWizard.AutoUpdating;
 using WheelWizard.Branding;
+using WheelWizard.GitHub;
 using WheelWizard.RrRooms;
 
 namespace WheelWizard;
 
-public static class ServiceCollectionExtensions
+public static class SetupExtensions
 {
     /// <summary>
     /// Adds the services required for WheelWizard.
@@ -13,6 +14,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddAutoUpdating();
         services.AddBranding();
+        services.AddGitHub();
         services.AddRrRooms();
     }
 }

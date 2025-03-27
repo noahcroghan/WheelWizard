@@ -5,12 +5,12 @@ namespace WheelWizard.RrRooms;
 
 public interface IRrRoomsSingletonService
 {
-    Task<List<RwfcRoom>> GetRoomsAsync();
+    Task<OperationResult<List<RwfcRoom>>> GetRoomsAsync();
 }
 
 public class RrRoomsSingletonService(IServiceScopeFactory scopeFactory, ILogger<RrRoomsSingletonService> logger) : IRrRoomsSingletonService
 {
-    public async Task<List<RwfcRoom>> GetRoomsAsync()
+    public async Task<OperationResult<List<RwfcRoom>>> GetRoomsAsync()
     {
         using var scope = scopeFactory.CreateScope();
         var api = scope.ServiceProvider.GetRequiredService<IRwfcApi>();
@@ -23,12 +23,16 @@ public class RrRoomsSingletonService(IServiceScopeFactory scopeFactory, ILogger<
                 return response.Content;
 
             logger.LogError("Failed to get rooms from Rwfc API: {@Error}", response.Error);
-            return [];
+            return new OperationError { Message = "Failed to get rooms from Rwfc API: " + response.Error.ReasonPhrase };
         }
         catch (HttpRequestException ex) when (ex.InnerException is SocketException socketException)
         {
             logger.LogError(ex, "Failed to connect to Rwfc API: {Message}", socketException.Message);
-            return [];
+            return new OperationError
+            {
+                Message = "Failed to connect to Rwfc API: " + socketException.Message,
+                Exception = socketException
+            };
         }
     }
 }
