@@ -54,6 +54,7 @@ public class RrRoom
         "vs" => "Regular",
         _ => IsPublic ? "Unknown Mode" : "Private Room"
     };
+    public int AverageVr => PlayerCount == 0 ? 0 : Players.Sum(p => p.Value.Vr) / PlayerCount;
 
     public Mii? HostMii => !string.IsNullOrEmpty(Host) ? Players.GetValueOrDefault(Host)?.FirstMii : null;
 }

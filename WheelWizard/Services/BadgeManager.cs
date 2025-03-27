@@ -18,7 +18,8 @@ public class BadgeManager
         {BadgeVariant.BronzeWinner, "This is an award winning player"}
     };
     
-    public Dictionary<string,BadgeVariant[]> BadgeData { get; private set; }
+    // Initialize the BadgeData dictionary with an empty dictionary to prevent design time crashes
+    public Dictionary<string, BadgeVariant[]> BadgeData { get; private set; } = new();
     
     public static BadgeManager Instance { get; } = new();
     private BadgeManager() { }
