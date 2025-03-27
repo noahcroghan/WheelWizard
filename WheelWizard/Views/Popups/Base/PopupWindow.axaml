@@ -30,6 +30,12 @@
                                    Foreground="{StaticResource Neutral300}"/>
                         
                         <DockPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+                            
+                            <Button Width="30" Height="25" Click="MinimizeButton_Click" Classes="TopButton">
+                                <PathIcon Data="{StaticResource MinMark}" Width="12" Height="12" 
+                                          Foreground="{Binding $parent[Button].Foreground}" />
+                            </Button>
+                            
                             <Button Width="30" Height="25" Click="CloseButton_Click" Classes="TopButton" IsVisible="{Binding CanClose}" >
                                 <PathIcon Data="{StaticResource XMark}" Width="12" Height="12"
                                           Foreground="{Binding $parent[Button].Foreground}" />

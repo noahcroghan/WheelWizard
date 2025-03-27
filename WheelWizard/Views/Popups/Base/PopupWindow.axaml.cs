@@ -121,4 +121,10 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     #endregion
+
+    private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+    {
+        WindowState = WindowState.Minimized;
+    }
+    public void Restore() => WindowState = WindowState.Normal;
 }
