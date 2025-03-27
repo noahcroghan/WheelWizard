@@ -28,9 +28,13 @@
             VerticalAlignment="Bottom"
             Margin="10"
             Grid.Column="0">
-            <components:FormFieldLabel Text="{x:Static lang:Online.Stat_AverageRoomVr}" Margin="0,0,2,0" />
+            <components:FormFieldLabel 
+                HorizontalAlignment="Right"
+                Text="{x:Static lang:Online.Stat_AverageRoomVr}" Margin="0,0,2,0" />
             <!-- <SelectableTextBlock Text="{Binding Room.AverageVr}" Classes="BodyText" /> -->
-            <components:StateBox IconSize="0" Text="{Binding Room.AverageVr}"></components:StateBox>
+            <components:StateBox IconSize="0" Text="{Binding Room.AverageVr}"
+                                 HorizontalAlignment="Right"
+                                 ></components:StateBox>
         </StackPanel>
 
         <components:IconLabelButton Grid.Row="0" 
@@ -69,7 +73,6 @@
         </Grid>
         
         <Grid Grid.Row="2" RowDefinitions="*, 16*" Margin="10,0">
-            
             <Grid Grid.Row="0" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,6">
                     <components:FormFieldLabel Text="{x:Static lang:Online.ListTitle_Players}"/>
