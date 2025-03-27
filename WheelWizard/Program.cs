@@ -1,4 +1,7 @@
 using Avalonia;
+using System;
+using System.Diagnostics;
+using System.IO;
 using WheelWizard.Services;
 using WheelWizard.Services.Installation.AutoUpdater;
 using WheelWizard.Services.Settings;
@@ -15,7 +18,7 @@ public class Program
         Setup();
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
-    
+
     public static AppBuilder BuildAvaloniaApp()
         => AppBuilder.Configure<Views.App>()
                      .UsePlatformDetect()
@@ -24,6 +27,8 @@ public class Program
 
     private static void Setup()
     {
+        // Resolve all relative paths based on the WheelWizard executable's directory
+        Environment.CurrentDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
         SettingsManager.Instance.LoadSettings();
         BadgeManager.Instance.LoadBadges();
         UrlProtocolManager.SetWhWzSchemeAsync();
@@ -50,4 +55,4 @@ public class Program
 
         Console.WriteLine($"Application start [mode: {modeCheck}, os: {osCheck}]");
     }
-} 
+}

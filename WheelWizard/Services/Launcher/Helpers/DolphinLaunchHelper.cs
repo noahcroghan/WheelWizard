@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using WheelWizard.Services;
@@ -83,34 +84,40 @@ public static class DolphinLaunchHelper
             string flatpakRunCommand = "flatpak run";
             fixedFlatpakDolphinLocation = fixedFlatpakDolphinLocation.Replace(
                 flatpakRunCommand,
-                $"{flatpakRunCommand} --filesystem=\"{newFilesystemPerm}\"{mode}");
+                $"{flatpakRunCommand} --filesystem=\"{Path.GetFullPath(newFilesystemPerm)}\"{mode}");
         };
         if (!TryFixFlatpakGameFileAccess())
         {
             addFilesystemPerm(PathManager.GameFilePath, ":ro");
         }
-        if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(PathManager.UserFolderPath))
+        if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(PathManager.UserFolderPath, StringComparison.Ordinal))
         {
             addFilesystemPerm(PathManager.UserFolderPath, ":rw");
         }
         addFilesystemPerm(PathManager.RrLaunchJsonFilePath, ":ro");
         addFilesystemPerm(PathManager.XmlFilePath, ":ro");
         addFilesystemPerm(PathManager.RiivolutionWhWzFolderPath, ":ro");
+        addFilesystemPerm(PathManager.SaveFolderPath, ":rw");
         return fixedFlatpakDolphinLocation;
     }
 
+    // Make sure all file arguments are absolute paths
     public static void LaunchDolphin(string arguments = "", bool shellExecute = false)
     {
         try
         {
             var startInfo = new ProcessStartInfo();
 
+            bool cannotPassUserFolder = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && PathManager.IsLinuxDolphinConfigSplit();
+            string userFolderArgument = cannotPassUserFolder ? "" : $"-u \"{Path.GetFullPath(PathManager.UserFolderPath)}\"";
+            string dolphinLaunchArguments = $"{arguments} {userFolderArgument}";
+
             var dolphinLocation = (string)SettingsManager.DOLPHIN_LOCATION.Get();
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // Windows builds
-                startInfo.FileName = dolphinLocation;
-                startInfo.Arguments = arguments;
+                startInfo.FileName = Path.GetFullPath(dolphinLocation);
+                startInfo.Arguments = dolphinLaunchArguments;
                 startInfo.UseShellExecute = shellExecute;
             }
             else
@@ -124,7 +131,7 @@ public static class DolphinLaunchHelper
                 {
                     dolphinLocation = FixFlatpakDolphinPermissions(dolphinLocation);
                 }
-                startInfo.ArgumentList.Add($"{dolphinLocation} {arguments}");
+                startInfo.ArgumentList.Add($"{dolphinLocation} {dolphinLaunchArguments}");
                 startInfo.UseShellExecute = false;
             }
 
