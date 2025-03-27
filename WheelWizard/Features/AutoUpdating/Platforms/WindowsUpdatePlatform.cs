@@ -5,9 +5,9 @@ using WheelWizard.Models.Github;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Views.Popups.Generic;
 
-namespace WheelWizard.Services.Installation.AutoUpdater;
+namespace WheelWizard.AutoUpdating.Platforms;
 
-public class AutoUpdaterWindows : IUpdaterPlatform
+public class WindowsUpdatePlatform : IUpdatePlatform
 {
     public GithubAsset? GetAssetForCurrentPlatform(GithubRelease release)
     {
@@ -46,7 +46,7 @@ public class AutoUpdaterWindows : IUpdaterPlatform
         {
             UseShellExecute = true,
             WorkingDirectory = Environment.CurrentDirectory,
-            FileName = GetActualExecutablePath(),
+            FileName = Environment.ProcessPath,
             Verb = "runas" // This verb asks for elevation.
         };
 
@@ -61,26 +61,30 @@ public class AutoUpdaterWindows : IUpdaterPlatform
         }
     }
 
-    private static string GetActualExecutablePath()
-    {
-        using (var process = Process.GetCurrentProcess())
-        {
-            return process.MainModule.FileName;
-        }
-    }
-
     private static bool IsAdministrator()
     {
-        using (var identity = WindowsIdentity.GetCurrent())
-        {
-            var principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
-        }
+        if (!OperatingSystem.IsWindows())
+            return false;
+
+        using var identity = WindowsIdentity.GetCurrent();
+        var principal = new WindowsPrincipal(identity);
+        return principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
 
     private static async Task UpdateAsync(string downloadUrl)
     {
-        var currentExecutablePath = Process.GetCurrentProcess().MainModule!.FileName;
+        var currentExecutablePath = Environment.ProcessPath;
+        if (currentExecutablePath is null)
+        {
+            await new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .SetTitleText("Unable to update Wheel Wizard")
+                .SetInfoText(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation)
+                .ShowDialog();
+            return;
+        }
+
+
         var currentExecutableName = Path.GetFileNameWithoutExtension(currentExecutablePath);
         var currentFolder = Path.GetDirectoryName(currentExecutablePath);
 
@@ -132,56 +136,59 @@ public class AutoUpdaterWindows : IUpdaterPlatform
         var originalFileName = Path.GetFileName(currentFilePath);
         var newFileName = Path.GetFileName(newFilePath);
 
-        var scriptContent = $@"
-Write-Output 'Starting update process...'
+        var scriptContent =
+            $$"""
 
-# Wait for the original application to exit
-while (Get-Process -Name '{Path.GetFileNameWithoutExtension(originalFileName)}' -ErrorAction SilentlyContinue) {{
-    Write-Output 'Waiting for {originalFileName} to exit...'
-    Start-Sleep -Seconds 1
-}}
+              Write-Output 'Starting update process...'
 
-Write-Output 'Deleting old executable...'
-$maxRetries = 5
-$retryCount = 0
-$deleted = $false
+              # Wait for the original application to exit
+              while (Get-Process -Name '{{Path.GetFileNameWithoutExtension(originalFileName)}}' -ErrorAction SilentlyContinue) {
+                  Write-Output 'Waiting for {{originalFileName}} to exit...'
+                  Start-Sleep -Seconds 1
+              }
 
-while (-not $deleted -and $retryCount -lt $maxRetries) {{
-    try {{
-        Remove-Item -Path '{Path.Combine(currentFolder, originalFileName)}' -Force -ErrorAction Stop
-        $deleted = $true
-    }}
-    catch {{
-        Write-Output 'Failed to delete {originalFileName}. Retrying in 2 seconds...'
-        Start-Sleep -Seconds 2
-        $retryCount++
-    }}
-}}
+              Write-Output 'Deleting old executable...'
+              $maxRetries = 5
+              $retryCount = 0
+              $deleted = $false
 
-if (-not $deleted) {{
-    Write-Output 'Could not delete {originalFileName}. Update aborted.'
-    pause
-    exit 1
-}}
+              while (-not $deleted -and $retryCount -lt $maxRetries) {
+                  try {
+                      Remove-Item -Path '{{Path.Combine(currentFolder, originalFileName)}}' -Force -ErrorAction Stop
+                      $deleted = $true
+                  }
+                  catch {
+                      Write-Output 'Failed to delete {{originalFileName}}. Retrying in 2 seconds...'
+                      Start-Sleep -Seconds 2
+                      $retryCount++
+                  }
+              }
 
-Write-Output 'Renaming new executable...'
-try {{
-    Rename-Item -Path '{Path.Combine(currentFolder, newFileName)}' -NewName '{originalFileName}' -ErrorAction Stop
-}}
-catch {{
-    Write-Output 'Failed to rename {newFileName} to {originalFileName}. Update aborted.'
-    pause
-    exit 1
-}}
+              if (-not $deleted) {
+                  Write-Output 'Could not delete {{originalFileName}}. Update aborted.'
+                  pause
+                  exit 1
+              }
 
-Write-Output 'Starting the updated application...'
-Start-Process -FilePath '{Path.Combine(currentFolder, originalFileName)}'
+              Write-Output 'Renaming new executable...'
+              try {
+                  Rename-Item -Path '{{Path.Combine(currentFolder, newFileName)}}' -NewName '{{originalFileName}}' -ErrorAction Stop
+              }
+              catch {
+                  Write-Output 'Failed to rename {{newFileName}} to {{originalFileName}}. Update aborted.'
+                  pause
+                  exit 1
+              }
 
-Write-Output 'Cleaning up...'
-Remove-Item -Path '{scriptFilePath}' -Force
+              Write-Output 'Starting the updated application...'
+              Start-Process -FilePath '{{Path.Combine(currentFolder, originalFileName)}}'
 
-Write-Output 'Update completed successfully.'
-";
+              Write-Output 'Cleaning up...'
+              Remove-Item -Path '{{scriptFilePath}}' -Force
+
+              Write-Output 'Update completed successfully.'
+
+              """;
         File.WriteAllText(scriptFilePath, scriptContent);
 
         var processStartInfo = new ProcessStartInfo

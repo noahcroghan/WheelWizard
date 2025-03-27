@@ -4,7 +4,7 @@ using Avalonia.Media.Imaging;
 using System.ComponentModel;
 using WheelWizard.Models.MiiImages;
 
-namespace WheelWizard.Views.Components.WhWzLibrary.MiiImages;
+namespace WheelWizard.Views.Components.MiiImages;
 
 public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
 {

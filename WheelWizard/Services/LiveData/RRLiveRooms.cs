@@ -1,6 +1,8 @@
-using WheelWizard.Helpers;
+using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.RRInfo;
+using WheelWizard.RrRooms;
 using WheelWizard.Utilities.RepeatedTasks;
+using WheelWizard.Views;
 
 namespace WheelWizard.Services.LiveData;
 
@@ -16,16 +18,41 @@ public class RRLiveRooms : RepeatedTaskManager
     private RRLiveRooms() : base(40) { }
 
     protected override async Task ExecuteTaskAsync()
-    { 
-        var response = await HttpClientHelper.GetAsync<List<RrRoom>>(Endpoints.RRGroupsUrl);
-        // var response = HttpClientHelper.MockResult<List<Room>>(Mocker.GroupApiResponse);
+    {
+        var roomsService = App.Services.GetRequiredService<IRrRoomsSingletonService>();
 
-        // It is not important enough to bore the user with an error message or something.
-        // they are not hindered if there is an error, they just don't see the rooms. that's it.
-        if (!response.Succeeded || response.Content is null)
+        var rooms = await roomsService.GetRoomsAsync();
+
+        // This is here because we don't want to break existing code that uses the old model
+        var rrRooms = rooms.Select(room => new RrRoom
         {
-            CurrentRooms = new List<RrRoom>();
-        }
-        else CurrentRooms = response.Content;
+            Id = room.Id,
+            Game = room.Game,
+            Created = room.Created,
+            Type = room.Type,
+            Suspend = room.Suspend,
+            Host = room.Host,
+            Rk = room.Rk,
+            Players = room.Players.ToDictionary(p => p.Key,
+                p => new RrPlayer
+                {
+                    Count = p.Value.Count,
+                    Pid = p.Value.Pid,
+                    Name = p.Value.Name,
+                    ConnMap = p.Value.ConnMap,
+                    ConnFail = p.Value.ConnFail,
+                    Suspend = p.Value.Suspend,
+                    Fc = p.Value.Fc,
+                    Ev = p.Value.Ev,
+                    Eb = p.Value.Eb,
+                    Mii = p.Value.Mii.Select(mii => new Mii
+                    {
+                        Name = mii.Name,
+                        Data = mii.Data,
+                    }).ToList()
+                })
+        }).ToList();
+        
+        CurrentRooms = rrRooms;
     }
 }

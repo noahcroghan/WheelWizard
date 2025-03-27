@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
 using WheelWizard.Models.MiiImages;
@@ -21,11 +22,11 @@ public class GameDataLoader : RepeatedTaskManager
     /// The path to where the “rksys.dat” folder structure is expected to live, e.g.
     ///   ..\path\to\Riivolution\riivolution\save\RetroWFC\RMCP\rksys.dat
     /// </summary>
-    private static string? SaveFilePath
+    private static string? TryCreateSaveFolderPath
     {
         get
         {
-            if (string.IsNullOrWhiteSpace(PathManager.RiivolutionWhWzFolderPath))
+            if (string.IsNullOrWhiteSpace(PathManager.UserFolderPath))
                 return string.Empty;
             if (Directory.Exists(PathManager.SaveFolderPath)) 
                 return PathManager.SaveFolderPath;
@@ -35,8 +36,8 @@ public class GameDataLoader : RepeatedTaskManager
             }
             catch (Exception ex)
             {
-                //do nothing until user directory is resolved.
-                return null;
+                // Do nothing until user directory is resolved.
+                return string.Empty;
             }
             return PathManager.SaveFolderPath;
         }
@@ -276,7 +277,7 @@ public class GameDataLoader : RepeatedTaskManager
     {
         try
         {
-            if (!Directory.Exists(SaveFilePath))
+            if (!Directory.Exists(TryCreateSaveFolderPath))
                 return null;
 
             var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
@@ -295,7 +296,7 @@ public class GameDataLoader : RepeatedTaskManager
                 }
             }
 
-            var saveFileFolder = Path.Combine(SaveFilePath, RRRegionManager.ConvertRegionToGameId(currentRegion));
+            var saveFileFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
             var saveFile = Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
             return saveFile.Length == 0 ? null : File.ReadAllBytes(saveFile[0]);
         }
@@ -369,33 +370,24 @@ public class GameDataLoader : RepeatedTaskManager
             return;
         }
         var currentName = user.MiiData.Mii.Name ?? "";
-        var renamePopup = new TextInputWindow()
-            .setLabelText($"Enter new name for {currentName}:");
-
-        renamePopup.PopulateText(currentName);
+        var renamePopup =  new TextInputWindow()
+                .SetMainText($"Enter new name")
+                .SetExtraText($"Changing name from: {currentName}")
+                .SetAllowCustomChars(true)
+                .SetInitialText(currentName)
+                .SetPlaceholderText(currentName);
 
         var newName = await renamePopup.ShowDialog();
         if (string.IsNullOrWhiteSpace(newName)) return;
-
+        newName = Regex.Replace(newName, @"\s+", " ");
+        
         // Basic checks
-        if (newName.Length > 10)
+        if (newName.Length is > 10 or < 3)
         {
-            InvalidNameMessage("Names must be at most 10 characters long.");
+            InvalidNameMessage("Names must be between 3 and 10 characters long.");
             return;
         }
-        if (newName.Length < 3)
-        {
-            InvalidNameMessage("Names must be at least 3 characters long.");
-            return;
-        }
-        if (!newName.All(char.IsLetterOrDigit))
-        {
-            if (!newName.Any(char.IsWhiteSpace))
-            {
-                InvalidNameMessage("Names can only contain letters and numbers.");
-                return;
-            }
-        }
+
         if (newName.Length > 10)
             newName = newName.Substring(0, 10);
         user.MiiData.Mii.Name = newName; // This should be updated just in case someone uses it, but its not the one that updates the profile page
@@ -449,10 +441,10 @@ public class GameDataLoader : RepeatedTaskManager
     
     private bool SaveRksysToFile()
     {
-        if (_saveData == null || SaveFilePath == null) return false;
+        if (_saveData == null || string.IsNullOrWhiteSpace(TryCreateSaveFolderPath)) return false;
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
-        var saveFolder = Path.Combine(SaveFilePath, RRRegionManager.ConvertRegionToGameId(currentRegion));
+        var saveFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
 
         try
         {

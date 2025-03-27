@@ -1,43 +1,42 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:controls="using:WheelWizard.Views.Components.WhWzLibrary"
-        xmlns:components="using:WheelWizard.Views.Components.StandardLibrary"
-        xmlns:miiComp="using:WheelWizard.Views.Components.WhWzLibrary.MiiImages">
+        xmlns:components="using:WheelWizard.Views.Components"
+        xmlns:miiComp="using:WheelWizard.Views.Components.MiiImages">
     <Design.PreviewWith>
         <StackPanel Background="{StaticResource Neutral950}">
-            <controls:PlayerListItem Width="428" Height="124"
-                                      FriendCode="1234-5678-9012"
-                                      UserName="Lum Patch"
-                                      Vr="5000" Br="5000"
-                                      HasBadges="True"/>
+            <components:PlayerListItem Width="428" Height="124"
+                                       FriendCode="1234-5678-9012"
+                                       UserName="Lum Patch"
+                                       Vr="5000" Br="5000"
+                                       HasBadges="True"/>
             
-            <controls:PlayerListItem Width="428" Height="124"
-                                     FriendCode="1234-5678-9012"
-                                     UserName="Someone Else"
-                                     Vr="5000" Br="5000"
-                                     HasBadges="True"/> 
+            <components:PlayerListItem Width="428" Height="124"
+                                       FriendCode="1234-5678-9012"
+                                       UserName="Someone Else"
+                                       Vr="5000" Br="5000"
+                                       HasBadges="True"/> 
             
-            <controls:PlayerListItem Width="428" Height="124"
-                                     FriendCode="1234-5678-9012"
-                                     UserName="WantToBeeMe"
-                                     Vr="5000" Br="5000"
-                                     HasBadges="False"/>
+            <components:PlayerListItem Width="428" Height="124"
+                                       FriendCode="1234-5678-9012"
+                                       UserName="WantToBeeMe"
+                                       Vr="5000" Br="5000"
+                                       HasBadges="False"/>
             
-            <controls:PlayerListItem Width="428" Height="124"
-                                     FriendCode="1234-5678-9012"
-                                     UserName="Random Guy"
-                                     Vr="5000" Br="5000"
-                                     HasBadges="False"/>
+            <components:PlayerListItem Width="428" Height="124"
+                                       FriendCode="1234-5678-9012"
+                                       UserName="Random Guy"
+                                       Vr="5000" Br="5000"
+                                       HasBadges="False"/>
             
-            <controls:PlayerListItem Width="428" Height="124"
-                                     FriendCode="1234-5678-9012"
-                                     UserName="Someone Else"
-                                     Vr="5000" Br="5000"
-                                     HasBadges="False"/> 
+            <components:PlayerListItem Width="428" Height="124"
+                                       FriendCode="1234-5678-9012"
+                                       UserName="Someone Else"
+                                       Vr="5000" Br="5000"
+                                       HasBadges="False"/> 
         </StackPanel>
     </Design.PreviewWith>
 
-    <Style Selector="controls|PlayerListItem">
+    <Style Selector="components|PlayerListItem">
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Classes="BoxItemBackground">

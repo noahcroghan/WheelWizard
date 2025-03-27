@@ -1,16 +1,16 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:components="using:WheelWizard.Views.Components.StandardLibrary"
         xmlns:mocker="clr-namespace:WheelWizard.Utilities.Mockers"
-        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.WhWzLibrary.MiiImages">
+        xmlns:miiImages1="clr-namespace:WheelWizard.Views.Components.MiiImages"
+        xmlns:components="clr-namespace:WheelWizard.Views.Components">
     <Design.PreviewWith>
         <Border Padding="10" Background="{StaticResource Neutral950}"
                 Width="440" Height="300">
-            <miiImages:MiiCarousel Mii="{x:Static mocker:MiiFactory.StaticSingle}"/>
+            <miiImages1:MiiCarousel Mii="{x:Static mocker:MiiFactory.StaticSingle}"/>
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="miiImages|MiiCarousel">
+    <Style Selector="miiImages1|MiiCarousel">
         <Setter Property="Template">
             <ControlTemplate>
                 <Grid IsVisible="{TemplateBinding MiiLoaded}">

@@ -7,6 +7,8 @@
 
     <Application.Resources>
         <ResourceDictionary>
+            <FontFamily x:Key="DefaultFont">Arial, avares://WheelWizard/Resources/Fonts/ctmkf.ttf#CTMKF</FontFamily>
+            
             <!-- CONSTANTS -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="Styles/Resources/Constants.axaml"/>

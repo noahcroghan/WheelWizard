@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
              mc:Ignorable="d" d:DesignWidth="656" d:DesignHeight="876"
-             xmlns:components="clr-namespace:WheelWizard.Views.Components.StandardLibrary"
              x:Class="WheelWizard.Views.Pages.Settings.SettingsPage">
     <Grid>
         <Grid.RowDefinitions>

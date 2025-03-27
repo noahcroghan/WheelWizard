@@ -1,49 +1,48 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
-        xmlns:controls="using:WheelWizard.Views.Components.WhWzLibrary"
-        xmlns:components="using:WheelWizard.Views.Components.StandardLibrary"
-        xmlns:miiComp="using:WheelWizard.Views.Components.WhWzLibrary.MiiImages">
+        xmlns:components="clr-namespace:WheelWizard.Views.Components"
+        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages">
     <Design.PreviewWith>
         <StackPanel Spacing="6" Background="{StaticResource Neutral950}">
-            <controls:FriendsListItem Width="428" Height="124"
-                                      FriendCode="1234-5678-9012"
-                                      UserName="Lum Patch"
-                                      Vr="5000" Br="5000"
-                                      HasBadges="True"
-                                      TotalLosses="12" TotalWon="1345"/>
+            <components:FriendsListItem Width="428" Height="124"
+                                        FriendCode="1234-5678-9012"
+                                        UserName="Lum Patch"
+                                        Vr="5000" Br="5000"
+                                        HasBadges="True"
+                                        TotalLosses="12" TotalWon="1345"/>
             
-            <controls:FriendsListItem Width="428" Height="124" IsOnline="True"
-                                      FriendCode="1234-5678-9012"
-                                      UserName="Someone Else"
-                                      Vr="5000" Br="5000"
-                                      HasBadges="True"
-                                      TotalLosses="213" TotalWon="12"/> 
+            <components:FriendsListItem Width="428" Height="124" IsOnline="True"
+                                        FriendCode="1234-5678-9012"
+                                        UserName="Someone Else"
+                                        Vr="5000" Br="5000"
+                                        HasBadges="True"
+                                        TotalLosses="213" TotalWon="12"/> 
             
-            <controls:FriendsListItem Width="428" Height="124"
-                                      FriendCode="1234-5678-9012"
-                                      UserName="WantToBeeMe"
-                                      Vr="5000" Br="5000"
-                                      HasBadges="False"
-                                      TotalLosses="213" TotalWon="12"/>
+            <components:FriendsListItem Width="428" Height="124"
+                                        FriendCode="1234-5678-9012"
+                                        UserName="WantToBeeMe"
+                                        Vr="5000" Br="5000"
+                                        HasBadges="False"
+                                        TotalLosses="213" TotalWon="12"/>
             
-            <controls:FriendsListItem Width="428" Height="124"
-                                      FriendCode="1234-5678-9012"
-                                      UserName="Random Guy"
-                                      Vr="5000" Br="5000"
-                                      HasBadges="False"
-                                      TotalLosses="213" TotalWon="12"/>
+            <components:FriendsListItem Width="428" Height="124"
+                                        FriendCode="1234-5678-9012"
+                                        UserName="Random Guy"
+                                        Vr="5000" Br="5000"
+                                        HasBadges="False"
+                                        TotalLosses="213" TotalWon="12"/>
             
-            <controls:FriendsListItem Width="428" Height="124" IsOnline="True"
-                                      FriendCode="1234-5678-9012"
-                                      UserName="Someone Else"
-                                      Vr="5000" Br="5000"
-                                      HasBadges="False"
-                                      TotalLosses="213" TotalWon="12"/> 
+            <components:FriendsListItem Width="428" Height="124" IsOnline="True"
+                                        FriendCode="1234-5678-9012"
+                                        UserName="Someone Else"
+                                        Vr="5000" Br="5000"
+                                        HasBadges="False"
+                                        TotalLosses="213" TotalWon="12"/> 
         </StackPanel>
     </Design.PreviewWith>
 
-    <Style Selector="controls|FriendsListItem">
+    <Style Selector="components|FriendsListItem">
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Background="{StaticResource Neutral900}" CornerRadius="6" Padding="10,5" x:Name="PART_BaseBorder"
@@ -51,7 +50,7 @@
                     <Grid ColumnDefinitions="2*, 5*, 5*">
                         <Border Grid.Column="0" Background="{StaticResource Neutral700}"
                                 Margin="-10,-5,0,-5" CornerRadius="7,0,0,7"/>
-                        <miiComp:MiiImageLoader Grid.Column="0" Grid.ColumnSpan="2" Margin="-35,-25,0,-5" HorizontalAlignment="Left"
+                        <miiImages:MiiImageLoader Grid.Column="0" Grid.ColumnSpan="2" Margin="-35,-25,0,-5" HorizontalAlignment="Left"
                                                 Mii="{TemplateBinding Mii}" FallBackColor="{StaticResource Neutral500}"
                                                 ImageVariant="SLIGHT_SIDE_PROFILE_DEFAULT" LoadingColor="Transparent"/>
                         
@@ -118,9 +117,9 @@
                                 BorderBrush="{StaticResource Neutral600}">
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" Padding="3">
                                 <StackPanel Orientation="Horizontal" x:Name="PART_BadgeContainer" Spacing="3">
-                                    <controls:Badge Variant="Translator" Width="30" Height="30"/>
-                                    <controls:Badge Variant="WhWzDev" Width="30" Height="30"/>
-                                    <controls:Badge Variant="RrDev" Width="30" Height="30"/>
+                                    <components:Badge Variant="Translator" Width="30" Height="30"/>
+                                    <components:Badge Variant="WhWzDev" Width="30" Height="30"/>
+                                    <components:Badge Variant="RrDev" Width="30" Height="30"/>
                                 </StackPanel>
                             </ScrollViewer>
                         </Border>
@@ -147,12 +146,12 @@
         </Setter>
     </Style>
     
-    <Style Selector="controls|FriendsListItem[IsOnline=true] /template/ Border#PART_BorderColor,
-                     controls|FriendsListItem[IsOnline=true] /template/ Border#PART_BadgeBorder">
+    <Style Selector="components|FriendsListItem[IsOnline=true] /template/ Border#PART_BorderColor,
+                     components|FriendsListItem[IsOnline=true] /template/ Border#PART_BadgeBorder">
         <Setter Property="BorderBrush" Value="{StaticResource Primary400}"/>
     </Style>
     
-    <Style  Selector="controls|FriendsListItem[HasBadges=true] /template/ components|Button#ViewRoomButton">
+    <Style  Selector="components|FriendsListItem[HasBadges=true] /template/ components|Button#ViewRoomButton">
         <Setter Property="Padding" Value="10"/>
         <Setter Property="Text" Value=""/>
     </Style>

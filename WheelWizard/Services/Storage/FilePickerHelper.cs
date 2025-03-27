@@ -102,6 +102,8 @@ public static class FilePickerHelper
         }
         else if (OperatingSystem.IsMacOS())
         {
+            // Ensures the ~/Library/Application Support/ folder is escaped properly
+            folderPath = $"\"{folderPath}\"";
             Process.Start("open", folderPath);
         }
         else

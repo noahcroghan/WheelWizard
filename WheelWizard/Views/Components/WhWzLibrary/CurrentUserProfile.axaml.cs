@@ -8,7 +8,7 @@ using WheelWizard.Resources.Languages;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Views.Pages;
 
-namespace WheelWizard.Views.Components.WhWzLibrary;
+namespace WheelWizard.Views.Components;
 
 public class CurrentUserProfile : TemplatedControl, INotifyPropertyChanged
 {

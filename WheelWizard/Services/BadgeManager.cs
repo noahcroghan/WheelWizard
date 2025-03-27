@@ -1,6 +1,6 @@
 ﻿using WheelWizard.Helpers;
 using WheelWizard.Models.Enums;
-using WheelWizard.Views.Components.WhWzLibrary;
+using WheelWizard.Views.Components;
 
 namespace WheelWizard.Services;
 
@@ -12,6 +12,7 @@ public class BadgeManager
         {BadgeVariant.WhWzDev, "Wheel Wizard Developer (hiii!)"},
         {BadgeVariant.RrDev, "Retro Rewind Developer"},
         {BadgeVariant.Translator, "Translator"},
+        {BadgeVariant.TranslatorLead, "Translator Lead"},
         {BadgeVariant.GoldWinner, "This is an award winning player"},
         {BadgeVariant.SilverWinner, "This is an award winning player"},
         {BadgeVariant.BronzeWinner, "This is an award winning player"}

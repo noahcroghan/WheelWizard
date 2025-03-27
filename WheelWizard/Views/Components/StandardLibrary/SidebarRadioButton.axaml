@@ -1,28 +1,28 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:comps="using:WheelWizard.Views.Components.StandardLibrary"
         xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
-        xmlns:pages="clr-namespace:WheelWizard.Views.Pages">
+        xmlns:pages="clr-namespace:WheelWizard.Views.Pages"
+        xmlns:components="clr-namespace:WheelWizard.Views.Components">
   <Design.PreviewWith>
     <Border Padding="2" Width="300" Background="{StaticResource Neutral600}">
       <StackPanel>
-        <comps:SidebarRadioButton IconData="{StaticResource Home}" 
+        <components:SidebarRadioButton IconData="{StaticResource Home}" 
                                      Text="{x:Static lang:Common.PageTitle_Home}"
                                      PageType="{x:Type pages:HomePage}"/>
         
-        <comps:SidebarRadioButton  IsChecked="True"
+        <components:SidebarRadioButton  IsChecked="True"
                                    IconData="{StaticResource Settings}" 
                                    Text="{x:Static lang:Common.PageTitle_Settings}"
                                    PageType="{x:Type pages:HomePage}"/>
         
-        <comps:SidebarRadioButton IconData="{StaticResource Friends}" 
+        <components:SidebarRadioButton IconData="{StaticResource Friends}" 
                                   Text="{x:Static lang:Common.PageTitle_Friends}"
                                   PageType="{x:Type pages:HomePage}"
                                   BoxText="0/0"/>  
-        <comps:SidebarRadioButton IconData="{StaticResource CubesStacked}" 
+        <components:SidebarRadioButton IconData="{StaticResource CubesStacked}" 
                                   Text="{x:Static lang:Common.PageTitle_Mods}"
                                   PageType="{x:Type pages:HomePage}"/>
-        <comps:SidebarRadioButton IconData="{StaticResource RoomUsers}" 
+        <components:SidebarRadioButton IconData="{StaticResource RoomUsers}" 
                                   Text="{x:Static lang:Common.PageTitle_Rooms}"
                                   PageType="{x:Type pages:RoomsPage}"/>
                                   
@@ -30,7 +30,7 @@
     </Border>
   </Design.PreviewWith>
 
-  <Style Selector="comps|SidebarRadioButton">
+  <Style Selector="components|SidebarRadioButton">
     <Setter Property="Background" Value="{DynamicResource Neutral900}" />
     <Setter Property="Foreground" Value="{DynamicResource Neutral400}" />
     <Setter Property="Height" Value="50" />
@@ -62,14 +62,14 @@
               </Border.Styles>
             </Border>
             
-            <comps:IconLabel x:Name="RadioIcon" IconSize="25" FontSize="20"
+            <components:IconLabel x:Name="RadioIcon" IconSize="25" FontSize="20"
                              IconData="{TemplateBinding IconData}"
                              Text="{TemplateBinding Text}"
                              Foreground="{TemplateBinding Foreground}"
                              HorizontalAlignment="Left" VerticalAlignment="Center"
                              Margin="10,0,10,0" />
 
-            <comps:StateBox IsVisible="{TemplateBinding BoxText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+            <components:StateBox IsVisible="{TemplateBinding BoxText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
                             x:Name="StateBox" Classes="Dark"
                             Margin="0,0,10,0"
                             VerticalAlignment="Center" HorizontalAlignment="Right"
@@ -84,7 +84,7 @@
     </Setter>
   </Style>
   
-  <Style Selector="comps|SidebarRadioButton:pointerover">
+  <Style Selector="components|SidebarRadioButton:pointerover">
     <Setter Property="Cursor" Value="Hand" />
     <Setter Property="Background" Value="{StaticResource Neutral800}" />
     <Setter Property="Foreground" Value="{StaticResource Primary200}" />
@@ -93,7 +93,7 @@
     </Style>
   </Style>
 
-  <Style Selector="comps|SidebarRadioButton:checked">
+  <Style Selector="components|SidebarRadioButton:checked">
     <Setter Property="Background" Value="{StaticResource Neutral950}" />
     <Setter Property="Foreground" Value="{StaticResource Primary300}" />
     <Style Selector="^ /template/ Border#PART_HoverEffect">

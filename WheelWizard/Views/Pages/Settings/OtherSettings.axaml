@@ -3,8 +3,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="444" d:DesignHeight="831"
-             xmlns:components="clr-namespace:WheelWizard.Views.Components.StandardLibrary"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+             xmlns:components1="clr-namespace:WheelWizard.Views.Components"
              x:Class="WheelWizard.Views.Pages.Settings.OtherSettings">
 
     <Grid x:Name="DolphinBorder">
@@ -19,34 +19,34 @@
                            Foreground="{StaticResource BackgroundColor}" />
             </Border>
 
-            <components:FormFieldLabel Text="{x:Static lang:Settings.Section_Wii}" />
+            <components1:FormFieldLabel Text="{x:Static lang:Settings.Section_Wii}" />
             <Border Classes="SettingsBlockStyle">
                 <StackPanel>
                     <CheckBox Margin="0,2" IsChecked="False"
                               Classes="SwitchDark"
                               x:Name="DisableForce">
-                        <components:FormFieldLabel Text="{x:Static lang:Settings.Option_ForceDisableWiimote}"
+                        <components1:FormFieldLabel Text="{x:Static lang:Settings.Option_ForceDisableWiimote}"
                                                    TipText="{x:Static lang:Settings.InfoText_ForceDisableWiimote}" />
                     </CheckBox>
                     <CheckBox Margin="0,2" IsChecked="False"
                               Classes="SwitchDark"
                               x:Name="LaunchWithDolphin">
-                        <components:FormFieldLabel Text="{x:Static lang:Settings.Option_LaunchWithDolphin}"
+                        <components1:FormFieldLabel Text="{x:Static lang:Settings.Option_LaunchWithDolphin}"
                                                    TipText="{x:Static lang:Settings.InfoText_LaunchWithDolphin}" />
                     </CheckBox>
                 </StackPanel>
             </Border>
 
-            <components:FormFieldLabel Text="{x:Static lang:Settings.Section_Language}" />
+            <components1:FormFieldLabel Text="{x:Static lang:Settings.Section_Language}" />
             <Border Classes="SettingsBlockStyle">
                 <StackPanel>
-                    <components:FormFieldLabel Text="{x:Static lang:Settings.Option_RRLanguage}" />
+                    <components1:FormFieldLabel Text="{x:Static lang:Settings.Option_RRLanguage}" />
                     <ComboBox x:Name="InGameLanguageDropdown"
                               HorizontalAlignment="Stretch"
                               Margin="0,0,0,5"
                               VerticalAlignment="Top"/>
 
-                    <components:FormFieldLabel Text="{x:Static lang:Settings.Option_WhWzLanguage}" />
+                    <components1:FormFieldLabel Text="{x:Static lang:Settings.Option_WhWzLanguage}" />
                     <ComboBox x:Name="WhWzLanguageDropdown"
                               HorizontalAlignment="Stretch"
                               Margin="0,0,0,5"
@@ -73,8 +73,8 @@
                 </StackPanel>
             </Border>
             
-            <components:FormFieldLabel Text="{x:Static lang:Settings.Section_Installation}" />
-            <components:Button Variant="Default" IsEnabled="True" HorizontalAlignment="Left"
+            <components1:FormFieldLabel Text="{x:Static lang:Settings.Section_Installation}" />
+            <components1:Button Variant="Default" IsEnabled="True" HorizontalAlignment="Left"
                                IconData="{StaticResource Download}"
                                Text="{x:Static lang:Settings.Option_Reinstall}"
                                Click="Reinstall_RetroRewind" Margin="3" />

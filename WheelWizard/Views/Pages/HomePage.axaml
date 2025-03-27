@@ -3,8 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
-             xmlns:comps="clr-namespace:WheelWizard.Views.Components.StandardLibrary"
-             xmlns:whwzComps="clr-namespace:WheelWizard.Views.Components.WhWzLibrary"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
              mc:Ignorable="d" d:DesignWidth="656" d:DesignHeight="876"
              ClipToBounds="False"
              x:Class="WheelWizard.Views.Pages.HomePage">
@@ -21,12 +20,12 @@
         <Border Grid.Row="1" Background="{StaticResource BackgroundLineColor}" Height="1" HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom" />
         
-        <whwzComps:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
+        <components:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
                                       HorizontalAlignment="Right" VerticalAlignment="Top"/>
 
         <StackPanel Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Top" Margin="0,6" HorizontalAlignment="Right"
                     x:Name="GameModeOption">
-            <comps:FormFieldLabel Text="Game mode:" VerticalAlignment="Center" />
+            <components:FormFieldLabel Text="Game mode:" VerticalAlignment="Center" />
             <ComboBox x:Name="GameModeDropdown"
                       SelectionChanged="GameModeDropdown_OnSelectionChanged" MinWidth="160"
                       VerticalAlignment="Top"/>
@@ -49,7 +48,7 @@
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="180" Margin="0,220">
 
             <TextBlock HorizontalAlignment="Center" Classes="TitleText" x:Name="GameTitle"/>
-            <comps:Button x:Name="PlayButton"
+            <components:Button x:Name="PlayButton"
                           IsEnabled="True" 
                           Variant="Primary"
                           Text="Play"
@@ -59,7 +58,7 @@
 
             <!-- Normally we should not change the iconSize and/or Height since default is already correct
              But because the dolphin icon looks goofy that small, we can increase the size, and then change the size to be the default size again  -->
-            <comps:Button x:Name="DolphinButton"
+            <components:Button x:Name="DolphinButton"
                           IsEnabled="True"
                           IconData="{StaticResource DolphinIcon}"
                           IconSize="30"

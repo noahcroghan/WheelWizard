@@ -20,6 +20,7 @@
         <Setter Property="Padding" Value="5" />
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Focusable" Value="True" />
+        <Setter Property="TextElement.FontFamily" Value="{StaticResource DefaultFont}" />
         
         <Style Selector="^ /template/ TextBlock#PART_Watermark">
             <Setter Property="Foreground" Value="{StaticResource Neutral400}"/>

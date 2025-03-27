@@ -1,4 +1,4 @@
-﻿#if WINDOWS
+#if WINDOWS
 using Microsoft.Win32;
 #endif
 using WheelWizard.Views.Popups.Generic;
@@ -6,16 +6,17 @@ using WheelWizard.Views.Popups.ModManagement;
 
 namespace WheelWizard.Services.UrlProtocol;
 
-public class UrlProtocolManager
+public static class UrlProtocolManager
 {
-    public const string ProtocolName = "wheelwizard";
+    private const string ProtocolName = "wheelwizard";
 
-    #region Windows only
-    
 #if WINDOWS
-    public static void RegisterCustomScheme(string schemeName)
+    private static void RegisterCustomScheme(string schemeName)
     {
-        var currentExecutablePath = Process.GetCurrentProcess().MainModule!.FileName;
+        if (!OperatingSystem.IsWindows())
+            return;
+
+        var currentExecutablePath = Environment.ProcessPath;
         var protocolKey = $@"SOFTWARE\Classes\{schemeName}";
 
         using var key = Registry.CurrentUser.CreateSubKey(protocolKey);
@@ -27,22 +28,14 @@ public class UrlProtocolManager
         using var shellKey = key.CreateSubKey(@"shell\open\command");
         shellKey.SetValue("", $"\"{currentExecutablePath}\" \"%1\"");
     }
-    
-    public static bool IsCustomSchemeRegistered(string schemeName)
-    {
-        var protocolKey = $@"SOFTWARE\Classes\{schemeName}";
-        return Registry.CurrentUser.OpenSubKey(protocolKey) != null;
-    }
-        public static void RemoveCustomScheme(string schemeName)
-    {
-        var protocolKey = $@"SOFTWARE\Classes\{schemeName}";
-        Registry.CurrentUser.DeleteSubKeyTree(protocolKey);
-    }
 
-    async private static void SetWhWzSchemeAsyncInternally()
+    private static void SetWhWzSchemeInternally()
     {
-        var currentExecutablePath = Process.GetCurrentProcess().MainModule!.FileName;
-        var protocolKey = $@"SOFTWARE\Classes\{ProtocolName}";
+        if (!OperatingSystem.IsWindows())
+            return;
+
+        var currentExecutablePath = Environment.ProcessPath;
+        const string protocolKey = $@"SOFTWARE\Classes\{ProtocolName}";
 
         // Check if the scheme is registered
         using var key = Registry.CurrentUser.OpenSubKey(protocolKey);
@@ -51,35 +44,31 @@ public class UrlProtocolManager
             RegisterCustomScheme(ProtocolName);
             return;
         }
-        
+
         using var shellKey = key.OpenSubKey(@"shell\open\command");
-        if (shellKey != null)
+
+        if (shellKey?.GetValue("") is not string registeredExecutablePath)
+            return;
+
+        // Extract the path from the registered string (which might have quotes and "%1")
+        registeredExecutablePath = registeredExecutablePath.Split('\"')[1];
+
+        // If the registered executable is different from the current one, repair it
+        if (!registeredExecutablePath.Equals(currentExecutablePath, StringComparison.OrdinalIgnoreCase))
         {
-            var registeredExecutablePath = shellKey.GetValue("") as string;
-
-            if (registeredExecutablePath != null)
-            {
-                // Extract the path from the registered string (which might have quotes and "%1")
-                registeredExecutablePath = registeredExecutablePath.Split('\"')[1];
-
-                // If the registered executable is different from the current one, repair it
-                if (!registeredExecutablePath.Equals(currentExecutablePath, StringComparison.OrdinalIgnoreCase))
-                {
-                    // Fix the scheme by re-registering with the current executable
-                    RegisterCustomScheme(ProtocolName);
-                }
-            }
+            // Fix the scheme by re-registering with the current executable
+            RegisterCustomScheme(ProtocolName);
         }
     }
+
 #endif
-    
-    public static async void SetWhWzSchemeAsync()
+
+    public static void SetWhWzScheme()
     {
 #if WINDOWS
-        SetWhWzSchemeAsyncInternally();
+        SetWhWzSchemeInternally();
 #endif
     }
-    #endregion
 
     public static async Task ShowPopupForLaunchUrlAsync(string url)
     {
@@ -88,14 +77,13 @@ public class UrlProtocolManager
         var parts = content.Split(',');
         try
         {
-            if (!int.TryParse(parts[0], out var modID))
+            if (!int.TryParse(parts[0], out var modId))
                 throw new FormatException($"Invalid ModID: {parts[0]}");
-            
-            var downloadURL = parts.Length > 1 ? parts[1] : null;
-            var modPopup = new ModIndependentWindow();
-            await modPopup.LoadModAsync(modID, downloadURL);
-            modPopup.ShowDialog();
 
+            var downloadUrl = parts.Length > 1 ? parts[1] : null;
+            var modPopup = new ModIndependentWindow();
+            await modPopup.LoadModAsync(modId, downloadUrl);
+            await modPopup.ShowDialog();
         }
         catch (Exception ex)
         {
@@ -107,4 +95,3 @@ public class UrlProtocolManager
         }
     }
 }
-

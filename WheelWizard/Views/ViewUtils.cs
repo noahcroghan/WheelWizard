@@ -22,13 +22,13 @@ public static class ViewUtils
         });
     }
     
-    public static void OnInitialized(object? sender, EventArgs e)
+    public static void OnLoaded()
     {
         var args = Environment.GetCommandLineArgs();
         ModManager.Instance.ReloadAsync();
         if (args.Length <= 1) return; 
         var protocolArgument = args[1];
-        UrlProtocolManager.ShowPopupForLaunchUrlAsync(protocolArgument);
+        _ = UrlProtocolManager.ShowPopupForLaunchUrlAsync(protocolArgument);
     }
     
     public static Layout GetLayout() => Layout.Instance;

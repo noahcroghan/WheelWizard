@@ -4,11 +4,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:popups="clr-namespace:WheelWizard.Views.Popups"
-             xmlns:components="clr-namespace:WheelWizard.Views.Components.StandardLibrary"
-             xmlns:specificComps="clr-namespace:WheelWizard.Views.Components.WhWzLibrary"
-             xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              ClipToBounds="False"
              xmlns:modManagement="clr-namespace:WheelWizard.Views.Popups.ModManagement"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
              mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800">
     <Grid ColumnDefinitions="2*,3*">
         <!-- Mod List -->
@@ -36,12 +34,12 @@
                 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <specificComps:ModBrowserListItem Width="284" Height="89" Margin="0,4,9,4"
-                                                          ModTitle="{Binding _sName}"
-                                                          ModAuthor="{Binding _aSubmitter._sName}"
-                                                          ViewCount="{Binding _nViewCount}"
-                                                          LikeCount="{Binding _nLikeCount}"
-                                                          ImageUrl="{Binding FirstImageUrl}"/>
+                        <components:ModBrowserListItem Width="284" Height="89" Margin="0,4,9,4"
+                                                       ModTitle="{Binding _sName}"
+                                                       ModAuthor="{Binding _aSubmitter._sName}"
+                                                       ViewCount="{Binding _nViewCount}"
+                                                       LikeCount="{Binding _nLikeCount}"
+                                                       ImageUrl="{Binding FirstImageUrl}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
