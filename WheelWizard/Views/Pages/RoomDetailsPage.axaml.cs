@@ -40,7 +40,6 @@ public partial class RoomDetailsPage : UserControl, INotifyPropertyChanged, IRep
         DataContext = this;
         Room = RrRoomFactory.Instance.Create(); // Create a fake room for design-time preview
         PlayersList = new ObservableCollection<RrPlayer>(Room.Players.Values);
-        ListItemCount.Text = PlayersList.Count.ToString();
     }
 
     public RoomDetailsPage(RrRoom room)
@@ -52,7 +51,6 @@ public partial class RoomDetailsPage : UserControl, INotifyPropertyChanged, IRep
         PlayersList = new ObservableCollection<RrPlayer>(Room.Players.Values);
 
         RRLiveRooms.Instance.Subscribe(this);
-        ListItemCount.Text = PlayersList.Count.ToString();
         Unloaded += RoomsDetailPage_Unloaded;
     }
 
@@ -75,7 +73,6 @@ public partial class RoomDetailsPage : UserControl, INotifyPropertyChanged, IRep
         {
             PlayersList.Add(p);
         }
-        ListItemCount.Text = PlayersList.Count.ToString();
     }
 
     private void GoBackClick(object? sender, EventArgs eventArgs) => ViewUtils.NavigateToPage(new RoomsPage());
