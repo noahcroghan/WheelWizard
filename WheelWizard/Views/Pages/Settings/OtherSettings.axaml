@@ -74,18 +74,17 @@
             </Border>
             
             <components1:FormFieldLabel Text="{x:Static lang:Settings.Section_Installation}" />
-            <Grid ColumnDefinitions="*,*">
-                <components1:Button Variant="Default" IsEnabled="True" HorizontalAlignment="Left"
+            <StackPanel>
+                <components1:Button Variant="Warning" IsEnabled="True" HorizontalAlignment="Left"
                                     IconData="{StaticResource Download}"
                                     Text="{x:Static lang:Settings.Option_Reinstall}"
                                     Click="Reinstall_RetroRewind" Margin="3" />
-                <components1:Button Grid.Column="1"
-                                    x:Name="OpenSaveFolderButton"
+                <components1:Button x:Name="OpenSaveFolderButton"
                                     Variant="Default" IsEnabled="True" HorizontalAlignment="Left"
                                     IconData="{StaticResource Folder}"
                                     Text="{x:Static lang:Settings.Option_OpenSaveFolder}"
                                     Click="OpenSaveFolder_OnClick" Margin="3" />
-            </Grid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -140,7 +140,7 @@
                 <components1:Button Variant="Default"
                                     IsEnabled="True"
                                     IconData="{StaticResource Folder}"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Stretch"
                                     Text="{x:Static lang:Settings.Option_OpenConfig}"
                                     Click="WhWzFolder_Click"
                                     Margin="3" />
@@ -148,7 +148,7 @@
                                     x:Name="OpenGameFolderButton"
                                     IsEnabled="True"
                                     IconData="{StaticResource Folder}"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Stretch"
                                     Text="{x:Static lang:Settings.Option_OpenGameFolder}"
                                     Click="GameFileFolder_Click"
                                     Margin="3" />
