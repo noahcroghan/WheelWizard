@@ -36,7 +36,7 @@ public partial class OtherSettings : UserControl
     {
         DisableForce.IsChecked = (bool)SettingsManager.FORCE_WIIMOTE.Get();
         LaunchWithDolphin.IsChecked = (bool)SettingsManager.LAUNCH_WITH_DOLPHIN.Get();
-        OpenSaveFolderButton.IsEnabled = Directory.Exists(PathManager.WiiDbFolder);
+        OpenSaveFolderButton.IsEnabled = Directory.Exists(PathManager.SaveFolderPath);
     }
 
     private void ForceLoadSettings()
@@ -127,6 +127,6 @@ public partial class OtherSettings : UserControl
 
     private void OpenSaveFolder_OnClick(object? sender, RoutedEventArgs e)
     {
-        FilePickerHelper.OpenFolderInFileManager(PathManager.WiiDbFolder);
+        FilePickerHelper.OpenFolderInFileManager(PathManager.SaveFolderPath);
     }
 }
