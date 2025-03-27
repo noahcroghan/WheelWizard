@@ -14,7 +14,8 @@ public static class PathManager
     // IMPORTANT: To keep things consistent all paths should be Attrib expressions,
     //            and either end with `FilePath` or `FolderPath`
 
-    private static readonly bool IsPortableWhWz = File.Exists("portable-ww.txt");
+    // Portable WheelWizard config only makes sense on non-Flatpak WheelWizard
+    private static readonly bool IsPortableWhWz = !IsFlatpakSandboxed() && File.Exists("portable-ww.txt");
 
     public static string HomeFolderPath => Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
@@ -69,6 +70,9 @@ public static class PathManager
 
     private static bool IsFlatpakSandboxed()
     {
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            return false;
+
         return EnvHelper.IsFlatpakSandboxed();
     }
 
