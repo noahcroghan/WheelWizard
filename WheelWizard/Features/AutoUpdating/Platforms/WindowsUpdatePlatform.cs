@@ -52,7 +52,7 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         }
         catch (Exception)
         {
-            return Fail(Phrases.PopupText_RestartAdminFail);
+            return Phrases.PopupText_RestartAdminFail;
         }
     }
 
@@ -70,14 +70,14 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
     {
         var currentExecutablePath = Environment.ProcessPath;
         if (currentExecutablePath is null)
-            return Fail(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation);
+            return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
 
         var currentExecutableName = fileSystem.Path.GetFileNameWithoutExtension(currentExecutablePath);
         var currentFolder = fileSystem.Path.GetDirectoryName(currentExecutablePath);
 
         if (currentFolder is null)
-            return Fail(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation);
+            return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
         // Download new executable to a temporary file.
         var newFilePath = fileSystem.Path.Combine(currentFolder, currentExecutableName + "_new.exe");
