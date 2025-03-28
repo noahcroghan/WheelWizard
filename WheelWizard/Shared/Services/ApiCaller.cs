@@ -7,7 +7,7 @@ namespace WheelWizard.Shared.Services;
 /// Singleton service for calling Refit APIs.
 /// </summary>
 /// <typeparam name="TApi">The type of the Refit API interface.</typeparam>
-public interface IApiSingletonService<TApi> where TApi : notnull
+public interface IApiCaller<TApi> where TApi : notnull
 {
     /// <summary>
     /// Calls the specified API method asynchronously.
@@ -18,7 +18,7 @@ public interface IApiSingletonService<TApi> where TApi : notnull
     Task<OperationResult<TResult>> CallApiAsync<TResult>(Expression<Func<TApi, Task<TResult>>> apiCall);
 }
 
-public class ApiSingletonService<T>(IServiceScopeFactory scopeFactory, ILogger<ApiSingletonService<T>> logger) : IApiSingletonService<T> where T : notnull
+public class ApiCaller<T>(IServiceScopeFactory scopeFactory, ILogger<ApiCaller<T>> logger) : IApiCaller<T> where T : notnull
 {
     public async Task<OperationResult<TResult>> CallApiAsync<TResult>(Expression<Func<T, Task<TResult>>> apiCall)
     {

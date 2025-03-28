@@ -25,6 +25,6 @@ public static class SetupExtensions
 
 
         // Dynamic API calls
-        services.AddSingleton(typeof(IApiSingletonService<>), typeof(ApiSingletonService<>));
+        services.AddTransient(typeof(IApiCaller<>), typeof(ApiCaller<>));
     }
 }
