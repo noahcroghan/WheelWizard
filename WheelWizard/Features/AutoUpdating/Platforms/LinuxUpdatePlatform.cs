@@ -1,13 +1,13 @@
 ﻿using System.Diagnostics;
+using System.IO.Abstractions;
 using System.Runtime.InteropServices;
+using WheelWizard.GitHub.Domain;
 using WheelWizard.Helpers;
-using WheelWizard.Models.Github;
 using WheelWizard.Resources.Languages;
-using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.AutoUpdating.Platforms;
 
-public class LinuxUpdatePlatform : IUpdatePlatform
+public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
 {
     public GithubAsset? GetAssetForCurrentPlatform(GithubRelease release)
     {
@@ -26,26 +26,22 @@ public class LinuxUpdatePlatform : IUpdatePlatform
             asset.BrowserDownloadUrl.Contains(identifier, StringComparison.OrdinalIgnoreCase));
     }
 
-    public async Task ExecuteUpdateAsync(string downloadUrl)
+    public async Task<OperationResult> ExecuteUpdateAsync(string downloadUrl)
     {
-        var currentExecutablePath = Process.GetCurrentProcess().MainModule!.FileName;
-        var currentExecutableName = Path.GetFileName(currentExecutablePath);
-        var currentFolder = Path.GetDirectoryName(currentExecutablePath);
+        var currentExecutablePath = Environment.ProcessPath;
+        if (currentExecutablePath is null)
+            return Fail(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation);
+
+        var currentExecutableName = fileSystem.Path.GetFileName(currentExecutablePath);
+        var currentFolder = fileSystem.Path.GetDirectoryName(currentExecutablePath);
 
         if (currentFolder is null)
-        {
-            await new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText("Unable to update Wheel Wizard")
-                .SetInfoText(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation)
-                .ShowDialog();
-            return;
-        }
+            return Fail(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation);
 
         // Download the new executable to a temporary file.
-        var newFilePath = Path.Combine(currentFolder, currentExecutableName + "_new");
-        if (File.Exists(newFilePath))
-            File.Delete(newFilePath);
+        var newFilePath = fileSystem.Path.Combine(currentFolder, currentExecutableName + "_new");
+        if (fileSystem.File.Exists(newFilePath))
+            fileSystem.File.Delete(newFilePath);
 
         await DownloadHelper.DownloadToLocationAsync(
             downloadUrl,
@@ -58,48 +54,48 @@ public class LinuxUpdatePlatform : IUpdatePlatform
         await Task.Delay(201);
 
         // Create and run the shell script to perform the update.
-        CreateAndRunShellScript(currentExecutablePath, newFilePath);
+        var scriptResult = CreateAndRunShellScript(currentExecutablePath, newFilePath);
+        if (scriptResult.IsFailure)
+            return scriptResult;
 
         Environment.Exit(0);
+
+        return Ok();
     }
 
-    private static void CreateAndRunShellScript(string currentFilePath, string newFilePath)
+    private OperationResult CreateAndRunShellScript(string currentFilePath, string newFilePath)
     {
-        var currentFolder = Path.GetDirectoryName(currentFilePath);
+        var currentFolder = fileSystem.Path.GetDirectoryName(currentFilePath);
         if (currentFolder is null)
-        {
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText("Unable to update Wheel Wizard")
-                .SetInfoText(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation)
-                .ShowDialog();
-            return;
-        }
+            return Fail(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation);
 
-        var scriptFilePath = Path.Combine(currentFolder, "update.sh");
-        var originalFileName = Path.GetFileName(currentFilePath);
-        var newFileName = Path.GetFileName(newFilePath);
+        var scriptFilePath = fileSystem.Path.Combine(currentFolder, "update.sh");
+        var originalFileName = fileSystem.Path.GetFileName(currentFilePath);
+        var newFileName = fileSystem.Path.GetFileName(newFilePath);
 
-        var scriptContent = $@"#!/usr/bin/env sh
-echo 'Starting update process...'
+        var scriptContent =
+            $"""
+             #!/usr/bin/env sh
+             echo 'Starting update process...'
 
-# Give a short delay to ensure the application has exited
-sleep 1
+             # Give a short delay to ensure the application has exited
+             sleep 1
 
-echo 'Replacing old executable...'
-rm -f ""{Path.Combine(currentFolder, originalFileName)}""
-mv ""{Path.Combine(currentFolder, newFileName)}"" ""{Path.Combine(currentFolder, originalFileName)}""
-chmod +x ""{Path.Combine(currentFolder, originalFileName)}""
+             echo 'Replacing old executable...'
+             rm -f "{fileSystem.Path.Combine(currentFolder, originalFileName)}"
+             mv "{fileSystem.Path.Combine(currentFolder, newFileName)}" "{fileSystem.Path.Combine(currentFolder, originalFileName)}"
+             chmod +x "{fileSystem.Path.Combine(currentFolder, originalFileName)}"
 
-echo 'Starting the updated application...'
-nohup ""{Path.Combine(currentFolder, originalFileName)}"" > /dev/null 2>&1 &
+             echo 'Starting the updated application...'
+             nohup "{fileSystem.Path.Combine(currentFolder, originalFileName)}" > /dev/null 2>&1 &
 
-echo 'Cleaning up...'
-rm -- ""{scriptFilePath}""
+             echo 'Cleaning up...'
+             rm -- "{scriptFilePath}"
 
-echo 'Update completed successfully.'
-";
-        File.WriteAllText(scriptFilePath, scriptContent);
+             echo 'Update completed successfully.'
+
+             """;
+        fileSystem.File.WriteAllText(scriptFilePath, scriptContent);
 
         // Ensure the script is executable.
         try
@@ -107,7 +103,8 @@ echo 'Update completed successfully.'
             Process.Start(new ProcessStartInfo
             {
                 FileName = "/usr/bin/env",
-                ArgumentList = {
+                ArgumentList =
+                {
                     "chmod",
                     "+x",
                     "--",
@@ -119,17 +116,18 @@ echo 'Update completed successfully.'
         }
         catch (Exception ex)
         {
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Unable to update Wheel Wizard")
-                .SetInfoText($"Failed to set execute permission for the update script. {ex.Message}")
-                .ShowDialog();
+            return Fail(new()
+            {
+                Message = "Failed to set execute permission for the update script.",
+                Exception = ex
+            });
         }
 
         var processStartInfo = new ProcessStartInfo
         {
             FileName = "/usr/bin/env",
-            ArgumentList = {
+            ArgumentList =
+            {
                 "sh",
                 "--",
                 scriptFilePath,
@@ -145,11 +143,13 @@ echo 'Update completed successfully.'
         }
         catch (Exception ex)
         {
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Unable to update Wheel Wizard")
-                .SetInfoText($"Failed to execute the update script. {ex.Message}")
-                .ShowDialog();
+            return Fail(new()
+            {
+                Message = "Failed to execute the update script.",
+                Exception = ex
+            });
         }
+
+        return Ok();
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.TeamWheelWizard.WheelWizard</id>
+  <name>Wheel Wizard</name>
+  <summary>Mario Kart Wii Mod Manager &amp; Retro Rewind Auto Updater</summary>
+  <developer id="io.github.teamwheelwizard">
+    <name>TeamWheelWizard</name>
+  </developer>
+
+  <metadata_license>FSFAP</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <content_rating type="oars-1.0"/>
+
+  <recommends>
+    <id version="2503" compare="ge">org.DolphinEmu.dolphin-emu</id>
+    <internet>always</internet>
+  </recommends>
+
+  <description>
+    <p>
+      Wheel Wizard is a convenient Mario Kart Wii mod manager and launcher,
+      purpose-built for the Retro Rewind custom track distribution
+      with several online features.
+    </p>
+  </description>
+
+  <categories>
+    <category>Game</category>
+  </categories>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>Wheel Wizard's home page</caption>
+      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d8eb58433cea25d438f4d6fb79bfececd5ccbc73/images/screenshots/home_page.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Wheel Wizard's room details page</caption>
+      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d8eb58433cea25d438f4d6fb79bfececd5ccbc73/images/screenshots/rooms_page.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Wheel Wizard's profile page</caption>
+      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d8eb58433cea25d438f4d6fb79bfececd5ccbc73/images/screenshots/profile_page.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Wheel Wizard's mod browser</caption>
+      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d8eb58433cea25d438f4d6fb79bfececd5ccbc73/images/screenshots/mods_browser.png</image>
+    </screenshot>
+  </screenshots>
+
+  <launchable type="desktop-id">io.github.TeamWheelWizard.WheelWizard.desktop</launchable>
+  <icon type="stock">io.github.TeamWheelWizard.WheelWizard</icon>
+
+  <provides>
+    <binary>WheelWizard</binary>
+  </provides>
+
+  <releases>
+    <!-- FIXME: Remove this release tag and add the correct one for the first Flatpak release -->
+    <!-- (date format: YYYY-MM-DD) -->
+    <release version="" date="">
+      <description/>
+    </release>
+  </releases>
+
+  <url type="homepage">https://github.com/TeamWheelWizard/WheelWizard</url>
+  <url type="bugtracker">https://github.com/TeamWheelWizard/WheelWizard/issues</url>
+  <url type="contribute">https://github.com/TeamWheelWizard/WheelWizard/blob/5a0d00b04af5b6a1ac0757088b28f4a8e588b509/CONTRIBUTING.md</url>
+  <url type="vcs-browser">https://github.com/TeamWheelWizard/WheelWizard</url>
+</component>

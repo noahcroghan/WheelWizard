@@ -12,7 +12,8 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
 {
     protected override Control InteractionOverlay => DisabledDarkenEffect;
     protected override Control InteractionContent => CompleteGrid;
-
+    public Vector InternalSize { get; set; }
+    
     public PopupWindow()
     {
         // Constructor is never used, however, UI elements must have a constructor with no params
@@ -75,15 +76,21 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
         AddLayer();
         DataContext = this;
 
-        var scaleFactor = (double)SettingsManager.WINDOW_SCALE.Get();
-        Width = size!.Value.X * scaleFactor;
-        Height = size.Value.Y * scaleFactor;
-        CompleteGrid.RenderTransform = new ScaleTransform(scaleFactor, scaleFactor);
-        var marginXCorrection = ((scaleFactor * size.Value.X) - size.Value.X)/2f;
-        var marginYCorrection = ((scaleFactor * size.Value.Y) - size.Value.Y)/2f;
-        CompleteGrid.Margin = new Thickness(marginXCorrection, marginYCorrection);
+        SetWindowSize(size.Value);
         Position = mainWindow.Position;
         Loaded += PopupWindow_Loaded;
+    }
+
+    public void  SetWindowSize(Vector size)
+    {
+        InternalSize = size;
+        var scaleFactor = (double)SettingsManager.WINDOW_SCALE.Get();
+        Width = size.X * scaleFactor;
+        Height = size.Y * scaleFactor;
+        CompleteGrid.RenderTransform = new ScaleTransform(scaleFactor, scaleFactor);
+        var marginXCorrection = ((scaleFactor * size.X) - size.X)/2f;
+        var marginYCorrection = ((scaleFactor * size.Y) - size.Y)/2f;
+        CompleteGrid.Margin = new Thickness(marginXCorrection, marginYCorrection);
     }
 
     private void PopupWindow_Loaded(object? sender, RoutedEventArgs e)
@@ -114,4 +121,10 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     #endregion
+
+    private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+    {
+        WindowState = WindowState.Minimized;
+    }
+    public void Restore() => WindowState = WindowState.Normal;
 }

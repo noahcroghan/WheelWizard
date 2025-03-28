@@ -186,6 +186,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Avarage VR.
+        /// </summary>
+        public static string Stat_AverageRoomVr {
+            get {
+                return ResourceManager.GetString("Stat_AverageRoomVr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Friend Code.
         /// </summary>
         public static string Stat_FriendCode {

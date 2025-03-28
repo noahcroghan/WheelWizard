@@ -222,6 +222,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Game Folder.
+        /// </summary>
+        public static string Option_OpenGameFolder {
+            get {
+                return ResourceManager.GetString("Option_OpenGameFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Save Folder.
+        /// </summary>
+        public static string Option_OpenSaveFolder {
+            get {
+                return ResourceManager.GetString("Option_OpenSaveFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recommended Settings.
         /// </summary>
         public static string Option_Recommended {
