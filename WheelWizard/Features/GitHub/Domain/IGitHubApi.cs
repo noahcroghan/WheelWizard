@@ -12,5 +12,5 @@ public interface IGitHubApi
     /// <param name="count">The number of releases to get.</param>
     /// <returns>A list of releases for the repository.</returns>
     [Get("/repos/{owner}/{repository}/releases")]
-    Task<IApiResponse<List<GithubRelease>>> GetReleasesAsync(string owner, string repository, [AliasAs("per_page")] int count = 3);
+    Task<List<GithubRelease>> GetReleasesAsync(string owner, string repository, [AliasAs("per_page")] int count = 3);
 }

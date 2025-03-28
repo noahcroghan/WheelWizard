@@ -48,7 +48,16 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
         if (!shouldUpdate)
             return;
 
-        await updatePlatform.ExecuteUpdateAsync(asset.BrowserDownloadUrl);
+        var updateResult = await updatePlatform.ExecuteUpdateAsync(asset.BrowserDownloadUrl);
+
+        if (updateResult.IsFailure)
+        {
+            await new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .SetTitleText("Unable to update Wheel Wizard")
+                .SetInfoText(updateResult.Error.Message)
+                .ShowDialog();
+        }
     }
 
     private async Task<GithubRelease?> GetLatestReleaseAsync()

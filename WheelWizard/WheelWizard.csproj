@@ -52,7 +52,7 @@
         <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0"/>
         <PackageReference Include="Semver" Version="3.0.0"/>
         <PackageReference Include="SharpCompress" Version="0.39.0"/>
-        <PackageReference Include="Testably.Abstractions" Version="9.0.0" />
+        <PackageReference Include="Testably.Abstractions" Version="9.0.0"/>
     </ItemGroup>
 
     <ItemGroup Label="Embedded Resources">
