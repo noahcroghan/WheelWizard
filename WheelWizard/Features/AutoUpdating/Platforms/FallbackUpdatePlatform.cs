@@ -16,7 +16,7 @@ public class FallbackUpdatePlatform(IBrandingSingletonService brandingService) :
     public GithubAsset? GetAssetForCurrentPlatform(GithubRelease release)
     {
         var installedVersion = brandingService.Branding.Version;
-        
+
         var latestVersion = SemVersion.Parse(release.TagName.TrimStart('v'), SemVersionStyles.Any);
         var currentVersion = SemVersion.Parse(installedVersion, SemVersionStyles.Any);
         if (currentVersion.ComparePrecedenceTo(latestVersion) >= 0) return null;
@@ -36,5 +36,5 @@ public class FallbackUpdatePlatform(IBrandingSingletonService brandingService) :
         return null;
     }
 
-    public Task ExecuteUpdateAsync(string downloadUrl) => Task.CompletedTask;
+    public Task<OperationResult> ExecuteUpdateAsync(string downloadUrl) => Task.FromResult(Ok());
 }
