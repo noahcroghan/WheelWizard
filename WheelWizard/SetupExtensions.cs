@@ -1,4 +1,6 @@
-﻿using WheelWizard.AutoUpdating;
+﻿using System.IO.Abstractions;
+using Testably.Abstractions;
+using WheelWizard.AutoUpdating;
 using WheelWizard.Branding;
 using WheelWizard.GitHub;
 using WheelWizard.RrRooms;
@@ -16,5 +18,8 @@ public static class SetupExtensions
         services.AddBranding();
         services.AddGitHub();
         services.AddRrRooms();
+
+        services.AddSingleton<IFileSystem, RealFileSystem>();
+        services.AddSingleton<ITimeSystem, RealTimeSystem>();
     }
 }
