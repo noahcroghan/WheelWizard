@@ -2,6 +2,8 @@ using Avalonia;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
+using WheelWizard.Services.Settings;
+using WheelWizard.Services.UrlProtocol;
 
 namespace WheelWizard;
 
@@ -11,7 +13,7 @@ public static class Program
     public static void Main(string[] args)
     {
         PrintStartUpMessage();
-        SetupWorkingDirectory();
+        Setup();
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
@@ -51,6 +53,13 @@ public static class Program
         {
             // Keep the default base/working directory
         }
+    }
+
+    private static void Setup()
+    {
+        SetupWorkingDirectory();
+        SettingsManager.Instance.LoadSettings();
+        UrlProtocolManager.SetWhWzScheme();
     }
 
     private static void PrintStartUpMessage()

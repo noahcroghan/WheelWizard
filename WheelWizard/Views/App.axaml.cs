@@ -28,16 +28,8 @@ public class App : Application
         services.AddWheelWizardServices();
 
         _serviceProvider = services.BuildServiceProvider();
-
-        Setup();
-
+        
         AvaloniaXamlLoader.Load(this);
-    }
-
-    private static void Setup()
-    {
-        SettingsManager.Instance.LoadSettings();
-        UrlProtocolManager.SetWhWzScheme();
     }
 
     private static void OpenGameBananaModWindow()
