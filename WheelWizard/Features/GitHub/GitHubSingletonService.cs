@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Net.Sockets;
-using WheelWizard.GitHub.Domain;
-using WheelWizard.RrRooms;
+﻿using WheelWizard.GitHub.Domain;
+using WheelWizard.Shared.Services;
 
 namespace WheelWizard.GitHub;
 
@@ -13,32 +11,10 @@ public interface IGitHubSingletonService
     Task<OperationResult<List<GithubRelease>>> GetReleasesAsync();
 }
 
-public class GitHubSingletonService(IServiceScopeFactory scopeFactory, ILogger<RrRoomsSingletonService> logger) : IGitHubSingletonService
+public class GitHubSingletonService(IApiCaller<IGitHubApi> apiService) : IGitHubSingletonService
 {
     public async Task<OperationResult<List<GithubRelease>>> GetReleasesAsync()
     {
-        using var scope = scopeFactory.CreateScope();
-        var api = scope.ServiceProvider.GetRequiredService<IGitHubApi>();
-
-        try
-        {
-            var response = await api.GetReleasesAsync("TeamWheelWizard", "WheelWizard");
-            if (response.IsSuccessful)
-                return response.Content;
-
-
-            logger.LogError("Failed to get releases from GitHub API: {@Error}", response.Error);
-            return new OperationError { Message = "Failed to get releases from GitHub API: " + response.Error.ReasonPhrase };
-        }
-        catch (HttpRequestException ex) when (ex.InnerException is SocketException socketException)
-        {
-            logger.LogError(ex, "Failed to connect to GitHub API: {Message}", socketException.Message);
-
-            return new OperationError
-            {
-                Message = "Failed to connect to GitHub API: " + socketException.Message,
-                Exception = socketException
-            };
-        }
+        return await apiService.CallApiAsync(gitHubApi => gitHubApi.GetReleasesAsync("TeamWheelWizard", "WheelWizard", 3));
     }
 }
