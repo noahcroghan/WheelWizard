@@ -5,6 +5,7 @@ using WheelWizard.Branding;
 using WheelWizard.GitHub;
 using WheelWizard.RrRooms;
 using WheelWizard.Shared.Services;
+using WheelWizard.WheelWizardData;
 
 namespace WheelWizard;
 
@@ -19,6 +20,7 @@ public static class SetupExtensions
         services.AddBranding();
         services.AddGitHub();
         services.AddRrRooms();
+        services.AddWhWzData();
 
         services.AddSingleton<IFileSystem, RealFileSystem>();
         services.AddSingleton<ITimeSystem, RealTimeSystem>();

@@ -58,7 +58,7 @@ public class Program
     {
         SetupWorkingDirectory();
         SettingsManager.Instance.LoadSettings();
-        BadgeManager.Instance.LoadBadges();
+        _ = BadgeManager.Instance.LoadBadgesAsync();
         UrlProtocolManager.SetWhWzScheme();
     }
 
