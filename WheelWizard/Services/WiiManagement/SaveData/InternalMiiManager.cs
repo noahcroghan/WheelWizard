@@ -13,7 +13,7 @@ public static class InternalMiiManager
     /// <summary>
     /// Reads the entire RFL_DB.dat and returns up to 100 Mii blocks (74 bytes each).
     /// </summary>
-    public static List<byte[]> GetAllMiiData()
+    private static List<byte[]> GetAllMiiData()
     {
         var miis = new List<byte[]>();
         var allMiiData = GetMiiDb();
@@ -83,6 +83,36 @@ public static class InternalMiiManager
                 return block;
         }
         return Array.Empty<byte>();
+    }
+    
+    public static OperationResult UpdateMiiData(byte[] miiData, uint clientId)
+    {
+        if (clientId == 0)
+            return OperationResult.Fail("Invalid ClientId.");
+
+        if (!File.Exists(WiiDbFile))
+            return OperationResult.Fail("RFL_DB.dat not found.");
+
+        var allMiis = GetAllMiiData();
+        var updated = false;
+
+        for (var i = 0; i < allMiis.Count; i++)
+        {
+            var block = allMiis[i];
+            if (block.Length != MiiLength)
+                continue;
+
+            var thisMiiId = BigEndianBinaryReader.ReadLittleEndianUInt32(block, 0x18);
+            if (thisMiiId != clientId) continue;
+            
+            // Found the Mii
+            Array.Copy(miiData, 0, block, 0, MiiLength);
+            allMiis[i] = block;
+            updated = true;
+            break;
+        }
+        if (!updated) return OperationResult.Fail("RFL_DB.dat not found.");
+        return SaveMiiDb(allMiis);
     }
     
     public static bool UpdateMiiName(uint clientId, string newName)
