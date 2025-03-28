@@ -4,6 +4,7 @@ using WheelWizard.AutoUpdating;
 using WheelWizard.Branding;
 using WheelWizard.GitHub;
 using WheelWizard.RrRooms;
+using WheelWizard.Shared.Services;
 
 namespace WheelWizard;
 
@@ -21,5 +22,9 @@ public static class SetupExtensions
 
         services.AddSingleton<IFileSystem, RealFileSystem>();
         services.AddSingleton<ITimeSystem, RealTimeSystem>();
+
+
+        // Dynamic API calls
+        services.AddSingleton(typeof(IApiSingletonService<>), typeof(ApiSingletonService<>));
     }
 }
