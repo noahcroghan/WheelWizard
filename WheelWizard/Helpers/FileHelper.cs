@@ -4,6 +4,20 @@ namespace WheelWizard.Helpers;
 // it easier to create helper methods, mock data, and most importantly, easy to make it multi-platform later on
 public static class FileHelper
 {
+    public static OperationResult WriteAllBytes(string path, byte[] bytes)
+    {
+        try
+        {
+            File.WriteAllBytes(path, bytes);
+            return OperationResult.Ok();
+        }
+        catch
+        {
+            return OperationResult.Fail($"Failed to write to {path}");
+        }
+    }
+
+    public static byte[] ReadAllBytes(string path) => File.ReadAllBytes(path);
     public static bool FileExists(string path) => File.Exists(path);
     public static bool DirectoryExists(string path) => Directory.Exists(path);
     public static bool Exists(string path) => File.Exists(path) || Directory.Exists(path);

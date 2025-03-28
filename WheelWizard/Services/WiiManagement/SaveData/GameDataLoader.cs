@@ -102,7 +102,8 @@ public class GameDataLoader : RepeatedTaskManager
     {
         try
         {
-            _saveData = LoadSaveDataFile();
+            var loadSaveDataResult = LoadSaveDataFile();
+            _saveData = loadSaveDataResult.IsFailure ? new byte[RksysSize] : loadSaveDataResult.Value;
             if (_saveData != null && ValidateMagicNumber())
             {
                 ParseUsers();
@@ -229,7 +230,7 @@ public class GameDataLoader : RepeatedTaskManager
         for (var i = 0; i < MaxFriendNum; i++)
         {
             var currentOffset = friendOffset + i * FriendDataSize;
-            if (!CheckMiiData(currentOffset + 0x1A)) continue;
+            if (!CheckForMiiData(currentOffset + 0x1A)) continue;
 
             var friend = new GameDataFriend
             {
@@ -256,7 +257,7 @@ public class GameDataLoader : RepeatedTaskManager
         }
     }
 
-    private bool CheckMiiData(int offset)
+    private bool CheckForMiiData(int offset)
     {
         // If the entire 0x4A bytes are zero, we treat it as empty / no Mii data
         for (var i = 0; i < MiiSize; i++)
@@ -273,12 +274,12 @@ public class GameDataLoader : RepeatedTaskManager
         return Encoding.ASCII.GetString(_saveData, 0, RksysMagic.Length) == RksysMagic;
     }
 
-    private static byte[]? LoadSaveDataFile()
+    private static OperationResult<byte[]> LoadSaveDataFile()
     {
         try
         {
             if (!Directory.Exists(TryCreateSaveFolderPath))
-                return null;
+                return OperationResult.Fail<byte[]>("Save folder not found");
 
             var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
             if (currentRegion == MarioKartWiiEnums.Regions.None)
@@ -292,18 +293,19 @@ public class GameDataLoader : RepeatedTaskManager
                 }
                 else
                 {
-                    return null;
+                    return OperationResult.Fail<byte[]>("No valid regions found");
                 }
             }
 
             var saveFileFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
             var saveFile = Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
-            return saveFile.Length == 0 ? null : File.ReadAllBytes(saveFile[0]);
+            if (saveFile.Length == 0)
+                return OperationResult.Fail<byte[]>("rksys.dat not found");
+            return File.ReadAllBytes(saveFile[0]);
         }
         catch
         {
-            // If anything fails, return null
-            return null;
+            return OperationResult.Fail<byte[]>("Failed to load rksys.dat");
         }
     }
 
@@ -404,14 +406,21 @@ public class GameDataLoader : RepeatedTaskManager
           
         }
 
-        if (SaveRksysToFile())
+        var rksysSaveResult = SaveRksysToFile();
+        if (rksysSaveResult.IsFailure)
         {
             new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Message)
-                .SetTitleText("Successfully updated name")
-                .SetInfoText($"Successfully updated Mii name to {user.MiiData.Mii.Name}")
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetInfoText(rksysSaveResult.Error.Message)
+                .SetTitleText("Failed to save the 'save' file")
                 .Show();
+            return;
         }
+        new MessageBoxWindow()
+            .SetMessageType(MessageBoxWindow.MessageType.Message)
+            .SetTitleText("Successfully updated name")
+            .SetInfoText($"Successfully updated Mii name to {user.MiiData.Mii.Name}")
+            .Show();
     }
     private bool IsNoNameOrEmptyMii(GameDataUser user)
     {
@@ -439,13 +448,12 @@ public class GameDataLoader : RepeatedTaskManager
         Array.Copy(nameBytes, 0, _saveData, nameOffset, Math.Min(nameBytes.Length, 20));
     }
     
-    private bool SaveRksysToFile()
+    private OperationResult SaveRksysToFile()
     {
-        if (_saveData == null || string.IsNullOrWhiteSpace(TryCreateSaveFolderPath)) return false;
+        if (_saveData == null || string.IsNullOrWhiteSpace(TryCreateSaveFolderPath)) return OperationResult.Fail("Invalid save data or save folder path.");
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
         var saveFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
-
         try
         {
             Directory.CreateDirectory(saveFolder);
@@ -454,15 +462,10 @@ public class GameDataLoader : RepeatedTaskManager
         }
         catch (Exception ex)
         {
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetInfoText($"Failed to save rksys.dat.\n{ex.Message}")
-                .SetTitleText("Failed to save the 'save' file")
-                .Show();
-            return false;
+            return OperationResult.Fail($"Failed to save rksys.dat.\n{ex.Message}");
         }
 
-        return true;
+        return OperationResult.Ok();
     }
 
     private void InvalidLicenseMessage(string info)

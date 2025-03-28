@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using WheelWizard.Helpers;
 
 namespace WheelWizard.Services.WiiManagement.SaveData;
 
@@ -40,12 +41,12 @@ public static class InternalMiiManager
     /// Keeps the initial 4 bytes intact, writes or clears up to 100 Mii slots,
     /// then recalculates the CRC16 at 0x1F1DE (if large enough).
     /// </summary>
-    private static void SaveMiiDb(List<byte[]> allMiis)
+    private static OperationResult SaveMiiDb(List<byte[]> allMiis)
     {
         if (!File.Exists(WiiDbFile))
-            return;
+            return OperationResult.Fail("RFL_DB.dat not found.");
         
-        var dbFile = File.ReadAllBytes(WiiDbFile);
+        var dbFile = FileHelper.ReadAllBytes(WiiDbFile);
         using var ms = new MemoryStream(dbFile);
         ms.Seek(0x4, SeekOrigin.Begin);
         for (var i = 0; i < 100; i++)
@@ -60,7 +61,7 @@ public static class InternalMiiManager
             dbFile[crcOffset]     = (byte)(crc >> 8);
             dbFile[crcOffset + 1] = (byte)(crc & 0xFF);
         }
-        File.WriteAllBytes(WiiDbFile, dbFile);
+        return FileHelper.WriteAllBytes(WiiDbFile, dbFile);
     }
 
     /// <summary>
@@ -110,9 +111,8 @@ public static class InternalMiiManager
             updated = true;
             break;
         }
-        if (updated)
-            SaveMiiDb(allMiis);
-        return updated;
+        if (!updated) return updated;
+        return SaveMiiDb(allMiis).IsSuccess;
     }
 
     /// <summary>
