@@ -25,7 +25,6 @@ public static class SetupExtensions
         services.AddSingleton<IFileSystem, RealFileSystem>();
         services.AddSingleton<ITimeSystem, RealTimeSystem>();
 
-
         // Dynamic API calls
         services.AddTransient(typeof(IApiCaller<>), typeof(ApiCaller<>));
     }

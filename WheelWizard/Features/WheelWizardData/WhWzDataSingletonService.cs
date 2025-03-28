@@ -1,66 +1,39 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Net.Sockets;
+﻿using WheelWizard.Shared.Services;
 using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.WheelWizardData;
 
 public interface IWhWzDataSingletonService
 {
-    Task<WhWzStatus> GetStatusAsync();
-    Task<Dictionary<string,BadgeVariant[]>> GetBadgesAsync();
+    Task<OperationResult<WhWzStatus>> GetStatusAsync();
+    Task<OperationResult> LoadBadgesAsync();
+    BadgeVariant[] GetBadges(string friendCode);
 }
 
-public class WhWzDataSingletonService(IServiceScopeFactory scopeFactory, ILogger<WhWzDataSingletonService> logger) : IWhWzDataSingletonService
+public class WhWzDataSingletonService(IApiCaller<IWhWzDataApi> apiCaller)
+    : IWhWzDataSingletonService
 {
-    public async Task<WhWzStatus> GetStatusAsync()
+    private Dictionary<string, BadgeVariant[]> BadgeData { get; set; } = new();
+
+    public async Task<OperationResult<WhWzStatus>> GetStatusAsync()
     {
-        using var scope = scopeFactory.CreateScope();
-        var api = scope.ServiceProvider.GetRequiredService<IWhWzDataApi>();
-
-        try
-        {
-            using var response = await api.GetStatusAsync();
-
-            if (response.IsSuccessful)
-                return response.Content;
-
-            logger.LogError("Failed to get status from Wheel Wizard Data API: {@Error}", response.Error);
-            return new()
-            {
-                Message = "Failed to get the current status of Wheel Wizard.", 
-                Variant = WhWzStatusVariant.Warning
-            };
-        }
-        catch (HttpRequestException ex) when (ex.InnerException is SocketException socketException)
-        {
-            logger.LogError(ex, "Failed to connect to Wheel Wizard Data API: {Message}", socketException.Message);
-            return new()
-            {
-                Message = "Can't connect to the servers. \nYou might experience internet connection issues.", 
-                Variant = WhWzStatusVariant.Warning
-            };
-        }
+        return await apiCaller.CallApiAsync(whWzDataApi => whWzDataApi.GetStatusAsync());
     }
-    
-    public async Task<Dictionary<string,BadgeVariant[]>> GetBadgesAsync()
+
+    public async Task<OperationResult> LoadBadgesAsync()
     {
-        using var scope = scopeFactory.CreateScope();
-        var api = scope.ServiceProvider.GetRequiredService<IWhWzDataApi>();
+        var badgeResult = await apiCaller.CallApiAsync(whWzDataApi => whWzDataApi.GetBadgesAsync());
+        if(badgeResult.IsFailure)
+            return badgeResult;
 
-        try
-        {
-            using var response = await api.GetBadgesAsync();
+        BadgeData = badgeResult.Value.ToDictionary(
+            kvp => kvp.Key,
+            kvp => kvp.Value.Where(b => b != BadgeVariant.None).ToArray()
+        );
 
-            if (response.IsSuccessful)
-                return response.Content;
-
-            logger.LogError("Failed to get badges from Wheel Wizard Data API: {@Error}", response.Error);
-            return [];
-        }
-        catch (HttpRequestException ex) when (ex.InnerException is SocketException socketException)
-        {
-            logger.LogError(ex, "Failed to connect to Wheel Wizard Data API: {Message}", socketException.Message);
-            return [];
-        }
+        return Ok();
     }
+
+    public BadgeVariant[] GetBadges(string friendCode) =>
+        BadgeData.TryGetValue(friendCode, out var variants) ? variants : [];
 }

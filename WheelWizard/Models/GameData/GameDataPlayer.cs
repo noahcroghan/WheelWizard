@@ -2,7 +2,6 @@
 using WheelWizard.Helpers;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
-using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
 using WheelWizard.WheelWizardData.Domain;
 
@@ -39,7 +38,7 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
         }
     }
 
-    public BadgeVariant[] BadgeVariants => BadgeManager.Instance.GetBadgeVariants(FriendCode);
+    public BadgeVariant[] BadgeVariants { get; set; } = [];
     public bool HasBadges => BadgeVariants.Length != 0;
     
     public string MiiName

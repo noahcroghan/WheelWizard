@@ -1,4 +1,5 @@
-﻿using WheelWizard.Utilities.RepeatedTasks;
+﻿using Microsoft.Extensions.Logging;
+using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views;
 using WheelWizard.WheelWizardData;
 using WheelWizard.WheelWizardData.Domain;
@@ -17,6 +18,16 @@ public class WhWzStatusManager : RepeatedTaskManager
     protected override async Task ExecuteTaskAsync()
     {
         var whWzDataService = App.Services.GetRequiredService<IWhWzDataSingletonService>();
-        Status = await whWzDataService.GetStatusAsync();
+        var statusResult = await whWzDataService.GetStatusAsync();
+
+        if (statusResult.IsSuccess)
+        {
+            Status = statusResult.Value;
+            return;
+        }
+        
+        App.Services.GetRequiredService<ILogger<WhWzStatusManager>>()
+            .LogError(statusResult.Error.Exception, "Failed to retrieve WhWz Status: {Message}", statusResult.Error.Message);
+        Status = new WhWzStatus {Variant = WhWzStatusVariant.Error, Message = "Failed to retrieve Wheel Wizard status"};
     }
 }

@@ -3,8 +3,11 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using WheelWizard.AutoUpdating;
 using WheelWizard.Services;
+using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.UrlProtocol;
+using WheelWizard.Services.WiiManagement.SaveData;
+using WheelWizard.WheelWizardData;
 
 namespace WheelWizard.Views;
 
@@ -34,10 +37,7 @@ public class App : Application
     private static void Setup()
     {
         SettingsManager.Instance.LoadSettings();
-        _ = BadgeManager.Instance.LoadBadgesAsync();
         UrlProtocolManager.SetWhWzScheme();
-        
-        
     }
 
     private static void OpenGameBananaModWindow()
@@ -57,8 +57,11 @@ public class App : Application
         try
         {
             var updateService = Services.GetRequiredService<IAutoUpdaterSingletonService>();
+            var whWzDataService = Services.GetRequiredService<IWhWzDataSingletonService>();
 
             await updateService.CheckForUpdatesAsync();
+            await whWzDataService.LoadBadgesAsync();
+            InitializeManagers();
         }
         catch (Exception e)
         {
@@ -66,6 +69,14 @@ public class App : Application
             Console.WriteLine($"Failed to initialize application: {e.Message}");
         }
     }
+    
+    private static void InitializeManagers()
+    {
+        WhWzStatusManager.Instance.Start();
+        RRLiveRooms.Instance.Start();
+        GameDataLoader.Instance.Start();
+    }
+
 
     public override void OnFrameworkInitializationCompleted()
     {

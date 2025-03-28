@@ -48,7 +48,10 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         }
 
         NavigateToPage(new HomePage());
-        InitializeManagers();
+        
+        WhWzStatusManager.Instance.Subscribe(this);
+        RRLiveRooms.Instance.Subscribe(this);
+        GameDataLoader.Instance.Subscribe(this);
 #if DEBUG
         KitchenSinkButton.IsVisible = true;
 #endif
@@ -76,16 +79,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         CompleteGrid.Margin = new Thickness(marginXCorrection, marginYCorrection);
         //ExtendClientAreaToDecorationsHint = scaleFactor <= 1.2f;
     }
-
-    private void InitializeManagers()
-    {
-        WhWzStatusManager.Instance.Subscribe(this);
-        WhWzStatusManager.Instance.Start(); // Temporary code, should be moved to a more appropriate location
-        RRLiveRooms.Instance.Subscribe(this);
-        RRLiveRooms.Instance.Start(); // Temporary code, should be moved to a more appropriate location
-        GameDataLoader.Instance.Subscribe(this);
-        GameDataLoader.Instance.Start(); // Temporary code, should be moved to a more appropriate location
-    }
+    
 
     public void NavigateToPage(UserControl page)
     {
