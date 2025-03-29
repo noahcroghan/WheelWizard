@@ -21,11 +21,6 @@ public static class Endpoints
     public const string RRVersionDeleteUrl = RRUrl + "RetroRewind/RetroRewindDelete.txt";
     public const string RRDiscordUrl = "https://discord.gg/yH3ReN8EhQ";
 
-    public const string WhWzLatestReleasesUrl = "https://api.github.com/repos/TeamWheelWizard/WheelWizard/releases/latest";
-
-    //search depth 3 releases
-    public const string WhWzReleasesUrl = "https://api.github.com/repos/TeamWheelWizard/WheelWizard/releases?per_page=3";
-
     // Branding Urls
     public const string WhWzDiscordUrl = "https://discord.gg/vZ7T2wJnsq";
     public const string WhWzGithubUrl = "https://github.com/TeamWheelWizard/WheelWizard";

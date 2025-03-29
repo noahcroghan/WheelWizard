@@ -18,7 +18,8 @@ public class App : Application
     /// </summary>
     /// <exception cref="InvalidOperationException">Thrown if the application is not initialized yet.</exception>
     public static IServiceProvider Services =>
-        (Current as App)?._serviceProvider ?? throw new InvalidOperationException("The application is not initialized yet.");
+        (Current as App)?._serviceProvider ??
+        throw new InvalidOperationException("The application is not initialized yet.");
 
     private IServiceProvider? _serviceProvider;
 
@@ -28,7 +29,7 @@ public class App : Application
         services.AddWheelWizardServices();
 
         _serviceProvider = services.BuildServiceProvider();
-        
+
         AvaloniaXamlLoader.Load(this);
     }
 
@@ -36,16 +37,15 @@ public class App : Application
     {
         var args = Environment.GetCommandLineArgs();
         ModManager.Instance.ReloadAsync();
-        if (args.Length <= 1) return; 
+        if (args.Length <= 1) return;
         var protocolArgument = args[1];
         _ = UrlProtocolManager.ShowPopupForLaunchUrlAsync(protocolArgument);
     }
-    
-    
+
     private static async void OnInitializedAsync()
     {
         OpenGameBananaModWindow();
-            
+        
         try
         {
             var updateService = Services.GetRequiredService<IAutoUpdaterSingletonService>();
@@ -61,14 +61,13 @@ public class App : Application
             Console.WriteLine($"Failed to initialize application: {e.Message}");
         }
     }
-    
+
     private static void InitializeManagers()
     {
         WhWzStatusManager.Instance.Start();
         RRLiveRooms.Instance.Start();
         GameDataLoader.Instance.Start();
     }
-
 
     public override void OnFrameworkInitializationCompleted()
     {

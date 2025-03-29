@@ -11,27 +11,16 @@ public static class WhWzDataExtensions
 {
     public static IServiceCollection AddWhWzData(this IServiceCollection services)
     {
-        services.AddRefitClient<IWhWzDataApi>(new()
-        {
-            ContentSerializer = new SystemTextJsonContentSerializer(new()
+        services.AddWhWzRefitApi<IWhWzDataApi>(Endpoints.WhWzDataBaseAddress,
+            new()
             {
                 PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-                Converters =
-                {
-                    new EnumWithFallbackConverter<BadgeVariant>(),
-                    new JsonStringEnumConverter()
-                }
-            })
-        }).ConfigureHttpClient((sp, client) =>
-        {
-            client.ConfigureWheelWizardClient(sp);
-
-            client.BaseAddress = new(Endpoints.WhWzDataBaseAddress);
-        }).AddStandardResilienceHandler();
+                Converters = { new EnumWithFallbackConverter<BadgeVariant>(), new JsonStringEnumConverter() }
+            }
+        );
 
         services.AddSingleton<IWhWzDataSingletonService, WhWzDataSingletonService>();
 
         return services;
     }
 }
-
