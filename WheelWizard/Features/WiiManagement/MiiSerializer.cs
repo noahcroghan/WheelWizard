@@ -11,7 +11,7 @@ public static class MiiSerializer
     /// </summary>
     public static OperationResult<FullMii> Deserialize(byte[]? data)
     {
-        if (data == null || data.Length == MiiBlockSize)
+        if (data == null || data.Length != MiiBlockSize)
             return OperationResult.Fail<FullMii>("Invalid Mii data block");
 
         var mii = new FullMii();
