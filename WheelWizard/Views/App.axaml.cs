@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.Logging;
 using WheelWizard.AutoUpdating;
 
 namespace WheelWizard.Views;
@@ -16,13 +17,20 @@ public class App : Application
 
     private IServiceProvider? _serviceProvider;
 
+    /// <summary>
+    /// Sets the service provider for this application.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Thrown if the service provider has already been set.</exception>
+    public void SetServiceProvider(IServiceProvider serviceProvider)
+    {
+        if (_serviceProvider != null)
+            throw new InvalidOperationException("The service provider has already been set.");
+
+        _serviceProvider = serviceProvider;
+    }
+
     public override void Initialize()
     {
-        var services = new ServiceCollection();
-        services.AddWheelWizardServices();
-
-        _serviceProvider = services.BuildServiceProvider();
-
         AvaloniaXamlLoader.Load(this);
     }
 
@@ -36,8 +44,8 @@ public class App : Application
         }
         catch (Exception e)
         {
-            // TODO: Better logging using ILogger<T> and Serilog package
-            Console.WriteLine($"Failed to initialize application: {e.Message}");
+            var logger = Services.GetRequiredService<ILogger<App>>();
+            logger.LogError(e, "Failed to initialize application: {Message}", e.Message);
         }
     }
 

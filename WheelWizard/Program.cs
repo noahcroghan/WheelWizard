@@ -1,12 +1,14 @@
 using Avalonia;
-using System;
+using Avalonia.Logging;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
+using Microsoft.Extensions.Logging;
 using WheelWizard.Helpers;
 using WheelWizard.Services;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.UrlProtocol;
+using WheelWizard.Shared.Services;
+using WheelWizard.Views;
 
 namespace WheelWizard;
 
@@ -15,16 +17,44 @@ public class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        PrintStartUpMessage();
         Setup();
+
+        // Start the application
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
     public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<Views.App>()
+        => ConfigureAvaloniaApp(AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .WithInterFont()
-            .LogToTrace();
+        );
+
+    private static AppBuilder ConfigureAvaloniaApp(AppBuilder builder)
+    {
+        var services = new ServiceCollection();
+        services.AddWheelWizardServices();
+
+        var serviceProvider = services.BuildServiceProvider();
+
+        // Write startup message
+        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+        LogPlatformInformation(logger);
+
+        // Override the default TraceLogSink with our AvaloniaLoggerAdapter
+        Logger.Sink = serviceProvider.GetRequiredService<AvaloniaLoggerAdapter>();
+
+        // First, set up the application instance
+        builder.AfterSetup(appBuilder =>
+        {
+            if (appBuilder.Instance is not App app)
+                throw new InvalidOperationException("The application instance is not of type App.");
+
+            // Set the service provider in the application instance
+            app.SetServiceProvider(serviceProvider);
+        });
+
+        return builder;
+    }
 
     private static void SetupWorkingDirectory()
     {
@@ -65,7 +95,7 @@ public class Program
     }
 
 
-    private static void PrintStartUpMessage()
+    private static void LogPlatformInformation(ILogger logger)
     {
         var modeCheck = "release";
         var osCheck = "unknown";
@@ -82,6 +112,6 @@ public class Program
         osCheck = "macos";
 #endif
 
-        Console.WriteLine($"Application start [mode: {modeCheck}, os: {osCheck}]");
+        logger.LogInformation("Application start [Configuration: {Configuration}, OS: {OS}]", modeCheck, osCheck);
     }
 }
