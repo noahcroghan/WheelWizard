@@ -1,10 +1,10 @@
-﻿using WheelWizard.Models.MiiImages;
+﻿using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Models.GameData;
 
 public class MiiData
 {
-    public Mii? Mii { get; set; }
+    public FullMii? Mii { get; set; }
     public uint AvatarId { get; set; }
     public uint ClientId { get; set; }
 }

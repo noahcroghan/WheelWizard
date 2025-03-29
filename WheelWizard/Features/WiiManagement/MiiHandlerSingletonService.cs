@@ -8,11 +8,11 @@ public interface IMiiSerializerSingletonService
     /// <summary>
     /// Gets the Mii serializer instance.
     /// </summary>
-    MiiSerializer MiiSerializer { get; }
+    MiiHandler MiiSerializer { get; }
 }
 
-public class MiiSerializerSingletonService : IMiiSerializerSingletonService
+public class MiiHandlerSingletonService : IMiiSerializerSingletonService
 {
-    public MiiSerializer MiiSerializer { get; } = new MiiSerializer();
+    public MiiHandler MiiSerializer { get; } = new MiiHandler();
 }
 

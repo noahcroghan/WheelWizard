@@ -1,6 +1,7 @@
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Models.RRInfo;
 
@@ -16,10 +17,10 @@ public class RrPlayer
     public required string Fc { get; set; }
     public string Ev { get; set; } = "--"; // private games don't have EV and EB
     public string Eb { get; set; } = "--";
-    public List<Mii> Mii { get; set; } = [];
+    public List<FullMii> Mii { get; set; } = [];
 
     public int PlayerCount => int.Parse(Count);
-    public Mii? FirstMii => Mii.Count <= 0 ? null : Mii[0];
+    public FullMii? FirstMii => Mii.Count <= 0 ? null : Mii[0];
     
     public int Vr => int.TryParse(Ev, out var evValue) ? evValue : -1;
 

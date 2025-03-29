@@ -1,10 +1,12 @@
 ﻿using WheelWizard.Models.MiiImages;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Utilities.Mockers;
 
-public class MiiFactory : MockingDataFactory<Mii, MiiFactory>
+public class MiiFactory : MockingDataFactory<FullMii, MiiFactory>
 {
-    protected override string DictionaryKeyGenerator(Mii value) => value.Name;
+    protected override string DictionaryKeyGenerator(FullMii value) => value.Name;
     private static int _miiCount = 1;
     
     private readonly string[] dataList = new[]
@@ -27,12 +29,11 @@ public class MiiFactory : MockingDataFactory<Mii, MiiFactory>
         "wBIATABpAGMAbwByAGkAYwBlAAAAAAosgAAAAAAAAAAgTH5AuUUo8kiRCtgAbUALguAAiiUFAAAAAAAAAAAAAAAAAAAAAAAAAAA="
     };
     
-    public override Mii Create(int? seed = null)
+    public override FullMii Create(int? seed = null)
     {
-        return new Mii
-        {
-            Name = $"Mii {_miiCount++}", 
-            Data = dataList[(int)(Rand(seed).NextDouble() * dataList.Length)]
-        };
+        var deserializerResult = MiiSerializer.Deserialize(Convert.FromBase64String(dataList[_miiCount++ % dataList.Length]));
+        if (deserializerResult.IsFailure)
+            throw new Exception("Failed to deserialize Mii data");
+        return deserializerResult.Value;
     }
 }

@@ -5,6 +5,8 @@ using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
 using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Models.GameData;
 
@@ -17,7 +19,7 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
     public required MiiData? MiiData { get; set; }
     
     public string RegionName => Humanizer.GetRegionName(RegionId);
-    public Mii? Mii => MiiData?.Mii;
+    public FullMii? Mii => MiiData?.Mii;
     
     public bool IsOnline
     {
@@ -51,11 +53,11 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
             {
                 MiiData = new MiiData
                 {
-                    Mii = new Mii { Data = "", Name = value }
+                    Mii = new FullMii { Name = value }
                 };
             }
             else if (MiiData.Mii == null)
-                MiiData.Mii = new Mii { Data = "", Name = value };
+                MiiData.Mii = new FullMii { Name = value };
             else
             {
                 MiiData.Mii.Name = value;

@@ -1,5 +1,6 @@
 ﻿using WheelWizard.Helpers;
 using WheelWizard.Models.MiiImages;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Models.RRInfo;
 
@@ -56,5 +57,5 @@ public class RrRoom
     };
     public int AverageVr => PlayerCount == 0 ? 0 : Players.Sum(p => p.Value.Vr) / PlayerCount;
 
-    public Mii? HostMii => !string.IsNullOrEmpty(Host) ? Players.GetValueOrDefault(Host)?.FirstMii : null;
+    public FullMii? HostMii => !string.IsNullOrEmpty(Host) ? Players.GetValueOrDefault(Host)?.FirstMii : null;
 }

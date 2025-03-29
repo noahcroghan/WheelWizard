@@ -4,7 +4,7 @@ public static class MiiSerializerExtensions
 {
     public static IServiceCollection AddMiiSerializer(this IServiceCollection services)
     {
-        services.AddSingleton<IMiiSerializerSingletonService, MiiSerializerSingletonService>();
+        services.AddSingleton<IMiiSerializerSingletonService, MiiHandlerSingletonService>();
         return services;
     }
 }

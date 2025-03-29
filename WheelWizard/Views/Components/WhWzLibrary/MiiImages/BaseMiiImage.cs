@@ -3,6 +3,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Media.Imaging;
 using System.ComponentModel;
 using WheelWizard.Models.MiiImages;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Views.Components.MiiImages;
 
@@ -44,9 +45,9 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         set => SetValue(ImageVariantProperty, value);
     }
         
-    public static readonly StyledProperty<Mii?> MiiProperty =
-        AvaloniaProperty.Register<BaseMiiImage, Mii?>(nameof(Mii), coerce: CoerceMii);
-    public Mii? Mii
+    public static readonly StyledProperty<FullMii?> MiiProperty =
+        AvaloniaProperty.Register<BaseMiiImage, FullMii?>(nameof(Mii), coerce: CoerceMii);
+    public FullMii? Mii
     {
         get => GetValue(MiiProperty);
         set => SetValue(MiiProperty, value);
@@ -57,7 +58,7 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         ((BaseMiiImage)o).OnVariantChanged(value);
         return value;
     }
-    private static Mii? CoerceMii(AvaloniaObject o, Mii? value)
+    private static FullMii? CoerceMii(AvaloniaObject o, FullMii? value)
     {
         ((BaseMiiImage)o).OnMiiChanged(value);
         return value;
@@ -68,7 +69,7 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         ReloadImage(Mii?.GetImage(ImageVariant), Mii?.GetImage(newValue));
     }
 
-    protected void OnMiiChanged(Mii? newValue)
+    protected void OnMiiChanged(FullMii? newValue)
     {
         ReloadImage(Mii?.GetImage(ImageVariant), newValue?.GetImage(ImageVariant));
     } 

@@ -7,6 +7,7 @@ using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Views.Pages;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Views.Components;
 
@@ -28,9 +29,9 @@ public class CurrentUserProfile : TemplatedControl, INotifyPropertyChanged
         set => SetValue(UserNameProperty, value);
     }
     
-    public static readonly StyledProperty<Mii?> MiiProperty =
-        AvaloniaProperty.Register<CurrentUserProfile, Mii?>(nameof(Mii));
-    public Mii? Mii
+    public static readonly StyledProperty<FullMii?> MiiProperty =
+        AvaloniaProperty.Register<CurrentUserProfile, FullMii?>(nameof(Mii));
+    public FullMii? Mii
     {
         get => GetValue(MiiProperty);
         set   

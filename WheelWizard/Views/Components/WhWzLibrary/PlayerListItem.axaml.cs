@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Views.Components;
 
@@ -17,9 +18,9 @@ public class PlayerListItem : TemplatedControl
         set => SetValue(HasBadgesProperty, value);
     }
     
-    public static readonly StyledProperty<Mii?> MiiProperty =
-        AvaloniaProperty.Register<PlayerListItem, Mii?>(nameof(Mii));
-    public Mii? Mii
+    public static readonly StyledProperty<FullMii?> MiiProperty =
+        AvaloniaProperty.Register<PlayerListItem, FullMii?>(nameof(Mii));
+    public FullMii? Mii
     {
         get => GetValue(MiiProperty);
         set => SetValue(MiiProperty, value);

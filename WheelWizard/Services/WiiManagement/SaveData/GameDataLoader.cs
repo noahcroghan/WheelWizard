@@ -9,6 +9,8 @@ using WheelWizard.Services.Settings;
 using WheelWizard.Utilities.Generators;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain;
 
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation
 
@@ -133,11 +135,7 @@ public class GameDataLoader : RepeatedTaskManager
             FriendCode = "0000-0000-0000",
             MiiData = new MiiData
             {
-                Mii = new Mii
-                {
-                    Name = "no license",
-                    Data = Convert.ToBase64String(new byte[MiiSize])
-                },
+                Mii = new FullMii(),
                 AvatarId = 0,
                 ClientId = 0
             },
@@ -211,11 +209,7 @@ public class GameDataLoader : RepeatedTaskManager
 
         var miiData = new MiiData
         {
-            Mii = new Mii
-            {
-                Name = name,
-                Data = Convert.ToBase64String(rawMii)
-            },
+            Mii = MiiSerializer.Deserialize(rawMii).Value,
             AvatarId = avatarId,
             ClientId = clientId
         };
@@ -231,7 +225,7 @@ public class GameDataLoader : RepeatedTaskManager
         {
             var currentOffset = friendOffset + i * FriendDataSize;
             if (!CheckForMiiData(currentOffset + 0x1A)) continue;
-
+            byte[] rawMiiBytes = _saveData.AsSpan(currentOffset + 0x1A, MiiSize).ToArray();
             var friend = new GameDataFriend
             {
                 Vr          = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x16),
@@ -244,11 +238,7 @@ public class GameDataLoader : RepeatedTaskManager
 
                 MiiData = new MiiData
                 {
-                    Mii = new Mii
-                    {
-                        Name = BigEndianBinaryReader.GetUtf16String(_saveData, currentOffset + 0x1C, 10),
-                        Data = Convert.ToBase64String(_saveData.AsSpan(currentOffset + 0x1A, MiiSize))
-                    },
+                    Mii = MiiSerializer.Deserialize(rawMiiBytes).Value,
                     AvatarId = 0,
                     ClientId = 0
                 },
@@ -430,7 +420,7 @@ public class GameDataLoader : RepeatedTaskManager
         var name = user.MiiData.Mii.Name?.Trim() ?? "";
         if (name.Equals("no name", StringComparison.OrdinalIgnoreCase))
             return true;
-        var raw = Convert.FromBase64String(user.MiiData.Mii.Data ?? "");
+        var raw = MiiSerializer.Serialize(user.MiiData.Mii);
         if (raw.Length != 74) return true; // Not valid
         if (raw.All(b => b == 0)) return true;
 

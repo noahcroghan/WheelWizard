@@ -1,7 +1,19 @@
-﻿namespace WheelWizard.WiiManagement.Domain;
+﻿using WheelWizard.Models.MiiImages;
+
+namespace WheelWizard.WiiManagement.Domain;
 
 public class FullMii
 {
+    
+    private Dictionary<MiiImageVariants.Variant, MiiImage> images = new ();
+
+    public MiiImage GetImage(MiiImageVariants.Variant variant)
+    {
+        if (!images.ContainsKey(variant))
+            images[variant] = new MiiImage(this, variant);
+        return images[variant];
+    }
+    
     // Header (0x00 & 0x01)
     public bool IsInvalid { get; set; }
     public bool IsGirl { get; set; }

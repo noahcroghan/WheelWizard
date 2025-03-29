@@ -3,6 +3,8 @@ using WheelWizard.Models.RRInfo;
 using WheelWizard.RrRooms;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Services.LiveData;
 
@@ -50,10 +52,18 @@ public class RRLiveRooms : RepeatedTaskManager
                     Fc = p.Value.Fc,
                     Ev = p.Value.Ev,
                     Eb = p.Value.Eb,
-                    Mii = p.Value.Mii.Select(mii => new Mii
+                    // Deserialize each Mii's data into a FullMii object
+                    Mii = p.Value.Mii.Select(mii =>
                     {
-                        Name = mii.Name,
-                        Data = mii.Data,
+                            var rawMii = Convert.FromBase64String(mii.Data);
+                            var SerializerResult = MiiSerializer.Deserialize(rawMii);
+                            if (SerializerResult.IsFailure)
+                            {
+                                return new FullMii { Name = mii.Name };
+                            }
+                            return SerializerResult.Value;
+                            
+                        
                     }).ToList()
                 })
         }).ToList();

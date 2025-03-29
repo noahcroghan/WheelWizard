@@ -1,15 +1,19 @@
 ﻿using Avalonia.Media.Imaging;
 using System.ComponentModel;
+using WheelWizard.RrRooms;
 using WheelWizard.Services.WiiManagement;
+using WheelWizard.Views;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Models.MiiImages;
 
 public class MiiImage : INotifyPropertyChanged
 {
-    private Mii Parent { get; }
-    public string Data => Parent.Data;
+    private FullMii Parent { get; }
+    public string Data => Convert.ToBase64String(MiiSerializer.Serialize(Parent));
     public MiiImageVariants.Variant Variant { get; }
-    public MiiImage(Mii parent, MiiImageVariants.Variant variant) => (Parent, Variant) = (parent,variant);
+    public MiiImage(FullMii parent, MiiImageVariants.Variant variant) => (Parent, Variant) = (parent,variant);
 
     public string CachingKey => $"{Data}_{Variant}";
     

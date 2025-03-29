@@ -7,14 +7,15 @@ using System.ComponentModel;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Components.MiiImages;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Views.Components;
 
 public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
 {
-    public static readonly StyledProperty<Mii?> MiiProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, Mii?>(nameof(Mii));
-    public Mii? Mii
+    public static readonly StyledProperty<FullMii?> MiiProperty =
+        AvaloniaProperty.Register<DetailedProfileBox, FullMii?>(nameof(Mii));
+    public FullMii? Mii
     {
         get => GetValue(MiiProperty);
         set   

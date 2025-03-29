@@ -11,14 +11,15 @@ using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Views.Pages;
 
 public partial class UserProfilePage : UserControl, INotifyPropertyChanged
 {
     private GameDataUser? currentPlayer;
-    private Mii? _currentMii;
-    public Mii? CurrentMii 
+    private FullMii? _currentMii;
+    public FullMii? CurrentMii 
     { 
         get => _currentMii;
         set { 

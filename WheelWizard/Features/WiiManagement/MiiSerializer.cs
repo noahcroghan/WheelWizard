@@ -2,17 +2,17 @@
 using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.WiiManagement;
-public class MiiSerializer
+public static class MiiSerializer
 {
     public const int MiiBlockSize = 74; // Each Mii block is 74 bytes
 
     /// <summary>
     /// Deserializes a 74-byte Mii data block into a FullMii instance.
     /// </summary>
-    public FullMii Deserialize(byte[] data)
+    public static OperationResult<FullMii> Deserialize(byte[]? data)
     {
-        if (data == null || data.Length < MiiBlockSize)
-            throw new ArgumentException("Invalid Mii data");
+        if (data == null || data.Length == MiiBlockSize)
+            return OperationResult.Fail<FullMii>("Invalid Mii data block");
 
         var mii = new FullMii();
 
@@ -117,7 +117,7 @@ public class MiiSerializer
     /// <summary>
     /// Serializes a FullMii instance into a 74-byte data block.
     /// </summary>
-    public byte[] Serialize(FullMii mii)
+    public static byte[] Serialize(FullMii mii)
     {
         byte[] data = new byte[MiiBlockSize];
 
