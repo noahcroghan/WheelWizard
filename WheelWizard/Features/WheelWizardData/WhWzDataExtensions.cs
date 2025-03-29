@@ -1,5 +1,4 @@
-﻿using Refit;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using WheelWizard.Services;
 using WheelWizard.Shared.JsonConverters;
