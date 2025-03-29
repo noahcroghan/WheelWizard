@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using WheelWizard.AutoUpdating;
 using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
-using WheelWizard.Services.Settings;
 using WheelWizard.Services.UrlProtocol;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.WheelWizardData;
