@@ -38,7 +38,7 @@ public static class Program
         var serviceProvider = services.BuildServiceProvider();
 
         // Write startup message
-        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+        var logger = serviceProvider.GetRequiredService<ILogger>();
         LogPlatformInformation(logger);
 
         // Override the default TraceLogSink with our AvaloniaLoggerAdapter
