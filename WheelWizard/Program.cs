@@ -11,7 +11,7 @@ using WheelWizard.Views;
 
 namespace WheelWizard;
 
-public static class Program
+public class Program
 {
     [STAThread]
     public static void Main(string[] args)
@@ -38,7 +38,7 @@ public static class Program
         var serviceProvider = services.BuildServiceProvider();
 
         // Write startup message
-        var logger = serviceProvider.GetRequiredService<ILogger>();
+        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
         LogPlatformInformation(logger);
 
         // Override the default TraceLogSink with our AvaloniaLoggerAdapter
