@@ -112,10 +112,6 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Online.resx</DependentUpon>
         </Compile>
-        <Compile Update="Views\Pages\Settings\AppInfo.axaml.cs">
-          <DependentUpon>AboutSettings.axaml</DependentUpon>
-          <SubType>Code</SubType>
-        </Compile>
     </ItemGroup>
 
     <ItemGroup Label="Additional Files">
