@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="444" d:DesignHeight="716"
+             xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             x:Class="WheelWizard.Views.Pages.Settings.AppInfo">
+    <Grid>
+        <StackPanel Margin="0,15,0,0">
+            <Border Classes="AboutBlockStyle">
+                <Grid ColumnDefinitions="60,*">
+                    <Path Grid.Column="0" Data="{StaticResource Translation}" Stretch="Uniform"
+                          HorizontalAlignment="Left" VerticalAlignment="Center"
+                              Fill="{StaticResource Neutral500}" Width="40"/>
+                    <Border Grid.Column="0" Classes="AboutBlockLineStyle" HorizontalAlignment="Right"/>
+                    
+                    <StackPanel Grid.Column="1">
+                        <components:FormFieldLabel Text="{x:Static lang:Phrases.Text_ThanksTranslators}" Margin="0,0,0,2"/>
+                        <SelectableTextBlock Classes="TinyText" Text="Eppe, Weebo, kytronix, Noël, Haru00007, JGavidia, Sep, " />
+                        <SelectableTextBlock Classes="TinyText" Text="OrangeCake_, Ismy, rhyy, Sinseiga, CaXaP, StationAlpha" />
+                    </StackPanel>
+ 
+                    <Border Grid.Column="1" ToolTip.Placement="Top" ToolTip.ShowDelay="50"
+                            ToolTip.Tip="If you are willing to translate for RetroRewind and WheelWizard. Be sure to reach out to Eppe or WantToBeeMe :)"
+                            VerticalAlignment="Top" HorizontalAlignment="Right">
+                        <PathIcon Data="{StaticResource InfoTip}" Width="14" Height="14"
+                                  Foreground="{StaticResource FormFieldLabelColor}" />
+                    </Border>
+                </Grid>
+            </Border>
+            
+            
+            <Border Classes="AboutBlockStyle" Margin="0,10,0,0">
+                <Grid ColumnDefinitions="60,*">
+                    <Path Grid.Column="0" Data="{StaticResource Scroll}" Stretch="Uniform"
+                          HorizontalAlignment="Left" VerticalAlignment="Center"
+                          Fill="{StaticResource Neutral500}" Width="40"/>
+                    <Border Grid.Column="0" Classes="AboutBlockLineStyle" HorizontalAlignment="Right"/>
+                    
+                    <StackPanel Grid.Column="1">
+                        <components:FormFieldLabel Text="Roboto Classic Font" Margin="0,0,0,2"/>
+                        <SelectableTextBlock Classes="TinyText" Text="This application uses the 'Roboto Classic' font,"/>
+                        <SelectableTextBlock Classes="TinyText" Text=" which is licensed under the SIL Open Font License, "/>
+                        <SelectableTextBlock Classes="TinyText" Text="Version 1.1. Copyright (c)2011 Google Inc. "/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

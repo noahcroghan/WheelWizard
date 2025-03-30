@@ -27,6 +27,8 @@
                              Click="TopBarRadio_OnClick" Content="{x:Static lang:Settings.Category_Video}"/>
                 <RadioButton Classes="TopBar" Tag="OtherSettings" 
                              Click="TopBarRadio_OnClick" Content="{x:Static lang:Common.Term_Other}" />
+                <RadioButton Classes="TopBar" Tag="AppInfo"
+                             Click="TopBarRadio_OnClick" Content="{x:Static lang:Settings.Category_About}" />
             </StackPanel>
         </ScrollViewer>
         
