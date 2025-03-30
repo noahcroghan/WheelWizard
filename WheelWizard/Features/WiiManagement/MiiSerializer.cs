@@ -133,7 +133,7 @@ public static class MiiSerializer
     public static OperationResult<FullMii> Deserialize(byte[] data)
     {
         if (data == null || data.Length != 74)
-            OperationResult.Fail<FullMii>("Invalid Mii data length.");
+            Fail<FullMii>("Invalid Mii data length.");
 
         var mii = new FullMii();
 

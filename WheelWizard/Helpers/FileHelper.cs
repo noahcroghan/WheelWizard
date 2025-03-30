@@ -9,11 +9,11 @@ public static class FileHelper
         try
         {
             File.WriteAllBytes(path, bytes);
-            return OperationResult.Ok();
+            return Ok();
         }
         catch
         {
-            return OperationResult.Fail($"Failed to write to {path}");
+            return Fail($"Failed to write to {path}");
         }
     }
 

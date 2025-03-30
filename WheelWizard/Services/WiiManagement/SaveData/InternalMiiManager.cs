@@ -44,7 +44,7 @@ public static class InternalMiiManager
     private static OperationResult SaveMiiDb(List<byte[]> allMiis)
     {
         if (!File.Exists(WiiDbFile))
-            return OperationResult.Fail("RFL_DB.dat not found.");
+            return Fail("RFL_DB.dat not found.");
         
         var dbFile = FileHelper.ReadAllBytes(WiiDbFile);
         using var ms = new MemoryStream(dbFile);
@@ -88,10 +88,10 @@ public static class InternalMiiManager
     public static OperationResult UpdateMiiData(byte[] miiData, uint clientId)
     {
         if (clientId == 0)
-            return OperationResult.Fail("Invalid ClientId.");
+            return Fail("Invalid ClientId.");
 
         if (!File.Exists(WiiDbFile))
-            return OperationResult.Fail("RFL_DB.dat not found.");
+            return Fail("RFL_DB.dat not found.");
 
         var allMiis = GetAllMiiData();
         var updated = false;
@@ -111,7 +111,7 @@ public static class InternalMiiManager
             updated = true;
             break;
         }
-        if (!updated) return OperationResult.Fail("RFL_DB.dat not found.");
+        if (!updated) return Fail("RFL_DB.dat not found.");
         return SaveMiiDb(allMiis);
     }
     

@@ -39,7 +39,7 @@ public class FileMiiRepository : IMiiRepository
     public OperationResult SaveAllBlocks(List<byte[]> blocks)
     {
         if (!File.Exists(_filePath))
-            return OperationResult.Fail("RFL_DB.dat not found.");
+            return Fail("RFL_DB.dat not found.");
 
         var db = ReadDatabase();
         using var ms = new MemoryStream(db);
@@ -82,11 +82,11 @@ public class FileMiiRepository : IMiiRepository
     public OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock)
     {
         if (clientId == 0)
-            return OperationResult.Fail("Invalid ClientId.");
+            return Fail("Invalid ClientId.");
         if (newBlock.Length != MiiLength)
-            return OperationResult.Fail("Mii block size invalid.");
+            return Fail("Mii block size invalid.");
         if (!File.Exists(_filePath))
-            return OperationResult.Fail("RFL_DB.dat not found.");
+            return Fail("RFL_DB.dat not found.");
 
         var allBlocks = LoadAllBlocks();
         var updated = false;
@@ -107,7 +107,7 @@ public class FileMiiRepository : IMiiRepository
         }
 
         if (!updated)
-            return OperationResult.Fail("Mii not found.");
+            return Fail("Mii not found.");
         
         return SaveAllBlocks(allBlocks);
     }

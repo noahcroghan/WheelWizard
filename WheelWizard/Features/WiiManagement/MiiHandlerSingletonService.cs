@@ -42,7 +42,7 @@ public class MiiDbService : IMiiDbService
     {
         var raw = _repository.GetRawBlockByClientId(clientId);
         if (raw == null || raw.Length != MiiSerializer.MiiBlockSize)
-            return OperationResult.Fail<FullMii>("Mii block not found or invalid.");
+            return Fail<FullMii>("Mii block not found or invalid.");
 
         return MiiSerializer.Deserialize(raw);
     }

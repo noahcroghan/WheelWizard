@@ -273,7 +273,7 @@ public class GameDataLoader : RepeatedTaskManager
         try
         {
             if (!Directory.Exists(TryCreateSaveFolderPath))
-                return OperationResult.Fail<byte[]>("Save folder not found");
+                return Fail<byte[]>("Save folder not found");
 
             var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
             if (currentRegion == MarioKartWiiEnums.Regions.None)
@@ -287,19 +287,19 @@ public class GameDataLoader : RepeatedTaskManager
                 }
                 else
                 {
-                    return OperationResult.Fail<byte[]>("No valid regions found");
+                    return Fail<byte[]>("No valid regions found");
                 }
             }
 
             var saveFileFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
             var saveFile = Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
             if (saveFile.Length == 0)
-                return OperationResult.Fail<byte[]>("rksys.dat not found");
+                return Fail<byte[]>("rksys.dat not found");
             return File.ReadAllBytes(saveFile[0]);
         }
         catch
         {
-            return OperationResult.Fail<byte[]>("Failed to load rksys.dat");
+            return Fail<byte[]>("Failed to load rksys.dat");
         }
     }
 
@@ -450,7 +450,7 @@ public class GameDataLoader : RepeatedTaskManager
     
     private OperationResult SaveRksysToFile()
     {
-        if (_saveData == null || string.IsNullOrWhiteSpace(TryCreateSaveFolderPath)) return OperationResult.Fail("Invalid save data or save folder path.");
+        if (_saveData == null || string.IsNullOrWhiteSpace(TryCreateSaveFolderPath)) return Fail("Invalid save data or save folder path.");
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
         var saveFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
@@ -462,10 +462,10 @@ public class GameDataLoader : RepeatedTaskManager
         }
         catch (Exception ex)
         {
-            return OperationResult.Fail($"Failed to save rksys.dat.\n{ex.Message}");
+            return Fail($"Failed to save rksys.dat.\n{ex.Message}");
         }
 
-        return OperationResult.Ok();
+        return Ok();
     }
 
     private void InvalidLicenseMessage(string info)
