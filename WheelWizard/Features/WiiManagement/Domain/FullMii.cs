@@ -1,4 +1,5 @@
 ﻿using WheelWizard.Models.MiiImages;
+using WheelWizard.WiiManagement.Domain.Enums;
 
 namespace WheelWizard.WiiManagement.Domain;
 
@@ -17,9 +18,9 @@ public class FullMii
     // Header (0x00 & 0x01)
     public bool IsInvalid { get; set; }
     public bool IsGirl { get; set; }
-    public int Month { get; set; }              // 4 bits (0-15)
-    public int Day { get; set; }                // 5 bits (0-31)
-    public int FavoriteColor { get; set; }      // 4 bits (0-15)
+    
+    public DateOnly Date { get; set; }
+    public int FavoriteColor { get; set; }
     public bool IsFavorite { get; set; }
 
     // Name (0x02 - 0x15) – 10 UTF-16 characters

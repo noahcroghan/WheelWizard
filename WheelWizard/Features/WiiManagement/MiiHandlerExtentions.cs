@@ -1,11 +1,11 @@
-﻿namespace WheelWizard.WiiManagement;
-
-public static class MiiSerializerExtensions
-{
-    public static IServiceCollection AddMiiSerializer(this IServiceCollection services)
-    {
-        services.AddSingleton<IMiiSerializerSingletonService, MiiHandlerSingletonService>();
-        return services;
-    }
-}
-
+﻿// namespace WheelWizard.WiiManagement;
+//
+// public static class MiiSerializerExtensions
+// {
+//     public static IServiceCollection AddMiiSerializer(this IServiceCollection services)
+//     {
+//         services.AddSingleton<IMiiSerializerSingletonService, MiiHandlerSingletonService>();
+//         return services;
+//     }
+// }
+//
