@@ -37,6 +37,7 @@ public class OperationResult<T> : OperationResult
     }
 
     public static implicit operator OperationResult<T>(OperationError error) => new(error);
+    public static implicit operator OperationResult<T>(string errorMessage) => new(errorMessage);
 
     public static implicit operator OperationResult<T>(T value) => new(value);
 }

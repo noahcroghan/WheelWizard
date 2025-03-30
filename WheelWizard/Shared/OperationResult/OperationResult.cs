@@ -73,4 +73,5 @@ public class OperationResult
     public static OperationResult<T> Ok<T>(T value) => new(value);
 
     public static implicit operator OperationResult(OperationError error) => new(error);
+    public static implicit operator OperationResult(string errorMessage) => new(errorMessage);
 }

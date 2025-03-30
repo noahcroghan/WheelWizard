@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel;
 using WheelWizard.Helpers;
-using WheelWizard.Models.Enums;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
-using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Enums;
+using WheelWizard.WheelWizardData.Domain;
 
 namespace WheelWizard.Models.GameData;
 
@@ -41,7 +40,7 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
         }
     }
 
-    public BadgeVariant[] BadgeVariants => BadgeManager.Instance.GetBadgeVariants(FriendCode);
+    public BadgeVariant[] BadgeVariants { get; set; } = [];
     public bool HasBadges => BadgeVariants.Length != 0;
     
     public string NameOfMii => Mii?.Name.ToString() ?? string.Empty;
