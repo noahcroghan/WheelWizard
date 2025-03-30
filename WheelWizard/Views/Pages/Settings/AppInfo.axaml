@@ -40,9 +40,28 @@
                     
                     <StackPanel Grid.Column="1">
                         <components:FormFieldLabel Text="Roboto Classic Font" Margin="0,0,0,2"/>
-                        <SelectableTextBlock Classes="TinyText" Text="This application uses the 'Roboto Classic' font,"/>
-                        <SelectableTextBlock Classes="TinyText" Text=" which is licensed under the SIL Open Font License, "/>
-                        <SelectableTextBlock Classes="TinyText" Text="Version 1.1. Copyright (c)2011 Google Inc. "/>
+                        <TextBlock Classes="TinyText" Text="This application uses the Roboto font. This Font Software is "/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Classes="TinyText" Text="licensed under the"/>
+                            <components:IconLabelButton Text=" SIL Open Font License, Version 1.1" FontSize="12"
+                                                        Foreground="{StaticResource Primary300}"
+                                                        HoverForeground="{StaticResource Primary200}"
+                                                        IsUnderlined="True"  Tag="https://openfontlicense.org/open-font-license-official-text/" 
+                                                        Click="OpenLick_OnClick"
+                                                        />
+                            <TextBlock Classes="TinyText" Text="."/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Classes="TinyText" Text="Copyright 2011 The Roboto Project Authors ("/>
+                            <components:IconLabelButton Text="source code" FontSize="12"
+                                                        Foreground="{StaticResource Primary300}"
+                                                        HoverForeground="{StaticResource Primary200}"
+                                                        IsUnderlined="True" Tag="https://github.com/googlefonts/roboto-classic" 
+                                                        Click="OpenLick_OnClick"
+                            />
+                            <TextBlock Classes="TinyText" Text=")"/>
+                        </StackPanel>
+                    
                     </StackPanel>
                 </Grid>
             </Border>
