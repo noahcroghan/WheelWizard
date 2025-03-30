@@ -123,6 +123,7 @@
     </ItemGroup>
 
     <ItemGroup Label="Fonts">
+        <AvaloniaResource Include="Resources\Fonts\Roboto-Regular.ttf"/>
         <AvaloniaResource Include="Resources\Fonts\ctmkf.ttf"/>
     </ItemGroup>
 </Project>
