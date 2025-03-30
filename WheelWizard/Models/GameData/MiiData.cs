@@ -1,6 +1,4 @@
-﻿using WheelWizard.WiiManagement.Domain;
-
-namespace WheelWizard.Models.GameData;
+﻿namespace WheelWizard.Models.GameData;
 
 public class MiiData
 {

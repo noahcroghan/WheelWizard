@@ -1,6 +1,6 @@
 ﻿using WheelWizard.Models.MiiImages;
 using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain;
+
 
 namespace WheelWizard.Views.Popups;
 
@@ -13,7 +13,7 @@ public partial class MiiCarouselWindow : PopupContent
 
     public MiiCarouselWindow SetMii(FullMii newMii)
     {
-        Window.WindowTitle = newMii.Name;
+        Window.WindowTitle = newMii.Name.ToString();
         Carousel.MiiImageLoaded += DisableLoadingIcon;
         Carousel.Mii = newMii;
         return this;

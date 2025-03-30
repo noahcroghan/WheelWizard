@@ -7,7 +7,7 @@ using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Views.Pages;
-using WheelWizard.WiiManagement.Domain;
+
 
 namespace WheelWizard.Views.Components;
 
@@ -48,7 +48,7 @@ public class CurrentUserProfile : TemplatedControl, INotifyPropertyChanged
         GameDataLoader.Instance.RefreshOnlineStatus();
         var currentUser = GameDataLoader.Instance.GetCurrentUser;
         
-        var name = currentUser.MiiName;
+        var name = currentUser.NameOfMii;
         if (name == SettingValues.NoName)
             name = Online.NoName;
         if (name == SettingValues.NoLicense)

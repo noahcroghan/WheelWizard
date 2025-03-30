@@ -4,7 +4,6 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services;
-using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Views.Components;
 

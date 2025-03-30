@@ -4,14 +4,14 @@ using WheelWizard.RrRooms;
 using WheelWizard.Services.WiiManagement;
 using WheelWizard.Views;
 using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain;
+
 
 namespace WheelWizard.Models.MiiImages;
 
 public class MiiImage : INotifyPropertyChanged
 {
     private FullMii Parent { get; }
-    public string Data => Convert.ToBase64String(MiiSerializer.Serialize(Parent));
+    public string Data => Convert.ToBase64String(MiiSerializer.Serialize(Parent).Value);
     public MiiImageVariants.Variant Variant { get; }
     public MiiImage(FullMii parent, MiiImageVariants.Variant variant) => (Parent, Variant) = (parent,variant);
 

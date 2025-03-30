@@ -11,7 +11,6 @@ using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Views.Popups.Generic;
-using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Views.Pages;
 
@@ -58,7 +57,7 @@ public partial class UserProfilePage : UserControl, INotifyPropertyChanged
             if (radioButton == null!) 
                 continue;
             
-            var miiName = data.Users[i].MiiData?.Mii?.Name ?? SettingValues.NoName;
+            var miiName = data.Users[i].MiiData?.Mii?.Name.ToString() ?? SettingValues.NoName;
             var noLicense = miiName == SettingValues.NoLicense;
             
             radioButton.IsEnabled = !noLicense;
@@ -119,7 +118,7 @@ public partial class UserProfilePage : UserControl, INotifyPropertyChanged
         
         currentPlayer = GameDataLoader.Instance.GetUserData(_currentUserIndex);
         CurrentUserProfile.FriendCode = currentPlayer.FriendCode;
-        CurrentUserProfile.UserName = currentPlayer.MiiName;
+        CurrentUserProfile.UserName = currentPlayer.NameOfMii;
         CurrentUserProfile.IsOnline = currentPlayer.IsOnline;
         CurrentUserProfile.Vr = currentPlayer.Vr.ToString();
         CurrentUserProfile.Br = currentPlayer.Br.ToString();
@@ -132,8 +131,8 @@ public partial class UserProfilePage : UserControl, INotifyPropertyChanged
 
     private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
     {
-        if (args.PropertyName != nameof(currentPlayer.MiiName)) return;
-        CurrentUserProfile.UserName = currentPlayer.MiiName;
+        if (args.PropertyName != nameof(currentPlayer.NameOfMii)) return;
+        CurrentUserProfile.UserName = currentPlayer.NameOfMii;
     }
     
     private void CheckBox_SetPrimaryUser(object sender, RoutedEventArgs e) => SetUserAsPrimary();

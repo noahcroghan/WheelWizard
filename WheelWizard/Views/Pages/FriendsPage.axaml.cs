@@ -77,7 +77,7 @@ public partial class FriendsPage : UserControl, INotifyPropertyChanged, IRepeate
         {
             ListOrderCondition.VR => f => f.Vr,
             ListOrderCondition.BR => f => f.Br,
-            ListOrderCondition.NAME => f => f.MiiName,
+            ListOrderCondition.NAME => f => f.NameOfMii,
             ListOrderCondition.WINS => f => f.Wins,
             ListOrderCondition.TOTAL_RACES => f => f.Losses + f.Wins,
             ListOrderCondition.IS_ONLINE or _ => f => f.IsOnline,

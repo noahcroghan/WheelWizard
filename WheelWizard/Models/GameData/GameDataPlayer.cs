@@ -6,7 +6,7 @@ using WheelWizard.Models.Settings;
 using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
 using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain;
+using WheelWizard.WiiManagement.Domain.Enums;
 
 namespace WheelWizard.Models.GameData;
 
@@ -44,24 +44,24 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
     public BadgeVariant[] BadgeVariants => BadgeManager.Instance.GetBadgeVariants(FriendCode);
     public bool HasBadges => BadgeVariants.Length != 0;
     
-    public string MiiName
+    public string NameOfMii
     {
-        get => MiiData?.Mii?.Name ?? SettingValues.NoName;
+        get => Mii?.Name.ToString() ?? string.Empty;
         set
         {
             if (MiiData == null)
             {
                 MiiData = new MiiData
                 {
-                    Mii = new FullMii { Name = value }
+                    Mii = new FullMii()
                 };
             }
-            else if (MiiData.Mii == null)
-                MiiData.Mii = new FullMii { Name = value };
+            else if (Mii == null)
+                MiiData.Mii = new FullMii();
             else
             {
-                MiiData.Mii.Name = value;
-                OnPropertyChanged(nameof(MiiName));
+                MiiData.Mii.Name = MiiName.Create(value).Value;
+                OnPropertyChanged(nameof(NameOfMii));
             }
         }
     }

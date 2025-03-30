@@ -1,12 +1,8 @@
-﻿using WheelWizard.Models.MiiImages;
-using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain;
-
-namespace WheelWizard.Utilities.Mockers;
+﻿namespace WheelWizard.Utilities.Mockers;
 
 public class MiiFactory : MockingDataFactory<FullMii, MiiFactory>
 {
-    protected override string DictionaryKeyGenerator(FullMii value) => value.Name;
+    protected override string DictionaryKeyGenerator(FullMii value) => value.Name.ToString();
     private static int _miiCount = 1;
     
     private readonly string[] dataList = new[]

@@ -9,8 +9,7 @@ using WheelWizard.Services.Settings;
 using WheelWizard.Utilities.Generators;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups.Generic;
-using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain;
+using WheelWizard.WiiManagement.Domain.Enums;
 
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation
 
@@ -361,13 +360,13 @@ public class GameDataLoader : RepeatedTaskManager
                                   "Please use the Mii Channel to create a Mii first.");
             return;
         }
-        var currentName = user.MiiData.Mii.Name ?? "";
+        var currentName = user.MiiData.Mii.Name;
         var renamePopup =  new TextInputWindow()
                 .SetMainText($"Enter new name")
                 .SetExtraText($"Changing name from: {currentName}")
                 .SetAllowCustomChars(true)
-                .SetInitialText(currentName)
-                .SetPlaceholderText(currentName);
+                .SetInitialText(currentName.ToString())
+                .SetPlaceholderText(currentName.ToString());
 
         var newName = await renamePopup.ShowDialog();
         if (string.IsNullOrWhiteSpace(newName)) return;
@@ -382,8 +381,7 @@ public class GameDataLoader : RepeatedTaskManager
 
         if (newName.Length > 10)
             newName = newName.Substring(0, 10);
-        user.MiiData.Mii.Name = newName; // This should be updated just in case someone uses it, but its not the one that updates the profile page
-        user.MiiName = newName; // This is the one with the notification
+        user.MiiData.Mii.Name = MiiName.Create(newName).Value; // This should be updated just in case someone uses it, but its not the one that updates the profile page
         WriteLicenseNameToSaveData(userIndex, newName);
         var updated = InternalMiiManager.UpdateMiiName(user.MiiData.ClientId, newName);
         if (!updated)
@@ -417,10 +415,10 @@ public class GameDataLoader : RepeatedTaskManager
         if (user?.MiiData?.Mii == null)
             return true;
 
-        var name = user.MiiData.Mii.Name?.Trim() ?? "";
-        if (name.Equals("no name", StringComparison.OrdinalIgnoreCase))
+        var name = user.MiiData.Mii.Name;
+        if (name.ToString() == "no name")
             return true;
-        var raw = MiiSerializer.Serialize(user.MiiData.Mii);
+        var raw = MiiSerializer.Serialize(user.MiiData.Mii).Value;
         if (raw.Length != 74) return true; // Not valid
         if (raw.All(b => b == 0)) return true;
 

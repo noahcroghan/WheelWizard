@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services;
-using WheelWizard.WiiManagement.Domain;
+
 
 namespace WheelWizard.Views.Components;
 

@@ -7,7 +7,6 @@ using System.ComponentModel;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Components.MiiImages;
-using WheelWizard.WiiManagement.Domain;
 
 namespace WheelWizard.Views.Components;
 
