@@ -381,7 +381,14 @@ public class GameDataLoader : RepeatedTaskManager
 
         if (newName.Length > 10)
             newName = newName.Substring(0, 10);
-        user.MiiData.Mii.Name = MiiName.Create(newName).Value; // This should be updated just in case someone uses it, but its not the one that updates the profile page
+        var nameResult = MiiName.Create(newName); 
+        if (nameResult.IsFailure)
+        {
+            InvalidNameMessage(nameResult.Error.Message);
+            return;
+        }
+        
+        user.Mii.Name = nameResult.Value; // This should be updated just in case someone uses it, but its not the one that updates the profile page
         WriteLicenseNameToSaveData(userIndex, newName);
         var updated = InternalMiiManager.UpdateMiiName(user.MiiData.ClientId, newName);
         if (!updated)

@@ -44,27 +44,7 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
     public BadgeVariant[] BadgeVariants => BadgeManager.Instance.GetBadgeVariants(FriendCode);
     public bool HasBadges => BadgeVariants.Length != 0;
     
-    public string NameOfMii
-    {
-        get => Mii?.Name.ToString() ?? string.Empty;
-        set
-        {
-            if (MiiData == null)
-            {
-                MiiData = new MiiData
-                {
-                    Mii = new FullMii()
-                };
-            }
-            else if (Mii == null)
-                MiiData.Mii = new FullMii();
-            else
-            {
-                MiiData.Mii.Name = MiiName.Create(value).Value;
-                OnPropertyChanged(nameof(NameOfMii));
-            }
-        }
-    }
+    public string NameOfMii => Mii?.Name.ToString() ?? string.Empty;
 
     #region PropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
