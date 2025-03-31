@@ -4,6 +4,14 @@ using WheelWizard.Services;
 using WheelWizard.Services.WiiManagement.SaveData;
 namespace WheelWizard.WiiManagement.Domain;
 
+public interface IMiiRepository
+{
+    List<byte[]> LoadAllBlocks();
+    OperationResult SaveAllBlocks(List<byte[]> blocks);
+    byte[]? GetRawBlockByClientId(uint clientId);
+    OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock);
+}
+
 public class FileMiiRepository(IFileSystem fileSystem) : IMiiRepository
 {
     private const int MiiLength = 74;

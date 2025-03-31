@@ -8,6 +8,7 @@ using WheelWizard.RrRooms;
 using WheelWizard.Services;
 using WheelWizard.Shared.Services;
 using WheelWizard.WheelWizardData;
+using WheelWizard.WiiManagement;
 
 namespace WheelWizard;
 
@@ -24,6 +25,7 @@ public static class SetupExtensions
         services.AddGitHub();
         services.AddRrRooms();
         services.AddWhWzData();
+        services.AddMiiSerializer();
 
         // IO Abstractions
         services.AddSingleton<IFileSystem, RealFileSystem>();

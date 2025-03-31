@@ -12,6 +12,7 @@ using WheelWizard.Views;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement.Domain.Enums;
 using WheelWizard.WheelWizardData;
+using WheelWizard.WiiManagement;
 
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation
 
@@ -20,6 +21,7 @@ namespace WheelWizard.Services.WiiManagement.SaveData;
 public class GameDataLoader : RepeatedTaskManager
 {
     public static GameDataLoader Instance { get; } = new();
+    public IMiiDbService InternalMiiManager { get; set; } = App.Services.GetRequiredService<IMiiDbService>();
 
     /// <summary>
     /// The path to where the “rksys.dat” folder structure is expected to live, e.g.
@@ -205,13 +207,12 @@ public class GameDataLoader : RepeatedTaskManager
         var name = BigEndianBinaryReader.GetUtf16String(_saveData, offset, 10);
         var avatarId = BitConverter.ToUInt32(_saveData, offset + 0x10);
         var clientId = BitConverter.ToUInt32(_saveData, offset + 0x14);
-
-        // Convert the Mii block from RFL_DB if it’s actually valid
-        var rawMii = InternalMiiManager.GetMiiDataByClientId(clientId);
+        
+        var rawMiiResult = InternalMiiManager.GetByClientId(clientId);
 
         var miiData = new MiiData
         {
-            Mii = MiiSerializer.Deserialize(rawMii).Value,
+            Mii = rawMiiResult.Value,
             AvatarId = avatarId,
             ClientId = clientId
         };
@@ -395,8 +396,8 @@ public class GameDataLoader : RepeatedTaskManager
         
         user.Mii.Name = nameResult.Value; // This should be updated just in case someone uses it, but its not the one that updates the profile page
         WriteLicenseNameToSaveData(userIndex, newName);
-        var updated = InternalMiiManager.UpdateMiiName(user.MiiData.ClientId, newName);
-        if (!updated)
+        var updated = InternalMiiManager.UpdateName(user.MiiData.ClientId, newName);
+        if (updated.IsFailure)
         {
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Error)
