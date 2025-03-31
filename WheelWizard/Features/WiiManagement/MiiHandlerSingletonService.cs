@@ -3,9 +3,6 @@ using WheelWizard.WiiManagement.Domain.Enums;
 
 namespace WheelWizard.WiiManagement;
 
-/// <summary>
-/// Provides serialization and deserialization for full Mii data.
-/// </summary>
 public interface IMiiDbService
 {
     List<FullMii> GetAllMiis();
@@ -15,18 +12,12 @@ public interface IMiiDbService
 }
 
 
-public class MiiDbService : IMiiDbService
+public class MiiDbService(IMiiRepository repository) : IMiiDbService
 {
-    private readonly IMiiRepository _repository;
-    
-    public MiiDbService(IMiiRepository repository)
-    {
-        _repository = repository;
-    }
     public List<FullMii> GetAllMiis()
     {
         var result = new List<FullMii>();
-        var blocks = _repository.LoadAllBlocks();
+        var blocks = repository.LoadAllBlocks();
 
         foreach (var block in blocks)
         {
@@ -40,7 +31,7 @@ public class MiiDbService : IMiiDbService
 
     public OperationResult<FullMii> GetByClientId(uint clientId)
     {
-        var raw = _repository.GetRawBlockByClientId(clientId);
+        var raw = repository.GetRawBlockByClientId(clientId);
         if (raw == null || raw.Length != MiiSerializer.MiiBlockSize)
             return Fail<FullMii>("Mii block not found or invalid.");
 
@@ -52,7 +43,7 @@ public class MiiDbService : IMiiDbService
         var serialized = MiiSerializer.Serialize(updatedMii);
         if (serialized.IsFailure)
             return serialized.Error;
-        return _repository.UpdateBlockByClientId(updatedMii.MiiId, serialized.Value);
+        return repository.UpdateBlockByClientId(updatedMii.MiiId, serialized.Value);
     }
 
     public OperationResult UpdateName(uint clientId, string newName)

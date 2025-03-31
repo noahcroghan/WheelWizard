@@ -1,9 +1,10 @@
-﻿using WheelWizard.Helpers;
+﻿using System.IO.Abstractions;
+using WheelWizard.Helpers;
 using WheelWizard.Services;
 using WheelWizard.Services.WiiManagement.SaveData;
 namespace WheelWizard.WiiManagement.Domain;
 
-public class FileMiiRepository : IMiiRepository
+public class FileMiiRepository(IFileSystem fileSystem) : IMiiRepository
 {
     private const int MiiLength = 74;
     private const int MaxMiiSlots = 100;
@@ -16,11 +17,11 @@ public class FileMiiRepository : IMiiRepository
     {
         var result = new List<byte[]>();
 
-        var file = ReadDatabase();
-        if (file.Length < HeaderOffset)
+        var database = ReadDatabase();
+        if (database.Length < HeaderOffset)
             return result;
 
-        using var ms = new MemoryStream(file);
+        using var ms = new MemoryStream(database);
         ms.Seek(HeaderOffset, SeekOrigin.Begin);
 
         for (var i = 0; i < MaxMiiSlots; i++)
@@ -38,7 +39,7 @@ public class FileMiiRepository : IMiiRepository
 
     public OperationResult SaveAllBlocks(List<byte[]> blocks)
     {
-        if (!File.Exists(_filePath))
+        if (!fileSystem.File.Exists(_filePath))
             return Fail("RFL_DB.dat not found.");
 
         var db = ReadDatabase();
@@ -58,7 +59,8 @@ public class FileMiiRepository : IMiiRepository
             db[CrcOffset + 1] = (byte)(crc & 0xFF);
         }
 
-        return FileHelper.WriteAllBytes(_filePath, db);
+        fileSystem.File.WriteAllBytes(_filePath, db);
+        return Ok();
     }
 
     public byte[]? GetRawBlockByClientId(uint clientId)
