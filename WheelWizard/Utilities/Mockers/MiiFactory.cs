@@ -1,4 +1,6 @@
-﻿namespace WheelWizard.Utilities.Mockers;
+﻿using WheelWizard.WiiManagement;
+
+namespace WheelWizard.Utilities.Mockers;
 
 public class MiiFactory : MockingDataFactory<FullMii, MiiFactory>
 {

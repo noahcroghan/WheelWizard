@@ -11,6 +11,7 @@ using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views.Pages;
 
@@ -18,6 +19,7 @@ public partial class UserProfilePage : UserControl, INotifyPropertyChanged
 {
     private GameDataUser? currentPlayer;
     private FullMii? _currentMii;
+    private IGameDataLoader _gameDataService = null!;
     public FullMii? CurrentMii 
     { 
         get => _currentMii;
@@ -33,6 +35,7 @@ public partial class UserProfilePage : UserControl, INotifyPropertyChanged
     public UserProfilePage()
     {
         InitializeComponent();
+        _gameDataService = App.Services.GetRequiredService<IGameDataLoader>()!;
         ResetMiiTopBar();
         ViewMii(FocussedUser);
         PopulateRegions();
@@ -44,12 +47,12 @@ public partial class UserProfilePage : UserControl, INotifyPropertyChanged
     
     private void ResetMiiTopBar()
     {
-        var validUsers = GameDataLoader.Instance.HasAnyValidUsers;
+        var validUsers = _gameDataService.HasAnyValidUsers;
         CurrentUserProfile.IsVisible = validUsers;
         CurrentUserCarousel.IsVisible = validUsers;
         NoProfilesInfo.IsVisible = !validUsers;
         
-        var data = GameDataLoader.Instance.GetGameData;
+        var data = _gameDataService.GetGameData;
         var userAmount = data.Users.Count;
         for (var i = 0; i < userAmount; i++)
         {
@@ -116,7 +119,7 @@ public partial class UserProfilePage : UserControl, INotifyPropertyChanged
         CurrentUserProfile.IsChecked = FocussedUser == _currentUserIndex;
         if(currentPlayer != null) currentPlayer.PropertyChanged -= OnMiiNameChanged;
         
-        currentPlayer = GameDataLoader.Instance.GetUserData(_currentUserIndex);
+        currentPlayer = _gameDataService.GetUserData(_currentUserIndex);
         CurrentUserProfile.FriendCode = currentPlayer.FriendCode;
         CurrentUserProfile.UserName = currentPlayer.NameOfMii;
         CurrentUserProfile.IsOnline = currentPlayer.IsOnline;
@@ -154,7 +157,6 @@ public partial class UserProfilePage : UserControl, INotifyPropertyChanged
             return;
         
         SettingsManager.RR_REGION.Set(region);
-        GameDataLoader.Instance.LoadGameData();
         ResetMiiTopBar();
         
         ViewMii(0); // Just in case you have current user set as 4. and you change to a region where there are only 3 users.
@@ -165,7 +167,7 @@ public partial class UserProfilePage : UserControl, INotifyPropertyChanged
     
     private void ChangeMiiName(object? obj, EventArgs e)
     {
-        GameDataLoader.Instance.PromptLicenseNameChange(_currentUserIndex);
+        _gameDataService.PromptLicenseNameChange(_currentUserIndex);
     }
     
     private void ViewRoom_OnClick(string friendCode)

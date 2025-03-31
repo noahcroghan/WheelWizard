@@ -1,56 +1,49 @@
-﻿using System.Text;
+using System.IO.Abstractions;
+using System.Text;
 using System.Text.RegularExpressions;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
-using WheelWizard.Models.MiiImages;
+using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
 using WheelWizard.Services.Settings;
+using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Utilities.Generators;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views;
 using WheelWizard.Views.Popups.Generic;
-using WheelWizard.WiiManagement.Domain.Enums;
 using WheelWizard.WheelWizardData;
-using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Enums;
 
+namespace WheelWizard.WiiManagement;
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation
-
-namespace WheelWizard.Services.WiiManagement.SaveData;
-
-public class GameDataLoader : RepeatedTaskManager
+public interface IGameDataLoader
 {
-    public static GameDataLoader Instance { get; } = new();
-    public IMiiDbService InternalMiiManager { get; set; } = App.Services.GetRequiredService<IMiiDbService>();
+    GameData GetGameData { get; }
+    GameDataUser GetUserData(int index);
+    GameDataUser GetCurrentUser { get; }
+    List<GameDataFriend> GetCurrentFriends { get; }
+    bool HasAnyValidUsers { get; }
+    void RefreshOnlineStatus();
+    void PromptLicenseNameChange(int userIndex);
+    void Subscribe(IRepeatedTaskListener subscriber);
+}
 
-    /// <summary>
-    /// The path to where the “rksys.dat” folder structure is expected to live, e.g.
-    ///   ..\path\to\Riivolution\riivolution\save\RetroWFC\RMCP\rksys.dat
-    /// </summary>
-    private static string? TryCreateSaveFolderPath
-    {
-        get
-        {
-            if (string.IsNullOrWhiteSpace(PathManager.UserFolderPath))
-                return string.Empty;
-            if (Directory.Exists(PathManager.SaveFolderPath)) 
-                return PathManager.SaveFolderPath;
-            try
-            {
-                Directory.CreateDirectory(PathManager.SaveFolderPath);
-            }
-            catch (Exception ex)
-            {
-                // Do nothing until user directory is resolved.
-                return string.Empty;
-            }
-            return PathManager.SaveFolderPath;
-        }
-    }
-
+public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
+{
+    private readonly IMiiDbService _miiService;
+    private readonly IFileSystem _fileSystem;
+    private GameData UserList { get; }
     private byte[]? _saveData;
-
-    private GameData GameData { get; }
+    
+    public GameDataLoader(IMiiDbService miiService, IFileSystem fileSystem) : base(40)
+    {
+        _miiService = miiService;
+        _fileSystem = fileSystem;
+        UserList = new GameData();
+        LoadGameData();
+    }
+    
 
     private const int RksysSize   = 0x2BC000;
     private const string RksysMagic = "RKSD0006";
@@ -65,26 +58,18 @@ public class GameDataLoader : RepeatedTaskManager
     /// <summary>
     /// Returns the "focused" or currently active license/user as determined by the Settings.
     /// </summary>
-    public GameDataUser GetCurrentUser 
-        => Instance.GameData.Users[(int)SettingsManager.FOCUSSED_USER.Get()];
+    public GameDataUser GetCurrentUser => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()];
 
-    public List<GameDataFriend> GetCurrentFriends 
-        => Instance.GameData.Users[(int)SettingsManager.FOCUSSED_USER.Get()].Friends;
+    public List<GameDataFriend> GetCurrentFriends => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()].Friends;
 
-    public GameData GetGameData 
-        => Instance.GameData;
+    public GameData GetGameData => UserList;
 
     public GameDataUser GetUserData(int index) 
-        => GameData.Users[index];
+        => UserList.Users[index];
 
     public bool HasAnyValidUsers 
-        => GameData.Users.Any(user => user.FriendCode != "0000-0000-0000");
-
-    private GameDataLoader() : base(40)
-    {
-        GameData = new GameData();
-        LoadGameData();
-    }
+        => UserList.Users.Any(user => user.FriendCode != "0000-0000-0000");
+    
 
     /// <summary>
     /// Refresh the "IsOnline" status of our local users based on the list of currently online players.
@@ -93,7 +78,7 @@ public class GameDataLoader : RepeatedTaskManager
     {
         var currentRooms = RRLiveRooms.Instance.CurrentRooms;
         var onlinePlayers = currentRooms.SelectMany(room => room.Players.Values).ToList();
-        foreach (var user in GameData.Users)
+        foreach (var user in UserList.Users)
         {
             user.IsOnline = onlinePlayers.Any(player => player.Fc == user.FriendCode);
         }
@@ -116,7 +101,7 @@ public class GameDataLoader : RepeatedTaskManager
             }
 
             // If the file was invalid or not found, create 4 dummy licenses
-            GameData.Users.Clear();
+            UserList.Users.Clear();
             for (var i = 0; i < MaxPlayerNum; i++)
                 CreateDummyUser();
             
@@ -150,12 +135,12 @@ public class GameDataLoader : RepeatedTaskManager
             RegionId = 10, // 10 => “unknown”
             IsOnline = false
         };
-        GameData.Users.Add(dummyUser);
+        UserList.Users.Add(dummyUser);
     }
 
     private void ParseUsers()
     {
-        GameData.Users.Clear();
+        UserList.Users.Clear();
         if (_saveData == null) return;
 
         for (var i = 0; i < MaxPlayerNum; i++)
@@ -164,14 +149,14 @@ public class GameDataLoader : RepeatedTaskManager
             if (Encoding.ASCII.GetString(_saveData, rkpdOffset, RkpdMagic.Length) == RkpdMagic)
             {
                 var user = ParseUser(rkpdOffset);
-                GameData.Users.Add(user);
+                UserList.Users.Add(user);
             }
             else
             {
                 CreateDummyUser();
             }
         }
-        if (GameData.Users.Count == 0)
+        if (UserList.Users.Count == 0)
             CreateDummyUser();
     }
 
@@ -208,7 +193,7 @@ public class GameDataLoader : RepeatedTaskManager
         var avatarId = BitConverter.ToUInt32(_saveData, offset + 0x10);
         var clientId = BitConverter.ToUInt32(_saveData, offset + 0x14);
         
-        var rawMiiResult = InternalMiiManager.GetByClientId(clientId);
+        var rawMiiResult = _miiService.GetByClientId(clientId);
 
         var miiData = new MiiData
         {
@@ -273,7 +258,7 @@ public class GameDataLoader : RepeatedTaskManager
     {
         try
         {
-            if (!Directory.Exists(TryCreateSaveFolderPath))
+            if (!Directory.Exists(PathManager.SaveFolderPath))
                 return Fail<byte[]>("Save folder not found");
 
             var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
@@ -292,7 +277,7 @@ public class GameDataLoader : RepeatedTaskManager
                 }
             }
 
-            var saveFileFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
+            var saveFileFolder = Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
             var saveFile = Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
             if (saveFile.Length == 0)
                 return Fail<byte[]>("rksys.dat not found");
@@ -351,7 +336,7 @@ public class GameDataLoader : RepeatedTaskManager
             InvalidLicenseMessage("Invalid license index. Please select a valid license.");
             return;
         }
-        var user = GameData.Users[userIndex];
+        var user = UserList.Users[userIndex];
         var miiIsEmptyOrNoName = IsNoNameOrEmptyMii(user);
 
         if (miiIsEmptyOrNoName)
@@ -396,7 +381,7 @@ public class GameDataLoader : RepeatedTaskManager
         
         user.Mii.Name = nameResult.Value; // This should be updated just in case someone uses it, but its not the one that updates the profile page
         WriteLicenseNameToSaveData(userIndex, newName);
-        var updated = InternalMiiManager.UpdateName(user.MiiData.ClientId, newName);
+        var updated = _miiService.UpdateName(user.MiiData.ClientId, newName);
         if (updated.IsFailure)
         {
             new MessageBoxWindow()
@@ -451,10 +436,10 @@ public class GameDataLoader : RepeatedTaskManager
     
     private OperationResult SaveRksysToFile()
     {
-        if (_saveData == null || string.IsNullOrWhiteSpace(TryCreateSaveFolderPath)) return Fail("Invalid save data or save folder path.");
+        if (_saveData == null || string.IsNullOrWhiteSpace(PathManager.SaveFolderPath)) return Fail("Invalid save data or save folder path.");
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
-        var saveFolder = Path.Combine(TryCreateSaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
+        var saveFolder = Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
         try
         {
             Directory.CreateDirectory(saveFolder);
@@ -492,4 +477,5 @@ public class GameDataLoader : RepeatedTaskManager
         LoadGameData();
         return Task.CompletedTask;
     }
+
 }

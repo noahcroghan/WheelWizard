@@ -8,6 +8,7 @@ using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views.Pages;
 
@@ -19,6 +20,7 @@ public partial class FriendsPage : UserControl, INotifyPropertyChanged, IRepeate
     private static ListOrderCondition CurrentOrder = ListOrderCondition.IS_ONLINE;
     
     private ObservableCollection<GameDataFriend> _friendlist = new();
+    private IGameDataLoader _gameDataService = null!;
     public ObservableCollection<GameDataFriend> FriendList
     {
         get => _friendlist;
@@ -31,10 +33,9 @@ public partial class FriendsPage : UserControl, INotifyPropertyChanged, IRepeate
     public FriendsPage()
     {
         InitializeComponent();
-        
-        GameDataLoader.Instance.Subscribe(this);
+        _gameDataService = App.Services.GetRequiredService<IGameDataLoader>()!;
+        _gameDataService.Subscribe(this);
         UpdateFriendList();
-        GameDataLoader.Instance.LoadGameData();
         
         DataContext = this;
         FriendsListView.ItemsSource = FriendList;
@@ -71,7 +72,7 @@ public partial class FriendsPage : UserControl, INotifyPropertyChanged, IRepeate
         VisibleWhenFriends.IsVisible = FriendList.Count > 0;
     }
 
-    private static List<GameDataFriend> GetSortedPlayerList()
+    private List<GameDataFriend> GetSortedPlayerList()
     {
         Func<GameDataFriend, object> orderMethod = CurrentOrder switch
         {
@@ -82,7 +83,7 @@ public partial class FriendsPage : UserControl, INotifyPropertyChanged, IRepeate
             ListOrderCondition.TOTAL_RACES => f => f.Losses + f.Wins,
             ListOrderCondition.IS_ONLINE or _ => f => f.IsOnline,
         };
-        return GameDataLoader.Instance.GetCurrentFriends.OrderByDescending(orderMethod).ToList();
+        return _gameDataService.GetCurrentFriends.OrderByDescending(orderMethod).ToList();
     }
 
     private void PopulateSortingList()

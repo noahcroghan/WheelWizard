@@ -1,5 +1,7 @@
 ﻿using WheelWizard.WiiManagement.Domain.Enums;
 
+namespace WheelWizard.WiiManagement;
+
 public static class MiiSerializer
 {
     public const int MiiBlockSize = 74;
@@ -282,4 +284,3 @@ public static class MiiSerializer
         return mii;
     }
 }
-

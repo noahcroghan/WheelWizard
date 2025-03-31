@@ -73,7 +73,6 @@ public class App : Application
     {
         WhWzStatusManager.Instance.Start();
         RRLiveRooms.Instance.Start();
-        GameDataLoader.Instance.Start();
     }
 
     public override void OnFrameworkInitializationCompleted()

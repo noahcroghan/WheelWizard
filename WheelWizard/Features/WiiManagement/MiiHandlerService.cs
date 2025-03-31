@@ -11,7 +11,6 @@ public interface IMiiDbService
     OperationResult UpdateName(uint clientId, string newName);
 }
 
-
 public class MiiDbService(IMiiRepository repository) : IMiiDbService
 {
     public List<FullMii> GetAllMiis()

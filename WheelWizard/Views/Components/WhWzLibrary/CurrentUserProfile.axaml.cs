@@ -7,6 +7,7 @@ using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Views.Pages;
+using WheelWizard.WiiManagement;
 
 
 namespace WheelWizard.Views.Components;
@@ -44,9 +45,9 @@ public class CurrentUserProfile : TemplatedControl, INotifyPropertyChanged
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
-
-        GameDataLoader.Instance.RefreshOnlineStatus();
-        var currentUser = GameDataLoader.Instance.GetCurrentUser;
+        var gameDataService = App.Services.GetRequiredService<IGameDataLoader>()!;
+        gameDataService.RefreshOnlineStatus();
+        var currentUser = gameDataService.GetCurrentUser;
         
         var name = currentUser.NameOfMii;
         if (name == SettingValues.NoName)

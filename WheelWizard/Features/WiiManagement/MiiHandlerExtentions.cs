@@ -7,7 +7,8 @@ public static class MiiSerializerExtensions
     public static IServiceCollection AddMiiSerializer(this IServiceCollection services)
     {
         services.AddSingleton<IMiiDbService, MiiDbService>();
-        services.AddSingleton<IMiiRepository, FileMiiRepository>(); 
+        services.AddSingleton<IMiiRepository, MiiRepositoryService>();
+        services.AddSingleton<IGameDataLoader, GameDataLoader>();
         return services;
     }
 }

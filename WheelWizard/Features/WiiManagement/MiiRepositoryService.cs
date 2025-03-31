@@ -12,7 +12,7 @@ public interface IMiiRepository
     OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock);
 }
 
-public class FileMiiRepository(IFileSystem fileSystem) : IMiiRepository
+public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
 {
     private const int MiiLength = 74;
     private const int MaxMiiSlots = 100;
