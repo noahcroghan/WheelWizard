@@ -1,0 +1,221 @@
+using System.Collections.Generic;
+using Xunit;
+using NSubstitute;
+using WheelWizard.Shared;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain;
+using WheelWizard.WiiManagement.Domain.Enums;
+
+namespace WheelWizard.Test.Features
+{
+    public class MiiDbServiceTests
+    {
+        private FullMii CreateValidMii(uint id = 1, string name = "TestMii")
+        {
+            return new FullMii
+            {
+                Name = MiiName.Create(name).Value,
+                MiiId = id,
+                Height = MiiScale.Create(60).Value,
+                Weight = MiiScale.Create(50).Value,
+                MiiFacial = MiiFacialFeatures.Create(1, 1, 1, false, false).Value,
+                MiiHair = MiiHair.Create(1, 1, false).Value,
+                MiiEyebrows = MiiEyebrow.Create(1, 1, 1, 1, 1, 1).Value,
+                MiiEyes = MiiEye.Create(1, 1, 1, 1, 1, 1).Value,
+                MiiNose = MiiNose.Create(1, 1, 1).Value,
+                MiiLips = MiiLip.Create(1, 1, 1, 1).Value,
+                MiiGlasses = MiiGlasses.Create(1, 1, 1, 1).Value,
+                MiiFacialHair = MiiFacialHair.Create(1, 1, 1, 1, 1).Value,
+                MiiMole = MiiMole.Create(true, 1, 1, 1).Value,
+                CreatorName = MiiName.Create("Creator").Value
+            };
+        }
+        
+        private readonly IMiiRepository _repository;
+        private readonly MiiDbService _service;
+
+        public MiiDbServiceTests()
+        {
+            _repository = Substitute.For<IMiiRepository>();
+            _service = new MiiDbService(_repository);
+        }
+        
+        [Fact]
+        public void CreateValidMii_ShouldSerializeAndDeserializeSuccessfully()
+        {
+            // Arrange
+            var original = CreateValidMii(999, "RoundTripMii");
+
+            // Act
+            var serialized = MiiSerializer.Serialize(original);
+
+            // Assert serialization succeeded
+            Assert.True(serialized.IsSuccess);
+
+            var deserializedResult = MiiSerializer.Deserialize(serialized.Value);
+
+            // Assert deserialization succeeded
+            Assert.True(deserializedResult.IsSuccess);
+
+            var deserialized = deserializedResult.Value;
+
+            // Assert that key properties match
+            Assert.Equal(original.MiiId, deserialized.MiiId);
+            Assert.Equal(original.Name.ToString(), deserialized.Name.ToString());
+            Assert.Equal(original.Height.Value, deserialized.Height.Value);
+            Assert.Equal(original.MiiFacial.FaceShape, deserialized.MiiFacial.FaceShape);
+            Assert.Equal(original.MiiEyes.Type, deserialized.MiiEyes.Type);
+            Assert.Equal(original.MiiGlasses.Type, deserialized.MiiGlasses.Type);
+            Assert.Equal(original.CreatorName.ToString(), deserialized.CreatorName.ToString());
+        }
+
+        [Fact]
+        public void GetAllMiis_ReturnsValidMiis_WhenRepositoryReturnsValidBlocks()
+        {
+            // Arrange: use the helper method to create a fully valid Mii.
+            var fullMii = CreateValidMii(1, "TestMii");
+            var serialized = MiiSerializer.Serialize(fullMii);
+            Assert.True(serialized.IsSuccess, "Serialization failed for valid Mii.");
+
+            _repository.LoadAllBlocks().Returns(new List<byte[]> { serialized.Value });
+
+            // Act
+            var result = _service.GetAllMiis();
+
+            // Assert
+            Assert.Single(result);
+            Assert.Equal("TestMii", result[0].Name.ToString());
+        }
+
+        [Fact]
+        public void GetByClientId_ReturnsMii_WhenRepositoryReturnsValidBlock()
+        {
+            // Arrange: create a valid Mii using the helper.
+            var fullMii = CreateValidMii(123, "TestMii");
+            var serialized = MiiSerializer.Serialize(fullMii);
+            Assert.True(serialized.IsSuccess);
+
+            _repository.GetRawBlockByClientId(123).Returns(serialized.Value);
+
+            // Act
+            var result = _service.GetByClientId(123);
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal("TestMii", result.Value.Name.ToString());
+        }
+
+        [Fact]
+        public void GetByClientId_ReturnsFailure_WhenRepositoryReturnsNullOrInvalidLength()
+        {
+            // Arrange: repository returns null.
+            _repository.GetRawBlockByClientId(456).Returns((byte[])null);
+
+            // Act
+            var resultNull = _service.GetByClientId(456);
+
+            // Assert
+            Assert.True(resultNull.IsFailure);
+            Assert.Equal("Mii block not found or invalid.", resultNull.Error.Message);
+
+            // Arrange: repository returns an invalid block (wrong length)
+            _repository.GetRawBlockByClientId(789).Returns(new byte[10]);
+
+            // Act
+            var resultInvalid = _service.GetByClientId(789);
+
+            // Assert
+            Assert.True(resultInvalid.IsFailure);
+            Assert.Equal("Mii block not found or invalid.", resultInvalid.Error.Message);
+        }
+
+        [Fact]
+        public void Update_ReturnsFailure_WhenRepositoryUpdateFails()
+        {
+            // Arrange: create a valid Mii using the helper.
+            var fullMii = CreateValidMii(789, "TestMii");
+            var serialized = MiiSerializer.Serialize(fullMii);
+            Assert.True(serialized.IsSuccess);
+
+            // Simulate repository update failure.
+            _repository.UpdateBlockByClientId(789, serialized.Value)
+                       .Returns(OperationResult.Fail("Update failed"));
+
+            // Act
+            var result = _service.Update(fullMii);
+
+            // Assert
+            Assert.True(result.IsFailure);
+            Assert.Equal("Update failed", result.Error.Message);
+        }
+
+        [Fact]
+        public void Update_ReturnsSuccess_WhenRepositoryUpdateSucceeds()
+        {
+            // Arrange: create a valid Mii using the helper.
+            var fullMii = CreateValidMii(321, "TestMii");
+            var serialized = MiiSerializer.Serialize(fullMii);
+            Assert.True(serialized.IsSuccess);
+
+            _repository.UpdateBlockByClientId(321, serialized.Value)
+                       .Returns(OperationResult.Ok());
+
+            // Act
+            var result = _service.Update(fullMii);
+
+            // Assert
+            Assert.True(result.IsSuccess);
+        }
+
+        [Fact]
+        public void UpdateName_ReturnsFailure_WhenGetByClientIdFails()
+        {
+            // Arrange: repository returns null for the given clientId.
+            _repository.GetRawBlockByClientId(111).Returns((byte[])null);
+
+            // Act
+            var result = _service.UpdateName(111, "NewName");
+
+            // Assert
+            Assert.True(result.IsFailure);
+            Assert.Equal("Mii block not found or invalid.", result.Error.Message);
+        }
+
+        [Fact]
+        public void UpdateName_ReturnsFailure_WhenNewNameIsInvalid()
+        {
+            // Arrange: valid Mii block exists.
+            var fullMii = CreateValidMii(222, "TestMii");
+            var serialized = MiiSerializer.Serialize(fullMii);
+            Assert.True(serialized.IsSuccess);
+            _repository.GetRawBlockByClientId(222).Returns(serialized.Value);
+
+            // Act: attempt to update the name with an invalid value (empty string).
+            var result = _service.UpdateName(222, "");
+
+            // Assert: expect failure from MiiName.Create.
+            Assert.True(result.IsFailure);
+            Assert.Equal("Mii name cannot be empty", result.Error.Message);
+        }
+
+        [Fact]
+        public void UpdateName_ReturnsSuccess_WhenNameIsUpdated()
+        {
+            // Arrange: valid Mii block exists.
+            var fullMii = CreateValidMii(333, "OldName");
+            var serialized = MiiSerializer.Serialize(fullMii);
+            Assert.True(serialized.IsSuccess);
+            _repository.GetRawBlockByClientId(333).Returns(serialized.Value);
+
+            // Simulate repository update success.
+            _repository.UpdateBlockByClientId(333, Arg.Any<byte[]>())
+                       .Returns(OperationResult.Ok());
+
+            // Act: update the name.
+            var result = _service.UpdateName(333, "NewName");
+
+            // Assert
+            Assert.True(result.IsSuccess);
+        }
+    }
+}

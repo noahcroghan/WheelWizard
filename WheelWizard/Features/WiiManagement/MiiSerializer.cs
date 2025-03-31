@@ -5,9 +5,10 @@ namespace WheelWizard.WiiManagement;
 public static class MiiSerializer
 {
     public const int MiiBlockSize = 74;
-
-    public static OperationResult<byte[]> Serialize(FullMii mii)
+    public static OperationResult<byte[]> Serialize(FullMii? mii)
     {
+        if (mii == null)
+            return Fail<byte[]>("Mii cannot be null.");
         byte[] data = new byte[MiiBlockSize];
 
         // Header (0x00 - 0x01)
@@ -132,10 +133,10 @@ public static class MiiSerializer
         return data;
     }
     
-    public static OperationResult<FullMii> Deserialize(byte[] data)
+    public static OperationResult<FullMii> Deserialize(byte[]? data)
     {
         if (data == null || data.Length != 74)
-            Fail<FullMii>("Invalid Mii data length.");
+            return Fail<FullMii>("Invalid Mii data length.");
 
         var mii = new FullMii();
 
