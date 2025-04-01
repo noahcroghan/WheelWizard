@@ -3,23 +3,54 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="444" d:DesignHeight="716"
-             xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              xmlns:components="clr-namespace:WheelWizard.Views.Components"
              x:Class="WheelWizard.Views.Pages.Settings.AppInfo">
     <Grid>
         <StackPanel Margin="0,5,0,0">
             
-            <!-- TRANSLATORS -->
+            <!-- WHWZ DEVS -->
             <Border Classes="AboutBlockStyle" Margin="0,10,0,0">
                 <Grid ColumnDefinitions="60,*">
-                    <Path Grid.Column="0" Data="{StaticResource Translation}" Stretch="Uniform"
-                          HorizontalAlignment="Left" VerticalAlignment="Center"
-                              Fill="{StaticResource Neutral500}" Width="40"/>
+                    <components:Badge Variant="WhWzDev" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                      Width="38" Height="38" Margin="1,0,0,0"/>
                     <Border Grid.Column="0" Classes="AboutBlockLineStyle" HorizontalAlignment="Right"/>
                     
                     <StackPanel Grid.Column="1">
-                        <components:FormFieldLabel Text="{x:Static lang:Phrases.Text_ThanksTranslators}" Margin="0,0,0,2"/>
-                        <SelectableTextBlock Classes="TinyText" Text="Eppe, Weebo, kytronix, Noël, Haru00007, JGavidia, Sep, " />
+                        <components:FormFieldLabel Text="Team Wheel Wizard" Margin="0,0,0,2"/>
+                        <SelectableTextBlock Classes="TinyText" Text="This application is created by Patchzy and WantToBeeMe." />
+                        <SelectableTextBlock Classes="TinyText" Text="Thanks to the team members, we managed to make it even better:" />
+                        <SelectableTextBlock Classes="TinyText" Text="Ruben, lasagna, matellush" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <!-- RR dEVS -->
+            <Border Classes="AboutBlockStyle" Margin="0,10,0,0">
+                <Grid ColumnDefinitions="60,*">
+                    <components:Badge Variant="RrDev" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                      Width="38" Height="38" Margin="1,0,0,0"/>
+                    <Border Grid.Column="0" Classes="AboutBlockLineStyle" HorizontalAlignment="Right"/>
+                    
+                    <StackPanel Grid.Column="1">
+                        <components:FormFieldLabel Text="Team Retro Rewind" Margin="0,0,0,2"/>
+                        <SelectableTextBlock Classes="TinyText" Text="Wheel Wizard was made to make your life easy when playing RR." />
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <!-- TRANSLATORS -->
+            <Border Classes="AboutBlockStyle" Margin="0,10,0,0">
+                <Grid ColumnDefinitions="60,*">
+                    <components:Badge Variant="Translator" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                      Width="38" Height="38" Margin="1,0,0,0"/>
+                    <Border Grid.Column="0" Classes="AboutBlockLineStyle" HorizontalAlignment="Right"/>
+                    
+                    <StackPanel Grid.Column="1">
+                        <components:FormFieldLabel Text="Translator Team" Margin="0,0,0,2"/>
+                        <SelectableTextBlock Classes="TinyText" Text="The entire Translation is being managed by Eppe." />
+                        <SelectableTextBlock Classes="TinyText" Text="You can use Wheel Wizard and Retro Rewind in multiple languages" />
+                        <SelectableTextBlock Classes="TinyText" Text="thanks to her and the entire translator team:" />
+                        <SelectableTextBlock Classes="TinyText" Text="Weebo, kytronix, Noël, Haru00007, JGavidia, Sep, " />
                         <SelectableTextBlock Classes="TinyText" Text="OrangeCake_, Ismy, rhyy, Sinseiga, CaXaP, StationAlpha" />
                     </StackPanel>
  
@@ -42,7 +73,7 @@
                     
                     <StackPanel Grid.Column="1">
                         <components:FormFieldLabel Text="Roboto Classic Font" Margin="0,0,0,2"/>
-                        <TextBlock Classes="TinyText" Text="This application uses the Roboto font. This Font Software is "/>
+                        <TextBlock Classes="TinyText" Text="Wheel Wizard uses the Roboto font. This Font Software is "/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Classes="TinyText" Text="licensed under the"/>
                             <components:IconLabelButton Text=" SIL Open Font License, Version 1.1" FontSize="12"
@@ -80,7 +111,7 @@
                         <components:FormFieldLabel Text="Wheel Wizard icons" Margin="0,0,0,2"/>
                        
                         <StackPanel Orientation="Horizontal">
-                            <SelectableTextBlock Classes="TinyText" Text="This application uses icons from" />
+                            <SelectableTextBlock Classes="TinyText" Text="Wheel Wizard uses icons from" />
                             <components:IconLabelButton Text=" Game Icons" FontSize="12"
                                                         Foreground="{StaticResource Primary300}"
                                                         HoverForeground="{StaticResource Primary200}"
