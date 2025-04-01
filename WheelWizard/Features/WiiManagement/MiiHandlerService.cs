@@ -11,12 +11,18 @@ public interface IMiiDbService
     OperationResult UpdateName(uint clientId, string newName);
 }
 
-public class MiiDbService(IMiiRepository repository) : IMiiDbService
+public class MiiDbService : IMiiDbService
 {
+    private readonly IMiiRepository _repository;
+    
+    public MiiDbService(IMiiRepository repository)
+    {
+        _repository = repository;
+    }
     public List<FullMii> GetAllMiis()
     {
         var result = new List<FullMii>();
-        var blocks = repository.LoadAllBlocks();
+        var blocks = _repository.LoadAllBlocks();
 
         foreach (var block in blocks)
         {
@@ -30,7 +36,7 @@ public class MiiDbService(IMiiRepository repository) : IMiiDbService
 
     public OperationResult<FullMii> GetByClientId(uint clientId)
     {
-        var raw = repository.GetRawBlockByClientId(clientId);
+        var raw = _repository.GetRawBlockByClientId(clientId);
         if (raw == null || raw.Length != MiiSerializer.MiiBlockSize)
             return Fail<FullMii>("Mii block not found or invalid.");
 
@@ -41,8 +47,9 @@ public class MiiDbService(IMiiRepository repository) : IMiiDbService
     {
         var serialized = MiiSerializer.Serialize(updatedMii);
         if (serialized.IsFailure)
-            return serialized.Error;
-        return repository.UpdateBlockByClientId(updatedMii.MiiId, serialized.Value);
+            return serialized;
+        var value = _repository.UpdateBlockByClientId(updatedMii.MiiId, serialized.Value);
+        return value;
     }
 
     public OperationResult UpdateName(uint clientId, string newName)

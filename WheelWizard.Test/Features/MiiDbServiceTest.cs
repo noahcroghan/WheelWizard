@@ -135,20 +135,20 @@ namespace WheelWizard.Test.Features
         public void GetByClientId_ReturnsFailure_WhenRepositoryReturnsNullOrInvalidLength()
         {
             // Arrange: repository returns null.
-            _repository.GetRawBlockByClientId(456).Returns((byte[])null);
+            _repository.GetRawBlockByClientId(123).Returns((byte[])null);
 
             // Act
-            var resultNull = _service.GetByClientId(456);
+            var resultNull = _service.GetByClientId(123);
 
             // Assert
             Assert.True(resultNull.IsFailure);
             Assert.Equal("Mii block not found or invalid.", resultNull.Error.Message);
 
             // Arrange: repository returns an invalid block (wrong length)
-            _repository.GetRawBlockByClientId(789).Returns(new byte[10]);
+            _repository.GetRawBlockByClientId(123).Returns(new byte[10]);
 
             // Act
-            var resultInvalid = _service.GetByClientId(789);
+            var resultInvalid = _service.GetByClientId(123);
 
             // Assert
             Assert.True(resultInvalid.IsFailure);
@@ -159,14 +159,14 @@ namespace WheelWizard.Test.Features
         public void Update_ReturnsFailure_WhenRepositoryUpdateFails()
         {
             // Arrange: create a valid Mii using the helper.
-            var fullMii = CreateValidMii(789, "TestMii");
+            var fullMii = CreateValidMii(123, "TestMii");
             if (fullMii.IsFailure)
                 Assert.True(false, "Failed to create valid Mii for Update test.");
             var serialized = MiiSerializer.Serialize(fullMii.Value);
             Assert.True(serialized.IsSuccess);
 
             // Simulate repository update failure.
-            _repository.UpdateBlockByClientId(789, serialized.Value)
+            _repository.UpdateBlockByClientId(123, serialized.Value)
                        .Returns(OperationResult.Fail("Update failed"));
 
             // Act
