@@ -26,6 +26,9 @@ public static class RetroRewindUpdater
     {
         try
         {
+            if (!RetroRewindInstaller.IsRetroRewindInstalled())
+                return await RetroRewindInstaller.HandleNotInstalled();
+
             var currentVersion = RetroRewindInstaller.CurrentRRVersion();
             if (await IsRRUpToDate(currentVersion))
             {
@@ -36,9 +39,6 @@ public static class RetroRewindUpdater
                     .ShowDialog();
                 return true;
             }
-
-            if (currentVersion == "Not Installed")
-                return await RetroRewindInstaller.HandleNotInstalled();
 
             //if current version is below 3.2.6 we need to do a full reinstall
             if (CompareVersions(currentVersion, "3.2.6") < 0)
