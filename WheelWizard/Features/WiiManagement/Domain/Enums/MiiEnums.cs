@@ -17,7 +17,7 @@ public class MiiName
             return Fail<MiiName>("Mii name cannot be empty");
         
         if (value.Length > 10) 
-            return Fail<MiiName>("Mii name too long");
+            return Fail<MiiName>("Mii name too long, Length: " + value.Length + " name: " +value);
         
         return Ok(new MiiName(value));
     }

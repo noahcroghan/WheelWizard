@@ -10,24 +10,44 @@ namespace WheelWizard.Test.Features
 {
     public class MiiDbServiceTests
     {
-        private FullMii CreateValidMii(uint id = 1, string name = "TestMii")
+        private OperationResult<FullMii> CreateValidMii(uint id = 1, string name = "TestMii")
         {
-            return new FullMii
+            var miiname = MiiName.Create(name);
+            var miiId = id;
+            var height = MiiScale.Create(60);
+            var weight = MiiScale.Create(50);
+            var miiFacial = MiiFacialFeatures.Create(1, 1, 1, false, false);
+            var miiHair = MiiHair.Create(1, 1, false);
+            var miiEyebrows = MiiEyebrow.Create(1, 1, 1, 1, 1, 1);
+            var miiEyes = MiiEye.Create(1, 1, 1, 1, 1, 1);
+            var miiNose = MiiNose.Create(1, 1, 1);
+            var miiLips = MiiLip.Create(1, 1, 1, 1);
+            var miiGlasses = MiiGlasses.Create(1, 1, 1, 1);
+            var miiFacialHair = MiiFacialHair.Create(1, 1, 1, 1, 1);
+            var miiMole = MiiMole.Create(true, 1, 1, 1);
+            var creatorName = MiiName.Create("Creator");
+            var EveryResult = new List<OperationResult> { miiname, height, weight, miiFacial, miiHair, miiEyebrows, miiEyes, miiNose, miiLips, miiGlasses, miiFacialHair, miiMole, creatorName };
+            foreach (var result in EveryResult)
             {
-                Name = MiiName.Create(name).Value,
-                MiiId = id,
-                Height = MiiScale.Create(60).Value,
-                Weight = MiiScale.Create(50).Value,
-                MiiFacial = MiiFacialFeatures.Create(1, 1, 1, false, false).Value,
-                MiiHair = MiiHair.Create(1, 1, false).Value,
-                MiiEyebrows = MiiEyebrow.Create(1, 1, 1, 1, 1, 1).Value,
-                MiiEyes = MiiEye.Create(1, 1, 1, 1, 1, 1).Value,
-                MiiNose = MiiNose.Create(1, 1, 1).Value,
-                MiiLips = MiiLip.Create(1, 1, 1, 1).Value,
-                MiiGlasses = MiiGlasses.Create(1, 1, 1, 1).Value,
-                MiiFacialHair = MiiFacialHair.Create(1, 1, 1, 1, 1).Value,
-                MiiMole = MiiMole.Create(true, 1, 1, 1).Value,
-                CreatorName = MiiName.Create("Creator").Value
+                if (result.IsFailure)
+                    return result.Error;
+            }
+            return new FullMii()
+            {
+                Name = miiname.Value,
+                MiiId = miiId,
+                Height = height.Value,
+                Weight = weight.Value,
+                MiiFacial = miiFacial.Value,
+                MiiHair = miiHair.Value,
+                MiiEyebrows = miiEyebrows.Value,
+                MiiEyes = miiEyes.Value,
+                MiiNose = miiNose.Value,
+                MiiLips = miiLips.Value,
+                MiiGlasses = miiGlasses.Value,
+                MiiFacialHair = miiFacialHair.Value,
+                MiiMole = miiMole.Value,
+                CreatorName = creatorName.Value
             };
         }
         
@@ -44,10 +64,12 @@ namespace WheelWizard.Test.Features
         public void CreateValidMii_ShouldSerializeAndDeserializeSuccessfully()
         {
             // Arrange
-            var original = CreateValidMii(999, "RoundTripMii");
+            var original = CreateValidMii(999, "RoundMii");
+            if (original.IsFailure)
+                Assert.True(false, "Failed to create valid Mii for serialization test. + " + original.Error.Message);
 
             // Act
-            var serialized = MiiSerializer.Serialize(original);
+            var serialized = MiiSerializer.Serialize(original.Value);
 
             // Assert serialization succeeded
             Assert.True(serialized.IsSuccess);
@@ -60,13 +82,13 @@ namespace WheelWizard.Test.Features
             var deserialized = deserializedResult.Value;
 
             // Assert that key properties match
-            Assert.Equal(original.MiiId, deserialized.MiiId);
-            Assert.Equal(original.Name.ToString(), deserialized.Name.ToString());
-            Assert.Equal(original.Height.Value, deserialized.Height.Value);
-            Assert.Equal(original.MiiFacial.FaceShape, deserialized.MiiFacial.FaceShape);
-            Assert.Equal(original.MiiEyes.Type, deserialized.MiiEyes.Type);
-            Assert.Equal(original.MiiGlasses.Type, deserialized.MiiGlasses.Type);
-            Assert.Equal(original.CreatorName.ToString(), deserialized.CreatorName.ToString());
+            Assert.Equal(original.Value.MiiId, deserialized.MiiId);
+            Assert.Equal(original.Value.Name.ToString(), deserialized.Name.ToString());
+            Assert.Equal(original.Value.Height.Value, deserialized.Height.Value);
+            Assert.Equal(original.Value.MiiFacial.FaceShape, deserialized.MiiFacial.FaceShape);
+            Assert.Equal(original.Value.MiiEyes.Type, deserialized.MiiEyes.Type);
+            Assert.Equal(original.Value.MiiGlasses.Type, deserialized.MiiGlasses.Type);
+            Assert.Equal(original.Value.CreatorName.ToString(), deserialized.CreatorName.ToString());
         }
 
         [Fact]
@@ -74,7 +96,9 @@ namespace WheelWizard.Test.Features
         {
             // Arrange: use the helper method to create a fully valid Mii.
             var fullMii = CreateValidMii(1, "TestMii");
-            var serialized = MiiSerializer.Serialize(fullMii);
+            if (fullMii.IsFailure)
+                Assert.True(false, "Failed to create valid Mii for GetAllMiis test.");
+            var serialized = MiiSerializer.Serialize(fullMii.Value);
             Assert.True(serialized.IsSuccess, "Serialization failed for valid Mii.");
 
             _repository.LoadAllBlocks().Returns(new List<byte[]> { serialized.Value });
@@ -92,7 +116,9 @@ namespace WheelWizard.Test.Features
         {
             // Arrange: create a valid Mii using the helper.
             var fullMii = CreateValidMii(123, "TestMii");
-            var serialized = MiiSerializer.Serialize(fullMii);
+            if (fullMii.IsFailure)
+                Assert.True(false, "Failed to create valid Mii for GetByClientId test.");
+            var serialized = MiiSerializer.Serialize(fullMii.Value);
             Assert.True(serialized.IsSuccess);
 
             _repository.GetRawBlockByClientId(123).Returns(serialized.Value);
@@ -134,7 +160,9 @@ namespace WheelWizard.Test.Features
         {
             // Arrange: create a valid Mii using the helper.
             var fullMii = CreateValidMii(789, "TestMii");
-            var serialized = MiiSerializer.Serialize(fullMii);
+            if (fullMii.IsFailure)
+                Assert.True(false, "Failed to create valid Mii for Update test.");
+            var serialized = MiiSerializer.Serialize(fullMii.Value);
             Assert.True(serialized.IsSuccess);
 
             // Simulate repository update failure.
@@ -142,7 +170,7 @@ namespace WheelWizard.Test.Features
                        .Returns(OperationResult.Fail("Update failed"));
 
             // Act
-            var result = _service.Update(fullMii);
+            var result = _service.Update(fullMii.Value);
 
             // Assert
             Assert.True(result.IsFailure);
@@ -154,14 +182,16 @@ namespace WheelWizard.Test.Features
         {
             // Arrange: create a valid Mii using the helper.
             var fullMii = CreateValidMii(321, "TestMii");
-            var serialized = MiiSerializer.Serialize(fullMii);
+            if (fullMii.IsFailure)
+                Assert.True(false, "Failed to create valid Mii for Update test.");
+            var serialized = MiiSerializer.Serialize(fullMii.Value);
             Assert.True(serialized.IsSuccess);
 
             _repository.UpdateBlockByClientId(321, serialized.Value)
                        .Returns(OperationResult.Ok());
 
             // Act
-            var result = _service.Update(fullMii);
+            var result = _service.Update(fullMii.Value);
 
             // Assert
             Assert.True(result.IsSuccess);
@@ -186,7 +216,9 @@ namespace WheelWizard.Test.Features
         {
             // Arrange: valid Mii block exists.
             var fullMii = CreateValidMii(222, "TestMii");
-            var serialized = MiiSerializer.Serialize(fullMii);
+            if (fullMii.IsFailure)
+                Assert.True(false, "Failed to create valid Mii for UpdateName test.");
+            var serialized = MiiSerializer.Serialize(fullMii.Value);
             Assert.True(serialized.IsSuccess);
             _repository.GetRawBlockByClientId(222).Returns(serialized.Value);
 
@@ -203,7 +235,9 @@ namespace WheelWizard.Test.Features
         {
             // Arrange: valid Mii block exists.
             var fullMii = CreateValidMii(333, "OldName");
-            var serialized = MiiSerializer.Serialize(fullMii);
+            if (fullMii.IsFailure)
+                Assert.True(false, "Failed to create valid Mii for UpdateName test.");
+            var serialized = MiiSerializer.Serialize(fullMii.Value);
             Assert.True(serialized.IsSuccess);
             _repository.GetRawBlockByClientId(333).Returns(serialized.Value);
 
