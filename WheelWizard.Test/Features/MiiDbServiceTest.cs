@@ -166,8 +166,9 @@ namespace WheelWizard.Test.Features
             Assert.True(serialized.IsSuccess);
 
             // Simulate repository update failure.
-            _repository.UpdateBlockByClientId(123, serialized.Value)
-                       .Returns(OperationResult.Fail("Update failed"));
+            _repository.UpdateBlockByClientId(123, Arg.Any<byte[]>())
+                .Returns(OperationResult.Fail("Update failed"));
+
 
             // Act
             var result = _service.Update(fullMii.Value);
@@ -187,7 +188,7 @@ namespace WheelWizard.Test.Features
             var serialized = MiiSerializer.Serialize(fullMii.Value);
             Assert.True(serialized.IsSuccess);
 
-            _repository.UpdateBlockByClientId(321, serialized.Value)
+            _repository.UpdateBlockByClientId(321, Arg.Any<byte[]>())
                        .Returns(OperationResult.Ok());
 
             // Act

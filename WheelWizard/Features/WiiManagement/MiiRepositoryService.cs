@@ -95,7 +95,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
             return Fail("Invalid ClientId.");
         if (newBlock.Length != MiiLength)
             return Fail("Mii block size invalid.");
-        if (!File.Exists(_filePath))
+        if (!fileSystem.File.Exists(_filePath))
             return Fail("RFL_DB.dat not found.");
 
         var allBlocks = LoadAllBlocks();
