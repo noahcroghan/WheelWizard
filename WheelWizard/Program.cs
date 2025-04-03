@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Logging;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 using WheelWizard.Helpers;
@@ -68,8 +67,9 @@ public class Program
         else
         {
             // Resolve all relative paths based on the WheelWizard executable's directory by default
-            var executableDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-            Environment.CurrentDirectory = executableDirectory;
+            var executableDirectory = Path.GetDirectoryName(Environment.ProcessPath);
+            if (!string.IsNullOrWhiteSpace(executableDirectory))
+                Environment.CurrentDirectory = executableDirectory;
         }
 
         // Enable overriding this base/working directory through the `WW_BASEDIR` environment variable
