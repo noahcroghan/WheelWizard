@@ -1,4 +1,5 @@
 ﻿using System.IO.Compression;
+using System.Text.RegularExpressions;
 using WheelWizard.Helpers;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Views.Popups.Generic;
@@ -7,13 +8,22 @@ namespace WheelWizard.Services.Installation;
 
 public static class RetroRewindInstaller
 {
-    
-    public static bool IsRetroRewindInstalled() => File.Exists(PathManager.RetroRewindVersionFile);
+    private static readonly string NotInstalledVersion = "Not Installed";
+
+    public static bool IsRetroRewindInstalled() => CurrentRRVersion() != NotInstalledVersion;
 
     public static string CurrentRRVersion()
     {
         var versionFilePath = PathManager.RetroRewindVersionFile;
-        return IsRetroRewindInstalled() ? File.ReadAllText(versionFilePath).Trim() : "Not Installed";
+        if (!File.Exists(versionFilePath))
+            return NotInstalledVersion;
+
+        var versionText = File.ReadAllText(versionFilePath).Trim();
+        var versionPattern = @"^\d+\.\d+\.\d+$";
+        if (!Regex.IsMatch(versionText, versionPattern))
+            return NotInstalledVersion;
+
+        return versionText;
     }
 
     public static async Task<bool> HandleNotInstalled()
@@ -47,13 +57,13 @@ public static class RetroRewindInstaller
         if (IsRetroRewindInstalled())
             DeleteExistingRetroRewind();
 
-        if (hasOldrksys())
+        if (HasOldRksys())
         {
             var rksysQuestion = new YesNoWindow()
                                 .SetMainText(Phrases.PopupText_OldRksysFound)
                                 .SetExtraText(Phrases.PopupText_OldRksysFoundExplained);
-            if (await rksysQuestion.AwaitAnswer()) 
-                await backupOldrksys();
+            if (await rksysQuestion.AwaitAnswer())
+                await BackupOldrksys();
 
         }
         var serverResponse = await HttpClientHelper.GetAsync<string>(Endpoints.RRUrl);
@@ -75,10 +85,10 @@ public static class RetroRewindInstaller
             .SetMainText(Phrases.PopupText_ReinstallRR)
             .SetExtraText(Phrases.PopupText_ReinstallQuestion)
             .AwaitAnswer();
-        
-        if (!result) 
+
+        if (!result)
             return;
-        
+
         DeleteExistingRetroRewind();
         await InstallRetroRewind();
     }
@@ -103,12 +113,21 @@ public static class RetroRewindInstaller
         }
     }
 
-    private static bool hasOldrksys()
+    private static bool HasOldRksys()
+    {
+        return !string.IsNullOrWhiteSpace(GetOldRksys());
+    }
+
+    private static string GetOldRksys()
     {
         var rrWfcPaths = new[]
         {
             Path.Combine(PathManager.SaveFolderPath),
+            // Also consider the folder with upper-case `Save`
+            Path.Combine(PathManager.RiivolutionWhWzFolderPath, "riivolution", "Save", "RetroWFC"),
             Path.Combine(PathManager.LoadFolderPath, "Riivolution", "save", "RetroWFC"),
+            Path.Combine(PathManager.LoadFolderPath, "Riivolution", "Save", "RetroWFC"),
+            Path.Combine(PathManager.LoadFolderPath, "riivolution", "save", "RetroWFC"),
             Path.Combine(PathManager.LoadFolderPath, "riivolution", "Save", "RetroWFC"),
         };
 
@@ -117,15 +136,15 @@ public static class RetroRewindInstaller
             if (!Directory.Exists(rrWfc)) continue;
             var rksysFiles = Directory.GetFiles(rrWfc, "rksys.dat", SearchOption.AllDirectories);
             if (rksysFiles.Length > 0)
-                return true;
+                return rrWfc;
         }
 
-        return false;
+        return string.Empty;
     }
 
-    private static async Task backupOldrksys()
+    private static async Task BackupOldrksys()
     {
-        var rrWfc = Path.Combine(PathManager.SaveFolderPath);
+        var rrWfc = Path.Combine(GetOldRksys());
         if (!Directory.Exists(rrWfc)) return;
         var rksysFiles = Directory.GetFiles(rrWfc, "rksys.dat", SearchOption.AllDirectories);
         if (rksysFiles.Length == 0) return;
@@ -138,7 +157,7 @@ public static class RetroRewindInstaller
         Directory.CreateDirectory(destinationFolder);
         var destinationFile = Path.Combine(destinationFolder, "rksys.dat");
         await File.WriteAllBytesAsync(destinationFile, datFileData);
-        
+
     }
 
     private static void DeleteExistingRetroRewind()
