@@ -127,10 +127,12 @@ public static class DolphinLaunchHelper
                 startInfo.ArgumentList.Add("sh");
                 startInfo.ArgumentList.Add("-c");
                 startInfo.ArgumentList.Add("--");
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
-                    PathManager.IsFlatpakDolphinFilePath())
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
-                    dolphinLocation = FixFlatpakDolphinPermissions(dolphinLocation);
+                    if (PathManager.IsFlatpakDolphinFilePath())
+                        dolphinLocation = FixFlatpakDolphinPermissions(dolphinLocation);
+                    else
+                        startInfo.EnvironmentVariables["QT_QPA_PLATFORM"] = "xcb";
                 }
                 startInfo.ArgumentList.Add($"{dolphinLocation} {dolphinLaunchArguments}");
                 startInfo.UseShellExecute = false;
