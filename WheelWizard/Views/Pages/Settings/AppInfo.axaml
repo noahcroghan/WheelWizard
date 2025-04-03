@@ -18,8 +18,8 @@
                     <StackPanel Grid.Column="1">
                         <components:FormFieldLabel Text="Team Wheel Wizard" Margin="0,0,0,2"/>
                         <SelectableTextBlock Classes="TinyText" Text="This application is created by Patchzy and WantToBeeMe." />
-                        <SelectableTextBlock Classes="TinyText" Text="Thanks to the team members, we managed to make it even better:" />
-                        <SelectableTextBlock Classes="TinyText" Text="Ruben, lasagna, matellush" />
+                        <SelectableTextBlock Classes="TinyText" Text="Thanks to the contributers, we managed to make it even better:" />
+                        <SelectableTextBlock Classes="TinyText" Text="Ruben, Lasagna, Matellush" />
                     </StackPanel>
                 </Grid>
             </Border>
@@ -57,7 +57,7 @@
  
                     <Border Grid.Column="1" ToolTip.Placement="Top" ToolTip.ShowDelay="50"
                             ToolTip.Tip="Thanks to all the translations: 
- Weebo, kytronix, Noël, Haru00007, JGavidia, Sep, OrangeCake_, Ismy, rhyy, Sinseiga, CaXaP, StationAlpha, yawshi
+ Weebo, kytronix, Noël, Haru00007, JGavidia, Sep, OrangeCake_, Ismy, rhyy, Sinseiga, CaXaP, StationAlpha, yawshi, StHydrated
                             "
                             VerticalAlignment="Top" HorizontalAlignment="Right">
                         <PathIcon Data="{StaticResource InfoTip}" Width="14" Height="14"
