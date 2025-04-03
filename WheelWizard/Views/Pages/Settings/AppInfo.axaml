@@ -33,7 +33,8 @@
                     
                     <StackPanel Grid.Column="1">
                         <components:FormFieldLabel Text="Team Retro Rewind" Margin="0,0,0,2"/>
-                        <SelectableTextBlock Classes="TinyText" Text="Wheel Wizard was made to make your life easy when playing RR." />
+                        <SelectableTextBlock Classes="TinyText" Text="Wheel Wizard was made to set up Retro Rewind quick and easy." />
+                        <SelectableTextBlock Classes="TinyText" Text="Thanks to ZPL and all other contributors for creating Retro Rewind." />
                     </StackPanel>
                 </Grid>
             </Border>
@@ -49,13 +50,15 @@
                         <components:FormFieldLabel Text="Translator Team" Margin="0,0,0,2"/>
                         <SelectableTextBlock Classes="TinyText" Text="The entire Translation is being managed by Eppe." />
                         <SelectableTextBlock Classes="TinyText" Text="You can use Wheel Wizard and Retro Rewind in multiple languages" />
-                        <SelectableTextBlock Classes="TinyText" Text="thanks to her and the entire translator team:" />
-                        <SelectableTextBlock Classes="TinyText" Text="Weebo, kytronix, Noël, Haru00007, JGavidia, Sep, " />
-                        <SelectableTextBlock Classes="TinyText" Text="OrangeCake_, Ismy, rhyy, Sinseiga, CaXaP, StationAlpha" />
+                        <SelectableTextBlock Classes="TinyText" Text="thanks to her and the entire translator team." />
+                        <SelectableTextBlock Classes="TinyText" Text="If you are willing to translate for Retro Rewind and Wheel Wizard, " />
+                        <SelectableTextBlock Classes="TinyText" Text="be sure to reach out to Eppe or WantToBeeMe :)" />
                     </StackPanel>
  
                     <Border Grid.Column="1" ToolTip.Placement="Top" ToolTip.ShowDelay="50"
-                            ToolTip.Tip="If you are willing to translate for RetroRewind and WheelWizard. Be sure to reach out to Eppe or WantToBeeMe :)"
+                            ToolTip.Tip="Thanks to all the translations: 
+ Weebo, kytronix, Noël, Haru00007, JGavidia, Sep, OrangeCake_, Ismy, rhyy, Sinseiga, CaXaP, StationAlpha, yawshi
+                            "
                             VerticalAlignment="Top" HorizontalAlignment="Right">
                         <PathIcon Data="{StaticResource InfoTip}" Width="14" Height="14"
                                   Foreground="{StaticResource FormFieldLabelColor}" />
