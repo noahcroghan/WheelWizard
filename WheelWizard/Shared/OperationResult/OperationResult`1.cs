@@ -36,8 +36,15 @@ public class OperationResult<T> : OperationResult
     {
     }
 
-    public static implicit operator OperationResult<T>(OperationError error) => new(error);
-    public static implicit operator OperationResult<T>(string errorMessage) => new(errorMessage);
+    #region Implicit Operators
 
-    public static implicit operator OperationResult<T>(T value) => new(value);
+    public static implicit operator OperationResult<T>(T value) => Ok(value);
+
+    public static implicit operator OperationResult<T>(OperationError error) => Fail<T>(error);
+
+    public static implicit operator OperationResult<T>(string errorMessage) => Fail<T>(errorMessage);
+
+    public static implicit operator OperationResult<T>(Exception exception) => Fail<T>(exception);
+
+    #endregion
 }

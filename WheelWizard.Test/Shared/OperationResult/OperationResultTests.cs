@@ -1,6 +1,6 @@
 ﻿using WheelWizard.Shared;
 
-namespace WheelWizard.Test;
+namespace WheelWizard.Test.Shared.OperationResultTests;
 
 public class OperationResultTests
 {
@@ -88,7 +88,7 @@ public class OperationResultTests
         Assert.True(operationResult.IsSuccess);
         Assert.Equal(value, operationResult.Value);
     }
-    
+
     [Fact(DisplayName = "Create success generic result, should have correct state")]
     public void CreateSuccessGenericResult_ShouldHaveCorrectState()
     {
@@ -104,7 +104,7 @@ public class OperationResultTests
         Assert.True(operationResult.IsSuccess);
         Assert.Equal(value, operationResult.Value);
     }
-    
+
     [Fact(DisplayName = "New failure generic result, should have correct state")]
     public void NewFailureGenericResult_ShouldHaveCorrectState()
     {
@@ -119,7 +119,7 @@ public class OperationResultTests
         Assert.True(operationResult.IsFailure);
         Assert.False(operationResult.IsSuccess);
     }
-    
+
     [Fact(DisplayName = "Create failure generic result, should have correct state")]
     public void CreateFailureGenericResult_ShouldHaveCorrectState()
     {
@@ -134,7 +134,7 @@ public class OperationResultTests
         Assert.True(operationResult.IsFailure);
         Assert.False(operationResult.IsSuccess);
     }
-    
+
     [Fact(DisplayName = "Implicit generic result from error, should have correct state")]
     public void ImplicitGenericResultFromError_ShouldHaveCorrectState()
     {
@@ -149,7 +149,7 @@ public class OperationResultTests
         Assert.True(operationResult.IsFailure);
         Assert.False(operationResult.IsSuccess);
     }
-    
+
     [Fact(DisplayName = "Implicit generic result from value, should have correct state")]
     public void ImplicitGenericResultFromValue_ShouldHaveCorrectState()
     {
@@ -164,5 +164,118 @@ public class OperationResultTests
         Assert.False(operationResult.IsFailure);
         Assert.True(operationResult.IsSuccess);
         Assert.Equal(value, operationResult.Value);
+    }
+    
+    [Fact(DisplayName = "Implicit result from string, should have failed state")]
+    public void ImplicitResultFromString_ShouldHaveFailedState()
+    {
+        // Arrange
+        const string errorMessage = "Error message";
+
+        // Act
+        OperationResult operationResult = errorMessage;
+
+        // Assert
+        Assert.NotNull(operationResult.Error);
+        Assert.True(operationResult.IsFailure);
+        Assert.False(operationResult.IsSuccess);
+        Assert.Equal(errorMessage, operationResult.Error?.Message);
+    }
+    
+    [Fact(DisplayName = "Implicit result from exception, should have failed state")]
+    public void ImplicitResultFromException_ShouldHaveFailedState()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+
+        // Act
+        OperationResult operationResult = exception;
+
+        // Assert
+        Assert.NotNull(operationResult.Error);
+        Assert.True(operationResult.IsFailure);
+        Assert.False(operationResult.IsSuccess);
+        Assert.Equal(exception.Message, operationResult.Error?.Message);
+    }
+
+    [Fact(DisplayName = "Implicit generic result from string, should have correct failed state")]
+    public void ImplicitGenericResultFromString_ShouldHaveCorrectFailedState()
+    {
+        // Arrange
+        const string errorMessage = "Error message";
+
+        // Act
+        OperationResult<object> operationResult = errorMessage;
+
+        // Assert
+        Assert.NotNull(operationResult.Error);
+        Assert.True(operationResult.IsFailure);
+        Assert.False(operationResult.IsSuccess);
+        Assert.Equal(errorMessage, operationResult.Error?.Message);
+    }
+
+    [Fact(DisplayName = "Implicit generic result from exception, should have correct failed state")]
+    public void ImplicitGenericResultFromException_ShouldHaveCorrectFailedState()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+
+        // Act
+        OperationResult<object> operationResult = exception;
+
+        // Assert
+        Assert.NotNull(operationResult.Error);
+        Assert.True(operationResult.IsFailure);
+        Assert.False(operationResult.IsSuccess);
+        Assert.Equal(exception.Message, operationResult.Error?.Message);
+    }
+
+    [Fact(DisplayName = "Safe execute without exception, should have correct success state")]
+    public void SafeExecuteWithoutException_ShouldHaveCorrectSuccessState()
+    {
+        // Arrange
+        int Func() => 42;
+
+        // Act
+        var result = OperationResult.SafeExecute(Func);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal(42, result.Value);
+    }
+
+    [Fact(DisplayName = "Safe execute with exception, should have failed state")]
+    public void SafeExecuteWithException_ShouldHaveFailedState()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+
+        int Func() => throw exception;
+
+        // Act
+        var result = OperationResult.SafeExecute(Func);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal(exception.Message, result.Error?.Message);
+        Assert.Equal(exception, result.Error?.Exception);
+    }
+
+    [Fact(DisplayName = "Safe execute with exception with override, should have failed state with message")]
+    public void SafeExecuteWithExceptionWithOverride_ShouldHaveFailedStateWithMessage()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+        const string errorMessage = "Custom error message";
+
+        int Func() => throw exception;
+
+        // Act
+        var result = OperationResult.SafeExecute(Func, errorMessage);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal(errorMessage, result.Error?.Message);
+        Assert.Equal(exception, result.Error?.Exception);
     }
 }
