@@ -15,12 +15,12 @@ public interface IApiCaller<TApi> where TApi : class
     /// <param name="apiCall">The API method to call.</param>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     /// <returns>An <see cref="OperationResult{TResult}"/> representing the result of the API call.</returns>
-    Task<OperationResult<TResult>> CallApiAsync<TResult>(Expression<Func<TApi, Task<TResult>>> apiCall);
+    Task<OperationResult<TResult>> CallApiAsync<TResult>(Expression<Func<TApi, Task<TResult>>> apiCall) where TResult : notnull;
 }
 
 public class ApiCaller<T>(IServiceScopeFactory scopeFactory, ILogger<ApiCaller<T>> logger) : IApiCaller<T> where T : class
 {
-    public async Task<OperationResult<TResult>> CallApiAsync<TResult>(Expression<Func<T, Task<TResult>>> apiCall)
+    public async Task<OperationResult<TResult>> CallApiAsync<TResult>(Expression<Func<T, Task<TResult>>> apiCall) where TResult : notnull
     {
         var apiCallString = apiCall.Body.ToString();
 
@@ -29,7 +29,7 @@ public class ApiCaller<T>(IServiceScopeFactory scopeFactory, ILogger<ApiCaller<T
             using var scope = scopeFactory.CreateScope();
             var api = scope.ServiceProvider.GetRequiredService<T>();
 
-            return await apiCall.Compile().Invoke(api);
+            return Ok(await apiCall.Compile().Invoke(api));
         }
         catch (Exception exception)
         {

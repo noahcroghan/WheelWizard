@@ -6,7 +6,7 @@ namespace WheelWizard.Shared;
 /// Represents the result of an operation.
 /// </summary>
 /// <typeparam name="T">The type of the value.</typeparam>
-public class OperationResult<T> : OperationResult
+public class OperationResult<T> : OperationResult where T : notnull
 {
     [MemberNotNullWhen(true, nameof(Value))]
     public override bool IsSuccess => base.IsSuccess;
