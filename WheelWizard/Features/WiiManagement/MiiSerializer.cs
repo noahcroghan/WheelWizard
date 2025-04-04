@@ -7,7 +7,7 @@ public static class MiiSerializer
     public const int MiiBlockSize = 74;
     public static OperationResult<byte[]> Serialize(FullMii? mii)
     {
-        if (mii == null)
+        if (mii == null || mii.MiiId == 0)
             return Fail<byte[]>("Mii cannot be null.");
         byte[] data = new byte[MiiBlockSize];
 

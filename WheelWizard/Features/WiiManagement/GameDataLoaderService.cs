@@ -118,12 +118,20 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
 
     private void CreateDummyUser()
     {
+        var noLicenseNameResult = MiiName.Create("no license");
+        if (noLicenseNameResult.IsFailure)
+            throw new Exception("Failed to create dummy name");
+        
+        
         var dummyUser = new GameDataUser
         {
             FriendCode = "0000-0000-0000",
             MiiData = new MiiData
             {
-                Mii = new FullMii(),
+                Mii = new FullMii
+                {
+                    Name = noLicenseNameResult.Value,
+                },
                 AvatarId = 0,
                 ClientId = 0
             },

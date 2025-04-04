@@ -11,7 +11,18 @@ namespace WheelWizard.Models.MiiImages;
 public class MiiImage : INotifyPropertyChanged
 {
     private FullMii Parent { get; }
-    public string Data => Convert.ToBase64String(MiiSerializer.Serialize(Parent).Value);
+
+    public string? Data
+    {
+        get
+        {
+            var parsedResult = MiiSerializer.Serialize(Parent);
+            if (parsedResult.IsFailure)
+                return null;
+            return Convert.ToBase64String(parsedResult.Value);
+        }
+        
+    }
     public MiiImageVariants.Variant Variant { get; }
     public MiiImage(FullMii parent, MiiImageVariants.Variant variant) => (Parent, Variant) = (parent,variant);
 
