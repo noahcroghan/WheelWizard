@@ -15,12 +15,10 @@ public class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        var serviceProvider = BuildServiceProvider();
-
-        Setup(serviceProvider);
-
+        // Make sure this is the first action on startup!
+        SetupWorkingDirectory();
         // Start the application
-        BuildAvaloniaApp(serviceProvider).StartWithClassicDesktopLifetime(args);
+        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
 
     private static ServiceProvider BuildServiceProvider()
@@ -34,13 +32,14 @@ public class Program
 
     // Avalonia configuration, don't remove; also used by visual designer.
     // ReSharper disable once MemberCanBePrivate.Global
-    public static AppBuilder BuildAvaloniaApp(ServiceProvider serviceProvider)
+    public static AppBuilder BuildAvaloniaApp()
         => ConfigureAvaloniaApp(AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .WithInterFont(), serviceProvider);
+            .WithInterFont());
 
-    private static AppBuilder ConfigureAvaloniaApp(AppBuilder builder, ServiceProvider serviceProvider)
+    private static AppBuilder ConfigureAvaloniaApp(AppBuilder builder)
     {
+        var serviceProvider = BuildServiceProvider();
         // Write startup message
         var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
         LogPlatformInformation(logger);
@@ -56,6 +55,8 @@ public class Program
 
             // Set the service provider in the application instance
             app.SetServiceProvider(serviceProvider);
+
+            Setup();
         });
 
         return builder;
@@ -92,10 +93,9 @@ public class Program
         }
     }
 
-    private static void Setup(ServiceProvider serviceProvider)
+    private static void Setup()
     {
-        SetupWorkingDirectory();
-        SettingsManager.Instance.LoadSettings(serviceProvider);
+        SettingsManager.Instance.LoadSettings();
         UrlProtocolManager.SetWhWzScheme();
     }
 

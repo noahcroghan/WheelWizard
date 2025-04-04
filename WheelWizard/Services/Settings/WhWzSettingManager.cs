@@ -39,7 +39,7 @@ public class WhWzSettingManager
         FileHelper.WriteAllTextSafe(PathManager.WheelWizardConfigFilePath, jsonString);
     }
 
-    public void LoadSettings(ServiceProvider serviceProvider)
+    public void LoadSettings()
     {
         if (_loaded)
             return;
@@ -66,7 +66,7 @@ public class WhWzSettingManager
         }
         catch (JsonException e)
         {
-            serviceProvider.GetRequiredService<ILogger<WhWzSettingManager>>()
+            App.Services.GetRequiredService<ILogger<WhWzSettingManager>>()
                 .LogError(e, "Failed to deserialize the JSON config");
         }
     }
