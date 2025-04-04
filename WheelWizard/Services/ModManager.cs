@@ -186,6 +186,8 @@ public class ModManager : INotifyPropertyChanged
             .SetPlaceholderText("Enter mod name...")
             .ShowDialog();
 
+        if (oldTitle == newTitle || newTitle == null) return; 
+        // we don't want to return an error if the name is the same as before, or if the user cancels
         if (!IsValidName(newTitle)) return;
 
         var oldDirectoryName = PathManager.GetModDirectoryPath(oldTitle);

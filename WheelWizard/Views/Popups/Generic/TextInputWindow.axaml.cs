@@ -9,7 +9,6 @@ namespace WheelWizard.Views.Popups.Generic;
 public partial class TextInputWindow : PopupContent
 {
     private string? _result;
-    private bool allowCustomChars;
     private TaskCompletionSource<string?>? _tcs;
 
     // Constructor with dynamic label parameter
@@ -42,7 +41,6 @@ public partial class TextInputWindow : PopupContent
 
     public TextInputWindow SetAllowCustomChars(bool allow)
     {
-        allowCustomChars = allow;
         CustomCharsButton.IsVisible = allow;
         // This is not really reversible, but that is also not really a problem, since when do we even want to sue that
         if (allow)
@@ -158,7 +156,6 @@ public partial class TextInputWindow : PopupContent
         Window.SetWindowSize(newSize);
     }
 
-    // Handle Submit button click
     private void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
         _result = InputField.Text?.Trim();
@@ -166,11 +163,11 @@ public partial class TextInputWindow : PopupContent
         Close();
     }
 
-    // Handle Cancel button click
-    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
+    
+    protected override void BeforeClose()
     {
-        _result = null;
-        _tcs?.TrySetResult(null); // Set the result of the task to null
-        Close();
+         // If you want to return something different, then to the TrySetResult before you close it
+        _tcs?.TrySetResult(null);
     }
 }
