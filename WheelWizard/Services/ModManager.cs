@@ -176,6 +176,17 @@ public class ModManager : INotifyPropertyChanged
         OnPropertyChanged(nameof(Mods));
     }
 
+    public OperationResult ValidateModName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return Fail("Mod name cannot be empty.");
+
+        if (ModInstallation.ModExists(Mods, name))
+            return Fail("Mod name already exists.");
+        
+        return Ok();
+    }
+    
     public async void RenameMod(Mod selectedMod)
     {
         var oldTitle = selectedMod.Title;
@@ -184,6 +195,7 @@ public class ModManager : INotifyPropertyChanged
             .SetInitialText(oldTitle)
             .SetExtraText($"Changing name from: {oldTitle}")
             .SetPlaceholderText("Enter mod name...")
+            .SetValidation(ValidateModName)
             .ShowDialog();
 
         if (oldTitle == newTitle || newTitle == null) return; 

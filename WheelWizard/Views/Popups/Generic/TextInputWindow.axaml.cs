@@ -10,6 +10,7 @@ public partial class TextInputWindow : PopupContent
 {
     private string? _result;
     private TaskCompletionSource<string?>? _tcs;
+    private Func<string, OperationResult>? inputValidationFunc;
 
     // Constructor with dynamic label parameter
     public TextInputWindow() : base(true, false, true, "Text Field")
@@ -67,6 +68,12 @@ public partial class TextInputWindow : PopupContent
     public TextInputWindow SetInitialText(string text)
     {
         InputField.Text = text;
+        return this;
+    }
+
+    public TextInputWindow SetValidation(Func<string, OperationResult> validationFunction)
+    {
+        inputValidationFunc = validationFunction;
         return this;
     }
 
@@ -145,7 +152,13 @@ public partial class TextInputWindow : PopupContent
     // Update the Submit button's IsEnabled property based on input
     private void UpdateSubmitButtonState()
     {
-        SubmitButton.IsEnabled = !string.IsNullOrWhiteSpace(InputField.Text);
+        var inputText = GetTrimmedTextInput();
+        var empty = string.IsNullOrWhiteSpace(inputText);
+        var valid = inputValidationFunc != null && inputValidationFunc(inputText!).IsSuccess;
+        
+        SubmitButton.IsEnabled = !empty && valid;
+        
+        // Show error message if input is invalid
     }
 
     private void CustomCharsButton_Click(object sender, EventArgs e)
@@ -156,18 +169,23 @@ public partial class TextInputWindow : PopupContent
         Window.SetWindowSize(newSize);
     }
 
+    private string? GetTrimmedTextInput()
+    {
+        return InputField.Text?.Trim();
+    }
+
     private void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
-        _result = InputField.Text?.Trim();
+        _result = GetTrimmedTextInput();
         _tcs?.TrySetResult(_result); // Set the result of the task
         Close();
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
-    
+
     protected override void BeforeClose()
     {
-         // If you want to return something different, then to the TrySetResult before you close it
+        // If you want to return something different, then to the TrySetResult before you close it
         _tcs?.TrySetResult(null);
     }
 }
