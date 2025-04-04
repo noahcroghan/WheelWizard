@@ -44,16 +44,11 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             Verb = "runas" // This verb asks for elevation.
         };
 
-        try
+        return SafeExecute(() =>
         {
             Process.Start(startInfo);
             Environment.Exit(0);
-            return Ok();
-        }
-        catch (Exception)
-        {
-            return Phrases.PopupText_RestartAdminFail;
-        }
+        }, errorMessage: Phrases.PopupText_RestartAdminFail);
     }
 
     private static bool IsAdministrator()
@@ -108,7 +103,7 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
     {
         var currentFolder = fileSystem.Path.GetDirectoryName(currentFilePath);
         if (currentFolder is null)
-            return Fail(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation);
+            return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
         var scriptFilePath = fileSystem.Path.Combine(currentFolder, "update.ps1");
         var originalFileName = fileSystem.Path.GetFileName(currentFilePath);
@@ -179,18 +174,6 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             WorkingDirectory = currentFolder
         };
 
-        try
-        {
-            Process.Start(processStartInfo);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return Fail(new()
-            {
-                Message = "Failed to execute the update script.",
-                Exception = ex
-            });
-        }
+        return SafeExecute(() => Process.Start(processStartInfo), errorMessage: "Failed to execute the update script.");
     }
 }
