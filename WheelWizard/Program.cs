@@ -56,6 +56,9 @@ public class Program
             // Set the service provider in the application instance
             app.SetServiceProvider(serviceProvider);
 
+            // Make sure this comes AFTER setting the service provider
+            // of the `App` instance! Otherwise, things like logging will not work
+            // in `Setup`.
             Setup();
         });
 
