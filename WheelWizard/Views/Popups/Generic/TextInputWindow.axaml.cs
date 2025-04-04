@@ -154,7 +154,7 @@ public partial class TextInputWindow : PopupContent
     {
         var inputText = GetTrimmedTextInput();
         var empty = string.IsNullOrWhiteSpace(inputText);
-        var valid = inputValidationFunc != null && inputValidationFunc(inputText!).IsSuccess;
+        var valid = inputValidationFunc == null || inputValidationFunc(inputText!).IsSuccess;
         
         SubmitButton.IsEnabled = !empty && valid;
         
