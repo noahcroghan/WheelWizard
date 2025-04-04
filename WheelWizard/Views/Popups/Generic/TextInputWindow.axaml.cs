@@ -153,7 +153,7 @@ public partial class TextInputWindow : PopupContent
     {
         CustomChars.IsVisible = true;
         CustomCharsButton.IsVisible = false;
-        var newSize = new Vector(Window.InternalSize.X, Window.InternalSize.Y + 370);
+        var newSize = new Vector(Window.InternalSize.X, Window.InternalSize.Y + 400);
         Window.SetWindowSize(newSize);
     }
 
