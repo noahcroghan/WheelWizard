@@ -15,27 +15,32 @@ public class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        Setup();
+        var serviceProvider = BuildServiceProvider();
+
+        Setup(serviceProvider);
 
         // Start the application
-        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        BuildAvaloniaApp(serviceProvider).StartWithClassicDesktopLifetime(args);
     }
 
-    // Avalonia configuration, don't remove; also used by visual designer.
-    // ReSharper disable once MemberCanBePrivate.Global
-    public static AppBuilder BuildAvaloniaApp()
-        => ConfigureAvaloniaApp(AppBuilder.Configure<App>()
-            .UsePlatformDetect()
-            .WithInterFont()
-        );
-
-    private static AppBuilder ConfigureAvaloniaApp(AppBuilder builder)
+    private static ServiceProvider BuildServiceProvider()
     {
         var services = new ServiceCollection();
         services.AddWheelWizardServices();
 
         var serviceProvider = services.BuildServiceProvider();
+        return serviceProvider;
+    }
 
+    // Avalonia configuration, don't remove; also used by visual designer.
+    // ReSharper disable once MemberCanBePrivate.Global
+    public static AppBuilder BuildAvaloniaApp(ServiceProvider serviceProvider)
+        => ConfigureAvaloniaApp(AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .WithInterFont(), serviceProvider);
+
+    private static AppBuilder ConfigureAvaloniaApp(AppBuilder builder, ServiceProvider serviceProvider)
+    {
         // Write startup message
         var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
         LogPlatformInformation(logger);
@@ -87,10 +92,10 @@ public class Program
         }
     }
 
-    private static void Setup()
+    private static void Setup(ServiceProvider serviceProvider)
     {
         SetupWorkingDirectory();
-        SettingsManager.Instance.LoadSettings();
+        SettingsManager.Instance.LoadSettings(serviceProvider);
         UrlProtocolManager.SetWhWzScheme();
     }
 

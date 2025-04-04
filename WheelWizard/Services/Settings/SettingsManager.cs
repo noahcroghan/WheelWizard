@@ -154,9 +154,9 @@ public class SettingsManager
     public static SettingsManager Instance { get; } = new();
     private SettingsManager() { }
     // dont make this a static method
-    public void LoadSettings()
+    public void LoadSettings(ServiceProvider serviceProvider)
     {
-        WhWzSettingManager.Instance.LoadSettings();
+        WhWzSettingManager.Instance.LoadSettings(serviceProvider);
         DolphinSettingManager.Instance.LoadSettings();
         SettingsHelper.LoadExtraStuff();
     }
