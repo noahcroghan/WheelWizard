@@ -64,7 +64,7 @@ public class OperationResult
     /// <param name="error">The error that occurred during the operation.</param>
     /// <typeparam name="T">The type of the value.</typeparam>
     /// <returns>A new instance of the <see cref="OperationResult{T}"/> class.</returns>
-    public static OperationResult<T> Fail<T>(OperationError error) where T : notnull => new(error);
+    public static OperationResult<T> Fail<T>(OperationError error) => new(error);
 
     /// <summary>
     /// Creates a new instance of the <see cref="OperationResult{T}"/> class that indicates success.
@@ -72,7 +72,7 @@ public class OperationResult
     /// <param name="value">The value of the operation result.</param>
     /// <typeparam name="T">The type of the value.</typeparam>
     /// <returns>A new instance of the <see cref="OperationResult{T}"/> class.</returns>
-    public static OperationResult<T> Ok<T>(T value) where T : notnull => new(value);
+    public static OperationResult<T> Ok<T>(T value) => new(value);
 
     /// <summary>
     /// Executes the specified function and returns the result.
@@ -82,15 +82,89 @@ public class OperationResult
     /// <param name="errorMessage">The error message to return if the function fails.</param>
     /// <typeparam name="T">The type of the value.</typeparam>
     /// <returns>An <see cref="OperationResult{T}"/> that indicates the result of the operation.</returns>
-    public static OperationResult<T> SafeExecute<T>(Func<T> func, string? errorMessage = null) where T : notnull
+    public static OperationResult<T> SafeExecute<T>(Func<T> func, string? errorMessage = null)
     {
         try
         {
-            return Ok(func());
+            var value = func();
+            return Ok(value);
         }
         catch (Exception ex)
         {
             return Fail<T>(new()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex
+            });
+        }
+    }
+
+    /// <summary>
+    /// Executes the specified function and returns the result.
+    /// Catches any exceptions thrown by the function and returns a failure result.
+    /// </summary>
+    /// <param name="func">The function to execute.</param>
+    /// <param name="errorMessage">The error message to return if the function fails.</param>
+    /// <typeparam name="T">The type of the value.</typeparam>
+    /// <returns>An <see cref="OperationResult{T}"/> that indicates the result of the operation.</returns>
+    public static async Task<OperationResult<T>> SafeExecute<T>(Func<Task<T>> func, string? errorMessage = null)
+    {
+        try
+        {
+            var value = await func();
+            return Ok(value);
+        }
+        catch (Exception ex)
+        {
+            return Fail<T>(new()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex
+            });
+        }
+    }
+
+    /// <summary>
+    /// Executes the specified function and returns the result.
+    /// Catches any exceptions thrown by the function and returns a failure result.
+    /// </summary>
+    /// <param name="action">The action to execute.</param>
+    /// <param name="errorMessage">The error message to return if the function fails.</param>
+    /// <returns>An <see cref="OperationResult"/> that indicates the result of the operation.</returns>
+    public static OperationResult SafeExecute(Action action, string? errorMessage = null)
+    {
+        try
+        {
+            action();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return Fail(new()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex
+            });
+        }
+    }
+
+    /// <summary>
+    /// Executes the specified function and returns the result.
+    /// Catches any exceptions thrown by the function and returns a failure result.
+    /// </summary>
+    /// <param name="action">The action to execute.</param>
+    /// <param name="errorMessage">The error message to return if the function fails.</param>
+    /// <returns>An <see cref="OperationResult"/> that indicates the result of the operation.</returns>
+    public static async Task<OperationResult> SafeExecute(Func<Task> action, string? errorMessage = null)
+    {
+        try
+        {
+            await action();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return Fail(new()
             {
                 Message = errorMessage ?? ex.Message,
                 Exception = ex

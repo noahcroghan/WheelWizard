@@ -1,23 +1,18 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace WheelWizard.Shared;
+﻿namespace WheelWizard.Shared;
 
 /// <summary>
 /// Represents the result of an operation.
 /// </summary>
 /// <typeparam name="T">The type of the value.</typeparam>
-public class OperationResult<T> : OperationResult where T : notnull
+public class OperationResult<T> : OperationResult
 {
-    [MemberNotNullWhen(true, nameof(Value))]
-    public override bool IsSuccess => base.IsSuccess;
-
-    [MemberNotNullWhen(false, nameof(Value))]
-    public override bool IsFailure => base.IsFailure;
+    private readonly T _value;
 
     /// <summary>
     /// The value of the operation result.
     /// </summary>
-    public T? Value { get; }
+    /// <exception cref="InvalidOperationException">Thrown if the operation was not successful.</exception>
+    public T Value => IsSuccess ? _value : throw new InvalidOperationException("The operation was not successful.");
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OperationResult{T}"/> class.
@@ -25,7 +20,7 @@ public class OperationResult<T> : OperationResult where T : notnull
     /// <param name="value">The value of the operation result.</param>
     public OperationResult(T value)
     {
-        Value = value;
+        _value = value;
     }
 
     /// <summary>
@@ -34,6 +29,7 @@ public class OperationResult<T> : OperationResult where T : notnull
     /// <param name="error">The error that occurred during the operation.</param>
     public OperationResult(OperationError error) : base(error)
     {
+        _value = default!;
     }
 
     #region Implicit Operators
