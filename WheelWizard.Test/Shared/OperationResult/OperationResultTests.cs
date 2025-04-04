@@ -2,13 +2,15 @@
 
 namespace WheelWizard.Test.Shared.OperationResultTests;
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
 public class OperationResultTests
 {
     [Fact(DisplayName = "Create success result, should have correct state")]
     public void CreateSuccessResult_ShouldHaveCorrectState()
     {
         // Act
-        var operationResult = OperationResult.Ok();
+        var operationResult = Ok();
 
         // Assert
         Assert.Null(operationResult.Error);
@@ -50,7 +52,7 @@ public class OperationResultTests
         var error = new OperationError { Message = "Error message" };
 
         // Act
-        var operationResult = OperationResult.Fail(error);
+        var operationResult = Fail(error);
 
         // Assert
         Assert.Equal(error, operationResult.Error);
@@ -96,7 +98,7 @@ public class OperationResultTests
         var value = new object();
 
         // Act
-        var operationResult = OperationResult.Ok(value);
+        var operationResult = Ok(value);
 
         // Assert
         Assert.Null(operationResult.Error);
@@ -127,7 +129,7 @@ public class OperationResultTests
         var error = new OperationError { Message = "Error message" };
 
         // Act
-        var operationResult = OperationResult.Fail(error);
+        var operationResult = Fail(error);
 
         // Assert
         Assert.Equal(error, operationResult.Error);
@@ -165,7 +167,7 @@ public class OperationResultTests
         Assert.True(operationResult.IsSuccess);
         Assert.Equal(value, operationResult.Value);
     }
-    
+
     [Fact(DisplayName = "Implicit result from string, should have failed state")]
     public void ImplicitResultFromString_ShouldHaveFailedState()
     {
@@ -181,7 +183,7 @@ public class OperationResultTests
         Assert.False(operationResult.IsSuccess);
         Assert.Equal(errorMessage, operationResult.Error?.Message);
     }
-    
+
     [Fact(DisplayName = "Implicit result from exception, should have failed state")]
     public void ImplicitResultFromException_ShouldHaveFailedState()
     {
@@ -230,30 +232,31 @@ public class OperationResultTests
         Assert.Equal(exception.Message, operationResult.Error?.Message);
     }
 
-    [Fact(DisplayName = "Safe execute without exception, should have correct success state")]
-    public void SafeExecuteWithoutException_ShouldHaveCorrectSuccessState()
+    [Fact(DisplayName = "Try catch without exception, should have correct success state")]
+    public void TryCatchWithoutException_ShouldHaveCorrectSuccessState()
     {
         // Arrange
-        int Func() => 42;
+        void Action()
+        {
+        }
 
         // Act
-        var result = OperationResult.SafeExecute(Func);
+        var result = TryCatch(Action);
 
         // Assert
         Assert.True(result.IsSuccess);
-        Assert.Equal(42, result.Value);
     }
 
-    [Fact(DisplayName = "Safe execute with exception, should have failed state")]
-    public void SafeExecuteWithException_ShouldHaveFailedState()
+    [Fact(DisplayName = "Try catch with exception, should have failed state")]
+    public void TryCatchWithException_ShouldHaveFailedState()
     {
         // Arrange
         var exception = new Exception("Error message");
 
-        int Func() => throw exception;
+        void Action() => throw exception;
 
         // Act
-        var result = OperationResult.SafeExecute(Func);
+        var result = TryCatch(Action);
 
         // Assert
         Assert.True(result.IsFailure);
@@ -261,8 +264,57 @@ public class OperationResultTests
         Assert.Equal(exception, result.Error?.Exception);
     }
 
-    [Fact(DisplayName = "Safe execute with exception with override, should have failed state with message")]
-    public void SafeExecuteWithExceptionWithOverride_ShouldHaveFailedStateWithMessage()
+    [Fact(DisplayName = "Try catch with exception with override, should have failed state with message")]
+    public void TryCatchWithExceptionWithOverride_ShouldHaveFailedStateWithMessage()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+        const string errorMessage = "Custom error message";
+
+        // Act
+        void Action() => throw exception;
+
+        var result = TryCatch(Action, errorMessage);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal(errorMessage, result.Error?.Message);
+        Assert.Equal(exception, result.Error?.Exception);
+    }
+
+    [Fact(DisplayName = "Generic try catch without exception, should have correct success state")]
+    public void GenericTryCatchWithoutException_ShouldHaveCorrectSuccessState()
+    {
+        // Arrange
+        int Func() => 42;
+
+        // Act
+        var result = TryCatch(Func);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal(42, result.Value);
+    }
+
+    [Fact(DisplayName = "Generic try catch with exception, should have failed state")]
+    public void GenericTryCatchWithException_ShouldHaveFailedState()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+
+        int Func() => throw exception;
+
+        // Act
+        var result = TryCatch(Func);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal(exception.Message, result.Error?.Message);
+        Assert.Equal(exception, result.Error?.Exception);
+    }
+
+    [Fact(DisplayName = "Generic try catch with exception with override, should have failed state with message")]
+    public void GenericTryCatchWithExceptionWithOverride_ShouldHaveFailedStateWithMessage()
     {
         // Arrange
         var exception = new Exception("Error message");
@@ -271,7 +323,105 @@ public class OperationResultTests
         int Func() => throw exception;
 
         // Act
-        var result = OperationResult.SafeExecute(Func, errorMessage);
+        var result = TryCatch(Func, errorMessage);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal(errorMessage, result.Error?.Message);
+        Assert.Equal(exception, result.Error?.Exception);
+    }
+
+    [Fact(DisplayName = "Generic safe execute async without exception, should have success state")]
+    public async Task GenericTryCatchAsyncWithoutException_ShouldHaveSuccessState()
+    {
+        // Arrange
+        const int expectedValue = 42;
+
+        async Task<int> Func() => await Task.FromResult(expectedValue);
+
+        // Act
+        var result = await TryCatch(Func);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+        Assert.Equal(expectedValue, result.Value);
+    }
+
+
+    [Fact(DisplayName = "Generic safe execute async with exception, should have failed state")]
+    public async Task GenericTryCatchAsyncWithException_ShouldHaveFailedState()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+
+        async Task<int> Func() => throw exception;
+
+        // Act
+        var result = await TryCatch(Func);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal(exception.Message, result.Error?.Message);
+        Assert.Equal(exception, result.Error?.Exception);
+    }
+
+    [Fact(DisplayName = "Generic safe execute async with exception with override, should have failed state with message")]
+    public async Task GenericTryCatchAsyncWithExceptionWithOverride_ShouldHaveFailedStateWithMessage()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+        const string errorMessage = "Custom error message";
+        async Task<int> Func() => throw exception;
+
+        // Act
+        var result = await TryCatch(Func, errorMessage);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal(errorMessage, result.Error?.Message);
+        Assert.Equal(exception, result.Error?.Exception);
+    }
+
+    [Fact(DisplayName = "Try catch async without exception, should have success state")]
+    public async Task TryCatchAsyncWithoutException_ShouldHaveSuccessState()
+    {
+        // Arrange
+        async Task Func() => await Task.CompletedTask;
+
+        // Act
+        var result = await TryCatch(Func);
+
+        // Assert
+        Assert.True(result.IsSuccess);
+    }
+
+    [Fact(DisplayName = "Try catch async with exception, should have failed state")]
+    public async Task TryCatchAsyncWithException_ShouldHaveFailedState()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+
+        async Task Func() => throw exception;
+
+        // Act
+        var result = await TryCatch(Func);
+
+        // Assert
+        Assert.True(result.IsFailure);
+        Assert.Equal(exception.Message, result.Error?.Message);
+        Assert.Equal(exception, result.Error?.Exception);
+    }
+
+    [Fact(DisplayName = "Try catch async with exception with override, should have failed state with message")]
+    public async Task TryCatchAsyncWithExceptionWithOverride_ShouldHaveFailedStateWithMessage()
+    {
+        // Arrange
+        var exception = new Exception("Error message");
+        const string errorMessage = "Custom error message";
+
+        async Task Func() => throw exception;
+        // Act
+        var result = await TryCatch(Func, errorMessage);
 
         // Assert
         Assert.True(result.IsFailure);
@@ -279,3 +429,5 @@ public class OperationResultTests
         Assert.Equal(exception, result.Error?.Exception);
     }
 }
+
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously

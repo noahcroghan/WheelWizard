@@ -82,7 +82,7 @@ public class OperationResult
     /// <param name="errorMessage">The error message to return if the function fails.</param>
     /// <typeparam name="T">The type of the value.</typeparam>
     /// <returns>An <see cref="OperationResult{T}"/> that indicates the result of the operation.</returns>
-    public static OperationResult<T> SafeExecute<T>(Func<T> func, string? errorMessage = null)
+    public static OperationResult<T> TryCatch<T>(Func<T> func, string? errorMessage = null)
     {
         try
         {
@@ -107,7 +107,7 @@ public class OperationResult
     /// <param name="errorMessage">The error message to return if the function fails.</param>
     /// <typeparam name="T">The type of the value.</typeparam>
     /// <returns>An <see cref="OperationResult{T}"/> that indicates the result of the operation.</returns>
-    public static async Task<OperationResult<T>> SafeExecute<T>(Func<Task<T>> func, string? errorMessage = null)
+    public static async Task<OperationResult<T>> TryCatch<T>(Func<Task<T>> func, string? errorMessage = null)
     {
         try
         {
@@ -131,7 +131,7 @@ public class OperationResult
     /// <param name="action">The action to execute.</param>
     /// <param name="errorMessage">The error message to return if the function fails.</param>
     /// <returns>An <see cref="OperationResult"/> that indicates the result of the operation.</returns>
-    public static OperationResult SafeExecute(Action action, string? errorMessage = null)
+    public static OperationResult TryCatch(Action action, string? errorMessage = null)
     {
         try
         {
@@ -155,7 +155,7 @@ public class OperationResult
     /// <param name="action">The action to execute.</param>
     /// <param name="errorMessage">The error message to return if the function fails.</param>
     /// <returns>An <see cref="OperationResult"/> that indicates the result of the operation.</returns>
-    public static async Task<OperationResult> SafeExecute(Func<Task> action, string? errorMessage = null)
+    public static async Task<OperationResult> TryCatch(Func<Task> action, string? errorMessage = null)
     {
         try
         {

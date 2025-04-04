@@ -44,7 +44,7 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             Verb = "runas" // This verb asks for elevation.
         };
 
-        return SafeExecute(() =>
+        return TryCatch(() =>
         {
             Process.Start(startInfo);
             Environment.Exit(0);
@@ -174,6 +174,6 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             WorkingDirectory = currentFolder
         };
 
-        return SafeExecute(() => Process.Start(processStartInfo), errorMessage: "Failed to execute the update script.");
+        return TryCatch(() => Process.Start(processStartInfo), errorMessage: "Failed to execute the update script.");
     }
 }

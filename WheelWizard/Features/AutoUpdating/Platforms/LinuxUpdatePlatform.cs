@@ -98,7 +98,7 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         fileSystem.File.WriteAllText(scriptFilePath, scriptContent);
 
         // Ensure the script is executable.
-        var chmodResult = SafeExecute(() =>
+        var chmodResult = TryCatch(() =>
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = "/usr/bin/env",
@@ -131,6 +131,6 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             WorkingDirectory = currentFolder
         };
 
-        return SafeExecute(() => Process.Start(processStartInfo), errorMessage: "Failed to execute the update script.");
+        return TryCatch(() => Process.Start(processStartInfo), errorMessage: "Failed to execute the update script.");
     }
 }

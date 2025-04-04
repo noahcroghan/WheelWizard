@@ -32,7 +32,7 @@ public class ApiCaller<T>(IServiceScopeFactory scopeFactory, ILogger<ApiCaller<T
         using var scope = scopeFactory.CreateScope();
         var api = scope.ServiceProvider.GetRequiredService<T>();
 
-        var result = await SafeExecute(async () => await apiCallFunction.Invoke(api), errorMessage: $"{apiName} call failed");
+        var result = await TryCatch(async () => await apiCallFunction.Invoke(api), errorMessage: $"{apiName} call failed");
         if (!result.IsSuccess)
             logger.LogError(result.Error.Exception, "API method '{ApiCall}' failed: {Message}", apiCallString, result.Error.Message);
 
