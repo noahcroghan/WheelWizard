@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Xunit;
-using NSubstitute;
 using WheelWizard.Shared;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain;
@@ -16,14 +13,14 @@ namespace WheelWizard.Test.Features
             var miiId = id;
             var height = MiiScale.Create(60);
             var weight = MiiScale.Create(50);
-            var miiFacial = MiiFacialFeatures.Create(1, 1, 1, false, false);
-            var miiHair = MiiHair.Create(1, 1, false);
-            var miiEyebrows = MiiEyebrow.Create(1, 1, 1, 1, 1, 1);
-            var miiEyes = MiiEye.Create(1, 1, 1, 1, 1, 1);
-            var miiNose = MiiNose.Create(1, 1, 1);
-            var miiLips = MiiLip.Create(1, 1, 1, 1);
-            var miiGlasses = MiiGlasses.Create(1, 1, 1, 1);
-            var miiFacialHair = MiiFacialHair.Create(1, 1, 1, 1, 1);
+            var miiFacial = MiiFacialFeatures.Create(MiiFaceShape.Bread, MiiSkinColor.Brown, MiiFacialFeature.Beard, false, false);
+            var miiHair = MiiHair.Create(1, HairColor.Black, false);
+            var miiEyebrows = MiiEyebrow.Create(1, 1, EyebrowColor.Black, 1, 1, 1);
+            var miiEyes = MiiEye.Create(1, 1, 1, EyeColor.Black, 1, 1);
+            var miiNose = MiiNose.Create(NoseType.Default, 1, 1);
+            var miiLips = MiiLip.Create(1, LipColor.Pink, 1, 1);
+            var miiGlasses = MiiGlasses.Create(GlassesType.None, GlassesColor.Blue, 1, 1);
+            var miiFacialHair = MiiFacialHair.Create(MustacheType.None, BeardType.None, MustacheColor.Black, 1, 1);
             var miiMole = MiiMole.Create(true, 1, 1, 1);
             var creatorName = MiiName.Create("Creator");
             var EveryResult = new List<OperationResult> { miiname, height, weight, miiFacial, miiHair, miiEyebrows, miiEyes, miiNose, miiLips, miiGlasses, miiFacialHair, miiMole, creatorName };
@@ -32,7 +29,7 @@ namespace WheelWizard.Test.Features
                 if (result.IsFailure)
                     return result.Error;
             }
-            return new FullMii()
+            return new FullMii
             {
                 Name = miiname.Value,
                 MiiId = miiId,
@@ -95,7 +92,7 @@ namespace WheelWizard.Test.Features
         public void GetAllMiis_ReturnsValidMiis_WhenRepositoryReturnsValidBlocks()
         {
             // Arrange: use the helper method to create a fully valid Mii.
-            var fullMii = CreateValidMii(1, "TestMii");
+            var fullMii = CreateValidMii();
             if (fullMii.IsFailure)
                 Assert.True(false, "Failed to create valid Mii for GetAllMiis test.");
             var serialized = MiiSerializer.Serialize(fullMii.Value);
@@ -115,7 +112,7 @@ namespace WheelWizard.Test.Features
         public void GetByClientId_ReturnsMii_WhenRepositoryReturnsValidBlock()
         {
             // Arrange: create a valid Mii using the helper.
-            var fullMii = CreateValidMii(123, "TestMii");
+            var fullMii = CreateValidMii(123);
             if (fullMii.IsFailure)
                 Assert.True(false, "Failed to create valid Mii for GetByClientId test.");
             var serialized = MiiSerializer.Serialize(fullMii.Value);
@@ -159,7 +156,7 @@ namespace WheelWizard.Test.Features
         public void Update_ReturnsFailure_WhenRepositoryUpdateFails()
         {
             // Arrange: create a valid Mii using the helper.
-            var fullMii = CreateValidMii(123, "TestMii");
+            var fullMii = CreateValidMii(123);
             if (fullMii.IsFailure)
                 Assert.True(false, "Failed to create valid Mii for Update test.");
             var serialized = MiiSerializer.Serialize(fullMii.Value);
@@ -167,7 +164,7 @@ namespace WheelWizard.Test.Features
 
             // Simulate repository update failure.
             _repository.UpdateBlockByClientId(123, Arg.Any<byte[]>())
-                .Returns(OperationResult.Fail("Update failed"));
+                .Returns(Fail("Update failed"));
 
 
             // Act
@@ -182,14 +179,14 @@ namespace WheelWizard.Test.Features
         public void Update_ReturnsSuccess_WhenRepositoryUpdateSucceeds()
         {
             // Arrange: create a valid Mii using the helper.
-            var fullMii = CreateValidMii(321, "TestMii");
+            var fullMii = CreateValidMii(321);
             if (fullMii.IsFailure)
                 Assert.True(false, "Failed to create valid Mii for Update test.");
             var serialized = MiiSerializer.Serialize(fullMii.Value);
             Assert.True(serialized.IsSuccess);
 
             _repository.UpdateBlockByClientId(321, Arg.Any<byte[]>())
-                       .Returns(OperationResult.Ok());
+                       .Returns(Ok());
 
             // Act
             var result = _service.Update(fullMii.Value);
@@ -216,7 +213,7 @@ namespace WheelWizard.Test.Features
         public void UpdateName_ReturnsFailure_WhenNewNameIsInvalid()
         {
             // Arrange: valid Mii block exists.
-            var fullMii = CreateValidMii(222, "TestMii");
+            var fullMii = CreateValidMii(222);
             if (fullMii.IsFailure)
                 Assert.True(false, "Failed to create valid Mii for UpdateName test.");
             var serialized = MiiSerializer.Serialize(fullMii.Value);
@@ -244,7 +241,7 @@ namespace WheelWizard.Test.Features
 
             // Simulate repository update success.
             _repository.UpdateBlockByClientId(333, Arg.Any<byte[]>())
-                       .Returns(OperationResult.Ok());
+                       .Returns(Ok());
 
             // Act: update the name.
             var result = _service.UpdateName(333, "NewName");

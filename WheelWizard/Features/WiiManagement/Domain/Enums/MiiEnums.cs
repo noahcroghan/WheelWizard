@@ -2,19 +2,19 @@
 
 namespace WheelWizard.WiiManagement.Domain.Enums;
 
-public enum MiiFavoriteColor { Red, Orange, Yellow, Green, Blue, LightBlue, Pink, Purple, Brown, White, Black, Gray }
-public enum MiiFaceShape{RoundPointChin, Circle, Oval, BlobFatChin, RightAnglePointChin, Bread, Octagon, Square}
-public enum MiiSkinColor{ Light, LightTan, Tan, Pink, DarkBrown, Brown}
-public enum FacialFeature {None, Cheeks, CheekAndEyes, Freckles, BaggyEyes, Chad, Tired, Chin, EyeShadow, Beard, MouthCorners, Old}
+public enum MiiFavoriteColor : uint { Red, Orange, Yellow, Green, Blue, LightBlue, Pink, Purple, Brown, White, Black, Gray }
+public enum MiiFaceShape {RoundPointChin, Circle, Oval, BlobFatChin, RightAnglePointChin, Bread, Octagon, Square}
+public enum MiiSkinColor { Light, LightTan, Tan, Pink, DarkBrown, Brown}
+public enum MiiFacialFeature {None, Cheeks, CheekAndEyes, Freckles, BaggyEyes, Chad, Tired, Chin, EyeShadow, Beard, MouthCorners, Old}
 public enum HairColor {Black, Brown, Red, LightRed, Grey, LightBrown, Blonde, White}
 public enum EyebrowColor {Black, Brown, Red, LightRed, Grey, LightBrown, Blonde, White}
-public enum EyeColor {Black, Grey, Red, Gold, Blue, Green}
-public enum NoseType {Default, SemiCircle, Dots, VShape, FullNose, Triangle, FlatC, UpsideDownC, Squidward, ArrowDown, Flat, Tunnel}
+public enum EyeColor : uint {Black, Grey, Red, Gold, Blue, Green}
+public enum NoseType  {Default, SemiCircle, Dots, VShape, FullNose, Triangle, FlatC, UpsideDownC, Squidward, ArrowDown, Flat, Tunnel}
 public enum LipColor {Skin, Red, Pink}
-public enum GlassesColor {Dark, DarkGold, Red, Blue, Gold, White}
-public enum GlasseStype {None, Square, Rectangle, Circle, Oval, Misses, SadSunGlasses, SunGlasses, CoolSunGlasses}
-public enum StachColor {Black, Brown, Red, LightRed, Grey, LightBrown, Blonde, White}
-public enum StachType {None, Fat, Thin, Goatee}
+public enum GlassesColor  {Dark, DarkGold, Red, Blue, Gold, White}
+public enum GlassesType  {None, Square, Rectangle, Circle, Oval, Misses, SadSunGlasses, SunGlasses, CoolSunGlasses}
+public enum MustacheColor {Black, Brown, Red, LightRed, Grey, LightBrown, Blonde, White}
+public enum MustacheType {None, Fat, Thin, Goatee}
 public enum BeardType {None, Thin, Wide, Widest}
 
 
@@ -66,13 +66,26 @@ public class MiiScale
     public static OperationResult<MiiScale> Create(byte value) => TryCatch(() => new MiiScale(value));
 }
 
-public record MiiFacialFeatures(
-    MiiFaceShape FaceShape,
-    MiiSkinColor SkinColor,
-    FacialFeature FacialFeature,
-    bool MingleOff,
-    bool Downloaded
-);
+public class MiiFacialFeatures
+{
+    public MiiFaceShape FaceShape { get; }
+    public MiiSkinColor SkinColor { get; }
+    public MiiFacialFeature FacialFeature { get; }
+    public bool MingleOff { get; }
+    public bool Downloaded { get; }
+
+    public MiiFacialFeatures(MiiFaceShape faceShape, MiiSkinColor skinColor, MiiFacialFeature facialFeature, bool mingleOff, bool downloaded)
+    {
+        FaceShape = faceShape;
+        SkinColor = skinColor;
+        FacialFeature = facialFeature;
+        MingleOff = mingleOff;
+        Downloaded = downloaded;
+    }
+    
+    public static OperationResult<MiiFacialFeatures> Create(MiiFaceShape faceShape, MiiSkinColor skinColor, MiiFacialFeature facialFeature, bool mingleOff, bool downloaded)
+    => TryCatch(() => new MiiFacialFeatures(faceShape, skinColor, facialFeature, mingleOff, downloaded));
+}
 
 public class MiiHair
 {
@@ -202,12 +215,12 @@ public class MiiLip
 
 public class MiiGlasses
 {
-    public GlasseStype  Type { get; }
+    public GlassesType  Type { get; }
     public GlassesColor Color { get; }
     public int Size { get; }
     public int Vertical { get; }
 
-    public MiiGlasses(GlasseStype type, GlassesColor color, int size, int vertical)
+    public MiiGlasses(GlassesType type, GlassesColor color, int size, int vertical)
     {
         if (size is < 0 or > 7)             throw new ArgumentException("Glasses size invalid");
         if (vertical is < 0 or > 20)        throw new ArgumentException("Glasses vertical position invalid");
@@ -217,18 +230,18 @@ public class MiiGlasses
         Vertical = vertical;
     }
 
-    public static OperationResult<MiiGlasses> Create(GlasseStype type, GlassesColor color, int size, int vertical)
+    public static OperationResult<MiiGlasses> Create(GlassesType type, GlassesColor color, int size, int vertical)
     => TryCatch(() => new MiiGlasses(type, color, size, vertical));
 }
 public class MiiFacialHair
 {
-    public StachType MustacheType { get; }
+    public MustacheType MustacheType { get; }
     public BeardType BeardType { get; }
-    public StachColor Color { get; }
+    public MustacheColor Color { get; }
     public int Size { get; }
     public int Vertical { get; }
 
-    public MiiFacialHair(StachType mustacheType, BeardType beardType, StachColor color, int size, int vertical)
+    public MiiFacialHair(MustacheType mustacheType, BeardType beardType, MustacheColor color, int size, int vertical)
     {
         if (size is < 0 or > 8)         throw new ArgumentException("Facial hair size invalid");
         if (vertical is < 0 or > 16)    throw new ArgumentException("Facial hair vertical position invalid");
@@ -239,7 +252,7 @@ public class MiiFacialHair
         Vertical = vertical;
     }
 
-    public static OperationResult<MiiFacialHair> Create(StachType mustacheType, BeardType beardType, StachColor color, int size, int vertical)
+    public static OperationResult<MiiFacialHair> Create(MustacheType mustacheType, BeardType beardType, MustacheColor color, int size, int vertical)
     => TryCatch(() => new MiiFacialHair(mustacheType, beardType, color, size, vertical));
 }
 
