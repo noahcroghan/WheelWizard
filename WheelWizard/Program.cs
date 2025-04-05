@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Logging;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 using WheelWizard.Helpers;
@@ -16,10 +15,19 @@ public class Program
     [STAThread]
     public static void Main(string[] args)
     {
-        Setup();
-
+        // Make sure this is the first action on startup!
+        SetupWorkingDirectory();
         // Start the application
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+    }
+
+    private static ServiceProvider BuildServiceProvider()
+    {
+        var services = new ServiceCollection();
+        services.AddWheelWizardServices();
+
+        var serviceProvider = services.BuildServiceProvider();
+        return serviceProvider;
     }
 
     // Avalonia configuration, don't remove; also used by visual designer.
@@ -27,16 +35,11 @@ public class Program
     public static AppBuilder BuildAvaloniaApp()
         => ConfigureAvaloniaApp(AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .WithInterFont()
-        );
+            .WithInterFont());
 
     private static AppBuilder ConfigureAvaloniaApp(AppBuilder builder)
     {
-        var services = new ServiceCollection();
-        services.AddWheelWizardServices();
-
-        var serviceProvider = services.BuildServiceProvider();
-
+        var serviceProvider = BuildServiceProvider();
         // Write startup message
         var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
         LogPlatformInformation(logger);
@@ -52,6 +55,11 @@ public class Program
 
             // Set the service provider in the application instance
             app.SetServiceProvider(serviceProvider);
+
+            // Make sure this comes AFTER setting the service provider
+            // of the `App` instance! Otherwise, things like logging will not work
+            // in `Setup`.
+            Setup();
         });
 
         return builder;
@@ -68,8 +76,9 @@ public class Program
         else
         {
             // Resolve all relative paths based on the WheelWizard executable's directory by default
-            var executableDirectory = Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName);
-            Environment.CurrentDirectory = executableDirectory;
+            var executableDirectory = Path.GetDirectoryName(Environment.ProcessPath);
+            if (!string.IsNullOrWhiteSpace(executableDirectory))
+                Environment.CurrentDirectory = executableDirectory;
         }
 
         // Enable overriding this base/working directory through the `WW_BASEDIR` environment variable
@@ -89,7 +98,6 @@ public class Program
 
     private static void Setup()
     {
-        SetupWorkingDirectory();
         SettingsManager.Instance.LoadSettings();
         UrlProtocolManager.SetWhWzScheme();
     }

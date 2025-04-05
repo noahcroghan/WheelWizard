@@ -43,6 +43,8 @@ public class OperationResult
         Error = error;
     }
 
+    #region Creation Methods
+
     /// <summary>
     /// Creates a new instance of the <see cref="OperationResult"/> class with the specified error.
     /// </summary>
@@ -72,6 +74,113 @@ public class OperationResult
     /// <returns>A new instance of the <see cref="OperationResult{T}"/> class.</returns>
     public static OperationResult<T> Ok<T>(T value) => new(value);
 
-    public static implicit operator OperationResult(OperationError error) => new(error);
-    public static implicit operator OperationResult(string errorMessage) => new(errorMessage);
+    /// <summary>
+    /// Executes the specified function and returns the result.
+    /// Catches any exceptions thrown by the function and returns a failure result.
+    /// </summary>
+    /// <param name="func">The function to execute.</param>
+    /// <param name="errorMessage">The error message to return if the function fails.</param>
+    /// <typeparam name="T">The type of the value.</typeparam>
+    /// <returns>An <see cref="OperationResult{T}"/> that indicates the result of the operation.</returns>
+    public static OperationResult<T> TryCatch<T>(Func<T> func, string? errorMessage = null)
+    {
+        try
+        {
+            var value = func();
+            return Ok(value);
+        }
+        catch (Exception ex)
+        {
+            return Fail<T>(new()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex
+            });
+        }
+    }
+
+    /// <summary>
+    /// Executes the specified function and returns the result.
+    /// Catches any exceptions thrown by the function and returns a failure result.
+    /// </summary>
+    /// <param name="func">The function to execute.</param>
+    /// <param name="errorMessage">The error message to return if the function fails.</param>
+    /// <typeparam name="T">The type of the value.</typeparam>
+    /// <returns>An <see cref="OperationResult{T}"/> that indicates the result of the operation.</returns>
+    public static async Task<OperationResult<T>> TryCatch<T>(Func<Task<T>> func, string? errorMessage = null)
+    {
+        try
+        {
+            var value = await func();
+            return Ok(value);
+        }
+        catch (Exception ex)
+        {
+            return Fail<T>(new()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex
+            });
+        }
+    }
+
+    /// <summary>
+    /// Executes the specified function and returns the result.
+    /// Catches any exceptions thrown by the function and returns a failure result.
+    /// </summary>
+    /// <param name="action">The action to execute.</param>
+    /// <param name="errorMessage">The error message to return if the function fails.</param>
+    /// <returns>An <see cref="OperationResult"/> that indicates the result of the operation.</returns>
+    public static OperationResult TryCatch(Action action, string? errorMessage = null)
+    {
+        try
+        {
+            action();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return Fail(new()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex
+            });
+        }
+    }
+
+    /// <summary>
+    /// Executes the specified function and returns the result.
+    /// Catches any exceptions thrown by the function and returns a failure result.
+    /// </summary>
+    /// <param name="action">The action to execute.</param>
+    /// <param name="errorMessage">The error message to return if the function fails.</param>
+    /// <returns>An <see cref="OperationResult"/> that indicates the result of the operation.</returns>
+    public static async Task<OperationResult> TryCatch(Func<Task> action, string? errorMessage = null)
+    {
+        try
+        {
+            await action();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return Fail(new()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex
+            });
+        }
+    }
+
+    #endregion
+
+    #region Implicit Operators
+
+    public static implicit operator OperationResult(OperationError error) => Fail(error);
+
+    public static implicit operator OperationResult(string errorMessage) => Fail(errorMessage);
+
+    public static implicit operator OperationResult(Exception exception) => Fail(exception);
+
+    #endregion
 }

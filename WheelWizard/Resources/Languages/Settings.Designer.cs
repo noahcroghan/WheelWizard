@@ -60,6 +60,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string Category_About {
+            get {
+                return ResourceManager.GetString("Category_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Video.
         /// </summary>
         public static string Category_Video {

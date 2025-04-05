@@ -85,17 +85,19 @@ public static class DolphinLaunchHelper
                 flatpakRunCommand,
                 $"{flatpakRunCommand} --filesystem=\"{Path.GetFullPath(newFilesystemPerm)}\"{mode}");
         };
+        // Read-only permissions
         if (!TryFixFlatpakGameFileAccess())
         {
             addFilesystemPerm(PathManager.GameFilePath, ":ro");
         }
+        addFilesystemPerm(PathManager.RrLaunchJsonFilePath, ":ro");
+        addFilesystemPerm(PathManager.XmlFilePath, ":ro");
+        addFilesystemPerm(PathManager.RiivolutionWhWzFolderPath, ":ro");
+        // Read-write permissions
         if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(PathManager.UserFolderPath, StringComparison.Ordinal))
         {
             addFilesystemPerm(PathManager.UserFolderPath, ":rw");
         }
-        addFilesystemPerm(PathManager.RrLaunchJsonFilePath, ":ro");
-        addFilesystemPerm(PathManager.XmlFilePath, ":ro");
-        addFilesystemPerm(PathManager.RiivolutionWhWzFolderPath, ":ro");
         addFilesystemPerm(PathManager.SaveFolderPath, ":rw");
         return fixedFlatpakDolphinLocation;
     }
@@ -125,10 +127,12 @@ public static class DolphinLaunchHelper
                 startInfo.ArgumentList.Add("sh");
                 startInfo.ArgumentList.Add("-c");
                 startInfo.ArgumentList.Add("--");
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
-                    PathManager.IsFlatpakDolphinFilePath())
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 {
-                    dolphinLocation = FixFlatpakDolphinPermissions(dolphinLocation);
+                    if (PathManager.IsFlatpakDolphinFilePath())
+                        dolphinLocation = FixFlatpakDolphinPermissions(dolphinLocation);
+                    else
+                        startInfo.EnvironmentVariables["QT_QPA_PLATFORM"] = "xcb";
                 }
                 startInfo.ArgumentList.Add($"{dolphinLocation} {dolphinLaunchArguments}");
                 startInfo.UseShellExecute = false;
