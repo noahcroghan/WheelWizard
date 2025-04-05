@@ -3,6 +3,21 @@
 namespace WheelWizard.WiiManagement.Domain.Enums;
 
 public enum MiiFavoriteColor { Red, Orange, Yellow, Green, Blue, LightBlue, Pink, Purple, Brown, White, Black, Gray }
+public enum MiiFaceShape{RoundPointChin, Circle, Oval, BlobFatChin, RightAnglePointChin, Bread, Octagon, Square}
+public enum MiiSkinColor{ Light, LightTan, Tan, Pink, DarkBrown, Brown}
+public enum FacialFeature {None, Cheeks, CheekAndEyes, Freckles, BaggyEyes, Chad, Tired, Chin, EyeShadow, Beard, MouthCorners, Old}
+public enum HairColor {Black, Brown, Red, LightRed, Grey, LightBrown, Blonde, White}
+public enum EyebrowColor {Black, Brown, Red, LightRed, Grey, LightBrown, Blonde, White}
+public enum EyeColor {Black, Grey, Red, Gold, Blue, Green}
+public enum NoseType {Default, SemiCircle, Dots, VShape, FullNose, Triangle, FlatC, UpsideDownC, Squidward, ArrowDown, Flat, Tunnel}
+public enum LipColor {Skin, Red, Pink}
+public enum GlassesColor {Dark, DarkGold, Red, Blue, Gold, White}
+public enum GlasseStype {None, Square, Rectangle, Circle, Oval, Misses, SadSunGlasses, SunGlasses, CoolSunGlasses}
+public enum StachColor {Black, Brown, Red, LightRed, Grey, LightBrown, Blonde, White}
+public enum StachType {None, Fat, Thin, Goatee}
+public enum BeardType {None, Thin, Wide, Widest}
+
+
 
 public class MiiName
 {
@@ -47,13 +62,13 @@ public class MiiScale
 
 public class MiiFacialFeatures
 {
-    public int FaceShape { get; }
-    public int SkinColor { get; }
-    public int FacialFeature { get; }
+    public MiiFaceShape FaceShape { get; }
+    public MiiSkinColor SkinColor { get; }
+    public FacialFeature FacialFeature { get; }
     public bool MingleOff { get; }
     public bool Downloaded { get; }
 
-    private MiiFacialFeatures(int faceShape, int skinColor, int facialFeature, bool mingleOff, bool downloaded)
+    private MiiFacialFeatures(MiiFaceShape faceShape, MiiSkinColor skinColor, FacialFeature facialFeature, bool mingleOff, bool downloaded)
     {
         FaceShape = faceShape;
         SkinColor = skinColor;
@@ -62,15 +77,8 @@ public class MiiFacialFeatures
         Downloaded = downloaded;
     }
 
-    public static OperationResult<MiiFacialFeatures> Create(int faceShape, int skinColor, int facialFeature, bool mingleOff, bool downloaded)
+    public static OperationResult<MiiFacialFeatures> Create(MiiFaceShape faceShape, MiiSkinColor skinColor, FacialFeature facialFeature, bool mingleOff, bool downloaded)
     {
-        if (faceShape is < 0 or > 7)
-            return Fail<MiiFacialFeatures>("FaceShape out of range");
-        if (skinColor is < 0 or > 5)
-            return Fail<MiiFacialFeatures>("SkinColor out of range");
-        if (facialFeature is < 0 or > 11)
-            return Fail<MiiFacialFeatures>("FacialFeature out of range");
-
         return Ok(new MiiFacialFeatures(faceShape, skinColor, facialFeature, mingleOff, downloaded));
     }
 }
