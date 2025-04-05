@@ -86,22 +86,20 @@ public class MiiFacialFeatures
 public class MiiHair
 {
     public int HairType { get; }
-    public int HairColor { get; }
+    public HairColor HairColor { get; }
     public bool HairFlipped { get; }
 
-    private MiiHair(int hairType, int hairColor, bool hairFlipped)
+    private MiiHair(int hairType, HairColor hairColor, bool hairFlipped)
     {
         HairType = hairType;
         HairColor = hairColor;
         HairFlipped = hairFlipped;
     }
 
-    public static OperationResult<MiiHair> Create(int hairType, int hairColor, bool hairFlipped)
+    public static OperationResult<MiiHair> Create(int hairType, HairColor hairColor, bool hairFlipped)
     {
         if (hairType is < 0 or > 71)
             return Fail<MiiHair>("HairType out of range");
-        if (hairColor is < 0 or > 7)
-            return Fail<MiiHair>("HairColor out of range");
 
         return Ok(new MiiHair(hairType, hairColor, hairFlipped));
     }
@@ -112,12 +110,12 @@ public class MiiEyebrow
 {
     public int Type { get; }
     public int Rotation { get; }
-    public int Color { get; }
+    public EyebrowColor  Color { get; }
     public int Size { get; }
     public int Vertical { get; }
     public int Spacing { get; }
 
-    private MiiEyebrow(int type, int rotation, int color, int size, int vertical, int spacing)
+    private MiiEyebrow(int type, int rotation, EyebrowColor color, int size, int vertical, int spacing)
     {
         Type = type;
         Rotation = rotation;
@@ -127,14 +125,12 @@ public class MiiEyebrow
         Spacing = spacing;
     }
 
-    public static OperationResult<MiiEyebrow> Create(int type, int rotation, int color, int size, int vertical, int spacing)
+    public static OperationResult<MiiEyebrow> Create(int type, int rotation, EyebrowColor color, int size, int vertical, int spacing)
     {
         if (type is < 0 or > 23)
             return Fail<MiiEyebrow>("Eyebrow type invalid");
         if (rotation is < 0 or > 11)
             return Fail<MiiEyebrow>("Rotation invalid");
-        if (color is < 0 or > 7)
-            return Fail<MiiEyebrow>("Color invalid");
         if (size is < 0 or > 8)
             return Fail<MiiEyebrow>("Size invalid");
         if (vertical is < 0 or > 18)
@@ -152,11 +148,11 @@ public class MiiEye
     public int Type { get; }
     public int Rotation { get; }
     public int Vertical { get; }
-    public int Color { get; }
+    public EyeColor Color { get; }
     public int Size { get; }
     public int Spacing { get; }
 
-    private MiiEye(int type, int rotation, int vertical, int color, int size, int spacing)
+    private MiiEye(int type, int rotation, int vertical, EyeColor color, int size, int spacing)
     {
         Type = type;
         Rotation = rotation;
@@ -166,12 +162,11 @@ public class MiiEye
         Spacing = spacing;
     }
 
-    public static OperationResult<MiiEye> Create(int type, int rotation, int vertical, int color, int size, int spacing)
+    public static OperationResult<MiiEye> Create(int type, int rotation, int vertical, EyeColor color, int size, int spacing)
     {
         if (type is < 0 or > 47) return Fail<MiiEye>("Eye type invalid");
         if (rotation is < 0 or > 7) return Fail<MiiEye>("Rotation invalid");
         if (vertical is < 0 or > 18) return Fail<MiiEye>("Vertical position invalid");
-        if (color is < 0 or > 5) return Fail<MiiEye>("Color invalid");
         if (size is < 0 or > 7) return Fail<MiiEye>("Size invalid");
         if (spacing is < 0 or > 12) return Fail<MiiEye>("Spacing invalid");
 
@@ -181,20 +176,19 @@ public class MiiEye
 
 public class MiiNose
 {
-    public int Type { get; }
+    public NoseType Type { get; }
     public int Size { get; }
     public int Vertical { get; }
 
-    private MiiNose(int type, int size, int vertical)
+    private MiiNose(NoseType type, int size, int vertical)
     {
         Type = type;
         Size = size;
         Vertical = vertical;
     }
 
-    public static OperationResult<MiiNose> Create(int type, int size, int vertical)
+    public static OperationResult<MiiNose> Create(NoseType type, int size, int vertical)
     {
-        if (type is < 0 or > 11) return Fail<MiiNose>("Nose type invalid");
         if (size is < 0 or > 8) return Fail<MiiNose>("Nose size invalid");
         if (vertical is < 0 or > 18) return Fail<MiiNose>("Nose vertical position invalid");
 
@@ -206,11 +200,11 @@ public class MiiNose
 public class MiiLip
 {
     public int Type { get; }
-    public int Color { get; }
+    public LipColor Color { get; }
     public int Size { get; }
     public int Vertical { get; }
 
-    private MiiLip(int type, int color, int size, int vertical)
+    private MiiLip(int type, LipColor color, int size, int vertical)
     {
         Type = type;
         Color = color;
@@ -218,10 +212,9 @@ public class MiiLip
         Vertical = vertical;
     }
 
-    public static OperationResult<MiiLip> Create(int type, int color, int size, int vertical)
+    public static OperationResult<MiiLip> Create(int type, LipColor color, int size, int vertical)
     {
         if (type is < 0 or > 23) return Fail<MiiLip>("Lip type invalid");
-        if (color is < 0 or > 2) return Fail<MiiLip>("Lip color invalid");
         if (size is < 0 or > 8) return Fail<MiiLip>("Lip size invalid");
         if (vertical is < 0 or > 18) return Fail<MiiLip>("Lip vertical position invalid");
 
@@ -232,12 +225,12 @@ public class MiiLip
 
 public class MiiGlasses
 {
-    public int Type { get; }
-    public int Color { get; }
+    public GlasseStype  Type { get; }
+    public GlassesColor Color { get; }
     public int Size { get; }
     public int Vertical { get; }
 
-    private MiiGlasses(int type, int color, int size, int vertical)
+    private MiiGlasses(GlasseStype type, GlassesColor color, int size, int vertical)
     {
         Type = type;
         Color = color;
@@ -245,10 +238,8 @@ public class MiiGlasses
         Vertical = vertical;
     }
 
-    public static OperationResult<MiiGlasses> Create(int type, int color, int size, int vertical)
+    public static OperationResult<MiiGlasses> Create(GlasseStype type, GlassesColor color, int size, int vertical)
     {
-        if (type is < 0 or > 8) return Fail<MiiGlasses>("Glasses type invalid");
-        if (color is < 0 or > 5) return Fail<MiiGlasses>("Glasses color invalid");
         if (size is < 0 or > 7) return Fail<MiiGlasses>("Glasses size invalid");
         if (vertical is < 0 or > 20) return Fail<MiiGlasses>("Glasses vertical position invalid");
 
@@ -257,13 +248,13 @@ public class MiiGlasses
 }
 public class MiiFacialHair
 {
-    public int MustacheType { get; }
-    public int BeardType { get; }
-    public int Color { get; }
+    public StachType MustacheType { get; }
+    public BeardType BeardType { get; }
+    public StachColor Color { get; }
     public int Size { get; }
     public int Vertical { get; }
 
-    private MiiFacialHair(int mustacheType, int beardType, int color, int size, int vertical)
+    private MiiFacialHair(StachType mustacheType, BeardType beardType, StachColor color, int size, int vertical)
     {
         MustacheType = mustacheType;
         BeardType = beardType;
@@ -272,11 +263,8 @@ public class MiiFacialHair
         Vertical = vertical;
     }
 
-    public static OperationResult<MiiFacialHair> Create(int mustacheType, int beardType, int color, int size, int vertical)
+    public static OperationResult<MiiFacialHair> Create(StachType mustacheType, BeardType beardType, StachColor color, int size, int vertical)
     {
-        if (mustacheType is < 0 or > 3) return Fail<MiiFacialHair>("Mustache type invalid");
-        if (beardType is < 0 or > 3) return Fail<MiiFacialHair>("Beard type invalid");
-        if (color is < 0 or > 7) return Fail<MiiFacialHair>("Facial hair color invalid");
         if (size is < 0 or > 8) return Fail<MiiFacialHair>("Facial hair size invalid");
         if (vertical is < 0 or > 16) return Fail<MiiFacialHair>("Facial hair vertical position invalid");
 
