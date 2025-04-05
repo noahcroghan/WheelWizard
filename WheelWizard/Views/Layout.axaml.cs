@@ -10,6 +10,7 @@ using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.WiiManagement.SaveData;
+using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Pages;
@@ -25,11 +26,9 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
 
     public const double WindowHeight = 876;
     public const double WindowWidth = 656;
-    public static Layout Instance { get; private set; }
+    public static Layout Instance { get; private set; } = null!;
 
-    private UserControl _currentPage;
-
-    private IBrandingSingletonService _brandingService = null!;
+    [Inject] private IBrandingSingletonService BrandingService { get; set; } = null!;
     private IGameDataLoader _gameDataService = null!;
 
     public Layout()
@@ -49,8 +48,6 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
             MadeBy_Part2.Text = split[1];
         }
 
-        NavigateToPage(new HomePage());
-        
         WhWzStatusManager.Instance.Subscribe(this);
         RRLiveRooms.Instance.Subscribe(this);
         _gameDataService.Subscribe(this);
@@ -59,16 +56,14 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
 #endif
     }
 
-    protected override void OnInitialized()
-    {
-        _brandingService = App.Services.GetRequiredService<IBrandingSingletonService>();
-        _gameDataService = App.Services.GetRequiredService<IGameDataLoader>();
-        Title = _brandingService.Branding.DisplayName;
-    }
     protected override void OnLoaded(RoutedEventArgs e)
     {
-        TitleLabel.Text = _brandingService.Branding.DisplayName;
+        Title = BrandingService.Branding.DisplayName;
+        TitleLabel.Text = BrandingService.Branding.DisplayName;
+
+        NavigationManager.NavigateTo<HomePage>();
     }
+
 
     public void OnSettingChanged(Setting setting)
     {
@@ -82,7 +77,6 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         CompleteGrid.Margin = new Thickness(marginXCorrection, marginYCorrection);
         //ExtendClientAreaToDecorationsHint = scaleFactor <= 1.2f;
     }
-    
 
     public void NavigateToPage(UserControl page)
     {
@@ -166,7 +160,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     private void CloseButton_Click(object? sender, RoutedEventArgs e) => Close();
     private void MinimizeButton_Click(object? sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
 
-    private void Discord_Click(object sender, EventArgs e) => ViewUtils.OpenLink(_brandingService.Branding.DiscordUrl.ToString());
-    private void Github_Click(object sender, EventArgs e) => ViewUtils.OpenLink(_brandingService.Branding.RepositoryUrl.ToString());
-    private void Support_Click(object sender, EventArgs e) => ViewUtils.OpenLink(_brandingService.Branding.SupportUrl.ToString());
+    private void Discord_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.DiscordUrl.ToString());
+    private void Github_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.RepositoryUrl.ToString());
+    private void Support_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.SupportUrl.ToString());
 }

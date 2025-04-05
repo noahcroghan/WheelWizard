@@ -49,12 +49,12 @@ public class App : Application
         _ = UrlProtocolManager.ShowPopupForLaunchUrlAsync(protocolArgument);
     }
 
-    private static async void OnInitializedAsync()
+    private async void OnInitializedAsync()
     {
-        OpenGameBananaModWindow();
-        
         try
         {
+            OpenGameBananaModWindow();
+
             var updateService = Services.GetRequiredService<IAutoUpdaterSingletonService>();
             var whWzDataService = Services.GetRequiredService<IWhWzDataSingletonService>();
 

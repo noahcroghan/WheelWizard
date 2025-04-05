@@ -1,7 +1,7 @@
-﻿using Avalonia;
+﻿using System.ComponentModel;
+using Avalonia;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
-using System.ComponentModel;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
@@ -60,7 +60,7 @@ public class CurrentUserProfile : TemplatedControl, INotifyPropertyChanged
         Mii = currentUser.Mii;
     }
 
-    protected override void OnPointerPressed(PointerPressedEventArgs e) => ViewUtils.NavigateToPage(new UserProfilePage());
+    protected override void OnPointerPressed(PointerPressedEventArgs e) => NavigationManager.NavigateTo<UserProfilePage>();
     
     #region PropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;

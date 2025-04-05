@@ -1,5 +1,5 @@
-﻿using Serilog;
-using System.IO.Abstractions;
+﻿using System.IO.Abstractions;
+using Serilog;
 using Testably.Abstractions;
 using WheelWizard.AutoUpdating;
 using WheelWizard.Branding;
@@ -43,7 +43,6 @@ public static class SetupExtensions
 
             builder.AddSerilog(configuration.CreateLogger(), dispose: true);
         });
-
 
         // Dynamic API calls
         services.AddTransient(typeof(IApiCaller<>), typeof(ApiCaller<>));

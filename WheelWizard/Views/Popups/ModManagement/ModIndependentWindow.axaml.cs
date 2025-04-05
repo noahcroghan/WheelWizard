@@ -18,7 +18,7 @@ public partial class ModIndependentWindow : PopupContent
         
     protected override void BeforeClose()
     {
-        ViewUtils.NavigateToPage(new ModsPage());
+        NavigationManager.NavigateTo<ModsPage>();
         base.BeforeClose();
     }
 }
