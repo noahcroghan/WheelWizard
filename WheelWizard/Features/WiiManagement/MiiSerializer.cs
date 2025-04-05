@@ -1,4 +1,5 @@
-﻿using WheelWizard.WiiManagement.Domain.Enums;
+﻿using System.Text;
+using WheelWizard.WiiManagement.Domain.Enums;
 
 namespace WheelWizard.WiiManagement;
 
@@ -321,8 +322,10 @@ public static class MiiSerializer
         mii.MiiMole = miiMoleResult.Value;
 
         // Creator Name (0x36 - 0x49)
-        mii.CreatorName = MiiName.FromBytes(data, 0x36);
-
+        var creatorNameResult = MiiName.Create(Encoding.Unicode.GetString(data, 0x36, 20).TrimEnd('\0'));
+        if (creatorNameResult.IsFailure)
+            return creatorNameResult.Error;
+        mii.CreatorName = creatorNameResult.Value;
         return mii;
     }
 }

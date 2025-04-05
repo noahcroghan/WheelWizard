@@ -32,8 +32,9 @@ public class MiiName
     /// <exception cref="ArgumentException">Mii name cannot be empty or longer than 10 characters.</exception>
     public MiiName(string value)
     {
-        if (string.IsNullOrWhiteSpace(value)) 
-            throw new ArgumentException("Mii name cannot be empty");
+        //Mii names are allowed to be empty since creators can be empty
+        if (value == null) 
+            throw new ArgumentException("Mii name cannot be null");
         
         if (value.Length > 10) 
             throw new ArgumentException("Mii name too long, maximum is 10 characters");

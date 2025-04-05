@@ -41,13 +41,9 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         _miiService = miiService;
         _fileSystem = fileSystem;
         UserList = new GameData();
-        TryCatch(() =>
-        {
-            var loadSaveDataResult = LoadSaveDataFile();
-            if (loadSaveDataResult.IsFailure)
-                throw new Exception(loadSaveDataResult.Error.Message);
-        });
-            
+        var loadGameDataResult = LoadGameData();
+        if (loadGameDataResult.IsFailure)
+            throw new Exception(loadGameDataResult.Error.Message);
     }
     
 
@@ -96,10 +92,12 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     /// </summary>
     public OperationResult LoadGameData()
     {
-        var loadSaveDataResult = LoadSaveDataFile();
         try
         {
-            _saveData = loadSaveDataResult.IsFailure ? new byte[RksysSize] : loadSaveDataResult.Value;
+            var loadSaveDataResult = LoadSaveDataFile();
+            if (loadSaveDataResult.IsFailure)
+                return loadSaveDataResult;
+            _saveData = loadSaveDataResult.Value;
             if (_saveData != null && ValidateMagicNumber())
             {
                 var result = ParseUsers();
@@ -205,6 +203,8 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         var clientId = BitConverter.ToUInt32(_saveData, offset + 0x14);
         
         var rawMiiResult = _miiService.GetByClientId(clientId);
+        if (rawMiiResult.IsFailure)
+            throw new FormatException("Failed to parse mii data: " + rawMiiResult.Error.Message);
 
         var miiData = new MiiData
         {
