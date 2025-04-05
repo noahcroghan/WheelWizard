@@ -1,9 +1,8 @@
+using System.Diagnostics;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using System.Globalization;
 using WheelWizard.Services.LiveData;
-using WheelWizard.Services.Settings;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Utilities.RepeatedTasks;
 
@@ -13,36 +12,21 @@ public static class ViewUtils
 {
     public static void OpenLink(string link)
     {
-        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+        Process.Start(new ProcessStartInfo
         {
             FileName = link,
             UseShellExecute = true
         });
     }
-    
+
     public static Layout GetLayout() => Layout.Instance;
-    public static void NavigateToPage(UserControl page)
-    {
-        // TODO: Fix the language bug. for some reason when changing the language, it changes itself back to the language before
-        //  SO as a quick and dirty fix in the navigate to page we just set the language pack when its out of sync, but this solution
-        //  still makes it so that the first page you enter after changing the language setting will always be the old language instead of the new one
-        //  when working on the translations again, this should be fixed. and in a solid way instead of this
-        var itCurrentlyIs = CultureInfo.CurrentCulture.ToString();
-        var itsSupposeToBe = (string)SettingsManager.WW_LANGUAGE.Get();
-        if (itCurrentlyIs != itsSupposeToBe)
-        {
-            SettingsManager.WW_LANGUAGE.Set(itCurrentlyIs);
-            SettingsManager.WW_LANGUAGE.Set(itsSupposeToBe);
-        }
-        GetLayout().NavigateToPage(page);
-    }
 
     public static void RefreshWindow()
     {
         // Refresh window  opens in the start page again, that is nessesairy
         // we would prefer opening up where we left off, however, that does not work since the translations
         // are still in the context of the layout before, and so the dropdowns will break
-        
+
         var oldWindow = GetLayout();
         // Creating a new one will also set re-assign `Layout.Instance` right away, and this `GetLayout()`
         Layout newWindow = new();
@@ -56,7 +40,7 @@ public static class ViewUtils
             RRLiveRooms.Instance.Unsubscribe(oldListener);
             GameDataLoader.Instance.Unsubscribe(oldListener);
         }
-     
+
         newWindow.Show();
         oldWindow.Close();
         newWindow.UpdatePlayerAndRoomCount(RRLiveRooms.Instance);
@@ -67,7 +51,7 @@ public static class ViewUtils
         StyledElement? currentParent = null;
         if (child is StyledElement childElement) currentParent = childElement.Parent;
         if (currentParent == null) return default;
-        
+
         var currentDepth = 1;
         while (currentDepth < maxSearchDepth)
         {
@@ -75,10 +59,12 @@ public static class ViewUtils
             if (currentParent?.Parent != null) currentParent = currentParent.Parent;
             currentDepth++;
         }
+
         return default;
     }
 
     #region Colors
+
     public static class Colors
     {
         public static Color Warning50 = GetColor("Warning50");
@@ -92,7 +78,7 @@ public static class ViewUtils
         public static Color Warning800 = GetColor("Warning800");
         public static Color Warning900 = GetColor("Warning900");
         public static Color Warning950 = GetColor("Warning950");
-        
+
         public static Color Danger50 = GetColor("Danger50");
         public static Color Danger100 = GetColor("Danger100");
         public static Color Danger200 = GetColor("Danger200");
@@ -104,7 +90,7 @@ public static class ViewUtils
         public static Color Danger800 = GetColor("Danger800");
         public static Color Danger900 = GetColor("Danger900");
         public static Color Danger950 = GetColor("Danger950");
-        
+
         public static Color Primary50 = GetColor("Primary50");
         public static Color Primary100 = GetColor("Primary100");
         public static Color Primary200 = GetColor("Primary200");
@@ -116,7 +102,7 @@ public static class ViewUtils
         public static Color Primary800 = GetColor("Primary800");
         public static Color Primary900 = GetColor("Primary900");
         public static Color Primary950 = GetColor("Primary950");
-        
+
         public static Color Neutral50 = GetColor("Neutral50");
         public static Color Neutral100 = GetColor("Neutral100");
         public static Color Neutral200 = GetColor("Neutral200");
@@ -128,10 +114,11 @@ public static class ViewUtils
         public static Color Neutral800 = GetColor("Neutral800");
         public static Color Neutral900 = GetColor("Neutral900");
         public static Color Neutral950 = GetColor("Neutral950");
-        
+
         public static Color Black = GetColor("Black");
-        
+
         private static Color GetColor(string name) => (Color)Application.Current.FindResource(name);
     }
+
     #endregion
 }
