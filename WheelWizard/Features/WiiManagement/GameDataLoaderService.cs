@@ -41,7 +41,13 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         _miiService = miiService;
         _fileSystem = fileSystem;
         UserList = new GameData();
-        LoadGameData();
+        TryCatch(() =>
+        {
+            var loadSaveDataResult = LoadSaveDataFile();
+            if (loadSaveDataResult.IsFailure)
+                throw new Exception(loadSaveDataResult.Error.Message);
+        });
+            
     }
     
 
@@ -88,41 +94,37 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     /// Loads the entire rksys.dat file from disk into memory and parses the 4 possible licenses.
     /// If the file is invalid or not found, we create dummy users.
     /// </summary>
-    public void LoadGameData()
+    public OperationResult LoadGameData()
     {
+        var loadSaveDataResult = LoadSaveDataFile();
         try
         {
-            var loadSaveDataResult = LoadSaveDataFile();
             _saveData = loadSaveDataResult.IsFailure ? new byte[RksysSize] : loadSaveDataResult.Value;
             if (_saveData != null && ValidateMagicNumber())
             {
-                ParseUsers();
-                return;
+                var result = ParseUsers();
+                if (result.IsFailure)
+                    return result;
+                return Ok();
             }
 
             // If the file was invalid or not found, create 4 dummy licenses
             UserList.Users.Clear();
             for (var i = 0; i < MaxPlayerNum; i++)
                 CreateDummyUser();
+            return Ok();
             
         }
         catch (Exception e)
         {
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Loading game data failed")
-                .SetInfoText($"An error occurred while loading the game data: {e.Message}")
-                .Show();
+            return "Failed to load rksys.dat: " + e.Message;
         }
+        
     }
 
     private void CreateDummyUser()
     {
-        var noLicenseNameResult = MiiName.Create("no license");
-        if (noLicenseNameResult.IsFailure)
-            throw new Exception("Failed to create dummy name");
-        
-        
+        var noLicenseName = new MiiName("no license");
         var dummyUser = new GameDataUser
         {
             FriendCode = "0000-0000-0000",
@@ -130,7 +132,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             {
                 Mii = new FullMii
                 {
-                    Name = noLicenseNameResult.Value,
+                    Name = noLicenseName,
                 },
                 AvatarId = 0,
                 ClientId = 0
@@ -146,10 +148,10 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         UserList.Users.Add(dummyUser);
     }
 
-    private void ParseUsers()
+    private OperationResult ParseUsers()
     {
         UserList.Users.Clear();
-        if (_saveData == null) return;
+        if (_saveData == null) return new ArgumentNullException(nameof(_saveData));
 
         for (var i = 0; i < MaxPlayerNum; i++)
         {
@@ -166,6 +168,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         }
         if (UserList.Users.Count == 0)
             CreateDummyUser();
+        return Ok();
     }
 
     private GameDataUser ParseUser(int offset)
@@ -267,7 +270,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         try
         {
             if (!Directory.Exists(PathManager.SaveFolderPath))
-                return Fail<byte[]>("Save folder not found");
+                return "Save folder not found";
 
             var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
             if (currentRegion == MarioKartWiiEnums.Regions.None)
@@ -281,7 +284,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
                 }
                 else
                 {
-                    return Fail<byte[]>("No valid regions found");
+                    return "No valid regions found";
                 }
             }
 
@@ -293,7 +296,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         }
         catch
         {
-            return Fail<byte[]>("Failed to load rksys.dat");
+            return "Failed to load rksys.dat";
         }
     }
 
@@ -482,7 +485,11 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     
     protected override Task ExecuteTaskAsync()
     {
-        LoadGameData();
+        var result = LoadGameData();
+        if (result.IsFailure)
+        {
+            throw new Exception(result.Error.Message);
+        }
         return Task.CompletedTask;
     }
 

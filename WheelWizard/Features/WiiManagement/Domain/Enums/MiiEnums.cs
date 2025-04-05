@@ -3,7 +3,7 @@
 namespace WheelWizard.WiiManagement.Domain.Enums;
 
 public enum MiiFavoriteColor : uint { Red, Orange, Yellow, Green, Blue, LightBlue, Pink, Purple, Brown, White, Black, Gray }
-public enum MiiFaceShape {RoundPointChin, Circle, Oval, BlobFatChin, RightAnglePointChin, Bread, Octagon, Square}
+public enum MiiFaceShape { RoundPointChin, Circle, Oval, BlobFatChin, RightAnglePointChin, Bread, Octagon, Square}
 public enum MiiSkinColor { Light, LightTan, Tan, Pink, DarkBrown, Brown}
 public enum MiiFacialFeature {None, Cheeks, CheekAndEyes, Freckles, BaggyEyes, Chad, Tired, Chin, EyeShadow, Beard, MouthCorners, Old}
 public enum HairColor {Black, Brown, Red, LightRed, Grey, LightBrown, Blonde, White}
