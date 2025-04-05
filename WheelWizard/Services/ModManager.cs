@@ -176,7 +176,8 @@ public class ModManager : INotifyPropertyChanged
         OnPropertyChanged(nameof(Mods));
     }
 
-    public OperationResult ValidateModName(string name)
+    // TODO: Use this validation method when refactoring the ModManager
+    private OperationResult ValidateModName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
             return Fail("Mod name cannot be empty.");
