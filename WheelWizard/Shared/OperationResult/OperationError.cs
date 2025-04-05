@@ -15,5 +15,15 @@ public class OperationError
     /// </summary>
     public Exception? Exception { get; init; }
 
-    public static implicit operator OperationError(string message) => new() { Message = message };
+    #region Implicit Operators
+
+    public static implicit operator OperationError(string errorMessage) => new() { Message = errorMessage };
+
+    public static implicit operator OperationError(Exception exception) => new()
+    {
+        Message = exception.Message,
+        Exception = exception
+    };
+
+    #endregion
 }

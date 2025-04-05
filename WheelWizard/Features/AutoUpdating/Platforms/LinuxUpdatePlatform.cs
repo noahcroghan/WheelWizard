@@ -30,13 +30,13 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
     {
         var currentExecutablePath = Environment.ProcessPath;
         if (currentExecutablePath is null)
-            return Fail(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation);
+            return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
         var currentExecutableName = fileSystem.Path.GetFileName(currentExecutablePath);
         var currentFolder = fileSystem.Path.GetDirectoryName(currentExecutablePath);
 
         if (currentFolder is null)
-            return Fail(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation);
+            return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
         // Download the new executable to a temporary file.
         var newFilePath = fileSystem.Path.Combine(currentFolder, currentExecutableName + "_new");
@@ -67,7 +67,7 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
     {
         var currentFolder = fileSystem.Path.GetDirectoryName(currentFilePath);
         if (currentFolder is null)
-            return Fail(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation);
+            return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
         var scriptFilePath = fileSystem.Path.Combine(currentFolder, "update.sh");
         var originalFileName = fileSystem.Path.GetFileName(currentFilePath);
@@ -98,30 +98,24 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         fileSystem.File.WriteAllText(scriptFilePath, scriptContent);
 
         // Ensure the script is executable.
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = "/usr/bin/env",
-                ArgumentList =
+        var chmodResult = TryCatch(() =>
+                Process.Start(new ProcessStartInfo
                 {
-                    "chmod",
-                    "+x",
-                    "--",
-                    scriptFilePath,
-                },
-                CreateNoWindow = true,
-                UseShellExecute = false
-            })?.WaitForExit();
-        }
-        catch (Exception ex)
-        {
-            return Fail(new()
-            {
-                Message = "Failed to set execute permission for the update script.",
-                Exception = ex
-            });
-        }
+                    FileName = "/usr/bin/env",
+                    ArgumentList =
+                    {
+                        "chmod",
+                        "+x",
+                        "--",
+                        scriptFilePath,
+                    },
+                    CreateNoWindow = true,
+                    UseShellExecute = false
+                })?.WaitForExit(), errorMessage: "Failed to set execute permission for the update script."
+        );
+
+        if (chmodResult.IsFailure)
+            return chmodResult;
 
         var processStartInfo = new ProcessStartInfo
         {
@@ -137,19 +131,6 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             WorkingDirectory = currentFolder
         };
 
-        try
-        {
-            Process.Start(processStartInfo);
-        }
-        catch (Exception ex)
-        {
-            return Fail(new()
-            {
-                Message = "Failed to execute the update script.",
-                Exception = ex
-            });
-        }
-
-        return Ok();
+        return TryCatch(() => Process.Start(processStartInfo), errorMessage: "Failed to execute the update script.");
     }
 }
