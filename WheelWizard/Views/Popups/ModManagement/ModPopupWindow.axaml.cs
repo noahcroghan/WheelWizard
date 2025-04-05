@@ -1,11 +1,11 @@
-﻿using Avalonia;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using WheelWizard.Models.GameBanana;
 using WheelWizard.Services.GameBanana;
 using WheelWizard.Views.Pages;
@@ -27,7 +27,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
 
     private const int ModsPerPage = 15;
     private const double ScrollThreshold = 50; // Adjusted threshold for earlier loading
-    
+
     private CancellationTokenSource? _loadCancellationToken;
 
 
@@ -49,7 +49,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
         if (!_isInitialLoad) return;
         LoadMods(_currentPage).ConfigureAwait(false);
         _isInitialLoad = false;
-        
+
         // Attach to the ListBox's scroll event
         ModListView.AddHandler(ScrollViewer.ScrollChangedEvent, ModListView_ScrollChanged);
     }
@@ -66,7 +66,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
         {
             var result = await GamebananaSearchHandler.SearchModsAsync(searchTerm, page, ModsPerPage);
             Mods.Where(mod => mod._sName == "LOADING").ToList().ForEach(mod => Mods.Remove(mod));
-            
+
             if (result is { Succeeded: true, Content: not null })
             {
                 var metadata = result.Content._aMetadata;
@@ -79,6 +79,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
                     {
                         Mods.Add(mod);
                     }
+
                     _hasMoreMods = !metadata._bIsComplete;
                     _currentPage = page;
                 }
@@ -172,7 +173,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
             // Ignore
         }
     }
-    
+
     // Implement INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -187,7 +188,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
     protected override void BeforeClose()
     {
         // a bit dirty, but it's the easiest way to refresh the mod list in the ModsPage
-        ViewUtils.NavigateToPage(new ModsPage());
+        NavigationManager.NavigateTo<ModsPage>();
         base.BeforeClose();
     }
 

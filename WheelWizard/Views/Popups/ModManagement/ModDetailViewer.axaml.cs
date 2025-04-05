@@ -10,6 +10,8 @@ using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Views.Popups.ModManagement;
 
+public record ModItem(Bitmap FullImageUrl);
+
 public partial class ModDetailViewer : UserControl
 {
     private bool loading;
@@ -129,7 +131,7 @@ public partial class ModDetailViewer : UserControl
             var bitmap = new Bitmap(memoryStream);
 
             // Add the bitmap to the image carousel
-            ImageCarousel.Items.Add(new { FullImageUrl = bitmap });
+            ImageCarousel.Items.Add(new ModItem(bitmap));
 
             // Set the first loaded image as the banner if not already set
             if (!BannerImage.IsVisible)
