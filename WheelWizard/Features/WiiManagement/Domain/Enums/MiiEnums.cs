@@ -18,27 +18,36 @@ public enum StachType {None, Fat, Thin, Goatee}
 public enum BeardType {None, Thin, Wide, Widest}
 
 
-
+/// <summary>
+/// Represents a Mii name.
+/// </summary>
 public class MiiName
 {
     private readonly string _value;
-    private MiiName(string value)
-    {
-        _value = value;
-    }
-    public static OperationResult<MiiName> Create(string value)
+    
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MiiName"/> class with the specified value.
+    /// </summary>
+    /// <param name="value">The Mii name value.</param>
+    /// <exception cref="ArgumentException">Mii name cannot be empty or longer than 10 characters.</exception>
+    public MiiName(string value)
     {
         if (string.IsNullOrWhiteSpace(value)) 
-            return Fail<MiiName>("Mii name cannot be empty");
+            throw new ArgumentException("Mii name cannot be empty");
         
         if (value.Length > 10) 
-            return Fail<MiiName>("Mii name too long, Length: " + value.Length + " name: " +value);
-        
-        return Ok(new MiiName(value));
+            throw new ArgumentException("Mii name too long, maximum is 10 characters");
+        _value = value;
     }
-
+    
+    /// <summary>
+    /// Creates a new instance of the <see cref="MiiName"/> class with the specified value.
+    /// </summary>
+    /// <param name="value">The Mii name value.</param>
+    /// <returns>An <see cref="OperationResult{MiiName}"/> representing the result of the operation.</returns>
+    public static OperationResult<MiiName> Create(string value) => TryCatch(() => new MiiName(value));
+    
     public byte[] ToBytes() => Encoding.BigEndianUnicode.GetBytes(_value.PadRight(10, '\0'));
-
     public static MiiName FromBytes(byte[] data, int offset) =>
         new(Encoding.BigEndianUnicode.GetString(data, offset, 20).TrimEnd('\0'));
     public override string ToString() => _value;
@@ -48,40 +57,22 @@ public class MiiName
 public class MiiScale
 {
     public byte Value { get; }
-
-    private MiiScale(byte value) => Value = value;
-
-    public static OperationResult<MiiScale> Create(byte value)
+    public MiiScale(byte value)
     {
         if (value > 127)
-            return new OperationError() { Message = "Scale must be between 0 and 127." };
-
-        return Ok(new MiiScale(value));
+            throw new ArgumentException("Scale must be between 0 and 127.");
+        Value = value;
     }
+    public static OperationResult<MiiScale> Create(byte value) => TryCatch(() => new MiiScale(value));
 }
 
-public class MiiFacialFeatures
-{
-    public MiiFaceShape FaceShape { get; }
-    public MiiSkinColor SkinColor { get; }
-    public FacialFeature FacialFeature { get; }
-    public bool MingleOff { get; }
-    public bool Downloaded { get; }
-
-    private MiiFacialFeatures(MiiFaceShape faceShape, MiiSkinColor skinColor, FacialFeature facialFeature, bool mingleOff, bool downloaded)
-    {
-        FaceShape = faceShape;
-        SkinColor = skinColor;
-        FacialFeature = facialFeature;
-        MingleOff = mingleOff;
-        Downloaded = downloaded;
-    }
-
-    public static OperationResult<MiiFacialFeatures> Create(MiiFaceShape faceShape, MiiSkinColor skinColor, FacialFeature facialFeature, bool mingleOff, bool downloaded)
-    {
-        return Ok(new MiiFacialFeatures(faceShape, skinColor, facialFeature, mingleOff, downloaded));
-    }
-}
+public record MiiFacialFeatures(
+    MiiFaceShape FaceShape,
+    MiiSkinColor SkinColor,
+    FacialFeature FacialFeature,
+    bool MingleOff,
+    bool Downloaded
+);
 
 public class MiiHair
 {
@@ -89,20 +80,17 @@ public class MiiHair
     public HairColor HairColor { get; }
     public bool HairFlipped { get; }
 
-    private MiiHair(int hairType, HairColor hairColor, bool hairFlipped)
+    public MiiHair(int hairType, HairColor hairColor, bool hairFlipped)
     {
+        if (hairType is < 0 or > 71)
+            throw new ArgumentException("HairType out of range");
         HairType = hairType;
         HairColor = hairColor;
         HairFlipped = hairFlipped;
     }
 
-    public static OperationResult<MiiHair> Create(int hairType, HairColor hairColor, bool hairFlipped)
-    {
-        if (hairType is < 0 or > 71)
-            return Fail<MiiHair>("HairType out of range");
-
-        return Ok(new MiiHair(hairType, hairColor, hairFlipped));
-    }
+    public static OperationResult<MiiHair> Create(int hairType, HairColor hairColor, bool hairFlipped) => TryCatch(()
+        => new MiiHair(hairType, hairColor, hairFlipped));
 }
 
 
@@ -115,8 +103,18 @@ public class MiiEyebrow
     public int Vertical { get; }
     public int Spacing { get; }
 
-    private MiiEyebrow(int type, int rotation, EyebrowColor color, int size, int vertical, int spacing)
+    public MiiEyebrow(int type, int rotation, EyebrowColor color, int size, int vertical, int spacing)
     {
+        if (type is < 0 or > 23)
+            throw new ArgumentException("Eyebrow type invalid");
+        if (rotation is < 0 or > 11)
+            throw new ArgumentException("Rotation invalid");
+        if (size is < 0 or > 8)
+            throw new ArgumentException("Size invalid");
+        if (vertical is < 0 or > 18)
+            throw new ArgumentException("Vertical position invalid");
+        if (spacing is < 0 or > 12)
+            throw new ArgumentException("Spacing invalid");
         Type = type;
         Rotation = rotation;
         Color = color;
@@ -126,20 +124,7 @@ public class MiiEyebrow
     }
 
     public static OperationResult<MiiEyebrow> Create(int type, int rotation, EyebrowColor color, int size, int vertical, int spacing)
-    {
-        if (type is < 0 or > 23)
-            return Fail<MiiEyebrow>("Eyebrow type invalid");
-        if (rotation is < 0 or > 11)
-            return Fail<MiiEyebrow>("Rotation invalid");
-        if (size is < 0 or > 8)
-            return Fail<MiiEyebrow>("Size invalid");
-        if (vertical is < 0 or > 18)
-            return Fail<MiiEyebrow>("Vertical position invalid");
-        if (spacing is < 0 or > 12)
-            return Fail<MiiEyebrow>("Spacing invalid");
-
-        return Ok(new MiiEyebrow(type, rotation, color, size, vertical, spacing));
-    }
+    => TryCatch(() => new MiiEyebrow(type, rotation, color, size, vertical, spacing));
 }
 
 
@@ -152,8 +137,13 @@ public class MiiEye
     public int Size { get; }
     public int Spacing { get; }
 
-    private MiiEye(int type, int rotation, int vertical, EyeColor color, int size, int spacing)
+    public MiiEye(int type, int rotation, int vertical, EyeColor color, int size, int spacing)
     {
+        if (type is < 0 or > 47)        throw new ArgumentException("Eye type invalid");
+        if (rotation is < 0 or > 7)     throw new ArgumentException("Rotation invalid");
+        if (vertical is < 0 or > 18)    throw new ArgumentException("Vertical position invalid");
+        if (size is < 0 or > 7)         throw new ArgumentException("Size invalid");
+        if (spacing is < 0 or > 12)     throw new ArgumentException("Spacing invalid");
         Type = type;
         Rotation = rotation;
         Vertical = vertical;
@@ -163,15 +153,7 @@ public class MiiEye
     }
 
     public static OperationResult<MiiEye> Create(int type, int rotation, int vertical, EyeColor color, int size, int spacing)
-    {
-        if (type is < 0 or > 47) return Fail<MiiEye>("Eye type invalid");
-        if (rotation is < 0 or > 7) return Fail<MiiEye>("Rotation invalid");
-        if (vertical is < 0 or > 18) return Fail<MiiEye>("Vertical position invalid");
-        if (size is < 0 or > 7) return Fail<MiiEye>("Size invalid");
-        if (spacing is < 0 or > 12) return Fail<MiiEye>("Spacing invalid");
-
-        return Ok(new MiiEye(type, rotation, vertical, color, size, spacing));
-    }
+    => TryCatch(() => new MiiEye(type, rotation, vertical, color, size, spacing));
 }
 
 public class MiiNose
@@ -180,20 +162,17 @@ public class MiiNose
     public int Size { get; }
     public int Vertical { get; }
 
-    private MiiNose(NoseType type, int size, int vertical)
+    public MiiNose(NoseType type, int size, int vertical)
     {
+        if (size is < 0 or > 8)         throw new ArgumentException("Nose size invalid");
+        if (vertical is < 0 or > 18)    throw new ArgumentException("Nose vertical position invalid");
         Type = type;
         Size = size;
         Vertical = vertical;
     }
 
     public static OperationResult<MiiNose> Create(NoseType type, int size, int vertical)
-    {
-        if (size is < 0 or > 8) return Fail<MiiNose>("Nose size invalid");
-        if (vertical is < 0 or > 18) return Fail<MiiNose>("Nose vertical position invalid");
-
-        return Ok(new MiiNose(type, size, vertical));
-    }
+    => TryCatch(() => new MiiNose(type, size, vertical));
 }
 
 
@@ -204,8 +183,12 @@ public class MiiLip
     public int Size { get; }
     public int Vertical { get; }
 
-    private MiiLip(int type, LipColor color, int size, int vertical)
+    public MiiLip(int type, LipColor color, int size, int vertical)
     {
+        if (type is < 0 or > 23)        throw new ArgumentException("Lip type invalid");
+        if (size is < 0 or > 8)         throw new ArgumentException("Lip size invalid");
+        if (vertical is < 0 or > 18)    throw new ArgumentException("Lip vertical position invalid");
+        
         Type = type;
         Color = color;
         Size = size;
@@ -213,13 +196,7 @@ public class MiiLip
     }
 
     public static OperationResult<MiiLip> Create(int type, LipColor color, int size, int vertical)
-    {
-        if (type is < 0 or > 23) return Fail<MiiLip>("Lip type invalid");
-        if (size is < 0 or > 8) return Fail<MiiLip>("Lip size invalid");
-        if (vertical is < 0 or > 18) return Fail<MiiLip>("Lip vertical position invalid");
-
-        return Ok(new MiiLip(type, color, size, vertical));
-    }
+    => TryCatch(() => new MiiLip(type, color, size, vertical));
 }
 
 
@@ -230,8 +207,10 @@ public class MiiGlasses
     public int Size { get; }
     public int Vertical { get; }
 
-    private MiiGlasses(GlasseStype type, GlassesColor color, int size, int vertical)
+    public MiiGlasses(GlasseStype type, GlassesColor color, int size, int vertical)
     {
+        if (size is < 0 or > 7)             throw new ArgumentException("Glasses size invalid");
+        if (vertical is < 0 or > 20)        throw new ArgumentException("Glasses vertical position invalid");
         Type = type;
         Color = color;
         Size = size;
@@ -239,12 +218,7 @@ public class MiiGlasses
     }
 
     public static OperationResult<MiiGlasses> Create(GlasseStype type, GlassesColor color, int size, int vertical)
-    {
-        if (size is < 0 or > 7) return Fail<MiiGlasses>("Glasses size invalid");
-        if (vertical is < 0 or > 20) return Fail<MiiGlasses>("Glasses vertical position invalid");
-
-        return Ok(new MiiGlasses(type, color, size, vertical));
-    }
+    => TryCatch(() => new MiiGlasses(type, color, size, vertical));
 }
 public class MiiFacialHair
 {
@@ -254,8 +228,10 @@ public class MiiFacialHair
     public int Size { get; }
     public int Vertical { get; }
 
-    private MiiFacialHair(StachType mustacheType, BeardType beardType, StachColor color, int size, int vertical)
+    public MiiFacialHair(StachType mustacheType, BeardType beardType, StachColor color, int size, int vertical)
     {
+        if (size is < 0 or > 8)         throw new ArgumentException("Facial hair size invalid");
+        if (vertical is < 0 or > 16)    throw new ArgumentException("Facial hair vertical position invalid");
         MustacheType = mustacheType;
         BeardType = beardType;
         Color = color;
@@ -264,12 +240,7 @@ public class MiiFacialHair
     }
 
     public static OperationResult<MiiFacialHair> Create(StachType mustacheType, BeardType beardType, StachColor color, int size, int vertical)
-    {
-        if (size is < 0 or > 8) return Fail<MiiFacialHair>("Facial hair size invalid");
-        if (vertical is < 0 or > 16) return Fail<MiiFacialHair>("Facial hair vertical position invalid");
-
-        return Ok(new MiiFacialHair(mustacheType, beardType, color, size, vertical));
-    }
+    => TryCatch(() => new MiiFacialHair(mustacheType, beardType, color, size, vertical));
 }
 
 public class MiiMole
@@ -279,20 +250,17 @@ public class MiiMole
     public int Vertical { get; }
     public int Horizontal { get; }
 
-    private MiiMole(bool exists, int size, int vertical, int horizontal)
+    public MiiMole(bool exists, int size, int vertical, int horizontal)
     {
+        if (size is < 0 or > 8)             throw new ArgumentException("Mole size invalid");
+        if (vertical is < 0 or > 30)        throw new ArgumentException("Mole vertical position invalid");
+        if (horizontal is < 0 or > 16)      throw new ArgumentException("Mole horizontal position invalid");
         Exists = exists;
         Size = size;
         Vertical = vertical;
         Horizontal = horizontal;
     }
-
+    
     public static OperationResult<MiiMole> Create(bool exists, int size, int vertical, int horizontal)
-    {
-        if (size is < 0 or > 8) return Fail<MiiMole>("Mole size invalid");
-        if (vertical is < 0 or > 30) return Fail<MiiMole>("Mole vertical position invalid");
-        if (horizontal is < 0 or > 16) return Fail<MiiMole>("Mole horizontal position invalid");
-
-        return Ok(new MiiMole(exists, size, vertical, horizontal));
-    }
+    => TryCatch(() => new MiiMole(exists, size, vertical, horizontal));
 }
