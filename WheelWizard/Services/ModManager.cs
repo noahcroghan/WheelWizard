@@ -185,6 +185,9 @@ public class ModManager : INotifyPropertyChanged
         if (ModInstallation.ModExists(Mods, newName))
             return Fail("Mod name already exists.");
 
+        if (newName.Contains('/') || newName.Contains('\\'))
+            return Fail("Mod name cannot contain slashes.");
+
         return Ok();
     }
 
