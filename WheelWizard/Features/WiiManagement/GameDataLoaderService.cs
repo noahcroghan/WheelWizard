@@ -158,20 +158,19 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         {
             var rkpdOffset = RksysMagic.Length + i * RkpdSize;
             var rkpdCheck = Encoding.ASCII.GetString(_saveData, rkpdOffset, RkpdMagic.Length) == RkpdMagic;
-            if (rkpdCheck)
-            {
-                var user = ParseUser(rkpdOffset);
-                if (user.IsFailure)
-                    continue;
-                UserList.Users.Add(user.Value);
-            }
-            else
-            {
-                CreateDummyUser();
-            }
+            if (!rkpdCheck)
+                continue;
+            
+            var user = ParseUser(rkpdOffset);
+            if (user.IsFailure)
+                continue;
+            UserList.Users.Add(user.Value);
         }
-        if (UserList.Users.Count == 0)
+        while (UserList.Users.Count < 4)
+        {
             CreateDummyUser();
+        }
+        
         return Ok();
     }
 
@@ -456,7 +455,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     
     private OperationResult SaveRksysToFile()
     {
-        if (_saveData == null || string.IsNullOrWhiteSpace(PathManager.SaveFolderPath)) return Fail("Invalid save data or save folder path.");
+        if (_saveData == null || !SettingsHelper.PathsSetupCorrectly()) return Fail("Invalid save data or save folder path.");
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
         var saveFolder = Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
