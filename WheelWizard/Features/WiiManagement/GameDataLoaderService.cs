@@ -16,6 +16,7 @@ using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement;
+
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation
 public interface IGameDataLoader
 {
@@ -37,7 +38,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     private readonly IWhWzDataSingletonService _whWzDataSingletonService;
     private GameData UserList { get; }
     private byte[]? _saveData;
-    
+
     public GameDataLoader(IMiiDbService miiService, IFileSystem fileSystem, IWhWzDataSingletonService whWzDataSingletonService) : base(40)
     {
         _miiService = miiService;
@@ -48,9 +49,9 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         if (loadGameDataResult.IsFailure)
             throw new Exception(loadGameDataResult.Error.Message);
     }
-    
 
-    private const int RksysSize   = 0x2BC000;
+
+    private const int RksysSize = 0x2BC000;
     private const string RksysMagic = "RKSD0006";
     private const int MaxPlayerNum = 4;
     private const int RkpdSize = 0x8CC0;
@@ -69,12 +70,12 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
 
     public GameData GetGameData => UserList;
 
-    public GameDataUser GetUserData(int index) 
+    public GameDataUser GetUserData(int index)
         => UserList.Users[index];
 
-    public bool HasAnyValidUsers 
+    public bool HasAnyValidUsers
         => UserList.Users.Any(user => user.FriendCode != "0000-0000-0000");
-    
+
 
     /// <summary>
     /// Refresh the "IsOnline" status of our local users based on the list of currently online players.
@@ -114,13 +115,11 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             for (var i = 0; i < MaxPlayerNum; i++)
                 CreateDummyUser();
             return Ok();
-            
         }
         catch (Exception e)
         {
             return "Failed to load rksys.dat: " + e.Message;
         }
-        
     }
 
     private void CreateDummyUser()
@@ -129,15 +128,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         var dummyUser = new GameDataUser
         {
             FriendCode = "0000-0000-0000",
-            MiiData = new MiiData
-            {
-                Mii = new FullMii
-                {
-                    Name = noLicenseName,
-                },
-                AvatarId = 0,
-                ClientId = 0
-            },
+            MiiData = new MiiData { Mii = new FullMii { Name = noLicenseName, }, AvatarId = 0, ClientId = 0 },
             Vr = 5000,
             Br = 5000,
             TotalRaceCount = 0,
@@ -160,17 +151,18 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             var rkpdCheck = Encoding.ASCII.GetString(_saveData, rkpdOffset, RkpdMagic.Length) == RkpdMagic;
             if (!rkpdCheck)
                 continue;
-            
+
             var user = ParseUser(rkpdOffset);
             if (user.IsFailure)
                 continue;
             UserList.Users.Add(user.Value);
         }
+
         while (UserList.Users.Count < 4)
         {
             CreateDummyUser();
         }
-        
+
         return Ok();
     }
 
@@ -185,11 +177,11 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         var user = new GameDataUser
         {
             MiiData = miiDataResult.Value,
-            FriendCode  = friendCode,
-            Vr          = BigEndianBinaryReader.BufferToUint16(_saveData, offset + 0xB0),
-            Br          = BigEndianBinaryReader.BufferToUint16(_saveData, offset + 0xB2),
+            FriendCode = friendCode,
+            Vr = BigEndianBinaryReader.BufferToUint16(_saveData, offset + 0xB0),
+            Br = BigEndianBinaryReader.BufferToUint16(_saveData, offset + 0xB2),
             TotalRaceCount = BigEndianBinaryReader.BufferToUint32(_saveData, offset + 0xB4),
-            TotalWinCount   = BigEndianBinaryReader.BufferToUint32(_saveData, offset + 0xDC),
+            TotalWinCount = BigEndianBinaryReader.BufferToUint32(_saveData, offset + 0xDC),
             BadgeVariants = _whWzDataSingletonService.GetBadges(friendCode),
             // Region is often found near offset 0x23308 + 0x3802 in RKGD. This code is a partial guess.
             // In practice, region might be read differently depending on your rksys layout.
@@ -209,17 +201,12 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         var name = BigEndianBinaryReader.GetUtf16String(_saveData, offset, 10);
         var avatarId = BitConverter.ToUInt32(_saveData, offset + 0x10);
         var clientId = BitConverter.ToUInt32(_saveData, offset + 0x14);
-        
+
         var rawMiiResult = _miiService.GetByClientId(clientId);
         if (rawMiiResult.IsFailure)
             return new FormatException("Failed to parse mii data: " + rawMiiResult.Error.Message);
 
-        var miiData = new MiiData
-        {
-            Mii = rawMiiResult.Value,
-            AvatarId = avatarId,
-            ClientId = clientId
-        };
+        var miiData = new MiiData { Mii = rawMiiResult.Value, AvatarId = avatarId, ClientId = clientId };
         return miiData;
     }
 
@@ -236,21 +223,15 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             var friendCode = FriendCodeGenerator.GetFriendCode(_saveData, currentOffset + 4);
             var friend = new GameDataFriend
             {
-                Vr          = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x16),
-                Br          = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x18),
-                FriendCode  = friendCode,
-                Wins        = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x14),
-                Losses      = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x12),
+                Vr = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x16),
+                Br = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x18),
+                FriendCode = friendCode,
+                Wins = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x14),
+                Losses = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x12),
                 CountryCode = _saveData[currentOffset + 0x68],
-                RegionId    = _saveData[currentOffset + 0x69],
+                RegionId = _saveData[currentOffset + 0x69],
                 BadgeVariants = _whWzDataSingletonService.GetBadges(friendCode),
-
-                MiiData = new MiiData
-                {
-                    Mii = MiiSerializer.Deserialize(rawMiiBytes).Value,
-                    AvatarId = 0,
-                    ClientId = 0
-                },
+                MiiData = new MiiData { Mii = MiiSerializer.Deserialize(rawMiiBytes).Value, AvatarId = 0, ClientId = 0 },
             };
             gameDataUser.Friends.Add(friend);
         }
@@ -264,6 +245,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             if (_saveData != null && _saveData[offset + i] != 0)
                 return true;
         }
+
         return false;
     }
 
@@ -332,7 +314,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
 
         return ~crc;
     }
-    
+
 
     /// <summary>
     /// Fixes the MKWii save file by recalculating and inserting the CRC32 at 0x27FFC.
@@ -341,64 +323,69 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     {
         if (rksysData == null || rksysData.Length < RksysSize)
             throw new ArgumentException("Invalid rksys.dat data");
-        
+
         var lengthToCrc = 0x27FFC;
         var newCrc = ComputeCrc32(rksysData, 0, lengthToCrc);
 
         // 2) Write CRC at offset 0x27FFC in big-endian.
         BigEndianBinaryReader.WriteUInt32BigEndian(rksysData, 0x27FFC, newCrc);
     }
+
     public async Task<OperationResult> ChangeMiiName(int userIndex, string? newName)
     {
         if (string.IsNullOrWhiteSpace(newName))
-            return"Cannot set name to an empty name.";
-        
+            return "Cannot set name to an empty name.";
+
         if (userIndex is < 0 or >= MaxPlayerNum)
         {
             return "Invalid license index. Please select a valid license.";
         }
+
         var user = UserList.Users[userIndex];
         var miiIsEmptyOrNoName = IsNoNameOrEmptyMii(user);
 
         if (miiIsEmptyOrNoName)
         {
             return "This license has no Mii data or is incomplete.\n" +
-                                  "Please use the Mii Channel to create a Mii first.";
+                   "Please use the Mii Channel to create a Mii first.";
         }
+
         if (user.MiiData?.Mii == null)
         {
             return "This license has no Mii data or is incomplete.\n" +
-                                  "Please use the Mii Channel to create a Mii first.";
+                   "Please use the Mii Channel to create a Mii first.";
         }
-        
+
         newName = Regex.Replace(newName, @"\s+", " ");
-        
+
         // Basic checks
         if (newName.Length is > 10 or < 3)
         {
-            return"Names must be between 3 and 10 characters long.";
+            return "Names must be between 3 and 10 characters long.";
         }
 
         if (newName.Length > 10)
             newName = newName.Substring(0, 10);
-        var nameResult = MiiName.Create(newName); 
+        var nameResult = MiiName.Create(newName);
         if (nameResult.IsFailure)
         {
             return nameResult.Error.Message;
         }
-        
-        user.Mii.Name = nameResult.Value; // This should be updated just in case someone uses it, but its not the one that updates the profile page
+
+        user.Mii.Name =
+            nameResult.Value; // This should be updated just in case someone uses it, but its not the one that updates the profile page
         WriteLicenseNameToSaveData(userIndex, newName);
         var updated = _miiService.UpdateName(user.MiiData.ClientId, newName);
         if (updated.IsFailure)
             return updated.Error.Message;
-        
+
         var rksysSaveResult = SaveRksysToFile();
         if (rksysSaveResult.IsFailure)
             return rksysSaveResult.Error.Message;
-        
+
         return Ok();
     }
+
     private bool IsNoNameOrEmptyMii(GameDataUser user)
     {
         if (user?.MiiData?.Mii == null)
@@ -414,17 +401,18 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         // Otherwise, it’s presumably valid
         return false;
     }
+
     private void WriteLicenseNameToSaveData(int userIndex, string newName)
     {
         if (_saveData == null || _saveData.Length < RksysSize) return;
-        var rkpdOffset = 0x8 + userIndex * RkpdSize; 
+        var rkpdOffset = 0x8 + userIndex * RkpdSize;
         var nameOffset = rkpdOffset + 0x14;
         var nameBytes = Encoding.BigEndianUnicode.GetBytes(newName);
         for (var i = 0; i < 20; i++)
             _saveData[nameOffset + i] = 0;
         Array.Copy(nameBytes, 0, _saveData, nameOffset, Math.Min(nameBytes.Length, 20));
     }
-    
+
     private OperationResult SaveRksysToFile()
     {
         if (_saveData == null || !SettingsHelper.PathsSetupCorrectly()) return Fail("Invalid save data or config is not setup properly.");
@@ -444,8 +432,8 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
 
         return Ok();
     }
-    
-    
+
+
     protected override Task ExecuteTaskAsync()
     {
         var result = LoadGameData();
@@ -453,7 +441,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         {
             throw new Exception(result.Error.Message);
         }
+
         return Task.CompletedTask;
     }
-
 }

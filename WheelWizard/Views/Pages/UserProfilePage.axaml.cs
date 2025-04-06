@@ -187,7 +187,19 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             .SetPlaceholderText(CurrentMii?.Name.ToString());
 
         var newName = await renamePopup.ShowDialog();
-        var ChangeNameResult = await _gameDataService.ChangeMiiName(_currentUserIndex, newName);
+        var changeNameResult = await _gameDataService.ChangeMiiName(_currentUserIndex, newName);
+        if (changeNameResult.IsFailure)
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Failed to change name")
+                .SetInfoText(changeNameResult.Error.Message)
+                .Show();
+        else
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Message)
+                .SetTitleText("Name changed")
+                .SetInfoText($"Successfully changed name to {newName}")
+                .Show();
     }
 
     private void ViewRoom_OnClick(string friendCode)
