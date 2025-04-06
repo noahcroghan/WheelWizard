@@ -3,13 +3,40 @@ using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement;
 
+/// <summary>
+/// Provides high-level operations for managing Miis in the Wii Mii database.
+/// </summary>
 public interface IMiiDbService
 {
+    /// <summary>
+    /// Retrieves all Miis stored in the database.
+    /// </summary>
+    /// <returns>A list of fully deserialized <see cref="FullMii"/> instances.</returns>
     List<FullMii> GetAllMiis();
+
+    /// <summary>
+    /// Retrieves a specific Mii from the database using its unique client ID.
+    /// </summary>
+    /// <param name="clientId">The unique identifier of the Mii to retrieve.</param>
+    /// <returns>An <see cref="OperationResult{T}"/> containing the <see cref="FullMii"/> if found and valid.</returns>
     OperationResult<FullMii> GetByClientId(uint clientId);
+
+    /// <summary>
+    /// Updates an existing Mii in the database with new data.
+    /// </summary>
+    /// <param name="updatedMii">The updated <see cref="FullMii"/> object to store.</param>
+    /// <returns>An <see cref="OperationResult"/> indicating success or failure.</returns>
     OperationResult Update(FullMii updatedMii);
+
+    /// <summary>
+    /// Updates the name of an existing Mii in the database.
+    /// </summary>
+    /// <param name="clientId">The unique identifier of the Mii to update.</param>
+    /// <param name="newName">The new name to assign to the Mii.</param>
+    /// <returns>An <see cref="OperationResult"/> indicating success or failure.</returns>
     OperationResult UpdateName(uint clientId, string newName);
 }
+
 
 public class MiiDbService : IMiiDbService
 {
