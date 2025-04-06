@@ -128,7 +128,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         var dummyUser = new GameDataUser
         {
             FriendCode = "0000-0000-0000",
-            MiiData = new MiiData { Mii = new FullMii { Name = noLicenseName, }, AvatarId = 0, ClientId = 0 },
+            MiiData = null, //todo: if there is an issue here, create a fake fullmii
             Vr = 5000,
             Br = 5000,
             TotalRaceCount = 0,
@@ -335,50 +335,42 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     {
         if (string.IsNullOrWhiteSpace(newName))
             return "Cannot set name to an empty name.";
-
         if (userIndex is < 0 or >= MaxPlayerNum)
-        {
             return "Invalid license index. Please select a valid license.";
-        }
 
         var user = UserList.Users[userIndex];
         var miiIsEmptyOrNoName = IsNoNameOrEmptyMii(user);
 
+
         if (miiIsEmptyOrNoName)
-        {
             return "This license has no Mii data or is incomplete.\n" +
                    "Please use the Mii Channel to create a Mii first.";
-        }
 
         if (user.MiiData?.Mii == null)
-        {
             return "This license has no Mii data or is incomplete.\n" +
                    "Please use the Mii Channel to create a Mii first.";
-        }
+
 
         newName = Regex.Replace(newName, @"\s+", " ");
 
         // Basic checks
         if (newName.Length is > 10 or < 3)
-        {
             return "Names must be between 3 and 10 characters long.";
-        }
 
         if (newName.Length > 10)
             newName = newName.Substring(0, 10);
         var nameResult = MiiName.Create(newName);
         if (nameResult.IsFailure)
-        {
             return nameResult.Error.Message;
-        }
 
-        user.Mii.Name =
-            nameResult.Value; // This should be updated just in case someone uses it, but its not the one that updates the profile page
-        WriteLicenseNameToSaveData(userIndex, newName);
+
+        user.Mii.Name = nameResult.Value;
+        var nameWrite = WriteLicenseNameToSaveData(userIndex, newName);
+        if (nameWrite.IsFailure)
+            return nameWrite.Error.Message;
         var updated = _miiService.UpdateName(user.MiiData.ClientId, newName);
         if (updated.IsFailure)
             return updated.Error.Message;
-
         var rksysSaveResult = SaveRksysToFile();
         if (rksysSaveResult.IsFailure)
             return rksysSaveResult.Error.Message;
@@ -402,15 +394,17 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         return false;
     }
 
-    private void WriteLicenseNameToSaveData(int userIndex, string newName)
+    private OperationResult WriteLicenseNameToSaveData(int userIndex, string newName)
     {
-        if (_saveData == null || _saveData.Length < RksysSize) return;
+        if (_saveData == null || _saveData.Length < RksysSize)
+            return "Invalid save data";
         var rkpdOffset = 0x8 + userIndex * RkpdSize;
         var nameOffset = rkpdOffset + 0x14;
         var nameBytes = Encoding.BigEndianUnicode.GetBytes(newName);
         for (var i = 0; i < 20; i++)
             _saveData[nameOffset + i] = 0;
         Array.Copy(nameBytes, 0, _saveData, nameOffset, Math.Min(nameBytes.Length, 20));
+        return Ok();
     }
 
     private OperationResult SaveRksysToFile()

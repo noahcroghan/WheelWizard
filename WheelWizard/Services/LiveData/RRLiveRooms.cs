@@ -62,7 +62,7 @@ public class RRLiveRooms : RepeatedTaskManager
                             var SerializerResult = MiiSerializer.Deserialize(rawMii);
                             if (SerializerResult.IsFailure)
                             {
-                                return  new FullMii();
+                                return new FullMii();
                             }
                             return SerializerResult.Value;
                             
