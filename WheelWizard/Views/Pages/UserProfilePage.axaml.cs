@@ -54,7 +54,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         CurrentUserCarousel.IsVisible = validUsers;
         NoProfilesInfo.IsVisible = !validUsers;
 
-        var data = _gameDataService.GetLicenseCollection;
+        var data = _gameDataService.LicenseCollection;
         var userAmount = data.Users.Count;
         for (var i = 0; i < userAmount; i++)
         {

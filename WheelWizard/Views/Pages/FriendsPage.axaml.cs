@@ -86,7 +86,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
             ListOrderCondition.TOTAL_RACES => f => f.Losses + f.Wins,
             ListOrderCondition.IS_ONLINE or _ => f => f.IsOnline,
         };
-        return GameDataService.GetCurrentFriends.OrderByDescending(orderMethod).ToList();
+        return GameDataService.CurrentFriends.OrderByDescending(orderMethod).ToList();
     }
 
     private void PopulateSortingList()

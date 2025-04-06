@@ -6,9 +6,30 @@ namespace WheelWizard.WiiManagement;
 
 public interface IMiiRepository
 {
+    /// <summary>
+    /// Loads all 100 Mii data blocks from the Wii Mii database
+    /// Returns a list of byte arrays, each representing a Mii block.
+    /// </summary>
     List<byte[]> LoadAllBlocks();
+    
+    /// <summary>
+    /// Saves all Mii data blocks to the Wii Mii database.
+    /// Automatically Pads to 100 entries and calculates CRC.
+    /// </summary>
+    /// <param name="blocks">List of a raw 74 Byte-array Representing a Mii.</param>
     OperationResult SaveAllBlocks(List<byte[]> blocks);
+    
+    /// <summary>
+    /// Retrieves a raw Mii block by its unique client ID.
+    /// returns null if the Mii is not found.
+    /// </summary>
+    /// <param name="clientId">The Mii's unique client Id</param>
     byte[]? GetRawBlockByClientId(uint clientId);
+    /// <summary>
+    /// Replaces a Mii block in the database that matches the given ID.
+    /// </summary>
+    /// <param name="clientId">The unique ID of the mii to search for</param>
+    /// <param name="newBlock">the new raw Mii data</param>
     OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock);
 }
 

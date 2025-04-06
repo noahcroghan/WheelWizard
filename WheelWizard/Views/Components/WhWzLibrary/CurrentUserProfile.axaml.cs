@@ -49,7 +49,7 @@ public class CurrentUserProfile : TemplatedControl, INotifyPropertyChanged
 
         var gameDataService = App.Services.GetRequiredService<IGameDataLoader>()!;
         gameDataService.RefreshOnlineStatus();
-        var currentUser = gameDataService.GetCurrentUser;
+        var currentUser = gameDataService.CurrentUser;
         
         var name = currentUser.NameOfMii;
         if (name == SettingValues.NoName)

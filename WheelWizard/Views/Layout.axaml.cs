@@ -129,7 +129,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
             _ => Humanizer.ReplaceDynamic(Phrases.Hover_RoomsOnline_x, roomCount) ??
                  $"There are currently {roomCount} rooms active"
         };
-        var friends = _gameDataService.GetCurrentFriends;
+        var friends = _gameDataService.CurrentFriends;
         FriendsButton.BoxText = $"{friends.Count(friend => friend.IsOnline)}/{friends.Count}";
         FriendsButton.BoxTip = friends.Count(friend => friend.IsOnline) switch
         {

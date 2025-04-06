@@ -20,14 +20,52 @@ namespace WheelWizard.WiiManagement;
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation
 public interface IGameDataLoader
 {
-    LicenseCollection GetLicenseCollection { get; }
+    /// <summary>
+    /// Gets the currently loaded <see cref="Models.GameData.LicenseCollection"/>.
+    /// </summary>
+    LicenseCollection LicenseCollection { get; }
+
+    /// <summary>
+    /// Loads the game data from the rksys.dat file.
+    /// </summary>
     OperationResult LoadGameData();
+
+    /// <summary>
+    /// Retrieves the user data for a specific index.
+    /// </summary>
+    /// <param name="index">Index of user (1-3)</param>
     LicenseProfile GetUserData(int index);
-    LicenseProfile GetCurrentUser { get; }
-    List<FriendProfile> GetCurrentFriends { get; }
+
+    /// <summary>
+    /// Gets the currently selected user.
+    /// </summary>
+    LicenseProfile CurrentUser { get; }
+
+    /// <summary>
+    /// Gets the list of friends for the currently selected user.
+    /// </summary>
+    List<FriendProfile> CurrentFriends { get; }
+
+
+    /// <summary>
+    /// Checks if any user is valid (i.e., has a non-empty friend code).
+    /// </summary>
     bool HasAnyValidUsers { get; }
+
+    /// <summary>
+    /// Refreshes the online status of the users based on the current live rooms.
+    /// </summary>
     void RefreshOnlineStatus();
+
+    /// <summary>
+    /// Changes the name of a Mii for a specific user index.
+    /// </summary>
     OperationResult ChangeMiiName(int userIndex, string newName);
+
+    /// <summary>
+    /// Subscribes a listener to the repeated task manager.
+    /// </summary>
+    /// <param name="subscriber"></param>
     void Subscribe(IRepeatedTaskListener subscriber);
 }
 
@@ -64,11 +102,11 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     /// <summary>
     /// Returns the "focused" or currently active license/user as determined by the Settings.
     /// </summary>
-    public LicenseProfile GetCurrentUser => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()];
+    public LicenseProfile CurrentUser => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()];
 
-    public List<FriendProfile> GetCurrentFriends => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()].Friends;
+    public List<FriendProfile> CurrentFriends => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()].Friends;
 
-    public LicenseCollection GetLicenseCollection => UserList;
+    public LicenseCollection LicenseCollection => UserList;
 
     public LicenseProfile GetUserData(int index)
         => UserList.Users[index];
