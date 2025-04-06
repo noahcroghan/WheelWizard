@@ -5,6 +5,7 @@ using Avalonia.Interactivity;
 using WheelWizard.Models.GameData;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.WiiManagement.SaveData;
+using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
@@ -20,7 +21,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
     private static ListOrderCondition CurrentOrder = ListOrderCondition.IS_ONLINE;
 
     private ObservableCollection<GameDataFriend> _friendlist = new();
-    private IGameDataLoader _gameDataService = null!;
+    [Inject] private IGameDataLoader GameDataService { get; set; } = null!;
     public ObservableCollection<GameDataFriend> FriendList
     {
         get => _friendlist;
@@ -34,8 +35,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
     public FriendsPage()
     {
         InitializeComponent();
-        _gameDataService = App.Services.GetRequiredService<IGameDataLoader>()!;
-        _gameDataService.Subscribe(this);
+        GameDataService.Subscribe(this);
         UpdateFriendList();
         
         DataContext = this;
@@ -86,7 +86,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
             ListOrderCondition.TOTAL_RACES => f => f.Losses + f.Wins,
             ListOrderCondition.IS_ONLINE or _ => f => f.IsOnline,
         };
-        return _gameDataService.GetCurrentFriends.OrderByDescending(orderMethod).ToList();
+        return GameDataService.GetCurrentFriends.OrderByDescending(orderMethod).ToList();
     }
 
     private void PopulateSortingList()
