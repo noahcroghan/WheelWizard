@@ -12,7 +12,6 @@ using WheelWizard.WiiManagement.Domain.Mii;
 
 
 namespace WheelWizard.Views.Components;
-
 public class CurrentUserProfile : TemplatedControl, INotifyPropertyChanged
 {
     public static readonly StyledProperty<string> FriendCodeProperty =
@@ -46,6 +45,8 @@ public class CurrentUserProfile : TemplatedControl, INotifyPropertyChanged
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
+        //todo: change this to a UserControlBase + gameDataService injection
+
         var gameDataService = App.Services.GetRequiredService<IGameDataLoader>()!;
         gameDataService.RefreshOnlineStatus();
         var currentUser = gameDataService.GetCurrentUser;

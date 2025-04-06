@@ -455,7 +455,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     
     private OperationResult SaveRksysToFile()
     {
-        if (_saveData == null || !SettingsHelper.PathsSetupCorrectly()) return Fail("Invalid save data or save folder path.");
+        if (_saveData == null || !SettingsHelper.PathsSetupCorrectly()) return Fail("Invalid save data or config is not setup properly.");
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
         var saveFolder = Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
