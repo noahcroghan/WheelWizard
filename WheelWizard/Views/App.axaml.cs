@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using Microsoft.Extensions.Logging;
 using WheelWizard.AutoUpdating;
 using WheelWizard.Services;
@@ -8,6 +9,7 @@ using WheelWizard.Services.LiveData;
 using WheelWizard.Services.UrlProtocol;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.WheelWizardData;
+using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views;
 
@@ -58,6 +60,7 @@ public class App : Application
             var updateService = Services.GetRequiredService<IAutoUpdaterSingletonService>();
             var whWzDataService = Services.GetRequiredService<IWhWzDataSingletonService>();
 
+
             await updateService.CheckForUpdatesAsync();
             await whWzDataService.LoadBadgesAsync();
             InitializeManagers();
@@ -80,7 +83,8 @@ public class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new Layout();
-
+            var gameDataService = Services.GetRequiredService<IGameDataSingletonService>();
+            gameDataService.LoadGameData();
             OnInitializedAsync();
         }
 

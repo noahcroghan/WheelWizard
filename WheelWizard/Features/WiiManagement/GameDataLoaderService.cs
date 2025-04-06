@@ -83,7 +83,6 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         _fileSystem = fileSystem;
         _whWzDataSingletonService = whWzDataSingletonService;
         UserList = new LicenseCollection();
-        LoadGameData();
     }
 
 
