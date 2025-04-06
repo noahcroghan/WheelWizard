@@ -20,6 +20,7 @@ namespace WheelWizard.WiiManagement;
 public interface IGameDataLoader
 {
     GameData GetGameData { get; }
+    OperationResult LoadGameData();
     GameDataUser GetUserData(int index);
     GameDataUser GetCurrentUser { get; }
     List<GameDataFriend> GetCurrentFriends { get; }
@@ -154,10 +155,13 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         for (var i = 0; i < MaxPlayerNum; i++)
         {
             var rkpdOffset = RksysMagic.Length + i * RkpdSize;
-            if (Encoding.ASCII.GetString(_saveData, rkpdOffset, RkpdMagic.Length) == RkpdMagic)
+            var rkpdCheck = Encoding.ASCII.GetString(_saveData, rkpdOffset, RkpdMagic.Length) == RkpdMagic;
+            if (rkpdCheck)
             {
                 var user = ParseUser(rkpdOffset);
-                UserList.Users.Add(user);
+                if (user.IsFailure)
+                    continue;
+                UserList.Users.Add(user.Value);
             }
             else
             {
@@ -169,14 +173,17 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         return Ok();
     }
 
-    private GameDataUser ParseUser(int offset)
+    private OperationResult<GameDataUser> ParseUser(int offset)
     {
         if (_saveData == null) throw new ArgumentNullException(nameof(_saveData));
 
         var friendCode = FriendCodeGenerator.GetFriendCode(_saveData, offset + 0x5C);
+        var miiDataResult = ParseMiiData(offset + 0x14);
+        if (miiDataResult.IsFailure)
+            return miiDataResult.Error;
         var user = new GameDataUser
         {
-            MiiData     = ParseMiiData(offset + 0x14),
+            MiiData = miiDataResult.Value,
             FriendCode  = friendCode,
             Vr          = BigEndianBinaryReader.BufferToUint16(_saveData, offset + 0xB0),
             Br          = BigEndianBinaryReader.BufferToUint16(_saveData, offset + 0xB2),
@@ -192,9 +199,9 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         return user;
     }
 
-    private MiiData ParseMiiData(int offset)
+    private OperationResult<MiiData> ParseMiiData(int offset)
     {
-        if (_saveData == null) throw new ArgumentNullException(nameof(_saveData));
+        if (_saveData == null) return new ArgumentNullException(nameof(_saveData));
 
         // In Mario Kart Wii's rksys, offset +0x10 => AvatarId, offset +0x14 => ClientId
         // The name is big-endian UTF-16 at offset itself (length 10 chars => 20 bytes).
@@ -204,7 +211,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         
         var rawMiiResult = _miiService.GetByClientId(clientId);
         if (rawMiiResult.IsFailure)
-            throw new FormatException("Failed to parse mii data: " + rawMiiResult.Error.Message);
+            return new FormatException("Failed to parse mii data: " + rawMiiResult.Error.Message);
 
         var miiData = new MiiData
         {

@@ -10,6 +10,7 @@ using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.WiiManagement.SaveData;
+using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement;
 
@@ -19,7 +20,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
     private GameDataUser? currentPlayer;
     private FullMii? _currentMii;
-    private IGameDataLoader _gameDataService = null!;
+    [Inject] private IGameDataLoader _gameDataService { get; set; } = null!;
     public FullMii? CurrentMii
     {
         get => _currentMii;
@@ -36,7 +37,6 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
     public UserProfilePage()
     {
         InitializeComponent();
-        _gameDataService = App.Services.GetRequiredService<IGameDataLoader>()!;
         ResetMiiTopBar();
         ViewMii(FocussedUser);
         PopulateRegions();
@@ -160,10 +160,19 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         SettingsManager.RR_REGION.Set(region);
         ResetMiiTopBar();
-
+        var loadResult = _gameDataService.LoadGameData();
+        if (loadResult.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Failed to load game data")
+                .SetInfoText(loadResult.Error.Message)
+                .Show();
+            return;
+        }
+        NavigationManager.NavigateTo<UserProfilePage>();
         ViewMii(0); // Just in case you have current user set as 4. and you change to a region where there are only 3 users.
         SetUserAsPrimary();
-
         UpdatePage();
     }
 
