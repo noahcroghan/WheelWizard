@@ -187,7 +187,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             .SetPlaceholderText(CurrentMii?.Name.ToString());
 
         var newName = await renamePopup.ShowDialog();
-        var changeNameResult = await _gameDataService.ChangeMiiName(_currentUserIndex, newName);
+        var changeNameResult = _gameDataService.ChangeMiiName(_currentUserIndex, newName);
         if (changeNameResult.IsFailure)
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Error)

@@ -27,7 +27,7 @@ public interface IGameDataLoader
     List<FriendProfile> GetCurrentFriends { get; }
     bool HasAnyValidUsers { get; }
     void RefreshOnlineStatus();
-    Task<OperationResult> ChangeMiiName(int userIndex, string newName);
+    OperationResult ChangeMiiName(int userIndex, string newName);
     void Subscribe(IRepeatedTaskListener subscriber);
 }
 
@@ -255,7 +255,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         return Encoding.ASCII.GetString(_saveData, 0, RksysMagic.Length) == RksysMagic;
     }
 
-    private static OperationResult<byte[]> LoadSaveDataFile()
+    private OperationResult<byte[]> LoadSaveDataFile()
     {
         try
         {
@@ -282,7 +282,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             var saveFile = Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
             if (saveFile.Length == 0)
                 return Fail<byte[]>("rksys.dat not found");
-            return File.ReadAllBytes(saveFile[0]);
+            return _fileSystem.File.ReadAllBytes(saveFile[0]);
         }
         catch
         {
@@ -331,7 +331,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         BigEndianBinaryReader.WriteUInt32BigEndian(rksysData, 0x27FFC, newCrc);
     }
 
-    public async Task<OperationResult> ChangeMiiName(int userIndex, string? newName)
+    public OperationResult ChangeMiiName(int userIndex, string? newName)
     {
         if (string.IsNullOrWhiteSpace(newName))
             return "Cannot set name to an empty name.";
@@ -417,7 +417,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         {
             Directory.CreateDirectory(saveFolder);
             var path = Path.Combine(saveFolder, "rksys.dat");
-            File.WriteAllBytes(path, _saveData);
+            _fileSystem.File.WriteAllBytes(path, _saveData);
         }
         catch (Exception ex)
         {

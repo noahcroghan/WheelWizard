@@ -126,8 +126,8 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     {
         try
         {
-            return File.Exists(_filePath)
-                ? File.ReadAllBytes(_filePath)
+            return fileSystem.File.Exists(_filePath)
+                ? fileSystem.File.ReadAllBytes(_filePath)
                 : Array.Empty<byte>();
         }
         catch
