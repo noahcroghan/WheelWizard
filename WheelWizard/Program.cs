@@ -1,7 +1,7 @@
+using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Logging;
-using System.Runtime.InteropServices;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using WheelWizard.Helpers;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.UrlProtocol;
@@ -10,39 +10,54 @@ using WheelWizard.Views;
 
 namespace WheelWizard;
 
-public class Program
+// ReSharper disable once ClassNeverInstantiated.Global
+public class Program : IDesignerEntryPoint
 {
     [STAThread]
     public static void Main(string[] args)
     {
-        // Make sure this is the first action on startup!
-        SetupWorkingDirectory();
-        // Start the application
-        BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        // Create a static logger instance for the application
+        Logging.CreateStaticLogger();
+
+        try
+        {
+            // Make sure this is the first action on startup!
+            SetupWorkingDirectory();
+
+            // Initialize the Avalonia application
+            var builder = CreateWheelWizardApp(isDesigner: false);
+
+            // Start the application
+            builder.StartWithClassicDesktopLifetime(args);
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Application start failed");
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
     }
 
-    private static ServiceProvider BuildServiceProvider()
+    public static AppBuilder BuildAvaloniaApp()
+        => CreateWheelWizardApp(isDesigner: true);
+
+    /// <summary>
+    /// Configures the WheelWizard application.
+    /// </summary>
+    private static AppBuilder CreateWheelWizardApp(bool isDesigner)
     {
+        var builder = AppBuilder.Configure<App>().UsePlatformDetect().WithInterFont();
+
         var services = new ServiceCollection();
         services.AddWheelWizardServices();
 
-        var serviceProvider = services.BuildServiceProvider();
-        return serviceProvider;
-    }
-
-    // Avalonia configuration, don't remove; also used by visual designer.
-    // ReSharper disable once MemberCanBePrivate.Global
-    public static AppBuilder BuildAvaloniaApp()
-        => ConfigureAvaloniaApp(AppBuilder.Configure<App>()
-            .UsePlatformDetect()
-            .WithInterFont());
-
-    private static AppBuilder ConfigureAvaloniaApp(AppBuilder builder)
-    {
-        var serviceProvider = BuildServiceProvider();
-        // Write startup message
-        var logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-        LogPlatformInformation(logger);
+        var serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions
+        {
+            ValidateOnBuild = true,
+            ValidateScopes = true
+        });
 
         // Override the default TraceLogSink with our AvaloniaLoggerAdapter
         Logger.Sink = serviceProvider.GetRequiredService<AvaloniaLoggerAdapter>();
@@ -100,25 +115,5 @@ public class Program
     {
         SettingsManager.Instance.LoadSettings();
         UrlProtocolManager.SetWhWzScheme();
-    }
-
-    private static void LogPlatformInformation(ILogger logger)
-    {
-        var modeCheck = "release";
-        var osCheck = "unknown";
-
-#if DEBUG
-        modeCheck = "debug";
-#endif
-
-#if WINDOWS
-        osCheck = "windows";
-#elif LINUX
-        osCheck = "linux";
-#elif MACOS
-        osCheck = "macos";
-#endif
-
-        logger.LogInformation("Application start [Configuration: {Configuration}, OS: {OS}]", modeCheck, osCheck);
     }
 }
