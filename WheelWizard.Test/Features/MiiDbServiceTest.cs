@@ -87,7 +87,14 @@ namespace WheelWizard.Test.Features
             Assert.Equal(original.Value.MiiFacial.FaceShape, deserialized.MiiFacial.FaceShape);
             Assert.Equal(original.Value.MiiEyes.Type, deserialized.MiiEyes.Type);
             Assert.Equal(original.Value.MiiGlasses.Type, deserialized.MiiGlasses.Type);
+            Assert.Equal(original.Value.MiiFacialHair.MustacheType, deserialized.MiiFacialHair.MustacheType);
+            Assert.Equal(original.Value.MiiMole.Exists, deserialized.MiiMole.Exists);
             Assert.Equal(original.Value.CreatorName.ToString(), deserialized.CreatorName.ToString());
+            Assert.Equal(original.Value.MiiFavoriteColor, deserialized.MiiFavoriteColor);
+            Assert.Equal(original.Value.Weight.Value, deserialized.Weight.Value);
+            Assert.Equal(original.Value.MiiHair.HairColor, deserialized.MiiHair.HairColor);
+            Assert.Equal(original.Value.MiiEyebrows.Color, deserialized.MiiEyebrows.Color);
+            Assert.Equal(original.Value.MiiNose.Type, deserialized.MiiNose.Type);
         }
 
         [Fact]
@@ -222,12 +229,12 @@ namespace WheelWizard.Test.Features
             Assert.True(serialized.IsSuccess);
             _repository.GetRawBlockByClientId(222).Returns(serialized.Value);
 
-            // Act: attempt to update the name with an invalid value (empty string).
-            var result = _service.UpdateName(222, "");
+            // Act: attempt to update the name with an invalid value (too long).
+            var result = _service.UpdateName(222, "ThisNameIsWayTooLong");
 
             // Assert: expect failure from MiiName.Create.
             Assert.True(result.IsFailure);
-            Assert.Equal("Mii name cannot be empty", result.Error.Message);
+            Assert.Equal("Mii name too long, maximum is 10 characters", result.Error.Message);
         }
 
         [Fact]

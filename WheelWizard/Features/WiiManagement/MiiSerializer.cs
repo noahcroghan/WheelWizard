@@ -322,7 +322,7 @@ public static class MiiSerializer
         mii.MiiMole = miiMoleResult.Value;
 
         // Creator Name (0x36 - 0x49)
-        var creatorNameResult = MiiName.Create(Encoding.Unicode.GetString(data, 0x36, 20).TrimEnd('\0'));
+        var creatorNameResult = MiiName.Create(Encoding.BigEndianUnicode.GetString(data, 0x36, 20).TrimEnd('\0'));
         if (creatorNameResult.IsFailure)
             return creatorNameResult.Error;
         mii.CreatorName = creatorNameResult.Value;
