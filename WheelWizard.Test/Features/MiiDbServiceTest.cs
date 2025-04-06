@@ -7,7 +7,7 @@ namespace WheelWizard.Test.Features
 {
     public class MiiDbServiceTests
     {
-        private OperationResult<FullMii> CreateValidMii(uint id = 1, string name = "TestMii")
+        private OperationResult<Mii> CreateValidMii(uint id = 1, string name = "TestMii")
         {
             var miiname = MiiName.Create(name);
             var miiId = id;
@@ -30,7 +30,7 @@ namespace WheelWizard.Test.Features
                 if (result.IsFailure)
                     return result.Error;
             }
-            return new FullMii
+            return new Mii
             {
                 Name = miiname.Value,
                 MiiId = miiId,

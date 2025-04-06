@@ -11,22 +11,22 @@ public interface IMiiDbService
     /// <summary>
     /// Retrieves all Miis stored in the database.
     /// </summary>
-    /// <returns>A list of fully deserialized <see cref="FullMii"/> instances.</returns>
-    List<FullMii> GetAllMiis();
+    /// <returns>A list of fully deserialized <see cref="Mii"/> instances.</returns>
+    List<Mii> GetAllMiis();
 
     /// <summary>
     /// Retrieves a specific Mii from the database using its unique client ID.
     /// </summary>
     /// <param name="clientId">The unique identifier of the Mii to retrieve.</param>
-    /// <returns>An <see cref="OperationResult{T}"/> containing the <see cref="FullMii"/> if found and valid.</returns>
-    OperationResult<FullMii> GetByClientId(uint clientId);
+    /// <returns>An <see cref="OperationResult{T}"/> containing the <see cref="Mii"/> if found and valid.</returns>
+    OperationResult<Mii> GetByClientId(uint clientId);
 
     /// <summary>
     /// Updates an existing Mii in the database with new data.
     /// </summary>
-    /// <param name="updatedMii">The updated <see cref="FullMii"/> object to store.</param>
+    /// <param name="updatedMii">The updated <see cref="Mii"/> object to store.</param>
     /// <returns>An <see cref="OperationResult"/> indicating success or failure.</returns>
-    OperationResult Update(FullMii updatedMii);
+    OperationResult Update(Mii updatedMii);
 
     /// <summary>
     /// Updates the name of an existing Mii in the database.
@@ -47,9 +47,9 @@ public class MiiDbService : IMiiDbService
         _repository = repository;
     }
 
-    public List<FullMii> GetAllMiis()
+    public List<Mii> GetAllMiis()
     {
-        var result = new List<FullMii>();
+        var result = new List<Mii>();
         var blocks = _repository.LoadAllBlocks();
 
         foreach (var block in blocks)
@@ -62,16 +62,16 @@ public class MiiDbService : IMiiDbService
         return result;
     }
 
-    public OperationResult<FullMii> GetByClientId(uint clientId)
+    public OperationResult<Mii> GetByClientId(uint clientId)
     {
         var raw = _repository.GetRawBlockByClientId(clientId);
         if (raw == null || raw.Length != MiiSerializer.MiiBlockSize)
-            return Fail<FullMii>("Mii block not found or invalid.");
+            return Fail<Mii>("Mii block not found or invalid.");
 
         return MiiSerializer.Deserialize(raw);
     }
 
-    public OperationResult Update(FullMii updatedMii)
+    public OperationResult Update(Mii updatedMii)
     {
         var serialized = MiiSerializer.Serialize(updatedMii);
         if (serialized.IsFailure)

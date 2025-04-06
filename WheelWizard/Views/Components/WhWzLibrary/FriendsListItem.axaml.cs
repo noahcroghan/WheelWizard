@@ -26,9 +26,9 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(HasBadgesProperty, value);
     }
     
-    public static readonly StyledProperty<FullMii?> MiiProperty =
-        AvaloniaProperty.Register<FriendsListItem, FullMii?>(nameof(Mii));
-    public FullMii? Mii
+    public static readonly StyledProperty<Mii?> MiiProperty =
+        AvaloniaProperty.Register<FriendsListItem, Mii?>(nameof(Mii));
+    public Mii? Mii
     {
         get => GetValue(MiiProperty);
         set => SetValue(MiiProperty, value);

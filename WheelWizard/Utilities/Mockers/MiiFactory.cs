@@ -3,9 +3,9 @@ using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Utilities.Mockers;
 
-public class MiiFactory : MockingDataFactory<FullMii, MiiFactory>
+public class MiiFactory : MockingDataFactory<Mii, MiiFactory>
 {
-    protected override string DictionaryKeyGenerator(FullMii value) => value.Name.ToString();
+    protected override string DictionaryKeyGenerator(Mii value) => value.Name.ToString();
     private static int _miiCount = 1;
     
     private readonly string[] dataList = new[]
@@ -28,7 +28,7 @@ public class MiiFactory : MockingDataFactory<FullMii, MiiFactory>
         "wBIATABpAGMAbwByAGkAYwBlAAAAAAosgAAAAAAAAAAgTH5AuUUo8kiRCtgAbUALguAAiiUFAAAAAAAAAAAAAAAAAAAAAAAAAAA="
     };
     
-    public override FullMii Create(int? seed = null)
+    public override Mii Create(int? seed = null)
     {
         var deserializerResult = MiiSerializer.Deserialize(Convert.FromBase64String(dataList[_miiCount++ % dataList.Length]));
         if (deserializerResult.IsFailure)

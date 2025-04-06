@@ -45,9 +45,9 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         set => SetValue(ImageVariantProperty, value);
     }
         
-    public static readonly StyledProperty<FullMii?> MiiProperty =
-        AvaloniaProperty.Register<BaseMiiImage, FullMii?>(nameof(Mii), coerce: CoerceMii);
-    public FullMii? Mii
+    public static readonly StyledProperty<Mii?> MiiProperty =
+        AvaloniaProperty.Register<BaseMiiImage, Mii?>(nameof(Mii), coerce: CoerceMii);
+    public Mii? Mii
     {
         get => GetValue(MiiProperty);
         set => SetValue(MiiProperty, value);
@@ -58,7 +58,7 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         ((BaseMiiImage)o).OnVariantChanged(value);
         return value;
     }
-    private static FullMii? CoerceMii(AvaloniaObject o, FullMii? value)
+    private static Mii? CoerceMii(AvaloniaObject o, Mii? value)
     {
         ((BaseMiiImage)o).OnMiiChanged(value);
         return value;
@@ -69,7 +69,7 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         ReloadImage(Mii?.GetImage(ImageVariant), Mii?.GetImage(newValue));
     }
 
-    protected void OnMiiChanged(FullMii? newValue)
+    protected void OnMiiChanged(Mii? newValue)
     {
         ReloadImage(Mii?.GetImage(ImageVariant), newValue?.GetImage(ImageVariant));
     } 

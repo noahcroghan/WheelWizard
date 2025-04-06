@@ -20,9 +20,9 @@ namespace WheelWizard.Views.Pages;
 public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
     private LicenseProfile? currentPlayer;
-    private FullMii? _currentMii;
+    private Mii? _currentMii;
     [Inject] private IGameDataLoader _gameDataService { get; set; } = null!;
-    public FullMii? CurrentMii
+    public Mii? CurrentMii
     {
         get => _currentMii;
         set

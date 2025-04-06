@@ -166,7 +166,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         var dummyUser = new LicenseProfile
         {
             FriendCode = "0000-0000-0000",
-            MiiData = new MiiData { Mii = new FullMii { Name = noLicenseName, }, AvatarId = 0, ClientId = 0 },
+            MiiData = new MiiData { Mii = new Mii { Name = noLicenseName, }, AvatarId = 0, ClientId = 0 },
             Vr = 5000,
             Br = 5000,
             TotalRaceCount = 0,

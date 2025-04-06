@@ -11,7 +11,7 @@ namespace WheelWizard.Models.MiiImages;
 
 public class MiiImage : INotifyPropertyChanged
 {
-    private FullMii Parent { get; }
+    private Mii Parent { get; }
 
     public string? Data
     {
@@ -25,7 +25,7 @@ public class MiiImage : INotifyPropertyChanged
         
     }
     public MiiImageVariants.Variant Variant { get; }
-    public MiiImage(FullMii parent, MiiImageVariants.Variant variant) => (Parent, Variant) = (parent,variant);
+    public MiiImage(Mii parent, MiiImageVariants.Variant variant) => (Parent, Variant) = (parent,variant);
 
     public string CachingKey => $"{Data}_{Variant}";
     

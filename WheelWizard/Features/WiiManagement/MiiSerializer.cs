@@ -7,7 +7,7 @@ public static class MiiSerializer
 {
     public const int MiiBlockSize = 74;
 
-    public static OperationResult<byte[]> Serialize(FullMii? mii)
+    public static OperationResult<byte[]> Serialize(Mii? mii)
     {
         if (mii == null || mii.MiiId == 0)
             return Fail<byte[]>("Mii cannot be null.");
@@ -135,12 +135,12 @@ public static class MiiSerializer
         return data;
     }
 
-    public static OperationResult<FullMii> Deserialize(byte[]? data)
+    public static OperationResult<Mii> Deserialize(byte[]? data)
     {
         if (data == null || data.Length != 74)
-            return Fail<FullMii>("Invalid Mii data length.");
+            return Fail<Mii>("Invalid Mii data length.");
 
-        var mii = new FullMii();
+        var mii = new Mii();
 
         // Header (0x00 - 0x01)
         ushort header = (ushort)((data[0] << 8) | data[1]);

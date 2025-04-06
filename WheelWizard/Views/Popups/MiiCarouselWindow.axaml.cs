@@ -12,7 +12,7 @@ public partial class MiiCarouselWindow : PopupContent
         InitializeComponent();
     }
 
-    public MiiCarouselWindow SetMii(FullMii newMii)
+    public MiiCarouselWindow SetMii(Mii newMii)
     {
         Window.WindowTitle = newMii.Name.ToString();
         Carousel.MiiImageLoaded += DisableLoadingIcon;

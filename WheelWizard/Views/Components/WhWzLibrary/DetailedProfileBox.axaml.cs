@@ -13,9 +13,9 @@ namespace WheelWizard.Views.Components;
 
 public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
 {
-    public static readonly StyledProperty<FullMii?> MiiProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, FullMii?>(nameof(Mii));
-    public FullMii? Mii
+    public static readonly StyledProperty<Mii?> MiiProperty =
+        AvaloniaProperty.Register<DetailedProfileBox, Mii?>(nameof(Mii));
+    public Mii? Mii
     {
         get => GetValue(MiiProperty);
         set   

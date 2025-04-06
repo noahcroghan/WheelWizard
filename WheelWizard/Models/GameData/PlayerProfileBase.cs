@@ -18,7 +18,7 @@ public abstract class PlayerProfileBase : INotifyPropertyChanged
     public required MiiData? MiiData { get; set; }
     
     public string RegionName => Humanizer.GetRegionName(RegionId);
-    public FullMii? Mii => MiiData?.Mii;
+    public Mii? Mii => MiiData?.Mii;
     
     public bool IsOnline
     {

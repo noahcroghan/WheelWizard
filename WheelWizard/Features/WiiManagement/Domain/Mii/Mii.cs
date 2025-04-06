@@ -2,7 +2,7 @@
 
 namespace WheelWizard.WiiManagement.Domain.Mii;
 
-public class FullMii
+public class Mii
 {
     //todo: Remove images out of class 
     private readonly Dictionary<MiiImageVariants.Variant, MiiImage> _images = new();
