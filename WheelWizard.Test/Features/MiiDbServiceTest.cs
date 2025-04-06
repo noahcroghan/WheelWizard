@@ -24,12 +24,28 @@ namespace WheelWizard.Test.Features
             var miiMole = MiiMole.Create(true, 1, 1, 1);
             var creatorName = MiiName.Create("Creator");
             var miiFavoriteColor = MiiFavoriteColor.Red;
-            var EveryResult = new List<OperationResult> { miiname, height, weight, miiFacial, miiHair, miiEyebrows, miiEyes, miiNose, miiLips, miiGlasses, miiFacialHair, miiMole, creatorName };
+            var EveryResult = new List<OperationResult>
+            {
+                miiname,
+                height,
+                weight,
+                miiFacial,
+                miiHair,
+                miiEyebrows,
+                miiEyes,
+                miiNose,
+                miiLips,
+                miiGlasses,
+                miiFacialHair,
+                miiMole,
+                creatorName
+            };
             foreach (var result in EveryResult)
             {
                 if (result.IsFailure)
                     return result.Error;
             }
+
             return new Mii
             {
                 Name = miiname.Value,
@@ -49,7 +65,7 @@ namespace WheelWizard.Test.Features
                 MiiFavoriteColor = miiFavoriteColor,
             };
         }
-        
+
         private readonly IMiiRepository _repository;
         private readonly MiiDbService _service;
 
@@ -58,7 +74,7 @@ namespace WheelWizard.Test.Features
             _repository = Substitute.For<IMiiRepository>();
             _service = new MiiDbService(_repository);
         }
-        
+
         [Fact]
         public void CreateValidMii_ShouldSerializeAndDeserializeSuccessfully()
         {
@@ -195,7 +211,7 @@ namespace WheelWizard.Test.Features
             Assert.True(serialized.IsSuccess);
 
             _repository.UpdateBlockByClientId(321, Arg.Any<byte[]>())
-                       .Returns(Ok());
+                .Returns(Ok());
 
             // Act
             var result = _service.Update(fullMii.Value);
@@ -250,7 +266,7 @@ namespace WheelWizard.Test.Features
 
             // Simulate repository update success.
             _repository.UpdateBlockByClientId(333, Arg.Any<byte[]>())
-                       .Returns(Ok());
+                .Returns(Ok());
 
             // Act: update the name.
             var result = _service.UpdateName(333, "NewName");

@@ -29,7 +29,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     public static Layout Instance { get; private set; } = null!;
 
     [Inject] private IBrandingSingletonService BrandingService { get; set; } = null!;
-    [Inject] private IGameDataLoader _gameDataService { get; set; } = null!;
+    [Inject] private IGameDataSingletonService _gameDataService { get; set; } = null!;
 
     public Layout()
     {

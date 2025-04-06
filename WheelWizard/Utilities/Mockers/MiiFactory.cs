@@ -7,7 +7,7 @@ public class MiiFactory : MockingDataFactory<Mii, MiiFactory>
 {
     protected override string DictionaryKeyGenerator(Mii value) => value.Name.ToString();
     private static int _miiCount = 1;
-    
+
     private readonly string[] dataList = new[]
     {
         "AAAAQgBlAGUAAAAAAAAAAAAAAAAAAEBAgeGIAcKv7BAABEJBMb0oogiMCEgUTbiNAIoAiiUFAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
@@ -27,7 +27,7 @@ public class MiiFactory : MockingDataFactory<Mii, MiiFactory>
         "wBAAZwBhAG4AZwBuAGUAdwB3AHMDyAAAgAAAAAAAAAAEbDZAqaQosmBsCFgUTQCNAAoAgCIFAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
         "wBIATABpAGMAbwByAGkAYwBlAAAAAAosgAAAAAAAAAAgTH5AuUUo8kiRCtgAbUALguAAiiUFAAAAAAAAAAAAAAAAAAAAAAAAAAA="
     };
-    
+
     public override Mii Create(int? seed = null)
     {
         var deserializerResult = MiiSerializer.Deserialize(Convert.FromBase64String(dataList[_miiCount++ % dataList.Length]));

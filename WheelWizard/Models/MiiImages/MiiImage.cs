@@ -22,13 +22,13 @@ public class MiiImage : INotifyPropertyChanged
                 return null;
             return Convert.ToBase64String(parsedResult.Value);
         }
-        
     }
+
     public MiiImageVariants.Variant Variant { get; }
-    public MiiImage(Mii parent, MiiImageVariants.Variant variant) => (Parent, Variant) = (parent,variant);
+    public MiiImage(Mii parent, MiiImageVariants.Variant variant) => (Parent, Variant) = (parent, variant);
 
     public string CachingKey => $"{Data}_{Variant}";
-    
+
     public bool LoadedImageSuccessfully { get; private set; } // default false, dont set this manually
 
     // This will never be set back to false, this is intentional
@@ -42,14 +42,14 @@ public class MiiImage : INotifyPropertyChanged
         {
             if (_image != null || _requestingImage) return _image;
             // it will set it to true, meaning this code can only be executed once due to the above check
-            _requestingImage = true; 
-        
+            _requestingImage = true;
+
             var newImage = MiiImageManager.GetCachedMiiImage(this);
             if (newImage == null)
                 MiiImageManager.ResetMiiImageAsync(this);
             else
                 SetImage(newImage.Value.Item1, newImage.Value.Item2);
-        
+
             return _image;
         }
         private set
@@ -65,11 +65,15 @@ public class MiiImage : INotifyPropertyChanged
         LoadedImageSuccessfully = loadedSuccessfully;
         Image = image;
     }
+
     #region PropertyChanged
+
     public event PropertyChangedEventHandler? PropertyChanged;
+
     protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
     #endregion
 }

@@ -21,7 +21,8 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
     private static ListOrderCondition CurrentOrder = ListOrderCondition.IS_ONLINE;
 
     private ObservableCollection<FriendProfile> _friendlist = new();
-    [Inject] private IGameDataLoader GameDataService { get; set; } = null!;
+    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
+
     public ObservableCollection<FriendProfile> FriendList
     {
         get => _friendlist;
@@ -37,7 +38,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
         InitializeComponent();
         GameDataService.Subscribe(this);
         UpdateFriendList();
-        
+
         DataContext = this;
         FriendsListView.ItemsSource = FriendList;
         PopulateSortingList();
@@ -46,7 +47,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     public void OnUpdate(RepeatedTaskManager sender)
     {
-        if (sender is not GameDataLoader) return;
+        if (sender is not GameDataSingletonService) return;
         UpdateFriendList();
     }
 

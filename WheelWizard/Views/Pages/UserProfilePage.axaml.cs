@@ -21,7 +21,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
     private LicenseProfile? currentPlayer;
     private Mii? _currentMii;
-    [Inject] private IGameDataLoader _gameDataService { get; set; } = null!;
+    [Inject] private IGameDataSingletonService _gameDataService { get; set; } = null!;
+
     public Mii? CurrentMii
     {
         get => _currentMii;
@@ -93,9 +94,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
             var itemForRegionDropdown = new ComboBoxItem
             {
-                Content = region.ToString(),
-                Tag = region,
-                IsEnabled = validRegions.Contains(region)
+                Content = region.ToString(), Tag = region, IsEnabled = validRegions.Contains(region)
             };
             RegionDropdown.Items.Add(itemForRegionDropdown);
 
@@ -171,6 +170,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
                 .Show();
             return;
         }
+
         NavigationManager.NavigateTo<UserProfilePage>();
         ViewMii(0); // Just in case you have current user set as 4. and you change to a region where there are only 3 users.
         SetUserAsPrimary();
@@ -179,7 +179,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
     private async void ChangeMiiName(object? obj, EventArgs e)
     {
-        var renamePopup =  new TextInputWindow()
+        var renamePopup = new TextInputWindow()
             .SetMainText($"Enter new name")
             .SetExtraText($"Changing name from: {CurrentMii?.Name}")
             .SetAllowCustomChars(true)

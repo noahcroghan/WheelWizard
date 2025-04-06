@@ -18,7 +18,7 @@ using WheelWizard.WiiManagement.Domain.Mii;
 namespace WheelWizard.WiiManagement;
 
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation
-public interface IGameDataLoader
+public interface IGameDataSingletonService
 {
     /// <summary>
     /// Gets the currently loaded <see cref="Models.GameData.LicenseCollection"/>.
@@ -65,11 +65,10 @@ public interface IGameDataLoader
     /// <summary>
     /// Subscribes a listener to the repeated task manager.
     /// </summary>
-    /// <param name="subscriber"></param>
     void Subscribe(IRepeatedTaskListener subscriber);
 }
 
-public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
+public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonService
 {
     private readonly IMiiDbService _miiService;
     private readonly IFileSystem _fileSystem;
@@ -77,15 +76,14 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     private LicenseCollection UserList { get; }
     private byte[]? _saveData;
 
-    public GameDataLoader(IMiiDbService miiService, IFileSystem fileSystem, IWhWzDataSingletonService whWzDataSingletonService) : base(40)
+    public GameDataSingletonService(IMiiDbService miiService, IFileSystem fileSystem, IWhWzDataSingletonService whWzDataSingletonService) :
+        base(40)
     {
         _miiService = miiService;
         _fileSystem = fileSystem;
         _whWzDataSingletonService = whWzDataSingletonService;
         UserList = new LicenseCollection();
-        var loadGameDataResult = LoadGameData();
-        if (loadGameDataResult.IsFailure)
-            throw new Exception(loadGameDataResult.Error.Message);
+        LoadGameData();
     }
 
 
@@ -114,10 +112,6 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     public bool HasAnyValidUsers
         => UserList.Users.Any(user => user.FriendCode != "0000-0000-0000");
 
-
-    /// <summary>
-    /// Refresh the "IsOnline" status of our local users based on the list of currently online players.
-    /// </summary>
     public void RefreshOnlineStatus()
     {
         var currentRooms = RRLiveRooms.Instance.CurrentRooms;
@@ -128,39 +122,29 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         }
     }
 
-    /// <summary>
-    /// Loads the entire rksys.dat file from disk into memory and parses the 4 possible licenses.
-    /// If the file is invalid or not found, we create dummy users.
-    /// </summary>
     public OperationResult LoadGameData()
     {
-        try
-        {
-            var loadSaveDataResult = LoadSaveDataFile();
-            if (loadSaveDataResult.IsFailure)
-                return loadSaveDataResult;
+        var loadSaveDataResult = LoadSaveDataFile();
+        if (loadSaveDataResult.IsFailure)
+            _saveData = null;
+        else
             _saveData = loadSaveDataResult.Value;
-            if (_saveData != null && ValidateMagicNumber())
-            {
-                var result = ParseUsers();
-                if (result.IsFailure)
-                    return result;
-                return Ok();
-            }
-
-            // If the file was invalid or not found, create 4 dummy licenses
-            UserList.Users.Clear();
-            for (var i = 0; i < MaxPlayerNum; i++)
-                CreateDummyUser();
+        if (_saveData != null && ValidateMagicNumber())
+        {
+            var result = ParseUsers();
+            if (result.IsFailure)
+                return result;
             return Ok();
         }
-        catch (Exception e)
-        {
-            return "Failed to load rksys.dat: " + e.Message;
-        }
+
+        // If the file was invalid or not found, create 4 dummy licenses
+        UserList.Users.Clear();
+        for (var i = 0; i < MaxPlayerNum; i++)
+            UserList.Users.Add(CreateDummyUser());
+        return Ok();
     }
 
-    private void CreateDummyUser()
+    private LicenseProfile CreateDummyUser()
     {
         var noLicenseName = new MiiName("no license");
         var dummyUser = new LicenseProfile
@@ -175,7 +159,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             RegionId = 10, // 10 => “unknown”
             IsOnline = false
         };
-        UserList.Users.Add(dummyUser);
+        return dummyUser;
     }
 
     private OperationResult ParseUsers()
@@ -198,7 +182,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
 
         while (UserList.Users.Count < 4)
         {
-            CreateDummyUser();
+            UserList.Users.Add(CreateDummyUser());
         }
 
         return Ok();
