@@ -34,13 +34,15 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
 {
     private readonly IMiiDbService _miiService;
     private readonly IFileSystem _fileSystem;
+    private readonly IWhWzDataSingletonService _whWzDataSingletonService;
     private GameData UserList { get; }
     private byte[]? _saveData;
     
-    public GameDataLoader(IMiiDbService miiService, IFileSystem fileSystem) : base(40)
+    public GameDataLoader(IMiiDbService miiService, IFileSystem fileSystem, IWhWzDataSingletonService whWzDataSingletonService) : base(40)
     {
         _miiService = miiService;
         _fileSystem = fileSystem;
+        _whWzDataSingletonService = whWzDataSingletonService;
         UserList = new GameData();
         var loadGameDataResult = LoadGameData();
         if (loadGameDataResult.IsFailure)
@@ -189,7 +191,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             Br          = BigEndianBinaryReader.BufferToUint16(_saveData, offset + 0xB2),
             TotalRaceCount = BigEndianBinaryReader.BufferToUint32(_saveData, offset + 0xB4),
             TotalWinCount   = BigEndianBinaryReader.BufferToUint32(_saveData, offset + 0xDC),
-            BadgeVariants = App.Services.GetRequiredService<IWhWzDataSingletonService>().GetBadges(friendCode),
+            BadgeVariants = _whWzDataSingletonService.GetBadges(friendCode),
             // Region is often found near offset 0x23308 + 0x3802 in RKGD. This code is a partial guess.
             // In practice, region might be read differently depending on your rksys layout.
             RegionId = BigEndianBinaryReader.BufferToUint16(_saveData, 0x23308 + 0x3802) / 4096,
@@ -242,7 +244,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
                 Losses      = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x12),
                 CountryCode = _saveData[currentOffset + 0x68],
                 RegionId    = _saveData[currentOffset + 0x69],
-                BadgeVariants = App.Services.GetRequiredService<IWhWzDataSingletonService>().GetBadges(friendCode),
+                BadgeVariants = _whWzDataSingletonService.GetBadges(friendCode),
 
                 MiiData = new MiiData
                 {
