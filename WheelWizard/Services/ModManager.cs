@@ -177,17 +177,23 @@ public class ModManager : INotifyPropertyChanged
     }
 
     // TODO: Use this validation method when refactoring the ModManager
-    private OperationResult ValidateModName(string name)
+    public OperationResult ValidateModName(string? oldName, string newName)
     {
-        if (string.IsNullOrWhiteSpace(name))
+        if (string.IsNullOrWhiteSpace(newName))
             return Fail("Mod name cannot be empty.");
 
-        if (ModInstallation.ModExists(Mods, name))
+        if (ModInstallation.ModExists(Mods, newName))
             return Fail("Mod name already exists.");
-        
+
         return Ok();
     }
-    
+
+    public OperationResult ValidateRenameModName(string? oldName, string newName)
+    {
+        return oldName == newName ? Ok() : ValidateModName(oldName, newName);
+    }
+
+
     public async void RenameMod(Mod selectedMod)
     {
         var oldTitle = selectedMod.Title;
@@ -196,10 +202,10 @@ public class ModManager : INotifyPropertyChanged
             .SetInitialText(oldTitle)
             .SetExtraText($"Changing name from: {oldTitle}")
             .SetPlaceholderText("Enter mod name...")
-            .SetValidation(ValidateModName)
+            .SetValidation(ValidateRenameModName)
             .ShowDialog();
 
-        if (oldTitle == newTitle || newTitle == null) return; 
+        if (oldTitle == newTitle || newTitle == null) return;
         // we don't want to return an error if the name is the same as before, or if the user cancels
         if (!IsValidName(newTitle)) return;
 

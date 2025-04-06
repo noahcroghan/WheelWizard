@@ -222,6 +222,7 @@ public partial class ModDetailViewer : UserControl
             var popup = new TextInputWindow()
                 .SetMainText("Mod Name")
                 .SetInitialText(CurrentMod._sName)
+                .SetValidation(ModManager.Instance.ValidateModName)
                 .SetPlaceholderText("Enter mod name...");
             var modName = await popup.ShowDialog();
             if (string.IsNullOrEmpty(modName))

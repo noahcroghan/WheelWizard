@@ -10,10 +10,11 @@ public partial class TextInputWindow : PopupContent
 {
     private string? _result;
     private TaskCompletionSource<string?>? _tcs;
-    private Func<string, OperationResult>? inputValidationFunc;
+    private string? _initialText;
+    private Func<string?, string, OperationResult>? inputValidationFunc; // (oldText?, newText) => OperationResult
 
     // Constructor with dynamic label parameter
-    public TextInputWindow() : base(true, false, true, "Text Field")
+    public TextInputWindow() : base(true, false, true, "Text Field", new Vector(400, 215))
     {
         InitializeComponent();
         InputField.TextChanged += InputField_TextChanged;
@@ -67,10 +68,11 @@ public partial class TextInputWindow : PopupContent
     public TextInputWindow SetInitialText(string text)
     {
         InputField.Text = text;
+        _initialText = text;
         return this;
     }
 
-    public TextInputWindow SetValidation(Func<string, OperationResult> validationFunction)
+    public TextInputWindow SetValidation(Func<string?, string, OperationResult> validationFunction)
     {
         inputValidationFunc = validationFunction;
         return this;
@@ -137,17 +139,10 @@ public partial class TextInputWindow : PopupContent
     private void UpdateSubmitButtonState()
     {
         var inputText = GetTrimmedTextInput();
-        var empty = string.IsNullOrWhiteSpace(inputText);
-        var valid = inputValidationFunc == null || inputValidationFunc(inputText!).IsSuccess;
-        var containsFlaw = empty || !valid;
-        
-        SubmitButton.IsEnabled = !containsFlaw;
-        if (containsFlaw)
-            InputField.Classes.Add("error");
-        else
-            InputField.Classes.Remove("error");
-        
-        // Show error message if input is invalid
+        var validationResultError = inputValidationFunc?.Invoke(_initialText,inputText!).Error?.Message;
+   
+        SubmitButton.IsEnabled = validationResultError == null;
+        InputField.ErrorMessage = validationResultError ?? "";
     }
 
     private void CustomCharsButton_Click(object sender, EventArgs e)

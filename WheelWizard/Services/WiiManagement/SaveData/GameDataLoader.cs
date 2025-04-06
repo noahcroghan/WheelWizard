@@ -352,6 +352,17 @@ public class GameDataLoader : RepeatedTaskManager
         // 2) Write CRC at offset 0x27FFC in big-endian.
         BigEndianBinaryReader.WriteUInt32BigEndian(rksysData, 0x27FFC, newCrc);
     }
+    
+    
+    // TODO: Use this validation method when refactoring the ModManager
+    public OperationResult ValidateMiiName(string? oldName, string newName)
+    {
+        if (newName.Length is > 10 or < 3)
+            return Fail("Names must be between 3 and 10 characters long.");
+
+        return Ok();
+    }
+    
     public async void PromptLicenseNameChange(int userIndex)
     {
         if (userIndex is < 0 or >= MaxPlayerNum)
@@ -379,6 +390,7 @@ public class GameDataLoader : RepeatedTaskManager
                 .SetMainText($"Enter new name")
                 .SetExtraText($"Changing name from: {currentName}")
                 .SetAllowCustomChars(true)
+                .SetValidation(ValidateMiiName)
                 .SetInitialText(currentName)
                 .SetPlaceholderText(currentName);
 

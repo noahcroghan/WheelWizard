@@ -21,7 +21,8 @@
                        HorizontalAlignment="Left" Margin="0,10,0,0" />
 
             <behaviorComp:FeedbackTextBox x:Name="InputField" Watermark="Enter text here..."
-                                          Margin="0,5,0,0" />
+                                          ErrorMessage="hey hello"
+                                          Margin="0,5,0,0" Variant="Default" />
         </StackPanel>
 
         <components:IconLabelButton Grid.Row="1" x:Name="CustomCharsButton"
