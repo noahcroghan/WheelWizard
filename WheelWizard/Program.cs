@@ -25,7 +25,7 @@ public class Program : IDesignerEntryPoint
             SetupWorkingDirectory();
 
             // Initialize the Avalonia application
-            var builder = BuildAvaloniaApp(isDesigner: false);
+            var builder = CreateWheelWizardApp(isDesigner: false);
 
             // Start the application
             builder.StartWithClassicDesktopLifetime(args);
@@ -40,8 +40,8 @@ public class Program : IDesignerEntryPoint
         }
     }
 
-    public static AppBuilder BuildAvaloniaApp(bool isDesigner = true)
-        => CreateWheelWizardApp(isDesigner);
+    public static AppBuilder BuildAvaloniaApp()
+        => CreateWheelWizardApp(isDesigner: true);
 
     /// <summary>
     /// Configures the WheelWizard application.
