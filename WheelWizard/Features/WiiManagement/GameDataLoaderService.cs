@@ -26,7 +26,7 @@ public interface IGameDataLoader
     List<GameDataFriend> GetCurrentFriends { get; }
     bool HasAnyValidUsers { get; }
     void RefreshOnlineStatus();
-    void PromptLicenseNameChange(int userIndex);
+    Task<OperationResult> ChangeMiiName(int userIndex, string newName);
     void Subscribe(IRepeatedTaskListener subscriber);
 }
 
@@ -348,45 +348,35 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         // 2) Write CRC at offset 0x27FFC in big-endian.
         BigEndianBinaryReader.WriteUInt32BigEndian(rksysData, 0x27FFC, newCrc);
     }
-    public async void PromptLicenseNameChange(int userIndex)
+    public async Task<OperationResult> ChangeMiiName(int userIndex, string? newName)
     {
+        if (string.IsNullOrWhiteSpace(newName))
+            return"Cannot set name to an empty name.";
+        
         if (userIndex is < 0 or >= MaxPlayerNum)
         {
-            InvalidLicenseMessage("Invalid license index. Please select a valid license.");
-            return;
+            return "Invalid license index. Please select a valid license.";
         }
         var user = UserList.Users[userIndex];
         var miiIsEmptyOrNoName = IsNoNameOrEmptyMii(user);
 
         if (miiIsEmptyOrNoName)
         {
-            InvalidLicenseMessage("This license has no Mii data or is incomplete.\n" +
-                                  "Please use the Mii Channel to create a Mii first.");
-            return;
+            return "This license has no Mii data or is incomplete.\n" +
+                                  "Please use the Mii Channel to create a Mii first.";
         }
         if (user.MiiData?.Mii == null)
         {
-            InvalidLicenseMessage("This license has no Mii data or is incomplete.\n" +
-                                  "Please use the Mii Channel to create a Mii first.");
-            return;
+            return "This license has no Mii data or is incomplete.\n" +
+                                  "Please use the Mii Channel to create a Mii first.";
         }
-        var currentName = user.MiiData.Mii.Name;
-        var renamePopup =  new TextInputWindow()
-                .SetMainText($"Enter new name")
-                .SetExtraText($"Changing name from: {currentName}")
-                .SetAllowCustomChars(true)
-                .SetInitialText(currentName.ToString())
-                .SetPlaceholderText(currentName.ToString());
-
-        var newName = await renamePopup.ShowDialog();
-        if (string.IsNullOrWhiteSpace(newName)) return;
+        
         newName = Regex.Replace(newName, @"\s+", " ");
         
         // Basic checks
         if (newName.Length is > 10 or < 3)
         {
-            InvalidNameMessage("Names must be between 3 and 10 characters long.");
-            return;
+            return"Names must be between 3 and 10 characters long.";
         }
 
         if (newName.Length > 10)
@@ -394,38 +384,20 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         var nameResult = MiiName.Create(newName); 
         if (nameResult.IsFailure)
         {
-            InvalidNameMessage(nameResult.Error.Message);
-            return;
+            return nameResult.Error.Message;
         }
         
         user.Mii.Name = nameResult.Value; // This should be updated just in case someone uses it, but its not the one that updates the profile page
         WriteLicenseNameToSaveData(userIndex, newName);
         var updated = _miiService.UpdateName(user.MiiData.ClientId, newName);
         if (updated.IsFailure)
-        {
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Failed to update the Mii name.")
-                .SetInfoText("It was unable to update the name in the Mii Database file.")
-                .Show();
-          
-        }
-
+            return updated.Error.Message;
+        
         var rksysSaveResult = SaveRksysToFile();
         if (rksysSaveResult.IsFailure)
-        {
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetInfoText(rksysSaveResult.Error.Message)
-                .SetTitleText("Failed to save the 'save' file")
-                .Show();
-            return;
-        }
-        new MessageBoxWindow()
-            .SetMessageType(MessageBoxWindow.MessageType.Message)
-            .SetTitleText("Successfully updated name")
-            .SetInfoText($"Successfully updated Mii name to {user.MiiData.Mii.Name}")
-            .Show();
+            return rksysSaveResult.Error.Message;
+        
+        return Ok();
     }
     private bool IsNoNameOrEmptyMii(GameDataUser user)
     {
@@ -472,24 +444,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
 
         return Ok();
     }
-
-    private void InvalidLicenseMessage(string info)
-    {
-        new MessageBoxWindow()
-            .SetMessageType(MessageBoxWindow.MessageType.Warning)
-            .SetTitleText("Invalid license.")
-            .SetInfoText(info)
-            .Show();
-    }
     
-    private void InvalidNameMessage(string info)
-    {
-        new MessageBoxWindow()
-            .SetMessageType(MessageBoxWindow.MessageType.Warning)
-            .SetTitleText("Invalid Name.")
-            .SetInfoText(info)
-            .Show();
-    }
     
     protected override Task ExecuteTaskAsync()
     {

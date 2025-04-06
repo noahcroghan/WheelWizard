@@ -1,10 +1,10 @@
 ﻿using WheelWizard.Models.MiiImages;
+
 namespace WheelWizard.WiiManagement.Domain.Mii;
 
 public class FullMii
 {
-    
-    private Dictionary<MiiImageVariants.Variant, MiiImage> images = new ();
+    private Dictionary<MiiImageVariants.Variant, MiiImage> images = new();
 
     public MiiImage GetImage(MiiImageVariants.Variant variant)
     {
@@ -12,7 +12,7 @@ public class FullMii
             images[variant] = new MiiImage(this, variant);
         return images[variant];
     }
-    
+
     public bool IsInvalid { get; set; }
     public bool IsGirl { get; set; }
     public DateOnly Date { get; set; } = new(2000, 1, 1);
@@ -40,5 +40,4 @@ public class FullMii
     public MiiMole MiiMole { get; set; }
 
     public MiiName CreatorName { get; set; } = MiiName.Create("no name").Value!;
-    
 }

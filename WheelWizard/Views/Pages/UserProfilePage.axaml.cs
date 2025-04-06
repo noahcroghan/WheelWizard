@@ -177,9 +177,17 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         UpdatePage();
     }
 
-    private void ChangeMiiName(object? obj, EventArgs e)
+    private async void ChangeMiiName(object? obj, EventArgs e)
     {
-        _gameDataService.PromptLicenseNameChange(_currentUserIndex);
+        var renamePopup =  new TextInputWindow()
+            .SetMainText($"Enter new name")
+            .SetExtraText($"Changing name from: {CurrentMii?.Name}")
+            .SetAllowCustomChars(true)
+            .SetInitialText(CurrentMii?.Name.ToString())
+            .SetPlaceholderText(CurrentMii?.Name.ToString());
+
+        var newName = await renamePopup.ShowDialog();
+        var ChangeNameResult = await _gameDataService.ChangeMiiName(_currentUserIndex, newName);
     }
 
     private void ViewRoom_OnClick(string friendCode)

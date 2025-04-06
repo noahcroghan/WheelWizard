@@ -8,8 +8,8 @@ public class MiiNose
 
     public MiiNose(NoseType type, int size, int vertical)
     {
-        if (size is < 0 or > 8)         throw new ArgumentException("Nose size invalid");
-        if (vertical is < 0 or > 18)    throw new ArgumentException("Nose vertical position invalid");
+        if (size is < 0 or > 8) throw new ArgumentException("Nose size invalid");
+        if (vertical is < 0 or > 18) throw new ArgumentException("Nose vertical position invalid");
         Type = type;
         Size = size;
         Vertical = vertical;

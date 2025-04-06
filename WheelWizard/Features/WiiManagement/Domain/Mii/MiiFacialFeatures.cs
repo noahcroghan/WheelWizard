@@ -8,7 +8,8 @@ public class MiiFacialFeatures
     public bool MingleOff { get; }
     public bool Downloaded { get; }
 
-    public MiiFacialFeatures(MiiFaceShape faceShape, MiiSkinColor skinColor, MiiFacialFeature facialFeature, bool mingleOff, bool downloaded)
+    public MiiFacialFeatures(MiiFaceShape faceShape, MiiSkinColor skinColor, MiiFacialFeature facialFeature, bool mingleOff,
+        bool downloaded)
     {
         FaceShape = faceShape;
         SkinColor = skinColor;
@@ -16,7 +17,8 @@ public class MiiFacialFeatures
         MingleOff = mingleOff;
         Downloaded = downloaded;
     }
-    
-    public static OperationResult<MiiFacialFeatures> Create(MiiFaceShape faceShape, MiiSkinColor skinColor, MiiFacialFeature facialFeature, bool mingleOff, bool downloaded)
+
+    public static OperationResult<MiiFacialFeatures> Create(MiiFaceShape faceShape, MiiSkinColor skinColor, MiiFacialFeature facialFeature,
+        bool mingleOff, bool downloaded)
         => TryCatch(() => new MiiFacialFeatures(faceShape, skinColor, facialFeature, mingleOff, downloaded));
 }

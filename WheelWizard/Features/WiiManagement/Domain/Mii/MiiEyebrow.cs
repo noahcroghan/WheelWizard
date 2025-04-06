@@ -4,7 +4,7 @@ public class MiiEyebrow
 {
     public int Type { get; }
     public int Rotation { get; }
-    public EyebrowColor  Color { get; }
+    public EyebrowColor Color { get; }
     public int Size { get; }
     public int Vertical { get; }
     public int Spacing { get; }
