@@ -128,7 +128,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         var dummyUser = new GameDataUser
         {
             FriendCode = "0000-0000-0000",
-            MiiData = null, //todo: if there is an issue here, create a fake fullmii
+            MiiData = new MiiData { Mii = new FullMii { Name = noLicenseName, }, AvatarId = 0, ClientId = 0 },
             Vr = 5000,
             Br = 5000,
             TotalRaceCount = 0,
