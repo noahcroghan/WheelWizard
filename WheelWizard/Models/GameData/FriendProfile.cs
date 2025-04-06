@@ -2,7 +2,7 @@
 
 namespace WheelWizard.Models.GameData;
 
-public class GameDataFriend : GameDataPlayer
+public class FriendProfile : PlayerProfileBase
 {
     public required uint Wins { get; set; }
     public required uint Losses { get; set; }

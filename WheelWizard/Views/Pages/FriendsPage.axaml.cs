@@ -20,9 +20,9 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
     // Though I do see the use in saving it when using the app so you can swap pages in the meantime
     private static ListOrderCondition CurrentOrder = ListOrderCondition.IS_ONLINE;
 
-    private ObservableCollection<GameDataFriend> _friendlist = new();
+    private ObservableCollection<FriendProfile> _friendlist = new();
     [Inject] private IGameDataLoader GameDataService { get; set; } = null!;
-    public ObservableCollection<GameDataFriend> FriendList
+    public ObservableCollection<FriendProfile> FriendList
     {
         get => _friendlist;
         set
@@ -75,9 +75,9 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
         VisibleWhenFriends.IsVisible = FriendList.Count > 0;
     }
 
-    private List<GameDataFriend> GetSortedPlayerList()
+    private List<FriendProfile> GetSortedPlayerList()
     {
-        Func<GameDataFriend, object> orderMethod = CurrentOrder switch
+        Func<FriendProfile, object> orderMethod = CurrentOrder switch
         {
             ListOrderCondition.VR => f => f.Vr,
             ListOrderCondition.BR => f => f.Br,
@@ -128,13 +128,13 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     private void CopyFriendCode_OnClick(object sender, RoutedEventArgs e)
     {
-        if (FriendsListView.SelectedItem is not GameDataFriend selectedPlayer) return;
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer) return;
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedPlayer.FriendCode);
     }
 
     private void OpenCarousel_OnClick(object sender, RoutedEventArgs e)
     {
-        if (FriendsListView.SelectedItem is not GameDataFriend selectedPlayer) return;
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer) return;
         if (selectedPlayer.Mii == null) return;
         new MiiCarouselWindow().SetMii(selectedPlayer.Mii).Show();
     }

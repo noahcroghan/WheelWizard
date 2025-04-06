@@ -9,7 +9,7 @@ using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Models.GameData;
 
-public abstract class GameDataPlayer : INotifyPropertyChanged
+public abstract class PlayerProfileBase : INotifyPropertyChanged
 {
     public required string FriendCode { get; init; }
     public required uint Vr { get; init; }

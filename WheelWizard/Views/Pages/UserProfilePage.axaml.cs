@@ -19,7 +19,7 @@ namespace WheelWizard.Views.Pages;
 
 public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
-    private GameDataUser? currentPlayer;
+    private LicenseProfile? currentPlayer;
     private FullMii? _currentMii;
     [Inject] private IGameDataLoader _gameDataService { get; set; } = null!;
     public FullMii? CurrentMii
@@ -54,7 +54,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         CurrentUserCarousel.IsVisible = validUsers;
         NoProfilesInfo.IsVisible = !validUsers;
 
-        var data = _gameDataService.GetGameData;
+        var data = _gameDataService.GetLicenseCollection;
         var userAmount = data.Users.Count;
         for (var i = 0; i < userAmount; i++)
         {

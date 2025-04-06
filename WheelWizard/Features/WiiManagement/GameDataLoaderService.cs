@@ -20,11 +20,11 @@ namespace WheelWizard.WiiManagement;
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation
 public interface IGameDataLoader
 {
-    GameData GetGameData { get; }
+    LicenseCollection GetLicenseCollection { get; }
     OperationResult LoadGameData();
-    GameDataUser GetUserData(int index);
-    GameDataUser GetCurrentUser { get; }
-    List<GameDataFriend> GetCurrentFriends { get; }
+    LicenseProfile GetUserData(int index);
+    LicenseProfile GetCurrentUser { get; }
+    List<FriendProfile> GetCurrentFriends { get; }
     bool HasAnyValidUsers { get; }
     void RefreshOnlineStatus();
     Task<OperationResult> ChangeMiiName(int userIndex, string newName);
@@ -36,7 +36,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     private readonly IMiiDbService _miiService;
     private readonly IFileSystem _fileSystem;
     private readonly IWhWzDataSingletonService _whWzDataSingletonService;
-    private GameData UserList { get; }
+    private LicenseCollection UserList { get; }
     private byte[]? _saveData;
 
     public GameDataLoader(IMiiDbService miiService, IFileSystem fileSystem, IWhWzDataSingletonService whWzDataSingletonService) : base(40)
@@ -44,7 +44,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         _miiService = miiService;
         _fileSystem = fileSystem;
         _whWzDataSingletonService = whWzDataSingletonService;
-        UserList = new GameData();
+        UserList = new LicenseCollection();
         var loadGameDataResult = LoadGameData();
         if (loadGameDataResult.IsFailure)
             throw new Exception(loadGameDataResult.Error.Message);
@@ -64,13 +64,13 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     /// <summary>
     /// Returns the "focused" or currently active license/user as determined by the Settings.
     /// </summary>
-    public GameDataUser GetCurrentUser => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()];
+    public LicenseProfile GetCurrentUser => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()];
 
-    public List<GameDataFriend> GetCurrentFriends => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()].Friends;
+    public List<FriendProfile> GetCurrentFriends => UserList.Users[(int)SettingsManager.FOCUSSED_USER.Get()].Friends;
 
-    public GameData GetGameData => UserList;
+    public LicenseCollection GetLicenseCollection => UserList;
 
-    public GameDataUser GetUserData(int index)
+    public LicenseProfile GetUserData(int index)
         => UserList.Users[index];
 
     public bool HasAnyValidUsers
@@ -125,7 +125,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
     private void CreateDummyUser()
     {
         var noLicenseName = new MiiName("no license");
-        var dummyUser = new GameDataUser
+        var dummyUser = new LicenseProfile
         {
             FriendCode = "0000-0000-0000",
             MiiData = new MiiData { Mii = new FullMii { Name = noLicenseName, }, AvatarId = 0, ClientId = 0 },
@@ -133,7 +133,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             Br = 5000,
             TotalRaceCount = 0,
             TotalWinCount = 0,
-            Friends = new List<GameDataFriend>(),
+            Friends = new List<FriendProfile>(),
             RegionId = 10, // 10 => “unknown”
             IsOnline = false
         };
@@ -166,7 +166,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         return Ok();
     }
 
-    private OperationResult<GameDataUser> ParseUser(int offset)
+    private OperationResult<LicenseProfile> ParseUser(int offset)
     {
         if (_saveData == null) throw new ArgumentNullException(nameof(_saveData));
 
@@ -174,7 +174,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         var miiDataResult = ParseMiiData(offset + 0x14);
         if (miiDataResult.IsFailure)
             return miiDataResult.Error;
-        var user = new GameDataUser
+        var user = new LicenseProfile
         {
             MiiData = miiDataResult.Value,
             FriendCode = friendCode,
@@ -210,7 +210,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         return miiData;
     }
 
-    private void ParseFriends(GameDataUser gameDataUser, int userOffset)
+    private void ParseFriends(LicenseProfile licenseProfile, int userOffset)
     {
         if (_saveData == null) return;
 
@@ -221,7 +221,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
             if (!CheckForMiiData(currentOffset + 0x1A)) continue;
             byte[] rawMiiBytes = _saveData.AsSpan(currentOffset + 0x1A, MiiSize).ToArray();
             var friendCode = FriendCodeGenerator.GetFriendCode(_saveData, currentOffset + 4);
-            var friend = new GameDataFriend
+            var friend = new FriendProfile
             {
                 Vr = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x16),
                 Br = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x18),
@@ -233,7 +233,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
                 BadgeVariants = _whWzDataSingletonService.GetBadges(friendCode),
                 MiiData = new MiiData { Mii = MiiSerializer.Deserialize(rawMiiBytes).Value, AvatarId = 0, ClientId = 0 },
             };
-            gameDataUser.Friends.Add(friend);
+            licenseProfile.Friends.Add(friend);
         }
     }
 
@@ -378,7 +378,7 @@ public class GameDataLoader : RepeatedTaskManager, IGameDataLoader
         return Ok();
     }
 
-    private bool IsNoNameOrEmptyMii(GameDataUser user)
+    private bool IsNoNameOrEmptyMii(LicenseProfile user)
     {
         if (user?.MiiData?.Mii == null)
             return true;
