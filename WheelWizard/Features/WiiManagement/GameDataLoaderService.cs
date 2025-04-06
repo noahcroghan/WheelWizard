@@ -434,17 +434,14 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
         var saveFolder = _fileSystem.Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
-        try
+        var trySaveRksys = TryCatch(() =>
         {
             _fileSystem.Directory.CreateDirectory(saveFolder);
             var path = _fileSystem.Path.Combine(saveFolder, "rksys.dat");
             _fileSystem.File.WriteAllBytes(path, _saveData);
-        }
-        catch (Exception ex)
-        {
-            return Fail($"Failed to save rksys.dat.\n{ex.Message}");
-        }
-
+        });
+        if (trySaveRksys.IsFailure)
+            return trySaveRksys.Error.Message;
         return Ok();
     }
 
