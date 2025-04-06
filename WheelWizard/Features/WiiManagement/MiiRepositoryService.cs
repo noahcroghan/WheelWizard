@@ -11,20 +11,21 @@ public interface IMiiRepository
     /// Returns a list of byte arrays, each representing a Mii block.
     /// </summary>
     List<byte[]> LoadAllBlocks();
-    
+
     /// <summary>
     /// Saves all Mii data blocks to the Wii Mii database.
     /// Automatically Pads to 100 entries and calculates CRC.
     /// </summary>
     /// <param name="blocks">List of a raw 74 Byte-array Representing a Mii.</param>
     OperationResult SaveAllBlocks(List<byte[]> blocks);
-    
+
     /// <summary>
     /// Retrieves a raw Mii block by its unique client ID.
     /// returns null if the Mii is not found.
     /// </summary>
     /// <param name="clientId">The Mii's unique client Id</param>
     byte[]? GetRawBlockByClientId(uint clientId);
+
     /// <summary>
     /// Replaces a Mii block in the database that matches the given ID.
     /// </summary>
@@ -69,7 +70,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     public OperationResult SaveAllBlocks(List<byte[]> blocks)
     {
         if (!fileSystem.File.Exists(_filePath))
-            return Fail("RFL_DB.dat not found.");
+            return "RFL_DB.dat not found.";
 
         var db = ReadDatabase();
         using var ms = new MemoryStream(db);
@@ -113,11 +114,11 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     public OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock)
     {
         if (clientId == 0)
-            return Fail("Invalid ClientId.");
+            return "Invalid ClientId.";
         if (newBlock.Length != MiiLength)
-            return Fail("Mii block size invalid.");
+            return "Mii block size invalid.";
         if (!fileSystem.File.Exists(_filePath))
-            return Fail("RFL_DB.dat not found.");
+            return "RFL_DB.dat not found.";
 
         var allBlocks = LoadAllBlocks();
         var updated = false;

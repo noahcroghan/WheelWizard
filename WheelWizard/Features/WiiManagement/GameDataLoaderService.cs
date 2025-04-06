@@ -299,10 +299,10 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
                 }
             }
 
-            var saveFileFolder = Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
-            var saveFile = Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
+            var saveFileFolder = _fileSystem.Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
+            var saveFile = _fileSystem.Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
             if (saveFile.Length == 0)
-                return Fail<byte[]>("rksys.dat not found");
+                return "rksys.dat not found";
             return _fileSystem.File.ReadAllBytes(saveFile[0]);
         }
         catch
@@ -433,11 +433,11 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         if (_saveData == null || !SettingsHelper.PathsSetupCorrectly()) return Fail("Invalid save data or config is not setup properly.");
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
-        var saveFolder = Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
+        var saveFolder = _fileSystem.Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
         try
         {
-            Directory.CreateDirectory(saveFolder);
-            var path = Path.Combine(saveFolder, "rksys.dat");
+            _fileSystem.Directory.CreateDirectory(saveFolder);
+            var path = _fileSystem.Path.Combine(saveFolder, "rksys.dat");
             _fileSystem.File.WriteAllBytes(path, _saveData);
         }
         catch (Exception ex)

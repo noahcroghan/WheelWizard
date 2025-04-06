@@ -37,7 +37,6 @@ public interface IMiiDbService
     OperationResult UpdateName(uint clientId, string newName);
 }
 
-
 public class MiiDbService : IMiiDbService
 {
     private readonly IMiiRepository _repository;
@@ -66,7 +65,7 @@ public class MiiDbService : IMiiDbService
     {
         var raw = _repository.GetRawBlockByClientId(clientId);
         if (raw == null || raw.Length != MiiSerializer.MiiBlockSize)
-            return Fail<Mii>("Mii block not found or invalid.");
+            return "Mii block not found or invalid.";
 
         return MiiSerializer.Deserialize(raw);
     }

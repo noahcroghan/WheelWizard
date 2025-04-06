@@ -21,7 +21,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
     private LicenseProfile? currentPlayer;
     private Mii? _currentMii;
-    [Inject] private IGameDataSingletonService _gameDataService { get; set; } = null!;
+    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
 
     public Mii? CurrentMii
     {
@@ -50,12 +50,12 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
     private void ResetMiiTopBar()
     {
-        var validUsers = _gameDataService.HasAnyValidUsers;
+        var validUsers = GameDataService.HasAnyValidUsers;
         CurrentUserProfile.IsVisible = validUsers;
         CurrentUserCarousel.IsVisible = validUsers;
         NoProfilesInfo.IsVisible = !validUsers;
 
-        var data = _gameDataService.LicenseCollection;
+        var data = GameDataService.LicenseCollection;
         var userAmount = data.Users.Count;
         for (var i = 0; i < userAmount; i++)
         {
@@ -120,7 +120,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         CurrentUserProfile.IsChecked = FocussedUser == _currentUserIndex;
         if (currentPlayer != null) currentPlayer.PropertyChanged -= OnMiiNameChanged;
 
-        currentPlayer = _gameDataService.GetUserData(_currentUserIndex);
+        currentPlayer = GameDataService.GetUserData(_currentUserIndex);
         CurrentUserProfile.FriendCode = currentPlayer.FriendCode;
         CurrentUserProfile.UserName = currentPlayer.NameOfMii;
         CurrentUserProfile.IsOnline = currentPlayer.IsOnline;
@@ -160,7 +160,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         SettingsManager.RR_REGION.Set(region);
         ResetMiiTopBar();
-        var loadResult = _gameDataService.LoadGameData();
+        var loadResult = GameDataService.LoadGameData();
         if (loadResult.IsFailure)
         {
             new MessageBoxWindow()
@@ -187,7 +187,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             .SetPlaceholderText(CurrentMii?.Name.ToString());
 
         var newName = await renamePopup.ShowDialog();
-        var changeNameResult = _gameDataService.ChangeMiiName(_currentUserIndex, newName);
+        var changeNameResult = GameDataService.ChangeMiiName(_currentUserIndex, newName);
         if (changeNameResult.IsFailure)
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Error)
