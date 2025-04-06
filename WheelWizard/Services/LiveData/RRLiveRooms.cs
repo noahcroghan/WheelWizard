@@ -58,15 +58,14 @@ public class RRLiveRooms : RepeatedTaskManager
                     // Deserialize each Mii's data into a FullMii object
                     Mii = p.Value.Mii.Select(mii =>
                     {
-                            var rawMii = Convert.FromBase64String(mii.Data);
-                            var SerializerResult = MiiSerializer.Deserialize(rawMii);
-                            if (SerializerResult.IsFailure)
-                            {
-                                return new FullMii();
-                            }
-                            return SerializerResult.Value;
-                            
-                        
+                        var rawMii = Convert.FromBase64String(mii.Data);
+                        var SerializerResult = MiiSerializer.Deserialize(rawMii);
+                        if (SerializerResult.IsFailure)
+                        {
+                            return new FullMii();
+                        }
+
+                        return SerializerResult.Value;
                     }).ToList()
                 })
         }).ToList();

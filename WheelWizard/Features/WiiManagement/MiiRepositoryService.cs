@@ -20,7 +20,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     private const int HeaderOffset = 0x04;
     private static readonly byte[] EmptyMii = new byte[MiiLength];
     private readonly string _filePath = PathManager.WiiDbFile;
-    
+
     public List<byte[]> LoadAllBlocks()
     {
         var result = new List<byte[]>();
@@ -118,7 +118,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
 
         if (!updated)
             return Fail("Mii not found.");
-        
+
         return SaveAllBlocks(allBlocks);
     }
 

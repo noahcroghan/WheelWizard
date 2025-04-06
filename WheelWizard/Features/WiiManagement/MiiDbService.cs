@@ -14,11 +14,12 @@ public interface IMiiDbService
 public class MiiDbService : IMiiDbService
 {
     private readonly IMiiRepository _repository;
-    
+
     public MiiDbService(IMiiRepository repository)
     {
         _repository = repository;
     }
+
     public List<FullMii> GetAllMiis()
     {
         var result = new List<FullMii>();
