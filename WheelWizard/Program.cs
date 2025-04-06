@@ -16,14 +16,14 @@ public class Program : IDesignerEntryPoint
     [STAThread]
     public static void Main(string[] args)
     {
+        // Make sure this is the first action on startup!
+        SetupWorkingDirectory();
+
         // Create a static logger instance for the application
         Logging.CreateStaticLogger();
 
         try
         {
-            // Make sure this is the first action on startup!
-            SetupWorkingDirectory();
-
             // Initialize the Avalonia application
             var builder = CreateWheelWizardApp(isDesigner: false);
 
