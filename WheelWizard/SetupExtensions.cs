@@ -25,7 +25,7 @@ public static class SetupExtensions
         services.AddGitHub();
         services.AddRrRooms();
         services.AddWhWzData();
-        services.AddMiiSerializer();
+        services.AddWiiManagement();
 
         // IO Abstractions
         services.AddSingleton<IFileSystem, RealFileSystem>();

@@ -2,9 +2,9 @@
 
 namespace WheelWizard.WiiManagement;
 
-public static class MiiSerializerExtensions
+public static class WiiManagementExtensions
 {
-    public static IServiceCollection AddMiiSerializer(this IServiceCollection services)
+    public static IServiceCollection AddWiiManagement(this IServiceCollection services)
     {
         services.AddSingleton<IMiiDbService, MiiDbService>();
         services.AddSingleton<IMiiRepository, MiiRepositoryService>();

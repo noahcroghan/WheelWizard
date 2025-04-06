@@ -1,8 +1,8 @@
 ﻿using System.IO.Abstractions;
-using WheelWizard.Helpers;
 using WheelWizard.Services;
 using WheelWizard.Services.WiiManagement.SaveData;
-namespace WheelWizard.WiiManagement.Domain;
+
+namespace WheelWizard.WiiManagement;
 
 public interface IMiiRepository
 {

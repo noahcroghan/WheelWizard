@@ -13,6 +13,7 @@ using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Pages;
 

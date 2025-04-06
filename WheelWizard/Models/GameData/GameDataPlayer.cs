@@ -4,8 +4,8 @@ using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
 using WheelWizard.Services.LiveData;
 using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain.Enums;
 using WheelWizard.WheelWizardData.Domain;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Models.GameData;
 

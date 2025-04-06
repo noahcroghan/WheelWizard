@@ -5,6 +5,7 @@ using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views;
 using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Services.LiveData;
 

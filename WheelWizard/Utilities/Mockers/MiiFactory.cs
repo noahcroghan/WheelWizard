@@ -1,4 +1,5 @@
 ﻿using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Utilities.Mockers;
 

@@ -1,5 +1,6 @@
 ﻿using WheelWizard.Models.MiiImages;
 using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 
 namespace WheelWizard.Views.Popups;

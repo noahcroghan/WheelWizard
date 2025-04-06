@@ -13,7 +13,7 @@ using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WheelWizardData;
-using WheelWizard.WiiManagement.Domain.Enums;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement;
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation

@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using WheelWizard.WiiManagement.Domain.Enums;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement;
 

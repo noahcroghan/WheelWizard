@@ -8,6 +8,7 @@ using WheelWizard.Resources.Languages;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Views.Pages;
 using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 
 namespace WheelWizard.Views.Components;

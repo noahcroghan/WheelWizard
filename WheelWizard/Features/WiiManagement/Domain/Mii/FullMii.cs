@@ -1,5 +1,5 @@
 ﻿using WheelWizard.Models.MiiImages;
-using WheelWizard.WiiManagement.Domain.Enums;
+namespace WheelWizard.WiiManagement.Domain.Mii;
 
 public class FullMii
 {
@@ -12,6 +12,7 @@ public class FullMii
             images[variant] = new MiiImage(this, variant);
         return images[variant];
     }
+    
     public bool IsInvalid { get; set; }
     public bool IsGirl { get; set; }
     public DateOnly Date { get; set; } = new(2000, 1, 1);

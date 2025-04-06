@@ -1,7 +1,7 @@
 using WheelWizard.Shared;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain;
-using WheelWizard.WiiManagement.Domain.Enums;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Test.Features
 {
@@ -23,6 +23,7 @@ namespace WheelWizard.Test.Features
             var miiFacialHair = MiiFacialHair.Create(MustacheType.None, BeardType.None, MustacheColor.Black, 1, 1);
             var miiMole = MiiMole.Create(true, 1, 1, 1);
             var creatorName = MiiName.Create("Creator");
+            var miiFavoriteColor = MiiFavoriteColor.Red;
             var EveryResult = new List<OperationResult> { miiname, height, weight, miiFacial, miiHair, miiEyebrows, miiEyes, miiNose, miiLips, miiGlasses, miiFacialHair, miiMole, creatorName };
             foreach (var result in EveryResult)
             {
@@ -44,7 +45,8 @@ namespace WheelWizard.Test.Features
                 MiiGlasses = miiGlasses.Value,
                 MiiFacialHair = miiFacialHair.Value,
                 MiiMole = miiMole.Value,
-                CreatorName = creatorName.Value
+                CreatorName = creatorName.Value,
+                MiiFavoriteColor = miiFavoriteColor,
             };
         }
         

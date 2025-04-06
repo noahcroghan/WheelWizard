@@ -4,6 +4,7 @@ using WheelWizard.RrRooms;
 using WheelWizard.Services.WiiManagement;
 using WheelWizard.Views;
 using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 
 namespace WheelWizard.Models.MiiImages;
