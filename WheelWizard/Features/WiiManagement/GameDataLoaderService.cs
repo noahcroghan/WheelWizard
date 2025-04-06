@@ -189,7 +189,7 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
 
     private OperationResult<LicenseProfile> ParseUser(int offset)
     {
-        if (_saveData == null) throw new ArgumentNullException(nameof(_saveData));
+        if (_saveData == null) return new ArgumentNullException(nameof(_saveData));
 
         var friendCode = FriendCodeGenerator.GetFriendCode(_saveData, offset + 0x5C);
         var miiDataResult = ParseMiiData(offset + 0x14);
