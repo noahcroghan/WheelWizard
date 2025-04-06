@@ -16,7 +16,6 @@ public partial class TextInputWindow : PopupContent
     public TextInputWindow() : base(true, false, true, "Text Field")
     {
         InitializeComponent();
-
         InputField.TextChanged += InputField_TextChanged;
         UpdateSubmitButtonState();
         SetupCustomChars();

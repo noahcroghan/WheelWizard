@@ -1,6 +1,8 @@
 
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 
 namespace WheelWizard.Views.BehaviorComponent;
 
@@ -9,6 +11,9 @@ public partial class FeedbackTextBox : UserControl
     public FeedbackTextBox()
     {
         InitializeComponent();
+        DataContext = this;
+     
+        InputField.TextChanged += (_,_) => RaiseEvent(new TextChangedEventArgs(TextChangedEvent, this));
     }
 
     public static readonly StyledProperty<TextBoxVariantType> VariantProperty =
@@ -68,6 +73,15 @@ public partial class FeedbackTextBox : UserControl
     {
         get => GetValue(InfoTextProperty);
         set => SetValue(InfoTextProperty, value);
+    }
+    
+    public static readonly RoutedEvent<TextChangedEventArgs> TextChangedEvent =
+        RoutedEvent.Register<TextBox, TextChangedEventArgs>(
+            nameof(TextChanged), RoutingStrategies.Bubble);
+    public event EventHandler<TextChangedEventArgs>? TextChanged
+    {
+        add => AddHandler(TextChangedEvent, value);
+        remove => RemoveHandler(TextChangedEvent, value);
     }
 }
 

@@ -3,8 +3,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="100"
-             x:Class="WheelWizard.Views.BehaviorComponent.FeedbackTextBox">
-    <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-             
+             x:Class="WheelWizard.Views.BehaviorComponent.FeedbackTextBox"
+             xmlns:behaviorComp="clr-namespace:WheelWizard.Views.BehaviorComponent"
+             x:DataType="behaviorComp:FeedbackTextBox"
+             >
+    <TextBox x:Name="InputField" 
+             HorizontalAlignment="Stretch" VerticalAlignment="Center"
+             Text="{Binding Text}"
+             Watermark="{Binding Watermark}"
              />
 </UserControl>
