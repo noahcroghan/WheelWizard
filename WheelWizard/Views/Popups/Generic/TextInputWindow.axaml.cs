@@ -14,7 +14,7 @@ public partial class TextInputWindow : PopupContent
     private Func<string?, string, OperationResult>? inputValidationFunc; // (oldText?, newText) => OperationResult
 
     // Constructor with dynamic label parameter
-    public TextInputWindow() : base(true, false, true, "Text Field", new Vector(400, 215))
+    public TextInputWindow() : base(true, false, true, "Text Field")
     {
         InitializeComponent();
         InputField.TextChanged += InputField_TextChanged;
@@ -43,13 +43,6 @@ public partial class TextInputWindow : PopupContent
     public TextInputWindow SetAllowCustomChars(bool allow)
     {
         CustomCharsButton.IsVisible = allow;
-        // This is not really reversible, but that is also not really a problem, since when do we even want to sue that
-        if (allow)
-        {
-            var newSize = new Vector(Window.InternalSize.X, Window.InternalSize.Y + 40);
-            Window.SetWindowSize(newSize);
-        }
-
         return this;
     }
 
@@ -149,8 +142,6 @@ public partial class TextInputWindow : PopupContent
     {
         CustomChars.IsVisible = true;
         CustomCharsButton.IsVisible = false;
-        var newSize = new Vector(Window.InternalSize.X, Window.InternalSize.Y + 400);
-        Window.SetWindowSize(newSize);
     }
 
     private string? GetTrimmedTextInput()

@@ -7,9 +7,9 @@ public abstract class PopupContent : UserControl
 {
     public Base.PopupWindow Window { get; private set; }
     
-    protected PopupContent(bool allowClose, bool allowParentInteraction, bool isTopMost, string title = "", Vector? size = null)
+    protected PopupContent(bool allowClose, bool allowParentInteraction, bool isTopMost, string title = "")
     {
-        Window = new Base.PopupWindow(allowClose, allowParentInteraction, isTopMost, title, size)
+        Window = new Base.PopupWindow(allowClose, allowParentInteraction, isTopMost, title)
         {
             PopupContent = { Content = this },
             BeforeClose = BeforeClose,

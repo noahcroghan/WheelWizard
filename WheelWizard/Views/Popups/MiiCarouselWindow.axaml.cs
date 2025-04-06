@@ -4,7 +4,7 @@ namespace WheelWizard.Views.Popups;
 
 public partial class MiiCarouselWindow : PopupContent
 {
-    public MiiCarouselWindow() : base(true,true,false, "Mii Carousel", new(440, 300))
+    public MiiCarouselWindow() : base(true,true,false, "Mii Carousel")
     {
         InitializeComponent();
     }

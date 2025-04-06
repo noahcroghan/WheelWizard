@@ -6,7 +6,7 @@
                    xmlns:components="clr-namespace:WheelWizard.Views.Components"
                    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                    x:Class="WheelWizard.Views.Popups.Generic.YesNoWindow">
-    <Grid>
+    <Grid Width="400" MinHeight="150" MaxHeight="350">
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,10">
             
             <TextBlock Classes="TitleText" x:Name="MainTextBlock"

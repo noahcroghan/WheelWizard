@@ -14,7 +14,7 @@ public partial class ProgressWindow : PopupContent
 
     public ProgressWindow() : this("Progress Window") { }
 
-    public ProgressWindow(string windowTitle) : base(false, false, true, windowTitle, new(400, 230))
+    public ProgressWindow(string windowTitle) : base(false, false, true, windowTitle)
     {
         InitializeComponent();
         _updateTimer = new DispatcherTimer();

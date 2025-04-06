@@ -11,7 +11,7 @@ namespace WheelWizard.Views.Popups;
 
 public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
 {
-    public DevToolWindow() : base(true, true, true, "Dev Tool", size: new(440, 600))
+    public DevToolWindow() : base(true, true, true, "Dev Tool")
     {
         InitializeComponent();
         AppStateMonitor.Instance.Subscribe(this);
