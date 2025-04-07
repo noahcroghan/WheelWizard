@@ -136,7 +136,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
     private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
     {
         if (args.PropertyName != nameof(currentPlayer.NameOfMii)) return;
-        CurrentUserProfile.UserName = currentPlayer.NameOfMii;
+        CurrentUserProfile.UserName = currentPlayer?.NameOfMii ?? "";
     }
 
     private void CheckBox_SetPrimaryUser(object sender, RoutedEventArgs e) => SetUserAsPrimary();
@@ -177,14 +177,25 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         UpdatePage();
     }
 
+    // This is intentionally a separate validation method besides the true name validation. That name validation allows less than 3.
+    // But we as team wheel wizard don't think it makes sense to have a mii name shorter than 3, and so from the UI we don't allow it
+    private OperationResult ValidateMiiName(string? oldName, string newName)
+    {
+        if (newName.Length is > 10 or < 3)
+            return Fail("Names must be between 3 and 10 characters long.");
+
+        return Ok();
+    }
+    
     private async void ChangeMiiName(object? obj, EventArgs e)
     {
         var renamePopup = new TextInputWindow()
             .SetMainText($"Enter new name")
             .SetExtraText($"Changing name from: {CurrentMii?.Name}")
             .SetAllowCustomChars(true)
-            .SetInitialText(CurrentMii?.Name.ToString())
-            .SetPlaceholderText(CurrentMii?.Name.ToString());
+            .SetValidation(ValidateMiiName)
+            .SetInitialText(CurrentMii?.Name.ToString() ?? "")
+            .SetPlaceholderText(CurrentMii?.Name.ToString() ?? "");
 
         var newName = await renamePopup.ShowDialog();
         var changeNameResult = GameDataService.ChangeMiiName(_currentUserIndex, newName);
