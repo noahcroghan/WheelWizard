@@ -245,19 +245,14 @@ public class ModManager : INotifyPropertyChanged
             await selectedMod.SaveToIniAsync(newIniPath);
             SaveModsAsync();
             OnPropertyChanged(nameof(Mods));
+            
+            if (Directory.Exists(oldDirectoryName))
+                Directory.Delete(oldDirectoryName, true);
         }
         catch (IOException ex)
         {
             ErrorOccurred($"Failed to rename mod directory: {ex.Message}");
         }
-        finally
-        {
-            if (Directory.Exists(oldDirectoryName))
-            {
-                Directory.Delete(oldDirectoryName, true);
-            }
-        }
-
         ReloadAsync();
     }
 
