@@ -151,10 +151,7 @@ public partial class TextInputWindow : PopupContent
         Close();
     }
     
-    private string? GetTrimmedTextInput()
-    {
-        return InputField.Text?.Trim();
-    }
+    private string? GetTrimmedTextInput() => InputField.Text?.Trim();
 
     private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
 
