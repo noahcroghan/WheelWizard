@@ -82,7 +82,7 @@ public partial class TextInputWindow : PopupContent
     {
         CustomChars.Children.Clear();
         // All the custom chars that are grouped together
-        var charPairs = new List<(char, char)>
+        var charRanges = new List<(char, char)>
         {
             ((char)0x2460, (char)0x246e),
             ((char)0xe000, (char)0xe01c),
@@ -92,7 +92,7 @@ public partial class TextInputWindow : PopupContent
         };
 
         var chars = new List<char>();
-        foreach (var (start, end) in charPairs)
+        foreach (var (start, end) in charRanges)
         {
             for (var i = start; i <= end; i++)
             {
@@ -131,7 +131,7 @@ public partial class TextInputWindow : PopupContent
     // Update the Submit button's IsEnabled property based on input
     private void UpdateSubmitButtonState()
     {
-        var inputText = GetTrimmedTextInput();
+        var inputText = InputField.Text?.Trim();
         var validationResultError = inputValidationFunc?.Invoke(_initialText,inputText!).Error?.Message;
    
         SubmitButton.IsEnabled = validationResultError == null;
@@ -144,14 +144,9 @@ public partial class TextInputWindow : PopupContent
         CustomCharsButton.IsVisible = false;
     }
 
-    private string? GetTrimmedTextInput()
-    {
-        return InputField.Text?.Trim();
-    }
-
     private void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
-        _result = GetTrimmedTextInput();
+        _result = InputField.Text?.Trim();
         _tcs?.TrySetResult(_result); // Set the result of the task
         Close();
     }
