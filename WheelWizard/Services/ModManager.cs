@@ -189,9 +189,6 @@ public class ModManager : INotifyPropertyChanged
         if (newName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
             return Fail("Mod name contains illegal characters.");
 
-        if (newName.Length is > 50) // Artificial max name length, based on nothing
-            return Fail("Mod name must be less than 50 characters long.");
-
         return Ok();
     }
 
