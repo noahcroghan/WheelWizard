@@ -225,11 +225,14 @@ public partial class ModDetailViewer : UserControl
                 .SetValidation(ModManager.Instance.ValidateModName)
                 .SetPlaceholderText("Enter mod name...");
             var modName = await popup.ShowDialog();
+            if (modName == null)
+                return;
+            
             if (string.IsNullOrEmpty(modName))
             {
                 new MessageBoxWindow()
                     .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                    .SetTitleText("Mod name Invalid.")
+                    .SetTitleText("Mod can't be empty.")
                     .SetInfoText("Please provide a mod name.")
                     .Show();
                 return;

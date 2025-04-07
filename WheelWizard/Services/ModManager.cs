@@ -141,6 +141,7 @@ public class ModManager : INotifyPropertyChanged
         var modName = await new TextInputWindow()
             .SetMainText("Mod name:")
             .SetPlaceholderText("Enter mod name...")
+            .SetValidation(ValidateModName)
             .ShowDialog();
         if (!IsValidName(modName)) return;
         var tempZipPath = Path.Combine(Path.GetTempPath(), $"{modName}.zip");
