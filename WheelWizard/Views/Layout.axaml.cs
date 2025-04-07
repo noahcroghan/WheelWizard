@@ -15,6 +15,7 @@ using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Pages;
 using WheelWizard.WheelWizardData.Domain;
+using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views;
 
@@ -28,6 +29,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     public static Layout Instance { get; private set; } = null!;
 
     [Inject] private IBrandingSingletonService BrandingService { get; set; } = null!;
+    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
 
     public Layout()
     {
@@ -48,7 +50,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
 
         WhWzStatusManager.Instance.Subscribe(this);
         RRLiveRooms.Instance.Subscribe(this);
-        GameDataLoader.Instance.Subscribe(this);
+        GameDataService.Subscribe(this);
 #if DEBUG
         KitchenSinkButton.IsVisible = true;
 #endif
@@ -127,7 +129,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
             _ => Humanizer.ReplaceDynamic(Phrases.Hover_RoomsOnline_x, roomCount) ??
                  $"There are currently {roomCount} rooms active"
         };
-        var friends = GameDataLoader.Instance.GetCurrentFriends;
+        var friends = GameDataService.CurrentFriends;
         FriendsButton.BoxText = $"{friends.Count(friend => friend.IsOnline)}/{friends.Count}";
         FriendsButton.BoxTip = friends.Count(friend => friend.IsOnline) switch
         {
