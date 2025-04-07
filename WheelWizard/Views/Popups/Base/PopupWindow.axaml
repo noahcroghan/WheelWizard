@@ -5,7 +5,7 @@
         xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="WheelWizard.Views.Popups.Base.PopupWindow"
-        SystemDecorations="None"
+        SystemDecorations="None" SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
@@ -14,6 +14,7 @@
         Title="{Binding WindowTitle}">
     <Grid x:Name="CompleteGrid">
         <Border Background="{StaticResource  BackgroundColor}" CornerRadius="4"
+                x:Name="CompleteBorder"
                 BorderThickness="1" BorderBrush="{StaticResource BackgroundLineColor}">
             <Grid RowDefinitions="25,*">
                 <Border Grid.RowSpan="999" Grid.ColumnSpan="999" ZIndex="999" IsVisible="False"

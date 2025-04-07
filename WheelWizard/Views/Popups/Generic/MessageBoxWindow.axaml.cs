@@ -13,7 +13,7 @@ public partial class MessageBoxWindow : PopupContent
     }
     private MessageType messageType = MessageType.Message;
     
-    public MessageBoxWindow() : base(true, false, true, "Message", new(400, 230))
+    public MessageBoxWindow() : base(true, false, true, "Message")
     {
         InitializeComponent();
         SetMessageType(messageType);
