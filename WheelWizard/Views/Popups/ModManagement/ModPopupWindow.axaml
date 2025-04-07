@@ -34,7 +34,7 @@
                      ScrollViewer.VerticalScrollBarVisibility="Auto">
 
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="gameBanana:GameBananaModDetails">
+                    <DataTemplate DataType="gameBanana:OldGameBananaModDetails">
                         <components:ModBrowserListItem Width="284" Height="89" Margin="0,4,9,4"
                                                        ModTitle="{Binding _sName}"
                                                        ModAuthor="{Binding _aSubmitter._sName}"

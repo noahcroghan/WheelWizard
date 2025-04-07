@@ -1,10 +1,10 @@
 ﻿using WheelWizard.Models.GameBanana;
 
-public class GameBananaSearchResults
+public class OldGameBananaSearchResults
 {
     public Metadata _aMetadata { get; set; } // Metadata for the API response (e.g., total records, pagination)
 
-    public List<GameBananaModDetails>
+    public List<OldGameBananaModDetails>
         _aRecords { get; set; } // List of records representing mods or other GameBanana content
 
     public class Metadata

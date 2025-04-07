@@ -2,7 +2,7 @@
 
 namespace WheelWizard.Models.GameBanana;
 
-public class GameBananaModFile
+public class OldGameBananaModFile
 {
     public int _idRow { get; set; }
     public string _sFile { get; set; }

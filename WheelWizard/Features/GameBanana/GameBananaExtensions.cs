@@ -10,8 +10,7 @@ public static class GitHubExtensions
     public static IServiceCollection AddGitHub(this IServiceCollection services)
     {
         services.AddWhWzRefitApi<IGameBananaApi>(
-            Endpoints.GameBananaBaseAddress,
-            new() { PropertyNamingPolicy = new HungarianNamingPolicy() }
+            Endpoints.GameBananaBaseAddress
         );
 
         services.AddSingleton<IGameBananaSingletonService, GameBananaSingletonService>();

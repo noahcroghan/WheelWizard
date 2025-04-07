@@ -2,7 +2,7 @@
 
 namespace WheelWizard.Models.GameBanana;
 
-public class GameBananaSubmitter
+public class OldGameBananaSubmitter
 {
     public int _idRow { get; set; }
     public string _sName { get; set; }

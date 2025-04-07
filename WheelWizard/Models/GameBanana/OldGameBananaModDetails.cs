@@ -2,7 +2,7 @@
 
 namespace WheelWizard.Models.GameBanana;
 
-public class GameBananaModDetails
+public class OldGameBananaModDetails
 {
     public int _idRow { get; set; }
 
@@ -10,18 +10,18 @@ public class GameBananaModDetails
 
     public long _tsDateModified { get; set; }
     public long _tsDateAdded { get; set; }
-    public GameBananaPreviewMedia? _aPreviewMedia { get; set; }
+    public OldGameBananaPreviewMedia? _aPreviewMedia { get; set; }
     public string _sName { get; set; }
     public string _sProfileUrl { get; set; }
     public int _nLikeCount { get; set; }
     public int _nViewCount { get; set; }
     public string _sText { get; set; }
     public List<string> _aEmbeddedMedia { get; set; }
-    public GameBananaSubmitter _aSubmitter { get; set; }
-    public GameBananaGame _aGame { get; set; }
-    public GamebananaCatagory _aCategory { get; set; }
+    public OldGameBananaSubmitter _aSubmitter { get; set; }
+    public OldGameBananaGame AOldGame { get; set; }
+    public OldGamebananaCatagory _aCategory { get; set; }
     public int _nPostCount { get; set; }
-    public List<GameBananaModFile> _aFiles { get; set; }
+    public List<OldGameBananaModFile> _aFiles { get; set; }
 
     public int? _nDownloadCount { get; set; }
     public string? _sModelName { get; set; }
@@ -29,7 +29,7 @@ public class GameBananaModDetails
     public string? FirstImageUrl => _aPreviewMedia?.FirstImageUrl;
     // public List<string> _aTags { get; set; } // (e.g., "Stable", "In Development")
 
-    public static GameBananaModDetails LoadingMod()
+    public static OldGameBananaModDetails LoadingMod()
     {
         return new()
         {

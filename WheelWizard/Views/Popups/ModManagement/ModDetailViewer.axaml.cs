@@ -16,7 +16,7 @@ public partial class ModDetailViewer : UserControl
 {
     private bool loading;
     private bool loadingVisual;
-    private GameBananaModDetails? CurrentMod { get; set; }
+    private OldGameBananaModDetails? CurrentMod { get; set; }
 
     public ModDetailViewer()
     {

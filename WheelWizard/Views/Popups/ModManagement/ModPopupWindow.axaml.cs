@@ -17,7 +17,7 @@ namespace WheelWizard.Views.Popups.ModManagement;
 public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
 {
     // Collection to hold the mods
-    private ObservableCollection<GameBananaModDetails> Mods { get; } = new ObservableCollection<GameBananaModDetails>();
+    private ObservableCollection<OldGameBananaModDetails> Mods { get; } = new ObservableCollection<OldGameBananaModDetails>();
 
     // Pagination variables
     private int _currentPage = 1;
@@ -90,7 +90,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
                 }
 
                 if (_hasMoreMods)
-                    Mods.Add(GameBananaModDetails.LoadingMod());
+                    Mods.Add(OldGameBananaModDetails.LoadingMod());
             }
             else
             {
@@ -162,7 +162,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
         _loadCancellationToken = new CancellationTokenSource();
 
         var modId = -1;
-        if (ModListView.SelectedItem is GameBananaModDetails selectedMod)
+        if (ModListView.SelectedItem is OldGameBananaModDetails selectedMod)
             modId = selectedMod._idRow;
         try
         {

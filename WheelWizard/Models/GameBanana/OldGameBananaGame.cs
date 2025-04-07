@@ -2,7 +2,7 @@
 
 namespace WheelWizard.Models.GameBanana;
 
-public class GameBananaGame
+public class OldGameBananaGame
 {
     // All the information related to the game that the mod is for
     public int _idRow { get; set; }
