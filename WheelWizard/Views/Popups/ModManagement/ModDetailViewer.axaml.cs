@@ -232,7 +232,7 @@ public partial class ModDetailViewer : UserControl
             {
                 new MessageBoxWindow()
                     .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                    .SetTitleText("Mod can't be empty.")
+                    .SetTitleText("Mod name can't be empty.")
                     .SetInfoText("Please provide a mod name.")
                     .Show();
                 return;
