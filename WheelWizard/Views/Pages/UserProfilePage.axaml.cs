@@ -10,14 +10,18 @@ using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.WiiManagement.SaveData;
+using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Pages;
 
 public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
-    private GameDataUser? currentPlayer;
+    private LicenseProfile? currentPlayer;
     private Mii? _currentMii;
+    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
 
     public Mii? CurrentMii
     {
@@ -46,12 +50,12 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
     private void ResetMiiTopBar()
     {
-        var validUsers = GameDataLoader.Instance.HasAnyValidUsers;
+        var validUsers = GameDataService.HasAnyValidUsers;
         CurrentUserProfile.IsVisible = validUsers;
         CurrentUserCarousel.IsVisible = validUsers;
         NoProfilesInfo.IsVisible = !validUsers;
 
-        var data = GameDataLoader.Instance.GetGameData;
+        var data = GameDataService.LicenseCollection;
         var userAmount = data.Users.Count;
         for (var i = 0; i < userAmount; i++)
         {
@@ -59,7 +63,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             if (radioButton == null!)
                 continue;
 
-            var miiName = data.Users[i].MiiData?.Mii?.Name ?? SettingValues.NoName;
+            var miiName = data.Users[i].MiiData?.Mii?.Name.ToString() ?? SettingValues.NoName;
             var noLicense = miiName == SettingValues.NoLicense;
 
             radioButton.IsEnabled = !noLicense;
@@ -90,9 +94,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
             var itemForRegionDropdown = new ComboBoxItem
             {
-                Content = region.ToString(),
-                Tag = region,
-                IsEnabled = validRegions.Contains(region)
+                Content = region.ToString(), Tag = region, IsEnabled = validRegions.Contains(region)
             };
             RegionDropdown.Items.Add(itemForRegionDropdown);
 
@@ -118,9 +120,9 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         CurrentUserProfile.IsChecked = FocussedUser == _currentUserIndex;
         if (currentPlayer != null) currentPlayer.PropertyChanged -= OnMiiNameChanged;
 
-        currentPlayer = GameDataLoader.Instance.GetUserData(_currentUserIndex);
+        currentPlayer = GameDataService.GetUserData(_currentUserIndex);
         CurrentUserProfile.FriendCode = currentPlayer.FriendCode;
-        CurrentUserProfile.UserName = currentPlayer.MiiName;
+        CurrentUserProfile.UserName = currentPlayer.NameOfMii;
         CurrentUserProfile.IsOnline = currentPlayer.IsOnline;
         CurrentUserProfile.Vr = currentPlayer.Vr.ToString();
         CurrentUserProfile.Br = currentPlayer.Br.ToString();
@@ -133,8 +135,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
     private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
     {
-        if (args.PropertyName != nameof(currentPlayer.MiiName)) return;
-        CurrentUserProfile.UserName = currentPlayer.MiiName;
+        if (args.PropertyName != nameof(currentPlayer.NameOfMii)) return;
+        CurrentUserProfile.UserName = currentPlayer.NameOfMii;
     }
 
     private void CheckBox_SetPrimaryUser(object sender, RoutedEventArgs e) => SetUserAsPrimary();
@@ -157,18 +159,47 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             return;
 
         SettingsManager.RR_REGION.Set(region);
-        GameDataLoader.Instance.LoadGameData();
         ResetMiiTopBar();
+        var loadResult = GameDataService.LoadGameData();
+        if (loadResult.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Failed to load game data")
+                .SetInfoText(loadResult.Error.Message)
+                .Show();
+            return;
+        }
 
+        NavigationManager.NavigateTo<UserProfilePage>();
         ViewMii(0); // Just in case you have current user set as 4. and you change to a region where there are only 3 users.
         SetUserAsPrimary();
-
         UpdatePage();
     }
 
-    private void ChangeMiiName(object? obj, EventArgs e)
+    private async void ChangeMiiName(object? obj, EventArgs e)
     {
-        GameDataLoader.Instance.PromptLicenseNameChange(_currentUserIndex);
+        var renamePopup = new TextInputWindow()
+            .SetMainText($"Enter new name")
+            .SetExtraText($"Changing name from: {CurrentMii?.Name}")
+            .SetAllowCustomChars(true)
+            .SetInitialText(CurrentMii?.Name.ToString())
+            .SetPlaceholderText(CurrentMii?.Name.ToString());
+
+        var newName = await renamePopup.ShowDialog();
+        var changeNameResult = GameDataService.ChangeMiiName(_currentUserIndex, newName);
+        if (changeNameResult.IsFailure)
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Failed to change name")
+                .SetInfoText(changeNameResult.Error.Message)
+                .Show();
+        else
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Message)
+                .SetTitleText("Name changed")
+                .SetInfoText($"Successfully changed name to {newName}")
+                .Show();
     }
 
     private void ViewRoom_OnClick(string friendCode)

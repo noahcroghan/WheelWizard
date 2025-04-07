@@ -3,11 +3,13 @@ using WheelWizard.Helpers;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
 using WheelWizard.Services.LiveData;
+using WheelWizard.WiiManagement;
 using WheelWizard.WheelWizardData.Domain;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Models.GameData;
 
-public abstract class GameDataPlayer : INotifyPropertyChanged
+public abstract class PlayerProfileBase : INotifyPropertyChanged
 {
     public required string FriendCode { get; init; }
     public required uint Vr { get; init; }
@@ -41,27 +43,7 @@ public abstract class GameDataPlayer : INotifyPropertyChanged
     public BadgeVariant[] BadgeVariants { get; set; } = [];
     public bool HasBadges => BadgeVariants.Length != 0;
     
-    public string MiiName
-    {
-        get => MiiData?.Mii?.Name ?? SettingValues.NoName;
-        set
-        {
-            if (MiiData == null)
-            {
-                MiiData = new MiiData
-                {
-                    Mii = new Mii { Data = "", Name = value }
-                };
-            }
-            else if (MiiData.Mii == null)
-                MiiData.Mii = new Mii { Data = "", Name = value };
-            else
-            {
-                MiiData.Mii.Name = value;
-                OnPropertyChanged(nameof(MiiName));
-            }
-        }
-    }
+    public string NameOfMii => Mii?.Name.ToString() ?? string.Empty;
 
     #region PropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;

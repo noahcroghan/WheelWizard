@@ -4,6 +4,8 @@ using WheelWizard.RrRooms;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views;
 using WheelWizard.WheelWizardData;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Services.LiveData;
 
@@ -53,10 +55,17 @@ public class RRLiveRooms : RepeatedTaskManager
                     Ev = p.Value.Ev,
                     Eb = p.Value.Eb,
                     BadgeVariants = whWzService.GetBadges(p.Value.Fc),
-                    Mii = p.Value.Mii.Select(mii => new Mii
+                    // Deserialize each Mii's data into a FullMii object
+                    Mii = p.Value.Mii.Select(mii =>
                     {
-                        Name = mii.Name,
-                        Data = mii.Data,
+                        var rawMii = Convert.FromBase64String(mii.Data);
+                        var SerializerResult = MiiSerializer.Deserialize(rawMii);
+                        if (SerializerResult.IsFailure)
+                        {
+                            return new Mii();
+                        }
+
+                        return SerializerResult.Value;
                     }).ToList()
                 })
         }).ToList();

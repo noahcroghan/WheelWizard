@@ -57,10 +57,10 @@
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                      ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="gameData:GameDataFriend">
+                    <DataTemplate DataType="gameData:FriendProfile">
                         <components:FriendsListItem Width="428" Height="124"
                                                     Margin="0,5"
-                                                    UserName="{Binding MiiName}"
+                                                    UserName="{Binding NameOfMii}"
                                                     FriendCode="{Binding FriendCode}"
                                                     Vr="{Binding Vr}"
                                                     Br="{Binding Br}"

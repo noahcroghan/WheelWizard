@@ -29,7 +29,7 @@ public class WhWzDataTests
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<WhWzStatus>>>>())
-            .Returns(OperationResult.Ok(expectedStatus));
+            .Returns(Ok(expectedStatus));
 
         // Act
         var result = await _service.GetStatusAsync();
@@ -49,7 +49,7 @@ public class WhWzDataTests
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<WhWzStatus>>>>())
-            .Returns(OperationResult.Fail<WhWzStatus>(expectedError));
+            .Returns(Fail<WhWzStatus>(expectedError));
 
         // Act
         var result = await _service.GetStatusAsync();
@@ -72,7 +72,7 @@ public class WhWzDataTests
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(OperationResult.Ok(badgeData));
+            .Returns(Ok(badgeData));
 
         // Act
         var result = await _service.LoadBadgesAsync();
@@ -89,7 +89,7 @@ public class WhWzDataTests
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(OperationResult.Fail<Dictionary<string, BadgeVariant[]>>(expectedError));
+            .Returns(Fail<Dictionary<string, BadgeVariant[]>>(expectedError));
 
         // Act
         var result = await _service.LoadBadgesAsync();
@@ -110,7 +110,7 @@ public class WhWzDataTests
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(OperationResult.Ok(badgeData));
+            .Returns(Ok(badgeData));
 
         await _service.LoadBadgesAsync();
 
@@ -132,7 +132,7 @@ public class WhWzDataTests
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(OperationResult.Ok(badgeData));
+            .Returns(Ok(badgeData));
 
         await _service.LoadBadgesAsync();
 
@@ -156,7 +156,7 @@ public class WhWzDataTests
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(OperationResult.Ok(badgeData));
+            .Returns(Ok(badgeData));
 
         await _service.LoadBadgesAsync();
 
@@ -180,7 +180,7 @@ public class WhWzDataTests
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(OperationResult.Ok(initialBadgeData));
+            .Returns(Ok(initialBadgeData));
 
         await _service.LoadBadgesAsync();
         
@@ -197,7 +197,7 @@ public class WhWzDataTests
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(OperationResult.Ok(updatedBadgeData));
+            .Returns(Ok(updatedBadgeData));
 
         // Act
         await _service.LoadBadgesAsync();

@@ -91,7 +91,7 @@ public class SettingsManager
     public static Setting FORCE_WIIMOTE = new WhWzSetting(typeof(bool),"ForceWiimote", false);
     public static Setting LAUNCH_WITH_DOLPHIN = new WhWzSetting(typeof(bool),"LaunchWithDolphin", false);
     public static Setting PREFERS_MODS_ROW_VIEW = new WhWzSetting(typeof(bool),"PrefersModsRowView", true);
-    public static Setting FOCUSSED_USER = new WhWzSetting(typeof(int), "FavoriteUser", 0).SetValidation(value => (int)(value ?? -1) >= 0 && (int)(value ?? -1) <= 4);
+    public static Setting FOCUSSED_USER = new WhWzSetting(typeof(int), "FavoriteUser", 0).SetValidation(value => (int)(value ?? -1) >= 0 && (int)(value ?? -1) < 4);
 
     public static Setting ENABLE_ANIMATIONS = new WhWzSetting(typeof(bool),"EnableAnimations", true);
     public static Setting SAVED_WINDOW_SCALE = new WhWzSetting(typeof(double), "WindowScale", 1.0).SetValidation(value => (double)(value ?? -1) >= 0.5 && (double)(value ?? -1) <= 2.0);

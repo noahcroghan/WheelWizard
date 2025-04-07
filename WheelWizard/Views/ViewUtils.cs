@@ -38,7 +38,6 @@ public static class ViewUtils
             // So they would have to change the language like 1000 of times in a row)
             WhWzStatusManager.Instance.Unsubscribe(oldListener);
             RRLiveRooms.Instance.Unsubscribe(oldListener);
-            GameDataLoader.Instance.Unsubscribe(oldListener);
         }
 
         newWindow.Show();
