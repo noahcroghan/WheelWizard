@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
 using WheelWizard.Resources.Languages;
