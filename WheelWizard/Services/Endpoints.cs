@@ -12,6 +12,16 @@ public static class Endpoints
     /// </summary>
     public const string WhWzDataBaseAddress = "https://raw.githubusercontent.com/TeamWheelWizard/WheelWizard-Data/main";
     
+    /// <summary>
+    /// The base address for accessing the GameBanana API
+    /// </summary>
+    public const string GameBananaBaseAddress = "https://gamebanana.com/apiv11";
+
+    /// <summary>
+    /// The address for the GitHub API
+    /// </summary>
+    public const string GitHubAddress = "https://api.github.com";
+    
     // TODO: Refactor all the URLs seen below
 
     // Retro Rewind
