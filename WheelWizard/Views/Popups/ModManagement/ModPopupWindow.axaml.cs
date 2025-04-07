@@ -33,7 +33,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
 
     private string _currentSearchTerm = "";
 
-    public ModPopupWindow() : base(true, false, false, "Mod Browser", new Vector(800, 800))
+    public ModPopupWindow() : base(true, false, false, "Mod Browser")
     {
         InitializeComponent();
         DataContext = this;
