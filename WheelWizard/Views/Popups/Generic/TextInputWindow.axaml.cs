@@ -131,7 +131,7 @@ public partial class TextInputWindow : PopupContent
     // Update the Submit button's IsEnabled property based on input
     private void UpdateSubmitButtonState()
     {
-        var inputText = InputField.Text?.Trim();
+        var inputText = GetTrimmedTextInput();
         var validationResultError = inputValidationFunc?.Invoke(_initialText,inputText!).Error?.Message;
    
         SubmitButton.IsEnabled = validationResultError == null;
@@ -146,9 +146,14 @@ public partial class TextInputWindow : PopupContent
 
     private void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
-        _result = InputField.Text?.Trim();
+        _result = GetTrimmedTextInput();
         _tcs?.TrySetResult(_result); // Set the result of the task
         Close();
+    }
+    
+    private string? GetTrimmedTextInput()
+    {
+        return InputField.Text?.Trim();
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
