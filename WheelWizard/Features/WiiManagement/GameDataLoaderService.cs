@@ -193,9 +193,7 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
 
         var friendCode = FriendCodeGenerator.GetFriendCode(_saveData, offset + 0x5C);
         var miiDataResult = ParseMiiData(offset + 0x14);
-        var miiToUse = new MiiData() { Mii = new() { Name = new("no name") } };
-        if (miiDataResult.IsSuccess)
-            miiToUse = miiDataResult.Value;
+        var miiToUse = miiDataResult.IsFailure ? new() { Mii = new() { Name = new("no name") } } : miiDataResult.Value;
         var user = new LicenseProfile
         {
             MiiData = miiToUse,
