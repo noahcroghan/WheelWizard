@@ -109,6 +109,19 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         }
     }
 
+    public void UpdateFriendCount()
+    {
+        var friends = GameDataService.CurrentFriends;
+        FriendsButton.BoxText = $"{friends.Count(friend => friend.IsOnline)}/{friends.Count}";
+        FriendsButton.BoxTip = friends.Count(friend => friend.IsOnline) switch
+        {
+            1 => Phrases.Hover_FriendsOnline_1,
+            0 => Phrases.Hover_FriendsOnline_0,
+            _ => Humanizer.ReplaceDynamic(Phrases.Hover_FriendsOnline_x, friends.Count(friend => friend.IsOnline)) ??
+                 $"There are currently {friends.Count(friend => friend.IsOnline)} friends online"
+        };
+    }
+
     public void UpdatePlayerAndRoomCount(RRLiveRooms sender)
     {
         var playerCount = sender.PlayerCount;
@@ -129,15 +142,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
             _ => Humanizer.ReplaceDynamic(Phrases.Hover_RoomsOnline_x, roomCount) ??
                  $"There are currently {roomCount} rooms active"
         };
-        var friends = GameDataService.CurrentFriends;
-        FriendsButton.BoxText = $"{friends.Count(friend => friend.IsOnline)}/{friends.Count}";
-        FriendsButton.BoxTip = friends.Count(friend => friend.IsOnline) switch
-        {
-            1 => Phrases.Hover_FriendsOnline_1,
-            0 => Phrases.Hover_FriendsOnline_0,
-            _ => Humanizer.ReplaceDynamic(Phrases.Hover_FriendsOnline_x, friends.Count(friend => friend.IsOnline)) ??
-                 $"There are currently {friends.Count(friend => friend.IsOnline)} friends online"
-        };
+        UpdateFriendCount();
     }
 
     private void UpdateLiveAlert(WhWzStatusManager sender)

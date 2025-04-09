@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
 using WheelWizard.Models.MiiImages;
@@ -151,6 +152,9 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         CurrentUserProfile.IsChecked = true;
         // Even though it's true when this method is called, we still set it to true,
         // since Avalonia has some weird ass cashing, It might just be that that is because this method is actually deprecated
+
+        //now we refresh the sidebar friend amount
+        ViewUtils.GetLayout().UpdateFriendCount();
     }
 
     private void RegionDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -175,6 +179,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         SetUserAsPrimary();
         UpdatePage();
         NavigationManager.NavigateTo<UserProfilePage>();
+        ViewUtils.GetLayout().UpdateFriendCount();
     }
 
     // This is intentionally a separate validation method besides the true name validation. That name validation allows less than 3.
