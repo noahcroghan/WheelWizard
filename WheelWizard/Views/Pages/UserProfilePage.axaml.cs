@@ -132,6 +132,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         currentPlayer.PropertyChanged += OnMiiNameChanged;
         CurrentUserProfile.TotalRaces = currentPlayer.TotalRaceCount.ToString();
         CurrentUserProfile.TotalWon = currentPlayer.TotalWinCount.ToString();
+        ResetMiiTopBar();
     }
 
     private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
@@ -178,7 +179,6 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         ViewMii(0); // Just in case you have current user set as 4. and you change to a region where there are only 3 users.
         SetUserAsPrimary();
         UpdatePage();
-        NavigationManager.NavigateTo<UserProfilePage>();
         ViewUtils.GetLayout().UpdateFriendCount();
     }
 
@@ -216,6 +216,10 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
                 .SetTitleText("Name changed")
                 .SetInfoText($"Successfully changed name to {newName}")
                 .Show();
+
+        //reload game data, since multiple licenses can use the same mii
+        GameDataService.LoadGameData();
+        UpdatePage();
     }
 
     private void ViewRoom_OnClick(string friendCode)
