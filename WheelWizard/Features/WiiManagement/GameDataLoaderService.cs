@@ -171,14 +171,21 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
             var rkpdOffset = RksysMagic.Length + i * RkpdSize;
             var rkpdCheck = Encoding.ASCII.GetString(_saveData, rkpdOffset, RkpdMagic.Length) == RkpdMagic;
             if (!rkpdCheck)
+            {
+                UserList.Users.Add(CreateDummyUser());
                 continue;
+            }
 
             var user = ParseUser(rkpdOffset);
             if (user.IsFailure)
+            {
+                UserList.Users.Add(CreateDummyUser());
                 continue;
+            }
             UserList.Users.Add(user.Value);
         }
 
+        // Keep this here so we always have 4 users if the code above were to be changed
         while (UserList.Users.Count < 4)
         {
             UserList.Users.Add(CreateDummyUser());

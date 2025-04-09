@@ -94,7 +94,9 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
             var itemForRegionDropdown = new ComboBoxItem
             {
-                Content = region.ToString(), Tag = region, IsEnabled = validRegions.Contains(region)
+                Content = region.ToString(),
+                Tag = region,
+                IsEnabled = validRegions.Contains(region)
             };
             RegionDropdown.Items.Add(itemForRegionDropdown);
 
@@ -186,18 +188,21 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         return Ok();
     }
-    
+
     private async void ChangeMiiName(object? obj, EventArgs e)
     {
+        var oldName = CurrentMii?.Name.ToString();
         var renamePopup = new TextInputWindow()
             .SetMainText($"Enter new name")
-            .SetExtraText($"Changing name from: {CurrentMii?.Name}")
+            .SetExtraText($"Changing name from: {oldName}")
             .SetAllowCustomChars(true)
             .SetValidation(ValidateMiiName)
-            .SetInitialText(CurrentMii?.Name.ToString() ?? "")
-            .SetPlaceholderText(CurrentMii?.Name.ToString() ?? "");
+            .SetInitialText(oldName ?? "")
+            .SetPlaceholderText(oldName ?? "");
 
         var newName = await renamePopup.ShowDialog();
+        if (oldName == newName || newName == null)
+            return;
         var changeNameResult = GameDataService.ChangeMiiName(_currentUserIndex, newName);
         if (changeNameResult.IsFailure)
             new MessageBoxWindow()
