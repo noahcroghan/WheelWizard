@@ -171,10 +171,10 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             return;
         }
 
-        NavigationManager.NavigateTo<UserProfilePage>();
         ViewMii(0); // Just in case you have current user set as 4. and you change to a region where there are only 3 users.
         SetUserAsPrimary();
         UpdatePage();
+        NavigationManager.NavigateTo<UserProfilePage>();
     }
 
     // This is intentionally a separate validation method besides the true name validation. That name validation allows less than 3.
@@ -186,7 +186,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         return Ok();
     }
-    
+
     private async void ChangeMiiName(object? obj, EventArgs e)
     {
         var renamePopup = new TextInputWindow()
