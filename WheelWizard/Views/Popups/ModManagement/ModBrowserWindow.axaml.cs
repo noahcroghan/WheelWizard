@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -14,7 +13,7 @@ using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
 
 namespace WheelWizard.Views.Popups.ModManagement;
 
-public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
+public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
 {
     // Collection to hold the mods
     private ObservableCollection<GameBananaModDetails> Mods { get; } = new ObservableCollection<GameBananaModDetails>();
@@ -33,7 +32,7 @@ public partial class ModPopupWindow : PopupContent, INotifyPropertyChanged
 
     private string _currentSearchTerm = "";
 
-    public ModPopupWindow() : base(true, false, false, "Mod Browser")
+    public ModBrowserWindow() : base(true, false, false, "Mod Browser")
     {
         InitializeComponent();
         DataContext = this;
