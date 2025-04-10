@@ -171,14 +171,21 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
             var rkpdOffset = RksysMagic.Length + i * RkpdSize;
             var rkpdCheck = Encoding.ASCII.GetString(_saveData, rkpdOffset, RkpdMagic.Length) == RkpdMagic;
             if (!rkpdCheck)
+            {
+                UserList.Users.Add(CreateDummyUser());
                 continue;
+            }
 
             var user = ParseUser(rkpdOffset);
             if (user.IsFailure)
+            {
+                UserList.Users.Add(CreateDummyUser());
                 continue;
+            }
             UserList.Users.Add(user.Value);
         }
 
+        // Keep this here so we always have 4 users if the code above were to be changed
         while (UserList.Users.Count < 4)
         {
             UserList.Users.Add(CreateDummyUser());
@@ -193,11 +200,10 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
 
         var friendCode = FriendCodeGenerator.GetFriendCode(_saveData, offset + 0x5C);
         var miiDataResult = ParseMiiData(offset + 0x14);
-        if (miiDataResult.IsFailure)
-            return miiDataResult.Error;
+        var miiToUse = miiDataResult.IsFailure ? new() { Mii = new() { Name = new("no name") } } : miiDataResult.Value;
         var user = new LicenseProfile
         {
-            MiiData = miiDataResult.Value,
+            MiiData = miiToUse,
             FriendCode = friendCode,
             Vr = BigEndianBinaryReader.BufferToUint16(_saveData, offset + 0xB0),
             Br = BigEndianBinaryReader.BufferToUint16(_saveData, offset + 0xB2),

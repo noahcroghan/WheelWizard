@@ -140,6 +140,10 @@ public static class MiiSerializer
         if (data == null || data.Length != 74)
             return Fail<Mii>("Invalid Mii data length.");
 
+        //if the data only contains 0xFF, return null
+        if (data.All(b => b == 0xFF))
+            return Fail<Mii>("Mii data is empty.");
+
         var mii = new Mii();
 
         // Header (0x00 - 0x01)
@@ -149,11 +153,19 @@ public static class MiiSerializer
         int month = (header >> 10) & 0x0F;
         int day = (header >> 5) & 0x1F;
         mii.Date = new DateOnly(2000, Math.Clamp(month, 1, 12), Math.Clamp(day, 1, 31));
-        mii.MiiFavoriteColor = (MiiFavoriteColor)((header >> 1) & 0x0F);
+        var miiFavoriteColor = (uint)(header >> 1) & 0x0F;
+        if (!Enum.IsDefined(typeof(MiiFavoriteColor), miiFavoriteColor))
+            return new InvalidDataException("Invalid MiiFavoriteColor");
+        mii.MiiFavoriteColor = (MiiFavoriteColor)miiFavoriteColor;
+
         mii.IsFavorite = (header & 0x01) != 0;
 
         // Name (0x02 - 0x15)
-        mii.Name = MiiName.FromBytes(data, 2);
+        var name = MiiName.FromBytes(data, 2);
+        if (name.ToString() == "")
+            return new InvalidDataException("Invalid MiiName");
+        mii.Name = name;
+
 
         // Height & Weight (0x16 - 0x17)
         mii.Height = MiiScale.Create(data[0x16]).Value;
