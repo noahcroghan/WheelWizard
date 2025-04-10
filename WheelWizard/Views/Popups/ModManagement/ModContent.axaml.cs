@@ -12,13 +12,13 @@ namespace WheelWizard.Views.Popups.ModManagement;
 
 public record ModItem(Bitmap FullImageUrl);
 
-public partial class ModDetailViewer : UserControl
+public partial class ModContent : UserControl
 {
     private bool loading;
     private bool loadingVisual;
     private GameBananaModDetails? CurrentMod { get; set; }
 
-    public ModDetailViewer()
+    public ModContent()
     {
         InitializeComponent();
         ResetVisibility();

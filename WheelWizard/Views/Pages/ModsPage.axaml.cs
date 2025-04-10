@@ -8,7 +8,6 @@ using WheelWizard.Services;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.ModManagement;
-using ModPopupWindow = WheelWizard.Views.Popups.ModManagement.ModPopupWindow;
 
 namespace WheelWizard.Views.Pages;
 
@@ -56,7 +55,7 @@ public partial class ModsPage : UserControlBase, INotifyPropertyChanged
 
     private void BrowseMod_Click(object sender, RoutedEventArgs e)
     {
-        var modPopup = new ModPopupWindow();
+        var modPopup = new ModBrowserWindow();
         modPopup.Show();
     }
 
