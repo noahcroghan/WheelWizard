@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
 using WheelWizard.Models.MiiImages;
@@ -133,6 +134,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         currentPlayer.PropertyChanged += OnMiiNameChanged;
         CurrentUserProfile.TotalRaces = currentPlayer.TotalRaceCount.ToString();
         CurrentUserProfile.TotalWon = currentPlayer.TotalWinCount.ToString();
+        ResetMiiTopBar();
     }
 
     private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
@@ -153,6 +155,9 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         CurrentUserProfile.IsChecked = true;
         // Even though it's true when this method is called, we still set it to true,
         // since Avalonia has some weird ass cashing, It might just be that that is because this method is actually deprecated
+
+        //now we refresh the sidebar friend amount
+        ViewUtils.GetLayout().UpdateFriendCount();
     }
 
     private void RegionDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -173,10 +178,10 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             return;
         }
 
-        NavigationManager.NavigateTo<UserProfilePage>();
         ViewMii(0); // Just in case you have current user set as 4. and you change to a region where there are only 3 users.
         SetUserAsPrimary();
         UpdatePage();
+        ViewUtils.GetLayout().UpdateFriendCount();
     }
 
     // This is intentionally a separate validation method besides the true name validation. That name validation allows less than 3.
@@ -216,6 +221,10 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
                 .SetTitleText("Name changed")
                 .SetInfoText($"Successfully changed name to {newName}")
                 .Show();
+
+        //reload game data, since multiple licenses can use the same mii
+        GameDataService.LoadGameData();
+        UpdatePage();
     }
 
     private void ViewRoom_OnClick(string friendCode)
