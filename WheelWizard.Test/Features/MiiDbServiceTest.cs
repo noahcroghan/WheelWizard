@@ -250,7 +250,6 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(false, result.IsFailure);
             _repository.Received(1).GetRawBlockByClientId(targetId);
         }
 
@@ -267,7 +266,6 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(false, result.IsFailure);
             _repository.Received(1).GetRawBlockByClientId(targetId);
         }
 
