@@ -10,7 +10,7 @@ namespace WheelWizard.Views.Components;
 public partial class SidebarRadioButton : RadioButton
 {
     private Border? _hoverEffect;
-    
+
     public static readonly StyledProperty<Geometry> IconDataProperty =
         AvaloniaProperty.Register<SidebarRadioButton, Geometry>(nameof(IconData));
 
@@ -28,7 +28,7 @@ public partial class SidebarRadioButton : RadioButton
         get => GetValue(TextProperty);
         set => SetValue(TextProperty, value);
     }
-    
+
     public static readonly StyledProperty<Type?> PageTypeProperty =
         AvaloniaProperty.Register<SidebarRadioButton, Type?>(nameof(PageType));
 
@@ -60,12 +60,12 @@ public partial class SidebarRadioButton : RadioButton
     {
         base.OnPointerMoved(e);
         if (_hoverEffect == null) return;
-        
+
         var position = e.GetPosition(this);
-        
+
         var left = position.X - (_hoverEffect.Width / 2);
         var top = position.Y - (_hoverEffect.Height / 2);
-        
+
         _hoverEffect.Margin = new Thickness(left, top, 0, 0);
     }
 
@@ -74,15 +74,14 @@ public partial class SidebarRadioButton : RadioButton
         base.OnApplyTemplate(e);
         _hoverEffect = e.NameScope.Find<Border>("PART_HoverEffect");
     }
-    
+
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
         if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed) return;
-        
+
         PageType ??= typeof(NotFoundPage);
-        if (Activator.CreateInstance(PageType) is not UserControl page)
-            page = (UserControl)Activator.CreateInstance(typeof(NotFoundPage))!;
-        ViewUtils.NavigateToPage(page);
+
+        NavigationManager.NavigateTo(PageType);
     }
 }

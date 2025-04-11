@@ -10,9 +10,12 @@ using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.WiiManagement.SaveData;
+using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Pages;
+using WheelWizard.WheelWizardData.Domain;
+using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views;
 
@@ -23,11 +26,10 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
 
     public const double WindowHeight = 876;
     public const double WindowWidth = 656;
-    public static Layout Instance { get; private set; }
+    public static Layout Instance { get; private set; } = null!;
 
-    private UserControl _currentPage;
-
-    private IBrandingSingletonService _brandingService = null!;
+    [Inject] private IBrandingSingletonService BrandingService { get; set; } = null!;
+    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
 
     public Layout()
     {
@@ -46,23 +48,22 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
             MadeBy_Part2.Text = split[1];
         }
 
-        NavigateToPage(new HomePage());
-        InitializeManagers();
+        WhWzStatusManager.Instance.Subscribe(this);
+        RRLiveRooms.Instance.Subscribe(this);
+        GameDataService.Subscribe(this);
 #if DEBUG
         KitchenSinkButton.IsVisible = true;
 #endif
     }
 
-    protected override void OnInitialized()
-    {
-        _brandingService = App.Services.GetRequiredService<IBrandingSingletonService>();
-        Title = _brandingService.Branding.DisplayName;
-        ViewUtils.OnLoaded();
-    }
     protected override void OnLoaded(RoutedEventArgs e)
     {
-        TitleLabel.Text = _brandingService.Branding.DisplayName;
+        Title = BrandingService.Branding.DisplayName;
+        TitleLabel.Text = BrandingService.Branding.DisplayName;
+
+        NavigationManager.NavigateTo<HomePage>();
     }
+
 
     public void OnSettingChanged(Setting setting)
     {
@@ -75,16 +76,6 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         var marginYCorrection = ((scaleFactor * WindowHeight) - WindowHeight) / 2f;
         CompleteGrid.Margin = new Thickness(marginXCorrection, marginYCorrection);
         //ExtendClientAreaToDecorationsHint = scaleFactor <= 1.2f;
-    }
-
-    private void InitializeManagers()
-    {
-        LiveAlertsManager.Instance.Subscribe(this);
-        LiveAlertsManager.Instance.Start(); // Temporary code, should be moved to a more appropriate location
-        RRLiveRooms.Instance.Subscribe(this);
-        RRLiveRooms.Instance.Start(); // Temporary code, should be moved to a more appropriate location
-        GameDataLoader.Instance.Subscribe(this);
-        GameDataLoader.Instance.Start(); // Temporary code, should be moved to a more appropriate location
     }
 
     public void NavigateToPage(UserControl page)
@@ -112,10 +103,23 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
             case RRLiveRooms liveRooms:
                 UpdatePlayerAndRoomCount(liveRooms);
                 break;
-            case LiveAlertsManager liveAlerts:
+            case WhWzStatusManager liveAlerts:
                 UpdateLiveAlert(liveAlerts);
                 break;
         }
+    }
+
+    public void UpdateFriendCount()
+    {
+        var friends = GameDataService.CurrentFriends;
+        FriendsButton.BoxText = $"{friends.Count(friend => friend.IsOnline)}/{friends.Count}";
+        FriendsButton.BoxTip = friends.Count(friend => friend.IsOnline) switch
+        {
+            1 => Phrases.Hover_FriendsOnline_1,
+            0 => Phrases.Hover_FriendsOnline_0,
+            _ => Humanizer.ReplaceDynamic(Phrases.Hover_FriendsOnline_x, friends.Count(friend => friend.IsOnline)) ??
+                 $"There are currently {friends.Count(friend => friend.IsOnline)} friends online"
+        };
     }
 
     public void UpdatePlayerAndRoomCount(RRLiveRooms sender)
@@ -138,26 +142,18 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
             _ => Humanizer.ReplaceDynamic(Phrases.Hover_RoomsOnline_x, roomCount) ??
                  $"There are currently {roomCount} rooms active"
         };
-        var friends = GameDataLoader.Instance.GetCurrentFriends;
-        FriendsButton.BoxText = $"{friends.Count(friend => friend.IsOnline)}/{friends.Count}";
-        FriendsButton.BoxTip = friends.Count(friend => friend.IsOnline) switch
-        {
-            1 => Phrases.Hover_FriendsOnline_1,
-            0 => Phrases.Hover_FriendsOnline_0,
-            _ => Humanizer.ReplaceDynamic(Phrases.Hover_FriendsOnline_x, friends.Count(friend => friend.IsOnline)) ??
-                 $"There are currently {friends.Count(friend => friend.IsOnline)} friends online"
-        };
+        UpdateFriendCount();
     }
 
-    private void UpdateLiveAlert(LiveAlertsManager sender)
+    private void UpdateLiveAlert(WhWzStatusManager sender)
     {
-        var visible = sender.Status != null && sender.Status.StatusVariant != LiveAlertsManager.LiveStatusVariant.None;
+        var visible = sender.Status != null && sender.Status.Variant != WhWzStatusVariant.None;
         LiveStatusBorder.IsVisible = visible;
         if (!visible) return;
 
         ToolTip.SetTip(LiveStatusBorder, sender.Status!.Message);
         LiveStatusBorder.Classes.Clear();
-        LiveStatusBorder.Classes.Add(sender.Status!.StatusVariant.ToString());
+        LiveStatusBorder.Classes.Add(sender.Status!.Variant.ToString());
     }
 
     private void TopBar_PointerPressed(object? sender, PointerPressedEventArgs e)
@@ -169,7 +165,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     private void CloseButton_Click(object? sender, RoutedEventArgs e) => Close();
     private void MinimizeButton_Click(object? sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
 
-    private void Discord_Click(object sender, EventArgs e) => ViewUtils.OpenLink(_brandingService.Branding.DiscordUrl.ToString());
-    private void Github_Click(object sender, EventArgs e) => ViewUtils.OpenLink(_brandingService.Branding.RepositoryUrl.ToString());
-    private void Support_Click(object sender, EventArgs e) => ViewUtils.OpenLink(_brandingService.Branding.SupportUrl.ToString());
+    private void Discord_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.DiscordUrl.ToString());
+    private void Github_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.RepositoryUrl.ToString());
+    private void Support_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.SupportUrl.ToString());
 }

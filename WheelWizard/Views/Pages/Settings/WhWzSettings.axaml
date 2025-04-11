@@ -136,21 +136,22 @@
                 </Grid>
             </Border>
             
-            <Grid HorizontalAlignment="Stretch">
+            <Grid HorizontalAlignment="Stretch" ColumnDefinitions="*,*">
                 <components1:Button Variant="Default"
-                                   IsEnabled="True"
-                                   IconData="{StaticResource Folder}"
-                                   HorizontalAlignment="Left"
-                                   Text="{x:Static lang:Settings.Option_OpenConfig}"
-                                   Click="Folder_Click"
-                                   Margin="3" />
-                <!-- <components:Button Variant="Default" -->
-                <!--                    IsEnabled="True" -->
-                <!--                    IconPack="Material" -->
-                <!--                    IconKind="{x:Static icon:PackIconMaterialKind.ContentSaveEdit}" -->
-                <!--                    HorizontalAlignment="Right" -->
-                <!--                    Text="Open Save File" -->
-                <!--                    Margin="3" /> -->
+                                    IsEnabled="True"
+                                    IconData="{StaticResource Folder}"
+                                    HorizontalAlignment="Stretch"
+                                    Text="{x:Static lang:Settings.Option_OpenConfig}"
+                                    Click="WhWzFolder_Click"
+                                    Margin="3" />
+                <components1:Button Grid.Column="1" Variant="Default"
+                                    x:Name="OpenGameFolderButton"
+                                    IsEnabled="True"
+                                    IconData="{StaticResource Folder}"
+                                    HorizontalAlignment="Stretch"
+                                    Text="{x:Static lang:Settings.Option_OpenGameFolder}"
+                                    Click="GameFileFolder_Click"
+                                    Margin="3" />
             </Grid>
         </StackPanel>
 

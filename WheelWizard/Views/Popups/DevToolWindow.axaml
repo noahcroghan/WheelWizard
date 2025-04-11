@@ -6,16 +6,16 @@
                    xmlns:components="clr-namespace:WheelWizard.Views.Components"
                    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                    x:Class="WheelWizard.Views.Popups.DevToolWindow">
-     <Grid>
+    <Grid Width="440" Height="600">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        
+
         <!-- MONITORING BIT -->
-        <StackPanel Grid.Row="0" >
-            <TextBlock Text="Monitoring" HorizontalAlignment="Left" VerticalAlignment="Top" Classes="PageTitleText"/>
-            <StackPanel Orientation="Horizontal"  Margin="0,0,0,10" >
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Monitoring" HorizontalAlignment="Left" VerticalAlignment="Top" Classes="PageTitleText" />
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <components:StateBox x:Name="MiiImagesCashed" Variant="Default" Text="0"
                                      TipPlacement="Top" Margin="10,0,0,0"
                                      IconData="{StaticResource UserCircle}"
@@ -32,24 +32,24 @@
             <Border Background="{StaticResource BackgroundLine}" Height="1" HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom" />
         </StackPanel>
-      
+
         <!-- TOOLS BIT -->
-        <StackPanel Grid.Row="1" >
-            <TextBlock Text="Tools" HorizontalAlignment="Left" VerticalAlignment="Top" Classes="PageTitleText"/>
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Tools" HorizontalAlignment="Left" VerticalAlignment="Top" Classes="PageTitleText" />
             <CheckBox Margin="0,2" IsChecked="False" Classes="Switch"
                       x:Name="WhWzTopMost" Click="WhWzTopMost_OnClick">
                 Wheel Wizard always on top
             </CheckBox>
             <CheckBox Margin="0,2" IsChecked="False" Classes="Switch"
-                      x:Name="HttpHelperOff"  Click="HttpHelperOff_OnClick">
+                      x:Name="HttpHelperOff" Click="HttpHelperOff_OnClick">
                 <components:FormFieldLabel Text="Turn off HttpHelper"
                                            TipText="Simulating no internet connection for some parts of the application" />
             </CheckBox>
-         
+
             <components:Button Variant="Default" Text="Force enable layout"
                                IconSize="0" HorizontalAlignment="Left" Margin="0,2"
                                Click="ForceEnableLayout_OnClick" />
-            
+
             <StackPanel Orientation="Horizontal" Spacing="4">
                 <components:Button Variant="Default" Text="Test progress popup" x:Name="ProgressButtonTest"
                                    IconSize="0" HorizontalAlignment="Left" Margin="0,2"
@@ -58,11 +58,10 @@
                                    IconSize="0" HorizontalAlignment="Left" Margin="0,2"
                                    Click="TestMessagePopups_OnClick" />
             </StackPanel>
-            
+
             <components:Button Variant="Default" Text="Clear Image Cache"
                                IconSize="0" HorizontalAlignment="Left" Margin="0,2"
                                Click="ClearImageCache_OnClick" />
         </StackPanel>
-
     </Grid>
 </self:PopupContent>

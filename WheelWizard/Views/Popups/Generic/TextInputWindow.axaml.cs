@@ -9,15 +9,14 @@ namespace WheelWizard.Views.Popups.Generic;
 public partial class TextInputWindow : PopupContent
 {
     private string? _result;
-    private string? initialText;
-    private bool allowCustomChars;
     private TaskCompletionSource<string?>? _tcs;
+    private string? _initialText;
+    private Func<string?, string, OperationResult>? inputValidationFunc; // (oldText?, newText) => OperationResult
 
     // Constructor with dynamic label parameter
     public TextInputWindow() : base(true, false, true, "Text Field")
     {
         InitializeComponent();
-   
         InputField.TextChanged += InputField_TextChanged;
         UpdateSubmitButtonState();
         SetupCustomChars();
@@ -34,7 +33,7 @@ public partial class TextInputWindow : PopupContent
         InputField.Watermark = placeholder;
         return this;
     }
-    
+
     public TextInputWindow SetExtraText(string extraText)
     {
         ExtraTextBlock.Text = extraText;
@@ -43,35 +42,35 @@ public partial class TextInputWindow : PopupContent
 
     public TextInputWindow SetAllowCustomChars(bool allow)
     {
-        allowCustomChars = allow;
         CustomCharsButton.IsVisible = allow;
-        // This is not really reversible, but that is also not really a problem, since when do we even want to sue that
-        if (allow)
-        {
-            var newSize = new Vector(Window.InternalSize.X, Window.InternalSize.Y + 40);
-            Window.SetWindowSize(newSize);
-        }
         return this;
     }
-    
+
     public TextInputWindow SetButtonText(string cancelText, string submitText)
     {
         CancelButton.Text = cancelText;
         SubmitButton.Text = submitText;
-        
+
         // It really depends on the text length what looks best
         ButtonContainer.HorizontalAlignment = (submitText.Length + cancelText.Length) > 12
-            ? HorizontalAlignment.Stretch : HorizontalAlignment.Right;
+            ? HorizontalAlignment.Stretch
+            : HorizontalAlignment.Right;
         return this;
     }
-    
+
     public TextInputWindow SetInitialText(string text)
     {
         InputField.Text = text;
-        initialText = text;
+        _initialText = text;
         return this;
     }
-    
+
+    public TextInputWindow SetValidation(Func<string?, string, OperationResult> validationFunction)
+    {
+        inputValidationFunc = validationFunction;
+        return this;
+    }
+
     public new async Task<string?> ShowDialog()
     {
         _tcs = new TaskCompletionSource<string?>();
@@ -82,44 +81,32 @@ public partial class TextInputWindow : PopupContent
     private void SetupCustomChars()
     {
         CustomChars.Children.Clear();
-        // All the up to's are inclusive
-        // 2460 up to 246e
-        // e000 up to e01c
-        // f061 up to f06d
-        // f074 up to f07c
-        // f107 up to f12f
-        // leftovers: e028, e068, e067, e06a, e06b, f030, f031, f034, f035, f038, f039, f03c, f03d, f041, f043, f044, f047, f050, f058, f05e, f05f, f102, f103, 
-        
+        // All the custom chars that are grouped together
+        var charRanges = new List<(char, char)>
+        {
+            ((char)0x2460, (char)0x246e),
+            ((char)0xe000, (char)0xe01c),
+            ((char)0xf061, (char)0xf06d),
+            ((char)0xf074, (char)0xf07c),
+            ((char)0xf107, (char)0xf12f)
+        };
+
         var chars = new List<char>();
-        for (var i = 0x2460; i <= 0x246e; i++)
+        foreach (var (start, end) in charRanges)
         {
-            chars.Add((char)i);
+            for (var i = start; i <= end; i++)
+            {
+                chars.Add(i);
+            }
         }
-        for (var i = 0xe000; i <= 0xe01c; i++)
-        {
-            chars.Add((char)i);
-        }
-        for (var i = 0xf061; i <= 0xf06d; i++)
-        {
-            chars.Add((char)i);
-        }
-        for (var i = 0xf074; i <= 0xf07c; i++)
-        {
-            chars.Add((char)i);
-        }
-        for (var i = 0xf107; i <= 0xf12f; i++)
-        {
-            chars.Add((char)i);
-        }
-        chars.AddRange(new[]
-        {
-            (char)0xe028, (char)0xe068, (char)0xe067, (char)0xe06a, (char)0xe06b,
-            (char)0xf030, (char)0xf031, (char)0xf034, (char)0xf035, (char)0xf038,
-            (char)0xf039, (char)0xf03c, (char)0xf03d, (char)0xf041, (char)0xf043,
-            (char)0xf044, (char)0xf047, (char)0xf050, (char)0xf058, (char)0xf05e, 
-            (char)0xf05f, (char)0xf103,
-        });
-        
+
+        // All the left-over chars that we cant make easy groups out of
+        chars.AddRange([
+            (char)0xe028, (char)0xe068, (char)0xe067, (char)0xe06a, (char)0xe06b, (char)0xf030, (char)0xf031, (char)0xf034,
+            (char)0xf035, (char)0xf038, (char)0xf039, (char)0xf03c, (char)0xf03d, (char)0xf041, (char)0xf043, (char)0xf044,
+            (char)0xf047, (char)0xf050, (char)0xf058, (char)0xf05e, (char)0xf05f, (char)0xf103
+        ]);
+
         foreach (var c in chars)
         {
             var button = new Button()
@@ -130,11 +117,11 @@ public partial class TextInputWindow : PopupContent
                 Padding = new Thickness(0),
                 Margin = new Thickness(1),
             };
-            button.Click += (_,_) => InputField.Text += c;
+            button.Click += (_, _) => InputField.Text += c;
             CustomChars.Children.Add(button);
         }
     }
-    
+
     // Handle text changes to enable/disable Submit button
     private void InputField_TextChanged(object sender, TextChangedEventArgs e)
     {
@@ -144,33 +131,33 @@ public partial class TextInputWindow : PopupContent
     // Update the Submit button's IsEnabled property based on input
     private void UpdateSubmitButtonState()
     {
-        var sameAsInitial = InputField.Text == initialText;
-        var empty = string.IsNullOrWhiteSpace(InputField.Text);
-        SubmitButton.IsEnabled = !sameAsInitial && !empty;
+        var inputText = GetTrimmedTextInput();
+        var validationResultError = inputValidationFunc?.Invoke(_initialText,inputText!).Error?.Message;
+   
+        SubmitButton.IsEnabled = validationResultError == null;
+        InputField.ErrorMessage = validationResultError ?? "";
     }
-    
+
     private void CustomCharsButton_Click(object sender, EventArgs e)
     {
         CustomChars.IsVisible = true;
         CustomCharsButton.IsVisible = false;
-        var newSize = new Vector(Window.InternalSize.X, Window.InternalSize.Y + 370);
-        Window.SetWindowSize(newSize);
     }
 
-    // Handle Submit button click
     private void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
-        _result = InputField.Text.Trim();
+        _result = GetTrimmedTextInput();
         _tcs?.TrySetResult(_result); // Set the result of the task
         Close();
     }
+    
+    private string? GetTrimmedTextInput() => InputField.Text?.Trim();
 
-    // Handle Cancel button click
-    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
+
+    protected override void BeforeClose()
     {
-        _result = null;
-        _tcs?.TrySetResult(null); // Set the result of the task to null
-        Close();
+        // If you want to return something different, then to the TrySetResult before you close it
+        _tcs?.TrySetResult(null);
     }
 }
-

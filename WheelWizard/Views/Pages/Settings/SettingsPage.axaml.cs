@@ -6,7 +6,7 @@ using WheelWizard.Views.Popups;
 
 namespace WheelWizard.Views.Pages.Settings;
 
-public partial class SettingsPage : UserControl
+public partial class SettingsPage : UserControlBase
 {
     public SettingsPage() : this(new WhWzSettings()) { }
 

@@ -1,13 +1,14 @@
 ﻿using System.Diagnostics;
+using System.IO.Abstractions;
 using System.Security.Principal;
+using WheelWizard.GitHub.Domain;
 using WheelWizard.Helpers;
-using WheelWizard.Models.Github;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.AutoUpdating.Platforms;
 
-public class WindowsUpdatePlatform : IUpdatePlatform
+public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
 {
     public GithubAsset? GetAssetForCurrentPlatform(GithubRelease release)
     {
@@ -16,31 +17,24 @@ public class WindowsUpdatePlatform : IUpdatePlatform
             asset.BrowserDownloadUrl.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
     }
 
-    public async Task ExecuteUpdateAsync(string downloadUrl)
+    public async Task<OperationResult> ExecuteUpdateAsync(string downloadUrl)
     {
         // If running as administrator, update immediately.
         if (IsAdministrator())
-        {
-            await UpdateAsync(downloadUrl);
-            return;
-        }
+            return await UpdateAsync(downloadUrl);
 
         // Otherwise, ask if the user wants to restart as admin.
-        var adminQuestion = new YesNoWindow()
+        var restartAsAdmin = await new YesNoWindow()
             .SetMainText(Phrases.PopupText_UpdateAdmin)
-            .SetExtraText(Phrases.PopupText_UpdateAdminExplained);
+            .SetExtraText(Phrases.PopupText_UpdateAdminExplained).AwaitAnswer();
 
-        if (await adminQuestion.AwaitAnswer())
-        {
-            RestartAsAdmin();
-        }
-        else
-        {
-            await UpdateAsync(downloadUrl);
-        }
+        if (!restartAsAdmin)
+            return await UpdateAsync(downloadUrl);
+
+        return RestartAsAdmin();
     }
 
-    private static void RestartAsAdmin()
+    private static OperationResult RestartAsAdmin()
     {
         var startInfo = new ProcessStartInfo
         {
@@ -50,15 +44,11 @@ public class WindowsUpdatePlatform : IUpdatePlatform
             Verb = "runas" // This verb asks for elevation.
         };
 
-        try
+        return TryCatch(() =>
         {
             Process.Start(startInfo);
             Environment.Exit(0);
-        }
-        catch (Exception)
-        {
-            new YesNoWindow().SetMainText(Phrases.PopupText_RestartAdminFail);
-        }
+        }, errorMessage: Phrases.PopupText_RestartAdminFail);
     }
 
     private static bool IsAdministrator()
@@ -71,37 +61,23 @@ public class WindowsUpdatePlatform : IUpdatePlatform
         return principal.IsInRole(WindowsBuiltInRole.Administrator);
     }
 
-    private static async Task UpdateAsync(string downloadUrl)
+    private async Task<OperationResult> UpdateAsync(string downloadUrl)
     {
         var currentExecutablePath = Environment.ProcessPath;
         if (currentExecutablePath is null)
-        {
-            await new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText("Unable to update Wheel Wizard")
-                .SetInfoText(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation)
-                .ShowDialog();
-            return;
-        }
+            return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
 
-        var currentExecutableName = Path.GetFileNameWithoutExtension(currentExecutablePath);
-        var currentFolder = Path.GetDirectoryName(currentExecutablePath);
+        var currentExecutableName = fileSystem.Path.GetFileNameWithoutExtension(currentExecutablePath);
+        var currentFolder = fileSystem.Path.GetDirectoryName(currentExecutablePath);
 
         if (currentFolder is null)
-        {
-            await new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText("Unable to update Wheel Wizard")
-                .SetInfoText(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation)
-                .ShowDialog();
-            return;
-        }
+            return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
         // Download new executable to a temporary file.
-        var newFilePath = Path.Combine(currentFolder, currentExecutableName + "_new.exe");
-        if (File.Exists(newFilePath))
-            File.Delete(newFilePath);
+        var newFilePath = fileSystem.Path.Combine(currentFolder, currentExecutableName + "_new.exe");
+        if (fileSystem.File.Exists(newFilePath))
+            fileSystem.File.Delete(newFilePath);
 
         await DownloadHelper.DownloadToLocationAsync(
             downloadUrl,
@@ -114,27 +90,24 @@ public class WindowsUpdatePlatform : IUpdatePlatform
         await Task.Delay(200);
 
         // Create and run the PowerShell script to perform the update.
-        CreateAndRunPowerShellScript(currentExecutablePath, newFilePath);
+        var scriptResult = CreateAndRunPowerShellScript(currentExecutablePath, newFilePath);
+        if (scriptResult.IsFailure)
+            return scriptResult;
 
         Environment.Exit(0);
+
+        return Ok();
     }
 
-    private static void CreateAndRunPowerShellScript(string currentFilePath, string newFilePath)
+    private OperationResult CreateAndRunPowerShellScript(string currentFilePath, string newFilePath)
     {
-        var currentFolder = Path.GetDirectoryName(currentFilePath);
+        var currentFolder = fileSystem.Path.GetDirectoryName(currentFilePath);
         if (currentFolder is null)
-        {
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText("Unable to update Wheel Wizard")
-                .SetInfoText(Phrases.PopupText_UnableUpdateWhWz_ReasonLocation)
-                .ShowDialog();
-            return;
-        }
+            return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
-        var scriptFilePath = Path.Combine(currentFolder, "update.ps1");
-        var originalFileName = Path.GetFileName(currentFilePath);
-        var newFileName = Path.GetFileName(newFilePath);
+        var scriptFilePath = fileSystem.Path.Combine(currentFolder, "update.ps1");
+        var originalFileName = fileSystem.Path.GetFileName(currentFilePath);
+        var newFileName = fileSystem.Path.GetFileName(newFilePath);
 
         var scriptContent =
             $$"""
@@ -142,7 +115,7 @@ public class WindowsUpdatePlatform : IUpdatePlatform
               Write-Output 'Starting update process...'
 
               # Wait for the original application to exit
-              while (Get-Process -Name '{{Path.GetFileNameWithoutExtension(originalFileName)}}' -ErrorAction SilentlyContinue) {
+              while (Get-Process -Name '{{fileSystem.Path.GetFileNameWithoutExtension(originalFileName)}}' -ErrorAction SilentlyContinue) {
                   Write-Output 'Waiting for {{originalFileName}} to exit...'
                   Start-Sleep -Seconds 1
               }
@@ -154,7 +127,7 @@ public class WindowsUpdatePlatform : IUpdatePlatform
 
               while (-not $deleted -and $retryCount -lt $maxRetries) {
                   try {
-                      Remove-Item -Path '{{Path.Combine(currentFolder, originalFileName)}}' -Force -ErrorAction Stop
+                      Remove-Item -Path '{{fileSystem.Path.Combine(currentFolder, originalFileName)}}' -Force -ErrorAction Stop
                       $deleted = $true
                   }
                   catch {
@@ -172,7 +145,7 @@ public class WindowsUpdatePlatform : IUpdatePlatform
 
               Write-Output 'Renaming new executable...'
               try {
-                  Rename-Item -Path '{{Path.Combine(currentFolder, newFileName)}}' -NewName '{{originalFileName}}' -ErrorAction Stop
+                  Rename-Item -Path '{{fileSystem.Path.Combine(currentFolder, newFileName)}}' -NewName '{{originalFileName}}' -ErrorAction Stop
               }
               catch {
                   Write-Output 'Failed to rename {{newFileName}} to {{originalFileName}}. Update aborted.'
@@ -181,7 +154,7 @@ public class WindowsUpdatePlatform : IUpdatePlatform
               }
 
               Write-Output 'Starting the updated application...'
-              Start-Process -FilePath '{{Path.Combine(currentFolder, originalFileName)}}'
+              Start-Process -FilePath '{{fileSystem.Path.Combine(currentFolder, originalFileName)}}'
 
               Write-Output 'Cleaning up...'
               Remove-Item -Path '{{scriptFilePath}}' -Force
@@ -189,7 +162,8 @@ public class WindowsUpdatePlatform : IUpdatePlatform
               Write-Output 'Update completed successfully.'
 
               """;
-        File.WriteAllText(scriptFilePath, scriptContent);
+
+        fileSystem.File.WriteAllText(scriptFilePath, scriptContent);
 
         var processStartInfo = new ProcessStartInfo
         {
@@ -200,17 +174,6 @@ public class WindowsUpdatePlatform : IUpdatePlatform
             WorkingDirectory = currentFolder
         };
 
-        try
-        {
-            Process.Start(processStartInfo);
-        }
-        catch (Exception ex)
-        {
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Unable to update Wheel Wizard")
-                .SetInfoText($"Failed to execute the update script. {ex.Message}")
-                .ShowDialog();
-        }
+        return TryCatch(() => Process.Start(processStartInfo), errorMessage: "Failed to execute the update script.");
     }
 }

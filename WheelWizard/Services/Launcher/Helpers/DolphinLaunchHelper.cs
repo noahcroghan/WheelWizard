@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using WheelWizard.Helpers;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Popups.Generic;
 
@@ -19,18 +21,104 @@ public static class DolphinLaunchHelper
         }
     }
 
+    private static bool IsFixableFlatpakGamePath(string gameFilePath)
+    {
+        if (PathManager.IsFlatpakDolphinFilePath())
+        {
+            // Because with the file picker on a Flatpak build, we get XDG portal paths like these...
+            // We can fix Flatpak Dolphin to gain access to this game file path though.
+            string xdgRuntimeDir = Environment.GetEnvironmentVariable("XDG_RUNTIME_DIR") ?? string.Empty;
+            if (EnvHelper.IsRelativeLinuxPath(xdgRuntimeDir))
+            {
+                string fixablePattern = @"^/run/user/(\d+)/doc";
+                Regex fixablePatternRegex = new Regex(fixablePattern);
+                return fixablePatternRegex.IsMatch(gameFilePath);
+            }
+            else
+            {
+                string xdgRuntimeDirDocPath = Path.Combine(xdgRuntimeDir, "doc");
+                return gameFilePath.StartsWith(xdgRuntimeDirDocPath);
+            }
+        }
+        return false;
+    }
+
+    private static bool TryFixFlatpakGameFileAccess()
+    {
+        var gameFilePath = PathManager.GameFilePath;
+        if (IsFixableFlatpakGamePath(gameFilePath))
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "flatpak",
+                    ArgumentList = {
+                        "document-export",
+                        "--app=org.DolphinEmu.dolphin-emu",
+                        "-r",
+                        "--",
+                        gameFilePath,
+                    },
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true,
+                    UseShellExecute = false
+                })?.WaitForExit();
+                return true;
+            }
+            catch
+            {
+                // Ignore failed export
+            }
+        }
+        return false;
+    }
+
+    private static string FixFlatpakDolphinPermissions(string flatpakDolphinLocation)
+    {
+        string fixedFlatpakDolphinLocation = flatpakDolphinLocation;
+        var addFilesystemPerm = (string newFilesystemPerm, string mode = "") =>
+        {
+            string flatpakRunCommand = "flatpak run";
+            fixedFlatpakDolphinLocation = fixedFlatpakDolphinLocation.Replace(
+                flatpakRunCommand,
+                $"{flatpakRunCommand} --filesystem=\"{Path.GetFullPath(newFilesystemPerm)}\"{mode}");
+        };
+        // Read-only permissions
+        if (!TryFixFlatpakGameFileAccess())
+        {
+            addFilesystemPerm(PathManager.GameFilePath, ":ro");
+        }
+        addFilesystemPerm(PathManager.RrLaunchJsonFilePath, ":ro");
+        addFilesystemPerm(PathManager.XmlFilePath, ":ro");
+        addFilesystemPerm(PathManager.RiivolutionWhWzFolderPath, ":ro");
+        // Read-write permissions
+        if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(PathManager.UserFolderPath, StringComparison.Ordinal))
+        {
+            addFilesystemPerm(PathManager.UserFolderPath, ":rw");
+        }
+        addFilesystemPerm(PathManager.SaveFolderPath, ":rw");
+        return fixedFlatpakDolphinLocation;
+    }
+
+    // Make sure all file arguments are absolute paths
     public static void LaunchDolphin(string arguments = "", bool shellExecute = false)
     {
         try
         {
             var startInfo = new ProcessStartInfo();
 
+            bool cannotPassUserFolder = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && PathManager.IsLinuxDolphinConfigSplit();
+            string userFolderArgument = cannotPassUserFolder ? "" : $"-u \"{Path.GetFullPath(PathManager.UserFolderPath)}\"";
+            string dolphinLaunchArguments = $"{arguments} {userFolderArgument}";
+
             var dolphinLocation = (string)SettingsManager.DOLPHIN_LOCATION.Get();
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 // Windows builds
-                startInfo.FileName = dolphinLocation;
-                startInfo.Arguments = arguments;
+                startInfo.FileName = Path.GetFullPath(dolphinLocation);
+                startInfo.Arguments = dolphinLaunchArguments;
                 startInfo.UseShellExecute = shellExecute;
             }
             else
@@ -39,7 +127,14 @@ public static class DolphinLaunchHelper
                 startInfo.ArgumentList.Add("sh");
                 startInfo.ArgumentList.Add("-c");
                 startInfo.ArgumentList.Add("--");
-                startInfo.ArgumentList.Add($"{dolphinLocation} {arguments}");
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    if (PathManager.IsFlatpakDolphinFilePath())
+                        dolphinLocation = FixFlatpakDolphinPermissions(dolphinLocation);
+                    else
+                        startInfo.EnvironmentVariables["QT_QPA_PLATFORM"] = "xcb";
+                }
+                startInfo.ArgumentList.Add($"{dolphinLocation} {dolphinLaunchArguments}");
                 startInfo.UseShellExecute = false;
             }
 

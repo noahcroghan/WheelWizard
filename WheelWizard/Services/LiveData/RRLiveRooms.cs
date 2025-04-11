@@ -3,6 +3,9 @@ using WheelWizard.Models.RRInfo;
 using WheelWizard.RrRooms;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views;
+using WheelWizard.WheelWizardData;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Services.LiveData;
 
@@ -19,12 +22,18 @@ public class RRLiveRooms : RepeatedTaskManager
 
     protected override async Task ExecuteTaskAsync()
     {
+        var whWzService = App.Services.GetRequiredService<IWhWzDataSingletonService>();
         var roomsService = App.Services.GetRequiredService<IRrRoomsSingletonService>();
 
-        var rooms = await roomsService.GetRoomsAsync();
+        var roomsResult = await roomsService.GetRoomsAsync();
+        if (roomsResult.IsFailure)
+        {
+            CurrentRooms = [];
+            return;
+        }
 
         // This is here because we don't want to break existing code that uses the old model
-        var rrRooms = rooms.Select(room => new RrRoom
+        var rrRooms = roomsResult.Value.Select(room => new RrRoom
         {
             Id = room.Id,
             Game = room.Game,
@@ -45,14 +54,22 @@ public class RRLiveRooms : RepeatedTaskManager
                     Fc = p.Value.Fc,
                     Ev = p.Value.Ev,
                     Eb = p.Value.Eb,
-                    Mii = p.Value.Mii.Select(mii => new Mii
+                    BadgeVariants = whWzService.GetBadges(p.Value.Fc),
+                    // Deserialize each Mii's data into a FullMii object
+                    Mii = p.Value.Mii.Select(mii =>
                     {
-                        Name = mii.Name,
-                        Data = mii.Data,
+                        var rawMii = Convert.FromBase64String(mii.Data);
+                        var SerializerResult = MiiSerializer.Deserialize(rawMii);
+                        if (SerializerResult.IsFailure)
+                        {
+                            return new Mii();
+                        }
+
+                        return SerializerResult.Value;
                     }).ToList()
                 })
         }).ToList();
-        
+
         CurrentRooms = rrRooms;
     }
 }

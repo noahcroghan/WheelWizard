@@ -5,7 +5,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     xmlns:popups="clr-namespace:WheelWizard.Views.Popups" ClipToBounds="False"
                     mc:Ignorable="d" d:DesignHeight="170" d:DesignWidth="400">
-    <Grid>
+    <Grid Width="400" MinHeight="150" MaxHeight="500">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>

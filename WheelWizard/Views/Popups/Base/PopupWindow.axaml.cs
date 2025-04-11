@@ -12,8 +12,7 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
 {
     protected override Control InteractionOverlay => DisabledDarkenEffect;
     protected override Control InteractionContent => CompleteGrid;
-    public Vector InternalSize { get; set; }
-    
+
     public PopupWindow()
     {
         // Constructor is never used, however, UI elements must have a constructor with no params
@@ -21,9 +20,9 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
         DataContext = this;
         Loaded += PopupWindow_Loaded;
     }
-    
+
     private bool _isTopMost = true;
-    
+
     public bool IsTopMost
     {
         get => _isTopMost;
@@ -34,24 +33,26 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
             OnPropertyChanged(nameof(IsTopMost));
         }
     }
-    
+
     private bool _canClose = false;
+
     public bool CanClose
     {
         get => _canClose;
         set
-        {   
+        {
             _canClose = value;
             OnPropertyChanged(nameof(CanClose));
         }
     }
-    
+
     private string _windowTitle = "Wheel Wizard Popup";
+
     public string WindowTitle
     {
         get => _windowTitle;
         set
-        {   
+        {
             _windowTitle = value;
             OnPropertyChanged(nameof(WindowTitle));
         }
@@ -59,66 +60,78 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
 
     public Action BeforeOpen { get; set; } = () => { };
     public Action BeforeClose { get; set; } = () => { };
-    
+
     // Most (if not all) of these parameters should be set in the popup you create, and not kept as a parameter for that popup
-    public PopupWindow(bool allowClose, bool allowParentInteraction, bool isTopMost, string title = "", Vector? size = null)
+    public PopupWindow(bool allowClose, bool allowParentInteraction, bool isTopMost, string title = "")
     {
-        size ??= new Vector(400, 200);
         IsTopMost = isTopMost;
         CanClose = allowClose;
         WindowTitle = title;
         AllowParentInteraction = allowParentInteraction;
         var mainWindow = ViewUtils.GetLayout();
-        if(mainWindow.IsVisible)
+        if (mainWindow.IsVisible)
             Owner = mainWindow;
-        
+
         InitializeComponent();
         AddLayer();
         DataContext = this;
-
-        SetWindowSize(size.Value);
+        
         Position = mainWindow.Position;
         Loaded += PopupWindow_Loaded;
-    }
-
-    public void  SetWindowSize(Vector size)
-    {
-        InternalSize = size;
-        var scaleFactor = (double)SettingsManager.WINDOW_SCALE.Get();
-        Width = size.X * scaleFactor;
-        Height = size.Y * scaleFactor;
-        CompleteGrid.RenderTransform = new ScaleTransform(scaleFactor, scaleFactor);
-        var marginXCorrection = ((scaleFactor * size.X) - size.X)/2f;
-        var marginYCorrection = ((scaleFactor * size.Y) - size.Y)/2f;
-        CompleteGrid.Margin = new Thickness(marginXCorrection, marginYCorrection);
     }
 
     private void PopupWindow_Loaded(object? sender, RoutedEventArgs e)
     {
         BeforeOpen();
     }
-    
+
+    protected override void OnResized(WindowResizedEventArgs e)
+    {
+        base.OnResized(e);
+
+        CompleteBorder.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+        var desiredSize = CompleteBorder.DesiredSize;
+        SetWindowSize(desiredSize);
+    }
+
+    public void SetWindowSize(Size size)
+    {
+        var scaleFactor = (double)SettingsManager.WINDOW_SCALE.Get();
+        Width = size.Width * scaleFactor;
+        Height = size.Height * scaleFactor;
+        CompleteGrid.RenderTransform = new ScaleTransform(scaleFactor, scaleFactor);
+        var marginXCorrection = ((scaleFactor * size.Width) - size.Width) / 2f;
+        var marginYCorrection = ((scaleFactor * size.Height) - size.Height) / 2f;
+        CompleteGrid.Margin = new Thickness(marginXCorrection, marginYCorrection);
+    }
+
     protected void TopBar_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
         if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
             BeginMoveDrag(e);
     }
-    
+
     private void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
-    
+
     protected override void OnClosed(EventArgs e)
     {
         BeforeClose();
         RemoveLayer();
-        
+
         base.OnClosed(e);
     }
 
+    private void MinimizeButton_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+    public void Restore() => WindowState = WindowState.Normal;
+
     #region PropertyChanged
+
     public event PropertyChangedEventHandler? PropertyChanged;
+
     protected void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
     #endregion
 }

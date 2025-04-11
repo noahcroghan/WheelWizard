@@ -60,6 +60,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string Category_About {
+            get {
+                return ResourceManager.GetString("Category_About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Video.
         /// </summary>
         public static string Category_Video {
@@ -218,6 +227,24 @@ namespace WheelWizard.Resources.Languages {
         public static string Option_OpenConfig {
             get {
                 return ResourceManager.GetString("Option_OpenConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Game Folder.
+        /// </summary>
+        public static string Option_OpenGameFolder {
+            get {
+                return ResourceManager.GetString("Option_OpenGameFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Save Folder.
+        /// </summary>
+        public static string Option_OpenSaveFolder {
+            get {
+                return ResourceManager.GetString("Option_OpenSaveFolder", resourceCulture);
             }
         }
         

@@ -1,4 +1,4 @@
-﻿using WheelWizard.Models.Github;
+﻿using WheelWizard.GitHub.Domain;
 
 namespace WheelWizard.AutoUpdating.Platforms;
 
@@ -15,5 +15,5 @@ public interface IUpdatePlatform
     /// <summary>
     /// Executes the update logic for the current platform.
     /// </summary>
-    Task ExecuteUpdateAsync(string downloadUrl);
+    Task<OperationResult> ExecuteUpdateAsync(string downloadUrl);
 }

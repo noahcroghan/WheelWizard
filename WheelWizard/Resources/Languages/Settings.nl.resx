@@ -150,4 +150,13 @@
     <data name="Value_Language_Russian" xml:space="preserve">
         <value>Russisch</value>
     </data>
+    <data name="Option_OpenGameFolder" xml:space="preserve">
+        <value>Open spel map</value>
+    </data>
+    <data name="Option_OpenSaveFolder" xml:space="preserve">
+        <value>Open opslag map</value>
+    </data>
+    <data name="Category_About" xml:space="preserve">
+        <value>Info</value>
+    </data>
 </root>

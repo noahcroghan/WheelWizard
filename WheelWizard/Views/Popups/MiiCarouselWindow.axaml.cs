@@ -1,17 +1,20 @@
 ﻿using WheelWizard.Models.MiiImages;
+using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.Domain.Mii;
+
 
 namespace WheelWizard.Views.Popups;
 
 public partial class MiiCarouselWindow : PopupContent
 {
-    public MiiCarouselWindow() : base(true,true,false, "Mii Carousel", new(440, 300))
+    public MiiCarouselWindow() : base(true,true,false, "Mii Carousel")
     {
         InitializeComponent();
     }
 
     public MiiCarouselWindow SetMii(Mii newMii)
     {
-        Window.WindowTitle = newMii.Name;
+        Window.WindowTitle = newMii.Name.ToString();
         Carousel.MiiImageLoaded += DisableLoadingIcon;
         Carousel.Mii = newMii;
         return this;

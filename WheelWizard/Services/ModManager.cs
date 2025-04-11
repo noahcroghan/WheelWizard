@@ -16,6 +16,7 @@ public class ModManager : INotifyPropertyChanged
     public static ModManager Instance => _instance.Value;
 
     private ObservableCollection<Mod> _mods;
+
     public ObservableCollection<Mod> Mods
     {
         get => _mods;
@@ -83,7 +84,7 @@ public class ModManager : INotifyPropertyChanged
         mod.PropertyChanged += Mod_PropertyChanged;
         Mods.Add(mod);
         SortModsByPriority();
-        SaveModsAsync(); 
+        SaveModsAsync();
     }
 
     public void RemoveMod(Mod mod)
@@ -102,7 +103,7 @@ public class ModManager : INotifyPropertyChanged
             e.PropertyName != nameof(Mod.Author) &&
             e.PropertyName != nameof(Mod.ModID) &&
             e.PropertyName != nameof(Mod.Priority)) return;
-        
+
         SaveModsAsync();
         SortModsByPriority();
     }
@@ -140,6 +141,7 @@ public class ModManager : INotifyPropertyChanged
         var modName = await new TextInputWindow()
             .SetMainText("Mod name:")
             .SetPlaceholderText("Enter mod name...")
+            .SetValidation(ValidateModName)
             .ShowDialog();
         if (!IsValidName(modName)) return;
         var tempZipPath = Path.Combine(Path.GetTempPath(), $"{modName}.zip");
@@ -153,6 +155,7 @@ public class ModManager : INotifyPropertyChanged
                     zipArchive.CreateEntryFromFile(filePath, entryName, CompressionLevel.Optimal);
                 }
             }
+
             await ModInstallation.InstallModFromFileAsync(tempZipPath, modName, author: "-1", modID: -1);
             if (File.Exists(tempZipPath))
                 File.Delete(tempZipPath);
@@ -169,30 +172,55 @@ public class ModManager : INotifyPropertyChanged
         {
             mod.IsEnabled = enable;
         }
+
         _isProcessing = !_isProcessing;
         OnPropertyChanged(nameof(Mods));
     }
-    
+
+    // TODO: Use this validation method when refactoring the ModManager
+    public OperationResult ValidateModName(string? oldName, string newName)
+    {
+        if (string.IsNullOrWhiteSpace(newName))
+            return Fail("Mod name cannot be empty.");
+
+        if (ModInstallation.ModExists(Mods, newName))
+            return Fail("Mod name already exists.");
+
+        if (newName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+            return Fail("Mod name contains illegal characters.");
+
+        return Ok();
+    }
+
+    public OperationResult ValidateRenameModName(string? oldName, string newName)
+    {
+        return oldName == newName ? Ok() : ValidateModName(oldName, newName);
+    }
+
+
     public async void RenameMod(Mod selectedMod)
     {
         var oldTitle = selectedMod.Title;
-        var newTitle = await  new TextInputWindow()
+        var newTitle = await new TextInputWindow()
             .SetMainText("Mod Name")
             .SetInitialText(oldTitle)
             .SetExtraText($"Changing name from: {oldTitle}")
             .SetPlaceholderText("Enter mod name...")
+            .SetValidation(ValidateRenameModName)
             .ShowDialog();
-        
+
+        if (oldTitle == newTitle || newTitle == null) return;
+        // we don't want to return an error if the name is the same as before, or if the user cancels
         if (!IsValidName(newTitle)) return;
-        
+
         var oldDirectoryName = PathManager.GetModDirectoryPath(oldTitle);
         var newDirectoryName = PathManager.GetModDirectoryPath(newTitle);
 
         // Check if the old directory exists
         if (!Directory.Exists(oldDirectoryName)) return;
-        
+
         // var oldIniPath = Path.Combine(oldDirectoryName, $"{oldTitle}.ini");
-        
+
         GC.Collect();
         GC.WaitForPendingFinalizers();
 
@@ -217,26 +245,22 @@ public class ModManager : INotifyPropertyChanged
             await selectedMod.SaveToIniAsync(newIniPath);
             SaveModsAsync();
             OnPropertyChanged(nameof(Mods));
+            
+            if (Directory.Exists(oldDirectoryName))
+                Directory.Delete(oldDirectoryName, true);
         }
         catch (IOException ex)
         {
             ErrorOccurred($"Failed to rename mod directory: {ex.Message}");
         }
-        finally
-        {
-            if (Directory.Exists(oldDirectoryName))
-            {
-                Directory.Delete(oldDirectoryName, true);
-            }
-        }
-     
         ReloadAsync();
     }
 
 
     public async void DeleteMod(Mod selectedMod)
     {
-        var areTheySure = await new YesNoWindow().SetMainText(Humanizer.ReplaceDynamic(Phrases.PopupText_SureDeleteQuestion, selectedMod.Title)).AwaitAnswer();
+        var areTheySure = await new YesNoWindow()
+            .SetMainText(Humanizer.ReplaceDynamic(Phrases.PopupText_SureDeleteQuestion, selectedMod.Title)).AwaitAnswer();
         if (!areTheySure) return;
 
         var modDirectory = PathManager.GetModDirectoryPath(selectedMod.Title);
@@ -246,16 +270,18 @@ public class ModManager : INotifyPropertyChanged
             RemoveMod(selectedMod);
             return;
         }
+
         try
         {
             GC.Collect();
             GC.WaitForPendingFinalizers();
             var di = new DirectoryInfo(modDirectory);
-            di.Attributes &= ~FileAttributes.ReadOnly; 
+            di.Attributes &= ~FileAttributes.ReadOnly;
             foreach (var file in di.EnumerateFiles("*", SearchOption.AllDirectories))
             {
                 file.Attributes &= ~FileAttributes.ReadOnly;
             }
+
             Directory.Delete(modDirectory, true); // true for recursive deletion
             RemoveMod(selectedMod);
         }
@@ -272,9 +298,7 @@ public class ModManager : INotifyPropertyChanged
         {
             System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
             {
-                FileName = modDirectory,
-                UseShellExecute = true,
-                Verb = "open"
+                FileName = modDirectory, UseShellExecute = true, Verb = "open"
             });
         }
         else
@@ -282,16 +306,17 @@ public class ModManager : INotifyPropertyChanged
             ErrorOccurred(Phrases.PopupText_NoModFolder);
         }
     }
-    
+
     public void DeleteModById(int modId)
     {
         var modToDelete = Mods.FirstOrDefault(mod => mod.ModID == modId);
-    
+
         if (modToDelete == null)
         {
             ErrorOccurred($"No mod found with ID: {modId}");
             return;
         }
+
         DeleteMod(modToDelete);
     }
 
@@ -305,6 +330,7 @@ public class ModManager : INotifyPropertyChanged
         {
             Mods[i].Priority = i;
         }
+
         SaveModsAsync();
         OnPropertyChanged(nameof(Mods));
     }
@@ -329,18 +355,20 @@ public class ModManager : INotifyPropertyChanged
     {
         new MessageBoxWindow()
             .SetMessageType(MessageBoxWindow.MessageType.Error)
-            .SetTitleText("An error occured")
+            .SetTitleText("An error occurred")
             .SetInfoText(errorMessage)
             .Show();
     }
-    
+
     #region PropertyChanged
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+
     #endregion
 
     public void DecreasePriority(Mod mod)
@@ -354,6 +382,7 @@ public class ModManager : INotifyPropertyChanged
                 .Show();
             return;
         }
+
         if (mod.Priority == GetLowestActivePriority() || Mods.Count == 1)
         {
             new MessageBoxWindow()
@@ -363,13 +392,13 @@ public class ModManager : INotifyPropertyChanged
                 .Show();
             return;
         }
- 
+
         // Find mod with next lower priority value
         var modAbove = Mods.Where(m => m.Priority < mod.Priority)
             .OrderByDescending(m => m.Priority)
             .FirstOrDefault();
         if (modAbove == null) return;
-        
+
         (modAbove.Priority, mod.Priority) = (mod.Priority, modAbove.Priority);
 
         SortModsByPriority();
@@ -386,7 +415,7 @@ public class ModManager : INotifyPropertyChanged
                 .Show();
             return;
         }
-    
+
         if (mod.Priority == GetHighestActivePriority() || Mods.Count == 1)
         {
             new MessageBoxWindow()
@@ -396,21 +425,21 @@ public class ModManager : INotifyPropertyChanged
                 .Show();
             return;
         }
-    
+
         // Find mod with next higher priority value
         var modBelow = Mods.Where(m => m.Priority > mod.Priority)
             .OrderBy(m => m.Priority)
             .FirstOrDefault();
-    
+
         if (modBelow == null) return; // Should not happen but just in case
-    
+
         // Swap priorities
         (modBelow.Priority, mod.Priority) = (mod.Priority, modBelow.Priority);
 
         SortModsByPriority();
         SaveModsAsync();
     }
-    
-    public int GetLowestActivePriority() =>Mods.Min(m => m.Priority);
+
+    public int GetLowestActivePriority() => Mods.Min(m => m.Priority);
     public int GetHighestActivePriority() => Mods.Max(m => m.Priority);
 }

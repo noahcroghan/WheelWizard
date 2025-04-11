@@ -1,4 +1,4 @@
-﻿using WheelWizard.Models.MiiImages;
+﻿using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Models.GameData;
 

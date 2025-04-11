@@ -1,6 +1,6 @@
-using WheelWizard.Models.Enums;
-using WheelWizard.Models.MiiImages;
-using WheelWizard.Services;
+using WheelWizard.WheelWizardData.Domain;
+using WheelWizard.WiiManagement.Domain.Mii;
+
 
 namespace WheelWizard.Models.RRInfo;
 
@@ -23,6 +23,6 @@ public class RrPlayer
     
     public int Vr => int.TryParse(Ev, out var evValue) ? evValue : -1;
 
-    public BadgeVariant[] BadgeVariants => BadgeManager.Instance.GetBadgeVariants(Fc);
+    public BadgeVariant[] BadgeVariants { get; set; } = [];
     public bool HasBadges => BadgeVariants.Length != 0;
 }

@@ -219,4 +219,13 @@
     <data name="Option_Reinstall" xml:space="preserve">
         <value>Reinstall RR</value>
     </data>
+    <data name="Option_OpenGameFolder" xml:space="preserve">
+        <value>Open Game Folder</value>
+    </data>
+    <data name="Option_OpenSaveFolder" xml:space="preserve">
+        <value>Open Save Folder</value>
+    </data>
+    <data name="Category_About" xml:space="preserve">
+        <value>About</value>
+    </data>
 </root>

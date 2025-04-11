@@ -17,6 +17,7 @@ public static class HttpClientHelper
     private static readonly Lazy<HttpClient> LazyHttpClient = new(() =>
     {
         var client = new HttpClient();
+        client.Timeout = TimeSpan.FromSeconds(6);
         client.DefaultRequestHeaders.UserAgent.ParseAdd("WheelWizard/2.0");
         return client;
     });
