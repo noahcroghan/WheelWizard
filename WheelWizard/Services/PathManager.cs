@@ -49,7 +49,7 @@ public static class PathManager
     public static string RetroRewind6FolderPath => Path.Combine(RiivolutionWhWzFolderPath, "RetroRewind6");
 
     // This is not the folder your save file is located in, but its the folder where every Region folder is, so the save file is in SaveFolderPath/Region
-    public static string SaveFolderPath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "save" ,"RetroWFC");
+    public static string SaveFolderPath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "save", "RetroWFC");
     public static string XmlFilePath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "RetroRewind6.xml");
 
     private static string PortableUserFolderPath => Path.Combine(GetDolphinExeDirectory(), RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "user" : "User");
@@ -91,10 +91,10 @@ public static class PathManager
         {
             if (IsFlatpakSandboxed())
             {
-                if (LinuxDolphinHostNativeInstallDataDir.Equals(UserFolderPath, StringComparison.Ordinal))
+                if (LinuxDolphinHostNativeInstallDataDir.Equals(Path.GetFullPath(UserFolderPath), StringComparison.Ordinal))
                     return LinuxDolphinHostNativeInstallConfigDir;
             }
-            else if (LinuxDolphinNativeInstallDataDir.Equals(UserFolderPath, StringComparison.Ordinal))
+            else if (LinuxDolphinNativeInstallDataDir.Equals(Path.GetFullPath(UserFolderPath), StringComparison.Ordinal))
             {
                 return LinuxDolphinNativeInstallConfigDir;
             }
@@ -109,7 +109,7 @@ public static class PathManager
         {
             if (IsFlatpakDolphinFilePath())
             {
-                if (LinuxDolphinFlatpakDataDir.Equals(UserFolderPath, StringComparison.Ordinal))
+                if (LinuxDolphinFlatpakDataDir.Equals(Path.GetFullPath(UserFolderPath), StringComparison.Ordinal))
                     return LinuxDolphinFlatpakConfigDir;
 
                 return string.Empty;
@@ -397,7 +397,7 @@ public static class PathManager
             var dolphinApplicationPath = Path.Combine("Dolphin.app", "Contents", "MacOS", "Dolphin");
             // Try system wide install on MacOS
             var path = Path.Combine("/Applications", dolphinApplicationPath);
-                if (FileHelper.FileExists(path))
+            if (FileHelper.FileExists(path))
                 return path;
             // Try user install on MacOS
             path = Path.Combine(HomeFolderPath, "Applications", dolphinApplicationPath);
