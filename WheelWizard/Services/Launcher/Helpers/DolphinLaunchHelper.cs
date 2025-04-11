@@ -98,7 +98,7 @@ public static class DolphinLaunchHelper
         {
             addFilesystemPerm(PathManager.UserFolderPath, ":rw");
         }
-        addFilesystemPerm(PathManager.SaveFolderPath, ":rw");
+        addFilesystemPerm(PathManager.SaveFolderPath, ":create");
         return fixedFlatpakDolphinLocation;
     }
 
