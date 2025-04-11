@@ -40,8 +40,7 @@ public class Program : IDesignerEntryPoint
         }
     }
 
-    public static AppBuilder BuildAvaloniaApp()
-        => CreateWheelWizardApp(isDesigner: true);
+    public static AppBuilder BuildAvaloniaApp() => CreateWheelWizardApp(isDesigner: true);
 
     /// <summary>
     /// Configures the WheelWizard application.
@@ -53,11 +52,7 @@ public class Program : IDesignerEntryPoint
         var services = new ServiceCollection();
         services.AddWheelWizardServices();
 
-        var serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions
-        {
-            ValidateOnBuild = true,
-            ValidateScopes = true
-        });
+        var serviceProvider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateOnBuild = true, ValidateScopes = true });
 
         // Override the default TraceLogSink with our AvaloniaLoggerAdapter
         Logger.Sink = serviceProvider.GetRequiredService<AvaloniaLoggerAdapter>();

@@ -7,19 +7,20 @@ namespace WheelWizard.Services.Settings;
 public class SettingsHelper : ISettingListener
 {
     private SettingsHelper() { }
-    private static readonly SettingsHelper Instance = new SettingsHelper();
-    
+
+    private static readonly SettingsHelper Instance = new();
+
     public static void LoadExtraStuff()
     {
         SettingsManager.WW_LANGUAGE.Subscribe(Instance);
         Instance.OnWheelWizardLanguageChange();
     }
-    
+
     public static bool PathsSetupCorrectly()
     {
-        return SettingsManager.USER_FOLDER_PATH.IsValid() &&
-               SettingsManager.DOLPHIN_LOCATION.IsValid() &&
-               SettingsManager.GAME_LOCATION.IsValid();
+        return SettingsManager.USER_FOLDER_PATH.IsValid()
+            && SettingsManager.DOLPHIN_LOCATION.IsValid()
+            && SettingsManager.GAME_LOCATION.IsValid();
     }
 
     public void OnSettingChanged(Setting setting)
@@ -27,8 +28,9 @@ public class SettingsHelper : ISettingListener
         if (setting == SettingsManager.WW_LANGUAGE)
             OnWheelWizardLanguageChange();
     }
-    
-    private void OnWheelWizardLanguageChange() {
+
+    private void OnWheelWizardLanguageChange()
+    {
         var lang = (string)SettingsManager.WW_LANGUAGE.Get();
         var newCulture = new CultureInfo(lang);
         CultureInfo.CurrentCulture = newCulture;

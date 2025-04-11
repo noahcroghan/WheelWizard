@@ -27,7 +27,8 @@ public class OperationResult<T> : OperationResult
     /// Initializes a new instance of the <see cref="OperationResult{T}"/> class with the specified error.
     /// </summary>
     /// <param name="error">The error that occurred during the operation.</param>
-    public OperationResult(OperationError error) : base(error)
+    public OperationResult(OperationError error)
+        : base(error)
     {
         _value = default!;
     }

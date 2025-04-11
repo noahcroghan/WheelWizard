@@ -29,7 +29,7 @@ public class AvaloniaLoggerAdapter(ILogger<AvaloniaObject> logger) : ILogSink
             LogEventLevel.Warning => LogLevel.Warning,
             LogEventLevel.Error => LogLevel.Error,
             LogEventLevel.Fatal => LogLevel.Critical,
-            _ => throw new ArgumentOutOfRangeException(nameof(level), level, null)
+            _ => throw new ArgumentOutOfRangeException(nameof(level), level, null),
         };
 
 #pragma warning disable CA2254

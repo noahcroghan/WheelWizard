@@ -1,5 +1,5 @@
-﻿using Avalonia.Threading;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using Avalonia.Threading;
 using WheelWizard.Helpers;
 using WheelWizard.Resources.Languages;
 
@@ -12,16 +12,18 @@ public partial class ProgressWindow : PopupContent
     private double? _totalMb = null;
     private DispatcherTimer _updateTimer;
 
-    public ProgressWindow() : this("Progress Window") { }
+    public ProgressWindow()
+        : this("Progress Window") { }
 
-    public ProgressWindow(string windowTitle) : base(false, false, true, windowTitle)
+    public ProgressWindow(string windowTitle)
+        : base(false, false, true, windowTitle)
     {
         InitializeComponent();
-        _updateTimer = new DispatcherTimer();
+        _updateTimer = new();
         _updateTimer.Interval = TimeSpan.FromMilliseconds(100); // Update every 100ms
         _updateTimer.Tick += UpdateTimer_Tick;
     }
-    
+
     protected override void BeforeOpen()
     {
         _stopwatch.Start();

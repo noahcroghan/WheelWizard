@@ -1,8 +1,9 @@
+using WheelWizard.Views.Popups.Generic;
+using WheelWizard.Views.Popups.ModManagement;
 #if WINDOWS
 using Microsoft.Win32;
 #endif
-using WheelWizard.Views.Popups.Generic;
-using WheelWizard.Views.Popups.ModManagement;
+
 
 namespace WheelWizard.Services.UrlProtocol;
 
@@ -23,7 +24,6 @@ public static class UrlProtocolManager
 
         key.SetValue("", $"URL:{schemeName} Protocol");
         key.SetValue("URL Protocol", "");
-
 
         using var shellKey = key.CreateSubKey(@"shell\open\command");
         shellKey.SetValue("", $"\"{currentExecutablePath}\" \"%1\"");
@@ -60,7 +60,6 @@ public static class UrlProtocolManager
             RegisterCustomScheme(ProtocolName);
         }
     }
-
 #endif
 
     public static void SetWhWzScheme()

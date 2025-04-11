@@ -10,8 +10,7 @@ public interface IWhWzDataSingletonService
     BadgeVariant[] GetBadges(string friendCode);
 }
 
-public class WhWzDataSingletonService(IApiCaller<IWhWzDataApi> apiCaller)
-    : IWhWzDataSingletonService
+public class WhWzDataSingletonService(IApiCaller<IWhWzDataApi> apiCaller) : IWhWzDataSingletonService
 {
     private Dictionary<string, BadgeVariant[]> BadgeData { get; set; } = new();
 
@@ -23,17 +22,13 @@ public class WhWzDataSingletonService(IApiCaller<IWhWzDataApi> apiCaller)
     public async Task<OperationResult> LoadBadgesAsync()
     {
         var badgeResult = await apiCaller.CallApiAsync(whWzDataApi => whWzDataApi.GetBadgesAsync());
-        if(badgeResult.IsFailure)
+        if (badgeResult.IsFailure)
             return badgeResult;
 
-        BadgeData = badgeResult.Value.ToDictionary(
-            kvp => kvp.Key,
-            kvp => kvp.Value.Where(b => b != BadgeVariant.None).ToArray()
-        );
+        BadgeData = badgeResult.Value.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Where(b => b != BadgeVariant.None).ToArray());
 
         return Ok();
     }
 
-    public BadgeVariant[] GetBadges(string friendCode) =>
-        BadgeData.TryGetValue(friendCode, out var variants) ? variants : [];
+    public BadgeVariant[] GetBadges(string friendCode) => BadgeData.TryGetValue(friendCode, out var variants) ? variants : [];
 }

@@ -16,14 +16,15 @@ public interface IBrandingSingletonService
 
 public class BrandingSingletonService : IBrandingSingletonService
 {
-    public Branding Branding { get; } = new()
-    {
-        DisplayName = "Wheel Wizard",
-        Identifier = "WheelWizard",
-        Version = string.Join('.', Assembly.GetExecutingAssembly().GetName().Version?.ToString().Split('.')[..3] ?? ["0.0.0"]),
+    public Branding Branding { get; } =
+        new()
+        {
+            DisplayName = "Wheel Wizard",
+            Identifier = "WheelWizard",
+            Version = string.Join('.', Assembly.GetExecutingAssembly().GetName().Version?.ToString().Split('.')[..3] ?? ["0.0.0"]),
 
-        RepositoryUrl = new(Endpoints.WhWzGithubUrl),
-        DiscordUrl = new(Endpoints.WhWzDiscordUrl),
-        SupportUrl = new(Endpoints.SupportLink)
-    };
+            RepositoryUrl = new(Endpoints.WhWzGithubUrl),
+            DiscordUrl = new(Endpoints.WhWzDiscordUrl),
+            SupportUrl = new(Endpoints.SupportLink),
+        };
 }

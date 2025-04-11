@@ -44,7 +44,6 @@ public interface IGameDataSingletonService
     /// </summary>
     List<FriendProfile> CurrentFriends { get; }
 
-
     /// <summary>
     /// Checks if any user is valid (i.e., has a non-empty friend code).
     /// </summary>
@@ -74,15 +73,14 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
     private LicenseCollection UserList { get; }
     private byte[]? _saveData;
 
-    public GameDataSingletonService(IMiiDbService miiService, IFileSystem fileSystem, IWhWzDataSingletonService whWzDataSingletonService) :
-        base(40)
+    public GameDataSingletonService(IMiiDbService miiService, IFileSystem fileSystem, IWhWzDataSingletonService whWzDataSingletonService)
+        : base(40)
     {
         _miiService = miiService;
         _fileSystem = fileSystem;
         _whWzDataSingletonService = whWzDataSingletonService;
-        UserList = new LicenseCollection();
+        UserList = new();
     }
-
 
     private const int RksysSize = 0x2BC000;
     private const string RksysMagic = "RKSD0006";
@@ -103,11 +101,9 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
 
     public LicenseCollection LicenseCollection => UserList;
 
-    public LicenseProfile GetUserData(int index)
-        => UserList.Users[index];
+    public LicenseProfile GetUserData(int index) => UserList.Users[index];
 
-    public bool HasAnyValidUsers
-        => UserList.Users.Any(user => user.FriendCode != "0000-0000-0000");
+    public bool HasAnyValidUsers => UserList.Users.Any(user => user.FriendCode != "0000-0000-0000");
 
     public void RefreshOnlineStatus()
     {
@@ -147,14 +143,19 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         var dummyUser = new LicenseProfile
         {
             FriendCode = "0000-0000-0000",
-            MiiData = new MiiData { Mii = new Mii { Name = noLicenseName, }, AvatarId = 0, ClientId = 0 },
+            MiiData = new()
+            {
+                Mii = new() { Name = noLicenseName },
+                AvatarId = 0,
+                ClientId = 0,
+            },
             Vr = 5000,
             Br = 5000,
             TotalRaceCount = 0,
             TotalWinCount = 0,
-            Friends = new List<FriendProfile>(),
+            Friends = [],
             RegionId = 10, // 10 => “unknown”
-            IsOnline = false
+            IsOnline = false,
         };
         return dummyUser;
     }
@@ -162,7 +163,8 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
     private OperationResult ParseUsers()
     {
         UserList.Users.Clear();
-        if (_saveData == null) return new ArgumentNullException(nameof(_saveData));
+        if (_saveData == null)
+            return new ArgumentNullException(nameof(_saveData));
 
         for (var i = 0; i < MaxPlayerNum; i++)
         {
@@ -194,7 +196,8 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
 
     private OperationResult<LicenseProfile> ParseUser(int offset)
     {
-        if (_saveData == null) return new ArgumentNullException(nameof(_saveData));
+        if (_saveData == null)
+            return new ArgumentNullException(nameof(_saveData));
 
         var friendCode = FriendCodeGenerator.GetFriendCode(_saveData, offset + 0x5C);
         var miiDataResult = ParseMiiData(offset + 0x14);
@@ -219,7 +222,8 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
 
     private OperationResult<MiiData> ParseMiiData(int offset)
     {
-        if (_saveData == null) return new ArgumentNullException(nameof(_saveData));
+        if (_saveData == null)
+            return new ArgumentNullException(nameof(_saveData));
 
         // In Mario Kart Wii's rksys, offset +0x10 => AvatarId, offset +0x14 => ClientId
         // The name is big-endian UTF-16 at offset itself (length 10 chars => 20 bytes).
@@ -231,19 +235,26 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         if (rawMiiResult.IsFailure)
             return new FormatException("Failed to parse mii data: " + rawMiiResult.Error.Message);
 
-        var miiData = new MiiData { Mii = rawMiiResult.Value, AvatarId = avatarId, ClientId = clientId };
+        var miiData = new MiiData
+        {
+            Mii = rawMiiResult.Value,
+            AvatarId = avatarId,
+            ClientId = clientId,
+        };
         return miiData;
     }
 
     private void ParseFriends(LicenseProfile licenseProfile, int userOffset)
     {
-        if (_saveData == null) return;
+        if (_saveData == null)
+            return;
 
         var friendOffset = userOffset + FriendDataOffset;
         for (var i = 0; i < MaxFriendNum; i++)
         {
             var currentOffset = friendOffset + i * FriendDataSize;
-            if (!CheckForMiiData(currentOffset + 0x1A)) continue;
+            if (!CheckForMiiData(currentOffset + 0x1A))
+                continue;
             byte[] rawMiiBytes = _saveData.AsSpan(currentOffset + 0x1A, MiiSize).ToArray();
             var friendCode = FriendCodeGenerator.GetFriendCode(_saveData, currentOffset + 4);
             var friend = new FriendProfile
@@ -256,7 +267,12 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
                 CountryCode = _saveData[currentOffset + 0x68],
                 RegionId = _saveData[currentOffset + 0x69],
                 BadgeVariants = _whWzDataSingletonService.GetBadges(friendCode),
-                MiiData = new MiiData { Mii = MiiSerializer.Deserialize(rawMiiBytes).Value, AvatarId = 0, ClientId = 0 },
+                MiiData = new()
+                {
+                    Mii = MiiSerializer.Deserialize(rawMiiBytes).Value,
+                    AvatarId = 0,
+                    ClientId = 0,
+                },
             };
             licenseProfile.Friends.Add(friend);
         }
@@ -276,7 +292,8 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
 
     private bool ValidateMagicNumber()
     {
-        if (_saveData == null) return false;
+        if (_saveData == null)
+            return false;
         return Encoding.ASCII.GetString(_saveData, 0, RksysMagic.Length) == RksysMagic;
     }
 
@@ -340,7 +357,6 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         return ~crc;
     }
 
-
     /// <summary>
     /// Fixes the MKWii save file by recalculating and inserting the CRC32 at 0x27FFC.
     /// </summary>
@@ -366,15 +382,11 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         var user = UserList.Users[userIndex];
         var miiIsEmptyOrNoName = IsNoNameOrEmptyMii(user);
 
-
         if (miiIsEmptyOrNoName)
-            return "This license has no Mii data or is incomplete.\n" +
-                   "Please use the Mii Channel to create a Mii first.";
+            return "This license has no Mii data or is incomplete.\n" + "Please use the Mii Channel to create a Mii first.";
 
         if (user.MiiData?.Mii == null)
-            return "This license has no Mii data or is incomplete.\n" +
-                   "Please use the Mii Channel to create a Mii first.";
-
+            return "This license has no Mii data or is incomplete.\n" + "Please use the Mii Channel to create a Mii first.";
 
         newName = Regex.Replace(newName, @"\s+", " ");
 
@@ -387,7 +399,6 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         var nameResult = MiiName.Create(newName);
         if (nameResult.IsFailure)
             return nameResult.Error.Message;
-
 
         user.Mii.Name = nameResult.Value;
         var nameWrite = WriteLicenseNameToSaveData(userIndex, newName);
@@ -412,8 +423,10 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         if (name.ToString() == "no name")
             return true;
         var raw = MiiSerializer.Serialize(user.MiiData.Mii).Value;
-        if (raw.Length != 74) return true; // Not valid
-        if (raw.All(b => b == 0)) return true;
+        if (raw.Length != 74)
+            return true; // Not valid
+        if (raw.All(b => b == 0))
+            return true;
 
         // Otherwise, it’s presumably valid
         return false;
@@ -434,7 +447,8 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
 
     private OperationResult SaveRksysToFile()
     {
-        if (_saveData == null || !SettingsHelper.PathsSetupCorrectly()) return Fail("Invalid save data or config is not setup properly.");
+        if (_saveData == null || !SettingsHelper.PathsSetupCorrectly())
+            return Fail("Invalid save data or config is not setup properly.");
         FixRksysCrc(_saveData);
         var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
         var saveFolder = _fileSystem.Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
@@ -449,13 +463,12 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         return Ok();
     }
 
-
     protected override Task ExecuteTaskAsync()
     {
         var result = LoadGameData();
         if (result.IsFailure)
         {
-            throw new Exception(result.Error.Message);
+            throw new(result.Error.Message);
         }
 
         return Task.CompletedTask;

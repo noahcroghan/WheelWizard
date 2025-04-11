@@ -30,9 +30,7 @@ public class OperationResult
     /// <summary>
     /// Initializes a new instance of the <see cref="OperationResult"/> class.
     /// </summary>
-    public OperationResult()
-    {
-    }
+    public OperationResult() { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OperationResult"/> class with the specified error.
@@ -91,11 +89,7 @@ public class OperationResult
         }
         catch (Exception ex)
         {
-            return Fail<T>(new()
-            {
-                Message = errorMessage ?? ex.Message,
-                Exception = ex
-            });
+            return Fail<T>(new() { Message = errorMessage ?? ex.Message, Exception = ex });
         }
     }
 
@@ -116,11 +110,7 @@ public class OperationResult
         }
         catch (Exception ex)
         {
-            return Fail<T>(new()
-            {
-                Message = errorMessage ?? ex.Message,
-                Exception = ex
-            });
+            return Fail<T>(new() { Message = errorMessage ?? ex.Message, Exception = ex });
         }
     }
 
@@ -140,11 +130,7 @@ public class OperationResult
         }
         catch (Exception ex)
         {
-            return Fail(new()
-            {
-                Message = errorMessage ?? ex.Message,
-                Exception = ex
-            });
+            return Fail(new() { Message = errorMessage ?? ex.Message, Exception = ex });
         }
     }
 
@@ -164,11 +150,7 @@ public class OperationResult
         }
         catch (Exception ex)
         {
-            return Fail(new()
-            {
-                Message = errorMessage ?? ex.Message,
-                Exception = ex
-            });
+            return Fail(new() { Message = errorMessage ?? ex.Message, Exception = ex });
         }
     }
 

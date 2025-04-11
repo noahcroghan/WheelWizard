@@ -4,7 +4,8 @@ namespace WheelWizard.Views.Popups;
 
 public partial class MiiCarouselWindow : PopupContent
 {
-    public MiiCarouselWindow() : base(true,true,false, "Mii Carousel")
+    public MiiCarouselWindow()
+        : base(true, true, false, "Mii Carousel")
     {
         InitializeComponent();
     }
@@ -23,4 +24,3 @@ public partial class MiiCarouselWindow : PopupContent
         Carousel.MiiImageLoaded -= DisableLoadingIcon;
     }
 }
-

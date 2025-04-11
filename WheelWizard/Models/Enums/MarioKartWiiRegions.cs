@@ -10,6 +10,4 @@ public static class MarioKartWiiEnums
         Japan, //RMCJ01 aka NTSC-J
         Korea, //RMCK01 aka NTSC-K
     }
-
-
 }

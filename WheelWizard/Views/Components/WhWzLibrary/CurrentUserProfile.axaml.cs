@@ -13,10 +13,12 @@ namespace WheelWizard.Views.Components;
 
 public class CurrentUserProfile : UserControlBase, INotifyPropertyChanged
 {
-    [Inject] private IGameDataSingletonService gameDataService { get; set; } = null!;
+    [Inject]
+    private IGameDataSingletonService gameDataService { get; set; } = null!;
 
-    public static readonly StyledProperty<string> FriendCodeProperty =
-        AvaloniaProperty.Register<CurrentUserProfile, string>(nameof(FriendCode));
+    public static readonly StyledProperty<string> FriendCodeProperty = AvaloniaProperty.Register<CurrentUserProfile, string>(
+        nameof(FriendCode)
+    );
 
     public string FriendCode
     {
@@ -24,8 +26,9 @@ public class CurrentUserProfile : UserControlBase, INotifyPropertyChanged
         set => SetValue(FriendCodeProperty, value);
     }
 
-    public static readonly StyledProperty<string> UserNameProperty =
-        AvaloniaProperty.Register<CurrentUserProfile, string>(nameof(UserName));
+    public static readonly StyledProperty<string> UserNameProperty = AvaloniaProperty.Register<CurrentUserProfile, string>(
+        nameof(UserName)
+    );
 
     public string UserName
     {
@@ -33,8 +36,7 @@ public class CurrentUserProfile : UserControlBase, INotifyPropertyChanged
         set => SetValue(UserNameProperty, value);
     }
 
-    public static readonly StyledProperty<Mii?> MiiProperty =
-        AvaloniaProperty.Register<CurrentUserProfile, Mii?>(nameof(Mii));
+    public static readonly StyledProperty<Mii?> MiiProperty = AvaloniaProperty.Register<CurrentUserProfile, Mii?>(nameof(Mii));
 
     public Mii? Mii
     {
@@ -71,7 +73,7 @@ public class CurrentUserProfile : UserControlBase, INotifyPropertyChanged
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion

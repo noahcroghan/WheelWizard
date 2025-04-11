@@ -21,7 +21,7 @@
 //     // but also for the my stuff page.
 //
 //     private static string ModConfigFilePath => Path.Combine(PathManager.WheelWizardAppdataPath, "Mods", "modconfig.json");
-//     
+//
 //     public static ModData[] GetMods()
 //     {
 //         if (!File.Exists(ModConfigFilePath))

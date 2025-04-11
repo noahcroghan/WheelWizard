@@ -11,11 +11,7 @@ public static class ViewUtils
 {
     public static void OpenLink(string link)
     {
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = link,
-            UseShellExecute = true
-        });
+        Process.Start(new ProcessStartInfo { FileName = link, UseShellExecute = true });
     }
 
     public static Layout GetLayout() => Layout.Instance;
@@ -47,14 +43,18 @@ public static class ViewUtils
     public static T? FindParent<T>(object? child, int maxSearchDepth = 10)
     {
         StyledElement? currentParent = null;
-        if (child is StyledElement childElement) currentParent = childElement.Parent;
-        if (currentParent == null) return default;
+        if (child is StyledElement childElement)
+            currentParent = childElement.Parent;
+        if (currentParent == null)
+            return default;
 
         var currentDepth = 1;
         while (currentDepth < maxSearchDepth)
         {
-            if (currentParent is T parentElement) return parentElement;
-            if (currentParent?.Parent != null) currentParent = currentParent.Parent;
+            if (currentParent is T parentElement)
+                return parentElement;
+            if (currentParent?.Parent != null)
+                currentParent = currentParent.Parent;
             currentDepth++;
         }
 

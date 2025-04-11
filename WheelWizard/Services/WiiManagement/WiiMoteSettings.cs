@@ -7,23 +7,26 @@ public static class WiiMoteSettings
 {
     private const string WiimoteSection = "[Wiimote1]";
     private const string SourceParameter = "Source";
-    
+
     public static void EnableVirtualWiiMote() => ModifyWiiMoteSource(1);
+
     public static void DisableVirtualWiiMote() => ModifyWiiMoteSource(0);
+
     public static bool IsForceSettingsEnabled() => (bool)SettingsManager.FORCE_WIIMOTE.Get();
+
     private static string GetSavedWiiMoteLocation()
     {
-        var wiimoteFile = Path.Combine( PathManager.ConfigFolderPath, "WiimoteNew.ini");
+        var wiimoteFile = Path.Combine(PathManager.ConfigFolderPath, "WiimoteNew.ini");
         if (FileHelper.FileExists(wiimoteFile))
             return wiimoteFile;
-        
+
         return string.Empty;
     }
-    
+
     private static void ModifyWiiMoteSource(int sourceValue)
     {
         var configPath = GetSavedWiiMoteLocation();
-        
+
         // I rather not translate this message, makes it easier to check where a given error came from
         if (string.IsNullOrEmpty(configPath) || !File.Exists(configPath))
             throw new FileNotFoundException("WiiMote configuration file not found.");
@@ -40,11 +43,13 @@ public static class WiiMoteSettings
                 continue;
             }
 
-            if (!inWiimote1Section) continue;
+            if (!inWiimote1Section)
+                continue;
             if (lines[i].Trim().StartsWith("[")) // New section started
                 break;
 
-            if (!lines[i].Trim().StartsWith($"{SourceParameter} =")) continue;
+            if (!lines[i].Trim().StartsWith($"{SourceParameter} ="))
+                continue;
             lines[i] = $"{SourceParameter} = {sourceValue}";
             sourceModified = true;
             break;

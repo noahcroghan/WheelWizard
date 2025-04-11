@@ -23,7 +23,8 @@ public partial class ModsPage : UserControlBase, INotifyPropertyChanged
         get => _hasMods;
         set
         {
-            if (_hasMods == value) return;
+            if (_hasMods == value)
+                return;
 
             _hasMods = value;
             OnPropertyChanged(nameof(HasMods));
@@ -115,7 +116,6 @@ public partial class ModsPage : UserControlBase, INotifyPropertyChanged
         modPopup.ShowDialog();
     }
 
-
     private void ToggleButton_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
     {
         ModManager.ToggleAllMods(EnableAllCheckbox.IsChecked == true);
@@ -158,7 +158,7 @@ private enum ListOrderCondition
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion
@@ -166,7 +166,8 @@ private enum ListOrderCondition
     private void InputElement_OnLostFocus(object? sender, RoutedEventArgs e)
     {
         var mod = GetParentsMod(e);
-        if (mod == null || e.Source is not TextBox textBox) return;
+        if (mod == null || e.Source is not TextBox textBox)
+            return;
 
         if (int.TryParse(textBox.Text, out var newPriority))
             mod.Priority = newPriority;
@@ -177,14 +178,16 @@ private enum ListOrderCondition
     private Mod? GetParentsMod(RoutedEventArgs eventArgs)
     {
         var parent = ViewUtils.FindParent<ListBoxItem>(eventArgs.Source);
-        if (parent?.Content is Mod mod) return mod;
+        if (parent?.Content is Mod mod)
+            return mod;
         return null;
     }
 
     private void ButtonUp_OnClick(object? sender, RoutedEventArgs e)
     {
         var mod = GetParentsMod(e);
-        if (mod == null) return;
+        if (mod == null)
+            return;
 
         ModManager.DecreasePriority(mod);
     }
@@ -192,7 +195,8 @@ private enum ListOrderCondition
     private void ButtonDown_OnClick(object? sender, RoutedEventArgs e)
     {
         var mod = GetParentsMod(e);
-        if (mod == null) return;
+        if (mod == null)
+            return;
 
         ModManager.IncreasePriority(mod);
     }
@@ -211,17 +215,22 @@ private enum ListOrderCondition
 
         foreach (var elementToSwapClass in elementsToSwapClasses)
         {
-            if (asRows) elementToSwapClass.Classes.Remove("Blocks");
-            else elementToSwapClass.Classes.Add("Blocks");
+            if (asRows)
+                elementToSwapClass.Classes.Remove("Blocks");
+            else
+                elementToSwapClass.Classes.Add("Blocks");
 
-            if (asRows) elementToSwapClass.Classes.Add("Rows");
-            else elementToSwapClass.Classes.Remove("Rows");
+            if (asRows)
+                elementToSwapClass.Classes.Add("Rows");
+            else
+                elementToSwapClass.Classes.Remove("Rows");
         }
     }
 
     private void PriorityText_OnKeyDown(object? sender, KeyEventArgs e)
     {
-        if (e.Key != Key.Enter || sender is not TextBox) return;
+        if (e.Key != Key.Enter || sender is not TextBox)
+            return;
         ViewUtils.FindParent<ListBoxItem>(e.Source)?.Focus();
     }
 }

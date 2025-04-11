@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -27,8 +26,11 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     public const double WindowWidth = 656;
     public static Layout Instance { get; private set; } = null!;
 
-    [Inject] private IBrandingSingletonService BrandingService { get; set; } = null!;
-    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
+    [Inject]
+    private IBrandingSingletonService BrandingService { get; set; } = null!;
+
+    [Inject]
+    private IGameDataSingletonService GameDataService { get; set; } = null!;
 
     public Layout()
     {
@@ -63,7 +65,6 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         NavigationManager.NavigateTo<HomePage>();
     }
 
-
     public void OnSettingChanged(Setting setting)
     {
         // Note that this method will also be called whenever the setting changes
@@ -73,7 +74,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         CompleteGrid.RenderTransform = new ScaleTransform(scaleFactor, scaleFactor);
         var marginXCorrection = ((scaleFactor * WindowWidth) - WindowWidth) / 2f;
         var marginYCorrection = ((scaleFactor * WindowHeight) - WindowHeight) / 2f;
-        CompleteGrid.Margin = new Thickness(marginXCorrection, marginYCorrection);
+        CompleteGrid.Margin = new(marginXCorrection, marginYCorrection);
         //ExtendClientAreaToDecorationsHint = scaleFactor <= 1.2f;
     }
 
@@ -84,7 +85,8 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         // Update the IsChecked state of the SidebarRadioButtons
         foreach (var child in SidePanelButtons.Children)
         {
-            if (child is not SidebarRadioButton button) continue;
+            if (child is not SidebarRadioButton button)
+                continue;
 
             var buttonPageType = button.PageType;
             button.IsChecked = buttonPageType == page.GetType();
@@ -116,8 +118,8 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         {
             1 => Phrases.Hover_FriendsOnline_1,
             0 => Phrases.Hover_FriendsOnline_0,
-            _ => Humanizer.ReplaceDynamic(Phrases.Hover_FriendsOnline_x, friends.Count(friend => friend.IsOnline)) ??
-                 $"There are currently {friends.Count(friend => friend.IsOnline)} friends online"
+            _ => Humanizer.ReplaceDynamic(Phrases.Hover_FriendsOnline_x, friends.Count(friend => friend.IsOnline))
+                ?? $"There are currently {friends.Count(friend => friend.IsOnline)} friends online",
         };
     }
 
@@ -130,16 +132,15 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         {
             1 => Phrases.Hover_PlayersOnline_1,
             0 => Phrases.Hover_PlayersOnline_0,
-            _ => Humanizer.ReplaceDynamic(Phrases.Hover_PlayersOnline_x, playerCount) ??
-                 $"There are currently {playerCount} players online"
+            _ => Humanizer.ReplaceDynamic(Phrases.Hover_PlayersOnline_x, playerCount)
+                ?? $"There are currently {playerCount} players online",
         };
         RoomCountBox.Text = roomCount.ToString();
         RoomCountBox.TipText = roomCount switch
         {
             1 => Phrases.Hover_RoomsOnline_1,
             0 => Phrases.Hover_RoomsOnline_0,
-            _ => Humanizer.ReplaceDynamic(Phrases.Hover_RoomsOnline_x, roomCount) ??
-                 $"There are currently {roomCount} rooms active"
+            _ => Humanizer.ReplaceDynamic(Phrases.Hover_RoomsOnline_x, roomCount) ?? $"There are currently {roomCount} rooms active",
         };
         UpdateFriendCount();
     }
@@ -148,7 +149,8 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     {
         var visible = sender.Status != null && sender.Status.Variant != WhWzStatusVariant.None;
         LiveStatusBorder.IsVisible = visible;
-        if (!visible) return;
+        if (!visible)
+            return;
 
         ToolTip.SetTip(LiveStatusBorder, sender.Status!.Message);
         LiveStatusBorder.Classes.Clear();
@@ -162,9 +164,12 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     }
 
     private void CloseButton_Click(object? sender, RoutedEventArgs e) => Close();
+
     private void MinimizeButton_Click(object? sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
 
     private void Discord_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.DiscordUrl.ToString());
+
     private void Github_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.RepositoryUrl.ToString());
+
     private void Support_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.SupportUrl.ToString());
 }

@@ -12,7 +12,7 @@ public partial class RoomsPage : UserControlBase, INotifyPropertyChanged, IRepea
 {
     private string? _searchQuery;
 
-    private readonly ObservableCollection<RrRoom> _rooms = new();
+    private readonly ObservableCollection<RrRoom> _rooms = [];
 
     public ObservableCollection<RrRoom> Rooms
     {
@@ -24,7 +24,7 @@ public partial class RoomsPage : UserControlBase, INotifyPropertyChanged, IRepea
         }
     }
 
-    private readonly ObservableCollection<RrPlayer> _players = new();
+    private readonly ObservableCollection<RrPlayer> _players = [];
 
     public ObservableCollection<RrPlayer> Players
     {
@@ -48,13 +48,15 @@ public partial class RoomsPage : UserControlBase, INotifyPropertyChanged, IRepea
 
     public void OnUpdate(RepeatedTaskManager sender)
     {
-        if (sender is not RRLiveRooms liveRooms) return;
+        if (sender is not RRLiveRooms liveRooms)
+            return;
 
         Rooms.Clear();
         var count = liveRooms.RoomCount;
         EmptyRoomsView.IsVisible = count == 0;
         RoomsListViewContainer.IsVisible = count != 0;
-        if (count == 0) return;
+        if (count == 0)
+            return;
 
         foreach (var room in liveRooms.CurrentRooms)
             Rooms.Add(room);
@@ -70,13 +72,15 @@ public partial class RoomsPage : UserControlBase, INotifyPropertyChanged, IRepea
         RoomsListViewContainer.IsVisible = isStringEmpty;
         PlayerListViewContainer.IsVisible = !isStringEmpty;
 
-        if (isStringEmpty) return;
+        if (isStringEmpty)
+            return;
 
         Players.Clear();
         var matchingPlayers = Rooms
             .SelectMany(r => r.Players.Values)
-            .Where(p => p.Name.Contains(query, StringComparison.OrdinalIgnoreCase) ||
-                        p.Fc.Contains(query, StringComparison.OrdinalIgnoreCase))
+            .Where(p =>
+                p.Name.Contains(query, StringComparison.OrdinalIgnoreCase) || p.Fc.Contains(query, StringComparison.OrdinalIgnoreCase)
+            )
             .Distinct()
             .ToList();
 
@@ -94,15 +98,18 @@ public partial class RoomsPage : UserControlBase, INotifyPropertyChanged, IRepea
 
     private void PlayerSearchField_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
-        if (e.Source is not TextBox textBox) return;
+        if (e.Source is not TextBox textBox)
+            return;
         _searchQuery = textBox.Text;
         PerformSearch(textBox.Text);
     }
 
     private void RoomsView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (e.Source is not ListBox listBox) return;
-        if (listBox.SelectedItem is not RrRoom selectedRoom) return;
+        if (e.Source is not ListBox listBox)
+            return;
+        if (listBox.SelectedItem is not RrRoom selectedRoom)
+            return;
 
         NavigationManager.NavigateTo<RoomDetailsPage>(selectedRoom);
         listBox.SelectedItem = null;
@@ -113,8 +120,10 @@ public partial class RoomsPage : UserControlBase, INotifyPropertyChanged, IRepea
 
     private void PlayerView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (e.Source is not ListBox listBox) return;
-        if (listBox.SelectedItem is not RrPlayer selectedRoom) return;
+        if (e.Source is not ListBox listBox)
+            return;
+        if (listBox.SelectedItem is not RrPlayer selectedRoom)
+            return;
 
         var room = Rooms.FirstOrDefault(r => r.Players.ContainsValue(selectedRoom));
 
@@ -131,7 +140,7 @@ public partial class RoomsPage : UserControlBase, INotifyPropertyChanged, IRepea
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion

@@ -21,7 +21,8 @@ public static class MiiImageManager
         ParsedMiiData[rawData] = parsedData;
 
         ParsedMiiDataCount = ParsedMiiData.Count;
-        if (ParsedMiiData.Count <= MaxCachedParsedMiiData) return;
+        if (ParsedMiiData.Count <= MaxCachedParsedMiiData)
+            return;
         var oldestMiiData = ParsedMiiDataOrder.Dequeue();
         ParsedMiiData.Remove(oldestMiiData);
         ParsedMiiDataCount = MaxCachedImages;
@@ -85,7 +86,8 @@ public static class MiiImageManager
     private static readonly Queue<string> ImageOrder = new();
     public static int ImageCount { get; private set; } = 0;
 
-    public static (Bitmap, bool)? GetCachedMiiImage(MiiImage miiConfig) => Images.TryGetValue(miiConfig.CachingKey, out var image) ? image : null;
+    public static (Bitmap, bool)? GetCachedMiiImage(MiiImage miiConfig) =>
+        Images.TryGetValue(miiConfig.CachingKey, out var image) ? image : null;
 
     private static void AddMiiImage(MiiImage miiConfig, (Bitmap, bool) image)
     {
@@ -94,7 +96,8 @@ public static class MiiImageManager
         Images[miiConfig.CachingKey] = image;
 
         ImageCount = Images.Count;
-        if (Images.Count <= MaxCachedImages) return;
+        if (Images.Count <= MaxCachedImages)
+            return;
         var oldestMiiData = ImageOrder.Dequeue();
         Images.Remove(oldestMiiData);
         ImageCount = MaxCachedImages;
@@ -120,7 +123,8 @@ public static class MiiImageManager
         var newImage = await RequestMiiImageAsync(miiImage);
         AddMiiImage(miiImage, newImage);
 
-        if (miiImage.Image == newImage.Item1) return;
+        if (miiImage.Image == newImage.Item1)
+            return;
         miiImage.SetImage(newImage.Item1, newImage.Item2);
     }
 
@@ -128,7 +132,8 @@ public static class MiiImageManager
     private static async Task<(Bitmap, bool)> RequestMiiImageAsync(MiiImage miiConfig)
     {
         var parsedMiiData = await LoadParsedMiiDataAsync(miiConfig.Data);
-        if (string.IsNullOrEmpty(parsedMiiData)) return (CreateEmptyBitmap(), false);
+        if (string.IsNullOrEmpty(parsedMiiData))
+            return (CreateEmptyBitmap(), false);
 
         var miiImageUrl = MiiImageVariants.Get(miiConfig.Variant)(parsedMiiData);
         using var httpClient = new HttpClient();

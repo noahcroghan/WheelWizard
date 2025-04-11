@@ -17,25 +17,25 @@ public class Badge : TemplatedControl
         { BadgeVariant.SilverWinner, "This is an award winning player" },
         { BadgeVariant.BronzeWinner, "This is an award winning player" },
     };
-    
-    public static readonly StyledProperty<string> HoverTipProperty =
-        AvaloniaProperty.Register<Badge, string>(nameof(HoverTip), BadgeToolTip[BadgeVariant.None]);
+
+    public static readonly StyledProperty<string> HoverTipProperty = AvaloniaProperty.Register<Badge, string>(
+        nameof(HoverTip),
+        BadgeToolTip[BadgeVariant.None]
+    );
     public string HoverTip
     {
         get => GetValue(HoverTipProperty);
         set => SetValue(HoverTipProperty, value);
     }
 
-    
-    public static readonly StyledProperty<BadgeVariant> VariantProperty =
-        AvaloniaProperty.Register<Badge, BadgeVariant>(nameof(Variant));
+    public static readonly StyledProperty<BadgeVariant> VariantProperty = AvaloniaProperty.Register<Badge, BadgeVariant>(nameof(Variant));
 
     public BadgeVariant Variant
     {
         get => GetValue(VariantProperty);
         set => SetValue(VariantProperty, value);
     }
-    
+
     private void UpdateStyleClasses(BadgeVariant variant)
     {
         var types = Enum.GetValues<BadgeVariant>();
@@ -46,7 +46,7 @@ public class Badge : TemplatedControl
         Classes.Add(variant.ToString());
         HoverTip = BadgeToolTip[variant];
     }
-    
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
@@ -55,4 +55,3 @@ public class Badge : TemplatedControl
             UpdateStyleClasses(change.GetNewValue<BadgeVariant>());
     }
 }
-

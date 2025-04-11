@@ -95,7 +95,8 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
 
     public byte[]? GetRawBlockByClientId(uint clientId)
     {
-        if (clientId == 0) return null;
+        if (clientId == 0)
+            return null;
 
         var blocks = LoadAllBlocks();
         foreach (var block in blocks)
@@ -148,13 +149,11 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     {
         try
         {
-            return fileSystem.File.Exists(_filePath)
-                ? fileSystem.File.ReadAllBytes(_filePath)
-                : Array.Empty<byte>();
+            return fileSystem.File.Exists(_filePath) ? fileSystem.File.ReadAllBytes(_filePath) : [];
         }
         catch
         {
-            return Array.Empty<byte>();
+            return [];
         }
     }
 

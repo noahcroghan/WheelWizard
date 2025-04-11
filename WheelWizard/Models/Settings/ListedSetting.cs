@@ -2,11 +2,11 @@ namespace WheelWizard.Models.Settings;
 
 public class ListedSetting<T>
 {
-    public readonly Dictionary<string, T> Mapping = new Dictionary<string, T>();
-    public readonly List<string> AllKeys = new List<string>();
-    public readonly List<T> AllValues = new List<T>();
+    public readonly Dictionary<string, T> Mapping = new();
+    public readonly List<string> AllKeys = [];
+    public readonly List<T> AllValues = [];
     public T DefaultValue { get; set; }
-    
+
     public ListedSetting(string defaultKey, params (string, T)[] values)
     {
         foreach (var (key, value) in values)
@@ -17,6 +17,6 @@ public class ListedSetting<T>
         AllValues.AddRange(Mapping.Values);
         DefaultValue = Mapping[defaultKey];
     }
-    
+
     public T Get(string key) => Mapping[key];
 }

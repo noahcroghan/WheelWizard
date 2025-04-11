@@ -1,4 +1,5 @@
-﻿using WheelWizard.Helpers;
+﻿using Avalonia.Threading;
+using WheelWizard.Helpers;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Views.Popups.Generic;
 
@@ -8,8 +9,8 @@ public static class ModsLaunchHelper
 {
     public static readonly string MyStuffFolderPath = PathManager.MyStuffFolderPath;
     public static readonly string ModsFolderPath = PathManager.ModsFolderPath;
-    public static readonly string[] AcceptedModExtensions = { "*.szs", "*.arc", "*.brstm", "*.brsar", "*.thp" };
-    
+    public static readonly string[] AcceptedModExtensions = ["*.szs", "*.arc", "*.brstm", "*.brsar", "*.thp"];
+
     public static async Task PrepareModsForLaunch()
     {
         var mods = ModManager.Instance.Mods.Where(mod => mod.IsEnabled).ToArray();
@@ -18,23 +19,24 @@ public static class ModsLaunchHelper
             if (Directory.Exists(MyStuffFolderPath) && Directory.EnumerateFiles(MyStuffFolderPath).Any())
             {
                 var modsFoundQuestion = new YesNoWindow()
-                                        .SetButtonText(Common.Action_Delete, Common.Action_Keep)
-                                        .SetMainText(Phrases.PopupText_ModsFound)
-                                        .SetExtraText(Phrases.PopupText_ModsFoundQuestion);
+                    .SetButtonText(Common.Action_Delete, Common.Action_Keep)
+                    .SetMainText(Phrases.PopupText_ModsFound)
+                    .SetExtraText(Phrases.PopupText_ModsFoundQuestion);
                 if (await modsFoundQuestion.AwaitAnswer())
                     Directory.Delete(MyStuffFolderPath, true);
-                
+
                 return;
             }
         }
         var reversedMods = ModManager.Instance.Mods.Reverse().ToArray();
-        
+
         // Build the final file list
         var finalFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase); // relative path -> source file path
-    
+
         foreach (var mod in reversedMods)
         {
-            if (!mod.IsEnabled) continue;
+            if (!mod.IsEnabled)
+                continue;
             var modFolder = Path.Combine(ModsFolderPath, mod.Title);
             foreach (var extension in AcceptedModExtensions)
             {
@@ -47,7 +49,7 @@ public static class ModsLaunchHelper
                 }
             }
         }
-    
+
         // Get existing files in MyStuff
         var existingFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         if (Directory.Exists(MyStuffFolderPath))
@@ -63,12 +65,13 @@ public static class ModsLaunchHelper
         {
             Directory.CreateDirectory(MyStuffFolderPath);
         }
-    
+
         var totalFiles = finalFiles.Count;
-        var progressWindow = new ProgressWindow(Phrases.PopupText_InstallingMods)
-            .SetGoal(Humanizer.ReplaceDynamic(Phrases.PopupText_InstallingModsCount, totalFiles)!);
+        var progressWindow = new ProgressWindow(Phrases.PopupText_InstallingMods).SetGoal(
+            Humanizer.ReplaceDynamic(Phrases.PopupText_InstallingModsCount, totalFiles)!
+        );
         progressWindow.Show();
-    
+
         await Task.Run(() =>
         {
             var processedFiles = 0;
@@ -85,27 +88,27 @@ public static class ModsLaunchHelper
                     }
                 }
             }
-    
+
             foreach (var kvp in finalFiles)
             {
                 var relativePath = kvp.Key;
                 var sourceFile = kvp.Value;
                 var destinationFile = Path.Combine(MyStuffFolderPath, relativePath);
-    
+
                 processedFiles++;
                 var progress = (int)((processedFiles) / (double)totalFiles * 100);
-                Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                Dispatcher.UIThread.Post(() =>
                 {
                     progressWindow.UpdateProgress(progress);
                     progressWindow.SetExtraText($"{Common.State_Installing} {relativePath}");
                 });
-    
+
                 // Check if the destination file exists and is identical
                 if (File.Exists(destinationFile))
                 {
                     var sourceInfo = new FileInfo(sourceFile);
                     var destInfo = new FileInfo(destinationFile);
-    
+
                     if (sourceInfo.Length == destInfo.Length && sourceInfo.LastWriteTimeUtc == destInfo.LastWriteTimeUtc)
                     {
                         // Files are identical, skip copying
@@ -124,7 +127,7 @@ public static class ModsLaunchHelper
                 }
             }
         });
-    
+
         progressWindow.Close();
     }
 }

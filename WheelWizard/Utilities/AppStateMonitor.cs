@@ -5,16 +5,17 @@ namespace WheelWizard.Utilities;
 public class AppStateMonitor : RepeatedTaskManager
 {
     //public static int RandomNumber = 1;
-    private AppStateMonitor() : base(0.2) { }
-    
+    private AppStateMonitor()
+        : base(0.2) { }
+
     private static AppStateMonitor? _instance;
-    public static AppStateMonitor Instance => _instance ??= new AppStateMonitor();
-    
+    public static AppStateMonitor Instance => _instance ??= new();
+
     protected override Task ExecuteTaskAsync()
     {
         // If you want to calculate something each time you can do that here, for example:
         // But if not, this method is also already useful to just notify the subscribers every x seconds
-        
+
         // RandomNumber++;
         return Task.CompletedTask;
     }
@@ -26,7 +27,7 @@ public class AppStateMonitor : RepeatedTaskManager
             Stop();
         return unSubbed;
     }
-    
+
     public override void Subscribe(IRepeatedTaskListener subscriber)
     {
         if (SubscriberCount == 0)
