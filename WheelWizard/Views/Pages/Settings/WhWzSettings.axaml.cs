@@ -1,9 +1,9 @@
+using System.Runtime.InteropServices;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
-using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
@@ -44,7 +44,7 @@ public partial class WhWzSettings : UserControl
 
         var selectedItemText = ScaleToString((double)SettingsManager.WINDOW_SCALE.Get());
         if (!WindowScaleDropdown.Items.Contains(selectedItemText))
-              WindowScaleDropdown.Items.Add(selectedItemText);
+            WindowScaleDropdown.Items.Add(selectedItemText);
         WindowScaleDropdown.SelectedItem = selectedItemText;
 
 
@@ -104,12 +104,12 @@ public partial class WhWzSettings : UserControl
                 return;
             }
 
-            if (!IsFlatpakDolphinInstalled())
+            if (!EnvHelper.IsFlatpakSandboxed() && !IsFlatpakDolphinInstalled())
             {
                 var wantsAutomaticInstall = await new YesNoWindow()
                     .SetMainText("Dolphin Flatpak Installation")
                     .SetExtraText(
-                        "The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it?")
+                        "The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?")
                     .SetButtonText("Install", "Manual").AwaitAnswer();
                 if (wantsAutomaticInstall)
                 {
