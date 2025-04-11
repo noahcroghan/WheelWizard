@@ -6,17 +6,18 @@ namespace WheelWizard.Views.Components;
 
 public class IconLabelButton : IconLabel
 {
-    public static readonly StyledProperty<IBrush> HoverForegroundProperty =
-        AvaloniaProperty.Register<IconLabelButton, IBrush>(nameof(HoverForeground));
+    public static readonly StyledProperty<IBrush> HoverForegroundProperty = AvaloniaProperty.Register<IconLabelButton, IBrush>(
+        nameof(HoverForeground)
+    );
 
     public IBrush HoverForeground
     {
         get => GetValue(HoverForegroundProperty);
         set => SetValue(HoverForegroundProperty, value);
     }
-    
+
     public event EventHandler? Click;
-    
+
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
@@ -24,4 +25,3 @@ public class IconLabelButton : IconLabel
             Click?.Invoke(this, EventArgs.Empty);
     }
 }
-

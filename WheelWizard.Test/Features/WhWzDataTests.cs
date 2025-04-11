@@ -14,22 +14,16 @@ public class WhWzDataTests
     public WhWzDataTests()
     {
         _apiCaller = Substitute.For<IApiCaller<IWhWzDataApi>>();
-        _service = new WhWzDataSingletonService(_apiCaller);
+        _service = new(_apiCaller);
     }
 
     [Fact]
     public async Task GetStatusAsync_ReturnsStatus_WhenApiCallSucceeds()
     {
         // Arrange
-        var expectedStatus = new WhWzStatus
-        {
-            Variant = WhWzStatusVariant.Info,
-            Message = "Test status message"
-        };
+        var expectedStatus = new WhWzStatus { Variant = WhWzStatusVariant.Info, Message = "Test status message" };
 
-        _apiCaller
-            .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<WhWzStatus>>>>())
-            .Returns(Ok(expectedStatus));
+        _apiCaller.CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<WhWzStatus>>>>()).Returns(Ok(expectedStatus));
 
         // Act
         var result = await _service.GetStatusAsync();
@@ -47,9 +41,7 @@ public class WhWzDataTests
         // Arrange
         var expectedError = new OperationError { Message = "API call failed" };
 
-        _apiCaller
-            .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<WhWzStatus>>>>())
-            .Returns(Fail<WhWzStatus>(expectedError));
+        _apiCaller.CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<WhWzStatus>>>>()).Returns(Fail<WhWzStatus>(expectedError));
 
         // Act
         var result = await _service.GetStatusAsync();
@@ -67,12 +59,10 @@ public class WhWzDataTests
         {
             { "FC1", [BadgeVariant.WhWzDev, BadgeVariant.Translator] },
             { "FC2", [BadgeVariant.RrDev] },
-            { "FC3", [BadgeVariant.None, BadgeVariant.GoldWinner] }
+            { "FC3", [BadgeVariant.None, BadgeVariant.GoldWinner] },
         };
 
-        _apiCaller
-            .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(Ok(badgeData));
+        _apiCaller.CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>()).Returns(Ok(badgeData));
 
         // Act
         var result = await _service.LoadBadgesAsync();
@@ -103,14 +93,9 @@ public class WhWzDataTests
     public async Task GetBadges_ReturnsEmptyArray_WhenFriendCodeNotFound()
     {
         // Arrange
-        var badgeData = new Dictionary<string, BadgeVariant[]>
-        {
-            { "FC1", [BadgeVariant.WhWzDev, BadgeVariant.Translator] }
-        };
+        var badgeData = new Dictionary<string, BadgeVariant[]> { { "FC1", [BadgeVariant.WhWzDev, BadgeVariant.Translator] } };
 
-        _apiCaller
-            .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(Ok(badgeData));
+        _apiCaller.CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>()).Returns(Ok(badgeData));
 
         await _service.LoadBadgesAsync();
 
@@ -125,14 +110,9 @@ public class WhWzDataTests
     public async Task GetBadges_ReturnsBadges_WhenFriendCodeExists()
     {
         // Arrange
-        var badgeData = new Dictionary<string, BadgeVariant[]>
-        {
-            { "FC1", [BadgeVariant.WhWzDev, BadgeVariant.Translator] }
-        };
+        var badgeData = new Dictionary<string, BadgeVariant[]> { { "FC1", [BadgeVariant.WhWzDev, BadgeVariant.Translator] } };
 
-        _apiCaller
-            .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(Ok(badgeData));
+        _apiCaller.CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>()).Returns(Ok(badgeData));
 
         await _service.LoadBadgesAsync();
 
@@ -149,14 +129,9 @@ public class WhWzDataTests
     public async Task GetBadges_FiltersOutNoneBadges_WhenLoadingBadges()
     {
         // Arrange
-        var badgeData = new Dictionary<string, BadgeVariant[]>
-        {
-            { "FC1", [BadgeVariant.None, BadgeVariant.WhWzDev, BadgeVariant.None] }
-        };
+        var badgeData = new Dictionary<string, BadgeVariant[]> { { "FC1", [BadgeVariant.None, BadgeVariant.WhWzDev, BadgeVariant.None] } };
 
-        _apiCaller
-            .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(Ok(badgeData));
+        _apiCaller.CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>()).Returns(Ok(badgeData));
 
         await _service.LoadBadgesAsync();
 
@@ -173,27 +148,21 @@ public class WhWzDataTests
     public async Task LoadBadgesAsync_OverwritesExistingBadges_WhenCalledMultipleTimes()
     {
         // Arrange - First load
-        var initialBadgeData = new Dictionary<string, BadgeVariant[]>
-        {
-            { "FC1", [BadgeVariant.WhWzDev] }
-        };
+        var initialBadgeData = new Dictionary<string, BadgeVariant[]> { { "FC1", [BadgeVariant.WhWzDev] } };
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
             .Returns(Ok(initialBadgeData));
 
         await _service.LoadBadgesAsync();
-        
+
         // Verify initial state
         var initialBadges = _service.GetBadges("FC1");
         Assert.Single(initialBadges);
         Assert.Contains(BadgeVariant.WhWzDev, initialBadges);
 
         // Arrange - Second load with different data
-        var updatedBadgeData = new Dictionary<string, BadgeVariant[]>
-        {
-            { "FC1", [BadgeVariant.Translator, BadgeVariant.GoldWinner] }
-        };
+        var updatedBadgeData = new Dictionary<string, BadgeVariant[]> { { "FC1", [BadgeVariant.Translator, BadgeVariant.GoldWinner] } };
 
         _apiCaller
             .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())

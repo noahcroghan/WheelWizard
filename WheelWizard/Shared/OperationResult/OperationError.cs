@@ -19,11 +19,7 @@ public class OperationError
 
     public static implicit operator OperationError(string errorMessage) => new() { Message = errorMessage };
 
-    public static implicit operator OperationError(Exception exception) => new()
-    {
-        Message = exception.Message,
-        Exception = exception
-    };
+    public static implicit operator OperationError(Exception exception) => new() { Message = exception.Message, Exception = exception };
 
     #endregion
 }

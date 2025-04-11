@@ -9,8 +9,8 @@ public abstract class Setting
         Value = defaultValue;
         ValueType = type;
     }
-    
-    protected readonly List<ISettingListener> DependentVirtualSettings = new();
+
+    protected readonly List<ISettingListener> DependentVirtualSettings = [];
     public string Name { get; protected set; }
     public object DefaultValue { get; protected set; }
     protected object Value { get; set; }
@@ -22,19 +22,21 @@ public abstract class Setting
     {
         if (newValue.GetType() != ValueType)
             return false;
-        
-        if (Value?.Equals(newValue) == true) 
+
+        if (Value?.Equals(newValue) == true)
             return true;
-        
+
         var succeeded = SetInternal(newValue, skipSave);
         if (succeeded)
             SignalChange();
-        
+
         return succeeded;
     }
+
     protected abstract bool SetInternal(object newValue, bool skipSave = false);
-    
+
     public abstract object Get();
+
     public void Reset()
     {
         var s = SaveEvenIfNotValid;
@@ -44,9 +46,9 @@ public abstract class Setting
     }
 
     public abstract bool IsValid();
-    
+
     public Setting SetValidation(Func<object?, bool> validationFunc)
-    { 
+    {
         ValidationFunc = validationFunc;
         return this;
     }
@@ -56,14 +58,15 @@ public abstract class Setting
         SaveEvenIfNotValid = saveEvenIfNotValid;
         return this;
     }
-    
+
     public bool Unsubscribe(ISettingListener dependent) => DependentVirtualSettings.Remove(dependent);
+
     public void Subscribe(ISettingListener dependent)
     {
         if (!DependentVirtualSettings.Contains(dependent))
             DependentVirtualSettings.Add(dependent);
     }
-    
+
     protected void SignalChange()
     {
         foreach (var dependent in DependentVirtualSettings)

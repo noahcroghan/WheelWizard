@@ -9,14 +9,16 @@ public class MiiGlasses
 
     public MiiGlasses(GlassesType type, GlassesColor color, int size, int vertical)
     {
-        if (size is < 0 or > 7) throw new ArgumentException("Glasses size invalid");
-        if (vertical is < 0 or > 20) throw new ArgumentException("Glasses vertical position invalid");
+        if (size is < 0 or > 7)
+            throw new ArgumentException("Glasses size invalid");
+        if (vertical is < 0 or > 20)
+            throw new ArgumentException("Glasses vertical position invalid");
         Type = type;
         Color = color;
         Size = size;
         Vertical = vertical;
     }
 
-    public static OperationResult<MiiGlasses> Create(GlassesType type, GlassesColor color, int size, int vertical)
-        => TryCatch(() => new MiiGlasses(type, color, size, vertical));
+    public static OperationResult<MiiGlasses> Create(GlassesType type, GlassesColor color, int size, int vertical) =>
+        TryCatch(() => new MiiGlasses(type, color, size, vertical));
 }

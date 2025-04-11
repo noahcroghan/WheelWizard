@@ -16,7 +16,7 @@ namespace WheelWizard.Views.Popups.ModManagement;
 public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
 {
     // Collection to hold the mods
-    private ObservableCollection<GameBananaModDetails> Mods { get; } = new ObservableCollection<GameBananaModDetails>();
+    private ObservableCollection<GameBananaModDetails> Mods { get; } = [];
 
     // Pagination variables
     private int _currentPage = 1;
@@ -29,10 +29,10 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
 
     private CancellationTokenSource? _loadCancellationToken;
 
-
     private string _currentSearchTerm = "";
 
-    public ModBrowserWindow() : base(true, false, false, "Mod Browser")
+    public ModBrowserWindow()
+        : base(true, false, false, "Mod Browser")
     {
         InitializeComponent();
         DataContext = this;
@@ -45,7 +45,8 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     /// </summary>
     private void ModPopupWindow_Loaded(object? sender, RoutedEventArgs e)
     {
-        if (!_isInitialLoad) return;
+        if (!_isInitialLoad)
+            return;
         LoadMods(_currentPage).ConfigureAwait(false);
         _isInitialLoad = false;
 
@@ -58,8 +59,10 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     /// </summary>
     private async Task LoadMods(int page, string searchTerm = "")
     {
-        if (_isLoading) return;
-        if (!_hasMoreMods) return;
+        if (_isLoading)
+            return;
+        if (!_hasMoreMods)
+            return;
         _isLoading = true;
         try
         {
@@ -69,9 +72,7 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
             if (result is { Succeeded: true, Content: not null })
             {
                 var metadata = result.Content._aMetadata;
-                var newMods = result.Content._aRecords
-                    .Where(mod => mod._sModelName == "Mod")
-                    .ToList();
+                var newMods = result.Content._aRecords.Where(mod => mod._sModelName == "Mod").ToList();
                 if (newMods.Count > 0)
                 {
                     foreach (var mod in newMods)
@@ -119,12 +120,15 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     /// </summary>
     private async void ModListView_ScrollChanged(object? sender, ScrollChangedEventArgs e)
     {
-        if (_isLoading) return;
-        if (!_hasMoreMods) return;
+        if (_isLoading)
+            return;
+        if (!_hasMoreMods)
+            return;
 
         // Get the ScrollViewer from the ListBox's template
         var scrollViewer = VisualExtensions.FindDescendantOfType<ScrollViewer>(ModListView);
-        if (scrollViewer == null) return;
+        if (scrollViewer == null)
+            return;
 
         // Check if we're near the bottom of the scrollable content
         var verticalOffset = scrollViewer.Offset.Y;
@@ -158,7 +162,7 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     private async void ModListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         _loadCancellationToken?.Cancel(); //this cancels the previous load task if it's still running
-        _loadCancellationToken = new CancellationTokenSource();
+        _loadCancellationToken = new();
 
         var modId = -1;
         if (ModListView.SelectedItem is GameBananaModDetails selectedMod)
@@ -181,7 +185,7 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     /// </summary>
     protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     protected override void BeforeClose()
@@ -193,7 +197,8 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
 
     private void SearchTextBox_OnKeyDown(object? sender, KeyEventArgs e)
     {
-        if (e.Key != Key.Enter || sender is not TextBox) return;
+        if (e.Key != Key.Enter || sender is not TextBox)
+            return;
         Search_Click(sender, e);
     }
 }

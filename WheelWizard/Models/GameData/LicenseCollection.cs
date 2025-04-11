@@ -6,6 +6,6 @@ public class LicenseCollection
 
     public LicenseCollection()
     {
-        Users = new List<LicenseProfile>(4);
+        Users = new(4);
     }
 }

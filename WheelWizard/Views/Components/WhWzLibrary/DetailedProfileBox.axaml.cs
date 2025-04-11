@@ -1,9 +1,9 @@
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
-using System.ComponentModel;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Components.MiiImages;
@@ -13,8 +13,7 @@ namespace WheelWizard.Views.Components;
 
 public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
 {
-    public static readonly StyledProperty<Mii?> MiiProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, Mii?>(nameof(Mii));
+    public static readonly StyledProperty<Mii?> MiiProperty = AvaloniaProperty.Register<DetailedProfileBox, Mii?>(nameof(Mii));
 
     public Mii? Mii
     {
@@ -26,8 +25,9 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         }
     }
 
-    public static readonly StyledProperty<Bitmap?> MiiImageProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, Bitmap?>(nameof(MiiImage));
+    public static readonly StyledProperty<Bitmap?> MiiImageProperty = AvaloniaProperty.Register<DetailedProfileBox, Bitmap?>(
+        nameof(MiiImage)
+    );
 
     public Bitmap? MiiImage
     {
@@ -35,8 +35,7 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(MiiImageProperty, value);
     }
 
-    public static readonly StyledProperty<bool> IsOnlineProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, bool>(nameof(IsOnline));
+    public static readonly StyledProperty<bool> IsOnlineProperty = AvaloniaProperty.Register<DetailedProfileBox, bool>(nameof(IsOnline));
 
     public bool IsOnline
     {
@@ -44,8 +43,9 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(IsOnlineProperty, value);
     }
 
-    public static readonly StyledProperty<string> TotalWonProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, string>(nameof(TotalWon));
+    public static readonly StyledProperty<string> TotalWonProperty = AvaloniaProperty.Register<DetailedProfileBox, string>(
+        nameof(TotalWon)
+    );
 
     public string TotalWon
     {
@@ -53,8 +53,9 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(TotalWonProperty, value);
     }
 
-    public static readonly StyledProperty<string> TotalRacesProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, string>(nameof(TotalRaces));
+    public static readonly StyledProperty<string> TotalRacesProperty = AvaloniaProperty.Register<DetailedProfileBox, string>(
+        nameof(TotalRaces)
+    );
 
     public string TotalRaces
     {
@@ -62,8 +63,7 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(TotalRacesProperty, value);
     }
 
-    public static readonly StyledProperty<string> VrProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, string>(nameof(Vr));
+    public static readonly StyledProperty<string> VrProperty = AvaloniaProperty.Register<DetailedProfileBox, string>(nameof(Vr));
 
     public string Vr
     {
@@ -71,8 +71,7 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(VrProperty, value);
     }
 
-    public static readonly StyledProperty<string> BrProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, string>(nameof(Br));
+    public static readonly StyledProperty<string> BrProperty = AvaloniaProperty.Register<DetailedProfileBox, string>(nameof(Br));
 
     public string Br
     {
@@ -80,8 +79,9 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(BrProperty, value);
     }
 
-    public static readonly StyledProperty<string> FriendCodeProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, string>(nameof(FriendCode));
+    public static readonly StyledProperty<string> FriendCodeProperty = AvaloniaProperty.Register<DetailedProfileBox, string>(
+        nameof(FriendCode)
+    );
 
     public string FriendCode
     {
@@ -89,8 +89,9 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(FriendCodeProperty, value);
     }
 
-    public static readonly StyledProperty<string> UserNameProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, string>(nameof(UserName));
+    public static readonly StyledProperty<string> UserNameProperty = AvaloniaProperty.Register<DetailedProfileBox, string>(
+        nameof(UserName)
+    );
 
     public string UserName
     {
@@ -98,8 +99,7 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(UserNameProperty, value);
     }
 
-    public static readonly StyledProperty<bool> IsCheckedProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, bool>(nameof(IsChecked));
+    public static readonly StyledProperty<bool> IsCheckedProperty = AvaloniaProperty.Register<DetailedProfileBox, bool>(nameof(IsChecked));
 
     public bool IsChecked
     {
@@ -107,8 +107,10 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(IsCheckedProperty, value);
     }
 
-    public static readonly StyledProperty<EventHandler<RoutedEventArgs>?> OnCheckedProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, EventHandler<RoutedEventArgs>?>(nameof(OnChecked));
+    public static readonly StyledProperty<EventHandler<RoutedEventArgs>?> OnCheckedProperty = AvaloniaProperty.Register<
+        DetailedProfileBox,
+        EventHandler<RoutedEventArgs>?
+    >(nameof(OnChecked));
 
     public EventHandler<RoutedEventArgs>? OnChecked
     {
@@ -116,8 +118,9 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(OnCheckedProperty, value);
     }
 
-    public static readonly StyledProperty<EventHandler?> OnRenameProperty =
-        AvaloniaProperty.Register<DetailedProfileBox, EventHandler?>(nameof(OnRename));
+    public static readonly StyledProperty<EventHandler?> OnRenameProperty = AvaloniaProperty.Register<DetailedProfileBox, EventHandler?>(
+        nameof(OnRename)
+    );
 
     public EventHandler? OnRename
     {
@@ -125,8 +128,10 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(OnRenameProperty, value);
     }
 
-    public static readonly StyledProperty<Action<string>?> ViewRoomActionProperty =
-        AvaloniaProperty.Register<FriendsListItem, Action<string>?>(nameof(ViewRoomAction));
+    public static readonly StyledProperty<Action<string>?> ViewRoomActionProperty = AvaloniaProperty.Register<
+        FriendsListItem,
+        Action<string>?
+    >(nameof(ViewRoomAction));
 
     public Action<string>? ViewRoomAction
     {
@@ -185,6 +190,6 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 }

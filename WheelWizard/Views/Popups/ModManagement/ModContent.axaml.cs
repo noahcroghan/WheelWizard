@@ -57,7 +57,8 @@ public partial class ModContent : UserControl
     public async Task<bool> LoadModDetailsAsync(int ModId, string? newDownloadUrl = null, CancellationToken cancellationToken = default)
     {
         // Check if cancellation has been requested before starting
-        if (cancellationToken.IsCancellationRequested) return false;
+        if (cancellationToken.IsCancellationRequested)
+            return false;
         // Set the UI to show loading state
         loadingVisual = true;
         loading = true;
@@ -67,7 +68,8 @@ public partial class ModContent : UserControl
         // If GamebananaSearchHandler.GetModDetailsAsync supports cancellation,
         // consider passing the token as a parameter.
         var modDetailsResult = await GamebananaSearchHandler.GetModDetailsAsync(ModId);
-        if (cancellationToken.IsCancellationRequested) return false;
+        if (cancellationToken.IsCancellationRequested)
+            return false;
 
         if (!modDetailsResult.Succeeded || modDetailsResult.Content == null)
         {
@@ -111,7 +113,8 @@ public partial class ModContent : UserControl
         // Load images sequentially
         foreach (var image in CurrentMod._aPreviewMedia._aImages)
         {
-            if (cancellationToken.IsCancellationRequested) return false;
+            if (cancellationToken.IsCancellationRequested)
+                return false;
 
             var fullImageUrl = $"{image._sBaseUrl}/{image._sFile}";
 
@@ -149,7 +152,6 @@ public partial class ModContent : UserControl
         return true;
     }
 
-
     private void UpdateDownloadButtonState(int modId)
     {
         var isInstalled = ModManager.Instance.IsModInstalled(modId);
@@ -176,14 +178,16 @@ public partial class ModContent : UserControl
         var confirmation = await new YesNoWindow()
             .SetMainText($"Do you want to download and install the mod: {CurrentMod._sName}?")
             .AwaitAnswer();
-        if (!confirmation) return;
+        if (!confirmation)
+            return;
 
         try
         {
             await PrepareToDownloadFile();
-            var downloadUrls = CurrentMod.OverrideDownloadUrl != null
-                ? new List<string> { CurrentMod.OverrideDownloadUrl }
-                : CurrentMod._aFiles.Select(f => f._sDownloadUrl).ToList();
+            var downloadUrls =
+                CurrentMod.OverrideDownloadUrl != null
+                    ? [CurrentMod.OverrideDownloadUrl]
+                    : CurrentMod._aFiles.Select(f => f._sDownloadUrl).ToList();
             if (!downloadUrls.Any())
             {
                 new MessageBoxWindow()
@@ -227,7 +231,7 @@ public partial class ModContent : UserControl
             var modName = await popup.ShowDialog();
             if (modName == null)
                 return;
-            
+
             if (string.IsNullOrEmpty(modName))
             {
                 new MessageBoxWindow()

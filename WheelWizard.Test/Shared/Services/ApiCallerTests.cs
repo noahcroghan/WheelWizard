@@ -17,8 +17,7 @@ public class ApiCallerTests
         var exception = new Exception("Test exception");
 
         var api = Substitute.For<ITestApi>();
-        api.TestEndpoint(Arg.Any<string>())
-            .Returns(Task.FromException<string>(exception));
+        api.TestEndpoint(Arg.Any<string>()).Returns(Task.FromException<string>(exception));
 
         var apiCaller = CreateApiCaller(api);
 
@@ -36,8 +35,7 @@ public class ApiCallerTests
         // Arrange
         const string testResult = "Test result";
         var api = Substitute.For<ITestApi>();
-        api.TestEndpoint(Arg.Any<string>())
-            .Returns(Task.FromResult(testResult));
+        api.TestEndpoint(Arg.Any<string>()).Returns(Task.FromResult(testResult));
 
         var apiCaller = CreateApiCaller(api);
 

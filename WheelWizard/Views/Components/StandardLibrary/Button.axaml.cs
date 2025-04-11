@@ -5,18 +5,17 @@ namespace WheelWizard.Views.Components;
 
 public class Button : Avalonia.Controls.Button // Change to TemplatedControl
 {
-    public static readonly StyledProperty<ButtonsVariantType> VariantProperty =
-        AvaloniaProperty.Register<Button, ButtonsVariantType>(nameof(Variant), ButtonsVariantType.Default);
+    public static readonly StyledProperty<ButtonsVariantType> VariantProperty = AvaloniaProperty.Register<Button, ButtonsVariantType>(
+        nameof(Variant),
+        ButtonsVariantType.Default
+    );
 
-    public static readonly StyledProperty<Geometry> IconDataProperty =
-        AvaloniaProperty.Register<Button, Geometry>(nameof(IconData));
+    public static readonly StyledProperty<Geometry> IconDataProperty = AvaloniaProperty.Register<Button, Geometry>(nameof(IconData));
 
-    public static readonly StyledProperty<double> IconSizeProperty =
-        AvaloniaProperty.Register<Button, double>(nameof(IconSize), 20.0);
+    public static readonly StyledProperty<double> IconSizeProperty = AvaloniaProperty.Register<Button, double>(nameof(IconSize), 20.0);
 
-    public static readonly StyledProperty<string> TextProperty =
-        AvaloniaProperty.Register<Button, string>(nameof(Text));
-    
+    public static readonly StyledProperty<string> TextProperty = AvaloniaProperty.Register<Button, string>(nameof(Text));
+
     public enum ButtonsVariantType
     {
         Primary,
@@ -25,7 +24,7 @@ public class Button : Avalonia.Controls.Button // Change to TemplatedControl
         Danger,
         UglyLight,
     }
-    
+
     // Constructor
     public Button()
     {
@@ -58,7 +57,7 @@ public class Button : Avalonia.Controls.Button // Change to TemplatedControl
         get => GetValue(TextProperty);
         set => SetValue(TextProperty, value);
     }
-    
+
     // UpdateStyleClasses remains the same
     private void UpdateStyleClasses(ButtonsVariantType variant)
     {
@@ -69,7 +68,7 @@ public class Button : Avalonia.Controls.Button // Change to TemplatedControl
         }
         Classes.Add(variant.ToString());
     }
-    
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);

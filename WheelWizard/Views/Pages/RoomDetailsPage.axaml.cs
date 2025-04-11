@@ -24,7 +24,7 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
         }
     }
 
-    private readonly ObservableCollection<RrPlayer> _playersList = new();
+    private readonly ObservableCollection<RrPlayer> _playersList = [];
 
     public ObservableCollection<RrPlayer> PlayersList
     {
@@ -49,7 +49,7 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
         InitializeComponent();
         DataContext = this;
         Room = room;
-        
+
         PlayersList = new(Room.Players.Values);
 
         RRLiveRooms.Instance.Subscribe(this);
@@ -58,7 +58,8 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
 
     public void OnUpdate(RepeatedTaskManager sender)
     {
-        if (sender is not RRLiveRooms liveRooms) return;
+        if (sender is not RRLiveRooms liveRooms)
+            return;
 
         var room = liveRooms.CurrentRooms.Find(r => r.Id == Room.Id);
 
@@ -81,14 +82,17 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
 
     private void CopyFriendCode_OnClick(object sender, RoutedEventArgs e)
     {
-        if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer) return;
+        if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer)
+            return;
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedPlayer.Fc);
     }
 
     private void OpenCarousel_OnClick(object sender, RoutedEventArgs e)
     {
-        if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer) return;
-        if (selectedPlayer.FirstMii == null) return;
+        if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer)
+            return;
+        if (selectedPlayer.FirstMii == null)
+            return;
         new MiiCarouselWindow().SetMii(selectedPlayer.FirstMii).Show();
     }
 
@@ -99,7 +103,8 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
 
     private void PlayerView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (e.Source is not ListBox listBox) return;
+        if (e.Source is not ListBox listBox)
+            return;
         listBox.ContextMenu?.Open();
     }
 

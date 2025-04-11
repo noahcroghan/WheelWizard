@@ -8,5 +8,5 @@ public enum WhWzStatusVariant
     Success,
     Info,
     Party,
-    Question
+    Question,
 }

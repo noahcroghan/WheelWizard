@@ -18,41 +18,32 @@ public partial class HomePage : UserControlBase
     private static ILauncher currentLauncher => _launcherTypes[_launcherIndex];
     private static int _launcherIndex = 0; // Make sure this index never goes over the list index
 
-    private static List<ILauncher> _launcherTypes = new List<ILauncher>()
-    {
-        // Add Launcher instances here , every launch instance is a new start screen
-        new RrLauncher()
+    private static List<ILauncher> _launcherTypes =
+    [
+        new RrLauncher(),
         //GoogleLauncher.Instance
-    };
+    ];
 
     private WheelWizardStatus _status;
     private MainButtonState currentButtonState => buttonStates[_status];
 
-    private static Dictionary<WheelWizardStatus, MainButtonState> buttonStates =
-        new Dictionary<WheelWizardStatus, MainButtonState>()
+    private static Dictionary<WheelWizardStatus, MainButtonState> buttonStates = new()
+    {
+        { WheelWizardStatus.Loading, new(Common.State_Loading, Button.ButtonsVariantType.Default, "Spinner", null, false) },
+        { WheelWizardStatus.NoServer, new(Common.State_NoServer, Button.ButtonsVariantType.Danger, "RoadError", null, true) },
         {
-            { WheelWizardStatus.Loading, new(Common.State_Loading, Button.ButtonsVariantType.Default, "Spinner", null, false) },
-            { WheelWizardStatus.NoServer, new(Common.State_NoServer, Button.ButtonsVariantType.Danger, "RoadError", null, true) },
-            {
-                WheelWizardStatus.NoServerButInstalled,
-                new(Common.Action_PlayOffline, Button.ButtonsVariantType.Warning, "Play", LaunchGame, true)
-            },
-            {
-                WheelWizardStatus.NoDolphin,
-                new("Dolphin not setup", Button.ButtonsVariantType.Warning, "Settings", NavigateToSettings, false)
-            },
-            {
-                WheelWizardStatus.ConfigNotFinished,
-                new(Common.State_ConfigNotFinished, Button.ButtonsVariantType.Warning, "Settings", NavigateToSettings, true)
-            },
-            {
-                WheelWizardStatus.NotInstalled,
-                new(Common.Action_Install, Button.ButtonsVariantType.Warning, "Download", Download, true)
-            },
-            { WheelWizardStatus.OutOfDate, new(Common.Action_Update, Button.ButtonsVariantType.Warning, "Download", Update, true) },
-            { WheelWizardStatus.Ready, new(Common.Action_Play, Button.ButtonsVariantType.Primary, "Play", LaunchGame, true) }
-        };
-
+            WheelWizardStatus.NoServerButInstalled,
+            new(Common.Action_PlayOffline, Button.ButtonsVariantType.Warning, "Play", LaunchGame, true)
+        },
+        { WheelWizardStatus.NoDolphin, new("Dolphin not setup", Button.ButtonsVariantType.Warning, "Settings", NavigateToSettings, false) },
+        {
+            WheelWizardStatus.ConfigNotFinished,
+            new(Common.State_ConfigNotFinished, Button.ButtonsVariantType.Warning, "Settings", NavigateToSettings, true)
+        },
+        { WheelWizardStatus.NotInstalled, new(Common.Action_Install, Button.ButtonsVariantType.Warning, "Download", Download, true) },
+        { WheelWizardStatus.OutOfDate, new(Common.Action_Update, Button.ButtonsVariantType.Warning, "Download", Update, true) },
+        { WheelWizardStatus.Ready, new(Common.Action_Play, Button.ButtonsVariantType.Primary, "Play", LaunchGame, true) },
+    };
 
     public HomePage()
     {
@@ -74,6 +65,7 @@ public partial class HomePage : UserControlBase
     }
 
     private static void LaunchGame() => currentLauncher.Launch();
+
     private static void NavigateToSettings() => NavigationManager.NavigateTo<SettingsPage>();
 
     private static async void Download()
@@ -110,7 +102,8 @@ public partial class HomePage : UserControlBase
     {
         // If there is only 1 option, we don't want to confuse the player with that option
         GameModeOption.IsVisible = _launcherTypes.Count > 1;
-        if (!GameModeOption.IsVisible) return;
+        if (!GameModeOption.IsVisible)
+            return;
 
         foreach (var launcherType in _launcherTypes)
         {
@@ -132,10 +125,11 @@ public partial class HomePage : UserControlBase
     {
         CompleteGrid.IsEnabled = false;
         //wait 5 seconds before re-enabling the buttons
-        Task.Delay(2000).ContinueWith(_ =>
-        {
-            Dispatcher.UIThread.InvokeAsync(() => CompleteGrid.IsEnabled = true);
-        });
+        Task.Delay(2000)
+            .ContinueWith(_ =>
+            {
+                Dispatcher.UIThread.InvokeAsync(() => CompleteGrid.IsEnabled = true);
+            });
     }
 
     private void SetButtonState(MainButtonState state)

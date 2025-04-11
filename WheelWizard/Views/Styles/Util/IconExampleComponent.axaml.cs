@@ -9,21 +9,23 @@ public partial class IconExampleComponent : UserControl
     public IconExampleComponent()
     {
         InitializeComponent();
-        DataContext = this; 
+        DataContext = this;
     }
-    
-    public static readonly StyledProperty<string> IconNameProperty =
-        AvaloniaProperty.Register<IconExampleComponent, string>(nameof(IconName));
+
+    public static readonly StyledProperty<string> IconNameProperty = AvaloniaProperty.Register<IconExampleComponent, string>(
+        nameof(IconName)
+    );
 
     public string IconName
     {
         get => GetValue(IconNameProperty);
         set => SetValue(IconNameProperty, value);
     }
-    
-    public static readonly StyledProperty<Geometry> IconDataProperty =
-        AvaloniaProperty.Register<IconExampleComponent,Geometry>(nameof(IconData));
-   
+
+    public static readonly StyledProperty<Geometry> IconDataProperty = AvaloniaProperty.Register<IconExampleComponent, Geometry>(
+        nameof(IconData)
+    );
+
     public Geometry IconData
     {
         get => GetValue(IconDataProperty);

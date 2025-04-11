@@ -16,7 +16,7 @@ public partial class AppInfo : UserControl
             return;
         if (control.Tag == null)
             return;
-        
+
         ViewUtils.OpenLink(control.Tag.ToString()!);
     }
 }

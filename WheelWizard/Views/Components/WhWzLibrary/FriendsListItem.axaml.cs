@@ -2,7 +2,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using WheelWizard.Models.MiiImages;
 using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement.Domain.Mii;
 
@@ -10,8 +9,7 @@ namespace WheelWizard.Views.Components;
 
 public class FriendsListItem : TemplatedControl
 {
-    public static readonly StyledProperty<bool> IsOnlineProperty =
-        AvaloniaProperty.Register<FriendsListItem, bool>(nameof(IsOnline));
+    public static readonly StyledProperty<bool> IsOnlineProperty = AvaloniaProperty.Register<FriendsListItem, bool>(nameof(IsOnline));
 
     public bool IsOnline
     {
@@ -19,8 +17,7 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(IsOnlineProperty, value);
     }
 
-    public static readonly StyledProperty<bool> HasBadgesProperty =
-        AvaloniaProperty.Register<FriendsListItem, bool>(nameof(HasBadges));
+    public static readonly StyledProperty<bool> HasBadgesProperty = AvaloniaProperty.Register<FriendsListItem, bool>(nameof(HasBadges));
 
     public bool HasBadges
     {
@@ -28,8 +25,7 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(HasBadgesProperty, value);
     }
 
-    public static readonly StyledProperty<Mii?> MiiProperty =
-        AvaloniaProperty.Register<FriendsListItem, Mii?>(nameof(Mii));
+    public static readonly StyledProperty<Mii?> MiiProperty = AvaloniaProperty.Register<FriendsListItem, Mii?>(nameof(Mii));
 
     public Mii? Mii
     {
@@ -37,8 +33,7 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(MiiProperty, value);
     }
 
-    public static readonly StyledProperty<string> TotalWonProperty =
-        AvaloniaProperty.Register<FriendsListItem, string>(nameof(TotalWon));
+    public static readonly StyledProperty<string> TotalWonProperty = AvaloniaProperty.Register<FriendsListItem, string>(nameof(TotalWon));
 
     public string TotalWon
     {
@@ -46,8 +41,9 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(TotalWonProperty, value);
     }
 
-    public static readonly StyledProperty<string> TotalLossesProperty =
-        AvaloniaProperty.Register<FriendsListItem, string>(nameof(TotalLosses));
+    public static readonly StyledProperty<string> TotalLossesProperty = AvaloniaProperty.Register<FriendsListItem, string>(
+        nameof(TotalLosses)
+    );
 
     public string TotalLosses
     {
@@ -55,8 +51,10 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(TotalLossesProperty, value);
     }
 
-    public static readonly StyledProperty<string> VrProperty =
-        AvaloniaProperty.Register<FriendsListItem, string>(nameof(Vr), coerce: CoerceVrAndBr);
+    public static readonly StyledProperty<string> VrProperty = AvaloniaProperty.Register<FriendsListItem, string>(
+        nameof(Vr),
+        coerce: CoerceVrAndBr
+    );
 
     public string Vr
     {
@@ -64,8 +62,10 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(VrProperty, value);
     }
 
-    public static readonly StyledProperty<string> BrProperty =
-        AvaloniaProperty.Register<FriendsListItem, string>(nameof(Br), coerce: CoerceVrAndBr);
+    public static readonly StyledProperty<string> BrProperty = AvaloniaProperty.Register<FriendsListItem, string>(
+        nameof(Br),
+        coerce: CoerceVrAndBr
+    );
 
     public string Br
     {
@@ -75,8 +75,9 @@ public class FriendsListItem : TemplatedControl
 
     private static string CoerceVrAndBr(AvaloniaObject o, string value) => value == "9999" ? "9999+" : value;
 
-    public static readonly StyledProperty<string> FriendCodeProperty =
-        AvaloniaProperty.Register<FriendsListItem, string>(nameof(FriendCode));
+    public static readonly StyledProperty<string> FriendCodeProperty = AvaloniaProperty.Register<FriendsListItem, string>(
+        nameof(FriendCode)
+    );
 
     public string FriendCode
     {
@@ -84,8 +85,7 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(FriendCodeProperty, value);
     }
 
-    public static readonly StyledProperty<string> UserNameProperty =
-        AvaloniaProperty.Register<FriendsListItem, string>(nameof(UserName));
+    public static readonly StyledProperty<string> UserNameProperty = AvaloniaProperty.Register<FriendsListItem, string>(nameof(UserName));
 
     public string UserName
     {
@@ -93,8 +93,10 @@ public class FriendsListItem : TemplatedControl
         set => SetValue(UserNameProperty, value);
     }
 
-    public static readonly StyledProperty<Action<string>?> ViewRoomActionProperty =
-        AvaloniaProperty.Register<FriendsListItem, Action<string>?>(nameof(ViewRoomAction));
+    public static readonly StyledProperty<Action<string>?> ViewRoomActionProperty = AvaloniaProperty.Register<
+        FriendsListItem,
+        Action<string>?
+    >(nameof(ViewRoomAction));
 
     public Action<string>? ViewRoomAction
     {
@@ -114,8 +116,8 @@ public class FriendsListItem : TemplatedControl
         if (container != null)
         {
             container.Children.Clear();
-            var badges = App.Services
-                .GetRequiredService<IWhWzDataSingletonService>()
+            var badges = App
+                .Services.GetRequiredService<IWhWzDataSingletonService>()
                 .GetBadges(FriendCode)
                 .Select(variant => new Badge { Variant = variant });
             foreach (var badge in badges)

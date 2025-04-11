@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
@@ -14,7 +13,8 @@ public partial class TextInputWindow : PopupContent
     private Func<string?, string, OperationResult>? inputValidationFunc; // (oldText?, newText) => OperationResult
 
     // Constructor with dynamic label parameter
-    public TextInputWindow() : base(true, false, true, "Text Field")
+    public TextInputWindow()
+        : base(true, false, true, "Text Field")
     {
         InitializeComponent();
         InputField.TextChanged += InputField_TextChanged;
@@ -52,9 +52,8 @@ public partial class TextInputWindow : PopupContent
         SubmitButton.Text = submitText;
 
         // It really depends on the text length what looks best
-        ButtonContainer.HorizontalAlignment = (submitText.Length + cancelText.Length) > 12
-            ? HorizontalAlignment.Stretch
-            : HorizontalAlignment.Right;
+        ButtonContainer.HorizontalAlignment =
+            (submitText.Length + cancelText.Length) > 12 ? HorizontalAlignment.Stretch : HorizontalAlignment.Right;
         return this;
     }
 
@@ -73,7 +72,7 @@ public partial class TextInputWindow : PopupContent
 
     public new async Task<string?> ShowDialog()
     {
-        _tcs = new TaskCompletionSource<string?>();
+        _tcs = new();
         Show(); // or ShowDialog(parentWindow);
         return await _tcs.Task;
     }
@@ -88,7 +87,7 @@ public partial class TextInputWindow : PopupContent
             ((char)0xe000, (char)0xe01c),
             ((char)0xf061, (char)0xf06d),
             ((char)0xf074, (char)0xf07c),
-            ((char)0xf107, (char)0xf12f)
+            ((char)0xf107, (char)0xf12f),
         };
 
         var chars = new List<char>();
@@ -101,11 +100,32 @@ public partial class TextInputWindow : PopupContent
         }
 
         // All the left-over chars that we cant make easy groups out of
-        chars.AddRange([
-            (char)0xe028, (char)0xe068, (char)0xe067, (char)0xe06a, (char)0xe06b, (char)0xf030, (char)0xf031, (char)0xf034,
-            (char)0xf035, (char)0xf038, (char)0xf039, (char)0xf03c, (char)0xf03d, (char)0xf041, (char)0xf043, (char)0xf044,
-            (char)0xf047, (char)0xf050, (char)0xf058, (char)0xf05e, (char)0xf05f, (char)0xf103
-        ]);
+        chars.AddRange(
+            [
+                (char)0xe028,
+                (char)0xe068,
+                (char)0xe067,
+                (char)0xe06a,
+                (char)0xe06b,
+                (char)0xf030,
+                (char)0xf031,
+                (char)0xf034,
+                (char)0xf035,
+                (char)0xf038,
+                (char)0xf039,
+                (char)0xf03c,
+                (char)0xf03d,
+                (char)0xf041,
+                (char)0xf043,
+                (char)0xf044,
+                (char)0xf047,
+                (char)0xf050,
+                (char)0xf058,
+                (char)0xf05e,
+                (char)0xf05f,
+                (char)0xf103,
+            ]
+        );
 
         foreach (var c in chars)
         {
@@ -114,8 +134,8 @@ public partial class TextInputWindow : PopupContent
                 Text = c.ToString(),
                 IconSize = 0,
                 FontSize = 24,
-                Padding = new Thickness(0),
-                Margin = new Thickness(1),
+                Padding = new(0),
+                Margin = new(1),
             };
             button.Click += (_, _) => InputField.Text += c;
             CustomChars.Children.Add(button);
@@ -132,8 +152,8 @@ public partial class TextInputWindow : PopupContent
     private void UpdateSubmitButtonState()
     {
         var inputText = GetTrimmedTextInput();
-        var validationResultError = inputValidationFunc?.Invoke(_initialText,inputText!).Error?.Message;
-   
+        var validationResultError = inputValidationFunc?.Invoke(_initialText, inputText!).Error?.Message;
+
         SubmitButton.IsEnabled = validationResultError == null;
         InputField.ErrorMessage = validationResultError ?? "";
     }
@@ -150,7 +170,7 @@ public partial class TextInputWindow : PopupContent
         _tcs?.TrySetResult(_result); // Set the result of the task
         Close();
     }
-    
+
     private string? GetTrimmedTextInput() => InputField.Text?.Trim();
 
     private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();

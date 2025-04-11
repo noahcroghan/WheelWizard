@@ -1,11 +1,8 @@
-﻿using Avalonia.Media.Imaging;
-using System.ComponentModel;
-using WheelWizard.RrRooms;
+﻿using System.ComponentModel;
+using Avalonia.Media.Imaging;
 using WheelWizard.Services.WiiManagement;
-using WheelWizard.Views;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
-
 
 namespace WheelWizard.Models.MiiImages;
 
@@ -25,6 +22,7 @@ public class MiiImage : INotifyPropertyChanged
     }
 
     public MiiImageVariants.Variant Variant { get; }
+
     public MiiImage(Mii parent, MiiImageVariants.Variant variant) => (Parent, Variant) = (parent, variant);
 
     public string CachingKey => $"{Data}_{Variant}";
@@ -40,7 +38,8 @@ public class MiiImage : INotifyPropertyChanged
     {
         get
         {
-            if (_image != null || _requestingImage) return _image;
+            if (_image != null || _requestingImage)
+                return _image;
             // it will set it to true, meaning this code can only be executed once due to the above check
             _requestingImage = true;
 
@@ -54,7 +53,8 @@ public class MiiImage : INotifyPropertyChanged
         }
         private set
         {
-            if (_image == value) return;
+            if (_image == value)
+                return;
             _image = value;
             OnPropertyChanged(nameof(Image));
         }
@@ -72,7 +72,7 @@ public class MiiImage : INotifyPropertyChanged
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion

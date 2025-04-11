@@ -5,7 +5,7 @@ using WheelWizard.Models;
 namespace WheelWizard.Helpers;
 
 //todo: Use static HttpClient with pooled connection lifetime https://stackoverflow.com/a/77379657
-// TODO: Refactor this in separate services for each api domain 
+// TODO: Refactor this in separate services for each api domain
 
 [Obsolete("This class is deprecated and will be removed in the future. Use the new HttpClientFactory instead.")]
 public static class HttpClientHelper
@@ -26,7 +26,7 @@ public static class HttpClientHelper
     {
         PropertyNameCaseInsensitive = true,
         PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-        Converters = { new JsonStringEnumConverter() }
+        Converters = { new JsonStringEnumConverter() },
     };
 
     private static HttpClient HttpClient => LazyHttpClient.Value;
@@ -46,7 +46,7 @@ public static class HttpClientHelper
             {
                 StatusCode = (int)response.StatusCode,
                 Succeeded = response.IsSuccessStatusCode,
-                StatusMessage = response.ReasonPhrase
+                StatusMessage = response.ReasonPhrase,
             };
 
             if (response.IsSuccessStatusCode)
@@ -83,7 +83,7 @@ public static class HttpClientHelper
             {
                 StatusCode = (int)response.StatusCode,
                 Succeeded = response.IsSuccessStatusCode,
-                StatusMessage = response.ReasonPhrase
+                StatusMessage = response.ReasonPhrase,
             };
 
             if (response.IsSuccessStatusCode)
@@ -113,7 +113,7 @@ public static class HttpClientHelper
             {
                 StatusCode = (int)response.StatusCode,
                 Succeeded = response.IsSuccessStatusCode,
-                StatusMessage = response.ReasonPhrase
+                StatusMessage = response.ReasonPhrase,
             };
 
             if (response.IsSuccessStatusCode)
@@ -130,20 +130,20 @@ public static class HttpClientHelper
         return result;
     }
 
-
     private static HttpClientResult<T> GetErrorResult<T>(Exception e)
     {
         return new()
         {
             StatusCode = 500,
             StatusMessage = e.Message,
-            Succeeded = false
+            Succeeded = false,
         };
     }
 
     public static void CleanupConnections()
     {
-        if (!LazyHttpClient.IsValueCreated) return;
+        if (!LazyHttpClient.IsValueCreated)
+            return;
         HttpClient.DefaultRequestHeaders.Clear();
         HttpClient.CancelPendingRequests();
     }

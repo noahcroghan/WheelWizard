@@ -3,5 +3,5 @@
 public enum RrGameMode
 {
     RETRO_TRACKS = 1,
-    CUSTOM_TRACKS = 2
+    CUSTOM_TRACKS = 2,
 }

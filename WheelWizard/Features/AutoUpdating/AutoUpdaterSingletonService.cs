@@ -15,8 +15,11 @@ public interface IAutoUpdaterSingletonService
     public Task CheckForUpdatesAsync();
 }
 
-public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandingSingletonService brandingService, IGitHubSingletonService gitHubService)
-    : IAutoUpdaterSingletonService
+public class AutoUpdaterSingletonService(
+    IUpdatePlatform updatePlatform,
+    IBrandingSingletonService brandingService,
+    IGitHubSingletonService gitHubService
+) : IAutoUpdaterSingletonService
 {
     private string CurrentVersion => brandingService.Branding.Version;
 
@@ -33,7 +36,6 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
 
         var latestVersion = SemVersion.Parse(latestRelease.TagName.TrimStart('v'), SemVersionStyles.Any);
         var popupExtraText = Humanizer.ReplaceDynamic(Phrases.PopupText_NewVersionWhWz, latestVersion, CurrentVersion)!;
-
 
         var shouldUpdate = false;
         await Dispatcher.UIThread.InvokeAsync(async () =>
@@ -70,8 +72,11 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
                 await new MessageBoxWindow()
                     .SetMessageType(MessageBoxWindow.MessageType.Error)
                     .SetTitleText("Failed to check for updates")
-                    .SetInfoText("An error occurred while checking for updates. Please try again later. " +
-                                 "\nError: " + releasesResult.Error.Message)
+                    .SetInfoText(
+                        "An error occurred while checking for updates. Please try again later. "
+                            + "\nError: "
+                            + releasesResult.Error.Message
+                    )
                     .ShowDialog();
             });
 
@@ -97,7 +102,8 @@ public class AutoUpdaterSingletonService(IUpdatePlatform updatePlatform, IBrandi
                 continue;
 
             var releaseVersion = SemVersion.Parse(release.TagName.TrimStart('v'), SemVersionStyles.Any);
-            if (releaseVersion.ComparePrecedenceTo(currentVersion) <= 0) continue;
+            if (releaseVersion.ComparePrecedenceTo(currentVersion) <= 0)
+                continue;
 
             var asset = updatePlatform.GetAssetForCurrentPlatform(release);
             if (asset is null)

@@ -16,7 +16,7 @@ public class FriendCodeFactory : MockingDataFactory<string, FriendCodeFactory>
             }
             subStrings.Add(subString);
         }
-        
-        return string.Join("-",subStrings);
+
+        return string.Join("-", subStrings);
     }
 }

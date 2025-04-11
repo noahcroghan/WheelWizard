@@ -106,16 +106,20 @@ public static class RetroRewindUpdater
                 //because we are actually getting the path from the server,
                 //we need to make sure we are not getting hacked, so we check if the path is in the riivolution folder
                 var resolvedPath = Path.GetFullPath(new FileInfo(filePath).FullName);
-                if (!resolvedPath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase) ||
-                    !filePath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase) ||
-                    filePath.Contains(".."))
+                if (
+                    !resolvedPath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase)
+                    || !filePath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase)
+                    || filePath.Contains("..")
+                )
                 {
                     AbortingUpdate("Invalid file path detected. Please contact the developers.\n Server error: " + resolvedPath);
                     return false;
                 }
 
-                if (File.Exists(filePath)) File.Delete(filePath);
-                else if (Directory.Exists(filePath)) Directory.Delete(filePath, recursive: true);
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+                else if (Directory.Exists(filePath))
+                    Directory.Delete(filePath, recursive: true);
             }
 
             return true;
@@ -128,7 +132,10 @@ public static class RetroRewindUpdater
     }
 
     private static List<(string Version, string Path)> GetDeletionsToApply(
-        string currentVersion, string targetVersion, List<(string Version, string Path)> allDeletions)
+        string currentVersion,
+        string targetVersion,
+        List<(string Version, string Path)> allDeletions
+    )
     {
         var deletionsToApply = new List<(string Version, string Path)>();
         allDeletions.Sort((a, b) => CompareVersions(b.Version, a.Version)); // Sort in descending order
@@ -150,12 +157,13 @@ public static class RetroRewindUpdater
 
         using var httpClient = new HttpClient();
         var deleteListText = await httpClient.GetStringAsync(Endpoints.RRVersionDeleteUrl);
-        var lines = deleteListText.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var lines = deleteListText.Split(['\n'], StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var line in lines)
         {
-            var parts = line.Split(new[] { ' ' }, 2);
-            if (parts.Length < 2) continue;
+            var parts = line.Split([' '], 2);
+            if (parts.Length < 2)
+                continue;
             deleteList.Add((parts[0].Trim(), parts[1].Trim()));
         }
 
@@ -174,21 +182,23 @@ public static class RetroRewindUpdater
 
         using var httpClient = new HttpClient();
         var allVersionsText = await httpClient.GetStringAsync(Endpoints.RRVersionUrl);
-        var lines = allVersionsText.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var lines = allVersionsText.Split(['\n'], StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var line in lines)
         {
-            var parts = line.Split(new[] { ' ' }, 4);
-            if (parts.Length < 4) continue;
+            var parts = line.Split([' '], 4);
+            if (parts.Length < 4)
+                continue;
             versions.Add((parts[0].Trim(), parts[1].Trim(), parts[2].Trim(), parts[3].Trim()));
         }
 
         return versions;
     }
 
-
     private static List<(string Version, string Url, string Path, string Description)> GetUpdatesToApply(
-        string currentVersion, List<(string Version, string Url, string Path, string Description)> allVersions)
+        string currentVersion,
+        List<(string Version, string Url, string Path, string Description)> allVersions
+    )
     {
         var updatesToApply = new List<(string Version, string Url, string Path, string Description)>();
         allVersions.Sort((a, b) => CompareVersions(b.Version, a.Version)); // Sort in descending order
@@ -196,7 +206,8 @@ public static class RetroRewindUpdater
         {
             if (CompareVersions(version.Version, currentVersion) > 0)
                 updatesToApply.Add(version);
-            else break;
+            else
+                break;
         }
 
         updatesToApply.Reverse();
@@ -211,7 +222,8 @@ public static class RetroRewindUpdater
         {
             var p1 = i < parts1.Length ? parts1[i] : 0;
             var p2 = i < parts2.Length ? parts2[i] : 0;
-            if (p1 != p2) return p1.CompareTo(p2);
+            if (p1 != p2)
+                return p1.CompareTo(p2);
         }
 
         return 0;
@@ -219,7 +231,10 @@ public static class RetroRewindUpdater
 
     private static async Task<bool> DownloadAndApplyUpdate(
         (string Version, string Url, string Path, string Description) update,
-        int totalUpdates, int currentUpdateIndex, ProgressWindow popupWindow)
+        int totalUpdates,
+        int currentUpdateIndex,
+        ProgressWindow popupWindow
+    )
     {
         var tempZipPath = Path.GetTempFileName();
         try

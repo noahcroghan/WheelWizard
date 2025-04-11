@@ -88,8 +88,9 @@ public partial class OtherSettings : UserControl
 
     private void RrLanguageDropdown_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (InGameLanguageDropdown.SelectedItem == null) return;
-        
+        if (InGameLanguageDropdown.SelectedItem == null)
+            return;
+
         var selectedLanguage = InGameLanguageDropdown.SelectedItem.ToString();
         var key = SettingValues.RrLanguages.FirstOrDefault(x => x.Value() == selectedLanguage).Key;
         SettingsManager.RR_LANGUAGE.Set(key);
@@ -97,8 +98,9 @@ public partial class OtherSettings : UserControl
 
     private async void WhWzLanguageDropdown_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        if (WhWzLanguageDropdown.SelectedItem == null) return;
-        
+        if (WhWzLanguageDropdown.SelectedItem == null)
+            return;
+
         var selectedLanguage = WhWzLanguageDropdown.SelectedItem.ToString();
         var key = SettingValues.WhWzLanguages.FirstOrDefault(x => x.Value() == selectedLanguage).Key;
 
@@ -109,8 +111,9 @@ public partial class OtherSettings : UserControl
         var yesNoWindow = await new YesNoWindow()
             .SetMainText("Do you want to apply the new language settings?")
             .SetExtraText("This will close the current window and open a new one with the new language settings.")
-            .SetButtonText(Common.Action_Apply, Common.Action_Cancel).AwaitAnswer();
-        
+            .SetButtonText(Common.Action_Apply, Common.Action_Cancel)
+            .AwaitAnswer();
+
         if (!yesNoWindow)
         {
             var currentWhWzLanguage = (string)SettingsManager.WW_LANGUAGE.Get();

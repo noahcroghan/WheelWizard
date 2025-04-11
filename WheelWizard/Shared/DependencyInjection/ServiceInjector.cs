@@ -9,7 +9,7 @@ namespace WheelWizard.Shared.DependencyInjection;
 public static class ServiceInjector
 {
     private static readonly ConcurrentDictionary<Type, PropertyInfo[]> InjectPropertiesCache = new();
-    
+
     /// <summary>
     /// Injects services into properties marked with the <see cref="InjectAttribute"/> in the given instance.
     /// </summary>
@@ -24,9 +24,13 @@ public static class ServiceInjector
     }
 
     private static PropertyInfo[] GetInjectProperties(Type controlType) =>
-        InjectPropertiesCache.GetOrAdd(controlType, static type => GetAllPropertiesRecursive(type)
-            .Where(prop => prop.CanWrite && prop.GetCustomAttribute<InjectAttribute>() is not null)
-            .ToArray());
+        InjectPropertiesCache.GetOrAdd(
+            controlType,
+            static type =>
+                GetAllPropertiesRecursive(type)
+                    .Where(prop => prop.CanWrite && prop.GetCustomAttribute<InjectAttribute>() is not null)
+                    .ToArray()
+        );
 
     private static IEnumerable<PropertyInfo> GetAllPropertiesRecursive(Type type)
     {

@@ -1,4 +1,5 @@
-﻿using WheelWizard.Helpers;
+﻿using Avalonia.Threading;
+using WheelWizard.Helpers;
 using WheelWizard.Models.Enums;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.Installation;
@@ -24,12 +25,13 @@ public class RrLauncher : ILauncher
             await ModsLaunchHelper.PrepareModsForLaunch();
             if (!File.Exists(PathManager.GameFilePath))
             {
-                Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                Dispatcher.UIThread.Post(() =>
                 {
                     new MessageBoxWindow()
                         .SetMessageType(MessageBoxWindow.MessageType.Warning)
                         .SetTitleText("Invalid game path")
-                        .SetInfoText(Phrases.PopupText_NotFindGame).Show();
+                        .SetInfoText(Phrases.PopupText_NotFindGame)
+                        .Show();
                 });
                 return;
             }
@@ -42,17 +44,19 @@ public class RrLauncher : ILauncher
         }
         catch (Exception ex)
         {
-            Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+            Dispatcher.UIThread.Post(() =>
             {
                 new MessageBoxWindow()
                     .SetMessageType(MessageBoxWindow.MessageType.Error)
                     .SetTitleText("Failed to launch Retro Rewind")
-                    .SetInfoText($"Reason: {ex.Message}").Show();
+                    .SetInfoText($"Reason: {ex.Message}")
+                    .Show();
             });
         }
     }
 
     public Task Install() => RetroRewindInstaller.InstallRetroRewind();
+
     public Task Update() => RetroRewindUpdater.UpdateRR();
 
     public async Task<WheelWizardStatus> GetCurrentStatus()
@@ -66,7 +70,8 @@ public class RrLauncher : ILauncher
         if (!serverEnabled.Succeeded)
             return rrInstalled ? WheelWizardStatus.NoServerButInstalled : WheelWizardStatus.NoServer;
 
-        if (!rrInstalled) return WheelWizardStatus.NotInstalled;
+        if (!rrInstalled)
+            return WheelWizardStatus.NotInstalled;
 
         var retroRewindUpToDate = await RetroRewindUpdater.IsRRUpToDate(RetroRewindInstaller.CurrentRRVersion());
         return !retroRewindUpToDate ? WheelWizardStatus.OutOfDate : WheelWizardStatus.Ready;

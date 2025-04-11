@@ -26,5 +26,6 @@ public static class NavigationManager
         Layout.Instance.NavigateToPage(instance);
     }
 
-    public static void NavigateTo<T>(params object?[] args) where T : UserControlBase => NavigateTo(typeof(T), args);
+    public static void NavigateTo<T>(params object?[] args)
+        where T : UserControlBase => NavigateTo(typeof(T), args);
 }

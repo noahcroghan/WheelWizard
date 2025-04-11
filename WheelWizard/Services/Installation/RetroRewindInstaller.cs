@@ -33,7 +33,8 @@ public static class RetroRewindInstaller
             .SetExtraText(Phrases.PopupText_DownloadRR)
             .AwaitAnswer();
 
-        if (!result) return false;
+        if (!result)
+            return false;
 
         await InstallRetroRewind();
         return true;
@@ -46,7 +47,8 @@ public static class RetroRewindInstaller
             .SetExtraText(Phrases.PopupText_ReinstallRR)
             .AwaitAnswer();
 
-        if (!result) return false;
+        if (!result)
+            return false;
 
         await InstallRetroRewind();
         return true;
@@ -60,11 +62,10 @@ public static class RetroRewindInstaller
         if (HasOldRksys())
         {
             var rksysQuestion = new YesNoWindow()
-                                .SetMainText(Phrases.PopupText_OldRksysFound)
-                                .SetExtraText(Phrases.PopupText_OldRksysFoundExplained);
+                .SetMainText(Phrases.PopupText_OldRksysFound)
+                .SetExtraText(Phrases.PopupText_OldRksysFoundExplained);
             if (await rksysQuestion.AwaitAnswer())
                 await BackupOldrksys();
-
         }
         var serverResponse = await HttpClientHelper.GetAsync<string>(Endpoints.RRUrl);
         if (!serverResponse.Succeeded)
@@ -72,7 +73,8 @@ public static class RetroRewindInstaller
             await new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Warning)
                 .SetTitleText("Could not connect to the server")
-                .SetInfoText(Phrases.PopupText_CouldNotConnectServer).ShowDialog();
+                .SetInfoText(Phrases.PopupText_CouldNotConnectServer)
+                .ShowDialog();
             return;
         }
         await DownloadAndExtractRetroRewind(PathManager.RetroRewindTempFile);
@@ -92,6 +94,7 @@ public static class RetroRewindInstaller
         DeleteExistingRetroRewind();
         await InstallRetroRewind();
     }
+
     private static async Task DownloadAndExtractRetroRewind(string tempZipPath)
     {
         var progressWindow = new ProgressWindow(Phrases.PopupText_InstallingRR);
@@ -133,7 +136,8 @@ public static class RetroRewindInstaller
 
         foreach (var rrWfc in rrWfcPaths)
         {
-            if (!Directory.Exists(rrWfc)) continue;
+            if (!Directory.Exists(rrWfc))
+                continue;
             var rksysFiles = Directory.GetFiles(rrWfc, "rksys.dat", SearchOption.AllDirectories);
             if (rksysFiles.Length > 0)
                 return rrWfc;
@@ -145,19 +149,21 @@ public static class RetroRewindInstaller
     private static async Task BackupOldrksys()
     {
         var rrWfc = Path.Combine(GetOldRksys());
-        if (!Directory.Exists(rrWfc)) return;
+        if (!Directory.Exists(rrWfc))
+            return;
         var rksysFiles = Directory.GetFiles(rrWfc, "rksys.dat", SearchOption.AllDirectories);
-        if (rksysFiles.Length == 0) return;
+        if (rksysFiles.Length == 0)
+            return;
         var sourceFile = rksysFiles[0];
         var regionFolder = Path.GetDirectoryName(sourceFile);
         var regionFolderName = Path.GetFileName(regionFolder);
         var datFileData = await File.ReadAllBytesAsync(sourceFile);
-        if (regionFolderName == null) return;
+        if (regionFolderName == null)
+            return;
         var destinationFolder = Path.Combine(PathManager.SaveFolderPath, regionFolderName);
         Directory.CreateDirectory(destinationFolder);
         var destinationFile = Path.Combine(destinationFolder, "rksys.dat");
         await File.WriteAllBytesAsync(destinationFile, datFileData);
-
     }
 
     private static void DeleteExistingRetroRewind()
