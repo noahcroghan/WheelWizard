@@ -1,4 +1,3 @@
-using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.RRInfo;
 using WheelWizard.RrRooms;
 using WheelWizard.Utilities.RepeatedTasks;

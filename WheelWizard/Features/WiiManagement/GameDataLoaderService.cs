@@ -10,8 +10,6 @@ using WheelWizard.Services.Settings;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Utilities.Generators;
 using WheelWizard.Utilities.RepeatedTasks;
-using WheelWizard.Views;
-using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement.Domain.Mii;
 

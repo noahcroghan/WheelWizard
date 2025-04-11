@@ -2,15 +2,12 @@
 using Avalonia;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
-using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
-using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Pages;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
-
 
 namespace WheelWizard.Views.Components;
 

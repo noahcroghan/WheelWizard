@@ -2,7 +2,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using WheelWizard.Models.MiiImages;
 using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement.Domain.Mii;
 

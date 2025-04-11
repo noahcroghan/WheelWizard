@@ -1,9 +1,6 @@
 ﻿using System.ComponentModel;
 using WheelWizard.Helpers;
-using WheelWizard.Models.MiiImages;
-using WheelWizard.Models.Settings;
 using WheelWizard.Services.LiveData;
-using WheelWizard.WiiManagement;
 using WheelWizard.WheelWizardData.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 

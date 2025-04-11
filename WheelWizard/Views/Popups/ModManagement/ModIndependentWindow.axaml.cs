@@ -1,4 +1,3 @@
-using Avalonia;
 using WheelWizard.Views.Pages;
 
 namespace WheelWizard.Views.Popups.ModManagement;

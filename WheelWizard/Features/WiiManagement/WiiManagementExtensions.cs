@@ -1,6 +1,4 @@
-﻿using WheelWizard.WiiManagement.Domain;
-
-namespace WheelWizard.WiiManagement;
+﻿namespace WheelWizard.WiiManagement;
 
 public static class WiiManagementExtensions
 {
