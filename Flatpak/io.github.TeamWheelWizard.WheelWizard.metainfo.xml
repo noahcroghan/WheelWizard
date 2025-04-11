@@ -55,11 +55,7 @@
   </provides>
 
   <releases>
-    <!-- FIXME: Remove this release tag and add the correct one for the first Flatpak release -->
-    <!-- (date format: YYYY-MM-DD) -->
-    <release version="" date="">
-      <description/>
-    </release>
+    <release version="2.1.0" date="2025-04-11"/>
   </releases>
 
   <url type="homepage">https://github.com/TeamWheelWizard/WheelWizard</url>
