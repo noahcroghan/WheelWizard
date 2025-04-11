@@ -94,7 +94,7 @@ public static class DolphinLaunchHelper
         addFilesystemPerm(PathManager.XmlFilePath, ":ro");
         addFilesystemPerm(PathManager.RiivolutionWhWzFolderPath, ":ro");
         // Read-write permissions
-        if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(PathManager.UserFolderPath, StringComparison.Ordinal))
+        if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(Path.GetFullPath(PathManager.UserFolderPath), StringComparison.Ordinal))
         {
             addFilesystemPerm(PathManager.UserFolderPath, ":rw");
         }
