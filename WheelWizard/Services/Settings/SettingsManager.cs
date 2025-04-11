@@ -140,6 +140,9 @@ public class SettingsManager
     private static Setting DOLPHIN_MSAA = new DolphinSetting(typeof(string), ("GFX.ini", "Settings", "MSAA"), "0x00000001").SetValidation(
         value => (value?.ToString() ?? "") is "0x00000001" or "0x00000002" or "0x00000004" or "0x00000008"
     );
+
+    //Readonly settings
+    public static readonly Setting MACADDRESS = new DolphinSetting(typeof(string), ("Dolphin.ini", "General", "WirelessMac"), "");
     #endregion
 
     #region Virtual Settings

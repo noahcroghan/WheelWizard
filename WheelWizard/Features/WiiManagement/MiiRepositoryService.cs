@@ -32,6 +32,12 @@ public interface IMiiRepository
     /// <param name="clientId">The unique ID of the mii to search for</param>
     /// <param name="newBlock">the new raw Mii data</param>
     OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock);
+
+    /// <summary>
+    /// Adds a new Mii block to the database.
+    /// </summary>
+    /// <param name="rawMiiData"></param>
+    OperationResult AddMiiToBlocks(byte[] rawMiiData);
 }
 
 public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
@@ -175,5 +181,32 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
         }
 
         return crc;
+    }
+
+    public OperationResult AddMiiToBlocks(byte[]? rawMiiData)
+    {
+        if (rawMiiData == null || rawMiiData.Length != MiiLength)
+            return "Invalid Mii block size.";
+
+        // Load all 100 blocks.
+        var blocks = LoadAllBlocks();
+        var inserted = false;
+
+        // Look for an empty slot.
+        for (var i = 0; i < blocks.Count; i++)
+        {
+            if (!blocks[i].SequenceEqual(EmptyMii))
+                continue;
+
+            blocks[i] = rawMiiData;
+            inserted = true;
+            break;
+        }
+
+        if (!inserted)
+            return "No empty Mii slot available.";
+
+        // Save the updated blocks back to the database.
+        return SaveAllBlocks(blocks);
     }
 }

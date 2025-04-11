@@ -1,4 +1,5 @@
-﻿using WheelWizard.WiiManagement.Domain.Mii;
+﻿using WheelWizard.Services.Settings;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement;
 
@@ -34,6 +35,14 @@ public interface IMiiDbService
     /// <param name="newName">The new name to assign to the Mii.</param>
     /// <returns>An <see cref="OperationResult"/> indicating success or failure.</returns>
     OperationResult UpdateName(uint clientId, string newName);
+
+    /// <summary>
+    /// Adds a new Mii to the database.
+    /// </summary>
+    /// <param name="newMii"></param>
+    /// <param name="macAddress"></param>
+    /// <returns></returns>
+    OperationResult AddToDatabase(Mii? newMii, string macAddress);
 }
 
 public class MiiDbService : IMiiDbService
@@ -92,5 +101,38 @@ public class MiiDbService : IMiiDbService
 
         mii.Name = nameResult.Value;
         return Update(mii);
+    }
+
+    public OperationResult AddToDatabase(Mii? newMii, string macAddress)
+    {
+        if (newMii == null || newMii.MiiId == 0)
+            return Fail("Mii cannot be null or have an invalid ID.");
+
+        var existing = GetByClientId(newMii.MiiId);
+        if (existing.IsSuccess)
+            return Fail("A Mii with this ID already exists.");
+
+        var macParts = macAddress.Split(':');
+        if (macParts.Length != 6)
+            return Fail("Invalid MAC address format.");
+
+        var getMacAddress = TryCatch(() =>
+        {
+            var macBytes = new byte[6];
+            for (var i = 0; i < 6; i++)
+                macBytes[i] = byte.Parse(macParts[i], System.Globalization.NumberStyles.HexNumber);
+            newMii.SystemId0 = (byte)((macBytes[0] + macBytes[1] + macBytes[2]) & 0xFF);
+            newMii.SystemId1 = macBytes[3];
+            newMii.SystemId2 = macBytes[4];
+            newMii.SystemId3 = macBytes[5];
+        });
+        if (getMacAddress.IsFailure)
+            return getMacAddress;
+        var serialized = MiiSerializer.Serialize(newMii);
+        if (serialized.IsFailure)
+            return serialized;
+
+        var result = _repository.AddMiiToBlocks(serialized.Value);
+        return result;
     }
 }
