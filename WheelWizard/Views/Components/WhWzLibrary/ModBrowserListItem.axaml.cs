@@ -88,7 +88,7 @@ public class ModBrowserListItem : TemplatedControl
         }
         finally
         {
-            // Ignore. we then just dont have an image. also fine
+            // Ignore. we then just don't have an image. also fine
         }
     }
 }

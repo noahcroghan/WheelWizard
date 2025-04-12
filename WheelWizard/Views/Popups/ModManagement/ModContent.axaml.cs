@@ -309,7 +309,7 @@ public partial class ModContent : UserControlBase
             ViewUtils.OpenLink(profileUrl);
     }
 
-    private void GamebananaLink_Click(object? sender, EventArgs eventArgs)
+    private void GameBananaLink_Click(object? sender, EventArgs eventArgs)
     {
         var profileUrl = CurrentMod?.ProfileUrl;
         if (profileUrl != null)
