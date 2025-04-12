@@ -5,10 +5,10 @@ public interface IValidatableMiiPage
     // Indicates if the data on this specific page is currently valid.
     bool IsPageValid { get; }
 
-    // Optional: Allows the main window to trigger final validation before saving.
+    //Allows the main window to trigger final validation before saving.
     void ValidatePage();
 
-    // Optional: Allows the page to perform actions just before the Mii is saved.
+    // Allows the page to perform actions just before the Mii is saved.
     // e.g., Final conversion from intermediate properties to the Mii object if needed.
     void PrepareForSave();
 }

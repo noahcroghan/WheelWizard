@@ -3,19 +3,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:miiCreatorTabs="clr-namespace:WheelWizard.Views.Popups.MiiCreatorTabs"
+             xmlns:converters="clr-namespace:WheelWizard.Views.Converters"
+             xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="350"
              x:Class="WheelWizard.Views.Popups.MiiCreatorTabs.MiiCreatorGeneralPage"
-             x:DataType="miiCreatorTabs:MiiCreatorGeneralPage"> <!-- Data type is now the page itself -->
+             x:DataType="miiCreatorTabs:MiiCreatorGeneralPage">
 
     <UserControl.Resources>
-        <miiCreatorTabs:NotConverter x:Key="NotConverter"/>
+        <converters:NotConverter x:Key="NotConverter"/>
     </UserControl.Resources>
 
     <Grid>
         <StackPanel Margin="10" Spacing="10">
             <TextBlock Text="Mii Name:" />
-            <!-- Binding path now starts from the page's properties -->
-            <TextBox Text="{Binding MiiNameString, Mode=TwoWay}" MaxLength="10" Watermark="Enter Mii name (3-10 chars)" />
+            <behaviorComponent:FeedbackTextBox 
+                Text="{Binding MiiNameString, Mode=TwoWay}" 
+                Watermark="Enter Mii name (3-10 chars)" />
             <TextBlock Text="{Binding NameValidationError}" Foreground="Red" IsVisible="{Binding !!NameValidationError}" FontSize="12"/>
 
             <TextBlock Text="Creator Name:" Classes="FormFieldLabel" />
@@ -24,15 +27,11 @@
 
             <TextBlock Text="Gender:" Classes="FormFieldLabel" />
             <StackPanel Orientation="Horizontal" Spacing="10">
-                 <!-- Use Converter for negation. Binding to MiiToEdit -->
-                 <!-- Or handle the boolean logic in code-behind properties -->
                 <RadioButton Content="Male" IsChecked="{Binding IsMale, Mode=TwoWay}" GroupName="GenderGroup"/>
                 <RadioButton Content="Female" IsChecked="{Binding MiiToEdit.IsGirl, Mode=TwoWay}" GroupName="GenderGroup"/>
             </StackPanel>
 
             <TextBlock Text="Favorite Color:" Classes="FormFieldLabel" />
-             <!-- ItemsSource comes from the main window, SelectedItem binds to the Mii clone -->
-             <!-- We need to get ItemsSource differently now. Maybe pass via constructor or property -->
             <ComboBox ItemsSource="{Binding FavoriteColorOptions}"
                       SelectedItem="{Binding MiiToEdit.MiiFavoriteColor, Mode=TwoWay}" />
 
