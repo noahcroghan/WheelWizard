@@ -15,10 +15,12 @@ using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
 
 namespace WheelWizard.Views.Popups.ModManagement;
 
+public record ModSearchResult(GameBananaModPreview Mod, string PreviewImageUrl);
+
 public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
 {
     // Collection to hold the mods
-    private ObservableCollection<ModListItem> Mods { get; } = new ObservableCollection<ModListItem>();
+    private ObservableCollection<ModSearchResult> Mods { get; } = new ObservableCollection<ModSearchResult>();
 
     [Inject]
     private IGameBananaSingletonService GameBananaService { get; set; } = null!;
@@ -88,11 +90,11 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
 
         foreach (var mod in newMods)
         {
-            Mods.Add(new() { Mod = mod });
+            Mods.Add(new(mod, mod.PreviewMedia != null ? mod.PreviewMedia.Images[0].BaseUrl + "/" + mod.PreviewMedia.Images[0].File : ""));
         }
 
         if (!metadata.IsComplete)
-            Mods.Add(new() { Mod = GameBananaService.GetLoadingPreview() });
+            Mods.Add(new(GameBananaService.GetLoadingPreview(), ""));
         _currentPage = page;
         _isLoading = false;
     }
@@ -145,7 +147,7 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
         _loadCancellationToken = new();
 
         var modId = -1;
-        if (ModListView.SelectedItem is ModListItem selectedMod)
+        if (ModListView.SelectedItem is ModSearchResult selectedMod)
             modId = selectedMod.Mod.Id;
         try
         {

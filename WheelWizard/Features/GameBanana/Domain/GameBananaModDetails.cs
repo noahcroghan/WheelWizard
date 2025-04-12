@@ -14,9 +14,6 @@ public class GameBananaModDetails
     [JsonPropertyName("_sVersion")]
     public required string Version { get; set; }
 
-    [JsonPropertyName("_aTags")]
-    public required List<string> Tags { get; set; }
-
     [JsonPropertyName("_sProfileUrl")]
     public required string ProfileUrl { get; set; }
 
@@ -49,7 +46,7 @@ public class GameBananaModDetails
     public required GameBananaCategory Category { get; set; }
 
     [JsonPropertyName("_aSuperCategory")]
-    public required GameBananaCategory SuperCategory { get; set; }
+    public GameBananaCategory? SuperCategory { get; set; }
 
     [JsonPropertyName("_sText")]
     public required string Text { get; set; }
@@ -58,11 +55,11 @@ public class GameBananaModDetails
     public required string License { get; set; }
 
     [JsonPropertyName("_aLicenseCheckList")]
-    public required GameBananaLicenseAllowance LicenseAllowance { get; set; }
+    public GameBananaLicenseAllowance? LicenseAllowance { get; set; }
 
     [JsonPropertyName("_nDownloadCount")]
     public required int DownloadCount { get; set; }
 
     [JsonPropertyName("_aFiles")]
-    public required GameBananaModFiles Files { get; set; }
+    public required List<GameBananaModFiles> Files { get; set; }
 }

@@ -36,13 +36,13 @@
                      ScrollViewer.VerticalScrollBarVisibility="Auto">
 
                 <ListBox.ItemTemplate>
-                    <DataTemplate DataType="self:ModListItem">
+                    <DataTemplate DataType="self:ModSearchResult">
                         <components:ModBrowserListItem Width="284" Height="89" Margin="0,4,9,4"
                                                        ModTitle="{Binding Mod.Name}"
                                                        ModAuthor="{Binding Mod.Author.Name}"
                                                        ViewCount="{Binding Mod.ViewCount}"
                                                        LikeCount="{Binding Mod.LikeCount}"
-                                                       ImageUrl="{Binding ImageUrl}"
+                                                       ImageUrl="{Binding PreviewImageUrl}"
                                                         />
                     </DataTemplate>
                 </ListBox.ItemTemplate>

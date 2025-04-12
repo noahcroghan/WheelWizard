@@ -24,11 +24,9 @@ public class GameBananaSingletonService(IApiCaller<IGameBananaApi> apiService) :
 
     public async Task<OperationResult<GameBananaSearchResults>> GetModSearchResults(string searchTerm, int page = 1)
     {
-        // If there is no search term, we still want the user to see something. In this list of strings there are a few terms
-        // that show a lot of mods, to have kind of our own Featured list. that goes on forever.
-        string[] featuredTerms = ["Mod", "Wii"];
+        // If there is no search term, we still want the user to see something. so we set the term to "mod" as our own featured list.
         if (string.IsNullOrWhiteSpace(searchTerm))
-            searchTerm = featuredTerms[Random.Shared.Next(featuredTerms.Length)];
+            searchTerm = "Mod";
 
         return await apiService.CallApiAsync(gitHubApi => gitHubApi.GetModSearchResults(searchTerm, GameId, page));
     }
