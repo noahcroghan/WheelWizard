@@ -1,19 +1,17 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using WheelWizard.Helpers;
+using WheelWizard.Models;
 using WheelWizard.Models.GameBanana;
 
 namespace WheelWizard.Services.GameBanana;
-
-using System.Threading.Tasks;
-using Models;
 
 public class GamebananaSearchHandler
 {
     private static readonly JsonSerializerOptions? JsonSerializerOptions = new()
     {
         PropertyNameCaseInsensitive = true,
-        Converters = { new JsonStringEnumConverter() }
+        Converters = { new JsonStringEnumConverter() },
     };
 
     private const string BaseUrl = Endpoints.GameBananaBaseUrl;
@@ -21,10 +19,14 @@ public class GamebananaSearchHandler
 
     public static async Task<HttpClientResult<OldGameBananaSearchResults>> SearchModsAsync(string searchString, int page = 1, int perPage = 20)
     {
-        if (string.IsNullOrWhiteSpace(searchString)) searchString = "mod";
-        if (page < 1) page = 1;
-        if (perPage < 1 || perPage > 50) perPage = 20;
-        var searchUrl = $"{BaseUrl}/Util/Search/Results?_sSearchString={searchString}&_nPage={page}&_nPerpage={perPage}&_idGameRow={GAME_ID}";
+        if (string.IsNullOrWhiteSpace(searchString))
+            searchString = "mod";
+        if (page < 1)
+            page = 1;
+        if (perPage < 1 || perPage > 50)
+            perPage = 20;
+        var searchUrl =
+            $"{BaseUrl}/Util/Search/Results?_sSearchString={searchString}&_nPage={page}&_nPerpage={perPage}&_idGameRow={GAME_ID}";
 
         var result = await HttpClientHelper.GetAsync<OldGameBananaSearchResults>(searchUrl, JsonSerializerOptions);
 
@@ -49,7 +51,8 @@ public class GamebananaSearchHandler
 
     public static async Task<HttpClientResult<OldGameBananaSearchResults>> GetLatestModsAsync(int page = 1)
     {
-        if (page < 1) page = 1;
+        if (page < 1)
+            page = 1;
         var latestModsUrl = $"{BaseUrl}/Game/{GAME_ID}/Subfeed?_nPage={page}";
         return await HttpClientHelper.GetAsync<OldGameBananaSearchResults>(latestModsUrl, JsonSerializerOptions);
     }

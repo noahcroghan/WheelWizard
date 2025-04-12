@@ -11,14 +11,15 @@ public static class MiiChannelLaunchHelper
     public static async Task LaunchMiiChannel()
     {
         WiiMoteSettings.EnableVirtualWiiMote();
-        var miiChannelExists = File.Exists(MiiChannelPath);;
+        var miiChannelExists = File.Exists(MiiChannelPath);
+        ;
 
         if (!miiChannelExists)
         {
             // TODO: If we do enable this again, we should also add translations support for the text here
             var downloadQuestion = new YesNoWindow()
-                                .SetMainText("Install MiiChannel?")
-                                .SetExtraText("Do you want to install the MiiChannel to launch it?");
+                .SetMainText("Install MiiChannel?")
+                .SetExtraText("Do you want to install the MiiChannel to launch it?");
 
             if (await downloadQuestion.AwaitAnswer())
             {
@@ -29,7 +30,7 @@ public static class MiiChannelLaunchHelper
             }
         }
 
-        if(miiChannelExists)
+        if (miiChannelExists)
             DolphinLaunchHelper.LaunchDolphin($"-b \"{Path.GetFullPath(MiiChannelPath)}\"");
     }
 }

@@ -1,5 +1,5 @@
-using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
+using Microsoft.Extensions.Logging;
 
 namespace WheelWizard.Shared.Services;
 
@@ -7,7 +7,8 @@ namespace WheelWizard.Shared.Services;
 /// Singleton service for calling Refit APIs.
 /// </summary>
 /// <typeparam name="TApi">The type of the Refit API interface.</typeparam>
-public interface IApiCaller<TApi> where TApi : class
+public interface IApiCaller<TApi>
+    where TApi : class
 {
     /// <summary>
     /// Calls the specified API method asynchronously.
@@ -21,7 +22,8 @@ public interface IApiCaller<TApi> where TApi : class
     Task<OperationResult<TResult>> CallApiAsync<TResult>(Expression<Func<TApi, Task<TResult>>> apiCall);
 }
 
-public class ApiCaller<T>(IServiceScopeFactory scopeFactory, ILogger<ApiCaller<T>> logger) : IApiCaller<T> where T : class
+public class ApiCaller<T>(IServiceScopeFactory scopeFactory, ILogger<ApiCaller<T>> logger) : IApiCaller<T>
+    where T : class
 {
     public async Task<OperationResult<TResult>> CallApiAsync<TResult>(Expression<Func<T, Task<TResult>>> apiCall)
     {

@@ -7,7 +7,7 @@ public class RRRegionManager
     public static List<MarioKartWiiEnums.Regions> GetValidRegions()
     {
         var validRegions = new List<MarioKartWiiEnums.Regions>();
-        
+
         foreach (var region in Enum.GetValues<MarioKartWiiEnums.Regions>())
         {
             if (region == MarioKartWiiEnums.Regions.None)
@@ -31,14 +31,15 @@ public class RRRegionManager
             validRegions.Add(MarioKartWiiEnums.Regions.None);
         return validRegions;
     }
-    public static string ConvertRegionToGameId(MarioKartWiiEnums.Regions region) => region switch
-    {
-        MarioKartWiiEnums.Regions.None => "",
-        MarioKartWiiEnums.Regions.America => "RMCE",
-        MarioKartWiiEnums.Regions.Europe => "RMCP",
-        MarioKartWiiEnums.Regions.Japan => "RMCJ",
-        MarioKartWiiEnums.Regions.Korea => "RMCK",
-        _ => throw new ArgumentOutOfRangeException(nameof(region), region, null)
-    };
-}
 
+    public static string ConvertRegionToGameId(MarioKartWiiEnums.Regions region) =>
+        region switch
+        {
+            MarioKartWiiEnums.Regions.None => "",
+            MarioKartWiiEnums.Regions.America => "RMCE",
+            MarioKartWiiEnums.Regions.Europe => "RMCP",
+            MarioKartWiiEnums.Regions.Japan => "RMCJ",
+            MarioKartWiiEnums.Regions.Korea => "RMCK",
+            _ => throw new ArgumentOutOfRangeException(nameof(region), region, null),
+        };
+}

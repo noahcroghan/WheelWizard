@@ -1,9 +1,9 @@
-#if WINDOWS
-using Microsoft.Win32;
-#endif
 using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
 using WheelWizard.Services.Settings;
+#if WINDOWS
+using Microsoft.Win32;
+#endif
 
 namespace WheelWizard.Services;
 
@@ -37,30 +37,34 @@ public static class PathManager
     public static string WiiDbFolder => Path.Combine(WiiFolderPath, "shared2", "menu", "FaceLib");
     public static string WiiDbFile => Path.Combine(WiiDbFolder, "RFL_DB.dat");
 
-
     //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
     //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses
     //Also remember that mods may not be in a subfolder, all mod files must be located in /MyStuff directly
 
     // Helper paths for folders used across multiple files
     public static string MyStuffFolderPath => Path.Combine(RetroRewind6FolderPath, "MyStuff");
+
     public static string GetModDirectoryPath(string modName) => Path.Combine(ModsFolderPath, modName);
+
     public static string RiivolutionWhWzFolderPath => Path.Combine(LoadFolderPath, "Riivolution", "WheelWizard");
     public static string RetroRewind6FolderPath => Path.Combine(RiivolutionWhWzFolderPath, "RetroRewind6");
 
     // This is not the folder your save file is located in, but its the folder where every Region folder is, so the save file is in SaveFolderPath/Region
-    public static string SaveFolderPath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "save" ,"RetroWFC");
+    public static string SaveFolderPath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "save", "RetroWFC");
     public static string XmlFilePath => Path.Combine(RiivolutionWhWzFolderPath, "riivolution", "RetroRewind6.xml");
 
-    private static string PortableUserFolderPath => Path.Combine(GetDolphinExeDirectory(), RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "user" : "User");
+    private static string PortableUserFolderPath =>
+        Path.Combine(GetDolphinExeDirectory(), RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "user" : "User");
 
     private static string LinuxDolphinLegacyRelSubFolderPath => ".dolphin-emu";
     public static string LinuxDolphinLegacyFolderPath => Path.Combine(HomeFolderPath, LinuxDolphinLegacyRelSubFolderPath);
     private static string LinuxDolphinRelSubFolderPath => "dolphin-emu";
 
     private static string LinuxDolphinFlatpakAppDataFolderPath => Path.Combine(HomeFolderPath, ".var", "app", "org.DolphinEmu.dolphin-emu");
-    public static string LinuxDolphinFlatpakDataDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "data", LinuxDolphinRelSubFolderPath);
-    public static string LinuxDolphinFlatpakConfigDir => Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "config", LinuxDolphinRelSubFolderPath);
+    public static string LinuxDolphinFlatpakDataDir =>
+        Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "data", LinuxDolphinRelSubFolderPath);
+    public static string LinuxDolphinFlatpakConfigDir =>
+        Path.Combine(LinuxDolphinFlatpakAppDataFolderPath, "config", LinuxDolphinRelSubFolderPath);
 
     private static string? NullIfRelativeLinuxPath(string path)
     {
@@ -77,8 +81,12 @@ public static class PathManager
 
     private static string LinuxXdgDataHome => LocalAppDataFolder;
     private static string LinuxXdgConfigHome => AppDataFolder;
-    private static string LinuxHostXdgDataHome => NullIfRelativeLinuxPath(Environment.GetEnvironmentVariable("HOST_XDG_DATA_HOME") ?? string.Empty) ?? Path.Combine(HomeFolderPath, ".local", "share");
-    private static string LinuxHostXdgConfigHome => NullIfRelativeLinuxPath(Environment.GetEnvironmentVariable("HOST_XDG_CONFIG_HOME") ?? string.Empty) ?? Path.Combine(HomeFolderPath, ".config");
+    private static string LinuxHostXdgDataHome =>
+        NullIfRelativeLinuxPath(Environment.GetEnvironmentVariable("HOST_XDG_DATA_HOME") ?? string.Empty)
+        ?? Path.Combine(HomeFolderPath, ".local", "share");
+    private static string LinuxHostXdgConfigHome =>
+        NullIfRelativeLinuxPath(Environment.GetEnvironmentVariable("HOST_XDG_CONFIG_HOME") ?? string.Empty)
+        ?? Path.Combine(HomeFolderPath, ".config");
 
     private static string LinuxDolphinHostNativeInstallConfigDir => Path.Combine(LinuxHostXdgConfigHome, LinuxDolphinRelSubFolderPath);
     private static string LinuxDolphinHostNativeInstallDataDir => Path.Combine(LinuxHostXdgDataHome, LinuxDolphinRelSubFolderPath);
@@ -91,10 +99,10 @@ public static class PathManager
         {
             if (IsFlatpakSandboxed())
             {
-                if (LinuxDolphinHostNativeInstallDataDir.Equals(UserFolderPath, StringComparison.Ordinal))
+                if (LinuxDolphinHostNativeInstallDataDir.Equals(Path.GetFullPath(UserFolderPath), StringComparison.Ordinal))
                     return LinuxDolphinHostNativeInstallConfigDir;
             }
-            else if (LinuxDolphinNativeInstallDataDir.Equals(UserFolderPath, StringComparison.Ordinal))
+            else if (LinuxDolphinNativeInstallDataDir.Equals(Path.GetFullPath(UserFolderPath), StringComparison.Ordinal))
             {
                 return LinuxDolphinNativeInstallConfigDir;
             }
@@ -109,7 +117,7 @@ public static class PathManager
         {
             if (IsFlatpakDolphinFilePath())
             {
-                if (LinuxDolphinFlatpakDataDir.Equals(UserFolderPath, StringComparison.Ordinal))
+                if (LinuxDolphinFlatpakDataDir.Equals(Path.GetFullPath(UserFolderPath), StringComparison.Ordinal))
                     return LinuxDolphinFlatpakConfigDir;
 
                 return string.Empty;
@@ -128,10 +136,7 @@ public static class PathManager
 
     public static string LoadFolderPath
     {
-        get
-        {
-            return Path.Combine(UserFolderPath, "Load");
-        }
+        get { return Path.Combine(UserFolderPath, "Load"); }
     }
 
     public static string ConfigFolderPath
@@ -151,7 +156,6 @@ public static class PathManager
                     // Fall back to something that is likely not valid, will be checked later
                     return Path.Combine(UserFolderPath, "Config");
                 }
-
             }
             return Path.Combine(UserFolderPath, "Config");
         }
@@ -159,10 +163,7 @@ public static class PathManager
 
     public static string WiiFolderPath
     {
-        get
-        {
-            return Path.Combine(UserFolderPath, "Wii");
-        }
+        get { return Path.Combine(UserFolderPath, "Wii"); }
     }
 
     public static bool IsFlatpakDolphinFilePath(string filePath)
@@ -175,11 +176,11 @@ public static class PathManager
         string flatpakRunCommand = "flatpak run";
         string dolphinAppId = "org.DolphinEmu.dolphin-emu";
         string[] possibleFlatpakDolphinCommands =
-        {
+        [
             $"{flatpakRunCommand} {dolphinAppId}",
             $"{flatpakRunCommand} --system {dolphinAppId}",
             $"{flatpakRunCommand} --user {dolphinAppId}",
-        };
+        ];
         foreach (string possibleFlatpakDolphinCommand in possibleFlatpakDolphinCommands)
         {
             if (possibleFlatpakDolphinCommand.Equals(filePath, StringComparison.Ordinal))
@@ -270,8 +271,10 @@ public static class PathManager
                 string foundUserConfigPath = (string)key.GetValue(userConfigPathValueName);
                 // We need to replace `/` with `\` here since Dolphin writes mismatching separators to the registry
                 if (FileHelper.DirectoryExists(foundUserConfigPath))
-                    userConfigPath = foundUserConfigPath.Replace(Path.AltDirectorySeparatorChar.ToString(),
-                                                                 Path.DirectorySeparatorChar.ToString());
+                    userConfigPath = foundUserConfigPath.Replace(
+                        Path.AltDirectorySeparatorChar.ToString(),
+                        Path.DirectorySeparatorChar.ToString()
+                    );
             }
             return userConfigPath;
         }
@@ -357,8 +360,7 @@ public static class PathManager
             if (!string.IsNullOrWhiteSpace(registryUserConfigPath))
                 return registryUserConfigPath;
 
-            var documentsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                "Dolphin Emulator");
+            var documentsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Dolphin Emulator");
             if (FileHelper.DirectoryExists(documentsPath))
                 return documentsPath;
 
@@ -397,7 +399,7 @@ public static class PathManager
             var dolphinApplicationPath = Path.Combine("Dolphin.app", "Contents", "MacOS", "Dolphin");
             // Try system wide install on MacOS
             var path = Path.Combine("/Applications", dolphinApplicationPath);
-                if (FileHelper.FileExists(path))
+            if (FileHelper.FileExists(path))
                 return path;
             // Try user install on MacOS
             path = Path.Combine(HomeFolderPath, "Applications", dolphinApplicationPath);

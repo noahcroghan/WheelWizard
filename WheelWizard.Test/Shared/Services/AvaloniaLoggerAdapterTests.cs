@@ -7,16 +7,15 @@ namespace WheelWizard.Test.Shared.Services;
 
 public class AvaloniaLoggerAdapterTests
 {
-    public static TheoryData<LogEventLevel, LogLevel> LogLevels =
-        new()
-        {
-            { LogEventLevel.Verbose, LogLevel.Trace },
-            { LogEventLevel.Debug, LogLevel.Debug },
-            { LogEventLevel.Information, LogLevel.Information },
-            { LogEventLevel.Warning, LogLevel.Warning },
-            { LogEventLevel.Error, LogLevel.Error },
-            { LogEventLevel.Fatal, LogLevel.Critical }
-        };
+    public static TheoryData<LogEventLevel, LogLevel> LogLevels = new()
+    {
+        { LogEventLevel.Verbose, LogLevel.Trace },
+        { LogEventLevel.Debug, LogLevel.Debug },
+        { LogEventLevel.Information, LogLevel.Information },
+        { LogEventLevel.Warning, LogLevel.Warning },
+        { LogEventLevel.Error, LogLevel.Error },
+        { LogEventLevel.Fatal, LogLevel.Critical },
+    };
 
     [Theory(DisplayName = "Log adapter message, should convert to logger message")]
     [MemberData(nameof(LogLevels))]
@@ -88,7 +87,6 @@ public class AvaloniaLoggerAdapterTests
         var logAdapter = new AvaloniaLoggerAdapter(logger);
 
         // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() =>
-            logAdapter.Log((LogEventLevel)999, "TestArea", null, "Test message"));
+        Assert.Throws<ArgumentOutOfRangeException>(() => logAdapter.Log((LogEventLevel)999, "TestArea", null, "Test message"));
     }
 }

@@ -1,4 +1,5 @@
-﻿using Semver;
+﻿using Avalonia.Threading;
+using Semver;
 using WheelWizard.Branding;
 using WheelWizard.GitHub.Domain;
 using WheelWizard.Views.Popups.Generic;
@@ -6,7 +7,7 @@ using WheelWizard.Views.Popups.Generic;
 namespace WheelWizard.AutoUpdating.Platforms;
 
 /// <summary>
-/// Fallback platform if we have no platform 
+/// Fallback platform if we have no platform
 /// </summary>
 public class FallbackUpdatePlatform(IBrandingSingletonService brandingService) : IUpdatePlatform
 {
@@ -19,17 +20,21 @@ public class FallbackUpdatePlatform(IBrandingSingletonService brandingService) :
 
         var latestVersion = SemVersion.Parse(release.TagName.TrimStart('v'), SemVersionStyles.Any);
         var currentVersion = SemVersion.Parse(installedVersion, SemVersionStyles.Any);
-        if (currentVersion.ComparePrecedenceTo(latestVersion) >= 0) return null;
-        if (_shown) return null;
+        if (currentVersion.ComparePrecedenceTo(latestVersion) >= 0)
+            return null;
+        if (_shown)
+            return null;
         _shown = true;
-        Avalonia.Threading.Dispatcher.UIThread.InvokeAsync(() =>
+        Dispatcher.UIThread.InvokeAsync(() =>
         {
             new MessageBoxWindow()
                 .SetTitleText("New Wheel Wizard version")
-                .SetInfoText("There is a new Wheel Wizard version available!\n" +
-                             $"Version {release.TagName.TrimStart('v')} (You are currently on {installedVersion})\n" +
-                             "You can manually update it by going to the github releases at: " +
-                             "https://github.com/patchzyy/WheelWizard/releases")
+                .SetInfoText(
+                    "There is a new Wheel Wizard version available!\n"
+                        + $"Version {release.TagName.TrimStart('v')} (You are currently on {installedVersion})\n"
+                        + "You can manually update it by going to the github releases at: "
+                        + "https://github.com/patchzyy/WheelWizard/releases"
+                )
                 .Show();
         });
 

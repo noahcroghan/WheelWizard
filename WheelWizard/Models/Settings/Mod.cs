@@ -1,7 +1,7 @@
-﻿using IniParser;
-using IniParser.Model;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using IniParser;
+using IniParser.Model;
 using WheelWizard.Services;
 
 namespace WheelWizard.Models.Settings;
@@ -24,20 +24,20 @@ public class Mod : INotifyPropertyChanged
 
     private void OnModManagerChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName != nameof(ModManager.Instance.Mods)) return;
+        if (e.PropertyName != nameof(ModManager.Instance.Mods))
+            return;
         OnPropertyChanged(nameof(IsLowest));
         OnPropertyChanged(nameof(IsHighest));
     }
-
 
     public bool IsEnabled
     {
         get => _isEnabled;
         set
         {
-            if (_isEnabled == value) 
+            if (_isEnabled == value)
                 return;
-            
+
             _isEnabled = value;
             OnPropertyChanged(nameof(IsEnabled));
         }
@@ -48,9 +48,9 @@ public class Mod : INotifyPropertyChanged
         get => _title;
         set
         {
-            if (_title == value) 
+            if (_title == value)
                 return;
-            
+
             _title = value;
             OnPropertyChanged(nameof(Title));
         }
@@ -97,15 +97,17 @@ public class Mod : INotifyPropertyChanged
 
     #region PropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
+
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
     #endregion
-    
+
     protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+        if (EqualityComparer<T>.Default.Equals(field, value))
+            return false;
         field = value;
         OnPropertyChanged(propertyName);
         return true;
@@ -124,7 +126,7 @@ public class Mod : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            throw new Exception($"Failed to read INI file '{iniFilePath}': {ex.Message}");
+            throw new($"Failed to read INI file '{iniFilePath}': {ex.Message}");
         }
 
         var mod = new Mod
@@ -133,7 +135,7 @@ public class Mod : INotifyPropertyChanged
             Author = data["Mod"]["Author"],
             ModID = int.TryParse(data["Mod"]["ModID"], out var id) ? id : -1,
             IsEnabled = bool.TryParse(data["Mod"]["IsEnabled"], out var enabled) ? enabled : true,
-            Priority = int.TryParse(data["Mod"]["Priority"], out var priority) ? priority : 0
+            Priority = int.TryParse(data["Mod"]["Priority"], out var priority) ? priority : 0,
         };
 
         return await Task.FromResult(mod);
@@ -158,13 +160,12 @@ public class Mod : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            throw new Exception($"Failed to write INI file '{iniFilePath}': {ex.Message}");
+            throw new($"Failed to write INI file '{iniFilePath}': {ex.Message}");
         }
 
         await Task.CompletedTask;
     }
 }
-
 
 public class ModData
 {

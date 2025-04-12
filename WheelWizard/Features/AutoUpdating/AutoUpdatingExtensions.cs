@@ -19,7 +19,7 @@ public static class AutoUpdatingExtensions
 #endif
 
         services.AddSingleton(typeof(IUpdatePlatform), implementationType);
-        
+
         return services;
     }
 }

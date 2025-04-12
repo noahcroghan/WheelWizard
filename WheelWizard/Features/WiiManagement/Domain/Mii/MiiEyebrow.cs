@@ -29,6 +29,6 @@ public class MiiEyebrow
         Spacing = spacing;
     }
 
-    public static OperationResult<MiiEyebrow> Create(int type, int rotation, EyebrowColor color, int size, int vertical, int spacing)
-        => TryCatch(() => new MiiEyebrow(type, rotation, color, size, vertical, spacing));
+    public static OperationResult<MiiEyebrow> Create(int type, int rotation, EyebrowColor color, int size, int vertical, int spacing) =>
+        TryCatch(() => new MiiEyebrow(type, rotation, color, size, vertical, spacing));
 }

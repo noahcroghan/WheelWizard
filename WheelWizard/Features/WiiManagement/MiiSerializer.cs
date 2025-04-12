@@ -15,12 +15,15 @@ public static class MiiSerializer
 
         // Header (0x00 - 0x01)
         ushort header = 0;
-        if (mii.IsInvalid) header |= 0x8000;
-        if (mii.IsGirl) header |= 0x4000;
+        if (mii.IsInvalid)
+            header |= 0x8000;
+        if (mii.IsGirl)
+            header |= 0x4000;
         header |= (ushort)((mii.Date.Month & 0x0F) << 10);
         header |= (ushort)((mii.Date.Day & 0x1F) << 5);
         header |= (ushort)(((int)mii.MiiFavoriteColor & 0x0F) << 1);
-        if (mii.IsFavorite) header |= 0x1;
+        if (mii.IsFavorite)
+            header |= 0x1;
         data[0] = (byte)(header >> 8);
         data[1] = (byte)(header & 0xFF);
 
@@ -152,7 +155,7 @@ public static class MiiSerializer
         mii.IsGirl = (header & 0x4000) != 0;
         int month = (header >> 10) & 0x0F;
         int day = (header >> 5) & 0x1F;
-        mii.Date = new DateOnly(2000, Math.Clamp(month, 1, 12), Math.Clamp(day, 1, 31));
+        mii.Date = new(2000, Math.Clamp(month, 1, 12), Math.Clamp(day, 1, 31));
         var miiFavoriteColor = (uint)(header >> 1) & 0x0F;
         if (!Enum.IsDefined(typeof(MiiFavoriteColor), miiFavoriteColor))
             return new InvalidDataException("Invalid MiiFavoriteColor");
@@ -165,7 +168,6 @@ public static class MiiSerializer
         if (name.ToString() == "")
             return new InvalidDataException("Invalid MiiName");
         mii.Name = name;
-
 
         // Height & Weight (0x16 - 0x17)
         mii.Height = MiiScale.Create(data[0x16]).Value;
@@ -209,11 +211,7 @@ public static class MiiSerializer
         var hairColor = (hair >> 6) & 0x07;
         if (!Enum.IsDefined(typeof(HairColor), hairColor))
             return new InvalidDataException("Invalid HairColor");
-        var miiHairResult = MiiHair.Create(
-            (hair >> 9) & 0x7F,
-            (HairColor)hairColor,
-            ((hair >> 5) & 0x01) != 0
-        );
+        var miiHairResult = MiiHair.Create((hair >> 9) & 0x7F, (HairColor)hairColor, ((hair >> 5) & 0x01) != 0);
         if (miiHairResult.IsFailure)
             return miiHairResult.Error;
         mii.MiiHair = miiHairResult.Value;
@@ -257,11 +255,7 @@ public static class MiiSerializer
         var noseType = (nose >> 12) & 0x0F;
         if (!Enum.IsDefined(typeof(NoseType), noseType))
             return new InvalidDataException("Invalid NoseType");
-        var miiNoseResult = MiiNose.Create(
-            (NoseType)noseType,
-            (int)((nose >> 8) & 0x0F),
-            (int)((nose >> 3) & 0x1F)
-        );
+        var miiNoseResult = MiiNose.Create((NoseType)noseType, (int)((nose >> 8) & 0x0F), (int)((nose >> 3) & 0x1F));
         if (miiNoseResult.IsFailure)
             return miiNoseResult.Error;
         mii.MiiNose = miiNoseResult.Value;
@@ -271,12 +265,7 @@ public static class MiiSerializer
         var lipColor = ((lip >> 9) & 0x03);
         if (!Enum.IsDefined(typeof(LipColor), lipColor))
             return new InvalidDataException("Invalid LipColor");
-        var miiLipResult = MiiLip.Create(
-            (int)((lip >> 11) & 0x1F),
-            (LipColor)lipColor,
-            (int)((lip >> 5) & 0x0F),
-            (int)(lip & 0x1F)
-        );
+        var miiLipResult = MiiLip.Create((int)((lip >> 11) & 0x1F), (LipColor)lipColor, (int)((lip >> 5) & 0x0F), (int)(lip & 0x1F));
         if (miiLipResult.IsFailure)
             return miiLipResult.Error;
         mii.MiiLips = miiLipResult.Value;
@@ -323,12 +312,7 @@ public static class MiiSerializer
 
         // Mole (0x34 - 0x35)
         ushort mole = (ushort)((data[0x34] << 8) | data[0x35]);
-        var miiMoleResult = MiiMole.Create(
-            ((mole >> 15) & 0x01) != 0,
-            (mole >> 11) & 0x0F,
-            (mole >> 6) & 0x1F,
-            (mole >> 1) & 0x1F
-        );
+        var miiMoleResult = MiiMole.Create(((mole >> 15) & 0x01) != 0, (mole >> 11) & 0x0F, (mole >> 6) & 0x1F, (mole >> 1) & 0x1F);
         if (miiMoleResult.IsFailure)
             return miiMoleResult.Error;
         mii.MiiMole = miiMoleResult.Value;

@@ -1,9 +1,9 @@
+using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using System.ComponentModel;
 using WheelWizard.Services.Settings;
 
 namespace WheelWizard.Views.Popups.Base;
@@ -75,7 +75,7 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
         InitializeComponent();
         AddLayer();
         DataContext = this;
-        
+
         Position = mainWindow.Position;
         Loaded += PopupWindow_Loaded;
     }
@@ -89,7 +89,7 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
     {
         base.OnResized(e);
 
-        CompleteBorder.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+        CompleteBorder.Measure(new(double.PositiveInfinity, double.PositiveInfinity));
         var desiredSize = CompleteBorder.DesiredSize;
         SetWindowSize(desiredSize);
     }
@@ -102,7 +102,7 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
         CompleteGrid.RenderTransform = new ScaleTransform(scaleFactor, scaleFactor);
         var marginXCorrection = ((scaleFactor * size.Width) - size.Width) / 2f;
         var marginYCorrection = ((scaleFactor * size.Height) - size.Height) / 2f;
-        CompleteGrid.Margin = new Thickness(marginXCorrection, marginYCorrection);
+        CompleteGrid.Margin = new(marginXCorrection, marginYCorrection);
     }
 
     protected void TopBar_PointerPressed(object? sender, PointerPressedEventArgs e)
@@ -122,6 +122,7 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
     }
 
     private void MinimizeButton_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+
     public void Restore() => WindowState = WindowState.Normal;
 
     #region PropertyChanged
@@ -130,7 +131,7 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
 
     protected void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion

@@ -24,7 +24,7 @@ public abstract class BaseWindow : Window
     {
         if (!AllowParentInteraction || WindowLayers.Count == 0)
         {
-            _currentLayer = new WindowLayer(this);
+            _currentLayer = new(this);
             if (WindowLayers.Count != 0)
                 WindowLayers.Last().SetInteractable(false);
             WindowLayers.Add(_currentLayer);
@@ -62,7 +62,8 @@ public abstract class BaseWindow : Window
         else if (_disableCount > 0)
             _disableCount--;
 
-        if (_disableCount != 0 && value) return;
+        if (_disableCount != 0 && value)
+            return;
 
         InteractionOverlay.IsVisible = !value;
         InteractionContent.IsEnabled = value;

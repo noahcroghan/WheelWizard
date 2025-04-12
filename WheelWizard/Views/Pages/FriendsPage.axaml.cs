@@ -4,7 +4,6 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.GameData;
 using WheelWizard.Services.LiveData;
-using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups;
@@ -20,8 +19,10 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
     // Though I do see the use in saving it when using the app so you can swap pages in the meantime
     private static ListOrderCondition CurrentOrder = ListOrderCondition.IS_ONLINE;
 
-    private ObservableCollection<FriendProfile> _friendlist = new();
-    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
+    private ObservableCollection<FriendProfile> _friendlist = [];
+
+    [Inject]
+    private IGameDataSingletonService GameDataService { get; set; } = null!;
 
     public ObservableCollection<FriendProfile> FriendList
     {
@@ -47,7 +48,8 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     public void OnUpdate(RepeatedTaskManager sender)
     {
-        if (sender is not GameDataSingletonService) return;
+        if (sender is not GameDataSingletonService)
+            return;
         UpdateFriendList();
     }
 
@@ -57,8 +59,10 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
         // Instead of setting entire list every single time, we just update the indexes accordingly, which is faster
         for (var i = 0; i < newList.Count; i++)
         {
-            if (i < FriendList.Count) FriendList[i] = newList[i];
-            else FriendList.Add(newList[i]);
+            if (i < FriendList.Count)
+                FriendList[i] = newList[i];
+            else
+                FriendList.Add(newList[i]);
         }
 
         while (FriendList.Count > newList.Count)
@@ -102,7 +106,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
                 ListOrderCondition.NAME => "Name",
                 ListOrderCondition.WINS => "Total Wins",
                 ListOrderCondition.TOTAL_RACES => "Total Races",
-                ListOrderCondition.IS_ONLINE => "Is Online"
+                ListOrderCondition.IS_ONLINE => "Is Online",
             };
 
             SortByDropdown.Items.Add(name);
@@ -129,14 +133,17 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     private void CopyFriendCode_OnClick(object sender, RoutedEventArgs e)
     {
-        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer) return;
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
+            return;
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedPlayer.FriendCode);
     }
 
     private void OpenCarousel_OnClick(object sender, RoutedEventArgs e)
     {
-        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer) return;
-        if (selectedPlayer.Mii == null) return;
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
+            return;
+        if (selectedPlayer.Mii == null)
+            return;
         new MiiCarouselWindow().SetMii(selectedPlayer.Mii).Show();
     }
 
@@ -164,7 +171,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion

@@ -17,21 +17,41 @@ public static class MiiImageVariants
     {
         [Variant.SMALL] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.FACE, ImageSize.SMALL),
         [Variant.FULL_BODY_CAROUSEL] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.ALL_BODY, ImageSize.MEDIUM, instanceCount: 8),
-        [Variant.SLIGHT_SIDE_PROFILE_DEFAULT] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.FACE, ImageSize.MEDIUM,
-            characterRotation: new(350,15,355), cameraTilt: 12),
-        [Variant.SLIGHT_SIDE_PROFILE_HOVER] = GetMiiImageUrlFromResponse(Expression.SMILE, BodyType.FACE, ImageSize.MEDIUM,
-            characterRotation: new(350,15,355), cameraTilt: 12),
-        
-        [Variant.SLIGHT_SIDE_PROFILE_INTERACT] = GetMiiImageUrlFromResponse(Expression.FRUSTRATED, BodyType.FACE, ImageSize.MEDIUM,
-            characterRotation: new(350,15,355), cameraTilt: 12),
+        [Variant.SLIGHT_SIDE_PROFILE_DEFAULT] = GetMiiImageUrlFromResponse(
+            Expression.NORMAL,
+            BodyType.FACE,
+            ImageSize.MEDIUM,
+            characterRotation: new(350, 15, 355),
+            cameraTilt: 12
+        ),
+        [Variant.SLIGHT_SIDE_PROFILE_HOVER] = GetMiiImageUrlFromResponse(
+            Expression.SMILE,
+            BodyType.FACE,
+            ImageSize.MEDIUM,
+            characterRotation: new(350, 15, 355),
+            cameraTilt: 12
+        ),
+
+        [Variant.SLIGHT_SIDE_PROFILE_INTERACT] = GetMiiImageUrlFromResponse(
+            Expression.FRUSTRATED,
+            BodyType.FACE,
+            ImageSize.MEDIUM,
+            characterRotation: new(350, 15, 355),
+            cameraTilt: 12
+        ),
     };
-    
-    
+
     #region SETUP
     public static Func<string, string> Get(Variant variant) => _variantMap[variant];
+
     private static Func<string, string> GetMiiImageUrlFromResponse(
-        Expression expression, BodyType type, ImageSize size, 
-        Vector3 characterRotation = new(), int cameraTilt = 0, int instanceCount = 1)
+        Expression expression,
+        BodyType type,
+        ImageSize size,
+        Vector3 characterRotation = new(),
+        int cameraTilt = 0,
+        int instanceCount = 1
+    )
     {
         return (miiData) =>
         {
@@ -51,7 +71,7 @@ public static class MiiImageVariants
                 $"characterZRotate={(int)characterRotation.Z}",
                 "lightDirectionMode=none",
                 $"instanceCount={instanceCount}",
-                "instanceRotationMode=model"
+                "instanceRotationMode=model",
             };
             return string.Join("&", queryParams);
         };
@@ -65,19 +85,20 @@ public static class MiiImageVariants
         ANGER,
         BLINK,
         SORROW,
-        SURPRISE
+        SURPRISE,
     }
 
     private enum BodyType
     {
         FACE,
-        ALL_BODY
+        ALL_BODY,
     }
+
     private enum ImageSize
     {
         SMALL = 270,
         MEDIUM = 512,
     }
-    
+
     #endregion
 }

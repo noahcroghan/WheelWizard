@@ -1,17 +1,14 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using WheelWizard.Models.MiiImages;
 using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement.Domain.Mii;
-
 
 namespace WheelWizard.Views.Components;
 
 public class PlayerListItem : TemplatedControl
 {
-    public static readonly StyledProperty<bool> HasBadgesProperty =
-        AvaloniaProperty.Register<PlayerListItem, bool>(nameof(HasBadges));
+    public static readonly StyledProperty<bool> HasBadgesProperty = AvaloniaProperty.Register<PlayerListItem, bool>(nameof(HasBadges));
 
     public bool HasBadges
     {
@@ -19,8 +16,7 @@ public class PlayerListItem : TemplatedControl
         set => SetValue(HasBadgesProperty, value);
     }
 
-    public static readonly StyledProperty<Mii?> MiiProperty =
-        AvaloniaProperty.Register<PlayerListItem, Mii?>(nameof(Mii));
+    public static readonly StyledProperty<Mii?> MiiProperty = AvaloniaProperty.Register<PlayerListItem, Mii?>(nameof(Mii));
 
     public Mii? Mii
     {
@@ -28,9 +24,7 @@ public class PlayerListItem : TemplatedControl
         set => SetValue(MiiProperty, value);
     }
 
-
-    public static readonly StyledProperty<string> VrProperty =
-        AvaloniaProperty.Register<PlayerListItem, string>(nameof(Vr));
+    public static readonly StyledProperty<string> VrProperty = AvaloniaProperty.Register<PlayerListItem, string>(nameof(Vr));
 
     public string Vr
     {
@@ -38,8 +32,7 @@ public class PlayerListItem : TemplatedControl
         set => SetValue(VrProperty, value);
     }
 
-    public static readonly StyledProperty<string> BrProperty =
-        AvaloniaProperty.Register<PlayerListItem, string>(nameof(Br));
+    public static readonly StyledProperty<string> BrProperty = AvaloniaProperty.Register<PlayerListItem, string>(nameof(Br));
 
     public string Br
     {
@@ -47,8 +40,9 @@ public class PlayerListItem : TemplatedControl
         set => SetValue(BrProperty, value);
     }
 
-    public static readonly StyledProperty<string> FriendCodeProperty =
-        AvaloniaProperty.Register<PlayerListItem, string>(nameof(FriendCode));
+    public static readonly StyledProperty<string> FriendCodeProperty = AvaloniaProperty.Register<PlayerListItem, string>(
+        nameof(FriendCode)
+    );
 
     public string FriendCode
     {
@@ -56,15 +50,13 @@ public class PlayerListItem : TemplatedControl
         set => SetValue(FriendCodeProperty, value);
     }
 
-    public static readonly StyledProperty<string> UserNameProperty =
-        AvaloniaProperty.Register<PlayerListItem, string>(nameof(UserName));
+    public static readonly StyledProperty<string> UserNameProperty = AvaloniaProperty.Register<PlayerListItem, string>(nameof(UserName));
 
     public string UserName
     {
         get => GetValue(UserNameProperty);
         set => SetValue(UserNameProperty, value);
     }
-
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
@@ -74,8 +66,8 @@ public class PlayerListItem : TemplatedControl
             return;
 
         container.Children.Clear();
-        var badges = App.Services
-            .GetRequiredService<IWhWzDataSingletonService>()
+        var badges = App
+            .Services.GetRequiredService<IWhWzDataSingletonService>()
             .GetBadges(FriendCode)
             .Select(variant => new Badge { Variant = variant });
         foreach (var badge in badges)

@@ -11,7 +11,8 @@ namespace WheelWizard.Views.Popups;
 
 public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
 {
-    public DevToolWindow() : base(true, true, true, "Dev Tool")
+    public DevToolWindow()
+        : base(true, true, true, "Dev Tool")
     {
         InitializeComponent();
         AppStateMonitor.Instance.Subscribe(this);
@@ -51,7 +52,6 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
 
     private void ClearImageCache_OnClick(object sender, RoutedEventArgs e) => MiiImageManager.ClearImageCache();
 
-
     #region Popup Tests
 
     private async void TestProgressPopup_OnClick(object sender, RoutedEventArgs e)
@@ -67,7 +67,8 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
             {
                 progressWindow.UpdateProgress(i * 20);
                 progressWindow.SetExtraText($"This is information for iteration {i}");
-                if (i == 3) progressWindow.SetGoal($"Changed the Goal");
+                if (i == 3)
+                    progressWindow.SetGoal($"Changed the Goal");
             });
             await Task.Delay(1000);
         }
@@ -90,8 +91,9 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
         new MessageBoxWindow()
             .SetMessageType(MessageBoxWindow.MessageType.Warning)
             .SetTitleText("Invalid license.")
-            .SetInfoText("This license has no Mii data or is incomplete.\n" +
-                         "Please use the Mii Channel to create a Mii first. \n \n \n abncd")
+            .SetInfoText(
+                "This license has no Mii data or is incomplete.\n" + "Please use the Mii Channel to create a Mii first. \n \n \n abncd"
+            )
             .Show();
 
         new MessageBoxWindow()

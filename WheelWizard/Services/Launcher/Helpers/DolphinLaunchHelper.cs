@@ -12,7 +12,8 @@ public static class DolphinLaunchHelper
     public static void KillDolphin() //dont tell PETA
     {
         var dolphinLocation = PathManager.DolphinFilePath;
-        if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(dolphinLocation)).Length == 0) return;
+        if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(dolphinLocation)).Length == 0)
+            return;
 
         var dolphinProcesses = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(dolphinLocation));
         foreach (var process in dolphinProcesses)
@@ -50,21 +51,19 @@ public static class DolphinLaunchHelper
         {
             try
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "flatpak",
-                    ArgumentList = {
-                        "document-export",
-                        "--app=org.DolphinEmu.dolphin-emu",
-                        "-r",
-                        "--",
-                        gameFilePath,
-                    },
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                    UseShellExecute = false
-                })?.WaitForExit();
+                Process
+                    .Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = "flatpak",
+                            ArgumentList = { "document-export", "--app=org.DolphinEmu.dolphin-emu", "-r", "--", gameFilePath },
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true,
+                            UseShellExecute = false,
+                        }
+                    )
+                    ?.WaitForExit();
                 return true;
             }
             catch
@@ -83,7 +82,8 @@ public static class DolphinLaunchHelper
             string flatpakRunCommand = "flatpak run";
             fixedFlatpakDolphinLocation = fixedFlatpakDolphinLocation.Replace(
                 flatpakRunCommand,
-                $"{flatpakRunCommand} --filesystem=\"{Path.GetFullPath(newFilesystemPerm)}\"{mode}");
+                $"{flatpakRunCommand} --filesystem=\"{Path.GetFullPath(newFilesystemPerm)}\"{mode}"
+            );
         };
         // Read-only permissions
         if (!TryFixFlatpakGameFileAccess())
@@ -94,11 +94,11 @@ public static class DolphinLaunchHelper
         addFilesystemPerm(PathManager.XmlFilePath, ":ro");
         addFilesystemPerm(PathManager.RiivolutionWhWzFolderPath, ":ro");
         // Read-write permissions
-        if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(PathManager.UserFolderPath, StringComparison.Ordinal))
+        if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(Path.GetFullPath(PathManager.UserFolderPath), StringComparison.Ordinal))
         {
             addFilesystemPerm(PathManager.UserFolderPath, ":rw");
         }
-        addFilesystemPerm(PathManager.SaveFolderPath, ":rw");
+        addFilesystemPerm(PathManager.SaveFolderPath, ":create");
         return fixedFlatpakDolphinLocation;
     }
 

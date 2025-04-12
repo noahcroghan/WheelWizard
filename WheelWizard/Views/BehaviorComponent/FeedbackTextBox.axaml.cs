@@ -8,31 +8,35 @@ public partial class FeedbackTextBox : UserControl
 {
     #region Properties
 
-    public static readonly StyledProperty<TextBoxVariantType> VariantProperty =
-        AvaloniaProperty.Register<FeedbackTextBox, TextBoxVariantType>(nameof(Variant), TextBoxVariantType.Default);
+    public static readonly StyledProperty<TextBoxVariantType> VariantProperty = AvaloniaProperty.Register<
+        FeedbackTextBox,
+        TextBoxVariantType
+    >(nameof(Variant), TextBoxVariantType.Default);
 
-    public static readonly StyledProperty<string> ErrorMessageProperty =
-        AvaloniaProperty.Register<FeedbackTextBox, string>(nameof(ErrorMessage));
+    public static readonly StyledProperty<string> ErrorMessageProperty = AvaloniaProperty.Register<FeedbackTextBox, string>(
+        nameof(ErrorMessage)
+    );
 
-    public static readonly StyledProperty<string> TextProperty =
-        AvaloniaProperty.Register<FeedbackTextBox, string>(nameof(Text));
+    public static readonly StyledProperty<string> TextProperty = AvaloniaProperty.Register<FeedbackTextBox, string>(nameof(Text));
 
-    public static readonly StyledProperty<string> WatermarkProperty =
-        AvaloniaProperty.Register<FeedbackTextBox, string>(nameof(Watermark), "Enter text here...");
+    public static readonly StyledProperty<string> WatermarkProperty = AvaloniaProperty.Register<FeedbackTextBox, string>(
+        nameof(Watermark),
+        "Enter text here..."
+    );
 
-    public static readonly StyledProperty<string> LabelProperty =
-        AvaloniaProperty.Register<FeedbackTextBox, string>(nameof(Label));
+    public static readonly StyledProperty<string> LabelProperty = AvaloniaProperty.Register<FeedbackTextBox, string>(nameof(Label));
 
-    public static readonly StyledProperty<string> TipTextProperty =
-        AvaloniaProperty.Register<FeedbackTextBox, string>(nameof(TipText));
+    public static readonly StyledProperty<string> TipTextProperty = AvaloniaProperty.Register<FeedbackTextBox, string>(nameof(TipText));
 
-    public static readonly RoutedEvent<TextChangedEventArgs> TextChangedEvent =
-        RoutedEvent.Register<TextBox, TextChangedEventArgs>(nameof(TextChanged), RoutingStrategies.Bubble);
+    public static readonly RoutedEvent<TextChangedEventArgs> TextChangedEvent = RoutedEvent.Register<TextBox, TextChangedEventArgs>(
+        nameof(TextChanged),
+        RoutingStrategies.Bubble
+    );
 
     public enum TextBoxVariantType
     {
         Default,
-        Dark
+        Dark,
     }
 
     public TextBoxVariantType Variant
@@ -70,7 +74,7 @@ public partial class FeedbackTextBox : UserControl
         get => GetValue(TipTextProperty);
         set => SetValue(TipTextProperty, value);
     }
-    
+
     public event EventHandler<TextChangedEventArgs>? TextChanged
     {
         add => AddHandler(TextChangedEvent, value);
@@ -87,7 +91,7 @@ public partial class FeedbackTextBox : UserControl
         InputField.TextChanged += (_, _) => RaiseEvent(new TextChangedEventArgs(TextChangedEvent, this));
         // If there is uses for more other events, then we can always add them
     }
-    
+
     private void UpdateStyleClasses(TextBoxVariantType variant)
     {
         if (variant == TextBoxVariantType.Dark)
@@ -95,7 +99,7 @@ public partial class FeedbackTextBox : UserControl
         else
             InputField.Classes.Remove("dark");
     }
-    
+
     private void UpdateErrorState(bool hasError)
     {
         if (hasError && !InputField.Classes.Contains("error"))
@@ -103,7 +107,7 @@ public partial class FeedbackTextBox : UserControl
         else
             InputField.Classes.Remove("error");
     }
-    
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);

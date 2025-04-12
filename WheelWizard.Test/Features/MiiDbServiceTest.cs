@@ -1,7 +1,7 @@
+using NSubstitute.ExceptionExtensions;
 using WheelWizard.Shared;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
-using NSubstitute.ExceptionExtensions;
 
 namespace WheelWizard.Test.Features
 {
@@ -15,7 +15,7 @@ namespace WheelWizard.Test.Features
         public MiiDbServiceTests()
         {
             _repository = Substitute.For<IMiiRepository>();
-            _service = new MiiDbService(_repository);
+            _service = new(_repository);
         }
 
         // --- Helper Methods ---
@@ -51,39 +51,43 @@ namespace WheelWizard.Test.Features
                 miiGlasses,
                 miiFacialHair,
                 miiMole,
-                creatorName
+                creatorName,
             };
             if (EveryResult.Any(r => r.IsFailure))
             {
                 return Fail<Mii>(EveryResult.First(r => r.IsFailure).Error);
             }
 
-            return Ok(new Mii
-            {
-                Name = miiname.Value,
-                MiiId = miiId,
-                Height = height.Value,
-                Weight = weight.Value,
-                MiiFacial = miiFacial.Value,
-                MiiHair = miiHair.Value,
-                MiiEyebrows = miiEyebrows.Value,
-                MiiEyes = miiEyes.Value,
-                MiiNose = miiNose.Value,
-                MiiLips = miiLips.Value,
-                MiiGlasses = miiGlasses.Value,
-                MiiFacialHair = miiFacialHair.Value,
-                MiiMole = miiMole.Value,
-                CreatorName = creatorName.Value,
-                MiiFavoriteColor = miiFavoriteColor,
-            });
+            return Ok(
+                new Mii
+                {
+                    Name = miiname.Value,
+                    MiiId = miiId,
+                    Height = height.Value,
+                    Weight = weight.Value,
+                    MiiFacial = miiFacial.Value,
+                    MiiHair = miiHair.Value,
+                    MiiEyebrows = miiEyebrows.Value,
+                    MiiEyes = miiEyes.Value,
+                    MiiNose = miiNose.Value,
+                    MiiLips = miiLips.Value,
+                    MiiGlasses = miiGlasses.Value,
+                    MiiFacialHair = miiFacialHair.Value,
+                    MiiMole = miiMole.Value,
+                    CreatorName = creatorName.Value,
+                    MiiFavoriteColor = miiFavoriteColor,
+                }
+            );
         }
 
         // Helper to get serialized bytes for a valid Mii
         private byte[] GetSerializedBytes(Mii mii)
         {
             var serializedResult = MiiSerializer.Serialize(mii);
-            Assert.True(serializedResult.IsSuccess,
-                $"Serialization failed during test setup for Mii {mii.MiiId}: {serializedResult.Error?.Message}");
+            Assert.True(
+                serializedResult.IsSuccess,
+                $"Serialization failed during test setup for Mii {mii.MiiId}: {serializedResult.Error?.Message}"
+            );
             return serializedResult.Value;
         }
 
@@ -141,12 +145,11 @@ namespace WheelWizard.Test.Features
             Assert.Equal(result.IsFailure, true);
         }
 
-
         [Fact]
         public void GetAllMiis_ShouldReturnEmptyList_WhenRepositoryReturnsEmptyList()
         {
             // Arrange
-            _repository.LoadAllBlocks().Returns(new List<byte[]>());
+            _repository.LoadAllBlocks().Returns([]);
 
             // Act
             var result = _service.GetAllMiis();
@@ -166,7 +169,7 @@ namespace WheelWizard.Test.Features
             var mii1Bytes = GetSerializedBytes(mii1Result.Value);
             var mii2Bytes = GetSerializedBytes(mii2Result.Value);
 
-            _repository.LoadAllBlocks().Returns(new List<byte[]> { mii1Bytes, mii2Bytes });
+            _repository.LoadAllBlocks().Returns([mii1Bytes, mii2Bytes]);
 
             // Act
             var result = _service.GetAllMiis();
@@ -189,7 +192,7 @@ namespace WheelWizard.Test.Features
             var invalidBytesNull = (byte[])null; // Null entry (if possible from repo)
             // Simulate a block that's the right size but contains garbage data causing deserialization failure
             var potentiallyBadBytes = new byte[MiiSerializer.MiiBlockSize];
-            _repository.LoadAllBlocks().Returns(new List<byte[]> { invalidBytesShort, mii1Bytes, potentiallyBadBytes, invalidBytesNull! });
+            _repository.LoadAllBlocks().Returns([invalidBytesShort, mii1Bytes, potentiallyBadBytes, invalidBytesNull!]);
 
             // Act
             var result = _service.GetAllMiis();
@@ -214,7 +217,6 @@ namespace WheelWizard.Test.Features
             Assert.Same(expectedException, actualException); // Ensure the original exception is propagated
             _repository.Received(1).LoadAllBlocks();
         }
-
 
         [Fact]
         public void GetByClientId_ShouldReturnMii_WhenRepositoryReturnsValidBlock()
@@ -296,11 +298,11 @@ namespace WheelWizard.Test.Features
         {
             // Arrange
             uint targetId = 777;
-            var expectedException = new System.InvalidOperationException("Repository error");
+            var expectedException = new InvalidOperationException("Repository error");
             _repository.GetRawBlockByClientId(targetId).Throws(expectedException);
 
             // Act & Assert
-            var actualException = Assert.Throws<System.InvalidOperationException>(() => _service.GetByClientId(targetId));
+            var actualException = Assert.Throws<InvalidOperationException>(() => _service.GetByClientId(targetId));
             Assert.Same(expectedException, actualException);
             _repository.Received(1).GetRawBlockByClientId(targetId);
         }
@@ -316,8 +318,7 @@ namespace WheelWizard.Test.Features
             var miiToUpdate = miiResult.Value;
             var expectedBytes = GetSerializedBytes(miiToUpdate); // Get expected bytes *before* setting up mock
 
-            _repository.UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes)))
-                .Returns(Ok());
+            _repository.UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes))).Returns(Ok());
 
             // Act
             var result = _service.Update(miiToUpdate);
@@ -337,8 +338,7 @@ namespace WheelWizard.Test.Features
             var expectedBytes = GetSerializedBytes(miiToUpdate);
             var repoError = Fail("Repository write failed");
 
-            _repository.UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes)))
-                .Returns(repoError);
+            _repository.UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes))).Returns(repoError);
 
             // Act
             var result = _service.Update(miiToUpdate);
@@ -357,13 +357,14 @@ namespace WheelWizard.Test.Features
             Assert.True(miiResult.IsSuccess, "Setup Failed: Could not create valid Mii");
             var miiToUpdate = miiResult.Value;
             var expectedBytes = GetSerializedBytes(miiToUpdate);
-            var expectedException = new System.IO.IOException("Cannot write to file");
+            var expectedException = new IOException("Cannot write to file");
 
-            _repository.UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes)))
+            _repository
+                .UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes)))
                 .Throws(expectedException);
 
             // Act & Assert
-            var actualException = Assert.Throws<System.IO.IOException>(() => _service.Update(miiToUpdate));
+            var actualException = Assert.Throws<IOException>(() => _service.Update(miiToUpdate));
             Assert.Same(expectedException, actualException);
             _repository.Received(1).UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes)));
         }
@@ -391,8 +392,7 @@ namespace WheelWizard.Test.Features
 
             // Setup Update (capture the updated Mii's bytes)
             byte[]? updatedBytes = null;
-            _repository.UpdateBlockByClientId(targetId, Arg.Do<byte[]>(bytes => updatedBytes = bytes))
-                .Returns(Ok());
+            _repository.UpdateBlockByClientId(targetId, Arg.Do<byte[]>(bytes => updatedBytes = bytes)).Returns(Ok());
 
             // Act
             var result = _service.UpdateName(targetId, newName);
@@ -483,7 +483,8 @@ namespace WheelWizard.Test.Features
             var repoError = Fail("Disk full");
 
             _repository.GetRawBlockByClientId(targetId).Returns(originalBytes);
-            _repository.UpdateBlockByClientId(targetId, Arg.Any<byte[]>()) // We know name is valid, get succeeds
+            _repository
+                .UpdateBlockByClientId(targetId, Arg.Any<byte[]>()) // We know name is valid, get succeeds
                 .Returns(repoError);
 
             // Act
@@ -502,11 +503,11 @@ namespace WheelWizard.Test.Features
             // Arrange
             uint targetId = 111;
             string newName = "New";
-            var expectedException = new System.TimeoutException("Timeout contacting repository");
+            var expectedException = new TimeoutException("Timeout contacting repository");
             _repository.GetRawBlockByClientId(targetId).Throws(expectedException);
 
             // Act & Assert
-            var actualException = Assert.Throws<System.TimeoutException>(() => _service.UpdateName(targetId, newName));
+            var actualException = Assert.Throws<TimeoutException>(() => _service.UpdateName(targetId, newName));
             Assert.Same(expectedException, actualException);
             _repository.Received(1).GetRawBlockByClientId(targetId);
             _repository.DidNotReceive().UpdateBlockByClientId(Arg.Any<uint>(), Arg.Any<byte[]>());
@@ -522,14 +523,13 @@ namespace WheelWizard.Test.Features
             var miiResult = CreateValidMii(targetId, oldName);
             Assert.True(miiResult.IsSuccess, "Setup Failed: Could not create original Mii");
             var originalBytes = GetSerializedBytes(miiResult.Value);
-            var expectedException = new System.UnauthorizedAccessException("Access denied");
+            var expectedException = new UnauthorizedAccessException("Access denied");
 
             _repository.GetRawBlockByClientId(targetId).Returns(originalBytes);
-            _repository.UpdateBlockByClientId(targetId, Arg.Any<byte[]>())
-                .Throws(expectedException);
+            _repository.UpdateBlockByClientId(targetId, Arg.Any<byte[]>()).Throws(expectedException);
 
             // Act & Assert
-            var actualException = Assert.Throws<System.UnauthorizedAccessException>(() => _service.UpdateName(targetId, newName));
+            var actualException = Assert.Throws<UnauthorizedAccessException>(() => _service.UpdateName(targetId, newName));
             Assert.Same(expectedException, actualException);
             _repository.Received(1).GetRawBlockByClientId(targetId);
             _repository.Received(1).UpdateBlockByClientId(targetId, Arg.Any<byte[]>());

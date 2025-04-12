@@ -1,16 +1,13 @@
 ﻿using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Layout;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
-using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
 using WheelWizard.Services.Settings;
-using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement;
@@ -22,7 +19,9 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
     private LicenseProfile? currentPlayer;
     private Mii? _currentMii;
-    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
+
+    [Inject]
+    private IGameDataSingletonService GameDataService { get; set; } = null!;
 
     public Mii? CurrentMii
     {
@@ -72,7 +71,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             {
                 SettingValues.NoName => Online.NoName,
                 SettingValues.NoLicense => Online.NoLicense,
-                _ => miiName
+                _ => miiName,
             };
         }
     }
@@ -97,7 +96,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             {
                 Content = region.ToString(),
                 Tag = region,
-                IsEnabled = validRegions.Contains(region)
+                IsEnabled = validRegions.Contains(region),
             };
             RegionDropdown.Items.Add(itemForRegionDropdown);
 
@@ -121,7 +120,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
     private void UpdatePage()
     {
         CurrentUserProfile.IsChecked = FocussedUser == _currentUserIndex;
-        if (currentPlayer != null) currentPlayer.PropertyChanged -= OnMiiNameChanged;
+        if (currentPlayer != null)
+            currentPlayer.PropertyChanged -= OnMiiNameChanged;
 
         currentPlayer = GameDataService.GetUserData(_currentUserIndex);
         CurrentUserProfile.FriendCode = currentPlayer.FriendCode;
@@ -139,7 +139,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
     private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
     {
-        if (args.PropertyName != nameof(currentPlayer.NameOfMii)) return;
+        if (args.PropertyName != nameof(currentPlayer.NameOfMii))
+            return;
         CurrentUserProfile.UserName = currentPlayer?.NameOfMii ?? "";
     }
 
@@ -251,7 +252,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion
