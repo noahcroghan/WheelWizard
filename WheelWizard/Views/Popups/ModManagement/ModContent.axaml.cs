@@ -179,8 +179,11 @@ public partial class ModContent : UserControlBase
 
     private async void Install_Click(object sender, RoutedEventArgs e)
     {
+        if (CurrentMod == null)
+            return;
+
         var confirmation = await new YesNoWindow()
-            .SetMainText($"Do you want to download and install the mod: {CurrentMod?.Name}?")
+            .SetMainText($"Do you want to download and install the mod: {CurrentMod.Name}?")
             .AwaitAnswer();
         if (!confirmation)
             return;
@@ -188,8 +191,8 @@ public partial class ModContent : UserControlBase
         try
         {
             await PrepareToDownloadFile();
-            var downloadUrls = OverrideDownloadUrl != null ? [OverrideDownloadUrl] : CurrentMod?.Files.Select(f => f.DownloadUrl).ToList();
-            if (downloadUrls != null && !downloadUrls.Any())
+            var downloadUrls = OverrideDownloadUrl != null ? [OverrideDownloadUrl] : CurrentMod.Files.Select(f => f.DownloadUrl).ToList();
+            if (!downloadUrls.Any())
             {
                 new MessageBoxWindow()
                     .SetMessageType(MessageBoxWindow.MessageType.Warning)
@@ -199,11 +202,11 @@ public partial class ModContent : UserControlBase
                 return;
             }
 
-            var progressWindow = new ProgressWindow($"Downloading {CurrentMod?.Name}");
+            var progressWindow = new ProgressWindow($"Downloading {CurrentMod.Name}");
             progressWindow.Show();
             progressWindow.SetExtraText("Loading...");
 
-            var url = downloadUrls!.First();
+            var url = downloadUrls.First();
             var fileName = GetFileNameFromUrl(url);
             var filePath = Path.Combine(PathManager.TempModsFolderPath, fileName);
             await DownloadHelper.DownloadToLocationAsync(url, filePath, progressWindow);
@@ -219,10 +222,7 @@ public partial class ModContent : UserControlBase
                 return;
             }
 
-            var author = "-1";
-            if (CurrentMod!.Author?.Name != null)
-                author = CurrentMod.Author.Name;
-
+            var author = CurrentMod.Author.Name;
             var modId = CurrentMod.Id;
             var popup = new TextInputWindow()
                 .SetMainText("Mod Name")
@@ -330,6 +330,5 @@ public partial class ModContent : UserControlBase
 
         ModManager.Instance.DeleteModById(id!);
         _ = LoadModDetailsAsync(id);
-        UpdateDownloadButtonState(id);
     }
 }

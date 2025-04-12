@@ -78,6 +78,7 @@ public partial class ModsPage : UserControlBase, INotifyPropertyChanged
     {
         if (ModsListBox.SelectedItem is not ModListItem selectedMod)
             return;
+
         ModManager.RenameMod(selectedMod.Mod);
     }
 

@@ -20,14 +20,14 @@ public record ModSearchResult(GameBananaModPreview Mod, string PreviewImageUrl);
 public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
 {
     // Collection to hold the mods
-    private ObservableCollection<ModSearchResult> Mods { get; } = new ObservableCollection<ModSearchResult>();
+    private ObservableCollection<ModSearchResult> Mods { get; } = [];
 
     [Inject]
     private IGameBananaSingletonService GameBananaService { get; set; } = null!;
 
     // Pagination variables
     private int _currentPage = 1;
-    private bool _isLoading = false;
+    private bool _isLoading;
     private bool _hasMoreMods = true;
     private bool _isInitialLoad = true;
 
@@ -177,7 +177,7 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     #region Property Changed
 
     // Implement INotifyPropertyChanged
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>
     /// Raises the PropertyChanged event.
