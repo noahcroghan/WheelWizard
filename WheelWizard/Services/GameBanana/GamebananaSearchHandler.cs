@@ -17,7 +17,11 @@ public class GamebananaSearchHandler
     private const string BaseUrl = Endpoints.GameBananaBaseUrl;
     private const int GAME_ID = 5896;
 
-    public static async Task<HttpClientResult<OldGameBananaSearchResults>> SearchModsAsync(string searchString, int page = 1, int perPage = 20)
+    public static async Task<HttpClientResult<OldGameBananaSearchResults>> SearchModsAsync(
+        string searchString,
+        int page = 1,
+        int perPage = 20
+    )
     {
         if (string.IsNullOrWhiteSpace(searchString))
             searchString = "mod";

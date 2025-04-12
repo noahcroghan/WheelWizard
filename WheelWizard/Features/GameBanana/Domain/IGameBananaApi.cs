@@ -1,6 +1,3 @@
 namespace WheelWizard.GameBanana.Domain;
 
-public interface IGameBananaApi
-{
-    
-}
+public interface IGameBananaApi { }

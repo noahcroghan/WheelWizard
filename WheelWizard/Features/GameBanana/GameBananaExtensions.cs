@@ -9,9 +9,7 @@ public static class GitHubExtensions
 {
     public static IServiceCollection AddGitHub(this IServiceCollection services)
     {
-        services.AddWhWzRefitApi<IGameBananaApi>(
-            Endpoints.GameBananaBaseAddress
-        );
+        services.AddWhWzRefitApi<IGameBananaApi>(Endpoints.GameBananaBaseAddress);
 
         services.AddSingleton<IGameBananaSingletonService, GameBananaSingletonService>();
         return services;

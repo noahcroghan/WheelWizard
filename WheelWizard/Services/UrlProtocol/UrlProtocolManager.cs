@@ -4,7 +4,6 @@ using WheelWizard.Views.Popups.ModManagement;
 using Microsoft.Win32;
 #endif
 
-
 namespace WheelWizard.Services.UrlProtocol;
 
 public static class UrlProtocolManager
