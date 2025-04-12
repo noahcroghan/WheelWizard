@@ -6,6 +6,7 @@ using WheelWizard.Models.GameBanana;
 
 namespace WheelWizard.Services.GameBanana;
 
+[Obsolete("Obsolete")]
 public class GamebananaSearchHandler
 {
     private static readonly JsonSerializerOptions? JsonSerializerOptions = new()

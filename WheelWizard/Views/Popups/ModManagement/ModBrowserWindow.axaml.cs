@@ -6,10 +6,13 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using WheelWizard.GameBanana;
 using WheelWizard.Models.GameBanana;
 using WheelWizard.Services.GameBanana;
+using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Pages;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.WiiManagement;
 using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
 
 namespace WheelWizard.Views.Popups.ModManagement;
@@ -18,6 +21,9 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
 {
     // Collection to hold the mods
     private ObservableCollection<OldGameBananaModDetails> Mods { get; } = new ObservableCollection<OldGameBananaModDetails>();
+
+    [Inject]
+    private IGameBananaSingletonService GameBananaService { get; set; } = null!;
 
     // Pagination variables
     private int _currentPage = 1;
