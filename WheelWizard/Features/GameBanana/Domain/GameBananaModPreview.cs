@@ -12,7 +12,7 @@ public class GameBananaModPreview
     public required string Name { get; set; }
 
     [JsonPropertyName("_sVersion")]
-    public required string Version { get; set; }
+    public string Version { get; set; } = string.Empty;
 
     [JsonPropertyName("_aTags")]
     public required List<string> Tags { get; set; }
@@ -24,19 +24,16 @@ public class GameBananaModPreview
     public GameBananaPreviewMedia? PreviewMedia { get; set; }
 
     [JsonPropertyName("_nLikeCount")]
-    public required int LikeCount { get; set; }
+    public int LikeCount { get; set; }
 
     [JsonPropertyName("_nViewCount")]
-    public required int ViewCount { get; set; }
+    public int ViewCount { get; set; }
 
     [JsonPropertyName("_tsDateAdded")]
     public required long DateAdded { get; set; }
 
     [JsonPropertyName("_tsDateModified")]
     public required long DateModified { get; set; }
-
-    [JsonPropertyName("_bIsObsolete")]
-    public required bool IsObsolete { get; set; }
 
     [JsonPropertyName("_aSubmitter")]
     public required GameBananaAuthor Author { get; set; }
@@ -47,4 +44,7 @@ public class GameBananaModPreview
     // Unique properties to the Mod Details
     [JsonPropertyName("_aRootCategory")]
     public required GameBananaCategory RootCategory { get; set; }
+
+    [JsonPropertyName("_sModelName")]
+    public required string ModelName { get; set; } // "Mod" , "Question", "Thread", "Sound"
 }

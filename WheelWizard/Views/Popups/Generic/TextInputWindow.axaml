@@ -1,4 +1,4 @@
-<self:PopupContent xmlns="https://github.com/avaloniaui"
+<base:PopupContent xmlns="https://github.com/avaloniaui"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,6 +6,7 @@
                    xmlns:self="clr-namespace:WheelWizard.Views.Popups"
                    xmlns:components="clr-namespace:WheelWizard.Views.Components"
                    xmlns:behaviorComp="clr-namespace:WheelWizard.Views.BehaviorComponent"
+                   xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
                    x:Class="WheelWizard.Views.Popups.Generic.TextInputWindow">
     <Grid RowDefinitions="Auto,Auto,Auto" Width="400">
         <StackPanel Grid.Row="0" HorizontalAlignment="Stretch"
@@ -50,4 +51,4 @@
                                Click="SubmitButton_Click" Margin="5,0,0,0" />
         </UniformGrid>
     </Grid>
-</self:PopupContent>
+</base:PopupContent>

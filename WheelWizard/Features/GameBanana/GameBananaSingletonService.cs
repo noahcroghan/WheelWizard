@@ -14,6 +14,8 @@ public interface IGameBananaSingletonService
     /// Gets all the details of a mod from the GameBanana API.
     /// </summary>
     Task<OperationResult<GameBananaModDetails>> GetModDetails(int modId);
+
+    GameBananaModPreview GetLoadingPreview();
 }
 
 public class GameBananaSingletonService(IApiCaller<IGameBananaApi> apiService) : IGameBananaSingletonService
@@ -22,8 +24,11 @@ public class GameBananaSingletonService(IApiCaller<IGameBananaApi> apiService) :
 
     public async Task<OperationResult<GameBananaSearchResults>> GetModSearchResults(string searchTerm, int page = 1)
     {
+        // If there is no search term, we still want the user to see something. In this list of strings there are a few terms
+        // that show a lot of mods, to have kind of our own Featured list. that goes on forever.
+        string[] featuredTerms = ["Mod", "Wii"];
         if (string.IsNullOrWhiteSpace(searchTerm))
-            return await apiService.CallApiAsync(gitHubApi => gitHubApi.GetFeaturedMods(GameId, page));
+            searchTerm = featuredTerms[Random.Shared.Next(featuredTerms.Length)];
 
         return await apiService.CallApiAsync(gitHubApi => gitHubApi.GetModSearchResults(searchTerm, GameId, page));
     }
@@ -31,5 +36,40 @@ public class GameBananaSingletonService(IApiCaller<IGameBananaApi> apiService) :
     public async Task<OperationResult<GameBananaModDetails>> GetModDetails(int modId)
     {
         return await apiService.CallApiAsync(gitHubApi => gitHubApi.GetModDetails(modId));
+    }
+
+    public GameBananaModPreview GetLoadingPreview()
+    {
+        // Name in both the mod and the author have to be "LOADING". This to ensure that they visually also show up as a loading icon.
+        return new()
+        {
+            Id = 0,
+            Name = "LOADING",
+            ModelName = "",
+            Tags = [],
+            ProfileUrl = "",
+            LikeCount = 0,
+            ViewCount = 0,
+            DateAdded = 0,
+            DateModified = 0,
+            Game = new()
+            {
+                Name = "",
+                ProfileUrl = "",
+                IconUrl = "",
+            },
+            RootCategory = new()
+            {
+                Name = "",
+                ProfileUrl = "",
+                IconUrl = "",
+            },
+            Author = new()
+            {
+                Name = "LOADING",
+                ProfileUrl = "",
+                AvatarUrl = "",
+            },
+        };
     }
 }

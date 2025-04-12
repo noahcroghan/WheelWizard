@@ -71,17 +71,24 @@ public class ModBrowserListItem : TemplatedControl
     {
         base.OnApplyTemplate(e);
         var image = e.NameScope.Find<Image>("ThumbnailImage");
-        if (image == null || ImageUrl == null)
+        if (image == null || string.IsNullOrWhiteSpace(ImageUrl))
             return;
 
-        using var httpClient = new HttpClient();
-        var response = await httpClient.GetAsync(ImageUrl);
-        response.EnsureSuccessStatusCode();
+        try
+        {
+            using var httpClient = new HttpClient();
+            var response = await httpClient.GetAsync(ImageUrl);
+            response.EnsureSuccessStatusCode();
 
-        await using var stream = await response.Content.ReadAsStreamAsync();
-        var memoryStream = new MemoryStream();
-        await stream.CopyToAsync(memoryStream);
-        memoryStream.Position = 0;
-        image.Source = new Bitmap(memoryStream);
+            await using var stream = await response.Content.ReadAsStreamAsync();
+            var memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            memoryStream.Position = 0;
+            image.Source = new Bitmap(memoryStream);
+        }
+        finally
+        {
+            // Ignore. we then just dont have an image. also fine
+        }
     }
 }

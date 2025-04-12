@@ -1,18 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using WheelWizard.GameBanana;
-using WheelWizard.Models.GameBanana;
-using WheelWizard.Services.GameBanana;
+using WheelWizard.GameBanana.Domain;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Pages;
+using WheelWizard.Views.Popups.Base;
 using WheelWizard.Views.Popups.Generic;
-using WheelWizard.WiiManagement;
 using VisualExtensions = Avalonia.VisualTree.VisualExtensions;
 
 namespace WheelWizard.Views.Popups.ModManagement;
@@ -20,7 +18,7 @@ namespace WheelWizard.Views.Popups.ModManagement;
 public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
 {
     // Collection to hold the mods
-    private ObservableCollection<OldGameBananaModDetails> Mods { get; } = new ObservableCollection<OldGameBananaModDetails>();
+    private ObservableCollection<ModListItem> Mods { get; } = new ObservableCollection<ModListItem>();
 
     [Inject]
     private IGameBananaSingletonService GameBananaService { get; set; } = null!;
@@ -31,7 +29,6 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     private bool _hasMoreMods = true;
     private bool _isInitialLoad = true;
 
-    private const int ModsPerPage = 15;
     private const double ScrollThreshold = 50; // Adjusted threshold for earlier loading
 
     private CancellationTokenSource? _loadCancellationToken;
@@ -54,6 +51,7 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     {
         if (!_isInitialLoad)
             return;
+
         LoadMods(_currentPage).ConfigureAwait(false);
         _isInitialLoad = false;
 
@@ -66,60 +64,37 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     /// </summary>
     private async Task LoadMods(int page, string searchTerm = "")
     {
-        if (_isLoading)
+        if (_isLoading || !_hasMoreMods)
             return;
-        if (!_hasMoreMods)
-            return;
+
         _isLoading = true;
-        try
-        {
-            var result = await GamebananaSearchHandler.SearchModsAsync(searchTerm, page, ModsPerPage);
-            Mods.Where(mod => mod._sName == "LOADING").ToList().ForEach(mod => Mods.Remove(mod));
 
-            if (result is { Succeeded: true, Content: not null })
-            {
-                var metadata = result.Content._aMetadata;
-                var newMods = result.Content._aRecords.Where(mod => mod._sModelName == "Mod").ToList();
-                if (newMods.Count > 0)
-                {
-                    foreach (var mod in newMods)
-                    {
-                        Mods.Add(mod);
-                    }
+        var result = await GameBananaService.GetModSearchResults(searchTerm, page);
+        Mods.Where(mod => mod.Mod.Name == "LOADING").ToList().ForEach(mod => Mods.Remove(mod));
 
-                    _hasMoreMods = !metadata._bIsComplete;
-                    _currentPage = page;
-                }
-                else
-                {
-                    // If no new mods were fetched, rely on metadata
-                    _hasMoreMods = !result.Content._aMetadata._bIsComplete;
-                }
-
-                if (_hasMoreMods)
-                    Mods.Add(OldGameBananaModDetails.LoadingMod());
-            }
-            else
-            {
-                new MessageBoxWindow()
-                    .SetTitleText("Failed to load mods")
-                    .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                    .SetInfoText("Failed to find new mods. Make sure the request has at least 2 characters")
-                    .Show();
-            }
-        }
-        catch (Exception e)
+        if (result.IsFailure)
         {
             new MessageBoxWindow()
                 .SetTitleText("Failed to load mods")
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetInfoText($"Something went wrong while trying to load mods. Error: {e}")
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .SetInfoText("Failed to retrieve mods. Make sure the request has at least 2 characters")
                 .Show();
-        }
-        finally
-        {
             _isLoading = false;
+            return;
         }
+
+        var metadata = result.Value.MetaData;
+        var newMods = result.Value.Records.Where(mod => mod.ModelName == "Mod").ToList();
+
+        foreach (var mod in newMods)
+        {
+            Mods.Add(new() { Mod = mod });
+        }
+
+        if (!metadata.IsComplete)
+            Mods.Add(new() { Mod = GameBananaService.GetLoadingPreview() });
+        _currentPage = page;
+        _isLoading = false;
     }
 
     /// <summary>
@@ -127,9 +102,7 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     /// </summary>
     private async void ModListView_ScrollChanged(object? sender, ScrollChangedEventArgs e)
     {
-        if (_isLoading)
-            return;
-        if (!_hasMoreMods)
+        if (_isLoading || !_hasMoreMods)
             return;
 
         // Get the ScrollViewer from the ListBox's template
@@ -169,11 +142,11 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     private async void ModListView_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         _loadCancellationToken?.Cancel(); //this cancels the previous load task if it's still running
-        _loadCancellationToken = new CancellationTokenSource();
+        _loadCancellationToken = new();
 
         var modId = -1;
-        if (ModListView.SelectedItem is OldGameBananaModDetails selectedMod)
-            modId = selectedMod._idRow;
+        if (ModListView.SelectedItem is ModListItem selectedMod)
+            modId = selectedMod.Mod.Id;
         try
         {
             await ModDetailViewer.LoadModDetailsAsync(modId, cancellationToken: _loadCancellationToken.Token);
@@ -182,17 +155,6 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
         {
             // Ignore
         }
-    }
-
-    // Implement INotifyPropertyChanged
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    /// <summary>
-    /// Raises the PropertyChanged event.
-    /// </summary>
-    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
     protected override void BeforeClose()
@@ -206,6 +168,22 @@ public partial class ModBrowserWindow : PopupContent, INotifyPropertyChanged
     {
         if (e.Key != Key.Enter || sender is not TextBox)
             return;
+
         Search_Click(sender, e);
     }
+
+    #region Property Changed
+
+    // Implement INotifyPropertyChanged
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    /// <summary>
+    /// Raises the PropertyChanged event.
+    /// </summary>
+    protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new(propertyName));
+    }
+
+    #endregion
 }
