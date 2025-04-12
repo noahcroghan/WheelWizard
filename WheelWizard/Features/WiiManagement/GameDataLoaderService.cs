@@ -255,8 +255,13 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
             var currentOffset = friendOffset + i * FriendDataSize;
             if (!CheckForMiiData(currentOffset + 0x1A))
                 continue;
+
             byte[] rawMiiBytes = _saveData.AsSpan(currentOffset + 0x1A, MiiSize).ToArray();
             var friendCode = FriendCodeGenerator.GetFriendCode(_saveData, currentOffset + 4);
+            var miiResult = MiiSerializer.Deserialize(rawMiiBytes);
+            if (miiResult.IsFailure)
+                continue;
+
             var friend = new FriendProfile
             {
                 Vr = BigEndianBinaryReader.BufferToUint16(_saveData, currentOffset + 0x16),
@@ -269,7 +274,7 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
                 BadgeVariants = _whWzDataSingletonService.GetBadges(friendCode),
                 MiiData = new()
                 {
-                    Mii = MiiSerializer.Deserialize(rawMiiBytes).Value,
+                    Mii = miiResult.Value,
                     AvatarId = 0,
                     ClientId = 0,
                 },
