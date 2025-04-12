@@ -52,6 +52,7 @@ public class CurrentUserProfile : UserControlBase, INotifyPropertyChanged
     {
         base.OnApplyTemplate(e);
         gameDataService.RefreshOnlineStatus();
+        gameDataService.LoadGameData();
         var currentUser = gameDataService.CurrentUser;
 
         var name = currentUser.NameOfMii;

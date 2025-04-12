@@ -83,6 +83,14 @@
                                                                    HoverForeground="{StaticResource Neutral400}"/>
                                    </StackPanel>
                                </StackPanel>
+                               <components1:Button 
+                                   x:Name="PART_MiiButton"
+                                   HorizontalAlignment="Right" 
+                                   VerticalAlignment="Bottom"
+                                   Width="60"
+                                   Height="40"
+                                   Margin="0,0,10,10"
+                                   Text="Mii"/>
                            </Grid>
                         </Border>
                         

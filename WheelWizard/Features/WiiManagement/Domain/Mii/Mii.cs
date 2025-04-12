@@ -40,6 +40,5 @@ public class Mii
     public MiiGlasses MiiGlasses { get; set; } = new(GlassesType.None, GlassesColor.Dark, 0, 0);
     public MiiFacialHair MiiFacialHair { get; set; } = new(MustacheType.None, BeardType.None, MustacheColor.Black, 0, 0);
     public MiiMole MiiMole { get; set; } = new(false, 0, 0, 0);
-
     public MiiName CreatorName { get; set; } = new("no name");
 }

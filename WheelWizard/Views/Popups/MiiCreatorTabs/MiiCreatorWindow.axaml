@@ -1,0 +1,59 @@
+<self:PopupContent xmlns="https://github.com/avaloniaui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:self="clr-namespace:WheelWizard.Views.Popups"
+                   xmlns:components="clr-namespace:WheelWizard.Views.Components"
+                   xmlns:domain="clr-namespace:WheelWizard.WiiManagement.Domain.Mii"
+                   xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+                   xmlns:miiCreatorTabs="clr-namespace:WheelWizard.Views.Popups.MiiCreatorTabs"
+                   mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+                   x:Class="WheelWizard.Views.Popups.MiiCreatorTabs.MiiCreatorWindow"
+                   x:DataType="miiCreatorTabs:MiiCreatorWindow">
+
+    <Grid RowDefinitions="Auto,*,Auto" MinWidth="450">
+
+        <!-- Navigation Area -->
+        <Border Grid.Row="0" Background="{StaticResource FrameColor}" Padding="5,0">
+             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                 <StackPanel Orientation="Horizontal" Spacing="5" x:Name="NavigationPanel">
+                     <!-- Use RadioButtons similar to SettingsPage -->
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="General" Content="General" IsChecked="True" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Face" Content="Face" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Hair" Content="Hair" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Eyes" Content="Eyes" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Eyebrows" Content="Eyebrows" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Nose" Content="Nose" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Mouth" Content="Mouth" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="FacialHair" Content="Facial Hair" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Mole" Content="Mole" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Glasses" Content="Glasses" Click="Navigation_Click"/>
+                     <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Body" Content="Body" Click="Navigation_Click"/>
+                 </StackPanel>
+             </ScrollViewer>
+        </Border>
+        <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}" Height="1"
+                HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+
+
+        <!-- Content Area -->
+        <ContentControl Grid.Row="1" x:Name="MiiContent" Margin="0,5,0,5"/>
+
+
+        <!-- Buttons -->
+        <Border Grid.Row="2" Background="{StaticResource BackgroundLineColor}"
+                Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <UniformGrid Grid.Row="2" Columns="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                     Margin="0,10,0,0">
+            <components:Button x:Name="CancelButton" Variant="Default"
+                               IsEnabled="True" Text="Cancel"
+                               IconData="{StaticResource XMark}"
+                               Click="CancelButton_Click" Margin="0,0,5,0" />
+            <components:Button x:Name="SaveButton" Variant="Primary"
+                               IsEnabled="{Binding IsValid}" Text="Save Mii"
+                               IconData="{StaticResource CheckMark}"
+                               Click="SaveButton_Click" Margin="5,0,0,0" />
+        </UniformGrid>
+
+    </Grid>
+</self:PopupContent>

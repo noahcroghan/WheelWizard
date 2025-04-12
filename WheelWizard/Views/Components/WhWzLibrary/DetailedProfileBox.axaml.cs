@@ -7,7 +7,11 @@ using Avalonia.Media.Imaging;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Components.MiiImages;
+using WheelWizard.Views.Popups;
+using WheelWizard.Views.Popups.Generic;
+using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
+using MiiCreatorWindow = WheelWizard.Views.Popups.MiiCreatorTabs.MiiCreatorWindow;
 
 namespace WheelWizard.Views.Components;
 
@@ -149,6 +153,24 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(FriendCode);
     }
 
+    private async void OpenMiiEditor_Click(object? sender, RoutedEventArgs e)
+    {
+        var miiDbService = App.Services.GetRequiredService<IMiiDbService>();
+        var miiCreatorWindow = new MiiCreatorWindow(miiDbService, Mii);
+        var updatedMii = await miiCreatorWindow.ShowDialogAsync();
+        if (updatedMii != null)
+        {
+            // User saved changes.
+            // The Mii object instance might have been updated directly by the popup,
+            // but setting the property ensures Avalonia's binding system updates.
+            this.Mii = updatedMii; // Re-assign to trigger property change notifications
+
+            // Optional: Force UI update if needed, although setting Mii should suffice
+            // this.InvalidateVisual();
+            Console.WriteLine($"Mii '{updatedMii.Name}' updated successfully.");
+        }
+    }
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
@@ -160,6 +182,10 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         var viewRoomButton = e.NameScope.Find<Button>("ViewRoomButton");
         if (viewRoomButton != null)
             viewRoomButton.Click += ViewRoom;
+
+        var miiButton = e.NameScope.Find<Button>("PART_MiiButton");
+        if (miiButton != null)
+            miiButton.Click += OpenMiiEditor_Click;
 
         var changeNameButton = e.NameScope.Find<IconLabelButton>("EditMiiName");
         if (changeNameButton != null)
