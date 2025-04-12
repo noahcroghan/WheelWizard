@@ -16,7 +16,7 @@
     <Grid>
         <StackPanel Margin="10" Spacing="10">
             <TextBlock Text="Mii Name:" />
-            <behaviorComponent:FeedbackTextBox 
+            <TextBox
                 Text="{Binding MiiNameString, Mode=TwoWay}" 
                 Watermark="Enter Mii name (3-10 chars)" />
             <TextBlock Text="{Binding NameValidationError}" Foreground="Red" IsVisible="{Binding !!NameValidationError}" FontSize="12"/>

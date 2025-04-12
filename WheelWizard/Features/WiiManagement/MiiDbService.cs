@@ -104,7 +104,7 @@ public class MiiDbService : IMiiDbService
 
     public OperationResult AddToDatabase(Mii? newMii, string macAddress)
     {
-        if (newMii == null || newMii.MiiId == 0)
+        if (newMii == null)
             return Fail("Mii cannot be null or have an invalid ID.");
 
         var existing = GetByClientId(newMii.MiiId);
@@ -127,6 +127,13 @@ public class MiiDbService : IMiiDbService
         });
         if (getMacAddress.IsFailure)
             return getMacAddress;
+
+        if (newMii.MiiId == 0)
+        {
+            var newId = 0x60000000 | (uint)Random.Shared.Next(0, 0x10000000);
+            newMii.MiiId = newId;
+        }
+
         var serialized = MiiSerializer.Serialize(newMii);
         if (serialized.IsFailure)
             return serialized;

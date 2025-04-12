@@ -168,9 +168,6 @@ public partial class MiiCreatorWindow : PopupContent, INotifyPropertyChanged
                 // Optionally navigate to the General tab here.
                 return;
             }
-
-            // Generate ID only if truly new. Collision check is crucial in a real app.
-            _miiClone.MiiId = (uint)Random.Shared.Next(1, int.MaxValue);
             _miiClone.Date = DateOnly.FromDateTime(DateTime.Now); // Set creation date
 
             var macAddress = (string)SettingsManager.MACADDRESS.Get();

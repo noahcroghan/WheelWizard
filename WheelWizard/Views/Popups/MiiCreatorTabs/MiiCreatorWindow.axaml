@@ -4,17 +4,34 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:self="clr-namespace:WheelWizard.Views.Popups"
                    xmlns:components="clr-namespace:WheelWizard.Views.Components"
-                   xmlns:domain="clr-namespace:WheelWizard.WiiManagement.Domain.Mii"
-                   xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                    xmlns:miiCreatorTabs="clr-namespace:WheelWizard.Views.Popups.MiiCreatorTabs"
-                   mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
+                   xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
+                   mc:Ignorable="d"
+                   d:DesignWidth="700" d:DesignHeight="550" 
                    x:Class="WheelWizard.Views.Popups.MiiCreatorTabs.MiiCreatorWindow"
-                   x:DataType="miiCreatorTabs:MiiCreatorWindow"> <!-- Ensure DataType points to the code-behind -->
+                   x:DataType="miiCreatorTabs:MiiCreatorWindow"
+                   MinWidth="700" MinHeight="550">
 
-    <Grid RowDefinitions="Auto,*,Auto" MinWidth="450">
+    <!-- Changed Grid layout: Col 0 for Mii Preview, Col 1 for Content -->
+    <Grid ColumnDefinitions="180, *" RowDefinitions="Auto,*,Auto">
 
-        <!-- Navigation Area -->
-        <Border Grid.Row="0" Background="{StaticResource FrameColor}" Padding="5,0">
+        <!-- Mii Preview Area (Column 0, Row 1) -->
+        <Border Grid.Column="0" Grid.Row="1"
+                Background="{StaticResource Neutral800}"
+                BorderBrush="{StaticResource Neutral700}"
+                BorderThickness="0,0,1,0"
+                Padding="10" Margin="0,5,0,5">
+            <miiImages:MiiImageLoader
+                Mii="{Binding MiiClone}"
+                ImageVariant="SLIGHT_SIDE_PROFILE_DEFAULT"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                MinWidth="150" MinHeight="150"
+                FallBackColor="{StaticResource Neutral700}" />
+        </Border>
+
+        <!-- Navigation Area (Column 1, Row 0) -->
+        <Border Grid.Column="1" Grid.Row="0" Background="{StaticResource FrameColor}" Padding="5,0">
              <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                  <!-- Using RadioButtons for tab-like behavior -->
                  <StackPanel Orientation="Horizontal" Spacing="5" x:Name="NavigationPanel">
@@ -32,23 +49,23 @@
                  </StackPanel>
              </ScrollViewer>
         </Border>
-        <!-- Separator Line -->
-        <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}" Height="1"
+        <!-- Separator Line (Column 1, Row 0) -->
+        <Border Grid.Column="1" Grid.Row="0" Background="{StaticResource BackgroundLineColor}" Height="1"
                 HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
 
 
-        <!-- Content Area -->
+        <!-- Content Area (Column 1, Row 1) -->
         <!-- This ContentControl will display the currently selected Mii section page -->
-        <ContentControl Grid.Row="1" x:Name="MiiContent" Margin="0,5,0,5"/>
+        <ContentControl Grid.Column="1" Grid.Row="1" x:Name="MiiContent" Margin="10,5,10,5"/>
 
 
-        <!-- Buttons Area -->
+        <!-- Buttons Area (Column 1, Row 2) -->
         <!-- Separator Line -->
-        <Border Grid.Row="2" Background="{StaticResource BackgroundLineColor}"
+        <Border Grid.Column="1" Grid.Row="2" Background="{StaticResource BackgroundLineColor}"
                 Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <!-- UniformGrid ensures buttons have equal width if desired, adjust columns as needed -->
-        <UniformGrid Grid.Row="2" Columns="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                     Margin="0,10,0,0">
+        <UniformGrid Grid.Column="1" Grid.Row="2" Columns="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                     Margin="0,10,10,10"> <!-- Added margin -->
             <components:Button x:Name="CancelButton" Variant="Default"
                                IsEnabled="True" Text="Cancel"
                                IconData="{StaticResource XMark}"
