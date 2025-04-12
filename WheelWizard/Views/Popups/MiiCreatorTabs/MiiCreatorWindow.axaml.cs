@@ -1,393 +1,334 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Avalonia.Controls;
+// For TemplatedControl
 using Avalonia.Interactivity;
-using WheelWizard.Services.Settings;
+// Assuming OperationResult is here
+using WheelWizard.Services.Settings; // Assuming this namespace exists
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
 
-namespace WheelWizard.Views.Popups.MiiCreatorTabs;
-
-public partial class MiiCreatorWindow : PopupContent, INotifyPropertyChanged
+namespace WheelWizard.Views.Popups.MiiCreatorTabs
 {
-    private readonly IMiiDbService _miiDbService;
-    private TaskCompletionSource<Mii?> _tcs = new();
-    private Mii _originalMii;
-    private Mii _miiCloneClone;
-
-    public Mii MiiClone
+    public partial class MiiCreatorWindow : PopupContent, INotifyPropertyChanged
     {
-        get => _miiCloneClone;
-    }
+        private readonly IMiiDbService _miiDbService;
+        private TaskCompletionSource<Mii?> _tcs = new();
+        private readonly Mii _originalMii;
+        private readonly Mii _miiClone; // Renamed for clarity
 
-    private string _miiNameString = "";
-    public string MiiNameString
-    {
-        get => _miiNameString;
-        set
+        // Expose the clone for pages to potentially bind to complex parts if needed,
+        // but prefer passing it explicitly.
+        public Mii MiiClone => _miiClone;
+
+        private bool _isCurrentPageValid = true;
+        public bool IsCurrentPageValid
         {
-            if (SetField(ref _miiNameString, value))
+            get => _isCurrentPageValid;
+            private set => SetField(ref _isCurrentPageValid, value, nameof(IsSaveEnabled)); // Notify IsSaveEnabled depends on this
+        }
+
+        // The Save button is enabled only if the current page is valid.
+        public bool IsSaveEnabled => IsCurrentPageValid;
+
+        // We still need the FavoriteColorOptions accessible globally for the General page
+        public IEnumerable<MiiFavoriteColor> FavoriteColorOptions { get; }
+
+        public MiiCreatorWindow(IMiiDbService miiDbService, Mii? existingMii = null)
+            : base(true, false, true, existingMii == null ? "Create New Mii" : $"Edit Mii: {existingMii?.Name}") // Use null conditional
+        {
+            _miiDbService = miiDbService ?? throw new ArgumentNullException(nameof(miiDbService));
+
+            if (existingMii != null)
             {
-                ValidateMiiName();
+                _originalMii = existingMii;
+                _miiClone = CloneMii(existingMii);
+            }
+            else
+            {
+                // Create a default Mii for _originalMii if needed for comparison,
+                // or handle the null case appropriately during save.
+                _originalMii = new Mii(); // Represents the "before" state (new)
+                _miiClone = new Mii(); // The Mii being actively created
+            }
+
+            FavoriteColorOptions = Enum.GetValues<MiiFavoriteColor>();
+
+            InitializeComponent();
+            DataContext = this; // DataContext for IsSaveEnabled binding
+            LoadMiiPage("General"); // Load initial page
+
+            // Initial validation check
+            UpdateValidationState();
+        }
+
+        private void Navigation_Click(object? sender, RoutedEventArgs e)
+        {
+            // Use RadioButton instead of TemplatedControl for type safety
+            if (sender is RadioButton { Tag: string sectionName, IsChecked: true })
+            {
+                LoadMiiPage(sectionName);
             }
         }
-    }
 
-    private string? _nameValidationError;
-    public string? NameValidationError
-    {
-        get => _nameValidationError;
-        private set => SetField(ref _nameValidationError, value);
-    }
-
-    private string _creatorNameString = "";
-    public string CreatorNameString
-    {
-        get => _creatorNameString;
-        set
+        private void LoadMiiPage(string sectionName)
         {
-            if (SetField(ref _creatorNameString, value))
+            UserControl? page = sectionName switch
             {
-                ValidateCreatorName();
+                "General" => new MiiCreatorGeneralPage(),
+                //"Face" => new MiiCreatorFacePage(),
+                //"Hair" => new MiiCreatorHairPage(),
+                //"Eyes" => new MiiCreatorEyesPage(),
+                //"Eyebrows" => new MiiCreatorEyebrowsPage(),
+                //"Nose" => new MiiCreatorNosePage(),
+                //"Mouth" => new MiiCreatorMouthPage(),
+                //"FacialHair" => new MiiCreatorFacialHairPage(),
+                //"Mole" => new MiiCreatorMolePage(),
+                //"Glasses" => new MiiCreatorGlassesPage(),
+                //"Body" => new MiiCreatorBodyPage(),
+                _ => new MiiCreatorGeneralPage(), // Default or handle error
+            };
+
+            // Crucial Step: Pass the Mii clone to the page
+            if (page is MiiCreatorPageBase miiPage) // Use a base class or check type
+            {
+                miiPage.SetMiiToEdit(_miiClone); // Pass the clone
+
+                // Optional: Subscribe to the page's validity changes
+                if (miiPage is INotifyPropertyChanged notifyingPage)
+                {
+                    // Unsubscribe from previous page if any
+                    if (MiiContent.Content is INotifyPropertyChanged oldPage)
+                    {
+                        oldPage.PropertyChanged -= Page_PropertyChanged;
+                    }
+                    notifyingPage.PropertyChanged += Page_PropertyChanged;
+                }
+            }
+            // Set the page's DataContext to itself to enable bindings within the page
+            page.DataContext = page;
+
+            MiiContent.Content = page;
+            UpdateValidationState(); // Check validity of the newly loaded page
+        }
+
+        // Handler for validity changes from the page
+        private void Page_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            // Check if the property that changed signifies a validity update
+            // (e.g., IsPageValid or specific validation error properties)
+            if (
+                e.PropertyName == nameof(IValidatableMiiPage.IsPageValid)
+                || e.PropertyName?.Contains("ValidationError") == true
+                || // Or check specific error props if not using IsPageValid
+                e.PropertyName == "IsValid"
+            ) // Or a generic IsValid if preferred
+            {
+                UpdateValidationState();
             }
         }
-    }
 
-    private string? _creatorNameValidationError;
-    public string? CreatorNameValidationError
-    {
-        get => _creatorNameValidationError;
-        private set => SetField(ref _creatorNameValidationError, value);
-    }
-    public bool IsValid => string.IsNullOrEmpty(NameValidationError) && string.IsNullOrEmpty(CreatorNameValidationError);
-
-    public IEnumerable<MiiFavoriteColor> FavoriteColorOptions { get; }
-
-    public MiiCreatorWindow(IMiiDbService miiDbService, Mii? existingMii = null)
-        : base(true, false, true, existingMii == null ? "Create New Mii" : $"Edit Mii: {existingMii.Name}")
-    {
-        _miiDbService = miiDbService ?? throw new ArgumentNullException(nameof(miiDbService));
-
-        if (existingMii != null)
+        private void UpdateValidationState()
         {
-            _originalMii = existingMii;
-            _miiCloneClone = CloneMii(existingMii);
-            _miiNameString = existingMii.Name.ToString();
-            _creatorNameString = existingMii.CreatorName.ToString();
-        }
-        else
-        {
-            _originalMii = new();
-            _miiCloneClone = new();
-            _miiNameString = "";
-            _creatorNameString = "";
+            if (MiiContent.Content is IValidatableMiiPage validatablePage)
+            {
+                IsCurrentPageValid = validatablePage.IsPageValid;
+            }
+            else if (MiiContent.Content is MiiCreatorGeneralPage generalPage) // Fallback if interface not used yet
+            {
+                IsCurrentPageValid = generalPage.IsPageValid; // Assuming GeneralPage implements this property
+            }
+            else
+            {
+                IsCurrentPageValid = true; // Assume valid if page doesn't support validation
+            }
+            // Force notification for IsSaveEnabled which depends on IsCurrentPageValid
+            OnPropertyChanged(nameof(IsSaveEnabled));
         }
 
-        FavoriteColorOptions = Enum.GetValues<MiiFavoriteColor>();
-
-        InitializeComponent();
-        DataContext = this;
-        LoadMiiPage("General");
-        ValidateMiiName();
-        ValidateCreatorName();
-    }
-
-    private void Navigation_Click(object? sender, RoutedEventArgs e)
-    {
-        if (sender is RadioButton { Tag: string sectionName } radioButton && radioButton.IsChecked == true)
+        public Task<Mii?> ShowDialogAsync()
         {
-            LoadMiiPage(sectionName);
+            _tcs = new TaskCompletionSource<Mii?>();
+            Show();
+            return _tcs.Task;
         }
-    }
 
-    private void LoadMiiPage(string sectionName)
-    {
-        UserControl? page = sectionName switch
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            "General" => new MiiCreatorGeneralPage(),
-            "Face" => new MiiCreatorFacePage(),
-            "Hair" => new MiiCreatorHairPage(),
-            "Eyes" => new MiiCreatorEyesPage(),
-            "Eyebrows" => new MiiCreatorEyebrowsPage(),
-            "Nose" => new MiiCreatorNosePage(),
-            "Mouth" => new MiiCreatorMouthPage(),
-            "FacialHair" => new MiiCreatorFacialHairPage(),
-            "Mole" => new MiiCreatorMolePage(),
-            "Glasses" => new MiiCreatorGlassesPage(),
-            "Body" => new MiiCreatorBodyPage(),
-            _ => new MiiCreatorGeneralPage(), // Default or handle error
-        };
-        page.DataContext = this; //
-        MiiContent.Content = page;
-    }
+            // 1. Trigger final validation/preparation on the current page (and potentially all pages if needed)
+            if (MiiContent.Content is IValidatableMiiPage currentValidatablePage)
+            {
+                currentValidatablePage.ValidatePage(); // Ensure latest validation runs
+                if (!currentValidatablePage.IsPageValid)
+                {
+                    await ShowValidationErrorDialog("Please fix the errors on the current page before saving.");
+                    return;
+                }
+                currentValidatablePage.PrepareForSave(); // Allow page to finalize data in MiiClone
+            }
+            // --- Add loop here to check ALL pages if cross-page validation is needed ---
+            // This requires storing references to all created pages. For now, we only check current.
 
-    private void ValidateMiiName()
-    {
-        var nameResult = MiiName.Create(MiiNameString);
-        NameValidationError = nameResult.IsFailure ? nameResult.Error.Message : null;
-        OnPropertyChanged(nameof(IsValid));
-    }
 
-    private void ValidateCreatorName()
-    {
-        if (string.IsNullOrWhiteSpace(CreatorNameString))
-        {
-            CreatorNameValidationError = null;
+            // 2. Perform Save Operation (logic moved from specific validation)
+            OperationResult result;
+            // Determine if it's a new Mii based on whether an existing one was passed *or* if the clone still has default ID.
+            bool isNewMii = _originalMii.MiiId == 0; // Simpler check: was the original Mii a new one?
+
+            if (isNewMii)
+            {
+                // Ensure essential fields like Name are valid *before* generating ID/saving
+                // The page should have already validated and updated MiiClone.Name
+                if (string.IsNullOrWhiteSpace(_miiClone.Name.ToString()) || _miiClone.Name.ToString() == "no name")
+                {
+                    await ShowValidationErrorDialog("Mii Name cannot be empty. Please go to the General tab.");
+                    // Optionally navigate to the General tab here.
+                    return;
+                }
+
+                // Generate ID only if truly new. Collision check is crucial in a real app.
+                _miiClone.MiiId = (uint)Random.Shared.Next(1, int.MaxValue);
+                _miiClone.Date = DateOnly.FromDateTime(DateTime.Now); // Set creation date
+
+                var macAddress = (string)SettingsManager.MACADDRESS.Get();
+                result = _miiDbService.AddToDatabase(_miiClone, macAddress);
+                if (!result.IsSuccess && _miiClone.MiiId != 0)
+                {
+                    _miiClone.MiiId = 0; // Reset ID on failure
+                }
+            }
+            else
+            {
+                // Ensure Mii ID is correctly set from the original for update
+                _miiClone.MiiId = _originalMii.MiiId;
+                // Ensure essential fields like Name are valid
+                if (string.IsNullOrWhiteSpace(_miiClone.Name.ToString()) || _miiClone.Name.ToString() == "no name")
+                {
+                    await ShowValidationErrorDialog("Mii Name cannot be empty. Please go to the General tab.");
+                    // Optionally navigate to the General tab here.
+                    return;
+                }
+                result = _miiDbService.Update(_miiClone);
+            }
+
+            // 3. Handle Result
+            if (result.IsSuccess)
+            {
+                _tcs.TrySetResult(_miiClone);
+                Close();
+            }
+            else
+            {
+                // Keep Mii ID if it was successfully generated but DB save failed,
+                // allowing retry without new ID unless it was the cause of failure.
+                await new MessageBoxWindow()
+                    .SetMessageType(MessageBoxWindow.MessageType.Error)
+                    .SetTitleText("Save Failed")
+                    .SetInfoText(result.Error.Message) // Make sure OperationResult has a meaningful error message
+                    .ShowDialog();
+            }
         }
-        else
-        {
-            var nameResult = MiiName.Create(CreatorNameString);
-            CreatorNameValidationError = nameResult.IsFailure ? nameResult.Error.Message : null;
-        }
-        OnPropertyChanged(nameof(IsValid));
-    }
 
-    public Task<Mii?> ShowDialogAsync()
-    {
-        _tcs = new();
-        Show();
-        return _tcs.Task;
-    }
-
-    private async void SaveButton_Click(object sender, RoutedEventArgs e)
-    {
-        ValidateMiiName();
-        ValidateCreatorName();
-        if (!IsValid)
+        private async Task ShowValidationErrorDialog(string message)
         {
             await new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Warning)
                 .SetTitleText("Validation Error")
-                .SetInfoText("Please fix the errors before saving.")
+                .SetInfoText(message)
                 .ShowDialog();
-            return;
         }
 
-        var nameResult = MiiName.Create(MiiNameString);
-        if (nameResult.IsSuccess)
-            _miiCloneClone.Name = nameResult.Value;
-
-        var creatorNameResult = MiiName.Create(CreatorNameString);
-        _miiCloneClone.CreatorName = string.IsNullOrWhiteSpace(CreatorNameString) ? new("") : creatorNameResult.Value;
-
-        OperationResult result;
-        bool isNewMii = _miiCloneClone.MiiId == 0 || _originalMii.MiiId == 0;
-        if (isNewMii)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            _miiCloneClone.MiiId = (uint)Random.Shared.Next(1, int.MaxValue);
-            // TODO: Robust ID generation needed! Check for collisions.
+            Close(); // BeforeClose handles the TCS
+        }
 
-            var macAddress = (string)SettingsManager.MACADDRESS.Get();
-            result = _miiDbService.AddToDatabase(_miiCloneClone, macAddress);
-            if (!result.IsSuccess && _miiCloneClone.MiiId != 0)
+        protected override void BeforeClose()
+        {
+            // Unsubscribe from page events
+            if (MiiContent.Content is INotifyPropertyChanged notifyingPage)
             {
-                _miiCloneClone.MiiId = 0;
+                notifyingPage.PropertyChanged -= Page_PropertyChanged;
             }
+
+            _tcs.TrySetResult(null); // Signal cancellation
+            base.BeforeClose();
         }
-        else
+
+        #region INotifyPropertyChanged Implementation
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
-            _miiCloneClone.MiiId = _originalMii.MiiId;
-            result = _miiDbService.Update(_miiCloneClone);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        if (result.IsSuccess)
+
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
         {
-            _tcs.TrySetResult(_miiCloneClone);
-            Close();
+            if (EqualityComparer<T>.Default.Equals(field, value))
+                return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
         }
-        else
+
+        protected bool SetField<T>(ref T field, T value, params string[] additionalProperties)
         {
-            await new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Save Failed")
-                .SetInfoText(result.Error.Message)
-                .ShowDialog();
+            if (EqualityComparer<T>.Default.Equals(field, value))
+                return false;
+            field = value;
+            // Notify the property itself (CallerMemberName gets this)
+            OnPropertyChanged(null); // Use null to rely on CallerMemberName
+            // Notify dependent properties
+            foreach (var propName in additionalProperties)
+            {
+                OnPropertyChanged(propName);
+            }
+            return true;
+        }
+        #endregion
+
+        // CloneMii method remains the same as you provided
+        private Mii CloneMii(Mii source)
+        {
+            // Defensive copy if MiiName is mutable or needs validation state reset
+            var clonedName = source.Name; // Assuming MiiName is immutable or copy logic handles it
+            var clonedCreator = source.CreatorName;
+
+            var clone = new Mii
+            {
+                // Copy simple properties
+                IsInvalid = source.IsInvalid,
+                IsGirl = source.IsGirl,
+                Date = source.Date,
+                MiiFavoriteColor = source.MiiFavoriteColor,
+                IsFavorite = source.IsFavorite,
+                Height = source.Height, // Assuming MiiScale is a struct or immutable
+                Weight = source.Weight, // Assuming MiiScale is a struct or immutable
+                MiiId = source.MiiId,
+                SystemId0 = source.SystemId0,
+                SystemId1 = source.SystemId1,
+                SystemId2 = source.SystemId2,
+                SystemId3 = source.SystemId3,
+
+                // Assign potentially cloned value objects
+                Name = clonedName,
+                CreatorName = clonedCreator,
+
+                // Copy complex properties (assuming they are structs or immutable records)
+                // If these are mutable classes, they need deep cloning too!
+                MiiFacial = source.MiiFacial,
+                MiiHair = source.MiiHair,
+                MiiEyebrows = source.MiiEyebrows,
+                MiiEyes = source.MiiEyes,
+                MiiNose = source.MiiNose,
+                MiiLips = source.MiiLips,
+                MiiGlasses = source.MiiGlasses,
+                MiiFacialHair = source.MiiFacialHair,
+                MiiMole = source.MiiMole,
+            };
+            return clone;
         }
     }
-
-    private void CancelButton_Click(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-
-    protected override void BeforeClose()
-    {
-        _tcs.TrySetResult(null);
-        base.BeforeClose();
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value))
-            return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
-    }
-
-    private Mii CloneMii(Mii? source)
-    {
-        if (source == null)
-            return new Mii();
-        var clone = new Mii
-        {
-            // Copy properties from the source Mii
-            IsInvalid = source.IsInvalid,
-            IsGirl = source.IsGirl,
-            Date = source.Date,
-            MiiFavoriteColor = source.MiiFavoriteColor,
-            IsFavorite = source.IsFavorite,
-            Name = source.Name,
-            Height = source.Height,
-            Weight = source.Weight,
-            MiiId = source.MiiId,
-            SystemId0 = source.SystemId0,
-            SystemId1 = source.SystemId1,
-            SystemId2 = source.SystemId2,
-            SystemId3 = source.SystemId3,
-            CreatorName = source.CreatorName,
-
-            // Copy complex properties (assuming they are also cloneable or value types)
-            // If these are reference types that can be modified, they need cloning too!
-            // For now, assuming shallow copy is okay for these domain objects or they handle it internally.
-            MiiFacial = source.MiiFacial, // Assuming struct or needs deep clone if class
-            MiiHair = source.MiiHair, // Assuming struct or needs deep clone if class
-            MiiEyebrows = source.MiiEyebrows, // Assuming struct or needs deep clone if class
-            MiiEyes = source.MiiEyes, // Assuming struct or needs deep clone if class
-            MiiNose = source.MiiNose, // Assuming struct or needs deep clone if class
-            MiiLips = source.MiiLips, // Assuming struct or needs deep clone if class
-            MiiGlasses = source.MiiGlasses, // Assuming struct or needs deep clone if class
-            MiiFacialHair = source.MiiFacialHair, // Assuming struct or needs deep clone if class
-            MiiMole = source.MiiMole, // Assuming struct or needs deep clone if class
-        };
-        return clone;
-    }
-}
-
-// Create the actual files later as needed.
-public class MiiCreatorFacePage : UserControl
-{
-    public MiiCreatorFacePage() =>
-        Content = new TextBlock
-        {
-            Text = "Face Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
-}
-
-public class MiiCreatorHairPage : UserControl
-{
-    public MiiCreatorHairPage() =>
-        Content = new TextBlock
-        {
-            Text = "Hair Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
-}
-
-public class MiiCreatorEyesPage : UserControl
-{
-    public MiiCreatorEyesPage() =>
-        Content = new TextBlock
-        {
-            Text = "Eyes Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
-}
-
-public class MiiCreatorEyebrowsPage : UserControl
-{
-    public MiiCreatorEyebrowsPage() =>
-        Content = new TextBlock
-        {
-            Text = "Eyebrows Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
-}
-
-public class MiiCreatorNosePage : UserControl
-{
-    public MiiCreatorNosePage() =>
-        Content = new TextBlock
-        {
-            Text = "Nose Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
-}
-
-public class MiiCreatorMouthPage : UserControl
-{
-    public MiiCreatorMouthPage() =>
-        Content = new TextBlock
-        {
-            Text = "Mouth Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
-}
-
-public class MiiCreatorFacialHairPage : UserControl
-{
-    public MiiCreatorFacialHairPage() =>
-        Content = new TextBlock
-        {
-            Text = "Facial Hair Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
-}
-
-public class MiiCreatorMolePage : UserControl
-{
-    public MiiCreatorMolePage() =>
-        Content = new TextBlock
-        {
-            Text = "Mole Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
-}
-
-public class MiiCreatorGlassesPage : UserControl
-{
-    public MiiCreatorGlassesPage() =>
-        Content = new TextBlock
-        {
-            Text = "Glasses Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
-}
-
-public class MiiCreatorBodyPage : UserControl
-{
-    public MiiCreatorBodyPage() =>
-        Content = new TextBlock
-        {
-            Text = "Body Page - TODO",
-            Margin = new(10),
-            VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
-            HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
-        };
 }

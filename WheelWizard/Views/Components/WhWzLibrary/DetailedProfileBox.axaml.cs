@@ -7,8 +7,6 @@ using Avalonia.Media.Imaging;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services.Settings;
 using WheelWizard.Views.Components.MiiImages;
-using WheelWizard.Views.Popups;
-using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
 using MiiCreatorWindow = WheelWizard.Views.Popups.MiiCreatorTabs.MiiCreatorWindow;

@@ -2,17 +2,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:popups="clr-namespace:WheelWizard.Views.Popups"
-             xmlns:domain="clr-namespace:WheelWizard.WiiManagement.Domain.Mii"
              xmlns:miiCreatorTabs="clr-namespace:WheelWizard.Views.Popups.MiiCreatorTabs"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="350"
              x:Class="WheelWizard.Views.Popups.MiiCreatorTabs.MiiCreatorGeneralPage"
-             x:DataType="miiCreatorTabs:MiiCreatorWindow">
-    
+             x:DataType="miiCreatorTabs:MiiCreatorGeneralPage"> <!-- Data type is now the page itself -->
+
+    <UserControl.Resources>
+        <miiCreatorTabs:NotConverter x:Key="NotConverter"/>
+    </UserControl.Resources>
+
     <Grid>
         <StackPanel Margin="10" Spacing="10">
             <TextBlock Text="Mii Name:" />
-            <!-- Binding path now starts from the parent's properties -->
+            <!-- Binding path now starts from the page's properties -->
             <TextBox Text="{Binding MiiNameString, Mode=TwoWay}" MaxLength="10" Watermark="Enter Mii name (3-10 chars)" />
             <TextBlock Text="{Binding NameValidationError}" Foreground="Red" IsVisible="{Binding !!NameValidationError}" FontSize="12"/>
 
@@ -22,15 +24,20 @@
 
             <TextBlock Text="Gender:" Classes="FormFieldLabel" />
             <StackPanel Orientation="Horizontal" Spacing="10">
-                <RadioButton Content="Male" IsChecked="{Binding !MiiClone.IsGirl, Mode=TwoWay}" GroupName="GenderGroup"/>
-                <RadioButton Content="Female" IsChecked="{Binding MiiClone.IsGirl, Mode=TwoWay}" GroupName="GenderGroup"/>
+                 <!-- Use Converter for negation. Binding to MiiToEdit -->
+                 <!-- Or handle the boolean logic in code-behind properties -->
+                <RadioButton Content="Male" IsChecked="{Binding IsMale, Mode=TwoWay}" GroupName="GenderGroup"/>
+                <RadioButton Content="Female" IsChecked="{Binding MiiToEdit.IsGirl, Mode=TwoWay}" GroupName="GenderGroup"/>
             </StackPanel>
-            
-            <TextBlock Text="Favorite Color:" Classes="FormFieldLabel" />
-            <ComboBox ItemsSource="{Binding FavoriteColorOptions}"
-                      SelectedItem="{Binding MiiClone.MiiFavoriteColor, Mode=TwoWay}" />
 
-            <CheckBox Content="Mark as Favorite" IsChecked="{Binding MiiClone.IsFavorite, Mode=TwoWay}" />
+            <TextBlock Text="Favorite Color:" Classes="FormFieldLabel" />
+             <!-- ItemsSource comes from the main window, SelectedItem binds to the Mii clone -->
+             <!-- We need to get ItemsSource differently now. Maybe pass via constructor or property -->
+            <ComboBox ItemsSource="{Binding FavoriteColorOptions}"
+                      SelectedItem="{Binding MiiToEdit.MiiFavoriteColor, Mode=TwoWay}" />
+
+            <!-- Binding directly to the Mii clone's property -->
+            <CheckBox Content="Mark as Favorite" IsChecked="{Binding MiiToEdit.IsFavorite, Mode=TwoWay}" />
         </StackPanel>
     </Grid>
 </UserControl>

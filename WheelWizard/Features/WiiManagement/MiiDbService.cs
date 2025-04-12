@@ -1,5 +1,4 @@
-﻿using WheelWizard.Services.Settings;
-using WheelWizard.WiiManagement.Domain.Mii;
+﻿using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement;
 

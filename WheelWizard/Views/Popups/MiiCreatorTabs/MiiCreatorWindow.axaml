@@ -9,15 +9,15 @@
                    xmlns:miiCreatorTabs="clr-namespace:WheelWizard.Views.Popups.MiiCreatorTabs"
                    mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="450"
                    x:Class="WheelWizard.Views.Popups.MiiCreatorTabs.MiiCreatorWindow"
-                   x:DataType="miiCreatorTabs:MiiCreatorWindow">
+                   x:DataType="miiCreatorTabs:MiiCreatorWindow"> <!-- Ensure DataType points to the code-behind -->
 
     <Grid RowDefinitions="Auto,*,Auto" MinWidth="450">
 
         <!-- Navigation Area -->
         <Border Grid.Row="0" Background="{StaticResource FrameColor}" Padding="5,0">
              <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                 <!-- Using RadioButtons for tab-like behavior -->
                  <StackPanel Orientation="Horizontal" Spacing="5" x:Name="NavigationPanel">
-                     <!-- Use RadioButtons similar to SettingsPage -->
                      <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="General" Content="General" IsChecked="True" Click="Navigation_Click"/>
                      <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Face" Content="Face" Click="Navigation_Click"/>
                      <RadioButton Classes="TopBar" GroupName="MiiSection" Tag="Hair" Content="Hair" Click="Navigation_Click"/>
@@ -32,17 +32,21 @@
                  </StackPanel>
              </ScrollViewer>
         </Border>
+        <!-- Separator Line -->
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}" Height="1"
                 HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
 
 
         <!-- Content Area -->
+        <!-- This ContentControl will display the currently selected Mii section page -->
         <ContentControl Grid.Row="1" x:Name="MiiContent" Margin="0,5,0,5"/>
 
 
-        <!-- Buttons -->
+        <!-- Buttons Area -->
+        <!-- Separator Line -->
         <Border Grid.Row="2" Background="{StaticResource BackgroundLineColor}"
                 Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <!-- UniformGrid ensures buttons have equal width if desired, adjust columns as needed -->
         <UniformGrid Grid.Row="2" Columns="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                      Margin="0,10,0,0">
             <components:Button x:Name="CancelButton" Variant="Default"
@@ -50,7 +54,7 @@
                                IconData="{StaticResource XMark}"
                                Click="CancelButton_Click" Margin="0,0,5,0" />
             <components:Button x:Name="SaveButton" Variant="Primary"
-                               IsEnabled="{Binding IsValid}" Text="Save Mii"
+                               IsEnabled="{Binding IsSaveEnabled}" Text="Save Mii"
                                IconData="{StaticResource CheckMark}"
                                Click="SaveButton_Click" Margin="5,0,0,0" />
         </UniformGrid>
