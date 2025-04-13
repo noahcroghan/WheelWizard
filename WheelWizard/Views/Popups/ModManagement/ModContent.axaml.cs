@@ -324,11 +324,11 @@ public partial class ModContent : UserControlBase
 
     private void UnInstall_Click(object sender, RoutedEventArgs e)
     {
-        var id = CurrentMod?.Id ?? -1;
-        if (id == -1)
+        var id = CurrentMod?.Id;
+        if (id is null or -1)
             return;
 
-        ModManager.Instance.DeleteModById(id!);
-        _ = LoadModDetailsAsync(id);
+        ModManager.Instance.DeleteModById(id.Value);
+        _ = LoadModDetailsAsync(id.Value);
     }
 }

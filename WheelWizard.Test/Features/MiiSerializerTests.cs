@@ -1,6 +1,6 @@
 using WheelWizard.WiiManagement;
 
-namespace WheelWizard.Test.Serialization;
+namespace WheelWizard.Test.Features;
 
 public class MiiSerializerTests
 {
