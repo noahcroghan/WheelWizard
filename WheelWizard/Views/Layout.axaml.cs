@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
@@ -53,6 +54,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
             TopBarButtons.IsVisible = false;
+            TitleLabel.Margin -= new Thickness(0, 0, 0, 18);
         }
 
         WhWzStatusManager.Instance.Subscribe(this);
