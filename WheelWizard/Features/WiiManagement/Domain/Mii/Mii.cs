@@ -34,9 +34,9 @@ public class Mii
 
     public MiiHair MiiHair { get; set; } = new(1, HairColor.Black, false);
     public MiiEyebrow MiiEyebrows { get; set; } = new(1, 0, EyebrowColor.Black, 4, 10, 1);
-    public MiiEye MiiEyes { get; set; } = new(1, 0, 1, EyeColor.Black, 3, 1);
-    public MiiNose MiiNose { get; set; } = new(NoseType.Default, 1, 4);
-    public MiiLip MiiLips { get; set; } = new(1, LipColor.Skin, 4, 4);
+    public MiiEye MiiEyes { get; set; } = new(1, 6, 7, EyeColor.Black, 3, 6);
+    public MiiNose MiiNose { get; set; } = new(NoseType.Default, 6, 4);
+    public MiiLip MiiLips { get; set; } = new(1, LipColor.Skin, 4, 9);
     public MiiGlasses MiiGlasses { get; set; } = new(GlassesType.None, GlassesColor.Dark, 4, 1);
     public MiiFacialHair MiiFacialHair { get; set; } = new(MustacheType.None, BeardType.None, MustacheColor.Black, 1, 1);
     public MiiMole MiiMole { get; set; } = new(false, 0, 0, 0);
