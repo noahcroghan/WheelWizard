@@ -9,9 +9,10 @@
         xmlns:settings="clr-namespace:WheelWizard.Views.Pages.Settings"
         xmlns:components="clr-namespace:WheelWizard.Views.Components"
         Height="876" Width="656" WindowStartupLocation="CenterScreen"
-        SystemDecorations="None"
+        SystemDecorations="Full"
         ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome" 
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        ExtendClientAreaTitleBarHeightHint="0"
         CanResize='False' Background="Transparent">
     <Grid ColumnDefinitions="192,*" RowDefinitions="25,17,88,*,80" x:Name="CompleteGrid"
           Background="{StaticResource FrameColor}">
