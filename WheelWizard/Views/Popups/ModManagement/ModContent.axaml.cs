@@ -322,13 +322,13 @@ public partial class ModContent : UserControlBase
         ViewUtils.OpenLink(url);
     }
 
-    private void UnInstall_Click(object sender, RoutedEventArgs e)
+    private async void UnInstall_Click(object sender, RoutedEventArgs e)
     {
         var id = CurrentMod?.Id;
         if (id is null or -1)
             return;
 
         ModManager.Instance.DeleteModById(id.Value);
-        _ = LoadModDetailsAsync(id.Value);
+        await LoadModDetailsAsync(id.Value);
     }
 }
