@@ -13,6 +13,7 @@ namespace WheelWizard.Services;
 public class ModManager : INotifyPropertyChanged
 {
     private static readonly Lazy<ModManager> _instance = new(() => new ModManager());
+    private static readonly char[] _illegalChars = new[] { '.', '/', '~', '\\' };
     public static ModManager Instance => _instance.Value;
 
     private ObservableCollection<Mod> _mods;
@@ -189,6 +190,9 @@ public class ModManager : INotifyPropertyChanged
         if (newName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
             return Fail("Mod name contains illegal characters.");
 
+        if (newName.Any(x=> _illegalChars.Contains(x)))
+            return Fail("Mod name contains illegal characters.");
+
         return Ok();
     }
 
@@ -263,7 +267,7 @@ public class ModManager : INotifyPropertyChanged
             .SetMainText(Humanizer.ReplaceDynamic(Phrases.PopupText_SureDeleteQuestion, selectedMod.Title)).AwaitAnswer();
         if (!areTheySure) return;
 
-        var modDirectory = PathManager.GetModDirectoryPath(selectedMod.Title);
+        var modDirectory = Path.GetFullPath(PathManager.GetModDirectoryPath(selectedMod.Title));
 
         if (!Directory.Exists(modDirectory))
         {
@@ -281,7 +285,13 @@ public class ModManager : INotifyPropertyChanged
             {
                 file.Attributes &= ~FileAttributes.ReadOnly;
             }
-
+            //make sure we are STILL in the mod folder
+            var isStillValid = modDirectory.StartsWith(PathManager.ModsFolderPath);
+            if (!isStillValid)
+            {
+                ErrorOccurred("Invalid mod directory.");
+                return;
+            }
             Directory.Delete(modDirectory, true); // true for recursive deletion
             RemoveMod(selectedMod);
         }
