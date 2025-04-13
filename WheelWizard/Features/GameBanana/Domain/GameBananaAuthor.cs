@@ -10,6 +10,9 @@ public class GameBananaAuthor
     [JsonPropertyName("_sProfileUrl")]
     public required string ProfileUrl { get; set; }
 
+    /// <summary>
+    /// Some Authors didn't upload an avatar, therefore it can also be null.
+    /// </summary>
     [JsonPropertyName("_sAvatarUrl")]
-    public string? AvatarUrl { get; set; } // Some Authors didn't upload an avatar
+    public string? AvatarUrl { get; set; }
 }

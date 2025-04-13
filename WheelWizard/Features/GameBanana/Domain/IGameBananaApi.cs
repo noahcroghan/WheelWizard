@@ -11,6 +11,7 @@ public interface IGameBananaApi
     Task<GameBananaSearchResults> GetModSearchResults(
         [AliasAs("_sSearchString")] string searchString,
         [AliasAs("_idGameRow")] int gameId,
+        [AliasAs("_sModelName")] string modelName,
         [AliasAs("_nPage")] int page = 1
     );
 }

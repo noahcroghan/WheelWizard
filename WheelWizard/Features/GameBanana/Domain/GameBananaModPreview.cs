@@ -5,6 +5,7 @@ namespace WheelWizard.GameBanana.Domain;
 public class GameBananaModPreview
 {
     // Properties in common with GameBananaModDetails
+
     [JsonPropertyName("_idRow")]
     public required int Id { get; set; }
 
@@ -12,7 +13,7 @@ public class GameBananaModPreview
     public required string Name { get; set; }
 
     [JsonPropertyName("_sVersion")]
-    public string Version { get; set; } = string.Empty;
+    public required string Version { get; set; }
 
     [JsonPropertyName("_aTags")]
     public required List<string> Tags { get; set; }
@@ -21,7 +22,7 @@ public class GameBananaModPreview
     public required string ProfileUrl { get; set; }
 
     [JsonPropertyName("_aPreviewMedia")]
-    public GameBananaPreviewMedia? PreviewMedia { get; set; }
+    public required GameBananaPreviewMedia PreviewMedia { get; set; }
 
     [JsonPropertyName("_nLikeCount")]
     public int LikeCount { get; set; }
@@ -42,9 +43,13 @@ public class GameBananaModPreview
     public required GameBananaGame Game { get; set; }
 
     // Unique properties to the Mod Details
+
     [JsonPropertyName("_aRootCategory")]
     public required GameBananaCategory RootCategory { get; set; }
 
+    /// <summary>
+    /// e.g. "Mod" , "Question", "Thread", "Sound"
+    /// </summary>
     [JsonPropertyName("_sModelName")]
-    public required string ModelName { get; set; } // "Mod" , "Question", "Thread", "Sound"
+    public required string ModelName { get; set; }
 }

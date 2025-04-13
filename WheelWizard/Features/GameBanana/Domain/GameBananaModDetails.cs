@@ -5,6 +5,7 @@ namespace WheelWizard.GameBanana.Domain;
 public class GameBananaModDetails
 {
     // Properties in common with GameBananaModPreview
+
     [JsonPropertyName("_idRow")]
     public required int Id { get; set; }
 
@@ -42,6 +43,7 @@ public class GameBananaModDetails
     public required GameBananaGame Game { get; set; }
 
     // Unique properties to the Mod Details
+
     [JsonPropertyName("_aCategory")]
     public required GameBananaCategory Category { get; set; }
 

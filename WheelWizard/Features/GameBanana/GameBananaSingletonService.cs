@@ -28,7 +28,7 @@ public class GameBananaSingletonService(IApiCaller<IGameBananaApi> apiService) :
         if (string.IsNullOrWhiteSpace(searchTerm))
             searchTerm = "Mod";
 
-        return await apiService.CallApiAsync(gitHubApi => gitHubApi.GetModSearchResults(searchTerm, GameId, page));
+        return await apiService.CallApiAsync(gitHubApi => gitHubApi.GetModSearchResults(searchTerm, GameId, "Mod", page));
     }
 
     public async Task<OperationResult<GameBananaModDetails>> GetModDetails(int modId)
@@ -43,6 +43,7 @@ public class GameBananaSingletonService(IApiCaller<IGameBananaApi> apiService) :
         {
             Id = 0,
             Name = "LOADING",
+            Version = "",
             ModelName = "",
             Tags = [],
             ProfileUrl = "",
@@ -68,6 +69,7 @@ public class GameBananaSingletonService(IApiCaller<IGameBananaApi> apiService) :
                 ProfileUrl = "",
                 AvatarUrl = "",
             },
+            PreviewMedia = new(),
         };
     }
 }

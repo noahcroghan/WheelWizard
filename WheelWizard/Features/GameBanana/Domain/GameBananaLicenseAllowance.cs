@@ -8,11 +8,11 @@ public class GameBananaLicenseAllowance
     // ask GameBanana why
 
     [JsonPropertyName("yes")]
-    public required List<String> Allowed { get; set; } = [];
+    public required List<String> Allowed { get; set; }
 
     [JsonPropertyName("ask")]
-    public required List<String> OnRequest { get; set; } = [];
+    public required List<String> OnRequest { get; set; }
 
     [JsonPropertyName("no")]
-    public required List<String> NotAllowed { get; set; } = [];
+    public required List<String> NotAllowed { get; set; }
 }

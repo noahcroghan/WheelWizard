@@ -190,6 +190,7 @@ namespace WheelWizard.Test.Features
                 Id = id,
                 Name = $"Test Mod {id}",
                 Tags = [],
+                Version = "",
                 Author = new()
                 {
                     Name = "Test Author",
@@ -212,6 +213,7 @@ namespace WheelWizard.Test.Features
                     IconUrl = "",
                 },
                 ModelName = "Mod",
+                PreviewMedia = new()
             };
         }
 
