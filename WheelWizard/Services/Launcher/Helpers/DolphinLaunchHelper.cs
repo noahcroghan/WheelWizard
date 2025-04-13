@@ -12,7 +12,8 @@ public static class DolphinLaunchHelper
     public static void KillDolphin() //dont tell PETA
     {
         var dolphinLocation = PathManager.DolphinFilePath;
-        if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(dolphinLocation)).Length == 0) return;
+        if (Process.GetProcessesByName(Path.GetFileNameWithoutExtension(dolphinLocation)).Length == 0)
+            return;
 
         var dolphinProcesses = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(dolphinLocation));
         foreach (var process in dolphinProcesses)
@@ -27,43 +28,44 @@ public static class DolphinLaunchHelper
         {
             // Because with the file picker on a Flatpak build, we get XDG portal paths like these...
             // We can fix Flatpak Dolphin to gain access to this game file path though.
-            string xdgRuntimeDir = Environment.GetEnvironmentVariable("XDG_RUNTIME_DIR") ?? string.Empty;
+            var xdgRuntimeDir = Environment.GetEnvironmentVariable("XDG_RUNTIME_DIR") ?? string.Empty;
             if (EnvHelper.IsRelativeLinuxPath(xdgRuntimeDir))
             {
-                string fixablePattern = @"^/run/user/(\d+)/doc";
-                Regex fixablePatternRegex = new Regex(fixablePattern);
+                var fixablePattern = @"^/run/user/(\d+)/doc";
+                var fixablePatternRegex = new Regex(fixablePattern);
                 return fixablePatternRegex.IsMatch(gameFilePath);
             }
             else
             {
-                string xdgRuntimeDirDocPath = Path.Combine(xdgRuntimeDir, "doc");
+                var xdgRuntimeDirDocPath = Path.Combine(xdgRuntimeDir, "doc");
                 return gameFilePath.StartsWith(xdgRuntimeDirDocPath);
             }
         }
         return false;
     }
 
-    private static bool TryFixFlatpakGameFileAccess()
+    private static bool TryFixFlatpakPortalAccess(string path, string additionalFlag = "")
     {
-        var gameFilePath = PathManager.GameFilePath;
-        if (IsFixableFlatpakGamePath(gameFilePath))
+        if (IsFixableFlatpakGamePath(path))
         {
             try
             {
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = "flatpak",
-                    ArgumentList = {
+                    ArgumentList =
+                    {
                         "document-export",
                         "--app=org.DolphinEmu.dolphin-emu",
-                        "-r",
+                        // Default to a flag that is on by default
+                        string.IsNullOrWhiteSpace(additionalFlag) ? "-r" : additionalFlag,
                         "--",
-                        gameFilePath,
+                        path
                     },
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     CreateNoWindow = true,
-                    UseShellExecute = false
+                    UseShellExecute = false,
                 })?.WaitForExit();
                 return true;
             }
@@ -77,28 +79,37 @@ public static class DolphinLaunchHelper
 
     private static string FixFlatpakDolphinPermissions(string flatpakDolphinLocation)
     {
-        string fixedFlatpakDolphinLocation = flatpakDolphinLocation;
-        var addFilesystemPerm = (string newFilesystemPerm, string mode = "") =>
+        var fixedFlatpakDolphinLocation = flatpakDolphinLocation;
+        void AddFilesystemPerm(string newFilesystemPerm, string mode = "")
         {
-            string flatpakRunCommand = "flatpak run";
+            var flatpakRunCommand = "flatpak run";
             fixedFlatpakDolphinLocation = fixedFlatpakDolphinLocation.Replace(
                 flatpakRunCommand,
-                $"{flatpakRunCommand} --filesystem=\"{Path.GetFullPath(newFilesystemPerm)}\"{mode}");
-        };
-        // Read-only permissions
-        if (!TryFixFlatpakGameFileAccess())
-        {
-            addFilesystemPerm(PathManager.GameFilePath, ":ro");
+                $"{flatpakRunCommand} --filesystem=\"{Path.GetFullPath(newFilesystemPerm)}\"{mode}"
+            );
         }
-        addFilesystemPerm(PathManager.RrLaunchJsonFilePath, ":ro");
-        addFilesystemPerm(PathManager.XmlFilePath, ":ro");
-        addFilesystemPerm(PathManager.RiivolutionWhWzFolderPath, ":ro");
+
         // Read-write permissions
-        if (!PathManager.LinuxDolphinFlatpakDataDir.Equals(Path.GetFullPath(PathManager.UserFolderPath), StringComparison.Ordinal))
-        {
-            addFilesystemPerm(PathManager.UserFolderPath, ":rw");
-        }
-        addFilesystemPerm(PathManager.SaveFolderPath, ":create");
+
+        // Try to export all portal-based paths to the Dolphin Flatpak so there are no issues.
+        // We are going to try to fix all user-configurable paths (excluding the Dolphin executable).
+        if (!TryFixFlatpakPortalAccess(PathManager.UserFolderPath, "-w"))
+            AddFilesystemPerm(PathManager.UserFolderPath, ":rw");
+        // It doesn't seem viable to always enforce read-only Riivolution folder access
+        // while granting read-write to the save subdirectory,
+        // assuming the path is overridden (think a Dolphin user folder inside it...).
+        // The Dolphin Flatpak itself would have write access to the entire Riivolution folder
+        // anyway in the default configuration, so we will only use read-only permissions on
+        // launch files if possible, not folders.
+        if (!TryFixFlatpakPortalAccess(PathManager.RiivolutionWhWzFolderPath, "-w"))
+            AddFilesystemPerm(PathManager.RiivolutionWhWzFolderPath, ":rw");
+
+        // Read-only permissions on files where possible
+
+        if (!TryFixFlatpakPortalAccess(PathManager.GameFilePath, "-r"))
+            AddFilesystemPerm(PathManager.GameFilePath, ":ro");
+        AddFilesystemPerm(PathManager.RrLaunchJsonFilePath, ":ro");
+
         return fixedFlatpakDolphinLocation;
     }
 
@@ -109,9 +120,9 @@ public static class DolphinLaunchHelper
         {
             var startInfo = new ProcessStartInfo();
 
-            bool cannotPassUserFolder = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && PathManager.IsLinuxDolphinConfigSplit();
-            string userFolderArgument = cannotPassUserFolder ? "" : $"-u \"{Path.GetFullPath(PathManager.UserFolderPath)}\"";
-            string dolphinLaunchArguments = $"{arguments} {userFolderArgument}";
+            var cannotPassUserFolder = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && PathManager.IsLinuxDolphinConfigSplit();
+            var userFolderArgument = cannotPassUserFolder ? "" : $"-u \"{Path.GetFullPath(PathManager.UserFolderPath)}\"";
+            var dolphinLaunchArguments = $"{arguments} {userFolderArgument}";
 
             var dolphinLocation = (string)SettingsManager.DOLPHIN_LOCATION.Get();
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
