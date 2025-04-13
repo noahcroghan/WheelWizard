@@ -50,7 +50,7 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
             MadeBy_Part2.Text = split[1];
         }
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) || true)
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
             TopBarButtons.IsVisible = false;
         }
