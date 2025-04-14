@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
+             xmlns:mii="clr-namespace:WheelWizard.WiiManagement.Domain.Mii"
+             xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
+             x:DataType="behaviorComponent:MiiSelectorGrid"
+             x:Class="WheelWizard.Views.BehaviorComponent.MiiSelectorGrid">
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <ListBox ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}}"
+                 SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}, Mode=TwoWay}"
+                 Background="Transparent" BorderThickness="0"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" ItemWidth="80" ItemHeight="80" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type mii:Mii}">
+                    <Border x:Name="ItemBorder"
+                            Width="70" Height="70" Margin="5"
+                            CornerRadius="4" BorderThickness="2"
+                            BorderBrush="Transparent" Background="{StaticResource Neutral800}"
+                            ClipToBounds="True">
+                        <miiImages:MiiImageLoader Mii="{Binding}"
+                                                  ImageVariant="SMALL"
+                                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                  LoadingColor="{StaticResource Neutral600}"
+                                                  FallBackColor="{StaticResource Neutral600}" />
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <ListBox.Styles>
+                <!-- Styles remain the same -->
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                </Style>
+                <Style Selector="ListBoxItem:selected /template/ Border#ItemBorder">
+                    <Setter Property="BorderBrush" Value="{StaticResource Primary400}"/>
+                </Style>
+                <Style Selector="ListBoxItem:pointerover /template/ Border#ItemBorder">
+                    <Setter Property="Background" Value="{StaticResource Neutral700}"/>
+                </Style>
+                <Style Selector="ListBoxItem:selected:pointerover /template/ Border#ItemBorder">
+                    <Setter Property="Background" Value="{StaticResource Neutral700}"/>
+                </Style>
+            </ListBox.Styles>
+        </ListBox>
+    </ScrollViewer>
+</UserControl>
