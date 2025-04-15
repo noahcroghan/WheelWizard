@@ -20,7 +20,7 @@ public interface IGameBananaSingletonService
 
 public class GameBananaSingletonService(IApiCaller<IGameBananaApi> apiService) : IGameBananaSingletonService
 {
-    private const int GameId = 5896;
+    private const int MkGameId = 5896;
 
     public async Task<OperationResult<GameBananaSearchResults>> GetModSearchResults(string searchTerm, int page = 1)
     {
@@ -28,7 +28,7 @@ public class GameBananaSingletonService(IApiCaller<IGameBananaApi> apiService) :
         if (string.IsNullOrWhiteSpace(searchTerm))
             searchTerm = "Mod";
 
-        return await apiService.CallApiAsync(gitHubApi => gitHubApi.GetModSearchResults(searchTerm, GameId, "Mod", page));
+        return await apiService.CallApiAsync(gitHubApi => gitHubApi.GetModSearchResults(searchTerm, MkGameId, "Mod", page));
     }
 
     public async Task<OperationResult<GameBananaModDetails>> GetModDetails(int modId)

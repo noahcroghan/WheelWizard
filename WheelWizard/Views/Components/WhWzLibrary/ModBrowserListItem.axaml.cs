@@ -86,7 +86,7 @@ public class ModBrowserListItem : TemplatedControl
             memoryStream.Position = 0;
             image.Source = new Bitmap(memoryStream);
         }
-        finally
+        catch
         {
             // Ignore. we then just don't have an image. also fine
         }
