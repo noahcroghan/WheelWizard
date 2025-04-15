@@ -25,16 +25,20 @@
                     <Border x:Name="ItemBorder"
                             Width="70" Height="70" Margin="5"
                             CornerRadius="4" BorderThickness="2"
-                            BorderBrush="Transparent" Background="{StaticResource Neutral800}"
+                            Background="{StaticResource Neutral800}"
                             ClipToBounds="True">
                         <miiImages:MiiImageLoader Mii="{Binding}"
                                                   ImageVariant="SMALL"
-                                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                                  LoadingColor="{StaticResource Neutral600}"
-                                                  FallBackColor="{StaticResource Neutral600}" />
+                                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+                    <Setter Property="Background" Value="{StaticResource Primary600}"/>
+                    <Setter Property="CornerRadius" Value="4"></Setter>
+                </Style>
+            </ListBox.Styles>
         </ListBox>
     </ScrollViewer>
 </UserControl>
