@@ -104,7 +104,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
             if (block.Length != MiiLength)
                 continue;
 
-            var thisId = BigEndianBinaryReader.ReadLittleEndianUInt32(block, 0x18);
+            var thisId = BigEndianBinaryReader.BufferToUint32(block, 0x18);
             if (thisId == clientId)
                 return block;
         }
@@ -130,7 +130,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
             if (block.Length != MiiLength)
                 continue;
 
-            var thisId = BigEndianBinaryReader.ReadLittleEndianUInt32(block, 0x18);
+            var thisId = BigEndianBinaryReader.BufferToUint32(block, 0x18);
             if (thisId != clientId)
                 continue;
 
