@@ -9,10 +9,9 @@
         xmlns:settings="clr-namespace:WheelWizard.Views.Pages.Settings"
         xmlns:components="clr-namespace:WheelWizard.Views.Components"
         Height="876" Width="656" WindowStartupLocation="CenterScreen"
-        SystemDecorations="Full"
+        SystemDecorations="None"
         ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="PreferSystemChrome"
-        ExtendClientAreaTitleBarHeightHint="0"
+        ExtendClientAreaChromeHints="NoChrome"
         CanResize='False' Background="Transparent">
     <Grid ColumnDefinitions="192,*" RowDefinitions="25,17,18,70,*,80" x:Name="CompleteGrid"
           Background="{StaticResource FrameColor}">
@@ -42,7 +41,7 @@
         <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Bottom">
             <components:IconLabel IconData="{StaticResource WheelIcon}" x:Name="TitleLabel"
                              Foreground="{StaticResource Neutral400}"
-                             FontSize="20" IconSize="31" 
+                             FontSize="20" IconSize="31" IsHitTestVisible="False"
                              Margin="10,10,0,18"/>
         </Border>
         

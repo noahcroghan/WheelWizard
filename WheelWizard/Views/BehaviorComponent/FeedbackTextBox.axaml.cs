@@ -107,7 +107,7 @@ public partial class FeedbackTextBox : UserControl
             InputField.Classes.Remove("error");
             return;
         }
-        
+
         if (!InputField.Classes.Contains("error"))
             InputField.Classes.Add("error");
     }
