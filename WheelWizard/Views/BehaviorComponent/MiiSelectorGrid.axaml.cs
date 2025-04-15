@@ -6,12 +6,9 @@ using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.BehaviorComponent;
 
-public partial class MiiSelectorGrid : UserControl
+public partial class MiiSelectorGrid : UserControlBase
 {
-    public MiiSelectorGrid()
-    {
-        InitializeComponent();
-    }
+    #region Properties
 
     public static readonly StyledProperty<IEnumerable<Mii>> ItemsSourceProperty = AvaloniaProperty.Register<
         MiiSelectorGrid,
@@ -46,6 +43,15 @@ public partial class MiiSelectorGrid : UserControl
         set => SetValue(SelectionChangedCommandProperty, value);
     }
 
+    #endregion
+
+    public MiiSelectorGrid()
+    {
+        InitializeComponent();
+        // DataContext = this;
+        // I am not sure why it breaks when setting this, anyways, this has to be set eventually, otherwise it's not setup correctly
+    }
+
     private static Mii? CoerceSelectedItem(AvaloniaObject d, Mii? value)
     {
         if (d is not MiiSelectorGrid grid)
@@ -53,9 +59,8 @@ public partial class MiiSelectorGrid : UserControl
 
         var command = grid.SelectionChangedCommand;
         if (command?.CanExecute(value) ?? false)
-        {
             command.Execute(value);
-        }
+
         return value;
     }
 }

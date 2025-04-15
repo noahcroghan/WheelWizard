@@ -6,8 +6,8 @@
              xmlns:mii="clr-namespace:WheelWizard.WiiManagement.Domain.Mii"
              xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
-             x:DataType="behaviorComponent:MiiSelectorGrid"
-             x:Class="WheelWizard.Views.BehaviorComponent.MiiSelectorGrid">
+             x:Class="WheelWizard.Views.BehaviorComponent.MiiSelectorGrid"
+             x:DataType="behaviorComponent:MiiSelectorGrid">
     
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <ListBox ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}}"

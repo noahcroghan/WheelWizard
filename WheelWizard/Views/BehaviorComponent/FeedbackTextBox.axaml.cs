@@ -4,7 +4,7 @@ using Avalonia.Interactivity;
 
 namespace WheelWizard.Views.BehaviorComponent;
 
-public partial class FeedbackTextBox : UserControl
+public partial class FeedbackTextBox : UserControlBase
 {
     #region Properties
 
@@ -107,7 +107,7 @@ public partial class FeedbackTextBox : UserControl
             InputField.Classes.Remove("error");
             return;
         }
-        
+
         if (!InputField.Classes.Contains("error"))
             InputField.Classes.Add("error");
     }
