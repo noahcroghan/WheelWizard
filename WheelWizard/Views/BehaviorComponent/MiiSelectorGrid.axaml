@@ -35,24 +35,6 @@
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-
-            <ListBox.Styles>
-                <!-- Styles remain the same -->
-                <Style Selector="ListBoxItem">
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-                </Style>
-                <Style Selector="ListBoxItem:selected /template/ Border#ItemBorder">
-                    <Setter Property="BorderBrush" Value="{StaticResource Primary400}"/>
-                </Style>
-                <Style Selector="ListBoxItem:pointerover /template/ Border#ItemBorder">
-                    <Setter Property="Background" Value="{StaticResource Neutral700}"/>
-                </Style>
-                <Style Selector="ListBoxItem:selected:pointerover /template/ Border#ItemBorder">
-                    <Setter Property="Background" Value="{StaticResource Neutral700}"/>
-                </Style>
-            </ListBox.Styles>
         </ListBox>
     </ScrollViewer>
 </UserControl>

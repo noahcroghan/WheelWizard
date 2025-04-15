@@ -12,7 +12,7 @@ public partial class MiiSelectorGrid : UserControl
     {
         InitializeComponent();
     }
-    
+
     public static readonly StyledProperty<IEnumerable<Mii>> ItemsSourceProperty = AvaloniaProperty.Register<
         MiiSelectorGrid,
         IEnumerable<Mii>
@@ -45,11 +45,12 @@ public partial class MiiSelectorGrid : UserControl
         get => GetValue(SelectionChangedCommandProperty);
         set => SetValue(SelectionChangedCommandProperty, value);
     }
+
     private static Mii? CoerceSelectedItem(AvaloniaObject d, Mii? value)
     {
         if (d is not MiiSelectorGrid grid)
             return value;
-        
+
         var command = grid.SelectionChangedCommand;
         if (command?.CanExecute(value) ?? false)
         {

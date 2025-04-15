@@ -28,7 +28,7 @@ public partial class MiiSelectorPopup : PopupContent, INotifyPropertyChanged
     }
 
     public Mii? Result { get; private set; } = null;
-    
+
     public MiiSelectorPopup(IEnumerable<Mii> availableMiis, Mii? currentMii)
         : base(true, false, true, "Select Mii")
     {
@@ -72,7 +72,7 @@ public partial class MiiSelectorPopup : PopupContent, INotifyPropertyChanged
         _tcs?.TrySetResult(null);
         base.BeforeClose();
     }
-    
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged(string propertyName)
