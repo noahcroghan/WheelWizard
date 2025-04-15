@@ -228,8 +228,8 @@ public class GameDataSingletonService : RepeatedTaskManager, IGameDataSingletonS
         // In Mario Kart Wii's rksys, offset +0x10 => AvatarId, offset +0x14 => ClientId
         // The name is big-endian UTF-16 at offset itself (length 10 chars => 20 bytes).
         var name = BigEndianBinaryReader.GetUtf16String(_saveData, offset, 10);
-        var avatarId = BitConverter.ToUInt32(_saveData, offset + 0x10);
-        var clientId = BitConverter.ToUInt32(_saveData, offset + 0x14);
+        var avatarId = BigEndianBinaryReader.BufferToUint32(_saveData, offset + 0x10);
+        var clientId = BigEndianBinaryReader.BufferToUint32(_saveData, offset + 0x14);
 
         var rawMiiResult = _miiService.GetByClientId(clientId);
         if (rawMiiResult.IsFailure)
