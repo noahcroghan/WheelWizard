@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Platform;
 using WheelWizard.Branding;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Settings;
@@ -55,6 +56,10 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
         {
             TopBarButtons.IsVisible = false;
             TitleLabel.Margin -= new Thickness(0, 0, 0, 18);
+
+            ExtendClientAreaTitleBarHeightHint = 0;
+            SystemDecorations = SystemDecorations.Full;
+            ExtendClientAreaChromeHints = ExtendClientAreaChromeHints.PreferSystemChrome;
         }
 
         WhWzStatusManager.Instance.Subscribe(this);

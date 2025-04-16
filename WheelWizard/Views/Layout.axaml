@@ -42,7 +42,7 @@
         <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Bottom">
             <components:IconLabel IconData="{StaticResource WheelIcon}" x:Name="TitleLabel"
                              Foreground="{StaticResource Neutral400}"
-                             FontSize="20" IconSize="31" 
+                             FontSize="20" IconSize="31" IsHitTestVisible="False"
                              Margin="10,10,0,18"/>
         </Border>
         

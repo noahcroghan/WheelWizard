@@ -442,7 +442,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Contains("Invalid MiiName", result.Error.Message); // Error from MiiSerializer via GetByClientId
+            Assert.Contains("Mii data is empty.", result.Error.Message);
             _repository.Received(1).GetRawBlockByClientId(targetId);
             _repository.DidNotReceive().UpdateBlockByClientId(Arg.Any<uint>(), Arg.Any<byte[]>());
         }
