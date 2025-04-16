@@ -1,22 +1,27 @@
 using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services.Settings;
+using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Views.Components;
 using WheelWizard.Views.Components.MiiImages;
 using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
-using MiiCreatorWindow = WheelWizard.Views.Popups.MiiCreatorTabs.MiiCreatorWindow;
 
-namespace WheelWizard.Views.Components;
+namespace WheelWizard.Views.BehaviorComponent;
 
-public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
+public partial class DetailedProfileBox : UserControlBase, INotifyPropertyChanged
 {
+    #region Properties
+
+    [Inject]
+    private IGameDataSingletonService GameDataService { get; set; } = null!;
+
     public static readonly StyledProperty<Mii?> MiiProperty = AvaloniaProperty.Register<DetailedProfileBox, Mii?>(nameof(Mii));
 
     public Mii? Mii
@@ -143,17 +148,42 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         set => SetValue(ViewRoomActionProperty, value);
     }
 
-    public void ViewRoom(object? sender, RoutedEventArgs e)
+    #endregion
+
+    public DetailedProfileBox()
     {
-        ViewRoomAction.Invoke(FriendCode);
+        InitializeComponent();
+        DataContext = this;
+
+        if ((bool)SettingsManager.ENABLE_ANIMATIONS.Get())
+        {
+            // We set them all at least one, just to make sure the request is being send.
+            // sometimes this still works goofy though, for some reason
+            MiiFaceImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_HOVER;
+            MiiFaceImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_INTERACT;
+            MiiFaceImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_DEFAULT;
+
+            MiiFaceImageLoader.PointerEntered += (_, _) =>
+                MiiFaceImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_HOVER;
+            MiiFaceImageLoader.PointerExited += (_, _) =>
+                MiiFaceImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_DEFAULT;
+            MiiFaceImageLoader.PointerPressed += (_, _) =>
+                MiiFaceImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_INTERACT;
+            MiiFaceImageLoader.PointerReleased += (_, _) =>
+                MiiFaceImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_HOVER;
+        }
     }
 
-    private void CopyFriendCode(object? obj, EventArgs e)
+    public void ViewRoom_OnClick(object? sender, RoutedEventArgs e) => ViewRoomAction.Invoke(FriendCode);
+
+    public void RenameMii_OnClick(object? obj, EventArgs e) => OnRename.Invoke(obj, e);
+
+    private void CopyFriendCode_OnClick(object? obj, EventArgs e)
     {
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(FriendCode);
     }
 
-    private async void OpenMiiEditor_Click(object? sender, RoutedEventArgs e)
+    public async void OpenMiiEditor_Click(object? sender, RoutedEventArgs e)
     {
         var miiDbService = App.Services.GetRequiredService<IMiiDbService>();
 
@@ -190,44 +220,39 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         var selectedMiiResult = await selectorPopup.ShowDialogAsync();
 
         // 4. Handle the result
-        if (selectedMiiResult != null)
-        {
-            // User clicked "Select Mii" and chose a Mii
-            this.Mii = selectedMiiResult; // Update the Mii property bound to the UI
-
-            // Optional: Notify parent or trigger other logic if needed
-            Console.WriteLine($"Mii '{selectedMiiResult.Name}' selected for profile '{this.UserName}'.");
-
-            // TODO: Add logic here to actually SAVE the selected Mii association
-            // to the license/profile this DetailedProfileBox represents.
-            // This usually involves calling a service method.
-            new MessageBoxWindow()
-                .SetTitleText("Selection Applied (Visually)")
-                .SetInfoText(
-                    $"Mii '{selectedMiiResult.Name}' has been selected. Saving the change to the actual license data is not yet implemented."
-                )
-                .Show();
-        }
-        else
+        if (selectedMiiResult == null)
         {
             // User closed the popup without selecting (or clicked Cancel/X)
             Console.WriteLine("Mii selection cancelled.");
+            return;
         }
+
+        // User clicked "Select Mii" and chose a Mii
+        this.Mii = selectedMiiResult; // Update the Mii property bound to the UI
+
+        // Optional: Notify parent or trigger other logic if needed
+        Console.WriteLine($"Mii '{selectedMiiResult.Name}' selected for profile '{this.UserName}'.");
+
+        // TODO: Add logic here to actually SAVE the selected Mii association
+        // to the license/profile this DetailedProfileBox represents.
+        // This usually involves calling a service method.
+        new MessageBoxWindow()
+            .SetTitleText("Selection Applied (Visually)")
+            .SetInfoText(
+                $"Mii '{selectedMiiResult.Name}' has been selected. Saving the change to the actual license data is not yet implemented."
+            )
+            .Show();
     }
 
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
-    {
-        base.OnApplyTemplate(e);
-
-        var miiButton = e.NameScope.Find<Button>("PART_MiiButton");
-        if (miiButton != null)
-            miiButton.Click += OpenMiiEditor_Click;
-    }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new(propertyName));
+    }
+
+    private void CheckBox_OnChecked(object? sender, RoutedEventArgs e)
+    {
+        OnChecked.Invoke(sender, e);
     }
 }

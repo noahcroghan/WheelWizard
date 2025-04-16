@@ -130,6 +130,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         CurrentUserProfile.Vr = currentPlayer.Vr.ToString();
         CurrentUserProfile.Br = currentPlayer.Br.ToString();
         CurrentMii = currentPlayer.MiiData?.Mii;
+        CurrentUserProfile.Mii = CurrentMii;
 
         currentPlayer.PropertyChanged += OnMiiNameChanged;
         CurrentUserProfile.TotalRaces = currentPlayer.TotalRaceCount.ToString();
