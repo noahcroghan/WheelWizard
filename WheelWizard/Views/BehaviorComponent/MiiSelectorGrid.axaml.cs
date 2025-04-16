@@ -1,6 +1,5 @@
 using System.Windows.Input;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Data;
 using WheelWizard.WiiManagement.Domain.Mii;
 

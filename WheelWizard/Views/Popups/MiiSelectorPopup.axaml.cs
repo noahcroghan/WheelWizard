@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using Avalonia.Interactivity;
-using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiCreatorTabs;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;

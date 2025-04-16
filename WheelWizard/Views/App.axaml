@@ -44,7 +44,6 @@
         <!-- PAGE SPECIFIC COMPONENTS -->
         <StyleInclude Source="Components/WhWzLibrary/ModBrowserListItem.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/FriendsListItem.axaml" />
-        <StyleInclude Source="Components/WhWzLibrary/CurrentUserProfile.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/PlayerListItem.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/Badge.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/MiiImages/MiiImageLoader.axaml" />

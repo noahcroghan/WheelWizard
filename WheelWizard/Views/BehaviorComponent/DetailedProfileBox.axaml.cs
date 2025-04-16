@@ -7,7 +7,6 @@ using WheelWizard.Models.MiiImages;
 using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Components;
-using WheelWizard.Views.Components.MiiImages;
 using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement;
