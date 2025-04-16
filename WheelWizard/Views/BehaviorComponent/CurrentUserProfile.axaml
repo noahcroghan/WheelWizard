@@ -29,6 +29,7 @@
 
         <StackPanel.Styles>
             <Style Selector="StackPanel:pointerover">
+                <Setter Property="Cursor" Value="Hand"/>
                 <Style Selector="^ Border#Part_MiiBall">
                     <Setter Property="Background" Value="{StaticResource Neutral800}"/>
                 </Style>
