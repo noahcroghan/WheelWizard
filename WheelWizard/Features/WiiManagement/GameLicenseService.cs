@@ -64,6 +64,8 @@ public interface IGameLicenseSingletonService
     /// Subscribes a listener to the repeated task manager.
     /// </summary>
     void Subscribe(IRepeatedTaskListener subscriber);
+
+    OperationResult ChangeMii(int userIndex, Mii? newMii);
 }
 
 public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSingletonService
@@ -259,6 +261,46 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             };
             licenseProfile.Friends.Add(friend);
         }
+    }
+    
+    public OperationResult ChangeMii(int userIndex, Mii? newMii)
+    {
+        if (newMii is null)
+            return "Mii cannot be null.";
+        if (userIndex is < 0 or >= MaxPlayerNum)
+            return "Invalid license index. Please select a valid license.";
+
+        var serialised = MiiSerializer.Serialize(newMii);
+        if (serialised.IsFailure)
+            return serialised.Error!.Message;
+
+        OperationResult dbResult;
+        var existing = _miiService.GetByAvatarId(newMii.MiiId);
+        if (existing.IsFailure)
+            return existing.Error!.Message;
+
+        var licence = Licenses.Users[userIndex];
+        licence.Mii = newMii;
+
+        if (_rksysData is null || _rksysData.Length < RksysSize)
+            return "Invalid or unloaded rksys.dat data.";
+
+        var rkpdOffset = 0x08 + userIndex * RkpdSize;
+        BigEndianBinaryReader.WriteUInt32BigEndian(_rksysData, rkpdOffset + 0x28, newMii.MiiId); // Avatar ID
+
+        var systemid = newMii.SystemId0 << 24 | newMii.SystemId1 << 16 | newMii.SystemId2 << 8 | newMii.SystemId3;
+
+        BigEndianBinaryReader.WriteUInt32BigEndian(_rksysData, rkpdOffset + 0x2C, (uint)systemid);
+
+        var nameWrite = WriteLicenseNameToSaveData(userIndex, newMii.Name.ToString());
+        if (nameWrite.IsFailure)
+            return nameWrite.Error!.Message;
+
+        var saveResult = SaveRksysToFile();
+        if (saveResult.IsFailure)
+            return saveResult.Error!.Message;
+
+        return Ok();
     }
 
     private bool CheckForMiiData(int offset)

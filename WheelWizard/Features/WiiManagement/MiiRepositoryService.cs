@@ -46,7 +46,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     private const int MaxMiiSlots = 100;
     private const int CrcOffset = 0x1F1DE;
     private const int HeaderOffset = 0x04;
-    private static readonly byte[] EmptyMii = Enumerable.Repeat((byte)0xFF, MiiLength).ToArray();
+    private static readonly byte[] EmptyMii = Enumerable.Repeat((byte)0x00, MiiLength).ToArray();
     private readonly string _filePath = PathManager.WiiDbFile;
 
     public List<byte[]> LoadAllBlocks()

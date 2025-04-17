@@ -180,4 +180,7 @@
     <data name="Action_ViewMod" xml:space="preserve">
         <value>View Mod</value>
     </data>
+    <data name="Action_CopyMii" xml:space="preserve">
+        <value>Copy Mii</value>
+    </data>
 </root>

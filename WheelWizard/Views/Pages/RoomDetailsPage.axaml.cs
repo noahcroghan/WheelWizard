@@ -4,14 +4,24 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.RRInfo;
 using WheelWizard.Services.LiveData;
+using WheelWizard.Services.Settings;
+using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.Mockers;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups;
+using WheelWizard.Views.Popups.Generic;
+using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views.Pages;
 
 public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, IRepeatedTaskListener
 {
+    [Inject]
+    private IGameLicenseSingletonService GameDataService { get; set; } = null!;
+
+    [Inject]
+    private IMiiDbService MiiDbService { get; set; } = null!;
+
     private RrRoom _room = null!;
 
     public RrRoom Room
@@ -85,6 +95,31 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
         if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer)
             return;
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedPlayer.Fc);
+    }
+
+    private void CopyMii_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer)
+            return;
+        var desiredMii = selectedPlayer.FirstMii;
+        if (desiredMii == null)
+            return;
+        var macAddress = (string)SettingsManager.MACADDRESS.Get();
+        var databaseResult = MiiDbService.AddToDatabase(desiredMii, macAddress);
+        if (databaseResult.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetTitleText("Failed to Copy Mii")
+                .SetInfoText(databaseResult.Error!.Message)
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .Show();
+            return;
+        }
+        new MessageBoxWindow()
+            .SetTitleText("Mii Copied")
+            .SetInfoText("The Mii has been copied to your database.")
+            .SetMessageType(MessageBoxWindow.MessageType.Message)
+            .Show();
     }
 
     private void OpenCarousel_OnClick(object sender, RoutedEventArgs e)

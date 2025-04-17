@@ -96,6 +96,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy Mii.
+        /// </summary>
+        public static string Action_CopyMii {
+            get {
+                return ResourceManager.GetString("Action_CopyMii", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Action_Delete {

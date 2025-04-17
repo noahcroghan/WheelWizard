@@ -21,6 +21,9 @@ public partial class DetailedProfileBox : UserControlBase, INotifyPropertyChange
     [Inject]
     private IGameLicenseSingletonService GameDataService { get; set; } = null!;
 
+    [Inject]
+    private IMiiDbService MiiDbService { get; set; } = null!;
+
     public static readonly StyledProperty<Mii?> MiiProperty = AvaloniaProperty.Register<DetailedProfileBox, Mii?>(nameof(Mii));
 
     public Mii? Mii
@@ -184,26 +187,7 @@ public partial class DetailedProfileBox : UserControlBase, INotifyPropertyChange
 
     public async void OpenMiiEditor_Click(object? sender, RoutedEventArgs e)
     {
-        var miiDbService = App.Services.GetRequiredService<IMiiDbService>();
-
-        // 2. Get the list of available Miis (adjust logic as needed)
-        // Assuming GetAvailableMiis() returns the list you want to show
-        IEnumerable<Mii> availableMiis;
-        try
-        {
-            availableMiis = miiDbService.GetAllMiis().ToList();
-        }
-        catch (Exception ex)
-        {
-            // Handle potential errors fetching Miis
-            new MessageBoxWindow()
-                .SetTitleText("Error Loading Miis")
-                .SetInfoText($"Could not load available Miis: {ex.Message}")
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .Show();
-            return;
-        }
-
+        var availableMiis = MiiDbService.GetAllMiis().ToList();
         if (!availableMiis.Any())
         {
             new MessageBoxWindow()
@@ -213,34 +197,27 @@ public partial class DetailedProfileBox : UserControlBase, INotifyPropertyChange
                 .Show();
             return;
         }
-
-        // 3. Create and show the new selector popup
         var selectorPopup = new MiiSelectorPopup(availableMiis, this.Mii);
         var selectedMiiResult = await selectorPopup.ShowDialogAsync();
-
-        // 4. Handle the result
         if (selectedMiiResult == null)
         {
             // User closed the popup without selecting (or clicked Cancel/X)
-            Console.WriteLine("Mii selection cancelled.");
             return;
         }
 
         // User clicked "Select Mii" and chose a Mii
         this.Mii = selectedMiiResult; // Update the Mii property bound to the UI
+        //todo: change this to currently selected license
+        var result = GameDataService.ChangeMii((int)SettingsManager.FOCUSSED_USER.Get(), this.Mii);
 
-        // Optional: Notify parent or trigger other logic if needed
-        Console.WriteLine($"Mii '{selectedMiiResult.Name}' selected for profile '{this.UserName}'.");
-
-        // TODO: Add logic here to actually SAVE the selected Mii association
-        // to the license/profile this DetailedProfileBox represents.
-        // This usually involves calling a service method.
-        new MessageBoxWindow()
-            .SetTitleText("Selection Applied (Visually)")
-            .SetInfoText(
-                $"Mii '{selectedMiiResult.Name}' has been selected. Saving the change to the actual license data is not yet implemented."
-            )
-            .Show();
+        if (result.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetTitleText("Failed to Change Mii")
+                .SetInfoText(result.Error!.Message)
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .Show();
+        }
     }
 
     public new event PropertyChangedEventHandler? PropertyChanged;
