@@ -262,7 +262,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             licenseProfile.Friends.Add(friend);
         }
     }
-    
+
     public OperationResult ChangeMii(int userIndex, Mii? newMii)
     {
         if (newMii is null)

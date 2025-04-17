@@ -105,6 +105,8 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
         if (desiredMii == null)
             return;
         var macAddress = (string)SettingsManager.MACADDRESS.Get();
+        //We set the miiId to 0 so it will be added as a new Mii
+        desiredMii.MiiId = 0;
         var databaseResult = MiiDbService.AddToDatabase(desiredMii, macAddress);
         if (databaseResult.IsFailure)
         {
