@@ -221,9 +221,6 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
         // id of the actual system
         var clientId = BigEndianBinaryReader.BufferToUint32(_rksysData, rkpdOffset + 0x2C);
 
-        var userID = BigEndianBinaryReader.BufferToUint32(_rksysData, rkpdOffset + 0x50);
-        var playerID = BigEndianBinaryReader.BufferToUint32(_rksysData, rkpdOffset + 0x58);
-
         var rawMiiResult = _miiService.GetByAvatarId(avatarId);
         if (rawMiiResult.IsFailure)
             return new FormatException("Failed to parse mii data: " + rawMiiResult.Error.Message);
