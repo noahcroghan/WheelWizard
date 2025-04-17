@@ -166,7 +166,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     private static ushort CalculateCrc16(byte[] buf, int off, int len)
     {
         const ushort poly = 0x1021;
-        ushort crc = 0xFFFF; // correct seed
+        ushort crc = 0x0000;
         for (int i = off; i < off + len; i++)
         {
             crc ^= (ushort)(buf[i] << 8);
