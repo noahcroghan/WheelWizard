@@ -6,16 +6,16 @@
              xmlns:mii="clr-namespace:WheelWizard.WiiManagement.Domain.Mii"
              xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
              mc:Ignorable="d"
-             x:Class="WheelWizard.Views.BehaviorComponent.MiiSelectorGrid"
-             d:DesignWidth="400" d:DesignHeight="300">
+             x:Class="WheelWizard.Views.BehaviorComponent.MiiSelectorGrid">
 
   <ScrollViewer VerticalScrollBarVisibility="Auto"
-                HorizontalScrollBarVisibility="Disabled">
+                                 HorizontalScrollBarVisibility="Disabled">
     <ListBox x:Name="PART_ListBox"
              ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}}"
              SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}, Mode=TwoWay}"
              Background="Transparent"
              BorderThickness="0"
+             HorizontalAlignment="Center"
              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
       <ListBox.ItemsPanel>

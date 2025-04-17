@@ -7,8 +7,10 @@ namespace WheelWizard.Views.BehaviorComponent;
 
 public partial class MiiSelectorGrid : UserControl
 {
-    public static readonly StyledProperty<IEnumerable<Mii>> ItemsSourceProperty = 
-        AvaloniaProperty.Register<MiiSelectorGrid, IEnumerable<Mii>>(nameof(ItemsSource));
+    public static readonly StyledProperty<IEnumerable<Mii>> ItemsSourceProperty = AvaloniaProperty.Register<
+        MiiSelectorGrid,
+        IEnumerable<Mii>
+    >(nameof(ItemsSource));
 
     public IEnumerable<Mii> ItemsSource
     {
