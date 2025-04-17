@@ -5,40 +5,51 @@
              xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
              xmlns:mii="clr-namespace:WheelWizard.WiiManagement.Domain.Mii"
              xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
-             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="300"
+             mc:Ignorable="d"
              x:Class="WheelWizard.Views.BehaviorComponent.MiiSelectorGrid"
-             x:DataType="behaviorComponent:MiiSelectorGrid">
-    
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <ListBox ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}}"
-                 SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}, Mode=TwoWay}"
-                 Background="Transparent" BorderThickness="0"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" ItemWidth="80" ItemHeight="80" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
+             d:DesignWidth="400" d:DesignHeight="300">
 
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type mii:Mii}">
-                    <Border x:Name="ItemBorder"
-                            Width="70" Height="70" Margin="5"
-                            CornerRadius="4" BorderThickness="2"
-                            Background="{StaticResource Neutral800}"
-                            ClipToBounds="True">
-                        <miiImages:MiiImageLoader Mii="{Binding}"
-                                                  ImageVariant="SMALL"
-                                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.Styles>
-                <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
-                    <Setter Property="Background" Value="{StaticResource Primary600}"/>
-                    <Setter Property="CornerRadius" Value="4"></Setter>
-                </Style>
-            </ListBox.Styles>
-        </ListBox>
-    </ScrollViewer>
+  <ScrollViewer VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Disabled">
+    <ListBox x:Name="PART_ListBox"
+             ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}}"
+             SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}, Mode=TwoWay}"
+             Background="Transparent"
+             BorderThickness="0"
+             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+      <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel Orientation="Horizontal"
+                     ItemWidth="80" ItemHeight="80"/>
+        </ItemsPanelTemplate>
+      </ListBox.ItemsPanel>
+
+      <ListBox.ItemTemplate>
+        <DataTemplate DataType="{x:Type mii:Mii}">
+          <Border Width="70" Height="70"
+                  Margin="5"
+                  CornerRadius="4"
+                  BorderThickness="2"
+                  Background="{StaticResource Neutral800}"
+                  ClipToBounds="True">
+            <miiImages:MiiImageLoader Mii="{Binding}"
+                                      ImageVariant="SMALL"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"/>
+          </Border>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+
+      <ListBox.Styles>
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+          <Setter Property="Background"
+                  Value="{StaticResource Primary600}"/>
+          <Setter Property="CornerRadius"
+                  Value="4"/>
+        </Style>
+      </ListBox.Styles>
+
+    </ListBox>
+  </ScrollViewer>
 </UserControl>

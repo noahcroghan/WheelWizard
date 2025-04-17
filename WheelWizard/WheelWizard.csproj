@@ -112,6 +112,9 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Online.resx</DependentUpon>
         </Compile>
+        <Compile Update="Views\BehaviorComponent\CurrentUserProfile.axaml.cs">
+          <DependentUpon>CurrentUserProfile.axaml</DependentUpon>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup Label="Additional Files">

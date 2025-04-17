@@ -10,6 +10,7 @@ public partial class MiiSelectorPopup : PopupContent, INotifyPropertyChanged
 {
     private TaskCompletionSource<Mii?> _tcs;
     private Mii? _selectedMii;
+
     public IEnumerable<Mii> AvailableMiis { get; }
 
     public Mii? SelectedMii
@@ -21,12 +22,11 @@ public partial class MiiSelectorPopup : PopupContent, INotifyPropertyChanged
             {
                 _selectedMii = value;
                 OnPropertyChanged(nameof(SelectedMii));
-                UpdateActionButtonsState();
             }
         }
     }
 
-    public Mii? Result { get; private set; } = null;
+    public Mii? Result { get; private set; }
 
     public MiiSelectorPopup(IEnumerable<Mii> availableMiis, Mii? currentMii)
         : base(true, false, true, "Select Mii")
@@ -35,14 +35,6 @@ public partial class MiiSelectorPopup : PopupContent, INotifyPropertyChanged
         AvailableMiis = availableMiis;
         SelectedMii = currentMii;
         DataContext = this;
-        UpdateActionButtonsState();
-    }
-
-    private void UpdateActionButtonsState()
-    {
-        var isMiiSelected = SelectedMii != null;
-        SelectButton.IsEnabled = isMiiSelected;
-        EditButton.IsEnabled = isMiiSelected;
     }
 
     private void SelectButton_Click(object? sender, RoutedEventArgs e)
@@ -74,8 +66,5 @@ public partial class MiiSelectorPopup : PopupContent, INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }

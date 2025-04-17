@@ -17,6 +17,7 @@
 
             <!-- CONVERTERS -->
             <converters:IsEqualToConverter x:Key="IsEqualTo" />
+            <converters:NullToBoolConverter x:Key="NullToBoolConverter" />
         </ResourceDictionary>
     </Application.Resources>
 
