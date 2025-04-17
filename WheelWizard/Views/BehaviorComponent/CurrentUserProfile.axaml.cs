@@ -14,7 +14,7 @@ public partial class CurrentUserProfile : UserControlBase
     #region Properties
 
     [Inject]
-    private IGameDataSingletonService gameDataService { get; set; } = null!;
+    private IGameLicenseSingletonService GameLicenseService { get; set; } = null!;
 
     public static readonly StyledProperty<string> FriendCodeProperty = AvaloniaProperty.Register<CurrentUserProfile, string>(
         nameof(FriendCode)
@@ -51,9 +51,9 @@ public partial class CurrentUserProfile : UserControlBase
         InitializeComponent();
         DataContext = this;
 
-        gameDataService.RefreshOnlineStatus();
-        gameDataService.LoadGameData();
-        var currentUser = gameDataService.CurrentUser;
+        GameLicenseService.RefreshOnlineStatus();
+        GameLicenseService.LoadLicense();
+        var currentUser = GameLicenseService.ActiveUser;
 
         var name = currentUser.NameOfMii;
         if (name == SettingValues.NoName)

@@ -19,7 +19,7 @@ public partial class DetailedProfileBox : UserControlBase, INotifyPropertyChange
     #region Properties
 
     [Inject]
-    private IGameDataSingletonService GameDataService { get; set; } = null!;
+    private IGameLicenseSingletonService GameDataService { get; set; } = null!;
 
     public static readonly StyledProperty<Mii?> MiiProperty = AvaloniaProperty.Register<DetailedProfileBox, Mii?>(nameof(Mii));
 

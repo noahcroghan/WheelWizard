@@ -11,7 +11,7 @@ namespace WheelWizard.Views.Popups.MiiCreatorTabs;
 
 public partial class MiiCreatorWindow : PopupContent, INotifyPropertyChanged
 {
-    private IGameDataSingletonService GameDataService = App.Services.GetService<IGameDataSingletonService>();
+    private IGameLicenseSingletonService gameLicenseService = App.Services.GetService<IGameLicenseSingletonService>();
 
     private readonly IMiiDbService _miiDbService;
     private TaskCompletionSource<Mii?> _tcs = new();
@@ -207,7 +207,7 @@ public partial class MiiCreatorWindow : PopupContent, INotifyPropertyChanged
                 .SetInfoText(result.Error.Message) // Make sure OperationResult has a meaningful error message
                 .ShowDialog();
         }
-        GameDataService.LoadGameData();
+        gameLicenseService.LoadLicense();
     }
 
     private async Task ShowValidationErrorDialog(string message)
