@@ -274,7 +274,6 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
         if (serialised.IsFailure)
             return serialised.Error!.Message;
 
-        OperationResult dbResult;
         var existing = _miiService.GetByAvatarId(newMii.MiiId);
         if (existing.IsFailure)
             return existing.Error!.Message;
