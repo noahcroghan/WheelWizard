@@ -102,7 +102,6 @@ public class RRLiveRooms : RepeatedTaskManager
                 {
                     if (map[j] == '0')
                         continue;
-                    
 
                     var other = j >= i ? j + 1 : j;
                     // only add if we’ll later see the reverse link
@@ -130,11 +129,9 @@ public class RRLiveRooms : RepeatedTaskManager
                     seen[u] = true;
                     comp.Add(u);
 
-                    foreach (var v in adj[u])
+                    foreach (var v in adj[u].Where(v => adj[v].Contains(u)))
                     {
-                        // check two‑way
-                        if (adj[v].Contains(u))
-                            stack.Push(v);
+                        stack.Push(v);
                     }
                 }
 
@@ -145,21 +142,17 @@ public class RRLiveRooms : RepeatedTaskManager
             // if it’s really merged, split it
             if (components.Count > 1)
             {
-                foreach (var comp in components)
+                output.AddRange(components.Select(comp => new RwfcRoom
                 {
-                    var clone = new RwfcRoom
-                    {
-                        Id = room.Id,
-                        Game = room.Game,
-                        Created = room.Created,
-                        Type = room.Type,
-                        Suspend = room.Suspend,
-                        Host = room.Host,
-                        Rk = room.Rk,
-                        Players = comp.ToDictionary(idx => keys[idx], idx => room.Players[keys[idx]]),
-                    };
-                    output.Add(clone);
-                }
+                    Id = room.Id,
+                    Game = room.Game,
+                    Created = room.Created,
+                    Type = room.Type,
+                    Suspend = room.Suspend,
+                    Host = room.Host,
+                    Rk = room.Rk,
+                    Players = comp.ToDictionary(idx => keys[idx], idx => room.Players[keys[idx]]),
+                }));
             }
             else
             {
