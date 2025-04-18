@@ -34,7 +34,6 @@ public class RRLiveRooms : RepeatedTaskManager
 
         //source: https://kevinvg207.github.io/rr-rooms/
         // 1) split any “accidentally merged” rooms
-        //    (you could pass in the user’s FC here if you want to reorder)
         var raw = roomsResult.Value;
         var splitRaw = SplitMergedRooms(raw);
 
