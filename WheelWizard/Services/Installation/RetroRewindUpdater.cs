@@ -102,12 +102,13 @@ public static class RetroRewindUpdater
 
             foreach (var file in deletionsToApply)
             {
-                var filePath = Path.GetFullPath(Path.Combine(PathManager.RiivolutionWhWzFolderPath, file.Path.TrimStart('/')));
+                var absoluteDestinationPath = Path.GetFullPath(PathManager.RiivolutionWhWzFolderPath);
+                var filePath = Path.GetFullPath(Path.Combine(absoluteDestinationPath, file.Path.TrimStart('/')));
                 //because we are actually getting the path from the server,
                 //we need to make sure we are not getting hacked, so we check if the path is in the riivolution folder
                 var resolvedPath = Path.GetFullPath(new FileInfo(filePath).FullName);
-                if (!resolvedPath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase) ||
-                    !filePath.StartsWith(PathManager.RiivolutionWhWzFolderPath, StringComparison.OrdinalIgnoreCase) ||
+                if (!resolvedPath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal) ||
+                    !filePath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal) ||
                     filePath.Contains(".."))
                 {
                     AbortingUpdate("Invalid file path detected. Please contact the developers.\n Server error: " + resolvedPath);
