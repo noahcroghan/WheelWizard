@@ -109,7 +109,7 @@ public static class RetroRewindUpdater
                 var resolvedPath = Path.GetFullPath(new FileInfo(filePath).FullName);
                 if (!resolvedPath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal) ||
                     !filePath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal) ||
-                    filePath.Contains(".."))
+                    file.Path.Contains(".."))
                 {
                     AbortingUpdate("Invalid file path detected. Please contact the developers.\n Server error: " + resolvedPath);
                     return false;
