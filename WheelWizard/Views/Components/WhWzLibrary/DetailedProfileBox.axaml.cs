@@ -147,6 +147,7 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
     private void CopyFriendCode(object? obj, EventArgs e)
     {
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(FriendCode);
+        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)

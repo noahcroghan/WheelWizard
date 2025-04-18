@@ -141,6 +141,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
         if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
             return;
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedPlayer.FriendCode);
+        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
     }
 
     private void OpenCarousel_OnClick(object sender, RoutedEventArgs e)

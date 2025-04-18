@@ -159,6 +159,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         //now we refresh the sidebar friend amount
         ViewUtils.GetLayout().UpdateFriendCount();
+        ViewUtils.ShowSnackbar("Set profile as primary");
     }
 
     private void RegionDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -217,11 +218,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
                 .SetInfoText(changeNameResult.Error.Message)
                 .Show();
         else
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Message)
-                .SetTitleText("Name changed")
-                .SetInfoText($"Successfully changed name to {newName}")
-                .Show();
+            ViewUtils.ShowSnackbar($"Successfully changed name to {newName}");
 
         //reload game data, since multiple licenses can use the same mii
         GameLicenseService.LoadLicense();
