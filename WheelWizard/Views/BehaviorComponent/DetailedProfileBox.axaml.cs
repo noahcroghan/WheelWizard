@@ -183,6 +183,7 @@ public partial class DetailedProfileBox : UserControlBase, INotifyPropertyChange
     private void CopyFriendCode_OnClick(object? obj, EventArgs e)
     {
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(FriendCode);
+        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
     }
 
     public async void OpenMiiEditor_Click(object? sender, RoutedEventArgs e)

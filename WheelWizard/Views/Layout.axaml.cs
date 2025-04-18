@@ -185,4 +185,19 @@ public partial class Layout : BaseWindow, IRepeatedTaskListener, ISettingListene
     private void Github_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.RepositoryUrl.ToString());
 
     private void Support_Click(object sender, EventArgs e) => ViewUtils.OpenLink(BrandingService.Branding.SupportUrl.ToString());
+
+    private void CloseSnackbar_OnClick(object? sender, EventArgs e)
+    {
+        Snackbar.Classes.Remove("show");
+        Snackbar.IsVisible = false;
+    }
+
+    public void ShowSnackbar(string message, ViewUtils.SnackbarType type)
+    {
+        Snackbar.Classes.Clear();
+
+        SnackbarText.Text = message;
+        Snackbar.Classes.Add("show");
+        Snackbar.Classes.Add(type.ToString().ToLower());
+    }
 }

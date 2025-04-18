@@ -171,5 +171,102 @@
                                        IconSize="20" />
             </StackPanel>
         </Border>
+        
+        <!-- Snackbar -->
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Bottom"
+              MinHeight="40" Margin="50,13" x:Name="Snackbar">
+            
+            <Border  HorizontalAlignment="Stretch" x:Name="SnackbarBlur"
+                    VerticalAlignment="Stretch" CornerRadius="9999" Effect="blur(150)" Opacity="0.1"/>
+            
+            <Border Background="{StaticResource Neutral700}" HorizontalAlignment="Stretch"
+                    BorderThickness="1" x:Name="SnackbarContainer"
+                    CornerRadius="{StaticResource GlobalCornerRadius}">
+                <Grid VerticalAlignment="Center" ColumnDefinitions="40,*,40">
+                    <PathIcon Width="20"/> <!-- check mark, warning or error icon -->
+                    <TextBlock Grid.Column="1" Classes="BodyText" VerticalAlignment="Center"
+                               Foreground="{StaticResource Neutral200}"
+                               x:Name="SnackbarText">Example text</TextBlock>
+                    <components:IconLabelButton Grid.Column="2" IconData="{StaticResource XMark}"
+                                                Foreground="{StaticResource Neutral400}"
+                                                Click="CloseSnackbar_OnClick" HorizontalAlignment="Center"
+                                                HoverForeground="{StaticResource Neutral100}"
+                                                Text="" IconSize="14"/>
+                </Grid>
+            </Border>
+            
+            <Grid.Styles>
+                <Style Selector="Grid#Snackbar">
+                    <Setter Property="IsVisible" Value="False"/>
+                </Style>
+                
+                <Style Selector="Grid#Snackbar.success">
+                    <Style Selector="^ PathIcon">
+                        <Setter Property="Data" Value="{StaticResource SuccessTip}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Primary400}"/>
+                    </Style>
+                    <Style Selector="^ Border#SnackbarBlur">
+                        <Setter Property="Background" Value="{StaticResource Primary300}"/>
+                    </Style>
+                    <Style Selector="^ Border#SnackbarContainer">
+                        <Setter Property="BorderBrush" Value="{StaticResource Primary400}"/>
+                    </Style>
+                </Style>
+                
+                <Style Selector="Grid#Snackbar.warning">
+                    <Style Selector="^ PathIcon">
+                        <Setter Property="Data" Value="{StaticResource WarningTip}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Warning500}"/>
+                    </Style>
+                    <Style Selector="^ Border#SnackbarBlur">
+                        <Setter Property="Background" Value="{StaticResource Warning600}"/>
+                    </Style>
+                    <Style Selector="^ Border#SnackbarContainer">
+                        <Setter Property="BorderBrush" Value="{StaticResource Warning500}"/>
+                    </Style>
+                </Style>
+                
+                <Style Selector="Grid#Snackbar.danger">
+                    <Style Selector="^ PathIcon">
+                        <Setter Property="Data" Value="{StaticResource ErrorTip}"/>
+                        <Setter Property="Foreground" Value="{StaticResource Danger400}"/>
+                    </Style>
+                    <Style Selector="^ Border#SnackbarBlur">
+                        <Setter Property="Background" Value="{StaticResource Danger500}"/>
+                    </Style>
+                    <Style Selector="^ Border#SnackbarContainer">
+                        <Setter Property="BorderBrush" Value="{StaticResource Danger400}"/>
+                    </Style>
+                </Style>
+                
+                <Style Selector="Grid#Snackbar.show">
+                    <Style.Animations>
+                        <!-- Whenever you change the time, also change the keyframes so the animation looks fine again, try to keep it the 0.2 seconds -->
+                        <Animation Duration="0:0:6" IterationCount="1" FillMode="Forward">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="IsVisible" Value="True"/>
+                                <Setter Property="Opacity" Value="0"/>
+                                <Setter Property="TranslateTransform.Y" Value="100"/>
+                            </KeyFrame>
+                            <KeyFrame Cue="0.6%"> <!-- 0.1 seconds -->
+                                <Setter Property="Opacity" Value="1"/>
+                                <Setter Property="TranslateTransform.Y" Value="20"/>
+                            </KeyFrame>
+                            <KeyFrame Cue="1.2%"> <!-- 0.2 seconds -->
+                                <Setter Property="TranslateTransform.Y" Value="0"/>
+                            </KeyFrame>
+                            
+                            <KeyFrame Cue="98.8%">
+                                <Setter Property="Opacity" Value="1"/>
+                            </KeyFrame>
+                            <KeyFrame Cue="100%"> <!-- vanish in 0.2 seconds -->
+                                <Setter Property="Opacity" Value="0"/>
+                                <Setter Property="IsVisible" Value="False"/>
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+            </Grid.Styles>
+        </Grid>
     </Grid>
 </Window>
