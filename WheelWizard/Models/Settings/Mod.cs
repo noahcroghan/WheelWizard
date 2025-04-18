@@ -2,33 +2,16 @@
 using System.Runtime.CompilerServices;
 using IniParser;
 using IniParser.Model;
-using WheelWizard.Services;
 
 namespace WheelWizard.Models.Settings;
 
 public class Mod : INotifyPropertyChanged
 {
     private bool _isEnabled;
-    private string _title;
-    private string _author;
+    private string _title = string.Empty;
+    private string _author = string.Empty;
     private int _modID;
     private int _priority; // New property for mod priority
-
-    private bool IsLowest => _priority == ModManager.Instance.GetLowestActivePriority();
-    private bool IsHighest => _priority == ModManager.Instance.GetHighestActivePriority();
-
-    public Mod()
-    {
-        ModManager.Instance.PropertyChanged += OnModManagerChanged;
-    }
-
-    private void OnModManagerChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName != nameof(ModManager.Instance.Mods))
-            return;
-        OnPropertyChanged(nameof(IsLowest));
-        OnPropertyChanged(nameof(IsHighest));
-    }
 
     public bool IsEnabled
     {
@@ -95,15 +78,6 @@ public class Mod : INotifyPropertyChanged
         }
     }
 
-    #region PropertyChanged
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new(propertyName));
-    }
-    #endregion
-
     protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
         if (EqualityComparer<T>.Default.Equals(field, value))
@@ -165,10 +139,19 @@ public class Mod : INotifyPropertyChanged
 
         await Task.CompletedTask;
     }
+
+    #region PropertyChanged
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string? propertyName)
+    {
+        PropertyChanged?.Invoke(this, new(propertyName));
+    }
+    #endregion
 }
 
 public class ModData
 {
     public bool IsEnabled { get; set; }
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 }

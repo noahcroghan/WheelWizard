@@ -1,9 +1,10 @@
-<self:PopupContent xmlns="https://github.com/avaloniaui"
+<base:PopupContent xmlns="https://github.com/avaloniaui"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:self="clr-namespace:WheelWizard.Views.Popups"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:components="clr-namespace:WheelWizard.Views.Components"
+                   xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
                    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                    x:Class="WheelWizard.Views.Popups.Generic.YesNoWindow">
     <Grid Width="400" MinHeight="150" MaxHeight="350">
@@ -30,4 +31,4 @@
                                Click="noButton_Click" Margin="5,0,0,0"/>
         </UniformGrid>
     </Grid>
-</self:PopupContent>
+</base:PopupContent>

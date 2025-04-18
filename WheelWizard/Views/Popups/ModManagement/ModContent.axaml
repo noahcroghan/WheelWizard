@@ -69,7 +69,7 @@
                                                 HoverForeground="{StaticResource Primary200}"
                                                 IsIconLeft="False" Text="Gamebanana Page"
                                                 IconData="{StaticResource ExternalLink}"
-                                                IconSize="16" FontSize="13" Click="GamebananaLink_Click" />
+                                                IconSize="16" FontSize="13" Click="GameBananaLink_Click" />
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom"

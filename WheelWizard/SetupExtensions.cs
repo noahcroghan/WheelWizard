@@ -3,6 +3,7 @@ using Serilog;
 using Testably.Abstractions;
 using WheelWizard.AutoUpdating;
 using WheelWizard.Branding;
+using WheelWizard.GameBanana;
 using WheelWizard.GitHub;
 using WheelWizard.RrRooms;
 using WheelWizard.Shared.Services;
@@ -25,6 +26,7 @@ public static class SetupExtensions
         services.AddRrRooms();
         services.AddWhWzData();
         services.AddWiiManagement();
+        services.AddGameBanana();
 
         // IO Abstractions
         services.AddSingleton<IFileSystem, RealFileSystem>();

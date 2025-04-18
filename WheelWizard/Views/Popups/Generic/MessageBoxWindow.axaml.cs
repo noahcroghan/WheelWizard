@@ -1,4 +1,5 @@
 using Avalonia.Interactivity;
+using WheelWizard.Views.Popups.Base;
 using Button = WheelWizard.Views.Components.Button;
 
 namespace WheelWizard.Views.Popups.Generic;

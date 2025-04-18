@@ -53,6 +53,7 @@ public partial class CurrentUserProfile : UserControlBase
 
         GameLicenseService.RefreshOnlineStatus();
         GameLicenseService.LoadLicense();
+
         var currentUser = GameLicenseService.ActiveUser;
 
         var name = currentUser.NameOfMii;

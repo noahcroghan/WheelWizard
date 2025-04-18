@@ -247,6 +247,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             var miiResult = MiiSerializer.Deserialize(rawMiiBytes);
             if (miiResult.IsFailure)
                 continue;
+
             var friend = new FriendProfile
             {
                 Vr = BigEndianBinaryReader.BufferToUint16(_rksysData, currentOffset + 0x16),
