@@ -173,8 +173,8 @@
         </Border>
         
         <!-- Snackbar -->
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Bottom"
-              MinHeight="40" Margin="50,13" x:Name="Snackbar">
+        <Grid Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Bottom"
+              MinHeight="40" Margin="30,13,30,16"  x:Name="Snackbar">
             
             <Border  HorizontalAlignment="Stretch" x:Name="SnackbarBlur"
                     VerticalAlignment="Stretch" CornerRadius="9999" Effect="blur(150)" Opacity="0.1"/>
