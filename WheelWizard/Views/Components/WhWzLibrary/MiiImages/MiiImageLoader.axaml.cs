@@ -31,6 +31,17 @@ public class MiiImageLoader : BaseMiiImage
         set => SetValue(FallBackColorProperty, value);
     }
 
+    public static readonly StyledProperty<Thickness> ImageOnlyMarginProperty = AvaloniaProperty.Register<
+        MiiImageLoader,
+        Avalonia.Thickness
+    >(nameof(ImageOnlyMargin), enableDataValidation: true);
+
+    public Thickness ImageOnlyMargin
+    {
+        get => GetValue(ImageOnlyMarginProperty);
+        set => SetValue(ImageOnlyMarginProperty, value);
+    }
+
     public static readonly StyledProperty<bool> ConstraintRotationToVerticalProperty = AvaloniaProperty.Register<MiiImageLoader, bool>(
         nameof(ConstraintRotationToVertical)
     );

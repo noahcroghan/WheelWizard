@@ -15,7 +15,8 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border CornerRadius="{StaticResource GlobalCornerRadius}" BorderThickness="1"
-                        x:Name="PART_MainBorder"
+                        x:Name="PART_MainBorder" ToolTip.Placement="Top" ToolTip.ShowDelay="1"
+                        ToolTip.Tip="{TemplateBinding MiiName}"
                         Background="{StaticResource Neutral900}" BorderBrush="{StaticResource Neutral600}">
                     <Grid>
                         <Border CornerRadius="99999" HorizontalAlignment="Right" VerticalAlignment="Top" 
@@ -42,9 +43,11 @@
                                   Width="1000" Foreground="{StaticResource Neutral500}"/>
                         
                         <miiImages:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                                  Mii="{TemplateBinding Mii}" Margin="-4,-9,-4,0"
+                                                  IsVisible="{TemplateBinding Mii, Converter={x:Static ObjectConverters.IsNotNull} }"
+                                                  Mii="{TemplateBinding Mii}" ImageOnlyMargin="-4,-9,-4,0"
                                                   FallBackColor="{StaticResource Neutral500}"
-                                                  ImageVariant="SLIGHT_SIDE_PROFILE_DEFAULT" LoadingColor="Transparent"/>
+                                                  LoadingColor="{StaticResource Neutral950}"
+                                                  ImageVariant="MEDIUM"/>
                     </Grid>
                 </Border>
             </ControlTemplate>

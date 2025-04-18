@@ -65,6 +65,9 @@ public interface IGameLicenseSingletonService
     /// </summary>
     void Subscribe(IRepeatedTaskListener subscriber);
 
+    /// <summary>
+    /// Changes the Mii for a specific user index.
+    /// </summary>
     OperationResult ChangeMii(int userIndex, Mii? newMii);
 }
 

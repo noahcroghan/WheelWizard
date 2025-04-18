@@ -9,6 +9,7 @@ using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
 
@@ -174,6 +175,8 @@ public partial class DetailedProfileBox : UserControlBase, INotifyPropertyChange
             MiiFaceImageLoader.PointerReleased += (_, _) =>
                 MiiFaceImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_HOVER;
         }
+
+        MiiSeletorButton.IsEnabled = SettingsHelper.PathsSetupCorrectly();
     }
 
     public void ViewRoom_OnClick(object? sender, RoutedEventArgs e) => ViewRoomAction.Invoke(FriendCode);
@@ -184,6 +187,40 @@ public partial class DetailedProfileBox : UserControlBase, INotifyPropertyChange
     {
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(FriendCode);
         ViewUtils.ShowSnackbar("Copied friend code to clipboard");
+    }
+
+    public async void OpenMiiSelector_Click(object? sender, RoutedEventArgs e)
+    {
+        var availableMiis = MiiDbService.GetAllMiis();
+        if (!availableMiis.Any())
+        {
+            new MessageBoxWindow()
+                .SetTitleText("No Miis Found")
+                .SetInfoText("There are no other Miis available to select.")
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .Show();
+            return;
+        }
+
+        var selectedMii = await new MiiSelectorWindow().SetMiiOptions(availableMiis, Mii).AwaitAnswer();
+
+        if (selectedMii == null)
+            return;
+
+        var result = GameDataService.ChangeMii((int)SettingsManager.FOCUSSED_USER.Get(), selectedMii);
+
+        if (result.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetTitleText("Failed to Change Mii")
+                .SetInfoText(result.Error!.Message)
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .Show();
+            return;
+        }
+
+        this.Mii = selectedMii;
+        ViewUtils.ShowSnackbar("Mii changed successfully");
     }
 
     public async void OpenMiiEditor_Click(object? sender, RoutedEventArgs e)

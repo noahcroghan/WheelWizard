@@ -34,7 +34,7 @@
                     </PathIcon>
                     
                     <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                           IsVisible="{TemplateBinding MiiLoaded}"
+                           IsVisible="{TemplateBinding MiiLoaded}" Margin="{TemplateBinding ImageOnlyMargin}"
                            Source="{TemplateBinding MiiImage, Mode=OneWay}"/>
                 </Grid>
             </ControlTemplate>

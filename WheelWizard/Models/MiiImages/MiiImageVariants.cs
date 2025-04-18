@@ -7,6 +7,7 @@ public static class MiiImageVariants
     public enum Variant
     {
         SMALL,
+        MEDIUM,
         SLIGHT_SIDE_PROFILE_DEFAULT,
         SLIGHT_SIDE_PROFILE_HOVER,
         SLIGHT_SIDE_PROFILE_INTERACT,
@@ -16,6 +17,7 @@ public static class MiiImageVariants
     private static Dictionary<Variant, Func<string, string>> _variantMap = new()
     {
         [Variant.SMALL] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.FACE, ImageSize.SMALL),
+        [Variant.MEDIUM] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.FACE, ImageSize.MEDIUM),
         [Variant.FULL_BODY_CAROUSEL] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.ALL_BODY, ImageSize.MEDIUM, instanceCount: 8),
         [Variant.SLIGHT_SIDE_PROFILE_DEFAULT] = GetMiiImageUrlFromResponse(
             Expression.NORMAL,
