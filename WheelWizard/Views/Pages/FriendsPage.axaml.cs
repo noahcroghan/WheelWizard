@@ -172,6 +172,12 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     private void SaveMii_OnClick(object sender, RoutedEventArgs e)
     {
+        if (!MiiDbService.Exists())
+        {
+            ViewUtils.ShowSnackbar("Cant save Mii", ViewUtils.SnackbarType.Warning);
+            return;
+        }
+
         if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
             return;
         if (selectedPlayer.Mii == null)
@@ -192,11 +198,8 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
                 .Show();
             return;
         }
-        new MessageBoxWindow()
-            .SetTitleText("Mii Copied")
-            .SetInfoText("The Mii has been copied to your database.")
-            .SetMessageType(MessageBoxWindow.MessageType.Message)
-            .Show();
+
+        ViewUtils.ShowSnackbar("Mii has been added to your Miis");
     }
 
     #region PropertyChanged
