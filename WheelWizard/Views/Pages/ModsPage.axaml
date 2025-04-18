@@ -104,10 +104,10 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <CheckBox Grid.Column="0" IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                <CheckBox Grid.Column="0" IsChecked="{Binding Mod.IsEnabled, Mode=TwoWay}"
                                           Classes="SwitchDark" Margin="0,5"
                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                <TextBlock Text="{Binding Title}" FontSize="14"
+                                <TextBlock Text="{Binding Mod.Title}" FontSize="14"
                                            Foreground="{StaticResource Neutral100}"
                                            Grid.Column="1" VerticalAlignment="Center" Margin="10,0,0,0" />
 
@@ -118,8 +118,9 @@
                                             VerticalAlignment="Center">
                                     <TextBlock Text="Priority: " FontSize="14" Foreground="{StaticResource Neutral100}"
                                                VerticalAlignment="Center" Margin="10,0,0,0" />
-                                    <TextBox Text="{Binding Priority, Mode=OneWay}" Classes="dark"
-                                             LostFocus="InputElement_OnLostFocus" Padding="0"
+                                    <TextBox Text="{Binding Mod.Priority, Mode=OneWay}" Classes="dark"
+                                             TextChanged="PriorityText_OnTextChanged"
+                                             LostFocus="PriorityText_OnLostFocus" Padding="0"
                                              KeyDown="PriorityText_OnKeyDown"
                                              x:Name="VisibleWithRows"
                                              MinWidth="25" MaxWidth="50" MinHeight="30" Height="30">

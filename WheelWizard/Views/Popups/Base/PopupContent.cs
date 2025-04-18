@@ -1,9 +1,8 @@
 using Avalonia.Controls;
-using WheelWizard.Views.Popups.Base;
 
-namespace WheelWizard.Views.Popups;
+namespace WheelWizard.Views.Popups.Base;
 
-public abstract class PopupContent : UserControl
+public abstract class PopupContent : UserControlBase
 {
     public PopupWindow Window { get; private set; }
 

@@ -2,6 +2,7 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Threading;
 using WheelWizard.Resources.Languages;
+using WheelWizard.Views.Popups.Base;
 
 namespace WheelWizard.Views.Popups.Generic;
 

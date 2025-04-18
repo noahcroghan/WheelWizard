@@ -5,6 +5,7 @@ using WheelWizard.Services.LiveData;
 using WheelWizard.Services.WiiManagement;
 using WheelWizard.Utilities;
 using WheelWizard.Utilities.RepeatedTasks;
+using WheelWizard.Views.Popups.Base;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Views.Popups;
