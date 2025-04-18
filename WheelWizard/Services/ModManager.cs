@@ -13,7 +13,7 @@ namespace WheelWizard.Services;
 
 public class ModManager : INotifyPropertyChanged
 {
-    private static readonly Lazy<ModManager> _instance = new(() => new());
+    private static readonly Lazy<ModManager> _instance = new(() => new ModManager());
     private static readonly char[] _illegalChars = new[] { '.', '/', '~', '\\' };
     public static ModManager Instance => _instance.Value;
 
@@ -196,6 +196,9 @@ public class ModManager : INotifyPropertyChanged
             return Fail("Mod name already exists.");
 
         if (newName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+            return Fail("Mod name contains illegal characters.");
+
+        if (newName.Any(x=> _illegalChars.Contains(x)))
             return Fail("Mod name contains illegal characters.");
 
         if (newName.Any(x => _illegalChars.Contains(x)))
