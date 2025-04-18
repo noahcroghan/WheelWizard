@@ -171,8 +171,14 @@ public static class MiiSerializer
         mii.Name = name;
 
         // Height & Weight (0x16 - 0x17)
-        mii.Height = MiiScale.Create(data[0x16]).Value;
-        mii.Weight = MiiScale.Create(data[0x17]).Value;
+        var height = MiiScale.Create(data[0x16]);
+        var weight = MiiScale.Create(data[0x17]);
+        if (height.IsFailure)
+            return height.Error;
+        if (weight.IsFailure)
+            return weight.Error;
+        mii.Height = height.Value;
+        mii.Weight = weight.Value;
 
         // Mii ID (0x18 - 0x1B)
         mii.MiiId = BigEndianBinaryReader.BufferToUint32(data, 0x18);
