@@ -4,6 +4,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.GameData;
 using WheelWizard.Services.LiveData;
+using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups;
@@ -23,6 +24,9 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     [Inject]
     private IGameLicenseSingletonService GameLicenseService { get; set; } = null!;
+
+    [Inject]
+    private IMiiDbService MiiDbService { get; set; } = null!;
 
     public ObservableCollection<FriendProfile> FriendList
     {
@@ -162,6 +166,35 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
             .SetTitleText("Couldn't find the room")
             .SetInfoText("Whoops, could not find the room that this player is supposedly playing in")
             .SetMessageType(MessageBoxWindow.MessageType.Warning)
+            .Show();
+    }
+
+    private void SaveMii_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
+            return;
+        if (selectedPlayer.Mii == null)
+            return;
+
+        var desiredMii = selectedPlayer.Mii;
+
+        var macAddress = (string)SettingsManager.MACADDRESS.Get();
+        //We set the miiId to 0 so it will be added as a new Mii
+        desiredMii.MiiId = 0;
+        var databaseResult = MiiDbService.AddToDatabase(desiredMii, macAddress);
+        if (databaseResult.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetTitleText("Failed to Copy Mii")
+                .SetInfoText(databaseResult.Error!.Message)
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .Show();
+            return;
+        }
+        new MessageBoxWindow()
+            .SetTitleText("Mii Copied")
+            .SetInfoText("The Mii has been copied to your database.")
+            .SetMessageType(MessageBoxWindow.MessageType.Message)
             .Show();
     }
 

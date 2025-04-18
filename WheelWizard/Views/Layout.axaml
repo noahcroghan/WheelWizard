@@ -124,6 +124,9 @@
             <components:SidebarRadioButton IconData="{StaticResource CubesStacked}"
                                         PageType="{x:Type pages:ModsPage}"
                                         Text="{x:Static lang:Common.PageTitle_Mods}"/>
+            <components:SidebarRadioButton IconData="{StaticResource Shirt}"
+                                           PageType="{x:Type pages:MiiListPage}"
+                                           Text="{x:Static lang:Common.PageTitle_MyMiis}"/>
             <TextBlock Text="{x:Static lang:Common.Term_Online}" Classes="SidebarSectionText" />
             <components:SidebarRadioButton IconData="{StaticResource RoomUsers}"
                                         PageType="{x:Type pages:RoomsPage}"

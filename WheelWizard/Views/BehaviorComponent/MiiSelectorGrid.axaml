@@ -8,8 +8,7 @@
              mc:Ignorable="d"
              x:Class="WheelWizard.Views.BehaviorComponent.MiiSelectorGrid">
 
-  <ScrollViewer VerticalScrollBarVisibility="Auto"
-                                 HorizontalScrollBarVisibility="Disabled">
+  <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
     <ListBox x:Name="PART_ListBox"
              ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}}"
              SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType={x:Type behaviorComponent:MiiSelectorGrid}}, Mode=TwoWay}"

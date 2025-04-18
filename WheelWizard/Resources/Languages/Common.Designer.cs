@@ -96,15 +96,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy Mii.
-        /// </summary>
-        public static string Action_CopyMii {
-            get {
-                return ResourceManager.GetString("Action_CopyMii", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Action_Delete {
@@ -258,11 +249,29 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Mii to &quot;My Miis&quot;.
+        /// </summary>
+        public static string Action_SaveExternalMii {
+            get {
+                return ResourceManager.GetString("Action_SaveExternalMii", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
         public static string Action_Update {
             get {
                 return ResourceManager.GetString("Action_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Mii.
+        /// </summary>
+        public static string Action_ViewMii {
+            get {
+                return ResourceManager.GetString("Action_ViewMii", resourceCulture);
             }
         }
         
@@ -362,6 +371,15 @@ namespace WheelWizard.Resources.Languages {
         public static string PageTitle_Mods {
             get {
                 return ResourceManager.GetString("PageTitle_Mods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Miis.
+        /// </summary>
+        public static string PageTitle_MyMiis {
+            get {
+                return ResourceManager.GetString("PageTitle_MyMiis", resourceCulture);
             }
         }
         

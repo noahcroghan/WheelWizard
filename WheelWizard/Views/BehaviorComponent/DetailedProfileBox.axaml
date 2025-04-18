@@ -74,6 +74,10 @@
                         Height="40"
                         Margin="0,0,10,10"
                         Text="Mii" />
+                    
+                    <components:Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="6"
+                                       IconData="{StaticResource Shirt}"
+                                       IconSize="20" Padding="8" CornerRadius="9999"/>
                 </Grid>
             </Border>
 
@@ -106,7 +110,7 @@
                     <SelectableTextBlock Classes="BodyText" Text="{Binding Br}" />
                 </StackPanel>
             </Grid>
-
+            
             <components:Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom"
                                IsEnabled="{Binding IsOnline}" x:Name="ViewRoomButton"
                                Click="ViewRoom_OnClick"

@@ -97,7 +97,7 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedPlayer.Fc);
     }
 
-    private void CopyMii_OnClick(object sender, RoutedEventArgs e)
+    private void SaveMii_OnClick(object sender, RoutedEventArgs e)
     {
         if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer)
             return;
