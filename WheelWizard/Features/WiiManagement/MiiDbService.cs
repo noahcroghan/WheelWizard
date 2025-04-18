@@ -42,6 +42,21 @@ public interface IMiiDbService
     /// <param name="macAddress"></param>
     /// <returns></returns>
     OperationResult AddToDatabase(Mii? newMii, string macAddress);
+    
+    /// <summary>
+    /// Removes (deletes) the Mii with the given client ID by zeroing out its slot.
+    /// </summary>
+    OperationResult Remove(uint clientId);
+
+    /// <summary>
+    /// Duplicates the Mii with the given client ID, assigning it a new ID and creating a new slot.
+    /// </summary>
+    OperationResult<Mii> Duplicate(uint clientId);
+
+    /// <summary>
+    /// Duplicates the given Mii, using its own ID to find the original, and then creating a copy.
+    /// </summary>
+    OperationResult<Mii> Duplicate(Mii mii);
 }
 
 public class MiiDbService : IMiiDbService
@@ -140,5 +155,33 @@ public class MiiDbService : IMiiDbService
 
         var result = _repository.AddMiiToBlocks(serialized.Value);
         return result;
+    }
+
+    public OperationResult Remove(uint clientId)
+    {
+        if (clientId == 0)
+            return Fail("Invalid client ID.");
+        var emptyBlock = new byte[74];
+        return _repository.UpdateBlockByClientId(clientId, emptyBlock);
+    }
+
+    public OperationResult<Mii> Duplicate(uint clientId)
+    {
+        var originalResult = GetByAvatarId(clientId);
+        if (originalResult.IsFailure)
+            return originalResult.Error!;
+        var clone = originalResult.Value; 
+        return Duplicate(clone);
+    }
+
+    public OperationResult<Mii> Duplicate(Mii mii)
+    {
+        // set miiId to 0 so it will be added as a new Mii
+        mii.MiiId = 0;
+        var mac = $"{mii.SystemId0}:{mii.SystemId1}:{mii.SystemId2}:{mii.SystemId3}";
+        var addResult = AddToDatabase(mii, mac);
+        if (addResult.IsFailure)
+            return addResult.Error!;
+        return mii;
     }
 }
