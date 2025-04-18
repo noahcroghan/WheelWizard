@@ -1,6 +1,9 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
+using Avalonia.Interactivity;
+using WheelWizard.Views.Popups.MiiCreatorTabs;
+using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.BehaviorComponent;
@@ -35,5 +38,13 @@ public partial class MiiSelectorGrid : UserControl
     public MiiSelectorGrid()
     {
         InitializeComponent();
+        AddMiiButton.Click += AddMiiButton_Click;
+    }
+
+    private async void AddMiiButton_Click(object? sender, RoutedEventArgs e)
+    {
+        var miiDb = App.Services.GetRequiredService<IMiiDbService>();
+        var miiCreatorWindow = new MiiCreatorWindow(miiDb, new());
+        await miiCreatorWindow.ShowDialogAsync();
     }
 }
