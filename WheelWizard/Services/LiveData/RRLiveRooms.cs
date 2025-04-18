@@ -37,7 +37,6 @@ public class RRLiveRooms : RepeatedTaskManager
         var raw = roomsResult.Value;
         var splitRaw = SplitMergedRooms(raw);
 
-        // 2) map into your old model
         var rrRooms = splitRaw
             .Select(room => new RrRoom
             {
