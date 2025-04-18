@@ -42,11 +42,12 @@
         <StyleInclude Source="Components/StandardLibrary/LoadingIcon.axaml" />
         <StyleInclude Source="Components/StandardLibrary/SidebarRadioButton.axaml" />
 
-        <!-- PAGE SPECIFIC COMPONENTS -->
+        <!-- PAGE/WHWZ SPECIFIC COMPONENTS -->
         <StyleInclude Source="Components/WhWzLibrary/ModBrowserListItem.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/FriendsListItem.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/PlayerListItem.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/Badge.axaml" />
+        <StyleInclude Source="Components/WhWzLibrary/MiiBlock.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/MiiImages/MiiImageLoader.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/MiiImages/MiiCarousel.axaml" />
     </Application.Styles>

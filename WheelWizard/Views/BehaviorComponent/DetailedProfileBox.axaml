@@ -8,7 +8,7 @@
              x:Class="WheelWizard.Views.BehaviorComponent.DetailedProfileBox"
              x:DataType="behaviorComponent:DetailedProfileBox">
 
-    <Border Background="{StaticResource Neutral900}" CornerRadius="6" BorderThickness="1"
+    <Border Background="{StaticResource Neutral900}" CornerRadius="{StaticResource GlobalCornerRadius}" BorderThickness="1"
             BorderBrush="{StaticResource Neutral900}" x:Name="PART_MainBorder">
         <Grid ColumnDefinitions="4*,3*" RowDefinitions="216,100,60" Margin="10" ClipToBounds="False">
             <!-- BACKGROUND & COLOR TRANSITION -->

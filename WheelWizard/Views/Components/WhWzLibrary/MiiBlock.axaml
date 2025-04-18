@@ -1,0 +1,73 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:WheelWizard.Views.Components"
+        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages">
+    <Design.PreviewWith>
+        <StackPanel Spacing="13" Background="{StaticResource Neutral950}">
+            <controls:MiiBlock Width="90" Height="90" />
+            <controls:MiiBlock Width="90" Height="90" IsChecked="True"/>
+            <controls:MiiBlock Width="90" Height="90" />
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|MiiBlock">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border CornerRadius="{StaticResource GlobalCornerRadius}" BorderThickness="1"
+                        x:Name="PART_MainBorder"
+                        Background="{StaticResource Neutral900}" BorderBrush="{StaticResource Neutral600}">
+                    <Grid>
+                        <Border CornerRadius="99999" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                                Opacity="0.7" IsVisible="{TemplateBinding IsChecked}"
+                                Background="{StaticResource Primary200}" Height="70" Width="50" Effect="blur(130)">
+                            <Border.Styles>
+                                <Style Selector="Border">
+                                    <Style.Animations>
+                                        <Animation Duration="0:0:8" IterationCount="INFINITE">
+                                            <KeyFrame Cue="0%">
+                                                <Setter Property="RotateTransform.Angle" Value="0" />
+                                            </KeyFrame>
+                                            <KeyFrame Cue="100%">
+                                                <Setter Property="RotateTransform.Angle" Value="360" />
+                                            </KeyFrame>
+                                        </Animation>
+                                    </Style.Animations>
+                                </Style>
+                            </Border.Styles>
+                        </Border>
+                        
+                        <PathIcon Data="{StaticResource Plus}" Height="35" x:Name="PART_AddIcon"
+                                  IsVisible="{TemplateBinding Mii, Converter={x:Static ObjectConverters.IsNull} }"
+                                  Width="1000" Foreground="{StaticResource Neutral500}"/>
+                        
+                        <miiImages:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                  Mii="{TemplateBinding Mii}" Margin="-4,-9,-4,0"
+                                                  FallBackColor="{StaticResource Neutral500}"
+                                                  ImageVariant="SLIGHT_SIDE_PROFILE_DEFAULT" LoadingColor="Transparent"/>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        
+        <Style Selector="^:pointerover /template/ Border#PART_MainBorder">
+            <Setter Property="BorderBrush" Value="{StaticResource Neutral500}"/>
+            <Setter Property="Background" Value="{StaticResource Neutral700}"/>
+            <Style Selector="^ PathIcon#PART_AddIcon">
+                <Setter Property="Foreground" Value="{StaticResource Neutral400}"/>
+            </Style>
+            
+        </Style>
+        
+        <Style Selector="^[IsChecked=True] /template/ Border#PART_MainBorder">
+            <Setter Property="BorderBrush" Value="{StaticResource Primary400}"></Setter>
+            <Style Selector="^ PathIcon#PART_AddIcon">
+                <Setter Property="Foreground" Value="{StaticResource Primary400}"/>
+            </Style>
+        </Style>
+        <Style Selector="^:pointerover[IsChecked=True] /template/ Border#PART_MainBorder">
+            <Setter Property="Background" Value="{StaticResource Neutral800}"></Setter>
+        </Style>
+        
+    </Style>
+</Styles>

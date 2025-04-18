@@ -23,9 +23,26 @@
         <behaviorComponent:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
                                       HorizontalAlignment="Right" VerticalAlignment="Top"/>
         
-        <components:EmptyPageInfo Grid.Row="1" x:Name="VisibleWhenNoDolphin"
-                                  HorizontalAlignment="Center"
+        <components:EmptyPageInfo Grid.Row="1" x:Name="VisibleWhenNoDb"
+                                  HorizontalAlignment="Center" IsVisible="False"
                                   Title="{x:Static lang:Phrases.EmptyText_NoMiis_Title}"
                                   BodyText="{x:Static lang:Phrases.EmptyText_NoMiis}" />
+        
+        <Grid x:Name="VisibleWhenDb" Grid.Row="1">
+            <ScrollViewer>
+                <UniformGrid Columns="4" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="MiiList">
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                    <components:MiiBlock Width="90" Height="90" Margin="8,10"/>
+                </UniformGrid>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>
