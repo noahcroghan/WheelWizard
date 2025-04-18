@@ -9,10 +9,20 @@ namespace WheelWizard.Views;
 
 public static class ViewUtils
 {
+    public enum SnackbarType
+    {
+        Success,
+        Warning,
+        Danger,
+    }
+
     public static void OpenLink(string link)
     {
         Process.Start(new ProcessStartInfo { FileName = link, UseShellExecute = true });
+        ShowSnackbar("Opened link");
     }
+
+    public static void ShowSnackbar(string message, SnackbarType type = SnackbarType.Success) => GetLayout().ShowSnackbar(message, type);
 
     public static Layout GetLayout() => Layout.Instance;
 

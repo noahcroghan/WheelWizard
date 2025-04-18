@@ -140,17 +140,19 @@ public class RRLiveRooms : RepeatedTaskManager
             // if it’s really merged, split it
             if (components.Count > 1)
             {
-                output.AddRange(components.Select(comp => new RwfcRoom
-                {
-                    Id = room.Id,
-                    Game = room.Game,
-                    Created = room.Created,
-                    Type = room.Type,
-                    Suspend = room.Suspend,
-                    Host = room.Host,
-                    Rk = room.Rk,
-                    Players = comp.ToDictionary(idx => keys[idx], idx => room.Players[keys[idx]]),
-                }));
+                output.AddRange(
+                    components.Select(comp => new RwfcRoom
+                    {
+                        Id = room.Id,
+                        Game = room.Game,
+                        Created = room.Created,
+                        Type = room.Type,
+                        Suspend = room.Suspend,
+                        Host = room.Host,
+                        Rk = room.Rk,
+                        Players = comp.ToDictionary(idx => keys[idx], idx => room.Players[keys[idx]]),
+                    })
+                );
             }
             else
             {

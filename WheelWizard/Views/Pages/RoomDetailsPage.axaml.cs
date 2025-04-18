@@ -85,6 +85,7 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
         if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer)
             return;
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedPlayer.Fc);
+        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
     }
 
     private void OpenCarousel_OnClick(object sender, RoutedEventArgs e)
