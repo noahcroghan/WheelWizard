@@ -1,10 +1,11 @@
-<self:PopupContent xmlns="https://github.com/avaloniaui"
+<base:PopupContent xmlns="https://github.com/avaloniaui"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:self="clr-namespace:WheelWizard.Views.Popups"
                    xmlns:components="clr-namespace:WheelWizard.Views.Components"
                    xmlns:miiCreatorTabs="clr-namespace:WheelWizard.Views.Popups.MiiCreatorTabs"
+                   xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
                    xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
                    mc:Ignorable="d"
                    d:DesignWidth="700" d:DesignHeight="550" 
@@ -77,4 +78,4 @@
         </UniformGrid>
 
     </Grid>
-</self:PopupContent>
+</base:PopupContent>

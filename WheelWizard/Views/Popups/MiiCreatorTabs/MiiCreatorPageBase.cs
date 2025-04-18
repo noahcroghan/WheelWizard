@@ -6,7 +6,7 @@ using WheelWizard.WiiManagement.Domain.Mii;
 namespace WheelWizard.Views.Popups.MiiCreatorTabs;
 
 // Base class implementing INotifyPropertyChanged and holding the Mii reference
-public abstract class MiiCreatorPageBase : UserControl, INotifyPropertyChanged
+public abstract class MiiCreatorPageBase : UserControlBase, INotifyPropertyChanged
 {
     private Mii _miiToEdit = null!; // Initialize with null! - will be set by SetMiiToEdit
 

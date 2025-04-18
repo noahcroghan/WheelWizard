@@ -1,12 +1,13 @@
-<popups:PopupContent xmlns="https://github.com/avaloniaui"
-                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                     xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
-                     xmlns:components="clr-namespace:WheelWizard.Views.Components"
-                     xmlns:popups="clr-namespace:WheelWizard.Views.Popups"
-                     xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
-                     x:Class="WheelWizard.Views.Popups.MiiSelectorPopup"
-                     x:DataType="popups:MiiSelectorPopup">
+<base:PopupContent xmlns="https://github.com/avaloniaui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
+                   xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
+                   xmlns:components="clr-namespace:WheelWizard.Views.Components"
+                   xmlns:popups="clr-namespace:WheelWizard.Views.Popups"
+                   xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+                   x:Class="WheelWizard.Views.Popups.MiiSelectorPopup"
+                   x:DataType="popups:MiiSelectorPopup">
 
   <Grid RowDefinitions="*, Auto, Auto"
         Width="450"
@@ -52,4 +53,4 @@
     </UniformGrid>
 
   </Grid>
-</popups:PopupContent>
+</base:PopupContent>

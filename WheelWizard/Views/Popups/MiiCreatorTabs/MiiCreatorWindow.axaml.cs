@@ -3,6 +3,8 @@ using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Services.Settings;
+using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Views.Popups.Base;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
@@ -11,7 +13,8 @@ namespace WheelWizard.Views.Popups.MiiCreatorTabs;
 
 public partial class MiiCreatorWindow : PopupContent, INotifyPropertyChanged
 {
-    private IGameLicenseSingletonService gameLicenseService = App.Services.GetService<IGameLicenseSingletonService>();
+    [Inject]
+    private IGameLicenseSingletonService GameLicenseService { get; set; } = null!;
 
     private readonly IMiiDbService _miiDbService;
     private TaskCompletionSource<Mii?> _tcs = new();
@@ -33,6 +36,7 @@ public partial class MiiCreatorWindow : PopupContent, INotifyPropertyChanged
     public MiiCreatorWindow(IMiiDbService miiDbService, Mii? existingMii = null)
         : base(true, false, true, existingMii == null ? "Create New Mii" : $"Edit Mii: {existingMii?.Name}") // Use null conditional
     {
+        InitializeComponent();
         _miiDbService = miiDbService ?? throw new ArgumentNullException(nameof(miiDbService));
 
         if (existingMii != null)
@@ -48,7 +52,6 @@ public partial class MiiCreatorWindow : PopupContent, INotifyPropertyChanged
 
         FavoriteColorOptions = Enum.GetValues<MiiFavoriteColor>();
 
-        InitializeComponent();
         DataContext = this;
         LoadMiiPage("General");
         UpdateValidationState();
@@ -207,7 +210,7 @@ public partial class MiiCreatorWindow : PopupContent, INotifyPropertyChanged
                 .SetInfoText(result.Error.Message) // Make sure OperationResult has a meaningful error message
                 .ShowDialog();
         }
-        gameLicenseService.LoadLicense();
+        GameLicenseService.LoadLicense();
     }
 
     private async Task ShowValidationErrorDialog(string message)
