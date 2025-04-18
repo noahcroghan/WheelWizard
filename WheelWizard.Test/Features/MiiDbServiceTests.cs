@@ -128,6 +128,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
+            Assert.Equal(result.IsFailure, true);
         }
 
         [Fact]
@@ -141,6 +142,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
+            Assert.Equal(result.IsFailure, true);
         }
 
         [Fact]
@@ -225,17 +227,17 @@ namespace WheelWizard.Test.Features
             Assert.True(miiResult.IsSuccess, "Setup Failed: Could not create valid Mii");
             var miiBytes = GetSerializedBytes(miiResult.Value);
 
-            _repository.GetRawBlockByClientId(targetId).Returns(miiBytes);
+            _repository.GetRawBlockByAvatarId(targetId).Returns(miiBytes);
 
             // Act
-            var result = _service.GetByClientId(targetId);
+            var result = _service.GetByAvatarId(targetId);
 
             // Assert
             Assert.True(result.IsSuccess);
             Assert.NotNull(result.Value);
             Assert.Equal(targetId, result.Value.MiiId);
             Assert.Equal("TargetMii", result.Value.Name.ToString());
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
         }
 
         [Fact]
@@ -243,14 +245,14 @@ namespace WheelWizard.Test.Features
         {
             // Arrange
             uint targetId = 404;
-            _repository.GetRawBlockByClientId(targetId).Returns((byte[]?)null);
+            _repository.GetRawBlockByAvatarId(targetId).Returns((byte[]?)null);
 
             // Act
-            var result = _service.GetByClientId(targetId);
+            var result = _service.GetByAvatarId(targetId);
 
             // Assert
             Assert.True(result.IsFailure);
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
         }
 
         [Fact]
@@ -259,14 +261,14 @@ namespace WheelWizard.Test.Features
             // Arrange
             uint targetId = 500;
             var invalidBytes = new byte[MiiSerializer.MiiBlockSize + 10]; // Wrong size
-            _repository.GetRawBlockByClientId(targetId).Returns(invalidBytes);
+            _repository.GetRawBlockByAvatarId(targetId).Returns(invalidBytes);
 
             // Act
-            var result = _service.GetByClientId(targetId);
+            var result = _service.GetByAvatarId(targetId);
 
             // Assert
             Assert.True(result.IsFailure);
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
         }
 
         [Fact]
@@ -275,19 +277,20 @@ namespace WheelWizard.Test.Features
             // Arrange
             uint targetId = 666;
             var badBytes = new byte[MiiSerializer.MiiBlockSize];
-            for (var i = 0; i < badBytes.Length; i++)
+            for (int i = 0; i < badBytes.Length; i++)
             {
                 badBytes[i] = (byte)(i % 256);
             }
 
-            _repository.GetRawBlockByClientId(targetId).Returns(badBytes);
+            _repository.GetRawBlockByAvatarId(targetId).Returns(badBytes);
 
             // Act
-            var result = _service.GetByClientId(targetId);
+            var result = _service.GetByAvatarId(targetId);
 
             // Assert
             Assert.True(result.IsFailure);
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            Assert.Equal(result.IsFailure, true);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
         }
 
         [Fact]
@@ -296,12 +299,12 @@ namespace WheelWizard.Test.Features
             // Arrange
             uint targetId = 777;
             var expectedException = new InvalidOperationException("Repository error");
-            _repository.GetRawBlockByClientId(targetId).Throws(expectedException);
+            _repository.GetRawBlockByAvatarId(targetId).Throws(expectedException);
 
             // Act & Assert
-            var actualException = Assert.Throws<InvalidOperationException>(() => _service.GetByClientId(targetId));
+            var actualException = Assert.Throws<InvalidOperationException>(() => _service.GetByAvatarId(targetId));
             Assert.Same(expectedException, actualException);
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
         }
 
         // --- Update Tests ---
@@ -377,15 +380,15 @@ namespace WheelWizard.Test.Features
         {
             // Arrange
             uint targetId = 333;
-            var oldName = "OldName";
-            var newName = "NewName";
+            string oldName = "OldName";
+            string newName = "NewName";
             var miiResult = CreateValidMii(targetId, oldName);
             Assert.True(miiResult.IsSuccess, "Setup Failed: Could not create original Mii");
             var originalMii = miiResult.Value;
             var originalBytes = GetSerializedBytes(originalMii);
 
             // Setup Get
-            _repository.GetRawBlockByClientId(targetId).Returns(originalBytes);
+            _repository.GetRawBlockByAvatarId(targetId).Returns(originalBytes);
 
             // Setup Update (capture the updated Mii's bytes)
             byte[]? updatedBytes = null;
@@ -396,7 +399,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsSuccess);
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
             _repository.Received(1).UpdateBlockByClientId(targetId, Arg.Any<byte[]>());
 
             // Verify the name was actually changed in the serialized data sent to the repo
@@ -412,8 +415,8 @@ namespace WheelWizard.Test.Features
         {
             // Arrange
             uint targetId = 404;
-            var newName = "NewName";
-            _repository.GetRawBlockByClientId(targetId).Returns((byte[]?)null);
+            string newName = "NewName";
+            _repository.GetRawBlockByAvatarId(targetId).Returns((byte[]?)null);
 
             // Act
             var result = _service.UpdateName(targetId, newName);
@@ -421,7 +424,7 @@ namespace WheelWizard.Test.Features
             // Assert
             Assert.True(result.IsFailure);
             Assert.Equal("Mii block not found or invalid.", result.Error.Message); // Error from GetByClientId
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
             _repository.DidNotReceive().UpdateBlockByClientId(Arg.Any<uint>(), Arg.Any<byte[]>());
         }
 
@@ -430,17 +433,17 @@ namespace WheelWizard.Test.Features
         {
             // Arrange
             uint targetId = 666;
-            var newName = "NewName";
+            string newName = "NewName";
             var badBytes = new byte[MiiSerializer.MiiBlockSize]; // Correct size, bad content
-            _repository.GetRawBlockByClientId(targetId).Returns(badBytes);
+            _repository.GetRawBlockByAvatarId(targetId).Returns(badBytes);
 
             // Act
             var result = _service.UpdateName(targetId, newName);
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Contains("Invalid MiiName", result.Error.Message); // Error from MiiSerializer via GetByClientId
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            Assert.Contains("Mii data is empty.", result.Error.Message);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
             _repository.DidNotReceive().UpdateBlockByClientId(Arg.Any<uint>(), Arg.Any<byte[]>());
         }
 
@@ -449,20 +452,21 @@ namespace WheelWizard.Test.Features
         {
             // Arrange
             uint targetId = 555;
-            var oldName = "ValidOld";
-            var invalidNewName = "ThisNameIsDefinitelyTooLongForTheMii"; // > 10 chars
+            string oldName = "ValidOld";
+            string invalidNewName = "ThisNameIsDefinitelyTooLongForTheMii"; // > 10 chars
             var miiResult = CreateValidMii(targetId, oldName);
             Assert.True(miiResult.IsSuccess, "Setup Failed: Could not create original Mii");
             var originalBytes = GetSerializedBytes(miiResult.Value);
 
-            _repository.GetRawBlockByClientId(targetId).Returns(originalBytes);
+            _repository.GetRawBlockByAvatarId(targetId).Returns(originalBytes);
 
             // Act
             var result = _service.UpdateName(targetId, invalidNewName);
 
             // Assert
             Assert.True(result.IsFailure);
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            Assert.Equal(result.IsFailure, true);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
             _repository.DidNotReceive().UpdateBlockByClientId(Arg.Any<uint>(), Arg.Any<byte[]>());
         }
 
@@ -471,14 +475,14 @@ namespace WheelWizard.Test.Features
         {
             // Arrange
             uint targetId = 777;
-            var oldName = "Old";
-            var newName = "New";
+            string oldName = "Old";
+            string newName = "New";
             var miiResult = CreateValidMii(targetId, oldName);
             Assert.True(miiResult.IsSuccess, "Setup Failed: Could not create original Mii");
             var originalBytes = GetSerializedBytes(miiResult.Value);
             var repoError = Fail("Disk full");
 
-            _repository.GetRawBlockByClientId(targetId).Returns(originalBytes);
+            _repository.GetRawBlockByAvatarId(targetId).Returns(originalBytes);
             _repository
                 .UpdateBlockByClientId(targetId, Arg.Any<byte[]>()) // We know name is valid, get succeeds
                 .Returns(repoError);
@@ -489,7 +493,7 @@ namespace WheelWizard.Test.Features
             // Assert
             Assert.True(result.IsFailure);
             Assert.Equal(repoError.Error, result.Error); // Error from the repository update propagated
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
             _repository.Received(1).UpdateBlockByClientId(targetId, Arg.Any<byte[]>());
         }
 
@@ -498,14 +502,14 @@ namespace WheelWizard.Test.Features
         {
             // Arrange
             uint targetId = 111;
-            var newName = "New";
+            string newName = "New";
             var expectedException = new TimeoutException("Timeout contacting repository");
-            _repository.GetRawBlockByClientId(targetId).Throws(expectedException);
+            _repository.GetRawBlockByAvatarId(targetId).Throws(expectedException);
 
             // Act & Assert
             var actualException = Assert.Throws<TimeoutException>(() => _service.UpdateName(targetId, newName));
             Assert.Same(expectedException, actualException);
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
             _repository.DidNotReceive().UpdateBlockByClientId(Arg.Any<uint>(), Arg.Any<byte[]>());
         }
 
@@ -514,20 +518,20 @@ namespace WheelWizard.Test.Features
         {
             // Arrange
             uint targetId = 222;
-            var oldName = "Old";
-            var newName = "New";
+            string oldName = "Old";
+            string newName = "New";
             var miiResult = CreateValidMii(targetId, oldName);
             Assert.True(miiResult.IsSuccess, "Setup Failed: Could not create original Mii");
             var originalBytes = GetSerializedBytes(miiResult.Value);
             var expectedException = new UnauthorizedAccessException("Access denied");
 
-            _repository.GetRawBlockByClientId(targetId).Returns(originalBytes);
+            _repository.GetRawBlockByAvatarId(targetId).Returns(originalBytes);
             _repository.UpdateBlockByClientId(targetId, Arg.Any<byte[]>()).Throws(expectedException);
 
             // Act & Assert
             var actualException = Assert.Throws<UnauthorizedAccessException>(() => _service.UpdateName(targetId, newName));
             Assert.Same(expectedException, actualException);
-            _repository.Received(1).GetRawBlockByClientId(targetId);
+            _repository.Received(1).GetRawBlockByAvatarId(targetId);
             _repository.Received(1).UpdateBlockByClientId(targetId, Arg.Any<byte[]>());
         }
     }
