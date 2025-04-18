@@ -50,23 +50,29 @@ public static class DolphinLaunchHelper
         {
             try
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "flatpak",
-                    ArgumentList =
-                    {
-                        "document-export",
-                        "--app=org.DolphinEmu.dolphin-emu",
-                        // Default to a flag that is on by default
-                        string.IsNullOrWhiteSpace(additionalFlag) ? "-r" : additionalFlag,
-                        "--",
-                        path
-                    },
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                })?.WaitForExit();
+                Process
+                    .Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = "flatpak",
+                            ArgumentList =
+                            {
+                                "document-export",
+                                "--app=org.DolphinEmu.dolphin-emu",
+                                // Default to a flag that is on by default
+                                string.IsNullOrWhiteSpace(additionalFlag)
+                                    ? "-r"
+                                    : additionalFlag,
+                                "--",
+                                path,
+                            },
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true,
+                            UseShellExecute = false,
+                        }
+                    )
+                    ?.WaitForExit();
                 return true;
             }
             catch

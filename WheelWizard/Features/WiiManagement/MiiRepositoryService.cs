@@ -40,7 +40,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     private const int MaxMiiSlots = 100;
     private const int CrcOffset = 0x1F1DE;
     private const int HeaderOffset = 0x04;
-    private static readonly byte[] EmptyMii = Enumerable.Repeat((byte)0xFF, MiiLength).ToArray();
+    private static readonly byte[] EmptyMii = Enumerable.Repeat((byte)0x00, MiiLength).ToArray();
     private readonly string _filePath = PathManager.WiiDbFile;
 
     public List<byte[]> LoadAllBlocks()
@@ -157,16 +157,23 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
         }
     }
 
-    private static ushort CalculateCrc16(byte[] buf, int off, int len)
+    private static ushort CalculateCrc16(byte[] data, int offset, int length)
     {
-        const ushort poly = 0x1021;
-        ushort crc = 0xFFFF; // correct seed
-        for (int i = off; i < off + len; i++)
+        const ushort polynomial = 0x1021;
+        ushort crc = 0x0000;
+
+        for (int i = offset; i < offset + length; i++)
         {
-            crc ^= (ushort)(buf[i] << 8);
-            for (int b = 0; b < 8; b++)
-                crc = (crc & 0x8000) != 0 ? (ushort)((crc << 1) ^ poly) : (ushort)(crc << 1);
+            crc ^= (ushort)(data[i] << 8);
+            for (int j = 0; j < 8; j++)
+            {
+                if ((crc & 0x8000) != 0)
+                    crc = (ushort)((crc << 1) ^ polynomial);
+                else
+                    crc <<= 1;
+            }
         }
+
         return crc;
     }
 }

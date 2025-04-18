@@ -61,6 +61,13 @@ public interface IGameLicenseSingletonService
     OperationResult ChangeMiiName(int userIndex, string newName);
 
     /// <summary>
+    /// Adds a friend by friend‑code (e.g. "1234‑5678‑9012") to the specified license.
+    /// </summary>
+    /// <param name="userIndex">License slot (0–3).</param>
+    /// <param name="friendCode">The 12‑digit friend code string.</param>
+    OperationResult AddFriend(int userIndex, string friendCode);
+
+    /// <summary>
     /// Subscribes a listener to the repeated task manager.
     /// </summary>
     void Subscribe(IRepeatedTaskListener subscriber);
@@ -246,6 +253,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             if (miiResult.IsFailure)
                 continue;
 
+            var mutualFlag = BigEndianBinaryReader.BufferToUint16(_rksysData, currentOffset + 0x10);
             var friend = new FriendProfile
             {
                 Vr = BigEndianBinaryReader.BufferToUint16(_rksysData, currentOffset + 0x16),
@@ -257,9 +265,92 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
                 RegionId = _rksysData[currentOffset + 0x69],
                 BadgeVariants = _whWzDataSingletonService.GetBadges(friendCode),
                 Mii = miiResult.Value,
+                IsMutual = (mutualFlag & 0x0001) != 0,
             };
             licenseProfile.Friends.Add(friend);
         }
+    }
+
+    public OperationResult AddFriend(int licenseIndex, string friendCode)
+    {
+        // 1) Validate inputs
+        if (licenseIndex is < 0 or >= MaxPlayerNum)
+            return "Invalid license index. Please select a valid license.";
+        if (string.IsNullOrWhiteSpace(friendCode))
+            return "Invalid friend code.";
+        var cleanedFriendCodeResult = FriendCodeGenerator.TryParseFriendCode(friendCode);
+        if (cleanedFriendCodeResult.IsFailure)
+            return cleanedFriendCodeResult.Error.Message;
+
+        var fcUlong = cleanedFriendCodeResult.Value;
+        if (_rksysData is null || _rksysData.Length < RksysSize)
+            return "Save not loaded – call LoadLicense() first.";
+
+        // 2) work out where this licence keeps its friend blocks ------------------
+        var rkpdOffset = 0x08 + licenseIndex * RkpdSize;
+        var mainBase = rkpdOffset + FriendDataOffset; // 0x56D0
+        var secondaryBase = rkpdOffset + 0x8B50; // first DWC entry
+        const int MainStride = FriendDataSize; // 0x1C0
+        const int SecondaryStride = 0x0C;
+        int freeSlot = -1;
+
+        for (var i = 0; i < MaxFriendNum; i++)
+        {
+            var slotOffset = mainBase + i * MainStride;
+            var existingFc = BigEndianBinaryReader.BufferToUint64(_rksysData, slotOffset);
+
+            if (existingFc == fcUlong) // already there
+                return "That friend is already on this licence.";
+
+            if (existingFc == 0 && freeSlot == -1) // first empty slot
+                freeSlot = i;
+        }
+        if (freeSlot == -1)
+        {
+            return "Friend-list is full. Please remove a friend before adding a new one.";
+        }
+
+        // 3) write main friend‑block ----------------------------------------------
+        var mainOff = mainBase + freeSlot * MainStride;
+        BigEndianBinaryReader.WriteUInt64BigEndian(_rksysData, mainOff + 0x00, fcUlong); // friendCode
+        /* wii‑friend‑code (offset 0x08) – leave zero, Wii fills it after first net‑handshake */
+        // Clear stats / flags so the game treats it as “request sent, awaiting answer”
+        Array.Fill(_rksysData, (byte)0x00, mainOff + 0x08, 0x1C0 - 0x08);
+
+        // Mark idx so MKWii shows this entry in the right slot (not strictly needed
+        // but nice to keep the save tidy).
+        _rksysData[mainOff + 0x66] = (byte)freeSlot;
+
+        // 4) write DWC / secondary block ------------------------------------------
+        var secOff = secondaryBase + freeSlot * SecondaryStride;
+        BigEndianBinaryReader.WriteUInt16BigEndian(_rksysData, secOff + 0x00, 0x0000); // unknown – good default
+        _rksysData[secOff + 0x02] = 0x38; // 0x38 means “slot in use”
+        _rksysData[secOff + 0x03] = 0x00;
+        BigEndianBinaryReader.WriteUInt32BigEndian(_rksysData, secOff + 0x04, 0x00000000); // profileId unknown yet
+
+        // 5) fix CRC and persist ---------------------------------------------------
+        FixRksysCrc(_rksysData);
+        var save = SaveRksysToFile();
+        if (save.IsFailure)
+            return save; // bubble error up
+
+        // 6) mirror to runtime structures so UI updates immediately ---------------
+        var newFriend = new FriendProfile
+        {
+            FriendCode = friendCode,
+            Vr = 0,
+            Br = 0,
+            Wins = 0,
+            Losses = 0,
+            CountryCode = 0x0A, // “unknown”
+            RegionId = 0x00,
+            IsMutual = false,
+            Mii = new(),
+            BadgeVariants = [],
+        };
+        Licenses.Users[licenseIndex].Friends.Add(newFriend);
+
+        return Ok();
     }
 
     private bool CheckForMiiData(int offset)

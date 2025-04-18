@@ -48,4 +48,21 @@ public class FriendCodeGenerator
     }
 
     private static string FcPartParse(int part) => part.ToString("D4");
+
+    public static OperationResult<ulong> TryParseFriendCode(string friendCode)
+    {
+        if (string.IsNullOrWhiteSpace(friendCode))
+            return "Friend code is empty.";
+
+        // Strip dashes and whitespace
+        var digitsOnly = new string(friendCode.Where(char.IsDigit).ToArray());
+
+        if (digitsOnly.Length != 12)
+            return "Friend code must be exactly 12 digits.";
+
+        if (!ulong.TryParse(digitsOnly, out var result))
+            return "Friend code contains invalid characters.";
+
+        return result;
+    }
 }

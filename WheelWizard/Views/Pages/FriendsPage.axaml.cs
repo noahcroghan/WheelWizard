@@ -4,7 +4,9 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.GameData;
 using WheelWizard.Services.LiveData;
+using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Utilities.Generators;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
@@ -23,6 +25,9 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     [Inject]
     private IGameLicenseSingletonService GameLicenseService { get; set; } = null!;
+
+    [Inject]
+    private IMiiDbService MiiDbService { get; set; } = null!;
 
     public ObservableCollection<FriendProfile> FriendList
     {
@@ -175,4 +180,22 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
     }
 
     #endregion
+
+    private async void AddFriendButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var friendResult = await new TextInputWindow().SetMainText("Add Friend").ShowDialog();
+        if (friendResult == null)
+            return;
+        var userIndex = (int)SettingsManager.FOCUSSED_USER.Get();
+        var result = GameLicenseService.AddFriend(userIndex, friendResult);
+        if (result.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetTitleText("Error")
+                .SetInfoText(result.Error.Message)
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .Show();
+            return;
+        }
+    }
 }

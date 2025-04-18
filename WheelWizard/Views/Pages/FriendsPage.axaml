@@ -33,7 +33,15 @@
         <components:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
                                        HorizontalAlignment="Right" VerticalAlignment="Top" />
 
-
+        <components:Button
+            Text="Add Friend"
+            Margin="10,0,0,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Width="120"
+            Height="40"
+            Click="AddFriendButton_OnClick"
+        ></components:Button>
         <Grid Grid.Row="1" x:Name="VisibleWhenFriends" RowDefinitions="*, 12*">
             <Grid Grid.Row="0" Margin="10,0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6"
@@ -42,6 +50,15 @@
                     <ComboBox x:Name="SortByDropdown"
                               SelectionChanged="SortByDropdown_OnSelectionChanged" MinWidth="160"
                               VerticalAlignment="Top" />
+                    <components:Button
+                        Text="Add Friend"
+                        Margin="10,0,0,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="120"
+                        Height="40"
+                        Click="AddFriendButton_OnClick"
+                        ></components:Button>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,6">
