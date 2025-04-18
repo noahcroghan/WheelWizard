@@ -126,4 +126,8 @@
         <AvaloniaResource Include="Resources\Fonts\Roboto-Regular.ttf"/>
         <AvaloniaResource Include="Resources\Fonts\ctmkf.ttf"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\GameData\" />
+    </ItemGroup>
 </Project>
