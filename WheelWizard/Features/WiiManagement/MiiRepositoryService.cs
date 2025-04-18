@@ -4,7 +4,7 @@ using WheelWizard.Services.WiiManagement.SaveData;
 
 namespace WheelWizard.WiiManagement;
 
-public interface IMiiRepository
+public interface IMiiRepositoryService
 {
     /// <summary>
     /// Loads all 100 Mii data blocks from the Wii Mii database
@@ -38,16 +38,21 @@ public interface IMiiRepository
     /// </summary>
     /// <param name="rawMiiData"></param>
     OperationResult AddMiiToBlocks(byte[] rawMiiData);
+
+    /// <summary>
+    /// Whether the database file exists or not.
+    /// </summary>
+    bool Exists();
 }
 
-public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
+public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositoryService
 {
     private const int MiiLength = 74;
     private const int MaxMiiSlots = 100;
     private const int CrcOffset = 0x1F1DE;
     private const int HeaderOffset = 0x04;
     private static readonly byte[] EmptyMii = Enumerable.Repeat((byte)0x00, MiiLength).ToArray();
-    private readonly string _filePath = PathManager.WiiDbFile;
+    private readonly string _wiiDbFilePath = PathManager.WiiDbFile;
 
     public List<byte[]> LoadAllBlocks()
     {
@@ -75,14 +80,14 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
 
     public OperationResult SaveAllBlocks(List<byte[]> blocks)
     {
-        if (!fileSystem.File.Exists(_filePath))
+        if (!fileSystem.File.Exists(_wiiDbFilePath))
             return "RFL_DB.dat not found.";
 
         var db = ReadDatabase();
         using var ms = new MemoryStream(db);
         ms.Seek(HeaderOffset, SeekOrigin.Begin);
 
-        for (int i = 0; i < MaxMiiSlots; i++)
+        for (var i = 0; i < MaxMiiSlots; i++)
         {
             var block = i < blocks.Count ? blocks[i] : EmptyMii;
             ms.Write(block, 0, MiiLength);
@@ -95,7 +100,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
             db[CrcOffset + 1] = (byte)(crc & 0xFF);
         }
 
-        fileSystem.File.WriteAllBytes(_filePath, db);
+        fileSystem.File.WriteAllBytes(_wiiDbFilePath, db);
         return Ok();
     }
 
@@ -118,13 +123,15 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
         return null;
     }
 
+    public bool Exists() => fileSystem.File.Exists(_wiiDbFilePath);
+
     public OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock)
     {
         if (clientId == 0)
             return "Invalid ClientId.";
         if (newBlock.Length != MiiLength)
             return "Mii block size invalid.";
-        if (!fileSystem.File.Exists(_filePath))
+        if (!fileSystem.File.Exists(_wiiDbFilePath))
             return "RFL_DB.dat not found.";
 
         var allBlocks = LoadAllBlocks();
@@ -155,7 +162,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     {
         try
         {
-            return fileSystem.File.Exists(_filePath) ? fileSystem.File.ReadAllBytes(_filePath) : [];
+            return Exists() ? fileSystem.File.ReadAllBytes(_wiiDbFilePath) : [];
         }
         catch
         {
@@ -167,10 +174,10 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
     {
         const ushort poly = 0x1021;
         ushort crc = 0x0000;
-        for (int i = off; i < off + len; i++)
+        for (var i = off; i < off + len; i++)
         {
             crc ^= (ushort)(buf[i] << 8);
-            for (int b = 0; b < 8; b++)
+            for (var b = 0; b < 8; b++)
                 crc = (crc & 0x8000) != 0 ? (ushort)((crc << 1) ^ poly) : (ushort)(crc << 1);
         }
         return crc;
@@ -178,7 +185,7 @@ public class MiiRepositoryService(IFileSystem fileSystem) : IMiiRepository
 
     public OperationResult AddMiiToBlocks(byte[]? rawMiiData)
     {
-        if (rawMiiData == null || rawMiiData.Length != MiiLength)
+        if (rawMiiData is not { Length: MiiLength })
             return "Invalid Mii block size.";
 
         // Load all 100 blocks.

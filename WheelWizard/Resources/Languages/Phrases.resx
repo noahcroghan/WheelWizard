@@ -271,4 +271,10 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="PopupText_ReinstallQuestion" xml:space="preserve">
         <value>Are you sure you want to reinstall Retro Rewind?</value>
     </data>
+    <data name="EmptyText_NoMiis_Title" xml:space="preserve">
+        <value>No Miis yet!</value>
+    </data>
+    <data name="EmptyText_NoMiis" xml:space="preserve">
+        <value>We cant read the Mii data from your system. Make sure you started the game at least once</value>
+    </data>
 </root>

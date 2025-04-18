@@ -42,7 +42,7 @@ public interface IMiiDbService
     /// <param name="macAddress"></param>
     /// <returns></returns>
     OperationResult AddToDatabase(Mii? newMii, string macAddress);
-    
+
     /// <summary>
     /// Removes (deletes) the Mii with the given client ID by zeroing out its slot.
     /// </summary>
@@ -57,21 +57,19 @@ public interface IMiiDbService
     /// Duplicates the given Mii, using its own ID to find the original, and then creating a copy.
     /// </summary>
     OperationResult<Mii> Duplicate(Mii mii);
+
+    /// <summary>
+    /// Whether the database exists or not.
+    /// </summary>
+    bool Exists();
 }
 
-public class MiiDbService : IMiiDbService
+public class MiiDbService(IMiiRepositoryService repository) : IMiiDbService
 {
-    private readonly IMiiRepository _repository;
-
-    public MiiDbService(IMiiRepository repository)
-    {
-        _repository = repository;
-    }
-
     public List<Mii> GetAllMiis()
     {
         var result = new List<Mii>();
-        var blocks = _repository.LoadAllBlocks();
+        var blocks = repository.LoadAllBlocks();
 
         foreach (var block in blocks)
         {
@@ -83,9 +81,11 @@ public class MiiDbService : IMiiDbService
         return result;
     }
 
+    public bool Exists() => repository.Exists();
+
     public OperationResult<Mii> GetByAvatarId(uint avatarId)
     {
-        var raw = _repository.GetRawBlockByAvatarId(avatarId);
+        var raw = repository.GetRawBlockByAvatarId(avatarId);
         if (raw == null || raw.Length != MiiSerializer.MiiBlockSize)
             return "Mii block not found or invalid.";
 
@@ -97,7 +97,7 @@ public class MiiDbService : IMiiDbService
         var serialized = MiiSerializer.Serialize(updatedMii);
         if (serialized.IsFailure)
             return serialized;
-        var value = _repository.UpdateBlockByClientId(updatedMii.MiiId, serialized.Value);
+        var value = repository.UpdateBlockByClientId(updatedMii.MiiId, serialized.Value);
         return value;
     }
 
@@ -153,7 +153,7 @@ public class MiiDbService : IMiiDbService
         if (serialized.IsFailure)
             return serialized;
 
-        var result = _repository.AddMiiToBlocks(serialized.Value);
+        var result = repository.AddMiiToBlocks(serialized.Value);
         return result;
     }
 
@@ -162,7 +162,7 @@ public class MiiDbService : IMiiDbService
         if (clientId == 0)
             return Fail("Invalid client ID.");
         var emptyBlock = new byte[74];
-        return _repository.UpdateBlockByClientId(clientId, emptyBlock);
+        return repository.UpdateBlockByClientId(clientId, emptyBlock);
     }
 
     public OperationResult<Mii> Duplicate(uint clientId)
@@ -170,7 +170,7 @@ public class MiiDbService : IMiiDbService
         var originalResult = GetByAvatarId(clientId);
         if (originalResult.IsFailure)
             return originalResult.Error!;
-        var clone = originalResult.Value; 
+        var clone = originalResult.Value;
         return Duplicate(clone);
     }
 

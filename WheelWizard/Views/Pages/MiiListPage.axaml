@@ -23,6 +23,9 @@
         <behaviorComponent:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
                                       HorizontalAlignment="Right" VerticalAlignment="Top"/>
         
-        
+        <components:EmptyPageInfo Grid.Row="1" x:Name="VisibleWhenNoDolphin"
+                                  HorizontalAlignment="Center"
+                                  Title="{x:Static lang:Phrases.EmptyText_NoMiis_Title}"
+                                  BodyText="{x:Static lang:Phrases.EmptyText_NoMiis}" />
     </Grid>
 </UserControl>
