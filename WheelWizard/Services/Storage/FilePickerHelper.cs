@@ -124,4 +124,33 @@ public static class FilePickerHelper
             throw new PlatformNotSupportedException("Unsupported operating system.");
         }
     }
+
+    public static async Task<string?> SaveFileAsync(
+        string title,
+        IEnumerable<FilePickerFileType> fileTypes,
+        string defaultFileName = "untitled",
+        IStorageFolder? suggestedStartLocation = null
+    )
+    {
+        var storageProvider = Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime;
+        if (storageProvider == null)
+            return null;
+
+        var topLevel = TopLevel.GetTopLevel(storageProvider.MainWindow);
+        if (topLevel?.StorageProvider == null)
+            return null;
+
+        var file = await topLevel.StorageProvider.SaveFilePickerAsync(
+            new FilePickerSaveOptions
+            {
+                Title = title,
+                SuggestedStartLocation = suggestedStartLocation,
+                SuggestedFileName = defaultFileName,
+                FileTypeChoices = fileTypes.ToList(),
+                ShowOverwritePrompt = true,
+            }
+        );
+
+        return file?.Path.LocalPath;
+    }
 }
