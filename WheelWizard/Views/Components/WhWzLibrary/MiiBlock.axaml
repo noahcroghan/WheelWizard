@@ -16,7 +16,7 @@
             <ControlTemplate>
                 <Grid x:Name="PART_ParentGrid" ClipToBounds="False">
                     <Border CornerRadius="{StaticResource GlobalCornerRadius}" BorderThickness="1"
-                            x:Name="PART_MainBorder"
+                            x:Name="PART_MainBorder" ClipToBounds="True"
                             Background="{StaticResource Neutral900}" BorderBrush="{StaticResource Neutral600}">
                         <Grid>
                             <Border CornerRadius="99999" HorizontalAlignment="Right" VerticalAlignment="Top"
