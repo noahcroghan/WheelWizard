@@ -31,6 +31,7 @@ public static class SetupExtensions
         // IO Abstractions
         services.AddSingleton<IFileSystem, RealFileSystem>();
         services.AddSingleton<ITimeSystem, RealTimeSystem>();
+        services.AddSingleton<IRandomSystem, RealRandomSystem>();
 
         // Logging
         services.AddTransient<AvaloniaLoggerAdapter>();
