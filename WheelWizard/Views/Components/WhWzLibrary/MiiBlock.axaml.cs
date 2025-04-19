@@ -28,5 +28,8 @@ public class MiiBlock : RadioButton
 
         if (change.Property == MiiProperty)
             MiiName = change.GetNewValue<Mii?>()?.Name.ToString();
+
+        Tag = MiiName ?? String.Empty;
+        ClipToBounds = string.IsNullOrWhiteSpace(MiiName);
     }
 }
