@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using WheelWizard.Services;
+using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Popups.Generic;
@@ -94,9 +95,10 @@ public partial class MiiListPage : UserControlBase
                 return;
             }
             var mii = result.Value;
-            
+
             //We duplicate to make sure it does not actually have the original MiiId
-            var saveResult = MiiDbService.Duplicate(mii); 
+            var macAddress = (string)SettingsManager.MACADDRESS.Get();
+            var saveResult = MiiDbService.AddToDatabase(mii, macAddress);
             if (saveResult.IsFailure)
             {
                 ViewUtils.ShowSnackbar($"Failed to save Mii '{saveResult.Error.Message}'", ViewUtils.SnackbarType.Danger);
@@ -162,7 +164,8 @@ public partial class MiiListPage : UserControlBase
     private void DuplicateMii(Mii mii)
     {
         //assuming the mac address is already set correctly
-        var result = MiiDbService.Duplicate(mii);
+        var macAddress = (string)SettingsManager.MACADDRESS.Get();
+        var result = MiiDbService.AddToDatabase(mii, macAddress);
         if (result.IsFailure)
         {
             ViewUtils.ShowSnackbar($"Failed to duplicate Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);

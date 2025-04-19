@@ -341,7 +341,9 @@ namespace WheelWizard.Test.Features
             var expectedBytes = GetSerializedBytes(miiToUpdate);
             var repoError = Fail("Repository write failed");
 
-            _repositoryService.UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes))).Returns(repoError);
+            _repositoryService
+                .UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes)))
+                .Returns(repoError);
 
             // Act
             var result = _service.Update(miiToUpdate);

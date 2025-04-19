@@ -44,25 +44,9 @@ public interface IMiiDbService
     OperationResult AddToDatabase(Mii? newMii, string macAddress);
 
     /// <summary>
-    /// Adds a new Mii to the database.
-    /// </summary>
-    /// <param name="newMii"></param>
-    OperationResult AddToDatabase(Mii? newMii);
-
-    /// <summary>
     /// Removes (deletes) the Mii with the given client ID by zeroing out its slot.
     /// </summary>
     OperationResult Remove(uint clientId);
-
-    /// <summary>
-    /// Duplicates the Mii with the given client ID, assigning it a new ID and creating a new slot.
-    /// </summary>
-    OperationResult<Mii> Duplicate(uint clientId);
-
-    /// <summary>
-    /// Duplicates the given Mii, using its own ID to find the original, and then creating a copy.
-    /// </summary>
-    OperationResult<Mii> Duplicate(Mii mii);
 
     /// <summary>
     /// Whether the database exists or not.
@@ -123,41 +107,15 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
         return Update(mii);
     }
 
-    public OperationResult AddToDatabase(Mii? newMii)
-    {
-        if (newMii == null)
-            return Fail("Mii cannot be null or have an invalid ID.");
-
-        var existing = GetByAvatarId(newMii.MiiId);
-        if (existing.IsSuccess)
-            return Fail("A Mii with this ID already exists.");
-
-        if (newMii.MiiId == 0)
-        {
-            var newId = 0x60000000 | (uint)randomSystem.Random.Shared.Next(0, 0x10000000);
-            newMii.MiiId = newId;
-        }
-
-        var serialized = MiiSerializer.Serialize(newMii);
-        if (serialized.IsFailure)
-            return serialized;
-
-        var result = repository.AddMiiToBlocks(serialized.Value);
-        return result;
-    }
-
     public OperationResult AddToDatabase(Mii? newMii, string macAddress)
     {
         if (newMii == null)
             return Fail("Mii cannot be null or have an invalid ID.");
 
-        var existing = GetByAvatarId(newMii.MiiId);
-        if (existing.IsSuccess)
-            return Fail("A Mii with this ID already exists.");
-
         var macParts = macAddress.Split(':');
         if (macParts.Length != 6)
             return Fail("Invalid MAC address format.");
+        newMii.IsInvalid = false;
 
         var getMacAddress = TryCatch(() =>
         {
@@ -172,7 +130,16 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
         if (getMacAddress.IsFailure)
             return getMacAddress;
 
-        return AddToDatabase(newMii);
+        var lowBits = (uint)Random.Shared.Next(0, int.MaxValue);
+        var newId = 0x80000000u | lowBits;
+        newMii.MiiId = newId;
+
+        var serialized = MiiSerializer.Serialize(newMii);
+        if (serialized.IsFailure)
+            return serialized;
+
+        var result = repository.AddMiiToBlocks(serialized.Value);
+        return result;
     }
 
     public OperationResult Remove(uint clientId)
@@ -181,24 +148,5 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
             return Fail("Invalid client ID.");
         var emptyBlock = new byte[74];
         return repository.UpdateBlockByClientId(clientId, emptyBlock);
-    }
-
-    public OperationResult<Mii> Duplicate(uint clientId)
-    {
-        var originalResult = GetByAvatarId(clientId);
-        if (originalResult.IsFailure)
-            return originalResult.Error!;
-        var clone = originalResult.Value;
-        return Duplicate(clone);
-    }
-
-    public OperationResult<Mii> Duplicate(Mii mii)
-    {
-        // set miiId to 0 so it will be added as a new Mii
-        mii.MiiId = 0;
-        var addResult = AddToDatabase(mii);
-        if (addResult.IsFailure)
-            return addResult.Error!;
-        return mii;
     }
 }
