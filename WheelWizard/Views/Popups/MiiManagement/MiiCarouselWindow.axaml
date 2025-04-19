@@ -6,7 +6,7 @@
                    xmlns:components="clr-namespace:WheelWizard.Views.Components"
                    xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
                    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" ClipToBounds="False"
-                   x:Class="WheelWizard.Views.Popups.MiiCarouselWindow">
+                   x:Class="WheelWizard.Views.Popups.MiiManagement.MiiCarouselWindow">
     <Grid Width="440" Height="300">
         <components:LoadingIcon HorizontalAlignment="Center" VerticalAlignment="Center" IconSize="180"
                                 x:Name="MiiLoadingIcon" Foreground="{StaticResource Neutral800}" />

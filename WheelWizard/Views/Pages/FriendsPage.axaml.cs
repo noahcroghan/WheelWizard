@@ -9,6 +9,7 @@ using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views.Pages;

@@ -1,7 +1,7 @@
 ﻿using WheelWizard.Views.Popups.Base;
 using WheelWizard.WiiManagement.Domain.Mii;
 
-namespace WheelWizard.Views.Popups;
+namespace WheelWizard.Views.Popups.MiiManagement;
 
 public partial class MiiCarouselWindow : PopupContent
 {
