@@ -50,6 +50,7 @@ public partial class MiiListPage : UserControlBase
                 Height = size,
                 Margin = margin,
             };
+            ListItemCount.Text = MiiList.Children.Count.ToString();
 
             miiBlock.ContextMenu = new ContextMenu();
             miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Edit Mii", Command = new MyCommand(() => EditMii(mii)) });
