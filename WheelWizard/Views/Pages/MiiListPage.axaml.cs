@@ -52,10 +52,10 @@ public partial class MiiListPage : UserControlBase
             };
 
             miiBlock.ContextMenu = new ContextMenu();
-            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Edit Mii", Command = new MyCommand(() => EditMii(mii)) });
-            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Duplicate Mii", Command = new MyCommand(() => DuplicateMii(mii)) });
-            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Delete Mii", Command = new MyCommand(() => DeleteMii(mii)) });
-            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Save Mii as file", Command = new MyCommand(() => SaveMiiAsFile(mii)) });
+            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Edit", Command = new MyCommand(() => EditMii(mii)) });
+            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Duplicate", Command = new MyCommand(() => DuplicateMii(mii)) });
+            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Delete", Command = new MyCommand(() => DeleteMii(mii)) });
+            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Export as file", Command = new MyCommand(() => SaveMiiAsFile(mii)) });
             MiiList.Children.Add(miiBlock);
         }
 
