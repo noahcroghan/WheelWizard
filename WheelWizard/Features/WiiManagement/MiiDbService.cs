@@ -40,8 +40,13 @@ public interface IMiiDbService
     /// </summary>
     /// <param name="newMii"></param>
     /// <param name="macAddress"></param>
-    /// <returns></returns>
     OperationResult AddToDatabase(Mii? newMii, string macAddress);
+
+    /// <summary>
+    /// Adds a new Mii to the database.
+    /// </summary>
+    /// <param name="newMii"></param>
+    OperationResult AddToDatabase(Mii? newMii);
 
     /// <summary>
     /// Removes (deletes) the Mii with the given client ID by zeroing out its slot.
@@ -117,6 +122,29 @@ public class MiiDbService(IMiiRepositoryService repository) : IMiiDbService
         return Update(mii);
     }
 
+    public OperationResult AddToDatabase(Mii? newMii)
+    {
+        if (newMii == null)
+            return Fail("Mii cannot be null or have an invalid ID.");
+
+        var existing = GetByAvatarId(newMii.MiiId);
+        if (existing.IsSuccess)
+            return Fail("A Mii with this ID already exists.");
+
+        if (newMii.MiiId == 0)
+        {
+            var newId = 0x60000000 | (uint)Random.Shared.Next(0, 0x10000000);
+            newMii.MiiId = newId;
+        }
+
+        var serialized = MiiSerializer.Serialize(newMii);
+        if (serialized.IsFailure)
+            return serialized;
+
+        var result = repository.AddMiiToBlocks(serialized.Value);
+        return result;
+    }
+
     public OperationResult AddToDatabase(Mii? newMii, string macAddress)
     {
         if (newMii == null)
@@ -143,18 +171,7 @@ public class MiiDbService(IMiiRepositoryService repository) : IMiiDbService
         if (getMacAddress.IsFailure)
             return getMacAddress;
 
-        if (newMii.MiiId == 0)
-        {
-            var newId = 0x60000000 | (uint)Random.Shared.Next(0, 0x10000000);
-            newMii.MiiId = newId;
-        }
-
-        var serialized = MiiSerializer.Serialize(newMii);
-        if (serialized.IsFailure)
-            return serialized;
-
-        var result = repository.AddMiiToBlocks(serialized.Value);
-        return result;
+        return AddToDatabase(newMii);
     }
 
     public OperationResult Remove(uint clientId)
@@ -178,8 +195,7 @@ public class MiiDbService(IMiiRepositoryService repository) : IMiiDbService
     {
         // set miiId to 0 so it will be added as a new Mii
         mii.MiiId = 0;
-        var mac = $"{mii.SystemId0}:{mii.SystemId1}:{mii.SystemId2}:{mii.SystemId3}";
-        var addResult = AddToDatabase(mii, mac);
+        var addResult = AddToDatabase(mii);
         if (addResult.IsFailure)
             return addResult.Error!;
         return mii;

@@ -86,10 +86,11 @@ public partial class MiiListPage : UserControlBase
 
     private void DuplicateMii(Mii mii)
     {
+        //assuming the mac address is already set correctly
         var result = MiiDbService.Duplicate(mii);
         if (result.IsFailure)
         {
-            ViewUtils.ShowSnackbar($"Failed to duplicate Mii '{mii.Name}'", ViewUtils.SnackbarType.Danger);
+            ViewUtils.ShowSnackbar($"Failed to duplicate Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
             return;
         }
 
