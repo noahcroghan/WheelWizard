@@ -1,4 +1,5 @@
 using NSubstitute.ExceptionExtensions;
+using Testably.Abstractions;
 using WheelWizard.Shared;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
@@ -8,6 +9,7 @@ namespace WheelWizard.Test.Features
     public class MiiDbServiceTests
     {
         private readonly IMiiRepositoryService _repositoryService;
+        private readonly IRandomSystem _randomSystemService;
         private readonly MiiDbService _service;
 
         // --- Test Setup ---
@@ -15,7 +17,8 @@ namespace WheelWizard.Test.Features
         public MiiDbServiceTests()
         {
             _repositoryService = Substitute.For<IMiiRepositoryService>();
-            _service = new(_repositoryService);
+            _randomSystemService = Substitute.For<IRandomSystem>();
+            _service = new(_repositoryService, _randomSystemService);
         }
 
         // --- Helper Methods ---

@@ -1,4 +1,5 @@
-﻿using WheelWizard.WiiManagement.Domain.Mii;
+﻿using Testably.Abstractions;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement;
 
@@ -69,7 +70,7 @@ public interface IMiiDbService
     bool Exists();
 }
 
-public class MiiDbService(IMiiRepositoryService repository) : IMiiDbService
+public class MiiDbService(IMiiRepositoryService repository, IRandomSystem randomSystem) : IMiiDbService
 {
     public List<Mii> GetAllMiis()
     {
@@ -133,7 +134,7 @@ public class MiiDbService(IMiiRepositoryService repository) : IMiiDbService
 
         if (newMii.MiiId == 0)
         {
-            var newId = 0x60000000 | (uint)Random.Shared.Next(0, 0x10000000);
+            var newId = 0x60000000 | (uint)randomSystem.Random.Shared.Next(0, 0x10000000);
             newMii.MiiId = newId;
         }
 
