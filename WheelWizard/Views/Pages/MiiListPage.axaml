@@ -33,6 +33,7 @@
                 <components:Button HorizontalAlignment="Right" VerticalAlignment="Center"
                                    Text="{x:Static lang:Common.Action_Import}"
                                    IconData="{StaticResource FileImport}"
+                                   Click="AddMiiFromFile"
                                    x:Name="ImportMiiButton"/>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="0,6">
                     <components:FormFieldLabel Text="{x:Static lang:Online.ListTitle_Miis}" />

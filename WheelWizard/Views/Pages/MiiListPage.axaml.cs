@@ -2,6 +2,7 @@ using System.IO.Abstractions;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using WheelWizard.Services;
 using WheelWizard.Shared.DependencyInjection;
@@ -67,6 +68,41 @@ public partial class MiiListPage : UserControlBase
             Margin = margin,
         };
         MiiList.Children.Add(addBlock);
+    }
+
+    private async void AddMiiFromFile(object? sender, RoutedEventArgs e)
+    {
+        var miiFiles = await FilePickerHelper.OpenFilePickerAsync(
+            fileType: new FilePickerFileType("mii file") { Patterns = new[] { "*.mii" } },
+            allowMultiple: true,
+            title: "Select Mii file(s)"
+        );
+        if (miiFiles.Count == 0)
+            return;
+        foreach (var file in miiFiles)
+        {
+            FileSystem.File.Exists(file);
+            //get raw bytes from file
+            var stream = FileSystem.File.OpenRead(file);
+            using var reader = new BinaryReader(stream);
+            var miiData = reader.ReadBytes((int)stream.Length);
+            stream.Close();
+            var result = MiiSerializer.Deserialize(miiData);
+            if (result.IsFailure)
+            {
+                ViewUtils.ShowSnackbar($"Failed to deserialize Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
+                return;
+            }
+            var mii = result.Value;
+            
+            //We duplicate to make sure it does not actually have the original MiiId
+            var saveResult = MiiDbService.Duplicate(mii); 
+            if (saveResult.IsFailure)
+            {
+                ViewUtils.ShowSnackbar($"Failed to save Mii '{saveResult.Error.Message}'", ViewUtils.SnackbarType.Danger);
+                return;
+            }
+        }
     }
 
     private async void SaveMiiAsFile(Mii mii)
