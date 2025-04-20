@@ -7,6 +7,7 @@
             <controls:MiiBlock Width="90" Height="90" />
             <controls:MiiBlock Width="90" Height="90" IsChecked="True" />
             <controls:MiiBlock Width="90" Height="90" />
+            <controls:MiiBlock Width="90" Height="90" IsFavorite="True" />
         </StackPanel>
     </Design.PreviewWith>
 
@@ -20,8 +21,8 @@
                             Background="{StaticResource Neutral900}" BorderBrush="{StaticResource Neutral600}">
                         <Grid>
                             <Border CornerRadius="99999" HorizontalAlignment="Right" VerticalAlignment="Top"
-                                    Opacity="0.7" IsVisible="{TemplateBinding IsChecked}"
-                                    Background="{StaticResource Primary200}" Height="70" Width="50" Effect="blur(130)">
+                                    Opacity="0.7" IsVisible="False" x:Name="PART_BackgroundBlur"
+                                    Height="70" Width="50" Effect="blur(130)">
                                 <Border.Styles>
                                     <Style Selector="Border">
                                         <Style.Animations>
@@ -41,13 +42,17 @@
                             <PathIcon Data="{StaticResource Plus}" Height="35" x:Name="PART_AddIcon"
                                       IsVisible="{TemplateBinding Mii, Converter={x:Static ObjectConverters.IsNull} }"
                                       Width="1000" Foreground="{StaticResource Neutral500}" />
-
+                            
                             <miiImages:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                                       IsVisible="{TemplateBinding Mii, Converter={x:Static ObjectConverters.IsNotNull} }"
                                                       Mii="{TemplateBinding Mii}" ImageOnlyMargin="-4,-9,-4,0"
                                                       FallBackColor="{StaticResource Neutral500}"
                                                       LoadingColor="{StaticResource Neutral950}"
                                                       ImageVariant="MEDIUM" />
+                            
+                            <PathIcon Data="{StaticResource StarIcon}" Height="17"
+                                      IsVisible="{TemplateBinding IsFavorite}" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                      Margin="6" Width="17" Foreground="{StaticResource Warning400}" />
                         </Grid>
                     </Border>
                     <Border HorizontalAlignment="Center" Background="{StaticResource Black}" VerticalAlignment="Bottom"
@@ -74,16 +79,29 @@
             <Setter Property="Opacity" Value="1" />
         </Style>
         
-    
+        <Style Selector="^[IsFavorite=True] /template/ Border#PART_MainBorder">
+            <Setter Property="BorderBrush" Value="{StaticResource Warning500}"></Setter>
+            <Style Selector="^ PathIcon#PART_AddIcon">
+                <Setter Property="Foreground" Value="{StaticResource Warning500}" />
+            </Style>
+            <Style Selector="^ Border#PART_BackgroundBlur">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Background" Value="{StaticResource Warning300}" />
+            </Style>
+        </Style>
+        
         <Style Selector="^[IsChecked=True] /template/ Border#PART_MainBorder">
             <Setter Property="BorderBrush" Value="{StaticResource Primary400}"></Setter>
             <Style Selector="^ PathIcon#PART_AddIcon">
                 <Setter Property="Foreground" Value="{StaticResource Primary400}" />
             </Style>
+            <Style Selector="^ Border#PART_BackgroundBlur">
+                <Setter Property="IsVisible" Value="True" />
+                <Setter Property="Background" Value="{StaticResource Primary200}" />
+            </Style>
         </Style>
         <Style Selector="^:pointerover[IsChecked=True] /template/ Border#PART_MainBorder">
             <Setter Property="Background" Value="{StaticResource Neutral800}"></Setter>
         </Style>
-
     </Style>
 </Styles>

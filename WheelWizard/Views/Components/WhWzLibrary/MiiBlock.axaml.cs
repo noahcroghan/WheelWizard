@@ -26,12 +26,24 @@ public class MiiBlock : RadioButton
         private set => SetValue(MiiNameProperty, value);
     }
 
+    public static readonly StyledProperty<bool> IsFavoriteProperty = AvaloniaProperty.Register<MiiBlock, bool>(nameof(IsFavorite));
+
+    public bool IsFavorite
+    {
+        get => GetValue(IsFavoriteProperty);
+        private set => SetValue(IsFavoriteProperty, value);
+    }
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
 
         if (change.Property == MiiProperty)
-            MiiName = change.GetNewValue<Mii?>()?.Name.ToString();
+        {
+            var mii = change.GetNewValue<Mii?>();
+            MiiName = mii?.Name.ToString();
+            IsFavorite = mii?.IsFavorite ?? false;
+        }
 
         Tag = MiiName ?? String.Empty;
         ClipToBounds = string.IsNullOrWhiteSpace(MiiName);

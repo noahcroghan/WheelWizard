@@ -38,7 +38,7 @@ public partial class MiiSelectorWindow : PopupContent
     public MiiSelectorWindow SetMiiOptions(List<Mii> miis, Mii? selected)
     {
         MiiList.Children.Clear();
-        foreach (var mii in miis)
+        foreach (var mii in miis.OrderByDescending(m => m.IsFavorite))
         {
             var miiBlock = new MiiBlock
             {

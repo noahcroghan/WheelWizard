@@ -98,7 +98,7 @@ public partial class MiiListPage : UserControlBase
         var margin = new Thickness(8, 10);
 
         MiiList.Children.Clear();
-        foreach (var mii in MiiDbService.GetAllMiis().ToList())
+        foreach (var mii in MiiDbService.GetAllMiis().OrderByDescending(m => m.IsFavorite).ToList())
         {
             var miiBlock = new MiiBlock
             {
