@@ -84,6 +84,18 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
             return "RFL_DB.dat not found.";
 
         var db = ReadDatabase();
+        if (db.Length >= CrcOffset + 2)
+        {
+            // compute CRC over everything before CrcOffset
+            ushort existingCrc = (ushort)((db[CrcOffset] << 8) | db[CrcOffset + 1]);
+            ushort calcCrc = CalculateCrc16(db, 0, CrcOffset);
+
+            if (existingCrc != calcCrc)
+            {
+                return Fail($"Corrupt Mii database (bad CRC 0x{existingCrc:X4}, expected 0x{calcCrc:X4}).");
+            }
+        }
+
         using var ms = new MemoryStream(db);
         ms.Seek(HeaderOffset, SeekOrigin.Begin);
 
