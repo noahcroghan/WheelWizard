@@ -189,4 +189,7 @@
     <data name="Action_ViewMii" xml:space="preserve">
         <value>View Mii</value>
     </data>
+    <data name="Action_Duplicate" xml:space="preserve">
+        <value>Duplicate</value>
+    </data>
 </root>

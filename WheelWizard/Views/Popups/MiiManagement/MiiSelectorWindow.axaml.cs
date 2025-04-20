@@ -48,9 +48,16 @@ public partial class MiiSelectorWindow : PopupContent
                 Margin = new(8, 10),
                 IsChecked = mii.IsTheSameAs(selected),
             };
+            miiBlock.Click += ChangeMii_Click;
             MiiList.Children.Add(miiBlock);
         }
         return this;
+    }
+
+    private void ChangeMii_Click(object? sender, RoutedEventArgs e)
+    {
+        var selected = MiiList.Children.OfType<MiiBlock>().FirstOrDefault(block => block.IsChecked == true)?.Mii;
+        SaveButton.IsEnabled = selected != null;
     }
 
     private void yesButton_Click(object sender, RoutedEventArgs e)

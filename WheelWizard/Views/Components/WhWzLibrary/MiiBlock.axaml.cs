@@ -37,23 +37,14 @@ public class MiiBlock : RadioButton
         ClipToBounds = string.IsNullOrWhiteSpace(MiiName);
     }
 
-    /*
-     // Not sure if this is something we want to keep
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         e.Handled = true;
-        IsChecked = true;
 
-        if (ContextMenu != null)
-        {
-            if (s_oldMenu != null && s_oldMenu != ContextMenu)
-                s_oldMenu.Close();
-
-            s_oldMenu = ContextMenu;
-            ContextMenu?.Open();
-        }
+        var properties = e.GetCurrentPoint(this).Properties;
+        if (properties.IsLeftButtonPressed)
+            IsChecked = !IsChecked;
 
         RaiseEvent(new RoutedEventArgs(ClickEvent));
     }
-    */
 }

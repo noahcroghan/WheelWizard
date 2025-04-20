@@ -2,8 +2,10 @@ using System.IO.Abstractions;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using WheelWizard.Resources.Languages;
 using WheelWizard.Services;
 using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
@@ -37,6 +39,59 @@ public partial class MiiListPage : UserControlBase
         }
     }
 
+    #region Multi and Single select
+
+    private bool _isShiftPressed;
+
+    protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnAttachedToVisualTree(e);
+
+        // Subscribe to keyboard events to track Shift key state
+        KeyDown += MiiListPage_KeyDown;
+        KeyUp += MiiListPage_KeyUp;
+    }
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        // Unsubscribe from keyboard events when control is detached
+        KeyDown -= MiiListPage_KeyDown;
+        KeyUp -= MiiListPage_KeyUp;
+
+        base.OnDetachedFromVisualTree(e);
+    }
+
+    private void MiiListPage_KeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key is not (Key.LeftShift or Key.RightShift or Key.LeftCtrl or Key.RightCtrl))
+            return;
+
+        if (!_isShiftPressed)
+            ChangeBlockSelectionType(true);
+        _isShiftPressed = true;
+    }
+
+    private void MiiListPage_KeyUp(object? sender, KeyEventArgs e)
+    {
+        if (e.Key is not (Key.LeftShift or Key.RightShift or Key.LeftCtrl or Key.RightCtrl))
+            return;
+
+        if (_isShiftPressed)
+            ChangeBlockSelectionType(false);
+        _isShiftPressed = false;
+    }
+
+    private void ChangeBlockSelectionType(bool multiSelect)
+    {
+        foreach (var miiBlock in MiiList.Children.OfType<MiiBlock>())
+        {
+            var groupName = multiSelect ? Guid.NewGuid().ToString() : "MiiListSingleSelect";
+            miiBlock.GroupName = groupName;
+        }
+    }
+
+    #endregion
+
     private void ReloadMiiList()
     {
         var size = 90;
@@ -52,26 +107,56 @@ public partial class MiiListPage : UserControlBase
                 Height = size,
                 Margin = margin,
             };
+            miiBlock.Click += (_, _) => ChangeTopButtons();
 
             miiBlock.ContextMenu = new ContextMenu();
-            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Edit", Command = new MyCommand(() => EditMii(mii)) });
-            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Duplicate", Command = new MyCommand(() => DuplicateMii(mii)) });
-            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Delete", Command = new MyCommand(() => DeleteMii(mii)) });
-            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = "Export as file", Command = new MyCommand(() => SaveMiiAsFile(mii)) });
+            miiBlock.ContextMenu.Items.Add(new MenuItem { Header = Common.Action_Edit, Command = new MyCommand(() => EditMii(mii)) });
+            miiBlock.ContextMenu.Items.Add(
+                new MenuItem { Header = "Duplicate", Command = new MyCommand(() => ContextAction(mii, DuplicateMii)) }
+            );
+            miiBlock.ContextMenu.Items.Add(
+                new MenuItem { Header = Common.Action_Delete, Command = new MyCommand(() => ContextAction(mii, DeleteMii)) }
+            );
+            miiBlock.ContextMenu.Items.Add(
+                new MenuItem { Header = Common.Action_Export, Command = new MyCommand(() => ContextAction(mii, ExportMultipleMiiFiles)) }
+            );
             MiiList.Children.Add(miiBlock);
         }
 
-        ListItemCount.Text = MiiList.Children.Count.ToString();
+        var count = MiiList.Children.Count;
+        ListItemCount.Text = count.ToString();
+
+        ChangeTopButtons();
+        if (count >= 100)
+            return;
+
         var addBlock = new MiiBlock
         {
             Width = size,
             Height = size,
             Margin = margin,
         };
+        addBlock.Click += (_, _) =>
+        {
+            foreach (var miiBlock in MiiList.Children.OfType<MiiBlock>())
+            {
+                miiBlock.IsChecked = false;
+            }
+            ChangeTopButtons();
+        };
+
         MiiList.Children.Add(addBlock);
     }
 
-    private async void AddMiiFromFile(object? sender, RoutedEventArgs e)
+    private async void DeleteMii_OnClick(object? sender, RoutedEventArgs e) => DeleteMii(GetSelectedMiis());
+
+    private async void EditMii_OnClick(object? sender, RoutedEventArgs e) => EditMii(GetSelectedMiis()[0]);
+
+    private async void ExportMii_OnClick(object? sender, RoutedEventArgs e) => ExportMultipleMiiFiles(GetSelectedMiis());
+
+    private async void DuplicateMii_OnClick(object? sender, RoutedEventArgs e) => DuplicateMii(GetSelectedMiis());
+
+    private async void ImportMii_OnClick(object? sender, RoutedEventArgs e)
     {
         var miiFiles = await FilePickerHelper.OpenFilePickerAsync(
             fileType: new FilePickerFileType("mii file") { Patterns = new[] { "*.mii" } },
@@ -94,6 +179,7 @@ public partial class MiiListPage : UserControlBase
                 ViewUtils.ShowSnackbar($"Failed to deserialize Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
                 return;
             }
+
             var mii = result.Value;
 
             //We duplicate to make sure it does not actually have the original MiiId
@@ -107,7 +193,15 @@ public partial class MiiListPage : UserControlBase
         }
     }
 
-    private async void SaveMiiAsFile(Mii mii)
+    private async void ExportMultipleMiiFiles(Mii[] miis)
+    {
+        // TODO: This is not how we should do it, instead it should ask for a folder
+        //   2 story points
+        foreach (var mii in miis)
+            ExportMiiAsFile(mii);
+    }
+
+    private async void ExportMiiAsFile(Mii mii)
     {
         var diaglog = await FilePickerHelper.SaveFileAsync(
             title: "Save Mii as file",
@@ -122,12 +216,14 @@ public partial class MiiListPage : UserControlBase
             ViewUtils.ShowSnackbar($"Failed to get Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
             return;
         }
+
         var miiData = MiiSerializer.Serialize(result.Value);
         if (miiData.IsFailure)
         {
             ViewUtils.ShowSnackbar($"Failed to serialize Mii '{miiData.Error.Message}'", ViewUtils.SnackbarType.Danger);
             return;
         }
+
         var file = FileSystem.FileInfo.New(diaglog);
         using var stream = file.Open(FileMode.Create, FileAccess.Write);
         using var writer = new BinaryWriter(stream);
@@ -138,21 +234,38 @@ public partial class MiiListPage : UserControlBase
         ViewUtils.ShowSnackbar($"Saved Mii '{mii.Name}' to file '{file.FullName}'");
     }
 
-    private async void DeleteMii(Mii mii)
+    private async void DeleteMii(Mii[] miis)
     {
+        if (miis.Length == 0)
+        {
+            ViewUtils.ShowSnackbar("It seems there where no Miis to delete", ViewUtils.SnackbarType.Warning);
+            return;
+        }
+
         // TODO: add a check that you cant remove a Mii that is in use by a lisence,
         // I have no idea how tho
 
+        var mainText = $"Are you sure you want to delete {miis.Length} Miis?";
+        var successMessage = $"Deleted {miis.Length} Miis";
+        if (miis.Length == 1)
+        {
+            mainText = $"Are you sure you want to delete the Mii '{miis[0].Name}'?";
+            successMessage = $"Deleted Mii '{miis[0].Name}'";
+        }
+
         var result = await new YesNoWindow()
-            .SetMainText($"Are you sure you want to delete '{mii.Name}'?")
-            .SetExtraText("This action will permanently delete the Mii and cannot be undone.")
+            .SetMainText(mainText)
+            .SetExtraText("This action will permanently delete the Mii(s) and cannot be undone.")
             .AwaitAnswer();
         if (!result)
             return;
 
-        MiiDbService.Remove(mii.MiiId);
+        foreach (var mii in miis)
+        {
+            MiiDbService.Remove(mii.MiiId);
+        }
         ReloadMiiList();
-        ViewUtils.ShowSnackbar($"Deleted Mii '{mii.Name}'");
+        ViewUtils.ShowSnackbar(successMessage);
     }
 
     private void EditMii(Mii mii)
@@ -161,19 +274,66 @@ public partial class MiiListPage : UserControlBase
         ViewUtils.ShowSnackbar($"Lol, you really thing I would let you edit '{mii.Name}'", ViewUtils.SnackbarType.Warning);
     }
 
-    private void DuplicateMii(Mii mii)
+    private void DuplicateMii(Mii[] miis)
     {
         //assuming the mac address is already set correctly
         var macAddress = (string)SettingsManager.MACADDRESS.Get();
-        var result = MiiDbService.AddToDatabase(mii, macAddress);
-        if (result.IsFailure)
+        foreach (var mii in miis)
         {
-            ViewUtils.ShowSnackbar($"Failed to duplicate Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
+            var result = MiiDbService.AddToDatabase(mii, macAddress);
+            if (!result.IsFailure)
+                continue;
+
+            ViewUtils.ShowSnackbar($"Failed to duplicate Mii(s) '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
             return;
         }
 
+        var successMessage = $"Created {miis.Length} duplicate Miis";
+        if (miis.Length == 1)
+            successMessage = $"Created duplicate Mii '{miis[0].Name}'";
+
         ReloadMiiList();
-        ViewUtils.ShowSnackbar($"Created duplicate Mii '{mii.Name}'");
+        ViewUtils.ShowSnackbar(successMessage);
+    }
+
+    private Mii[] GetSelectedMiis()
+    {
+        var selected = MiiList
+            .Children.OfType<MiiBlock>()
+            .Where(block => block is { IsChecked: true, Mii: not null })
+            .Select(block => block.Mii!);
+        return selected.ToArray();
+    }
+
+    private void ChangeTopButtons()
+    {
+        var selectedMiis = GetSelectedMiis();
+
+        if (selectedMiis.Length == 0)
+        {
+            DeleteMiisButton.IsVisible = false;
+            ExportMiisButton.IsVisible = false;
+            EditMiisButton.IsVisible = false;
+            DuplicateMiisButton.IsVisible = false;
+            ImportMiiButton.IsVisible = true;
+            return;
+        }
+
+        EditMiisButton.IsVisible = selectedMiis.Length == 1;
+        ImportMiiButton.IsVisible = false;
+        DeleteMiisButton.IsVisible = true;
+        ExportMiisButton.IsVisible = true;
+        DuplicateMiisButton.IsVisible = true;
+    }
+
+    #region Command
+
+    private void ContextAction(Mii mii, Action<Mii[]> command)
+    {
+        var selectedMiis = GetSelectedMiis();
+        // If the user right clicks and perform action on a selected Mii, that action applies for all the selected Miis
+        // But if the user right clicks and perform actions on a mii that is not selected, than it only happens for that specific mii.
+        command.Invoke(selectedMiis.Contains(mii) ? selectedMiis : [mii]);
     }
 
     // There must be a better way to do this. Since this seems absurd
@@ -181,11 +341,10 @@ public partial class MiiListPage : UserControlBase
     {
         public bool CanExecute(object? parameter) => true;
 
-        public void Execute(object? parameter)
-        {
-            command.Invoke();
-        }
+        public void Execute(object? parameter) => command.Invoke();
 
         public event EventHandler? CanExecuteChanged;
     }
+
+    #endregion
 }
