@@ -1,6 +1,7 @@
 ﻿using Avalonia.Interactivity;
 using Avalonia.Threading;
 using WheelWizard.Helpers;
+using WheelWizard.Services.Launcher.Helpers;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.WiiManagement;
 using WheelWizard.Utilities;
@@ -105,4 +106,9 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
     }
 
     #endregion
+
+    private void MiiChannel_OnClick(object? sender, RoutedEventArgs e)
+    {
+        DolphinLaunchHelper.LaunchDolphin(" -b -n 0001000248414341");
+    }
 }
