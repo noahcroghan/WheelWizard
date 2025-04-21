@@ -49,10 +49,8 @@
         </ScrollViewer>
 
         <StackPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
-            <Border VerticalAlignment="Center" HorizontalAlignment="Center"
-                    ToolTip.Tip="This only shows regions YOU have played on"
-                    ToolTip.Placement="Top" ToolTip.ShowDelay="20"
-                    Width="18" Height="18" Margin="10">
+            <Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="18" Height="18" Margin="10"
+                    ToolTip.Tip="This only shows regions YOU have played on" ToolTip.Placement="Top" ToolTip.ShowDelay="20">
                 <PathIcon Foreground="{StaticResource TitleIconColor}" Margin="15,2,5,0"
                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Data="{StaticResource InfoTip}" />
             </Border>
@@ -61,12 +59,131 @@
         </StackPanel>
 
         <Grid Grid.Row="1">
-            <behaviorComponent:DetailedProfileBox x:Name="CurrentUserProfile"
-                                                  VerticalAlignment="Top" HorizontalAlignment="Stretch"
-                                                  OnChecked="CheckBox_SetPrimaryUser"
-                                                  ViewRoomAction="ViewRoom_OnClick"
-                                                  OnRename="ChangeMiiName"
-                                                  Margin="0,10,0,0" />
+            <Border Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                    Background="{StaticResource Neutral900}" BorderThickness="1"
+                    CornerRadius="{StaticResource GlobalCornerRadius}"
+                    BorderBrush="{StaticResource Neutral900}" x:Name="CurrentUserProfile">
+                <Grid ColumnDefinitions="4*,3*" RowDefinitions="216,100,60" Margin="10" ClipToBounds="False">
+                    <!-- BACKGROUND & COLOR TRANSITION -->
+                    <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" CornerRadius="99999"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.5"
+                            IsVisible="{Binding IsOnline}" Height="200" Width="230" 
+                            Background="{StaticResource Primary200}" Effect="blur(250)">
+                        <Border.Styles>
+                            <Style Selector="Border">
+                                <Style.Animations>
+                                    <Animation Duration="0:0:5" IterationCount="INFINITE">
+                                        <KeyFrame Cue="0%">
+                                            <Setter Property="RotateTransform.Angle" Value="0" />
+                                        </KeyFrame>
+                                        <KeyFrame Cue="100%">
+                                            <Setter Property="RotateTransform.Angle" Value="360" />
+                                        </KeyFrame>
+                                    </Animation>
+                                </Style.Animations>
+                            </Style>
+                        </Border.Styles>
+                    </Border>
+
+                    <!-- HEAD BORDER -->
+                    <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" BorderBrush="{StaticResource Neutral600}"
+                            BorderThickness="1" Margin="0,0,5,10" CornerRadius="4" x:Name="PART_HeadBorderFace"
+                            Background="{StaticResource Neutral950}">
+                        <Grid>
+                            <miiImages:MiiImageLoader Mii="{Binding CurrentMii}" HorizontalAlignment="Center"
+                                                      VerticalAlignment="Stretch" ConstraintRotationToVertical="True"
+                                                      ImageVariant="SLIGHT_SIDE_PROFILE_DEFAULT"
+                                                      FallBackColor="{StaticResource Neutral700}" />
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="10"
+                                          VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal" x:Name="BadgeContainer" Spacing="3" />
+                            </ScrollViewer>
+
+                            <StackPanel Margin="7">
+                                <StackPanel Orientation="Horizontal">
+                                    <SelectableTextBlock Classes="TitleText" x:Name="ProfileAttribUserName" />
+                                    <components:IconLabelButton VerticalAlignment="Center" x:Name="EditMiiName"
+                                                                IconData="{StaticResource Pen}"
+                                                                Click="RenameMii_OnClick"
+                                                                Margin="7,0,0,0" IconSize="20"
+                                                                Foreground="{StaticResource Neutral500}"
+                                                                HoverForeground="{StaticResource Neutral400}" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <SelectableTextBlock Classes="BodyText" x:Name="ProfileAttribFriendCode" />
+                                    <components:IconLabelButton VerticalAlignment="Center" x:Name="CopyFcButton"
+                                                                Click="CopyFriendCode_OnClick"
+                                                                IconData="{StaticResource Copy}"
+                                                                Margin="7,0,0,0" IconSize="20"
+                                                                Foreground="{StaticResource Neutral500}"
+                                                                HoverForeground="{StaticResource Neutral400}" />
+                                </StackPanel>
+                            </StackPanel>
+                            <components:Button Click="OpenMiiEditor_Click" Text="Mii"
+                                               HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                               Margin="0,0,10,10" Width="60" Height="40"/>
+
+                            <components:Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="6"
+                                               IconData="{StaticResource Shirt}" Click="OpenMiiSelector_Click"
+                                               IconSize="20" Padding="8" CornerRadius="9999" />
+                        </Grid>
+                    </Border>
+
+
+                    <!-- FIRST INFORMATION LAYER -->
+                    <RadioButton Grid.Column="0" Grid.Row="1" Margin="5,6,0,0" x:Name="PrimaryCheckBox"
+                                 VerticalAlignment="Top" Checked="CheckBox_SetPrimaryUser" Classes="CheckBox">
+                        <components:FormFieldLabel Text="{x:Static lang:Settings.Option_MakePrimary}"
+                                                   TipText="The primary profile is used as reference in the wheel wizard client" />
+                    </RadioButton>
+
+                    <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,7,0,0">
+                        <components:FormFieldLabel Text="Status"/>
+                        <SelectableTextBlock IsVisible="{Binding IsOnline}" Text="{x:Static lang:Common.Term_Online}"
+                                             FontSize="16" Foreground="{StaticResource Primary400}" />
+                        <SelectableTextBlock Classes="BodyText" Text="{x:Static lang:Common.Term_Offline}"
+                                             IsVisible="{Binding IsOnline, Converter={x:Static BoolConverters.Not}}" />
+                    </StackPanel>
+
+                    <Grid Grid.Column="0" Grid.Row="1" ColumnDefinitions="3*,4*"
+                          Margin="5,0,0,10" VerticalAlignment="Bottom">
+                        <StackPanel Grid.Column="0">
+                            <components:FormFieldLabel Text="VR" />
+                            <SelectableTextBlock Classes="BodyText" x:Name="ProfileAttribVr" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <components:FormFieldLabel Text="BR" />
+                            <SelectableTextBlock Classes="BodyText" x:Name="ProfileAttribBr" />
+                        </StackPanel>
+                    </Grid>
+
+                    <components:Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left"
+                                       VerticalAlignment="Bottom" Click="ViewRoom_OnClick"
+                                       IsEnabled="{Binding IsOnline}" x:Name="ViewRoomButton"
+                                       Text="{x:Static lang:Online.Button_ViewRoom}"
+                                       IconData="{StaticResource Road}" Margin="0,0,0,10" />
+                    <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                            Background="{StaticResource BackgroundLineColor}" Height="1"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="-10,0" />
+                    <!-- SECOND INFORMATION LAYER -->
+
+                    <StackPanel Grid.Column="0" Grid.Row="2" Margin="5,8,0,0">
+                        <components:FormFieldLabel Text="Total games won" />
+                        <SelectableTextBlock Classes="BodyText" x:Name="ProfileAttribTotalWins"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Grid.Row="2" Margin="0,8,0,0">
+                        <components:FormFieldLabel Text="Total games played" />
+                        <SelectableTextBlock Classes="BodyText" x:Name="ProfileAttribTotalRaces"/>
+                    </StackPanel>
+                </Grid>
+
+                <Border.Styles>
+                    <Style Selector="Border#CurrentUserProfile.Online">
+                        <Setter Property="BorderBrush" Value="{StaticResource Primary400}" />
+                    </Style>
+                </Border.Styles>
+            </Border>
 
             <miiImages:MiiCarousel VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                    Mii="{Binding CurrentMii}"
@@ -76,6 +193,5 @@
                                       HorizontalAlignment="Center" Title="{x:Static lang:Online.NoProfiles}"
                                       BodyText="{x:Static lang:Phrases.EmptyText_NoProfiles}" />
         </Grid>
-
     </Grid>
 </UserControl>
