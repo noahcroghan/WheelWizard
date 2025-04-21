@@ -21,10 +21,6 @@ namespace WheelWizard.Views.Pages;
 
 public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
-    // TODO:
-    // - Check if you can remove the current Mii and only use currentPlayer
-    // - Check if renaming name still works
-    // - when swapping the Mii, it should refresh the page and that mii and stuff
     private LicenseProfile? currentPlayer;
     private Mii? _currentMii;
     private bool _isOnline;
@@ -97,15 +93,6 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
     #region Update page
 
-    /*
-private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
-{
-    if (args.PropertyName != nameof(currentPlayer.NameOfMii))
-        return;
-    CurrentUserProfile.UserName = currentPlayer?.NameOfMii ?? "";
-}
- */
-
     private void ResetMiiTopBar()
     {
         var validUsers = GameLicenseService.HasAnyValidUsers;
@@ -140,8 +127,6 @@ private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
         CurrentUserProfile.Classes.Clear();
         if (currentPlayer?.IsOnline == true)
             CurrentUserProfile.Classes.Add("Online");
-        // if (currentPlayer != null)
-        //    currentPlayer.PropertyChanged -= OnMiiNameChanged;
 
         currentPlayer = GameLicenseService.GetUserData(_currentUserIndex);
         ProfileAttribFriendCode.Text = currentPlayer.FriendCode;
@@ -151,7 +136,6 @@ private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
         ProfileAttribBr.Text = currentPlayer.Br.ToString();
         CurrentMii = currentPlayer.Mii;
 
-        // currentPlayer.PropertyChanged += OnMiiNameChanged;
         ProfileAttribTotalRaces.Text = currentPlayer.TotalRaceCount.ToString();
         ProfileAttribTotalWins.Text = currentPlayer.TotalWinCount.ToString();
 
@@ -247,7 +231,7 @@ private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
         if (selectedMii == null)
             return;
 
-        var result = GameLicenseService.ChangeMii((int)SettingsManager.FOCUSSED_USER.Get(), selectedMii);
+        var result = GameLicenseService.ChangeMii(_currentUserIndex, selectedMii);
 
         if (result.IsFailure)
         {
@@ -258,8 +242,7 @@ private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
                 .Show();
             return;
         }
-
-        CurrentMii = selectedMii; // TODO: Temporary, instead it should probably just refresh the page or smthng
+        CurrentMii = selectedMii;
         ViewUtils.ShowSnackbar("Mii changed successfully");
     }
 
@@ -277,16 +260,9 @@ private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
         }
         var selectorPopup = new MiiSelectorPopup(availableMiis, CurrentMii);
         var selectedMiiResult = await selectorPopup.ShowDialogAsync();
-        if (selectedMiiResult == null)
-        {
-            // User closed the popup without selecting (or clicked Cancel/X)
-            return;
-        }
-
-        // User clicked "Select Mii" and chose a Mii
-        CurrentMii = selectedMiiResult; // Update the Mii property bound to the UI
-        //todo: change this to currently selected license
-        var result = GameLicenseService.ChangeMii((int)SettingsManager.FOCUSSED_USER.Get(), CurrentMii);
+        if (selectedMiiResult == null) return;
+        CurrentMii = selectedMiiResult;
+        var result = GameLicenseService.ChangeMii(_currentUserIndex, CurrentMii);
 
         if (result.IsFailure)
         {
