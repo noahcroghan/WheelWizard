@@ -148,8 +148,14 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
     private static readonly object _miiIdLock = new();
     private static uint _lastCounter;
     private static uint _sequenceOffset;
-
-    private static byte[] GenerateMiiId()
+    
+    
+    // This took me days to figure out :))))
+    // The Mii ID is a 32-bit unsigned integer,
+    // where the first 3 bits are used to indicate the type of Mii (0b100 for regular Miis, 0b010 for special Miis).
+    // The remaining 29 bits are a counter that increments every 4 seconds from a fixed epoch (January 1, 2006).
+    // For our implementation the counter is incremented by a sequence offset to ensure uniqueness even if the function is called multiple times in the same tick.
+    private static byte[] GenerateMiiId(bool isGold = false)
     {
         // Epoch for Wii: January 1, 2006 UTC
         var epoch = new DateTime(2006, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -176,12 +182,14 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
             actualCounter = baseCounter + _sequenceOffset;
         }
 
-        const uint prefixBits = 0b100u; // your 3‑bit prefix
-        uint miiId =
+        // Prefix is responsible for the kind of your mii, 100 gives a mii with black pants, which are regular pants,
+        // and 010 gives a mii with gold pants, which are the special pants.
+        var prefixBits = isGold ? 0b010u : 0b100u ;
+        var miiId =
             (prefixBits << 29) // top 3 bits
             | (actualCounter & 0x1FFFFFFFu); // lower 29 bits
 
-        return new[] { (byte)(miiId >> 24), (byte)(miiId >> 16), (byte)(miiId >> 8), (byte)(miiId) };
+        return [(byte)(miiId >> 24), (byte)(miiId >> 16), (byte)(miiId >> 8), (byte)(miiId)];
     }
 
     public OperationResult Remove(uint clientId)
