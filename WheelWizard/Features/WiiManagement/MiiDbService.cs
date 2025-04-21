@@ -130,11 +130,9 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
         if (getMacAddress.IsFailure)
             return getMacAddress;
 
-        var lowBits = (uint)Random.Shared.Next(0, int.MaxValue);
-        var newId = 0x80000000u | lowBits;
-        newMii.MiiId = newId;
-
+        newMii.MiiId = GenerateCustomMiiId();
         var serialized = MiiSerializer.Serialize(newMii);
+
         if (serialized.IsFailure)
             return serialized;
 
@@ -148,5 +146,21 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
             return Fail("Invalid client ID.");
         var emptyBlock = new byte[74];
         return repository.UpdateBlockByClientId(clientId, emptyBlock);
+    }
+
+    public static uint GenerateCustomMiiId()
+    {
+        var rng = Random.Shared;
+
+        // Byte 0: ensure high bit = 1 (so ID ≥ 0x80000000)
+        var b0 = (byte)(rng.Next(0, 0x40) | 0x80);
+
+        // Bytes 1–3: fully random
+        var b1 = (byte)rng.Next(0, 0x100);
+        var b2 = (byte)rng.Next(0, 0x100);
+        var b3 = (byte)rng.Next(0, 0x100);
+
+        // Combine into big‑endian uint:
+        return ((uint)b0 << 24) | ((uint)b1 << 16) | ((uint)b2 << 8) | (uint)b3;
     }
 }
