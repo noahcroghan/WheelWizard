@@ -5,12 +5,14 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
+using Testably.Abstractions;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services;
 using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
 
@@ -23,6 +25,9 @@ public partial class MiiListPage : UserControlBase
 
     [Inject]
     private IFileSystem FileSystem { get; set; } = null!;
+
+    [Inject]
+    private IRandomSystem Random { get; set; } = null!;
 
     public MiiListPage()
     {
@@ -142,7 +147,9 @@ public partial class MiiListPage : UserControlBase
             {
                 miiBlock.IsChecked = false;
             }
+
             ChangeTopButtons();
+            CreateNewMii();
         };
 
         MiiList.Children.Add(addBlock);
@@ -268,10 +275,33 @@ public partial class MiiListPage : UserControlBase
         ViewUtils.ShowSnackbar(successMessage);
     }
 
-    private void EditMii(Mii mii)
+    private async void EditMii(Mii mii)
     {
-        // TODO: Implement
-        ViewUtils.ShowSnackbar($"Lol, you really thing I would let you edit '{mii.Name}'", ViewUtils.SnackbarType.Warning);
+        var window = new MiiEditorWindow().SetMii(mii);
+        await window.ShowDialog();
+    }
+
+    private async void CreateNewMii()
+    {
+        string[] presets =
+        [
+            "liwAZgByADMAZAAAAAAAAAAAAAAAAFYXiRPnfsJmn7skBGWAYIAociBsKEATSLCNEIoAiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+            "hDQAZwByAG8AbQBwAGEAAAAAAAAAAC8AiRPogsJmn7syxGkAGYCIoiyMCECESACNAIoIiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+            "xCAAZABhAG4AaQBlAGwAbABlAAAAAGYaiRPo48Jmn7sARAjAAQBokniNaEBjUHiOAIsGiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+            "0rIAZgBvAHoAaQBsAGwAYQAAAGUAAEBAiRPpIMJmn7sABBLAAUBooohsKECjSGiNAIoGiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+            "hCgAZgByADAAZAAAAAAAAAAAAAAAAEBAiRPoU8Jmn7sABHDAWYBokoCLKEB0QIiMAIkGiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+        ];
+
+        var randomIndex = (int)(Random.Random.Shared.NextDouble() * presets.Length);
+        var miiResult = MiiSerializer.Deserialize(presets[randomIndex]);
+        if (miiResult.IsFailure)
+        {
+            ViewUtils.ShowSnackbar($"Failed to create a new Mii, Please try again, or message a developer", ViewUtils.SnackbarType.Danger);
+            return;
+        }
+
+        var window = new MiiEditorWindow().SetMii(miiResult.Value);
+        await window.ShowDialog();
     }
 
     private void DuplicateMii(Mii[] miis)

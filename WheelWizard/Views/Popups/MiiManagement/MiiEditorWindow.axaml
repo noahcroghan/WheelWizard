@@ -1,0 +1,28 @@
+<base:PopupContent xmlns="https://github.com/avaloniaui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:self="clr-namespace:WheelWizard.Views.Popups"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:components="clr-namespace:WheelWizard.Views.Components"
+                   xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
+                   xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
+                   xmlns:miiManagement="clr-namespace:WheelWizard.Views.Popups.MiiManagement"
+                   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                   x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditorWindow"
+                   x:DataType="miiManagement:MiiEditorWindow" ClipToBounds="False">
+    <Grid Width="820" Height="464" ColumnDefinitions="*,20,464" ClipToBounds="False">
+       <!-- 464 -->
+       <Border Grid.Column="0" CornerRadius="{StaticResource GlobalCornerRadius}" Background="{StaticResource Neutral900}"
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+           
+       </Border>
+       <Border Grid.Column="1" Background="{StaticResource BackgroundLineColor}" Margin="0,-10"
+               Width="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+       <Grid Grid.Column="2">
+           <components:LoadingIcon HorizontalAlignment="Center" VerticalAlignment="Center" IconSize="180"
+                                   x:Name="MiiLoadingIcon" Foreground="{StaticResource Neutral800}" />
+           <miiImages:MiiCarousel x:Name="Carousel" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="300" 
+                                  Mii="{Binding Mii}" Margin="50,0"/>
+       </Grid>
+    </Grid>
+</base:PopupContent>

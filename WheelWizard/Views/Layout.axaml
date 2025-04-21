@@ -24,11 +24,11 @@
         
         <Border Grid.RowSpan="999" Grid.ColumnSpan="999" ZIndex="999" IsVisible="false"
                 x:Name="DisabledDarkenEffect" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                Background="Black"  Opacity="0.3"/> 
+                Background="Black" Opacity="0.3"/> 
         
         <DockPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"
                    x:Name="TopBarButtons">
-            <Button Width="30" Height="25" Click="MinimizeButton_Click"  Classes="TopButton">
+            <Button Width="30" Height="25" Click="MinimizeButton_Click" Classes="TopButton">
                 <PathIcon Data="{StaticResource MinMark}" Width="12" Height="12"
                           Foreground="{Binding $parent[Button].Foreground}" />
             </Button>
