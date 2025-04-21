@@ -130,7 +130,12 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
         if (getMacAddress.IsFailure)
             return getMacAddress;
 
-        newMii.MiiId = GenerateCustomMiiId();
+        var miiId = GenerateMiiId();
+        newMii.MiiId1 = miiId[0];
+        newMii.MiiId2 = miiId[1];
+        newMii.MiiId3 = miiId[2];
+        newMii.MiiId4 = miiId[3];
+
         var serialized = MiiSerializer.Serialize(newMii);
 
         if (serialized.IsFailure)
@@ -138,6 +143,45 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
 
         var result = repository.AddMiiToBlocks(serialized.Value);
         return result;
+    }
+
+    private static readonly object _miiIdLock = new();
+    private static uint _lastCounter;
+    private static uint _sequenceOffset;
+
+    private static byte[] GenerateMiiId()
+    {
+        // Epoch for Wii: January 1, 2006 UTC
+        var epoch = new DateTime(2006, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        // Current time in UTC
+        var now = DateTime.UtcNow;
+
+        // Compute base tick (4‑second resolution)
+        uint baseCounter = (uint)((now - epoch).TotalSeconds / 4u);
+
+        uint actualCounter;
+        lock (_miiIdLock)
+        {
+            if (baseCounter == _lastCounter)
+            {
+                // same tick as last time: bump the offset
+                _sequenceOffset++;
+            }
+            else
+            {
+                // new tick: reset offset
+                _lastCounter = baseCounter;
+                _sequenceOffset = 0;
+            }
+            actualCounter = baseCounter + _sequenceOffset;
+        }
+
+        const uint prefixBits = 0b100u; // your 3‑bit prefix
+        uint miiId =
+            (prefixBits << 29) // top 3 bits
+            | (actualCounter & 0x1FFFFFFFu); // lower 29 bits
+
+        return new[] { (byte)(miiId >> 24), (byte)(miiId >> 16), (byte)(miiId >> 8), (byte)(miiId) };
     }
 
     public OperationResult Remove(uint clientId)
