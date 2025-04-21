@@ -260,7 +260,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         }
         var selectorPopup = new MiiSelectorPopup(availableMiis, CurrentMii);
         var selectedMiiResult = await selectorPopup.ShowDialogAsync();
-        if (selectedMiiResult == null) return;
+        if (selectedMiiResult == null)
+            return;
         CurrentMii = selectedMiiResult;
         var result = GameLicenseService.ChangeMii(_currentUserIndex, CurrentMii);
 
