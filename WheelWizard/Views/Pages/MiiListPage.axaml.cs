@@ -206,7 +206,7 @@ public partial class MiiListPage : UserControlBase
         var diaglog = await FilePickerHelper.SaveFileAsync(
             title: "Save Mii as file",
             fileTypes: new[] { new FilePickerFileType("Mii file") { Patterns = new[] { "*.mii" } } },
-            defaultFileName: "Mymii.mii"
+            defaultFileName: $"{mii.Name}"
         );
         if (diaglog == null)
             return;

@@ -148,8 +148,7 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
     private static readonly object _miiIdLock = new();
     private static uint _lastCounter;
     private static uint _sequenceOffset;
-    
-    
+
     // This took me days to figure out :))))
     // The Mii ID is a 32-bit unsigned integer,
     // where the first 3 bits are used to indicate the type of Mii (0b100 for regular Miis, 0b010 for special Miis).
@@ -184,7 +183,7 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
 
         // Prefix is responsible for the kind of your mii, 100 gives a mii with black pants, which are regular pants,
         // and 010 gives a mii with gold pants, which are the special pants.
-        var prefixBits = isGold ? 0b010u : 0b100u ;
+        var prefixBits = isGold ? 0b010u : 0b100u;
         var miiId =
             (prefixBits << 29) // top 3 bits
             | (actualCounter & 0x1FFFFFFFu); // lower 29 bits
