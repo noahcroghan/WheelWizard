@@ -10,10 +10,9 @@
                    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                    x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditorWindow"
                    x:DataType="miiManagement:MiiEditorWindow" ClipToBounds="False">
-    <Grid Width="820" Height="464" ColumnDefinitions="*,20,464" ClipToBounds="False">
-       <!-- 464 -->
-       <Border Grid.Column="0" CornerRadius="{StaticResource GlobalCornerRadius}" Background="{StaticResource Neutral900}"
-               HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid Height="460" ColumnDefinitions="370,20,450" ClipToBounds="False">
+        <Border Grid.Column="0" CornerRadius="{StaticResource GlobalCornerRadius}" Background="{StaticResource Neutral900}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
            
        </Border>
        <Border Grid.Column="1" Background="{StaticResource BackgroundLineColor}" Margin="0,-10"
