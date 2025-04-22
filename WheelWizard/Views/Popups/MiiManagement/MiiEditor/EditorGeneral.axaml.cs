@@ -4,11 +4,11 @@ using Avalonia.Markup.Xaml;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 
-public partial class StartPage : UserControl
+public partial class EditorGeneral : MiiEditorBaseControl
 {
-    public StartPage()
+    public EditorGeneral(MiiEditorWindow ew)
+        : base(ew)
     {
         InitializeComponent();
     }
 }
-

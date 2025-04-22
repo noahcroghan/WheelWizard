@@ -1,6 +1,6 @@
 using System.ComponentModel;
-using WheelWizard.Views.Components.MiiImages;
 using WheelWizard.Views.Popups.Base;
+using WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement;
@@ -27,6 +27,18 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
         InitializeComponent();
         DataContext = this;
         Carousel.MiiImageLoaded += (_, _) => MiiLoadingIcon.IsVisible = false;
+    }
+
+    protected override void BeforeOpen()
+    {
+        base.BeforeOpen();
+        SetEditorPage(typeof(EditorStartPage));
+    }
+
+    public void SetEditorPage(Type pageType)
+    {
+        EditorPresenter.Content = Activator.CreateInstance(pageType, this)!;
+        MiiLoadingIcon.IsVisible = true;
     }
 
     public MiiEditorWindow SetMii(Mii miiToEdit)

@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:editor="clr-namespace:WheelWizard.Views.Popups.MiiManagement.MiiEditor"
+             xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
+             x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorStartPage">
+    <Grid RowDefinitions="30,*,60">
+        <SelectableTextBlock Classes="TitleText" Margin="10" x:Name="MiiName"/>
+        <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1"/>
+        
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10"
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right" Spacing="10">
+            <components:Button Text="{x:Static lang:Common.Action_Cancel}" Variant="Warning" 
+                               IconData="{StaticResource XMark}"/>
+            <components:Button Text="{x:Static lang:Common.Action_Save}" Variant="Primary" 
+                               IconData="{StaticResource CheckMark}"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1">
+            <components:PopupListButton Click="PopupPageButton_OnClick" Text="General" Type="{x:Type editor:EditorStartPage}"/>
+            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Hair" Type="{x:Type editor:EditorGeneral}"/>
+            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Face" Type="{x:Type editor:EditorGeneral}"/>
+            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Eyebrows" Type="{x:Type editor:EditorGeneral}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
