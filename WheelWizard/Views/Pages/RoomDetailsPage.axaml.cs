@@ -99,36 +99,6 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
         ViewUtils.ShowSnackbar("Copied friend code to clipboard");
     }
 
-    private void SaveMii_OnClick(object sender, RoutedEventArgs e)
-    {
-        if (!MiiDbService.Exists())
-        {
-            ViewUtils.ShowSnackbar("Cant save Mii", ViewUtils.SnackbarType.Warning);
-            return;
-        }
-
-        if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer)
-            return;
-        var desiredMii = selectedPlayer.FirstMii;
-        if (desiredMii == null)
-            return;
-        var macAddress = (string)SettingsManager.MACADDRESS.Get();
-        //We set the miiId to 0 so it will be added as a new Mii
-        desiredMii.MiiId = 0;
-        var databaseResult = MiiDbService.AddToDatabase(desiredMii, macAddress);
-        if (databaseResult.IsFailure)
-        {
-            new MessageBoxWindow()
-                .SetTitleText("Failed to Copy Mii")
-                .SetInfoText(databaseResult.Error!.Message)
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .Show();
-            return;
-        }
-
-        ViewUtils.ShowSnackbar("Mii has been added to your Miis");
-    }
-
     private void OpenCarousel_OnClick(object sender, RoutedEventArgs e)
     {
         if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer)
