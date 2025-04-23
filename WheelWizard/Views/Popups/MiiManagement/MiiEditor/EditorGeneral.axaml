@@ -5,10 +5,9 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:components="clr-namespace:WheelWizard.Views.Components"
              xmlns:behavior="clr-namespace:WheelWizard.Views.BehaviorComponent"
-             xmlns:editor="clr-namespace:WheelWizard.Views.Popups.MiiManagement.MiiEditor"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
-             x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorGeneral"
-             x:DataType="editor:EditorGeneral">
+             x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorGeneral">
+    <!-- FOR EVERY EDITOR PAGE -->
     <Grid RowDefinitions="25,*">
         <TextBlock Classes="BodyText" Margin="10" Text="General" HorizontalAlignment="Right" />
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
@@ -18,27 +17,30 @@
                                     Foreground="{StaticResource TitleTextColor}" FontSize="16"
                                     HoverForeground="{StaticResource Primary200}"/>
         
-        <StackPanel Grid.Row="1" Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="10">
-            
-            <StackPanel> <!-- Mii Name -->
-                <components:FormFieldLabel Text="Mii Name:"/>
-                <behavior:FeedbackTextBox x:Name="MiiName" Watermark="Enter mii name" TextChanged="Name_TextChanged" />
-            </StackPanel>
-            
-            <StackPanel> <!-- Creator Name -->
-                <components:FormFieldLabel Text="Creator Name:"/>
-                <behavior:FeedbackTextBox x:Name="CreatorName" Watermark="Enter creator name Optional" TextChanged="Name_TextChanged" />
-            </StackPanel>
-            
-            <StackPanel> <!-- Gender -->
-                <components:FormFieldLabel Text="Gender:"/>
-                <StackPanel Orientation="Horizontal" Spacing="10">
-                    <!-- Male is only for the fancy, but servers no real purpose -->
-                    <RadioButton Content="Male" IsChecked="True" GroupName="GenderGroup"/>
-                    <RadioButton Content="Female" x:Name="GirlToggle" IsCheckedChanged="IsGirl_OnIsCheckedChanged" GroupName="GenderGroup"/>
+        <!-- END OF EVERY EDITOR PAGE -->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="10">
+                
+                <StackPanel> <!-- Mii Name -->
+                    <components:FormFieldLabel Text="Mii Name:"/>
+                    <behavior:FeedbackTextBox x:Name="MiiName" Watermark="Enter mii name" TextChanged="Name_TextChanged" />
                 </StackPanel>
+                
+                <StackPanel> <!-- Creator Name -->
+                    <components:FormFieldLabel Text="Creator Name:"/>
+                    <behavior:FeedbackTextBox x:Name="CreatorName" Watermark="Enter creator name Optional" TextChanged="Name_TextChanged" />
+                </StackPanel>
+                
+                <StackPanel> <!-- Gender -->
+                    <components:FormFieldLabel Text="Gender:"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <!-- Male is only for the fancy, but servers no real purpose -->
+                        <RadioButton Content="Male" IsChecked="True" GroupName="GenderGroup"/>
+                        <RadioButton Content="Female" x:Name="GirlToggle" IsCheckedChanged="IsGirl_OnIsCheckedChanged" GroupName="GenderGroup"/>
+                    </StackPanel>
+                </StackPanel>
+             
             </StackPanel>
-         
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

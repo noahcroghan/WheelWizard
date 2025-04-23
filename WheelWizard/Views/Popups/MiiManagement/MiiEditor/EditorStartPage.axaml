@@ -21,15 +21,17 @@
                                IconData="{StaticResource CheckMark}" Click="SaveButton_OnClick" />
         </StackPanel>
         
-        <StackPanel Grid.Row="1">
-            <components:PopupListButton Click="PopupPageButton_OnClick" Text="General"
-                                        Type="{x:Type editor:EditorGeneral}" />
-            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Hair"
-                                        Type="{x:Type editor:EditorGeneral}" />
-            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Face"
-                                        Type="{x:Type editor:EditorGeneral}" />
-            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Eyebrows"
-                                        Type="{x:Type editor:EditorGeneral}" />
-        </StackPanel>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="General"
+                                            Type="{x:Type editor:EditorGeneral}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Hair"
+                                            Type="{x:Type editor:EditorEmpty}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Face"
+                                            Type="{x:Type editor:EditorEmpty}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Eyebrows"
+                                            Type="{x:Type editor:EditorEmpty}" />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

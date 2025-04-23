@@ -12,7 +12,6 @@ public partial class EditorGeneral : MiiEditorBaseControl
         : base(ew)
     {
         InitializeComponent();
-        DataContext = this;
 
         MiiName.Text = Editor.Mii.Name.ToString();
         CreatorName.Text = Editor.Mii.CreatorName.ToString();

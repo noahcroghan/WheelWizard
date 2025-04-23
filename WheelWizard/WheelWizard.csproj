@@ -120,6 +120,10 @@
           <DependentUpon>PopupListButton.axaml</DependentUpon>
           <SubType>Code</SubType>
         </Compile>
+        <Compile Update="Views\Popups\MiiManagement\MiiEditor\EditorEmpty.axaml.cs">
+          <DependentUpon>EditorEmpty.axaml</DependentUpon>
+          <SubType>Code</SubType>
+        </Compile>
     </ItemGroup>
 
     <ItemGroup Label="Additional Files">

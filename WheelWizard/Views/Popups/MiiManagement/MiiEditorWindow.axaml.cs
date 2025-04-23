@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Avalonia.Interactivity;
 using Avalonia.Threading;
 using WheelWizard.Views.Popups.Base;
 using WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -87,4 +88,11 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     }
 
     #endregion
+
+    private void RefreshButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        MiiLoadingIcon.IsVisible = true;
+        Mii.ClearImages();
+        Carousel.Mii = Mii;
+    }
 }
