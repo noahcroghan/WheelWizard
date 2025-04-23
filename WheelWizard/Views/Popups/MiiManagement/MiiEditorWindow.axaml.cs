@@ -8,7 +8,7 @@ namespace WheelWizard.Views.Popups.MiiManagement;
 
 public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
 {
-    // whether or not you want to save the Mii
+    // whether you want to save the Mii
     public bool Result { get; private set; } = false;
     private TaskCompletionSource<bool> _tcs;
 
@@ -43,6 +43,7 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     public void SetEditorPage(Type pageType)
     {
         EditorPresenter.Content = Activator.CreateInstance(pageType, this)!;
+        Window.WindowTitle = $"Mii Editor - {Mii.Name}";
     }
 
     public MiiEditorWindow SetMii(Mii miiToEdit)

@@ -8,23 +8,28 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
              x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorStartPage">
     <Grid RowDefinitions="25,*,60">
-        <SelectableTextBlock Classes="BodyText" Margin="10" x:Name="MiiName"/>
+        <SelectableTextBlock Classes="BodyText" Margin="10" x:Name="MiiName" />
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
-                HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1"/>
-        
+                HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1" />
+
         <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10"
                     VerticalAlignment="Bottom" HorizontalAlignment="Right" Spacing="10">
-            <components:Button Text="{x:Static lang:Common.Action_Cancel}" Variant="Warning" 
-                               IconData="{StaticResource XMark}" Click="CancelButton_OnClick"/>
-            <components:Button Text="{x:Static lang:Common.Action_Save}" Variant="Primary" 
-                               IconData="{StaticResource CheckMark}" Click="SaveButton_OnClick"/>
+            <components:Button Text="{x:Static lang:Common.Action_Cancel}" Variant="Warning"
+                               IconData="{StaticResource XMark}" Click="CancelButton_OnClick" />
+            <components:Button Text="{x:Static lang:Common.Action_Save}" Variant="Primary"
+                               x:Name="SaveButton"
+                               IconData="{StaticResource CheckMark}" Click="SaveButton_OnClick" />
         </StackPanel>
         
         <StackPanel Grid.Row="1">
-            <components:PopupListButton Click="PopupPageButton_OnClick" Text="General" Type="{x:Type editor:EditorGeneral}"/>
-            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Hair" Type="{x:Type editor:EditorGeneral}"/>
-            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Face" Type="{x:Type editor:EditorGeneral}"/>
-            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Eyebrows" Type="{x:Type editor:EditorGeneral}"/>
+            <components:PopupListButton Click="PopupPageButton_OnClick" Text="General"
+                                        Type="{x:Type editor:EditorGeneral}" />
+            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Hair"
+                                        Type="{x:Type editor:EditorGeneral}" />
+            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Face"
+                                        Type="{x:Type editor:EditorGeneral}" />
+            <components:PopupListButton Click="PopupPageButton_OnClick" Text="Eyebrows"
+                                        Type="{x:Type editor:EditorGeneral}" />
         </StackPanel>
     </Grid>
 </UserControl>

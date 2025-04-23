@@ -7,7 +7,6 @@ using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
-using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WiiManagement;

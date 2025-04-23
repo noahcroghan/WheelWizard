@@ -6,5 +6,11 @@ public class MiiEditorBaseControl : UserControlBase
 
     protected MiiEditorBaseControl(MiiEditorWindow editor) => Editor = editor;
 
-    protected void BackButton_OnClick(object? sender, EventArgs e) => Editor.SetEditorPage(typeof(EditorStartPage));
+    protected void BackButton_OnClick(object? sender, EventArgs e)
+    {
+        BeforeBack();
+        Editor.SetEditorPage(typeof(EditorStartPage));
+    }
+
+    protected virtual void BeforeBack() { }
 }

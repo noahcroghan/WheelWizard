@@ -2,8 +2,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
-using Avalonia.Media;
-using WheelWizard.Views.Pages;
 
 namespace WheelWizard.Views.Components;
 
