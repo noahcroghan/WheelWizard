@@ -278,7 +278,17 @@ public partial class MiiListPage : UserControlBase
     private async void EditMii(Mii mii)
     {
         var window = new MiiEditorWindow().SetMii(mii);
-        await window.ShowDialog();
+        var save = await window.AwaitAnswer();
+        if (!save)
+            return;
+
+        var result = MiiDbService.Update(mii);
+        if (result.IsFailure)
+        {
+            ViewUtils.ShowSnackbar($"Failed to update Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
+            return;
+        }
+        ReloadMiiList();
     }
 
     private async void CreateNewMii()
@@ -301,7 +311,17 @@ public partial class MiiListPage : UserControlBase
         }
 
         var window = new MiiEditorWindow().SetMii(miiResult.Value);
-        await window.ShowDialog();
+        var save = await window.AwaitAnswer();
+        if (!save)
+            return;
+
+        var result = MiiDbService.AddToDatabase(miiResult.Value, (string)SettingsManager.MACADDRESS.Get());
+        if (result.IsFailure)
+        {
+            ViewUtils.ShowSnackbar($"Failed to create Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
+            return;
+        }
+        ReloadMiiList();
     }
 
     private void DuplicateMii(Mii[] miis)

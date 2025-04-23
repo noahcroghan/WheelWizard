@@ -22,4 +22,8 @@ public partial class EditorStartPage : MiiEditorBaseControl
 
         Editor.SetEditorPage(pageType);
     }
+
+    private void CancelButton_OnClick(object? sender, RoutedEventArgs e) => Editor.Close();
+
+    private void SaveButton_OnClick(object? sender, RoutedEventArgs e) => Editor.SignalSaveMii();
 }

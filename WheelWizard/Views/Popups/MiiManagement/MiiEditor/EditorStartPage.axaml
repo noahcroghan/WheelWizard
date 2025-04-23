@@ -15,9 +15,9 @@
         <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10"
                     VerticalAlignment="Bottom" HorizontalAlignment="Right" Spacing="10">
             <components:Button Text="{x:Static lang:Common.Action_Cancel}" Variant="Warning" 
-                               IconData="{StaticResource XMark}"/>
+                               IconData="{StaticResource XMark}" Click="CancelButton_OnClick"/>
             <components:Button Text="{x:Static lang:Common.Action_Save}" Variant="Primary" 
-                               IconData="{StaticResource CheckMark}"/>
+                               IconData="{StaticResource CheckMark}" Click="SaveButton_OnClick"/>
         </StackPanel>
         
         <StackPanel Grid.Row="1">
