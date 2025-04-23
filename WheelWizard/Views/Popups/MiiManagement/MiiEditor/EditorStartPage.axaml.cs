@@ -17,8 +17,7 @@ public partial class EditorStartPage : MiiEditorBaseControl
         if (sender is not PopupListButton button)
             return;
 
-        var pageType = button.Tag as Type;
-        if (pageType == null)
+        if (button.Type is not { } pageType)
             return;
 
         Editor.SetEditorPage(pageType);

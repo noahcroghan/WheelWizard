@@ -192,4 +192,7 @@
     <data name="Action_Duplicate" xml:space="preserve">
         <value>Duplicate</value>
     </data>
+    <data name="Action_Back" xml:space="preserve">
+        <value>Back</value>
+    </data>
 </root>

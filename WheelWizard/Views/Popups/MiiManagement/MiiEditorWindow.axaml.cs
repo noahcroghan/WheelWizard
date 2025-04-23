@@ -38,7 +38,6 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     public void SetEditorPage(Type pageType)
     {
         EditorPresenter.Content = Activator.CreateInstance(pageType, this)!;
-        MiiLoadingIcon.IsVisible = true;
     }
 
     public MiiEditorWindow SetMii(Mii miiToEdit)

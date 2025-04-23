@@ -7,8 +7,8 @@
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
              x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorStartPage">
-    <Grid RowDefinitions="30,*,60">
-        <SelectableTextBlock Classes="TitleText" Margin="10" x:Name="MiiName"/>
+    <Grid RowDefinitions="25,*,60">
+        <SelectableTextBlock Classes="BodyText" Margin="10" x:Name="MiiName"/>
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1"/>
         
@@ -21,7 +21,7 @@
         </StackPanel>
         
         <StackPanel Grid.Row="1">
-            <components:PopupListButton Click="PopupPageButton_OnClick" Text="General" Type="{x:Type editor:EditorStartPage}"/>
+            <components:PopupListButton Click="PopupPageButton_OnClick" Text="General" Type="{x:Type editor:EditorGeneral}"/>
             <components:PopupListButton Click="PopupPageButton_OnClick" Text="Hair" Type="{x:Type editor:EditorGeneral}"/>
             <components:PopupListButton Click="PopupPageButton_OnClick" Text="Face" Type="{x:Type editor:EditorGeneral}"/>
             <components:PopupListButton Click="PopupPageButton_OnClick" Text="Eyebrows" Type="{x:Type editor:EditorGeneral}"/>

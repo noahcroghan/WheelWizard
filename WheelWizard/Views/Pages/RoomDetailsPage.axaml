@@ -37,7 +37,7 @@
                                     Foreground="{StaticResource TitleTextColor}"
                                     HoverForeground="{StaticResource Primary200}"
                                     VerticalAlignment="Top" HorizontalAlignment="Left"
-                                    Click="GoBackClick" />
+                                    FontSize="16" Click="GoBackClick" />
 
         <Grid Grid.Row="1" ColumnDefinitions="4*,6*,2*,2*" Margin="10,0">
             <StackPanel

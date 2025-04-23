@@ -3,6 +3,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorGeneral">
-    Welcome to Avalonia!
+    <Grid RowDefinitions="25,*">
+        <SelectableTextBlock Classes="BodyText" Margin="10" Text="General" HorizontalAlignment="Right" />
+        <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1"/>
+        <components:IconLabelButton Grid.Row="0" Text="{x:Static lang:Common.Action_Back}" IconData="{StaticResource ArrowLeft}" 
+                                    Click="BackButton_OnClick" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0"
+                                    Foreground="{StaticResource TitleTextColor}" FontSize="16"
+                                    HoverForeground="{StaticResource Primary200}"/>
+        
+        
+        <StackPanel Grid.Row="1" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Spacing="10">
+           
+        </StackPanel>
+    </Grid>
 </UserControl>
