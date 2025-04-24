@@ -20,10 +20,11 @@
         <!-- END OF EVERY EDITOR PAGE -->
 
         <ScrollViewer Grid.Row="1">
-            <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="15">
+            <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
                 <!-- The list of elements you want to edit in this page -->
 
-                <StackPanel> <!-- Glasses Type -->
+                <!-- Glasses Type -->
+                <StackPanel Margin="0,0,0,15">
                     <components:FormFieldLabel Text="Glasses Type:"/>
                     <ComboBox
                         x:Name="GlassesTypeBox"
@@ -33,35 +34,37 @@
                         />
                 </StackPanel>
 
-                 <StackPanel> <!-- Glasses Color -->
-                    <components:FormFieldLabel Text="Glasses Color:"/>
-                    <ComboBox
-                        x:Name="GlassesColorBox"
-                        SelectionChanged="GlassesColorBox_OnSelectionChanged"
-                        Width="150"
+                <StackPanel Spacing="15" x:Name="HideIfNoGlasses">
+                    <!-- Glasses Color -->
+                    <StackPanel>
+                        <components:FormFieldLabel Text="Glasses Color:"/>
+                        <ComboBox
+                            x:Name="GlassesColorBox"
+                            SelectionChanged="GlassesColorBox_OnSelectionChanged"
+                            Width="150"
                         />
-                </StackPanel>
+                    </StackPanel>
 
-                <!-- Vertical Position (Up/Down) -->
-                <StackPanel>
-                    <components:FormFieldLabel Text="Vertical Position (Up/Down):"/>
-                    <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
-                        <Button x:Name="VerticalDecreaseButton" Content="-" Click="VerticalDecrease_Click" Width="30"/>
-                        <TextBlock x:Name="VerticalValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
-                        <Button x:Name="VerticalIncreaseButton" Content="+" Click="VerticalIncrease_Click" Width="30"/>
+                    <!-- Vertical Position (Up/Down) -->
+                    <StackPanel>
+                        <components:FormFieldLabel Text="Vertical Position (Up/Down):"/>
+                        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                            <Button x:Name="VerticalDecreaseButton" Content="-" Click="VerticalDecrease_Click" Width="30"/>
+                            <TextBlock x:Name="VerticalValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                            <Button x:Name="VerticalIncreaseButton" Content="+" Click="VerticalIncrease_Click" Width="30"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Size (Zoom In/Out) -->
+                    <StackPanel>
+                        <components:FormFieldLabel Text="Size (Zoom In/Out):"/>
+                        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                            <Button x:Name="SizeDecreaseButton" Content="-" Click="SizeDecrease_Click" Width="30"/>
+                            <TextBlock x:Name="SizeValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                            <Button x:Name="SizeIncreaseButton" Content="+" Click="SizeIncrease_Click" Width="30"/>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
-
-                <!-- Size (Zoom In/Out) -->
-                <StackPanel>
-                    <components:FormFieldLabel Text="Size (Zoom In/Out):"/>
-                    <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
-                        <Button x:Name="SizeDecreaseButton" Content="-" Click="SizeDecrease_Click" Width="30"/>
-                        <TextBlock x:Name="SizeValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
-                        <Button x:Name="SizeIncreaseButton" Content="+" Click="SizeIncrease_Click" Width="30"/>
-                    </StackPanel>
-                </StackPanel>
-
             </StackPanel>
         </ScrollViewer>
 

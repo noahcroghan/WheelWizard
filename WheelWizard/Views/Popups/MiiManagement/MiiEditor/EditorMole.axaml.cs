@@ -26,6 +26,7 @@ public partial class EditorMole : MiiEditorBaseControl
         var currentMole = Editor.Mii.MiiMole;
 
         MoleEnabledCheck.IsChecked = currentMole.Exists;
+        MoleControlsPanel.IsVisible = currentMole.Exists;
 
         UpdateValueTexts(currentMole);
     }
@@ -131,6 +132,7 @@ public partial class EditorMole : MiiEditorBaseControl
         {
             MoleEnabledCheck.IsChecked = current.Exists;
         }
+        MoleControlsPanel.IsVisible = Editor.Mii.MiiMole.Exists;
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateMoleValue(-1, MoleProperty.Vertical);

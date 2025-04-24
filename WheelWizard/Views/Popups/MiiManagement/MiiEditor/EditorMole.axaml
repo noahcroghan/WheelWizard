@@ -25,16 +25,16 @@
 
                 <!-- Enable/Disable Mole -->
                 <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
-                    <components:FormFieldLabel Text="Enable Mole?" VerticalAlignment="Center"/>
                     <CheckBox
                         x:Name="MoleEnabledCheck"
                         IsCheckedChanged="MoleEnabledCheck_OnIsCheckedChanged"
                         VerticalAlignment="Center"
                         />
+                    <components:FormFieldLabel Text="Enable Mole?" VerticalAlignment="Center"/>
                 </StackPanel>
 
                 <!-- Controls Group - Only enabled when Mole is checked -->
-                <StackPanel x:Name="MoleControlsPanel" IsEnabled="{Binding #MoleEnabledCheck.IsChecked}">
+                <StackPanel x:Name="MoleControlsPanel">
 
                     <!-- Vertical Position (Up/Down) -->
                     <StackPanel Margin="0,10,0,0"> <!-- Add margin -->

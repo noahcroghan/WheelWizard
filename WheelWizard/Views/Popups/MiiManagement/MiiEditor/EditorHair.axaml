@@ -46,12 +46,12 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center"> <!-- Mirrored -->
-                    <components:FormFieldLabel Text="Mirrored?" VerticalAlignment="Center"/>
                     <CheckBox
                         x:Name="HairFlippedCheck"
                         IsCheckedChanged="HairFlippedCheck_OnIsCheckedChanged"
                         VerticalAlignment="Center"
                         />
+                    <components:FormFieldLabel Text="Mirrored?" VerticalAlignment="Center"/>
                 </StackPanel>
 
             </StackPanel>

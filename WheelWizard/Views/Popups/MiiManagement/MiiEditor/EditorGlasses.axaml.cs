@@ -41,6 +41,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
         }
 
         UpdateValueTexts(currentGlasses);
+        HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != GlassesType.None;
     }
 
     private void UpdateValueTexts(MiiGlasses glasses)
@@ -132,6 +133,8 @@ public partial class EditorGlasses : MiiEditorBaseControl
         {
             GlassesTypeBox.SelectedItem = current.Type.ToString();
         }
+
+        HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != GlassesType.None;
     }
 
     private void GlassesColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
