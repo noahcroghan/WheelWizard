@@ -8,7 +8,7 @@
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorGeneral">
     <!-- FOR EVERY EDITOR PAGE -->
-    <Grid RowDefinitions="25,*">
+    <Grid RowDefinitions="40,*">
         <TextBlock Classes="BodyText" Margin="10" Text="General" HorizontalAlignment="Right" />
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1"/>
@@ -63,16 +63,6 @@
                             SelectionChanged="FavoriteColorBox_OnSelectionChanged"
                             Width="150"
                             ></ComboBox>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                Margin="20,0,20,0">
-                        <components:FormFieldLabel Text="Favorite?"/>
-                        <CheckBox
-                            x:Name="FavoriteCheckBox"
-                            Click="Favorite_OnClick"
-                            >
-                        </CheckBox>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

@@ -7,13 +7,35 @@
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="800"
              x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorStartPage">
-    <Grid RowDefinitions="25,*,60">
-        <SelectableTextBlock Classes="BodyText" Margin="10" x:Name="MiiName" />
+    <Grid RowDefinitions="40,*,60">
+        <StackPanel Orientation="Horizontal"  Margin="10" Spacing="10">
+            <!-- EmptyStarIcon -->
+            <components:IconLabelButton Text="" VerticalAlignment="Center" x:Name="FavoriteButton" Click="FavoriteButton_OnClick">
+                
+                <components:IconLabelButton.Styles>
+                    <Style Selector="components|IconLabelButton">
+                        <Setter Property="IconData" Value="{StaticResource EmptyStarIcon}" />
+                        <Setter Property="Foreground" Value="{StaticResource TitleTextColor}" />
+                        <Setter Property="HoverForeground" Value="{StaticResource Warning300}" />
+                    </Style>
+                    
+                    <Style Selector="components|IconLabelButton.favorite">
+                        <Setter Property="IconData" Value="{StaticResource StarIcon}" />
+                        <Setter Property="Foreground" Value="{StaticResource Warning500}" />
+                        <Setter Property="HoverForeground" Value="{StaticResource Warning300}" />
+                    </Style>
+                </components:IconLabelButton.Styles>
+            </components:IconLabelButton>
+            <SelectableTextBlock Classes="BodyText" x:Name="MiiName" />
+        </StackPanel>
+        
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1" />
-
+        <Border Grid.Row="2" Background="{StaticResource BackgroundLineColor}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="1" />
+        
         <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="10"
-                    VerticalAlignment="Bottom" HorizontalAlignment="Right" Spacing="10">
+                    VerticalAlignment="Top" HorizontalAlignment="Right" Spacing="10">
             <components:Button Text="{x:Static lang:Common.Action_Cancel}" Variant="Warning"
                                IconData="{StaticResource XMark}" Click="CancelButton_OnClick" />
             <components:Button Text="{x:Static lang:Common.Action_Save}" Variant="Primary"

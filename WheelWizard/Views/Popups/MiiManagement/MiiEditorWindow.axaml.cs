@@ -78,6 +78,15 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
         return await _tcs.Task;
     }
 
+    private void RefreshButton_OnClick(object? sender, RoutedEventArgs e) => RefreshImage();
+
+    public void RefreshImage()
+    {
+        MiiLoadingIcon.IsVisible = true;
+        Mii.ClearImages();
+        Carousel.Mii = Mii;
+    }
+
     #region PropertyChanged
 
     public new event PropertyChangedEventHandler? PropertyChanged;
@@ -88,11 +97,4 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     }
 
     #endregion
-
-    private void RefreshButton_OnClick(object? sender, RoutedEventArgs e)
-    {
-        MiiLoadingIcon.IsVisible = true;
-        Mii.ClearImages();
-        Carousel.Mii = Mii;
-    }
 }

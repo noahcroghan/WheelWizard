@@ -115,13 +115,4 @@ public partial class EditorGeneral : MiiEditorBaseControl
             return;
         Editor.Mii.MiiFavoriteColor = color;
     }
-
-    private void Favorite_OnClick(object? sender, RoutedEventArgs e)
-    {
-        //todo: add a ui indicator for this
-        var isFavorite = FavoriteCheckBox.IsChecked == true;
-        if (isFavorite == Editor.Mii.IsFavorite)
-            return;
-        Editor.Mii.IsFavorite = isFavorite;
-    }
 }

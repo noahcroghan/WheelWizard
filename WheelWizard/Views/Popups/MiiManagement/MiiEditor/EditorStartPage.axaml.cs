@@ -10,6 +10,8 @@ public partial class EditorStartPage : MiiEditorBaseControl
     {
         InitializeComponent();
         MiiName.Text = Editor.Mii.Name.ToString();
+        if (Editor.Mii.IsFavorite)
+            FavoriteButton.Classes.Add("favorite");
     }
 
     private void PopupPageButton_OnClick(object? sender, RoutedEventArgs e)
@@ -26,4 +28,13 @@ public partial class EditorStartPage : MiiEditorBaseControl
     private void CancelButton_OnClick(object? sender, RoutedEventArgs e) => Editor.Close();
 
     private void SaveButton_OnClick(object? sender, RoutedEventArgs e) => Editor.SignalSaveMii();
+
+    private void FavoriteButton_OnClick(object? sender, EventArgs e)
+    {
+        Editor.Mii.IsFavorite = !Editor.Mii.IsFavorite;
+
+        FavoriteButton.Classes.Clear();
+        if (Editor.Mii.IsFavorite)
+            FavoriteButton.Classes.Add("favorite");
+    }
 }

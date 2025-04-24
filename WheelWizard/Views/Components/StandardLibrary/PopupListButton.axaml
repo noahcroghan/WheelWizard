@@ -24,7 +24,7 @@
   <Style Selector="components|PopupListButton">
     <Setter Property="Background" Value="{DynamicResource Neutral900}" />
     <Setter Property="Foreground" Value="{DynamicResource Neutral400}" />
-    <Setter Property="Height" Value="50" />
+    <Setter Property="Height" Value="48" />
    <Setter Property="HorizontalAlignment" Value="Stretch"/>
     <Setter Property="Template">
       <ControlTemplate>

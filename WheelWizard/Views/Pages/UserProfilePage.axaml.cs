@@ -246,35 +246,6 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         ViewUtils.ShowSnackbar("Mii changed successfully");
     }
 
-    private async void OpenMiiEditor_Click(object? sender, RoutedEventArgs e)
-    {
-        var availableMiis = MiiDbService.GetAllMiis().ToList();
-        if (!availableMiis.Any())
-        {
-            new MessageBoxWindow()
-                .SetTitleText("No Miis Found")
-                .SetInfoText("There are no other Miis available to select.")
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .Show();
-            return;
-        }
-        var selectorPopup = new MiiSelectorPopup(availableMiis, CurrentMii);
-        var selectedMiiResult = await selectorPopup.ShowDialogAsync();
-        if (selectedMiiResult == null)
-            return;
-        CurrentMii = selectedMiiResult;
-        var result = GameLicenseService.ChangeMii(_currentUserIndex, CurrentMii);
-
-        if (result.IsFailure)
-        {
-            new MessageBoxWindow()
-                .SetTitleText("Failed to Change Mii")
-                .SetInfoText(result.Error!.Message)
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .Show();
-        }
-    }
-
     private void ViewRoom_OnClick(object? sender, RoutedEventArgs e)
     {
         foreach (var room in RRLiveRooms.Instance.CurrentRooms)

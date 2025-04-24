@@ -7,7 +7,6 @@
              xmlns:components="clr-namespace:WheelWizard.Views.Components"
              xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
              xmlns:pages="clr-namespace:WheelWizard.Views.Pages"
-             xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
              x:Class="WheelWizard.Views.Pages.UserProfilePage"
              x:DataType="pages:UserProfilePage">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -119,10 +118,6 @@
                                                                 HoverForeground="{StaticResource Neutral400}" />
                                 </StackPanel>
                             </StackPanel>
-                            <components:Button Click="OpenMiiEditor_Click" Text="Mii"
-                                               HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                               Margin="0,0,10,10" Width="60" Height="40"/>
-
                             <components:Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="6"
                                                IconData="{StaticResource Shirt}" Click="OpenMiiSelector_Click"
                                                IconSize="20" Padding="8" CornerRadius="9999" />

@@ -12,5 +12,7 @@ public class MiiEditorBaseControl : UserControlBase
         Editor.SetEditorPage(typeof(EditorStartPage));
     }
 
+    protected void RefreshImage() => Editor.RefreshImage();
+
     protected virtual void BeforeBack() { }
 }

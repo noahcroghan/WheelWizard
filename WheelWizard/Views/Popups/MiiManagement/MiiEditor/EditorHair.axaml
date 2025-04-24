@@ -7,7 +7,7 @@
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorHair">
     <!-- FOR EVERY EDITOR PAGE -->
-    <Grid RowDefinitions="25,*">
+    <Grid RowDefinitions="40,*">
         <!-- Updated Title -->
         <TextBlock Classes="BodyText" Margin="10" Text="Hair" HorizontalAlignment="Right" />
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
