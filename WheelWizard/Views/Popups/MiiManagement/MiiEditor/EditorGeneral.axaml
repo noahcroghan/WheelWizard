@@ -40,6 +40,41 @@
                     </StackPanel>
                 </StackPanel>
              
+             <StackPanel>
+                 <components:FormFieldLabel Text="Height:"/>
+                 <Slider 
+                     x:Name="LengthSlider"
+                     ValueChanged="Length_OnValueChanged"
+                     Minimum="0" Maximum="127"
+                     Width="150" ></Slider>
+                 
+                 <components:FormFieldLabel Text="Width:"/>
+                 <Slider 
+                     x:Name="WidthSlider"
+                     ValueChanged="Width_OnValueChanged"
+                     Minimum="0" Maximum="127"
+                     Width="150" ></Slider>
+             </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <components:FormFieldLabel Text="Favorite Color:"/>
+                        <ComboBox
+                            x:Name="FavoriteColorBox"
+                            SelectionChanged="FavoriteColorBox_OnSelectionChanged"
+                            Width="150"
+                            ></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Margin="20,0,20,0">
+                        <components:FormFieldLabel Text="Favorite?"/>
+                        <CheckBox
+                            x:Name="FavoriteCheckBox"
+                            Click="Favorite_OnClick"
+                            >
+                        </CheckBox>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

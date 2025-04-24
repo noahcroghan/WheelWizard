@@ -25,12 +25,24 @@
             <StackPanel>
                 <components:PopupListButton Click="PopupPageButton_OnClick" Text="General"
                                             Type="{x:Type editor:EditorGeneral}" />
-                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Hair"
-                                            Type="{x:Type editor:EditorEmpty}" />
                 <components:PopupListButton Click="PopupPageButton_OnClick" Text="Face"
-                                            Type="{x:Type editor:EditorEmpty}" />
+                                            Type="{x:Type editor:EditorFace}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Hair"
+                                            Type="{x:Type editor:EditorHair}" />
                 <components:PopupListButton Click="PopupPageButton_OnClick" Text="Eyebrows"
-                                            Type="{x:Type editor:EditorEmpty}" />
+                                            Type="{x:Type editor:EditorEyebrows}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Eyes"
+                                            Type="{x:Type editor:EditorEyes}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Nose"
+                                            Type="{x:Type editor:EditorNose}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Lips"
+                                            Type="{x:Type editor:EditorLips}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Glasses"
+                                            Type="{x:Type editor:EditorGlasses}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Facial Hair"
+                                            Type="{x:Type editor:EditorFacialHair}" />
+                <components:PopupListButton Click="PopupPageButton_OnClick" Text="Mole"
+                                            Type="{x:Type editor:EditorMole}" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

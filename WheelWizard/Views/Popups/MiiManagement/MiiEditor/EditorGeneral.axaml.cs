@@ -1,5 +1,7 @@
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 
@@ -12,10 +14,22 @@ public partial class EditorGeneral : MiiEditorBaseControl
         : base(ew)
     {
         InitializeComponent();
+        PopulateValues();
+    }
 
+    private void PopulateValues()
+    {
         MiiName.Text = Editor.Mii.Name.ToString();
         CreatorName.Text = Editor.Mii.CreatorName.ToString();
         GirlToggle.IsChecked = Editor.Mii.IsGirl;
+        LengthSlider.Value = Editor.Mii.Height.Value;
+        WidthSlider.Value = Editor.Mii.Weight.Value;
+        foreach (var color in Enum.GetNames(typeof(MiiFavoriteColor)))
+        {
+            FavoriteColorBox.Items.Add(color);
+            if (color == Editor.Mii.MiiFavoriteColor.ToString())
+                FavoriteColorBox.SelectedItem = color;
+        }
     }
 
     protected override void BeforeBack()
@@ -57,5 +71,57 @@ public partial class EditorGeneral : MiiEditorBaseControl
             return Fail("Creator name must be less than 10 characters long.");
 
         return Ok();
+    }
+
+    private void Length_OnValueChanged(object? sender, RangeBaseValueChangedEventArgs e)
+    {
+        var length = (int)LengthSlider.Value;
+        if (length > 127)
+            length = 127;
+        if (length < 0)
+            length = 0;
+        var heightResult = MiiScale.Create((byte)length);
+        if (heightResult.IsFailure)
+        {
+            ViewUtils.ShowSnackbar("Something went wrong while setting the height: " + heightResult.Error.Message);
+            return;
+        }
+        Editor.Mii.Height = heightResult.Value;
+    }
+
+    private void Width_OnValueChanged(object? sender, RangeBaseValueChangedEventArgs e)
+    {
+        var width = (int)WidthSlider.Value;
+        if (width > 127)
+            width = 127;
+        if (width < 0)
+            width = 0;
+        var weightResult = MiiScale.Create((byte)width);
+        if (weightResult.IsFailure)
+        {
+            ViewUtils.ShowSnackbar("Something went wrong while setting the weight: " + weightResult.Error.Message);
+            return;
+        }
+        Editor.Mii.Weight = weightResult.Value;
+    }
+
+    private void FavoriteColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        var value = FavoriteColorBox.SelectedItem;
+        if (value is null)
+            return;
+        var color = (MiiFavoriteColor)Enum.Parse(typeof(MiiFavoriteColor), value.ToString()!);
+        if (color == Editor.Mii.MiiFavoriteColor)
+            return;
+        Editor.Mii.MiiFavoriteColor = color;
+    }
+
+    private void Favorite_OnClick(object? sender, RoutedEventArgs e)
+    {
+        //todo: add a ui indicator for this
+        var isFavorite = FavoriteCheckBox.IsChecked == true;
+        if (isFavorite == Editor.Mii.IsFavorite)
+            return;
+        Editor.Mii.IsFavorite = isFavorite;
     }
 }

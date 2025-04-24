@@ -1,0 +1,79 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="550"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+             x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorFacialHair">
+    <!-- FOR EVERY EDITOR PAGE -->
+    <Grid RowDefinitions="25,*">
+        <!-- Updated Title -->
+        <TextBlock Classes="BodyText" Margin="10" Text="Facial Hair" HorizontalAlignment="Right" />
+        <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1"/>
+        <components:IconLabelButton Grid.Row="0" Text="{x:Static lang:Common.Action_Back}" IconData="{StaticResource ArrowLeft}"
+                                    Click="BackButton_OnClick" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0"
+                                    Foreground="{StaticResource TitleTextColor}" FontSize="16"
+                                    HoverForeground="{StaticResource Primary200}"/>
+
+        <!-- END OF EVERY EDITOR PAGE -->
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="15">
+                <!-- The list of elements you want to edit in this page -->
+
+                <StackPanel> <!-- Mustache Type -->
+                    <components:FormFieldLabel Text="Mustache Type:"/>
+                    <ComboBox
+                        x:Name="MustacheTypeBox"
+                        SelectionChanged="MustacheTypeBox_OnSelectionChanged"
+                        Width="150"
+                        MaxDropDownHeight="200"
+                        />
+                </StackPanel>
+
+                <StackPanel> <!-- Beard Type -->
+                    <components:FormFieldLabel Text="Beard Type:"/>
+                    <ComboBox
+                        x:Name="BeardTypeBox"
+                        SelectionChanged="BeardTypeBox_OnSelectionChanged"
+                        Width="150"
+                        MaxDropDownHeight="200"
+                        />
+                </StackPanel>
+
+                 <StackPanel> <!-- Facial Hair Color -->
+                    <components:FormFieldLabel Text="Facial Hair Color:"/>
+                    <ComboBox
+                        x:Name="MustacheColorBox"
+                        SelectionChanged="FacialHairColorBox_OnSelectionChanged"
+                        Width="150"
+                        />
+                </StackPanel>
+
+                <!-- Vertical Position (Up/Down) -->
+                <StackPanel>
+                    <components:FormFieldLabel Text="Vertical Position (Up/Down):"/>
+                    <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                        <Button x:Name="VerticalDecreaseButton" Content="-" Click="VerticalDecrease_Click" Width="30"/>
+                        <TextBlock x:Name="VerticalValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        <Button x:Name="VerticalIncreaseButton" Content="+" Click="VerticalIncrease_Click" Width="30"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Size (Zoom In/Out) -->
+                <StackPanel>
+                    <components:FormFieldLabel Text="Size (Zoom In/Out):"/>
+                    <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                        <Button x:Name="SizeDecreaseButton" Content="-" Click="SizeDecrease_Click" Width="30"/>
+                        <TextBlock x:Name="SizeValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                        <Button x:Name="SizeIncreaseButton" Content="+" Click="SizeIncrease_Click" Width="30"/>
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

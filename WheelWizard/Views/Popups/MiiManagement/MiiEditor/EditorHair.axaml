@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+             x:Class="WheelWizard.Views.Popups.MiiManagement.MiiEditor.EditorHair">
+    <!-- FOR EVERY EDITOR PAGE -->
+    <Grid RowDefinitions="25,*">
+        <!-- Updated Title -->
+        <TextBlock Classes="BodyText" Margin="10" Text="Hair" HorizontalAlignment="Right" />
+        <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
+                HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1"/>
+        <components:IconLabelButton Grid.Row="0" Text="{x:Static lang:Common.Action_Back}" IconData="{StaticResource ArrowLeft}"
+                                    Click="BackButton_OnClick" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0"
+                                    Foreground="{StaticResource TitleTextColor}" FontSize="16"
+                                    HoverForeground="{StaticResource Primary200}"/>
+
+        <!-- END OF EVERY EDITOR PAGE -->
+
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="10">
+                <!-- The list of elements you want to edit in this page -->
+
+                <StackPanel> <!-- Hair Type -->
+                    <components:FormFieldLabel Text="Hair Type:"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                        <ComboBox
+                            x:Name="HairTypeBox"
+                            SelectionChanged="HairTypeBox_OnSelectionChanged"
+                            Width="150"
+                            MaxDropDownHeight="200"
+                        />
+                         <TextBlock x:Name="HairTypeValueText" Classes="BodyText" MinWidth="20"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel> <!-- Hair Color -->
+                    <components:FormFieldLabel Text="Hair Color:"/>
+                    <ComboBox
+                        x:Name="HairColorBox"
+                        SelectionChanged="HairColorBox_OnSelectionChanged"
+                        Width="150"
+                        />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center"> <!-- Mirrored -->
+                    <components:FormFieldLabel Text="Mirrored?" VerticalAlignment="Center"/>
+                    <CheckBox
+                        x:Name="HairFlippedCheck"
+                        IsCheckedChanged="HairFlippedCheck_OnIsCheckedChanged"
+                        VerticalAlignment="Center"
+                        />
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>
