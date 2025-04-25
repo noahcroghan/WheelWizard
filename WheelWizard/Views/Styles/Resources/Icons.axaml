@@ -3,7 +3,7 @@
                     xmlns:util="clr-namespace:WheelWizard.Styles.Util">
     <Design.PreviewWith>
         <Border Padding="20" Background="#8B91A5">
-            <UniformGrid Columns="5">
+            <UniformGrid Columns="7">
                 <!-- 0 -->
                 <util:IconExampleComponent IconData="{DynamicResource WheelIcon}" IconName="WheelIcon"/>
                 <util:IconExampleComponent IconData="{DynamicResource FlatWheel}" IconName="FlatWheel"/>
