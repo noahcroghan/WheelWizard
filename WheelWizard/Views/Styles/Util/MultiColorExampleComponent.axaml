@@ -15,7 +15,7 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <StackPanel Spacing="5" Margin="5">
-                    <Border Height="150" BorderThickness="1" BorderBrush="#EDEDF1">
+                    <Border Height="150" BorderThickness="1" BorderBrush="#EDEDF1" HorizontalAlignment="Center">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"
                                     Spacing="5">
                             <comps:MultiColoredIcon IconData="{TemplateBinding IconData}"
