@@ -13,6 +13,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="Styles/Resources/Constants.axaml" />
                 <ResourceInclude Source="Styles/Resources/Icons.axaml" />
+                <ResourceInclude Source="Styles/Resources/MultiIcons.axaml" />
+                
+                <ResourceInclude Source="Styles/Resources/MiiIcons/MiiHair.axaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- CONVERTERS -->
@@ -23,6 +26,10 @@
 
     <Application.Styles>
         <FluentTheme />
+        <!-- !!Only used for the designer!! -->
+        <StyleInclude Source="Styles/Util/MultiColorExampleComponent.axaml" />
+        <!-- !!Only used for the designer!! -->
+        
         <!-- STYLES -->
         <StyleInclude Source="Styles/Styles/ButtonStyles.axaml" />
         <StyleInclude Source="Styles/Styles/TextStyles.axaml" />
@@ -32,6 +39,7 @@
         <StyleInclude Source="Styles/Styles/DropdownStyles.axaml" />
 
         <!-- STANDARD COMPONENTS -->
+        <StyleInclude Source="Components/StandardLibrary/MultiColoredIcon.axaml" />
         <StyleInclude Source="Components/StandardLibrary/IconLabel.axaml" />
         <StyleInclude Source="Components/StandardLibrary/IconLabelButton.axaml" />
         <StyleInclude Source="Components/StandardLibrary/Button.axaml" />
