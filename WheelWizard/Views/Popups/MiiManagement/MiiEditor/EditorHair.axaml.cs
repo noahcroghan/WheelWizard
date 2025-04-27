@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -18,10 +20,7 @@ public partial class EditorHair : MiiEditorBaseControl
     private void PopulateValues()
     {
         var currentHair = Editor.Mii.MiiHair;
-        HairTypeBox.Items.Clear();
-        var hairTypes = Enumerable.Range(0, 72).Cast<object>().ToList();
-        HairTypeBox.ItemsSource = hairTypes;
-        HairTypeBox.SelectedItem = currentHair.HairType;
+        GenerateHairButtons();
 
         HairColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(HairColor)))
@@ -34,26 +33,40 @@ public partial class EditorHair : MiiEditorBaseControl
         HairFlippedCheck.IsChecked = currentHair.HairFlipped;
     }
 
-    private void HairTypeBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void GenerateHairButtons()
     {
-        if (Editor?.Mii?.MiiHair == null || !IsLoaded || HairTypeBox.SelectedItem == null)
-            return;
+        var Color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var Color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var Color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
+        var Color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
+        var Color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
+        var SelectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
 
-        if (HairTypeBox.SelectedItem is not int newHairType) // Safely check and cast
+        for (var i = 0; i <= 71; i++)
         {
-            return;
+            var index = i;
+            var button = new MultiIconRadioButton()
+            {
+                IsChecked = index == Editor.Mii.MiiHair.HairType,
+                Margin = new(6),
+                IconData = GetMiiIconData($"Hair{index}"),
+                Color1 = Color1,
+                Color2 = Color2,
+                Color3 = Color3,
+                Color4 = Color4,
+                Color5 = Color5,
+
+                SelectedColor3 = SelectedColor3,
+            };
+
+            button.Click += (_, _) => SetHairType(index);
+            HairTypesGrid.Children.Add(button);
         }
+    }
 
-        var currentHair = Editor.Mii.MiiHair;
-        if (newHairType == currentHair.HairType)
-            return;
-
-        var result = MiiHair.Create(newHairType, currentHair.HairColor, currentHair.HairFlipped);
-
-        if (result.IsFailure)
-            return;
-
-        Editor.Mii.MiiHair = result.Value;
+    private void SetHairType(int type)
+    {
+        Editor.Mii.MiiHair = new(type, Editor.Mii.MiiHair.HairColor, Editor.Mii.MiiHair.HairFlipped);
         Editor.Mii.ClearImages();
     }
 

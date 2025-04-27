@@ -23,19 +23,6 @@
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="10">
                 <!-- The list of elements you want to edit in this page -->
 
-                <StackPanel> <!-- Hair Type -->
-                    <components:FormFieldLabel Text="Hair Type:"/>
-                    <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
-                        <ComboBox
-                            x:Name="HairTypeBox"
-                            SelectionChanged="HairTypeBox_OnSelectionChanged"
-                            Width="150"
-                            MaxDropDownHeight="200"
-                        />
-                         <TextBlock x:Name="HairTypeValueText" Classes="BodyText" MinWidth="20"/>
-                    </StackPanel>
-                </StackPanel>
-
                 <StackPanel> <!-- Hair Color -->
                     <components:FormFieldLabel Text="Hair Color:"/>
                     <ComboBox
@@ -54,6 +41,10 @@
                     <components:FormFieldLabel Text="Mirrored?" VerticalAlignment="Center"/>
                 </StackPanel>
 
+                <components:FormFieldLabel Text="Hair Type:"/>
+                <UniformGrid Columns="5" x:Name="HairTypesGrid">
+                    <!-- Generated elements -->
+                </UniformGrid>
             </StackPanel>
         </ScrollViewer>
 

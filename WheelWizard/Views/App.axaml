@@ -41,6 +41,7 @@
 
         <!-- STANDARD COMPONENTS -->
         <StyleInclude Source="Components/StandardLibrary/MultiColoredIcon.axaml" />
+        <StyleInclude Source="Components/StandardLibrary/MultiIconRadioButton.axaml" />
         <StyleInclude Source="Components/StandardLibrary/IconLabel.axaml" />
         <StyleInclude Source="Components/StandardLibrary/IconLabelButton.axaml" />
         <StyleInclude Source="Components/StandardLibrary/Button.axaml" />

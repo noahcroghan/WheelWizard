@@ -3,16 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:miiCreatorTabs="clr-namespace:WheelWizard.Views.Popups.MiiCreatorTabs"
-             xmlns:converters="clr-namespace:WheelWizard.Views.Converters"
-             xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="350"
              x:Class="WheelWizard.Views.Popups.MiiCreatorTabs.MiiCreatorGeneralPage"
              x:DataType="miiCreatorTabs:MiiCreatorGeneralPage">
-
-    <UserControl.Resources>
-        <converters:NotConverter x:Key="NotConverter"/>
-    </UserControl.Resources>
-
+    
     <Grid>
         <StackPanel Margin="10" Spacing="10">
             <TextBlock Text="Mii Name:" />
