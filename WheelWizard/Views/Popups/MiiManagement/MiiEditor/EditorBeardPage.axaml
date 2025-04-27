@@ -25,12 +25,9 @@
 
                 <StackPanel> <!-- Mustache Type -->
                     <components:FormFieldLabel Text="Mustache Type:"/>
-                    <ComboBox
-                        x:Name="MustacheTypeBox"
-                        SelectionChanged="MustacheTypeBox_OnSelectionChanged"
-                        Width="150"
-                        MaxDropDownHeight="200"
-                        />
+                    <UniformGrid Columns="5" x:Name="MustacheTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
                 </StackPanel>
 
                 <StackPanel> <!-- Beard Type -->

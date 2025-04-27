@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -23,16 +25,64 @@ public partial class EditorNose : MiiEditorBaseControl
     private void PopulateValues()
     {
         var currentNose = Editor.Mii.MiiNose;
-
-        NoseTypeBox.Items.Clear();
-        foreach (var type in Enum.GetNames(typeof(NoseType)))
-        {
-            NoseTypeBox.Items.Add(type);
-            if (type == currentNose.Type.ToString())
-                NoseTypeBox.SelectedItem = type;
-        }
-
+        GenerateNoseButtons();
         UpdateValueTexts(currentNose);
+    }
+
+    private void GenerateNoseButtons()
+    {
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
+        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
+
+        SetButtons(
+            "MiiNose",
+            11,
+            NoseTypesGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiNose.Type;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.Color5 = color5;
+                button.Click += (_, _) => SetNoseType(index);
+                button.SelectedColor3 = selectedColor3;
+            }
+        );
+    }
+
+    private void SetNoseType(int index)
+    {
+        if (Editor?.Mii?.MiiNose == null || !IsLoaded)
+            return;
+        var current = Editor.Mii.MiiNose;
+        var noseType = (NoseType)index;
+        var result = MiiNose.Create(noseType, current.Size, current.Vertical);
+        if (result.IsSuccess)
+        {
+            Editor.Mii.MiiNose = result.Value;
+            Editor.Mii.ClearImages();
+            UpdateValueTexts(result.Value);
+        }
+        else
+        {
+            // Reset the button to the current type if creation fails
+            foreach (var child in NoseTypesGrid.Children)
+            {
+                if (child is MultiIconRadioButton button && button.IsChecked == true)
+                {
+                    button.IsChecked = false;
+                }
+            }
+
+            var currentButton = NoseTypesGrid.Children[index] as MultiIconRadioButton;
+            currentButton.IsChecked = true;
+        }
     }
 
     private void UpdateValueTexts(MiiNose nose)
@@ -99,30 +149,6 @@ public partial class EditorNose : MiiEditorBaseControl
             Editor.Mii.MiiNose = result.Value;
             Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value);
-        }
-    }
-
-    private void NoseTypeBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || NoseTypeBox.SelectedItem == null || Editor?.Mii?.MiiNose == null)
-            return;
-        if (NoseTypeBox.SelectedItem is not string typeStr)
-            return;
-
-        var newType = (NoseType)Enum.Parse(typeof(NoseType), typeStr);
-        var current = Editor.Mii.MiiNose;
-        if (newType == current.Type)
-            return;
-
-        var result = MiiNose.Create(newType, current.Size, current.Vertical);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiNose = result.Value;
-            Editor.Mii.ClearImages();
-        }
-        else
-        {
-            NoseTypeBox.SelectedItem = current.Type.ToString();
         }
     }
 

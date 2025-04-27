@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -23,16 +25,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
     private void PopulateValues()
     {
         var currentFacialHair = Editor.Mii.MiiFacialHair;
-
-        // Populate Mustache Type ComboBox
-        MustacheTypeBox.Items.Clear();
-        foreach (var type in Enum.GetNames(typeof(MustacheType)))
-        {
-            MustacheTypeBox.Items.Add(type);
-            if (type == currentFacialHair.MustacheType.ToString())
-                MustacheTypeBox.SelectedItem = type;
-        }
-
+        GenerateMustacheButtons();
         // Populate Beard Type ComboBox
         BeardTypeBox.Items.Clear();
         foreach (var type in Enum.GetNames(typeof(BeardType)))
@@ -53,6 +46,59 @@ public partial class EditorFacialHair : MiiEditorBaseControl
 
         // Populate TextBlocks
         UpdateValueTexts(currentFacialHair);
+    }
+
+    private void GenerateMustacheButtons()
+    {
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
+        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
+
+        SetButtons(
+            "MiiMustache",
+            3,
+            MustacheTypesGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiFacialHair.MustacheType;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.Color5 = color5;
+                button.Click += (_, _) => SetMustacheType(index);
+                button.SelectedColor3 = selectedColor3;
+            }
+        );
+    }
+
+    private void SetMustacheType(int index)
+    {
+        if (Editor?.Mii?.MiiFacialHair == null || !IsLoaded)
+            return;
+        var current = Editor.Mii.MiiFacialHair;
+        var mustacheType = (MustacheType)index;
+        var result = MiiFacialHair.Create(mustacheType, current.BeardType, current.Color, current.Size, current.Vertical);
+        if (result.IsSuccess)
+        {
+            Editor.Mii.MiiFacialHair = result.Value;
+            Editor.Mii.ClearImages();
+            UpdateValueTexts(result.Value); // Update UI TextBlocks
+        }
+        else
+        {
+            // Reset the button to the current type if creation fails
+            foreach (var child in MustacheTypesGrid.Children)
+            {
+                if (child is MultiIconRadioButton button && button.IsChecked == true)
+                {
+                    button.IsChecked = false;
+                }
+            }
+        }
     }
 
     private void UpdateValueTexts(MiiFacialHair facialHair)
@@ -126,31 +172,6 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         else
         {
             ViewUtils.ShowSnackbar($"Error: {result.Error.Message}");
-        }
-    }
-
-    // --- ComboBox Handlers ---
-    private void MustacheTypeBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || MustacheTypeBox.SelectedItem == null || Editor?.Mii?.MiiFacialHair == null)
-            return;
-        if (MustacheTypeBox.SelectedItem is not string typeStr)
-            return;
-
-        var newType = (MustacheType)Enum.Parse(typeof(MustacheType), typeStr);
-        var current = Editor.Mii.MiiFacialHair;
-        if (newType == current.MustacheType)
-            return;
-
-        var result = MiiFacialHair.Create(newType, current.BeardType, current.Color, current.Size, current.Vertical);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiFacialHair = result.Value;
-            Editor.Mii.ClearImages();
-        }
-        else
-        {
-            MustacheTypeBox.SelectedItem = current.MustacheType.ToString(); // Revert combo
         }
     }
 

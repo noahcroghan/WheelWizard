@@ -22,16 +22,11 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="15">
                 <!-- The list of elements you want to edit in this page -->
-
-                <StackPanel> <!-- Nose Type -->
-                    <components:FormFieldLabel Text="Nose Type:"/>
-                    <ComboBox
-                        x:Name="NoseTypeBox"
-                        SelectionChanged="NoseTypeBox_OnSelectionChanged"
-                        Width="150"
-                        MaxDropDownHeight="200"
-                        />
-                </StackPanel>
+                <!-- NoseType -->
+                <components:FormFieldLabel Text="Nose Type:"/>
+                <UniformGrid Columns="5" x:Name="NoseTypesGrid">
+                    <!-- Generated elements -->
+                </UniformGrid>
 
                 <!-- Vertical Position (Up/Down) -->
                 <StackPanel>
