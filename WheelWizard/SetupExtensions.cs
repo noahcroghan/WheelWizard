@@ -5,6 +5,7 @@ using WheelWizard.AutoUpdating;
 using WheelWizard.Branding;
 using WheelWizard.GameBanana;
 using WheelWizard.GitHub;
+using WheelWizard.MiiImages;
 using WheelWizard.RrRooms;
 using WheelWizard.Shared.Services;
 using WheelWizard.WheelWizardData;
@@ -27,6 +28,7 @@ public static class SetupExtensions
         services.AddWhWzData();
         services.AddWiiManagement();
         services.AddGameBanana();
+        services.AddMiiImages();
 
         // IO Abstractions
         services.AddSingleton<IFileSystem, RealFileSystem>();

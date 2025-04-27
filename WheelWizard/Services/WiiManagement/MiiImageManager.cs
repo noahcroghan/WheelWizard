@@ -1,7 +1,9 @@
 ﻿using System.Text;
 using Avalonia.Media.Imaging;
+using WheelWizard.MiiImages;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.Services.WiiManagement.SaveData;
+using WheelWizard.Views;
 
 namespace WheelWizard.Services.WiiManagement;
 
@@ -363,7 +365,7 @@ public static class MiiImageManager
                 Console.WriteLine($"Received empty image stream from {fullImageUrl}.");
                 return (null, false);
             }
-
+            
             var bitmap = new Bitmap(memoryStream); // Bitmap constructor reads from the stream
             return (bitmap, true); // Success
         }
