@@ -35,23 +35,23 @@ public partial class EditorHair : MiiEditorBaseControl
 
     private void GenerateHairButtons()
     {
-        var Color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
-        var Color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var Color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
-        var Color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
-        var Color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
-        var SelectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
+        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
 
         SetButtons("MiiHair", 71, HairTypesGrid, (index, button) =>
             {
                 button.IsChecked = index == Editor.Mii.MiiHair.HairType;
-                button.Color1 = Color1;
-                button.Color2 = Color2;
-                button.Color3 = Color3;
-                button.Color4 = Color4;
-                button.Color5 = Color5;
-                button.Click += (s, e) => SetHairType(index);
-                button.SelectedColor3 = SelectedColor3;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.Color5 = color5;
+                button.Click += (_, _) => SetHairType(index);
+                button.SelectedColor3 = selectedColor3;
             }
         );
     }
