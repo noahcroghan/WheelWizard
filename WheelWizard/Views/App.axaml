@@ -24,6 +24,7 @@
                 <ResourceInclude Source="Styles/Resources/MiiIcons/MiiMouth.axaml" />
                 <ResourceInclude Source="Styles/Resources/MiiIcons/MiiFace.axaml" />
                 <ResourceInclude Source="Styles/Resources/MiiIcons/MiiMustache.axaml" />
+                <ResourceInclude Source="Styles/Resources/MiiIcons/MiiGoatee.axaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- CONVERTERS -->

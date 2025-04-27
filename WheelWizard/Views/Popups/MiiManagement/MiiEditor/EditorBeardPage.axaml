@@ -32,12 +32,9 @@
 
                 <StackPanel> <!-- Beard Type -->
                     <components:FormFieldLabel Text="Beard Type:"/>
-                    <ComboBox
-                        x:Name="BeardTypeBox"
-                        SelectionChanged="BeardTypeBox_OnSelectionChanged"
-                        Width="150"
-                        MaxDropDownHeight="200"
-                        />
+                    <UniformGrid Columns="5" x:Name="BeardTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
                 </StackPanel>
 
                  <StackPanel> <!-- Facial Hair Color -->

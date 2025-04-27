@@ -26,15 +26,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
     {
         var currentFacialHair = Editor.Mii.MiiFacialHair;
         GenerateMustacheButtons();
-        // Populate Beard Type ComboBox
-        BeardTypeBox.Items.Clear();
-        foreach (var type in Enum.GetNames(typeof(BeardType)))
-        {
-            BeardTypeBox.Items.Add(type);
-            if (type == currentFacialHair.BeardType.ToString())
-                BeardTypeBox.SelectedItem = type;
-        }
-
+        GenerateBeardButtons(); //also known as goatee internally
         // Populate Facial Hair Color ComboBox
         MustacheColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(MustacheColor))) // Using MustacheColor enum
@@ -46,6 +38,58 @@ public partial class EditorFacialHair : MiiEditorBaseControl
 
         // Populate TextBlocks
         UpdateValueTexts(currentFacialHair);
+    }
+
+    private void GenerateBeardButtons()
+    {
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Skin border Color
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
+        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
+        SetButtons(
+            "MiiGoatee",
+            3,
+            BeardTypesGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiFacialHair.BeardType;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.Color5 = color5;
+                button.Click += (_, _) => SetBeardType(index);
+                button.SelectedColor3 = selectedColor3;
+            }
+        );
+    }
+
+    private void SetBeardType(int index)
+    {
+        if (Editor?.Mii?.MiiFacialHair == null || !IsLoaded)
+            return;
+        var current = Editor.Mii.MiiFacialHair;
+        var beardType = (BeardType)index;
+        var result = MiiFacialHair.Create(current.MustacheType, beardType, current.Color, current.Size, current.Vertical);
+        if (result.IsSuccess)
+        {
+            Editor.Mii.MiiFacialHair = result.Value;
+            Editor.Mii.ClearImages();
+            UpdateValueTexts(result.Value); // Update UI TextBlocks
+        }
+        else
+        {
+            // Reset the button to the current type if creation fails
+            foreach (var child in BeardTypesGrid.Children)
+            {
+                if (child is MultiIconRadioButton button && button.IsChecked == true)
+                {
+                    button.IsChecked = false;
+                }
+            }
+        }
     }
 
     private void GenerateMustacheButtons()
@@ -172,30 +216,6 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         else
         {
             ViewUtils.ShowSnackbar($"Error: {result.Error.Message}");
-        }
-    }
-
-    private void BeardTypeBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || BeardTypeBox.SelectedItem == null || Editor?.Mii?.MiiFacialHair == null)
-            return;
-        if (BeardTypeBox.SelectedItem is not string typeStr)
-            return;
-
-        var newType = (BeardType)Enum.Parse(typeof(BeardType), typeStr);
-        var current = Editor.Mii.MiiFacialHair;
-        if (newType == current.BeardType)
-            return;
-
-        var result = MiiFacialHair.Create(current.MustacheType, newType, current.Color, current.Size, current.Vertical);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiFacialHair = result.Value;
-            Editor.Mii.ClearImages();
-        }
-        else
-        {
-            BeardTypeBox.SelectedItem = current.BeardType.ToString(); // Rever
         }
     }
 
