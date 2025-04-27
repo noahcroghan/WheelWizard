@@ -3,6 +3,7 @@ using Avalonia.Interactivity;
 using Avalonia.Threading;
 using WheelWizard.Views.Popups.Base;
 using WheelWizard.Views.Popups.MiiManagement.MiiEditor;
+using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement;
@@ -50,6 +51,7 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     public MiiEditorWindow SetMii(Mii miiToEdit)
     {
         Window.WindowTitle = $"Mii Editor - {miiToEdit.Name}";
+        // var miiResult = miiToEdit.Clone();
         Mii = miiToEdit;
         return this;
     }
