@@ -20,7 +20,7 @@ DEFAULT_UNMAPPED_BRUSH = "Black"
 
 # Preview Configuration
 PREVIEW_NAMESPACE_UTIL = "clr-namespace:WheelWizard.Styles.Util" # ADJUST THIS
-MAX_PREVIEW_ITEMS = 15 # Limit how many icons show in the preview (increased slightly)
+MAX_PREVIEW_ITEMS = 79 # Limit how many icons show in the preview (increased slightly)
 
 # --- Helper Functions (normalize_color, get_avalonia_brush_attribute - unchanged) ---
 def normalize_color(color_str):
