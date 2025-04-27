@@ -7,504 +7,525 @@
     <Design.PreviewWith>
         <Border Padding="20" Background="{StaticResource Neutral400}">
             <UniformGrid Columns="5">
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair0}" IconName="Hair0"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair00}" IconName="MiiHair00"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair1}" IconName="Hair1"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair01}" IconName="MiiHair01"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair10}" IconName="Hair10"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair02}" IconName="MiiHair02"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair11}" IconName="Hair11"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair03}" IconName="MiiHair03"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair12}" IconName="Hair12"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair04}" IconName="MiiHair04"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair13}" IconName="Hair13"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair05}" IconName="MiiHair05"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair14}" IconName="Hair14"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair06}" IconName="MiiHair06"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair15}" IconName="Hair15"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair07}" IconName="MiiHair07"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair16}" IconName="Hair16"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair08}" IconName="MiiHair08"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair17}" IconName="Hair17"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair09}" IconName="MiiHair09"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair18}" IconName="Hair18"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair10}" IconName="MiiHair10"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair19}" IconName="Hair19"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair11}" IconName="MiiHair11"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair2}" IconName="Hair2"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair12}" IconName="MiiHair12"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair20}" IconName="Hair20"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair13}" IconName="MiiHair13"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair21}" IconName="Hair21"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair14}" IconName="MiiHair14"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair22}" IconName="Hair22"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair15}" IconName="MiiHair15"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair23}" IconName="Hair23"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair16}" IconName="MiiHair16"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair24}" IconName="Hair24"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair17}" IconName="MiiHair17"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair25}" IconName="Hair25"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair18}" IconName="MiiHair18"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair26}" IconName="Hair26"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair19}" IconName="MiiHair19"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair27}" IconName="Hair27"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair20}" IconName="MiiHair20"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair28}" IconName="Hair28"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair21}" IconName="MiiHair21"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair29}" IconName="Hair29"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair22}" IconName="MiiHair22"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair3}" IconName="Hair3"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair23}" IconName="MiiHair23"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair30}" IconName="Hair30"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair24}" IconName="MiiHair24"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair31}" IconName="Hair31"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair25}" IconName="MiiHair25"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair32}" IconName="Hair32"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair26}" IconName="MiiHair26"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair33}" IconName="Hair33"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair27}" IconName="MiiHair27"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair34}" IconName="Hair34"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair28}" IconName="MiiHair28"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair35}" IconName="Hair35"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair29}" IconName="MiiHair29"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair36}" IconName="Hair36"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair30}" IconName="MiiHair30"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair37}" IconName="Hair37"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair31}" IconName="MiiHair31"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair38}" IconName="Hair38"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair32}" IconName="MiiHair32"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair39}" IconName="Hair39"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair33}" IconName="MiiHair33"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair4}" IconName="Hair4"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair34}" IconName="MiiHair34"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair40}" IconName="Hair40"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair35}" IconName="MiiHair35"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair41}" IconName="Hair41"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair36}" IconName="MiiHair36"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair42}" IconName="Hair42"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair37}" IconName="MiiHair37"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair43}" IconName="Hair43"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair38}" IconName="MiiHair38"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair44}" IconName="Hair44"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair39}" IconName="MiiHair39"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair45}" IconName="Hair45"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair40}" IconName="MiiHair40"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair46}" IconName="Hair46"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair41}" IconName="MiiHair41"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair47}" IconName="Hair47"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair42}" IconName="MiiHair42"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair48}" IconName="Hair48"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair43}" IconName="MiiHair43"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair49}" IconName="Hair49"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair44}" IconName="MiiHair44"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair5}" IconName="Hair5"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair45}" IconName="MiiHair45"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair50}" IconName="Hair50"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair46}" IconName="MiiHair46"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair51}" IconName="Hair51"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair47}" IconName="MiiHair47"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair52}" IconName="Hair52"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair48}" IconName="MiiHair48"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair53}" IconName="Hair53"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair49}" IconName="MiiHair49"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair54}" IconName="Hair54"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair50}" IconName="MiiHair50"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair55}" IconName="Hair55"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair51}" IconName="MiiHair51"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair56}" IconName="Hair56"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair52}" IconName="MiiHair52"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair57}" IconName="Hair57"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair53}" IconName="MiiHair53"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair58}" IconName="Hair58"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair54}" IconName="MiiHair54"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair59}" IconName="Hair59"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair55}" IconName="MiiHair55"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair6}" IconName="Hair6"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair56}" IconName="MiiHair56"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair60}" IconName="Hair60"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair57}" IconName="MiiHair57"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair61}" IconName="Hair61"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair58}" IconName="MiiHair58"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair62}" IconName="Hair62"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair59}" IconName="MiiHair59"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair63}" IconName="Hair63"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair60}" IconName="MiiHair60"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair64}" IconName="Hair64"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair61}" IconName="MiiHair61"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair65}" IconName="Hair65"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair62}" IconName="MiiHair62"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair66}" IconName="Hair66"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair63}" IconName="MiiHair63"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair67}" IconName="Hair67"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair64}" IconName="MiiHair64"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair68}" IconName="Hair68"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair65}" IconName="MiiHair65"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair69}" IconName="Hair69"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair66}" IconName="MiiHair66"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair7}" IconName="Hair7"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair67}" IconName="MiiHair67"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair70}" IconName="Hair70"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair68}" IconName="MiiHair68"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair71}" IconName="Hair71"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair69}" IconName="MiiHair69"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair8}" IconName="Hair8"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair70}" IconName="MiiHair70"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
                                                  Color4="{StaticResource Neutral800}"
                                                  Color5="{StaticResource Neutral950}"
                 />
-                <util:MultiColorExampleComponent IconData="{DynamicResource Hair9}" IconName="Hair9"
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair71}" IconName="MiiHair71"
+                                                 Color1="{StaticResource Neutral50}"
+                                                 Color2="{StaticResource Neutral300}"
+                                                 Color3="{StaticResource Neutral600}"
+                                                 Color4="{StaticResource Neutral800}"
+                                                 Color5="{StaticResource Neutral950}"
+                />
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair72}" IconName="MiiHair72"
+                                                 Color1="{StaticResource Neutral50}"
+                                                 Color2="{StaticResource Neutral300}"
+                                                 Color3="{StaticResource Neutral600}"
+                                                 Color4="{StaticResource Neutral800}"
+                                                 Color5="{StaticResource Neutral950}"
+                />
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair73}" IconName="MiiHair73"
+                                                 Color1="{StaticResource Neutral50}"
+                                                 Color2="{StaticResource Neutral300}"
+                                                 Color3="{StaticResource Neutral600}"
+                                                 Color4="{StaticResource Neutral800}"
+                                                 Color5="{StaticResource Neutral950}"
+                />
+                <util:MultiColorExampleComponent IconData="{DynamicResource MiiHair74}" IconName="MiiHair74"
                                                  Color1="{StaticResource Neutral50}"
                                                  Color2="{StaticResource Neutral300}"
                                                  Color3="{StaticResource Neutral600}"
@@ -516,7 +537,7 @@
     </Design.PreviewWith>
 
 
-    <DrawingImage x:Key="Hair0">
+    <DrawingImage x:Key="MiiHair00">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M26.0001 39.8181C29.3361 39.8181 33.0381 40.9011 36.0541 41.0551C38.4352 41.2567 40.8127 40.6282 42.7831 39.2761C41.7729 38.6056 40.9419 37.6985 40.3622 36.6336C39.7825 35.5687 39.4718 34.3784 39.4571 33.1661C39.5221 29.8411 40.0141 25.9661 39.4571 22.1061C38.3001 14.0621 33.0741 9.11206 26.0001 9.11206C18.9271 9.11206 13.7001 14.0621 12.5421 22.1061C11.9851 25.9681 12.4781 29.8411 12.5421 33.1661C12.5273 34.3784 12.2166 35.5687 11.6369 36.6336C11.0573 37.6985 10.2262 38.6056 9.21606 39.2761C11.1865 40.628 13.564 41.2566 15.9451 41.0551C18.9611 40.9001 22.6641 39.8181 26.0001 39.8181Z">
@@ -533,7 +554,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair1">
+    <DrawingImage x:Key="MiiHair01">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.032C18.9609 11.032 14.6399 17.357 15.1709 26.037C15.6349 33.617 20.0439 38.954 25.9999 38.954C31.9549 38.954 36.3629 33.617 36.8279 26.037C37.3599 17.357 33.0389 11.032 25.9999 11.032Z">
@@ -550,7 +571,143 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair10">
+    <DrawingImage x:Key="MiiHair02">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M38.3801 28.1841C37.4037 28.1841 36.4492 28.4736 35.6373 29.0161C34.8254 29.5586 34.1926 30.3297 33.8189 31.2318C33.4453 32.1339 33.3475 33.1266 33.538 34.0842C33.7285 35.0419 34.1987 35.9216 34.8891 36.6121C35.5796 37.3025 36.4593 37.7727 37.417 37.9632C38.3746 38.1537 39.3673 38.0559 40.2694 37.6823C41.1715 37.3086 41.9426 36.6758 42.4851 35.8639C43.0276 35.052 43.3171 34.0975 43.3171 33.1211C43.3172 32.4727 43.1896 31.8307 42.9416 31.2316C42.6935 30.6326 42.3299 30.0883 41.8714 29.6298C41.4129 29.1713 40.8686 28.8077 40.2696 28.5596C39.6705 28.3116 39.0285 28.184 38.3801 28.1841ZM38.3801 28.1841C37.4037 28.1841 36.4492 28.4736 35.6373 29.0161C34.8254 29.5586 34.1926 30.3297 33.8189 31.2318C33.4453 32.1339 33.3475 33.1266 33.538 34.0842C33.7285 35.0419 34.1987 35.9216 34.8891 36.6121C35.5796 37.3025 36.4593 37.7727 37.417 37.9632C38.3746 38.1537 39.3673 38.0559 40.2694 37.6823C41.1715 37.3086 41.9426 36.6758 42.4851 35.8639C43.0276 35.052 43.3171 34.0975 43.3171 33.1211C43.3172 32.4727 43.1896 31.8307 42.9416 31.2316C42.6935 30.6326 42.3299 30.0883 41.8714 29.6298C41.4129 29.1713 40.8686 28.8077 40.2696 28.5596C39.6705 28.3116 39.0285 28.184 38.3801 28.1841Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M26.1471 11.2632C19.1081 11.2632 14.7871 17.5872 15.3181 26.2682C15.7831 33.8482 20.1911 39.1842 26.1471 39.1842C32.1021 39.1842 36.5111 33.8482 36.9751 26.2682C37.5061 17.5872 33.1851 11.2632 26.1471 11.2632Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M38.816 28.1841C41.573 28.4511 40.455 22.0141 40.455 22.0141C39.108 14.8761 33.22 9.09009 26.146 9.09009C19.072 9.09009 13.184 14.8761 11.837 22.0141C11.837 22.0141 10.719 28.4511 13.476 28.1841C14.766 28.0601 20.921 19.6451 22.434 16.2651L26.146 17.1551L29.858 16.2651C31.371 19.6451 37.526 28.0601 38.816 28.1841Z">
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MiiHair03">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M38.3751 23.5281C38.3751 23.5281 38.2341 29.7401 39.8441 32.5781C41.4681 35.4391 41.7671 38.9781 38.9931 41.1631C36.4411 43.1741 32.7231 43.5461 26.0001 43.5461C19.2771 43.5461 15.5581 43.1741 13.0051 41.1631C10.2321 38.9781 10.5301 35.4391 12.1551 32.5781C13.7651 29.7401 13.6241 23.5281 13.6241 23.5281">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M26.0001 11.2312C18.9611 11.2312 14.6401 17.5552 15.1711 26.2312C15.6351 33.8112 20.0441 39.1482 26.0001 39.1482C31.9561 39.1482 36.3641 33.8112 36.8281 26.2312C37.3601 17.5552 33.0381 11.2312 26.0001 11.2312Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M26.0002 14.8231L29.0932 13.9341C29.9412 15.8341 31.6732 20.4761 33.8932 23.4511C35.6272 25.7781 36.9872 26.6991 38.5002 26.8011C41.2642 26.9871 40.6352 21.4011 40.6352 21.4011C40.0002 14.3241 33.0732 8.53809 26.0002 8.53809C18.9272 8.53809 12.0002 14.3241 11.3682 21.4051C11.3682 21.4051 10.7392 26.9871 13.5032 26.8051C15.0162 26.7051 16.3772 25.7821 18.1102 23.4551C20.3262 20.4801 22.0582 15.8341 22.9102 13.9381L26.0002 14.8231Z">
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MiiHair04">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M39.2829 23.9941V22.4221C39.2829 15.3491 33.0719 8.48706 25.9989 8.48706C18.9259 8.48706 12.7169 15.3491 12.7169 22.4221V23.9941L11.4719 45.4581H40.5269L39.2829 23.9941Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M25.9999 11.324C18.9619 11.324 14.6409 17.648 15.1719 26.329C15.6349 33.908 20.0439 39.245 25.9999 39.245C31.9549 39.245 36.3639 33.908 36.8279 26.329C37.3589 17.648 33.0379 11.324 25.9999 11.324Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M38.926 22.88L35.843 13.462L25.999 8.50903L16.157 13.462L13.073 22.88L12.895 27.377L17.579 23.01H34.419L39.104 27.377L38.926 22.88Z">
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MiiHair05">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M26.0001 7.9209C33.0731 7.9209 40.0001 14.0119 41.0061 21.2819C41.5701 25.794 41.0186 30.3755 39.4001 34.6249L38.7651 32.8059C38.7651 32.8059 36.3421 37.9679 34.9001 39.6899L33.1801 36.4579L30.1561 41.7779L28.0221 39.3479L26.0001 42.5519L23.9831 39.3519L21.8501 41.7819L18.8251 36.4619L17.1061 39.6899C15.6591 37.9679 13.2381 32.8059 13.2381 32.8059L12.6001 34.6249C10.9831 30.3751 10.4337 25.7935 11.0001 21.2819C12.0001 14.0119 18.9271 7.9209 26.0001 7.9209Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M26.0001 11.1499C18.9621 11.1499 14.6411 17.4739 15.1721 26.1549C15.6361 33.7349 20.0451 39.0709 26.0001 39.0709C31.9551 39.0709 36.3641 33.7349 36.8281 26.1549C37.3601 17.4739 33.0391 11.1499 26.0001 11.1499Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M11.8462 18.034L22.1462 8.78101L35.2812 11.691L38.6812 19.967L39.1022 28.291L37.1342 30.722L35.6032 25.322L33.1152 17.38C28.5939 21.8338 22.7029 24.6329 16.3942 25.325L14.8622 30.725L12.9002 28.291L11.8462 18.034Z">
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MiiHair06">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M26.0001 8.48389C33.0731 8.48389 38.5001 14.2949 39.9211 21.2929C41.3701 28.4159 42.4841 36.0269 33.2941 45.2179L32.2201 42.9249L30.3311 44.5939L29.9441 42.2729L26.0001 45.6919L22.0551 42.2729L21.6681 44.5939L19.7791 42.9249L18.7061 45.2179C9.51509 36.0269 10.6291 28.5179 12.0771 21.3909C13.5001 14.3929 18.9261 8.48389 26.0001 8.48389Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M26.0001 11.3359C18.9611 11.3359 14.6401 17.6599 15.1711 26.3359C15.6351 33.9199 20.0441 39.2569 26.0001 39.2569C31.9561 39.2569 36.3641 33.9199 36.8281 26.3399C37.3601 17.6599 33.0381 11.3359 26.0001 11.3359Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M26.0001 9.32495L31.9561 10.253L34.9931 13.037L39.9211 23.092L38.1431 35.312L36.2101 34.3839C37.9881 24.0979 35.5901 18.684 35.5901 18.684L31.5631 16.284C29.9521 16.176 28.0481 16.112 26.0001 16.112C23.9521 16.112 22.0461 16.176 20.4371 16.284L16.4081 18.684C16.4081 18.684 14.0081 24.0979 15.7901 34.3839L13.8561 35.312L12.0781 23.092L17.0061 13.037L20.0441 10.253L26.0001 9.32495Z">
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MiiHair07">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M42.6619 34.858L39.8159 31.3L42.5439 27.743L39.9349 25.19C40.0526 23.761 40.0127 22.3233 39.8159 20.903C39.491 17.4636 37.895 14.269 35.3398 11.9438C32.7847 9.61863 29.4542 8.33008 25.9994 8.33008C22.5447 8.33008 19.2141 9.61863 16.659 11.9438C14.1038 14.269 12.5078 17.4636 12.1829 20.903C11.985 22.3232 11.9455 23.761 12.0649 25.19L9.45591 27.743L12.1829 31.3L9.33691 34.858L12.8999 38.416L9.45591 42.27L14.2559 45.47L18.1689 42.27L22.0829 45.47L25.9999 43.042L29.9129 45.473L33.8269 42.273L37.7399 45.473L42.5399 42.273L39.0999 38.416L42.6619 34.858Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M25.9999 11.3169C18.9609 11.3169 14.6399 17.6409 15.1709 26.3219C15.6349 33.8999 20.0439 39.2379 25.9999 39.2379C31.9559 39.2379 36.3639 33.9009 36.8279 26.3219C37.3599 17.6409 33.0379 11.3169 25.9999 11.3169Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M35.0488 23.6921L39.0748 26.9521L39.4898 20.5471L34.5688 11.8311L25.9998 9.15112L17.4358 11.8361L13.3978 21.4371L12.9238 26.9521L16.9498 23.6921L20.8168 19.0511L20.4298 16.3441L23.1228 14.6181L25.9998 16.8721L28.8758 14.6181L31.5678 16.2121L31.1818 19.0421L35.0488 23.6921Z">
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MiiHair08">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M38.3329 35.5891C38.72 32.537 39.2745 29.5084 39.9939 26.5171H12.0049C12.7242 29.5084 13.2788 32.537 13.6659 35.5891C13.9029 39.2071 13.6059 45.0781 13.6059 45.0781L17.6379 39.2661L17.3379 45.1371L22.1379 38.3771L25.9999 45.6111L29.8539 38.3771L34.6539 45.1371L34.3539 39.2661L38.3859 45.0781C38.3859 45.0781 38.0999 39.2071 38.3329 35.5891Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M25.9999 11.3381C18.9609 11.3381 14.6399 17.6631 15.1709 26.3431C15.6349 33.9231 20.0439 39.2601 25.9999 39.2601C31.9559 39.2601 36.3639 33.9231 36.8279 26.3431C37.3599 17.6631 33.0379 11.3381 25.9999 11.3381Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M25.9999 8.62207C33.0729 8.62207 37.385 13.0701 39.638 19.9481C40.5975 23.0739 41.2141 26.2949 41.477 29.5541C41.477 29.5541 37.898 28.8641 33.3479 24.0231C31.1606 21.6879 29.5917 18.843 28.784 15.7471L25.9999 16.1341L23.2149 15.7471C22.4072 18.843 20.8383 21.6879 18.6509 24.0231C14.1009 28.8641 10.5229 29.5541 10.5229 29.5541C10.7852 26.2949 11.4015 23.0739 12.3609 19.9481C14.6139 13.0701 18.9259 8.62207 25.9999 8.62207Z">
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MiiHair09">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M31.585 32.0149C31.585 32.0149 27.596 36.0249 29.185 40.3149C29.7106 41.7634 30.6611 43.0197 31.9121 43.9194C33.1631 44.8192 34.6565 45.3205 36.197 45.3579C37.3863 44.377 38.2517 43.0598 38.6799 41.5789C39.1081 40.0979 39.0792 38.5222 38.597 37.0579C37.2 32.7069 31.585 32.0149 31.585 32.0149Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M25.9999 11.3169C18.9609 11.3169 14.6399 17.6409 15.1709 26.3219C15.6349 33.8999 20.0439 39.2379 25.9999 39.2379C31.9559 39.2379 36.3639 33.9009 36.8279 26.3219C37.3599 17.6409 33.0379 11.3169 25.9999 11.3169Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M26 12.941L30.177 14.488C31.337 17.04 33.348 21.062 35.513 25.088C37.876 29.474 38.993 31.276 38.993 31.276C38.993 31.276 41.004 25.32 39.638 19.776C37.905 12.748 33.073 8.44995 26 8.44995C18.926 8.44995 14.094 12.75 12.361 19.776C10.995 25.316 13.005 31.276 13.005 31.276C13.005 31.276 14.124 29.476 16.486 25.088C18.651 21.066 20.663 17.044 21.823 14.488L26 12.941Z">
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MiiHair10">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.6379 19.8001C37.9189 13.6921 33.0719 8.4751 25.9999 8.4751C18.9279 8.4751 14.0799 13.6921 12.3609 19.8001C10.8379 25.2091 10.2969 29.8251 13.0139 38.0641C14.8509 43.6381 20.1289 45.4311 25.9989 45.4311C31.8689 45.4311 37.1469 43.6381 38.9849 38.0641C41.6999 29.8251 41.1599 25.2091 39.6379 19.8001Z">
@@ -567,7 +724,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair11">
+    <DrawingImage x:Key="MiiHair11">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M37.742 30.627L40.173 31.754L39.164 21.673C39.0241 18.2595 37.5816 15.0295 35.133 12.6471C32.6844 10.2647 29.416 8.91124 26 8.86499C22.5842 8.91149 19.316 10.2651 16.8677 12.6474C14.4193 15.0298 12.9769 18.2597 12.837 21.673L11.828 31.754L14.26 30.627C14.26 30.627 13.073 38.04 11.531 39.4L18.531 39.519L26 39.106L33.473 39.522L40.473 39.403C38.928 38.04 37.742 30.627 37.742 30.627Z">
@@ -584,7 +741,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair12">
+    <DrawingImage x:Key="MiiHair12">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.5199 21.1259C39.2547 17.7221 37.7152 14.5435 35.2089 12.225C32.7027 9.90649 29.4141 8.61865 25.9999 8.61865C22.5857 8.61865 19.2972 9.90649 16.7909 12.225C14.2847 14.5435 12.7452 17.7221 12.4799 21.1259C12.4799 21.1259 11.3529 30.4359 14.7329 37.1949C17.4149 42.5589 21.1369 45.5999 25.9999 45.5999C30.8629 45.5999 34.5839 42.5569 37.2659 37.1929C40.6469 30.4359 39.5199 21.1259 39.5199 21.1259Z">
@@ -601,7 +758,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair13">
+    <DrawingImage x:Key="MiiHair13">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.7 21.4789C39.7 14.4059 33.075 8.6709 26 8.6709C18.925 8.6709 12.3 14.4059 12.3 21.4789C12.3 21.4789 11.648 29.4839 14.317 35.5329C15.3697 38.1157 17.1092 40.3611 19.347 42.0259L22.131 39.2659L26 44.1309L29.868 39.2659L32.651 42.0259C34.889 40.3614 36.6286 38.1159 37.681 35.5329C40.35 29.4839 39.7 21.4789 39.7 21.4789Z">
@@ -618,7 +775,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair14">
+    <DrawingImage x:Key="MiiHair14">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M26.0001 45.5999C29.9131 45.5999 35.8231 44.8999 37.6001 42.1199C39.1741 39.6559 37.6001 36.3969 37.6001 36.3969L37.4171 32.6129H38.5301C38.5301 32.6129 40.6181 29.5899 39.5201 21.4049C38.4221 13.2199 33.0731 8.53491 26.0001 8.53491C18.9271 8.53491 13.5781 13.2169 12.4801 21.3999C11.3821 29.5829 13.4691 32.6079 13.4691 32.6079H14.5811L14.4001 36.3939C14.4001 36.3939 12.8251 39.6529 14.4001 42.1169C16.1761 44.8999 22.0861 45.5999 26.0001 45.5999Z">
@@ -635,7 +792,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair15">
+    <DrawingImage x:Key="MiiHair15">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M38.6061 28.8931L40.6181 36.0141L37.8331 40.2431L38.9931 44.6191L35.2811 40.7621L33.1161 45.2121L30.0221 41.2071L26.0001 45.0641L21.9771 41.2071L18.8831 45.2121L16.7181 40.7621L13.0051 44.6191L14.1661 40.2431L11.3811 36.0141L13.3921 28.8931">
@@ -652,7 +809,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair16">
+    <DrawingImage x:Key="MiiHair16">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.223 21.268C39.0467 17.8568 37.5846 14.6391 35.1312 12.2627C32.6777 9.88623 29.4151 8.52747 26 8.45996C22.5848 8.52699 19.3217 9.88555 16.868 12.2621C14.4143 14.6386 12.9522 17.8566 12.776 21.268C12.776 21.268 11.189 30.599 13.251 37.098C15.563 44.391 19.892 45.459 25.999 45.459C32.106 45.459 36.437 44.391 38.748 37.1C40.81 30.6 39.223 21.268 39.223 21.268Z">
@@ -669,7 +826,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair17">
+    <DrawingImage x:Key="MiiHair17">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M25.9999 45.821L29.0939 42.239L31.4939 44.756C33.2761 43.6704 34.7838 42.1883 35.8999 40.425C36.863 38.8906 37.5198 37.1842 37.8339 35.4L38.8099 36.668C38.8099 36.668 40.2579 35.304 40.8499 30.62C41.171 27.5069 40.9822 24.3623 40.2909 21.31C40.2909 14.234 33.0729 8.5 25.9999 8.5C18.9269 8.5 11.7089 14.234 11.7089 21.308C11.0188 24.3605 10.83 27.5049 11.1499 30.618C11.7439 35.302 13.1909 36.666 13.1909 36.666L14.1659 35.398C14.4803 37.1827 15.1371 38.8897 16.0999 40.425C17.2174 42.1882 18.726 43.6702 20.5089 44.756L22.9089 42.239L25.9999 45.821Z">
@@ -686,7 +843,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair18">
+    <DrawingImage x:Key="MiiHair18">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.0549C18.9609 11.0549 14.6399 17.3789 15.1709 26.0599C15.6349 33.6389 20.0439 38.9759 25.9999 38.9759C31.9559 38.9759 36.3639 33.6389 36.8279 26.0599C37.3599 17.3789 33.0379 11.0549 25.9999 11.0549Z">
@@ -703,7 +860,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair19">
+    <DrawingImage x:Key="MiiHair19">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M16.927 29.2C14.7218 30.9895 13.1559 33.4455 12.464 36.2C10.986 42.6 7.97803 43.548 7.97803 43.548C7.97803 43.548 13.178 46.371 16.254 43.47C18.961 40.918 19.463 34.724 22.132 32.951L16.927 29.2ZM35.072 29.2C37.2772 30.9895 38.8431 33.4455 39.535 36.2C41.013 42.6 44.021 43.548 44.021 43.548C44.021 43.548 38.821 46.371 35.745 43.47C33.038 40.918 32.536 34.724 29.867 32.951L35.072 29.2Z">
@@ -723,24 +880,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair2">
-        <DrawingGroup>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M38.3801 28.1841C37.4037 28.1841 36.4492 28.4736 35.6373 29.0161C34.8254 29.5586 34.1926 30.3297 33.8189 31.2318C33.4453 32.1339 33.3475 33.1266 33.538 34.0842C33.7285 35.0419 34.1987 35.9216 34.8891 36.6121C35.5796 37.3025 36.4593 37.7727 37.417 37.9632C38.3746 38.1537 39.3673 38.0559 40.2694 37.6823C41.1715 37.3086 41.9426 36.6758 42.4851 35.8639C43.0276 35.052 43.3171 34.0975 43.3171 33.1211C43.3172 32.4727 43.1896 31.8307 42.9416 31.2316C42.6935 30.6326 42.3299 30.0883 41.8714 29.6298C41.4129 29.1713 40.8686 28.8077 40.2696 28.5596C39.6705 28.3116 39.0285 28.184 38.3801 28.1841ZM38.3801 28.1841C37.4037 28.1841 36.4492 28.4736 35.6373 29.0161C34.8254 29.5586 34.1926 30.3297 33.8189 31.2318C33.4453 32.1339 33.3475 33.1266 33.538 34.0842C33.7285 35.0419 34.1987 35.9216 34.8891 36.6121C35.5796 37.3025 36.4593 37.7727 37.417 37.9632C38.3746 38.1537 39.3673 38.0559 40.2694 37.6823C41.1715 37.3086 41.9426 36.6758 42.4851 35.8639C43.0276 35.052 43.3171 34.0975 43.3171 33.1211C43.3172 32.4727 43.1896 31.8307 42.9416 31.2316C42.6935 30.6326 42.3299 30.0883 41.8714 29.6298C41.4129 29.1713 40.8686 28.8077 40.2696 28.5596C39.6705 28.3116 39.0285 28.184 38.3801 28.1841Z">
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M26.1471 11.2632C19.1081 11.2632 14.7871 17.5872 15.3181 26.2682C15.7831 33.8482 20.1911 39.1842 26.1471 39.1842C32.1021 39.1842 36.5111 33.8482 36.9751 26.2682C37.5061 17.5872 33.1851 11.2632 26.1471 11.2632Z">
-                <GeometryDrawing.Pen>
-                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M38.816 28.1841C41.573 28.4511 40.455 22.0141 40.455 22.0141C39.108 14.8761 33.22 9.09009 26.146 9.09009C19.072 9.09009 13.184 14.8761 11.837 22.0141C11.837 22.0141 10.719 28.4511 13.476 28.1841C14.766 28.0601 20.921 19.6451 22.434 16.2651L26.146 17.1551L29.858 16.2651C31.371 19.6451 37.526 28.0601 38.816 28.1841Z">
-            </GeometryDrawing>
-        </DrawingGroup>
-    </DrawingImage>
-
-    <DrawingImage x:Key="Hair20">
+    <DrawingImage x:Key="MiiHair20">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.7571 20.7001C37.8001 12.4001 33.0731 8.48511 26.0001 8.48511C18.9271 8.48511 14.2001 12.4001 12.2431 20.7001C10.3941 28.5431 11.4601 32.8001 13.3691 37.3811C16.2451 44.2881 18.3501 44.7441 18.3501 44.7441L22.2631 43.3201L26.0001 45.6931L29.7361 43.3201L33.6491 44.7441C33.6491 44.7441 35.7491 44.2881 38.6301 37.3811C40.5391 32.8001 41.6061 28.5431 39.7571 20.7001Z">
@@ -757,7 +897,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair21">
+    <DrawingImage x:Key="MiiHair21">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.46 20.933C38.037 12.869 33.073 8.71704 26 8.71704C18.927 8.71704 13.962 12.869 12.539 20.933C11.229 28.355 8.77296 34.795 13.839 39.315C16.571 41.746 21.375 41.45 26 41.39C30.625 41.45 35.428 41.746 38.156 39.315C43.226 34.8 40.77 28.355 39.46 20.933Z">
@@ -774,7 +914,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair22">
+    <DrawingImage x:Key="MiiHair22">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M26 42.2069L29.2 39.7069L32.108 41.8719L33.808 38.4719L35.818 41.9529C39.613 38.5719 39.856 33.9929 39.454 27.9529C39.2936 25.658 39.0772 23.3673 38.805 21.0829C38.8009 19.4131 38.4653 17.7607 37.8175 16.2217C37.1698 14.6826 36.2228 13.2876 35.0315 12.1174C33.8403 10.9473 32.4285 10.0254 30.8781 9.40527C29.3277 8.78513 27.6696 8.4791 26 8.50493C22.6017 8.45898 19.3243 9.76393 16.8876 12.1331C14.451 14.5022 13.0545 17.7417 13.005 21.1399C13.005 21.1399 12.773 24.4659 12.541 27.9459C12.141 33.9859 12.381 38.5649 16.177 41.9459L18.188 38.4649L19.888 41.8649L22.8 39.6999L26 42.2069Z">
@@ -791,7 +931,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair23">
+    <DrawingImage x:Key="MiiHair23">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.282C18.9621 11.282 14.6411 17.606 15.1721 26.282C15.6361 33.866 20.0451 39.2 26.0001 39.2C31.9551 39.2 36.3641 33.863 36.8281 26.283C37.3601 17.606 33.0391 11.282 26.0001 11.282Z">
@@ -805,7 +945,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair24">
+    <DrawingImage x:Key="MiiHair24">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M26.0001 40.9699L31.0941 43.6769L35.0331 40.5119L39.8441 43.5229L42.2441 39.2689L40.7751 35.7159L42.0121 32.0089L39.1481 24.9599L38.8071 21.5479C38.6976 18.1739 37.4556 14.935 35.2811 12.3529C33.5811 10.5739 31.6191 9.85289 28.8351 9.26989L26.0001 9.18188L23.1641 9.26989C20.3801 9.85189 18.4191 10.5699 16.7181 12.3529C14.5432 14.9348 13.3008 18.1738 13.1911 21.5479L12.8511 24.9599L9.98908 32.0089L11.2271 35.7159L9.75708 39.2689L12.1571 43.5229L16.9691 40.5119L20.9081 43.6769L26.0001 40.9699Z">
@@ -822,7 +962,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair25">
+    <DrawingImage x:Key="MiiHair25">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M40.5001 20.3731C38.2701 13.1001 33.0731 8.84009 26.0001 8.84009C18.9271 8.84009 13.7301 13.1001 11.5001 20.3731C9.81009 25.8881 10.2551 33.5381 13.6341 40.7421C17.4635 38.7827 21.6986 37.747 26.0001 37.7181C30.3006 37.7472 34.5347 38.7828 38.3631 40.7421C41.7431 33.5381 42.1881 25.8881 40.5001 20.3731Z">
@@ -839,7 +979,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair26">
+    <DrawingImage x:Key="MiiHair26">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.2821 11.1279C19.2431 11.1279 14.9221 17.4519 15.4531 26.1279C15.9171 33.7079 20.3261 39.0449 26.2821 39.0449C32.2371 39.0449 36.6461 33.7079 37.1101 26.1279C37.6421 17.4519 33.3201 11.1279 26.2821 11.1279Z">
@@ -856,7 +996,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair27">
+    <DrawingImage x:Key="MiiHair27">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.2529 23.1099C39.2529 23.1099 39.3459 30.0189 40.6749 33.5169C42.3669 37.9639 41.3869 42.4109 38.0969 45.1679L36.1399 40.9879C35.2258 42.4454 33.8925 43.5925 32.3149 44.2789C30.3256 45.1585 28.1745 45.6128 25.9994 45.6128C23.8243 45.6128 21.6732 45.1585 19.6839 44.2789C18.1063 43.5925 16.773 42.4454 15.8589 40.9879L13.8999 45.1679C10.6089 42.4109 9.6299 37.9679 11.3199 33.5169C12.6489 30.0169 12.7429 23.1099 12.7429 23.1099H39.2529Z">
@@ -873,7 +1013,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair28">
+    <DrawingImage x:Key="MiiHair28">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M20.1421 33.4998C20.1421 31.6568 19.2141 30.1638 18.0671 30.1638C16.9201 30.1638 15.9921 31.6568 15.9921 33.4998C15.9752 34.3296 16.1877 35.148 16.6061 35.8648C16.1393 35.9528 15.6992 36.1473 15.3199 36.4331C14.9406 36.719 14.6323 37.0884 14.4191 37.5128C13.9438 38.3059 13.731 39.2287 13.8111 40.1498C13.4434 39.8745 13.0111 39.6985 12.5556 39.639C12.1002 39.5794 11.6371 39.6382 11.2111 39.8098C9.72706 40.3428 7.60505 42.2648 7.93705 43.5688C8.26905 44.8728 10.9251 45.0628 12.4091 44.5308C13.0158 44.3339 13.5477 43.9557 13.9328 43.4472C14.318 42.9387 14.5379 42.3243 14.5631 41.6868C15.5041 42.4128 16.9491 41.8238 17.8241 40.3378C18.1564 39.82 18.3629 39.2315 18.4268 38.6195C18.4907 38.0076 18.4103 37.3891 18.1921 36.8138C19.2781 36.7068 20.1421 35.2698 20.1421 33.4998ZM31.8571 33.4998C31.8571 31.6568 32.7861 30.1638 33.9321 30.1638C35.0781 30.1638 36.0071 31.6568 36.0071 33.4998C36.0237 34.3295 35.8117 35.1477 35.3941 35.8648C35.8605 35.9531 36.3004 36.1477 36.6795 36.4335C37.0586 36.7193 37.3668 37.0886 37.5801 37.5128C38.0551 38.306 38.2681 39.2287 38.1891 40.1498C38.5565 39.8742 38.9889 39.6981 39.4444 39.6385C39.8999 39.579 40.3631 39.638 40.7891 39.8098C42.2731 40.3428 44.3951 42.2648 44.0631 43.5688C43.7311 44.8728 41.0751 45.0628 39.5901 44.5308C38.9837 44.3335 38.4524 43.9551 38.0676 43.4466C37.6829 42.9381 37.4632 42.324 37.4381 41.6868C36.4961 42.4128 35.0501 41.8238 34.1761 40.3378C33.8437 39.82 33.6372 39.2315 33.5733 38.6195C33.5094 38.0076 33.5898 37.3891 33.8081 36.8138C32.7211 36.7068 31.8571 35.2698 31.8571 33.4998Z">
@@ -890,7 +1030,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair29">
+    <DrawingImage x:Key="MiiHair29">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M26 22.75L18.059 22.834L16.713 34.191L15.566 38.684L17.268 41.314L15.713 45.483L15.264 41.562L12.859 38.762L13.125 33.875L12.125 30.125L16.625 19.375L35.5 19.25L39.875 30.125L38.875 33.875L39.141 38.762L36.736 41.562L36.287 45.483L34.732 41.314L36.434 38.684L35.287 34.191L33.941 22.834L26 22.75Z">
@@ -910,24 +1050,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair3">
-        <DrawingGroup>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M38.3751 23.5281C38.3751 23.5281 38.2341 29.7401 39.8441 32.5781C41.4681 35.4391 41.7671 38.9781 38.9931 41.1631C36.4411 43.1741 32.7231 43.5461 26.0001 43.5461C19.2771 43.5461 15.5581 43.1741 13.0051 41.1631C10.2321 38.9781 10.5301 35.4391 12.1551 32.5781C13.7651 29.7401 13.6241 23.5281 13.6241 23.5281">
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M26.0001 11.2312C18.9611 11.2312 14.6401 17.5552 15.1711 26.2312C15.6351 33.8112 20.0441 39.1482 26.0001 39.1482C31.9561 39.1482 36.3641 33.8112 36.8281 26.2312C37.3601 17.5552 33.0381 11.2312 26.0001 11.2312Z">
-                <GeometryDrawing.Pen>
-                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M26.0002 14.8231L29.0932 13.9341C29.9412 15.8341 31.6732 20.4761 33.8932 23.4511C35.6272 25.7781 36.9872 26.6991 38.5002 26.8011C41.2642 26.9871 40.6352 21.4011 40.6352 21.4011C40.0002 14.3241 33.0732 8.53809 26.0002 8.53809C18.9272 8.53809 12.0002 14.3241 11.3682 21.4051C11.3682 21.4051 10.7392 26.9871 13.5032 26.8051C15.0162 26.7051 16.3772 25.7821 18.1102 23.4551C20.3262 20.4801 22.0582 15.8341 22.9102 13.9381L26.0002 14.8231Z">
-            </GeometryDrawing>
-        </DrawingGroup>
-    </DrawingImage>
-
-    <DrawingImage x:Key="Hair30">
+    <DrawingImage x:Key="MiiHair30">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.094C18.9609 11.094 14.6399 17.418 15.1709 26.099C15.6349 33.679 20.0439 39.015 25.9999 39.015C31.9559 39.015 36.3639 33.679 36.8279 26.099C37.3599 17.418 33.0379 11.094 25.9999 11.094Z">
@@ -938,7 +1061,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair31">
+    <DrawingImage x:Key="MiiHair31">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.1689C18.9611 11.1689 14.6401 17.4929 15.1711 26.1739C15.6351 33.7529 20.0441 39.0899 26.0001 39.0899C31.9561 39.0899 36.3641 33.7529 36.8281 26.1739C37.3601 17.4929 33.0381 11.1689 26.0001 11.1689Z">
@@ -952,7 +1075,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair32">
+    <DrawingImage x:Key="MiiHair32">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M36.886 31.7468L33.054 43.6648L29.919 39.0398L26 45.3558L22.08 39.0398L18.945 43.6648L15.113 31.7468">
@@ -969,7 +1092,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair33">
+    <DrawingImage x:Key="MiiHair33">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.157C18.9611 11.157 14.6401 17.481 15.1711 26.162C15.6351 33.742 20.0441 39.078 26.0001 39.078C31.9561 39.078 36.3641 33.742 36.8281 26.162C37.3601 17.481 33.0381 11.157 26.0001 11.157Z">
@@ -983,7 +1106,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair34">
+    <DrawingImage x:Key="MiiHair34">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.0608C18.9621 11.0608 14.6411 17.3848 15.1721 26.0608C15.6361 33.6408 20.0451 38.9778 26.0001 38.9778C31.9551 38.9778 36.3641 33.6408 36.8281 26.0608C37.3591 17.3848 33.0381 11.0608 26.0001 11.0608Z">
@@ -1006,7 +1129,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair35">
+    <DrawingImage x:Key="MiiHair35">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.254 20.0749C38.6963 16.9657 37.0632 14.1515 34.6404 12.1246C32.2176 10.0976 29.1593 8.98706 26.0005 8.98706C22.8416 8.98706 19.7833 10.0976 17.3605 12.1246C14.9377 14.1515 13.3047 16.9657 12.747 20.0749C11.502 26.1829 11.654 32.3749 14.525 34.7509C18.617 38.1309 26 38.1309 26 38.1309C26 38.1309 33.383 38.1309 37.475 34.7509C40.348 32.3789 40.5 26.1829 39.254 20.0749Z">
@@ -1023,7 +1146,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair36">
+    <DrawingImage x:Key="MiiHair36">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.248C18.9609 11.248 14.6399 17.572 15.1709 26.253C15.6349 33.833 20.0439 39.169 25.9999 39.169C31.9559 39.169 36.3639 33.833 36.8279 26.253C37.3599 17.572 33.0379 11.248 25.9999 11.248Z">
@@ -1037,7 +1160,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair37">
+    <DrawingImage x:Key="MiiHair37">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.25C18.9609 11.25 14.6399 17.574 15.1709 26.255C15.6349 33.835 20.0439 39.171 25.9999 39.171C31.9559 39.171 36.3639 33.835 36.8279 26.255C37.3599 17.574 33.0379 11.25 25.9999 11.25Z">
@@ -1051,7 +1174,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair38">
+    <DrawingImage x:Key="MiiHair38">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.1111C18.9609 11.1111 14.6399 17.4351 15.1709 26.1161C15.6349 33.7001 20.0439 39.0321 25.9999 39.0321C31.9559 39.0321 36.3639 33.6951 36.8279 26.1161C37.3599 17.4351 33.0379 11.1111 25.9999 11.1111Z">
@@ -1065,7 +1188,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair39">
+    <DrawingImage x:Key="MiiHair39">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.1218C18.9611 11.1218 14.6401 17.4458 15.1711 26.1268C15.6351 33.7058 20.0441 39.0428 26.0001 39.0428C31.9561 39.0428 36.3641 33.7058 36.8281 26.1268C37.3601 17.4458 33.0381 11.1218 26.0001 11.1218Z">
@@ -1079,24 +1202,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair4">
-        <DrawingGroup>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M39.2829 23.9941V22.4221C39.2829 15.3491 33.0719 8.48706 25.9989 8.48706C18.9259 8.48706 12.7169 15.3491 12.7169 22.4221V23.9941L11.4719 45.4581H40.5269L39.2829 23.9941Z">
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M25.9999 11.324C18.9619 11.324 14.6409 17.648 15.1719 26.329C15.6349 33.908 20.0439 39.245 25.9999 39.245C31.9549 39.245 36.3639 33.908 36.8279 26.329C37.3589 17.648 33.0379 11.324 25.9999 11.324Z">
-                <GeometryDrawing.Pen>
-                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M38.926 22.88L35.843 13.462L25.999 8.50903L16.157 13.462L13.073 22.88L12.895 27.377L17.579 23.01H34.419L39.104 27.377L38.926 22.88Z">
-            </GeometryDrawing>
-        </DrawingGroup>
-    </DrawingImage>
-
-    <DrawingImage x:Key="Hair40">
+    <DrawingImage x:Key="MiiHair40">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.1621C18.9621 11.1621 14.6411 17.4851 15.1721 26.1621C15.6361 33.7421 20.0451 39.0791 26.0001 39.0791C31.9551 39.0791 36.3641 33.7421 36.8281 26.1621C37.3591 17.4851 33.0381 11.1621 26.0001 11.1621Z">
@@ -1110,7 +1216,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair41">
+    <DrawingImage x:Key="MiiHair41">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.01 11.1819C18.971 11.1819 14.65 17.5049 15.182 26.1819C15.646 33.7659 20.054 39.0999 26.01 39.0999C31.966 39.0999 36.374 33.7629 36.838 26.1829C37.37 17.5049 33.049 11.1819 26.01 11.1819Z">
@@ -1124,7 +1230,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair42">
+    <DrawingImage x:Key="MiiHair42">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M26.0001 32.7549L15.4041 31.6719L16.0231 40.1799L17.9421 41.6489L20.5961 40.9419L22.2871 34.6889L23.0261 41.8039L26.0001 42.7319L28.9731 41.8039L29.7121 34.6889L31.4031 40.9419L34.0581 41.6489L35.9771 40.1799L36.5951 31.6719L26.0001 32.7549Z">
@@ -1141,7 +1247,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair43">
+    <DrawingImage x:Key="MiiHair43">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0219 11.0898C18.9829 11.0898 14.6619 17.4138 15.1929 26.0948C15.6569 33.6748 20.0659 39.0118 26.0219 39.0118C31.9769 39.0118 36.3849 33.6748 36.8499 26.0948C37.3809 17.4138 33.0599 11.0898 26.0219 11.0898Z">
@@ -1155,7 +1261,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair44">
+    <DrawingImage x:Key="MiiHair44">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.1609C18.9609 11.1609 14.6399 17.4849 15.1709 26.1659C15.6349 33.7459 20.0439 39.0829 25.9999 39.0829C31.9559 39.0829 36.3639 33.7459 36.8289 26.1659C37.3639 17.4849 33.0429 11.1609 25.9999 11.1609Z">
@@ -1169,7 +1275,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair45">
+    <DrawingImage x:Key="MiiHair45">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.2C18.9611 11.2 14.6401 17.524 15.1711 26.205C15.6351 33.785 20.0441 39.1209 26.0001 39.1209C31.9561 39.1209 36.3641 33.785 36.8281 26.205C37.3601 17.525 33.0381 11.2 26.0001 11.2Z">
@@ -1183,7 +1289,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair46">
+    <DrawingImage x:Key="MiiHair46">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M38.2999 21.13C38.2999 12.036 33.074 8.32202 26 8.32202C18.926 8.32202 13.7 12.036 13.7 21.13">
@@ -1203,7 +1309,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair47">
+    <DrawingImage x:Key="MiiHair47">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.1492C18.9619 11.1492 14.6409 17.4732 15.1719 26.1542C15.6359 33.7332 20.0449 39.0702 25.9999 39.0702C31.9549 39.0702 36.3639 33.7332 36.8279 26.1542C37.3599 17.4732 33.0389 11.1492 25.9999 11.1492Z">
@@ -1217,7 +1323,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair48">
+    <DrawingImage x:Key="MiiHair48">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.2161C18.9609 11.2161 14.6399 17.5391 15.1709 26.2211C15.6359 33.8001 20.0439 39.1371 25.9999 39.1371C31.9559 39.1371 36.3639 33.8001 36.8279 26.2211C37.3609 17.5391 33.0389 11.2161 25.9999 11.2161Z">
@@ -1231,7 +1337,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair49">
+    <DrawingImage x:Key="MiiHair49">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.1492C18.9611 11.1492 14.6401 17.4732 15.1711 26.1492C15.6351 33.7332 20.0441 39.0702 26.0001 39.0702C31.9561 39.0702 36.3641 33.7332 36.8281 26.1532C37.3601 17.4732 33.0381 11.1492 26.0001 11.1492Z">
@@ -1245,24 +1351,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair5">
-        <DrawingGroup>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M26.0001 7.9209C33.0731 7.9209 40.0001 14.0119 41.0061 21.2819C41.5701 25.794 41.0186 30.3755 39.4001 34.6249L38.7651 32.8059C38.7651 32.8059 36.3421 37.9679 34.9001 39.6899L33.1801 36.4579L30.1561 41.7779L28.0221 39.3479L26.0001 42.5519L23.9831 39.3519L21.8501 41.7819L18.8251 36.4619L17.1061 39.6899C15.6591 37.9679 13.2381 32.8059 13.2381 32.8059L12.6001 34.6249C10.9831 30.3751 10.4337 25.7935 11.0001 21.2819C12.0001 14.0119 18.9271 7.9209 26.0001 7.9209Z">
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M26.0001 11.1499C18.9621 11.1499 14.6411 17.4739 15.1721 26.1549C15.6361 33.7349 20.0451 39.0709 26.0001 39.0709C31.9551 39.0709 36.3641 33.7349 36.8281 26.1549C37.3601 17.4739 33.0391 11.1499 26.0001 11.1499Z">
-                <GeometryDrawing.Pen>
-                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M11.8462 18.034L22.1462 8.78101L35.2812 11.691L38.6812 19.967L39.1022 28.291L37.1342 30.722L35.6032 25.322L33.1152 17.38C28.5939 21.8338 22.7029 24.6329 16.3942 25.325L14.8622 30.725L12.9002 28.291L11.8462 18.034Z">
-            </GeometryDrawing>
-        </DrawingGroup>
-    </DrawingImage>
-
-    <DrawingImage x:Key="Hair50">
+    <DrawingImage x:Key="MiiHair50">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M37.6791 23.0269L36.0551 40.5849L30.5641 39.4249L26.0001 41.0489L21.4361 39.4249L15.9441 40.5849L14.3201 23.0269">
@@ -1279,7 +1368,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair51">
+    <DrawingImage x:Key="MiiHair51">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.1731C18.9609 11.1731 14.6399 17.4971 15.1709 26.1781C15.6349 33.7581 20.0439 39.1001 25.9999 39.1001C31.9559 39.1001 36.3639 33.7631 36.8279 26.1831C37.3599 17.5001 33.0379 11.1731 25.9999 11.1731Z">
@@ -1293,7 +1382,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair52">
+    <DrawingImage x:Key="MiiHair52">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.2002C18.9619 11.2002 14.6409 17.5242 15.1719 26.2052C15.6349 33.7792 20.0439 39.1162 25.9999 39.1162C31.9549 39.1162 36.3639 33.7792 36.8279 26.2002C37.3589 17.5192 33.0379 11.2002 25.9999 11.2002Z">
@@ -1307,7 +1396,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair53">
+    <DrawingImage x:Key="MiiHair53">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M26 36.686L32.5 36.996L38.455 37.847L41.085 35.217L39.768 32.2L41.315 30.19L39.768 27.946C40.8846 25.1343 41.0206 22.0284 40.154 19.13C38 11.1 33.073 8.08496 26 8.08496C18.927 8.08496 14 11.1 11.846 19.13C10.9801 22.0285 11.1161 25.1342 12.232 27.946L10.686 30.19L12.232 32.2L10.918 35.217L13.548 37.847L19.5 37L26 36.686Z">
@@ -1324,7 +1413,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair54">
+    <DrawingImage x:Key="MiiHair54">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M25.9999 33.891C25.9999 33.891 32.7679 34.603 37.1369 31.441C41.9839 27.935 44.1499 22.47 42.0869 16.282C39.7869 9.38198 35.0869 6.78198 25.9999 6.78198C16.9129 6.78198 12.2109 9.38198 9.91192 16.282C7.84892 22.47 10.0119 27.935 14.8609 31.441C19.2309 34.6 25.9999 33.891 25.9999 33.891Z">
@@ -1341,7 +1430,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair55">
+    <DrawingImage x:Key="MiiHair55">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.157C18.9609 11.157 14.6399 17.48 15.1709 26.162C15.6349 33.741 20.0439 39.078 25.9999 39.078C31.9559 39.078 36.3639 33.741 36.8279 26.162C37.3599 17.48 33.0379 11.157 25.9999 11.157Z">
@@ -1355,7 +1444,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair56">
+    <DrawingImage x:Key="MiiHair56">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.0491C18.9609 11.0491 14.6399 17.3731 15.1709 26.0541C15.6349 33.6341 20.0439 38.9711 25.9999 38.9711C31.9559 38.9711 36.3639 33.6341 36.8279 26.0541C37.3599 17.3731 33.0379 11.0491 25.9999 11.0491Z">
@@ -1369,7 +1458,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair57">
+    <DrawingImage x:Key="MiiHair57">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.0759C18.9611 11.0759 14.6401 17.3999 15.1711 26.0809C15.6351 33.6609 20.0441 38.9999 26.0001 38.9999C31.9561 38.9999 36.3641 33.6629 36.8281 26.0829C37.3601 17.3999 33.0381 11.0759 26.0001 11.0759Z">
@@ -1392,7 +1481,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair58">
+    <DrawingImage x:Key="MiiHair58">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M26 38.5999C34.121 38.5999 37.365 38.5889 40.148 34.8759C42.593 31.6149 41.517 26.9979 40.154 20.0259C38.761 12.9119 33.072 7.96191 26 7.96191C18.928 7.96191 13.238 12.9119 11.845 20.0269C10.482 26.9989 9.40598 31.6159 11.851 34.8769C14.634 38.5899 17.878 38.5999 26 38.5999Z">
@@ -1409,7 +1498,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair59">
+    <DrawingImage x:Key="MiiHair59">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.0371C18.9619 11.0371 14.6409 17.3611 15.1719 26.0421C15.6359 33.6221 20.0449 38.9581 25.9999 38.9581C31.9549 38.9581 36.3639 33.6221 36.8279 26.0421C37.3599 17.3611 33.0389 11.0371 25.9999 11.0371Z">
@@ -1423,24 +1512,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair6">
-        <DrawingGroup>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M26.0001 8.48389C33.0731 8.48389 38.5001 14.2949 39.9211 21.2929C41.3701 28.4159 42.4841 36.0269 33.2941 45.2179L32.2201 42.9249L30.3311 44.5939L29.9441 42.2729L26.0001 45.6919L22.0551 42.2729L21.6681 44.5939L19.7791 42.9249L18.7061 45.2179C9.51509 36.0269 10.6291 28.5179 12.0771 21.3909C13.5001 14.3929 18.9261 8.48389 26.0001 8.48389Z">
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M26.0001 11.3359C18.9611 11.3359 14.6401 17.6599 15.1711 26.3359C15.6351 33.9199 20.0441 39.2569 26.0001 39.2569C31.9561 39.2569 36.3641 33.9199 36.8281 26.3399C37.3601 17.6599 33.0381 11.3359 26.0001 11.3359Z">
-                <GeometryDrawing.Pen>
-                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M26.0001 9.32495L31.9561 10.253L34.9931 13.037L39.9211 23.092L38.1431 35.312L36.2101 34.3839C37.9881 24.0979 35.5901 18.684 35.5901 18.684L31.5631 16.284C29.9521 16.176 28.0481 16.112 26.0001 16.112C23.9521 16.112 22.0461 16.176 20.4371 16.284L16.4081 18.684C16.4081 18.684 14.0081 24.0979 15.7901 34.3839L13.8561 35.312L12.0781 23.092L17.0061 13.037L20.0441 10.253L26.0001 9.32495Z">
-            </GeometryDrawing>
-        </DrawingGroup>
-    </DrawingImage>
-
-    <DrawingImage x:Key="Hair60">
+    <DrawingImage x:Key="MiiHair60">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M38.143 29.0469L35.9 44.5939L32.265 40.2619L26 45.2889L19.734 40.2619L16.099 44.5939L13.856 29.0469">
@@ -1457,7 +1529,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair61">
+    <DrawingImage x:Key="MiiHair61">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.2481 20.96C37.8871 13.812 33.2481 8.73901 26.1761 8.73901C19.1041 8.73901 14.4661 13.812 13.1051 20.96C13.1051 20.96 6.1441 43.003 26.1761 43.003C46.2081 43.003 39.2481 20.96 39.2481 20.96Z">
@@ -1480,7 +1552,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair62">
+    <DrawingImage x:Key="MiiHair62">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.007 11.1758C18.969 11.1758 14.648 17.4998 15.179 26.1808C15.642 33.7608 20.05 39.0998 26.006 39.0998C31.961 39.0998 36.37 33.7628 36.834 26.1828C37.367 17.4998 33.045 11.1758 26.007 11.1758Z">
@@ -1494,7 +1566,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair63">
+    <DrawingImage x:Key="MiiHair63">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.071 22.9001C39.071 22.9001 39.689 37.6721 41.159 39.6831C39.4024 39.1344 37.6961 38.4358 36.059 37.5951L36.832 41.7711L30.645 39.0641L26 43.0001L21.358 39.0551L15.171 41.7621L15.944 37.5861C14.3069 38.4268 12.6006 39.1254 10.844 39.6741C12.309 37.6671 12.928 22.9001 12.928 22.9001">
@@ -1511,7 +1583,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair64">
+    <DrawingImage x:Key="MiiHair64">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M25.9989 38.5H24.3719L21.3719 40.875L19.4969 37.5L16.9969 40L10.9929 26.202L12.6159 22.412L11.3799 17.385L15.3229 13.363L15.6339 10.037L19.1139 9.95997L20.8939 7.17597L23.3679 8.25798L25.9969 6.32397H26.0009L28.6299 8.25798L31.1049 7.17597L32.8839 9.95997L36.3639 10.037L36.6749 13.363L40.6179 17.385L39.3819 22.412L41.0049 26.202L35.0009 40L32.5009 37.5L30.6259 40.875L27.6259 38.5H25.9989Z">
@@ -1528,7 +1600,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair65">
+    <DrawingImage x:Key="MiiHair65">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.1001C18.9619 11.1001 14.6409 17.4241 15.1719 26.1001C15.6359 33.6891 20.0449 39.0251 25.9999 39.0251C31.9549 39.0251 36.3639 33.6891 36.8279 26.1081C37.3599 17.4281 33.0389 11.1001 25.9999 11.1001Z">
@@ -1542,7 +1614,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair66">
+    <DrawingImage x:Key="MiiHair66">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.2002C18.9611 11.2002 14.6401 17.5242 15.1711 26.2002C15.6351 33.7802 20.0441 39.1172 26.0001 39.1172C31.9551 39.1172 36.3631 33.7802 36.8281 26.2002C37.3591 17.5192 33.0381 11.2002 26.0001 11.2002Z">
@@ -1556,7 +1628,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair67">
+    <DrawingImage x:Key="MiiHair67">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.0889C18.9621 11.0889 14.6411 17.4129 15.1721 26.0939C15.6361 33.6739 20.0441 39.0109 26.0001 39.0109C31.9561 39.0109 36.3641 33.6739 36.8281 26.0939C37.3641 17.4129 33.0421 11.0889 26.0001 11.0889Z">
@@ -1570,7 +1642,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair68">
+    <DrawingImage x:Key="MiiHair68">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.158C18.9609 11.158 14.6399 17.482 15.1709 26.163C15.6359 33.743 20.0439 39.079 25.9999 39.079C31.9549 39.079 36.3639 33.743 36.8279 26.163C37.3589 17.482 33.0379 11.158 25.9999 11.158Z">
@@ -1584,7 +1656,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair69">
+    <DrawingImage x:Key="MiiHair69">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.743 17.7721C37.984 12.2061 33.664 7.87207 25.999 7.87207C18.334 7.87207 14.015 12.2091 12.255 17.7721C10.876 22.1311 6.89205 35.6231 26 36.5641C45.106 35.6231 41.121 22.1311 39.743 17.7721Z">
@@ -1601,24 +1673,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair7">
-        <DrawingGroup>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M42.6619 34.858L39.8159 31.3L42.5439 27.743L39.9349 25.19C40.0526 23.761 40.0127 22.3233 39.8159 20.903C39.491 17.4636 37.895 14.269 35.3398 11.9438C32.7847 9.61863 29.4542 8.33008 25.9994 8.33008C22.5447 8.33008 19.2141 9.61863 16.659 11.9438C14.1038 14.269 12.5078 17.4636 12.1829 20.903C11.985 22.3232 11.9455 23.761 12.0649 25.19L9.45591 27.743L12.1829 31.3L9.33691 34.858L12.8999 38.416L9.45591 42.27L14.2559 45.47L18.1689 42.27L22.0829 45.47L25.9999 43.042L29.9129 45.473L33.8269 42.273L37.7399 45.473L42.5399 42.273L39.0999 38.416L42.6619 34.858Z">
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M25.9999 11.3169C18.9609 11.3169 14.6399 17.6409 15.1709 26.3219C15.6349 33.8999 20.0439 39.2379 25.9999 39.2379C31.9559 39.2379 36.3639 33.9009 36.8279 26.3219C37.3599 17.6409 33.0379 11.3169 25.9999 11.3169Z">
-                <GeometryDrawing.Pen>
-                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
-                </GeometryDrawing.Pen>
-            </GeometryDrawing>
-            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M35.0488 23.6921L39.0748 26.9521L39.4898 20.5471L34.5688 11.8311L25.9998 9.15112L17.4358 11.8361L13.3978 21.4371L12.9238 26.9521L16.9498 23.6921L20.8168 19.0511L20.4298 16.3441L23.1228 14.6181L25.9998 16.8721L28.8758 14.6181L31.5678 16.2121L31.1818 19.0421L35.0488 23.6921Z">
-            </GeometryDrawing>
-        </DrawingGroup>
-    </DrawingImage>
-
-    <DrawingImage x:Key="Hair70">
+    <DrawingImage x:Key="MiiHair70">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M25.9999 11.1201C18.9619 11.1201 14.6409 17.4441 15.1719 26.1251C15.6339 33.7001 20.0429 39.0411 25.9999 39.0411C31.9549 39.0411 36.3639 33.7041 36.8279 26.1251C37.3579 17.4441 33.0369 11.1201 25.9999 11.1201Z">
@@ -1632,7 +1687,7 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair71">
+    <DrawingImage x:Key="MiiHair71">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.516 28.459L41.47 23.509L40.062 21.266C38.657 14.537 33.146 8.67505 26 8.67505C18.854 8.67505 13.344 14.537 11.937 21.266L10.531 23.509L12.484 28.459L10.766 32.48L14.359 36.1931L13.814 39.132L16.391 43.772L17.8 40.6L21.676 44.2351L23.63 41.861L26 44.237L28.344 41.8941L30.328 44.237L34.2 40.6L35.606 43.7701L38.185 39.1301L37.637 36.1911L41.231 32.4781L39.516 28.459Z">
@@ -1649,36 +1704,59 @@
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair8">
+    <DrawingImage x:Key="MiiHair72">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M38.3329 35.5891C38.72 32.537 39.2745 29.5084 39.9939 26.5171H12.0049C12.7242 29.5084 13.2788 32.537 13.6659 35.5891C13.9029 39.2071 13.6059 45.0781 13.6059 45.0781L17.6379 39.2661L17.3379 45.1371L22.1379 38.3771L25.9999 45.6111L29.8539 38.3771L34.6539 45.1371L34.3539 39.2661L38.3859 45.0781C38.3859 45.0781 38.0999 39.2071 38.3329 35.5891Z">
+                             Geometry="M12.4802 21.3098C11.3802 29.4958 14.5522 36.5338 15.9442 39.3178C17.4222 42.2738 22.0862 43.8658 25.9992 43.8658V8.44385C18.9262 8.44385 13.5782 13.1258 12.4802 21.3098ZM39.5212 21.3098C38.4222 13.1258 33.0732 8.44385 25.9992 8.44385V43.8658C29.9122 43.8658 34.5772 42.2738 36.0552 39.3178C37.4482 36.5338 40.6192 29.4998 39.5212 21.3098Z">
             </GeometryDrawing>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M25.9999 11.3381C18.9609 11.3381 14.6399 17.6631 15.1709 26.3431C15.6349 33.9231 20.0439 39.2601 25.9999 39.2601C31.9559 39.2601 36.3639 33.9231 36.8279 26.3431C37.3599 17.6631 33.0379 11.3381 25.9999 11.3381Z">
+                             Geometry="M26.0001 11.2427C18.9611 11.2427 14.6401 17.5657 15.1711 26.2477C15.6351 33.8267 20.0441 39.1637 26.0001 39.1637C31.9561 39.1637 36.3641 33.8267 36.8281 26.2477C37.3601 17.5657 33.0381 11.2427 26.0001 11.2427Z">
                 <GeometryDrawing.Pen>
                     <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
                 </GeometryDrawing.Pen>
             </GeometryDrawing>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M25.9999 8.62207C33.0729 8.62207 37.385 13.0701 39.638 19.9481C40.5975 23.0739 41.2141 26.2949 41.477 29.5541C41.477 29.5541 37.898 28.8641 33.3479 24.0231C31.1606 21.6879 29.5917 18.843 28.784 15.7471L25.9999 16.1341L23.2149 15.7471C22.4072 18.843 20.8383 21.6879 18.6509 24.0231C14.1009 28.8641 10.5229 29.5541 10.5229 29.5541C10.7852 26.2949 11.4015 23.0739 12.3609 19.9481C14.6139 13.0701 18.9259 8.62207 25.9999 8.62207Z">
+                             Geometry="M13.5001 17.2501C13.5001 17.2501 10.2711 24.2501 9.05009 28.1161C7.62509 32.6251 7.30109 36.6461 9.12509 39.1251C12.2501 43.3751 17.6001 43.2671 17.6001 43.2671C17.6001 43.2671 15.0851 41.0601 15.2001 35.6171C15.3351 29.1451 16.4721 19.2171 16.7741 18.5911C19.0431 13.9221 22.6251 13.1911 26.0001 12.3261V9.31006L19.5801 10.6241L13.5001 17.2501Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M38.5 17.2501C38.5 17.2501 41.729 24.2501 42.95 28.1161C44.375 32.6251 44.698 36.6461 42.875 39.1251C39.75 43.3751 34.4 43.2671 34.4 43.2671C34.4 43.2671 36.914 41.0601 36.8 35.6171C36.665 29.1451 35.528 19.2171 35.225 18.5911C32.957 13.9221 29.375 13.1911 26 12.3261V9.31006L32.42 10.6241L38.5 17.2501Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M26.0002 9.81494L35.6002 14.4669L35.0012 24.2159H17.0002L16.3992 14.4669L26.0002 9.81494Z">
             </GeometryDrawing>
         </DrawingGroup>
     </DrawingImage>
 
-    <DrawingImage x:Key="Hair9">
+    <DrawingImage x:Key="MiiHair73">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M31.585 32.0149C31.585 32.0149 27.596 36.0249 29.185 40.3149C29.7106 41.7634 30.6611 43.0197 31.9121 43.9194C33.1631 44.8192 34.6565 45.3205 36.197 45.3579C37.3863 44.377 38.2517 43.0598 38.6799 41.5789C39.1081 40.0979 39.0792 38.5222 38.597 37.0579C37.2 32.7069 31.585 32.0149 31.585 32.0149Z">
+                             Geometry="M26.0001 41.9659L30.0001 36.8749L34.1251 41.1249L36.0001 35.9999L39.2721 39.1819C39.4121 37.2309 39.5001 29.7499 39.5001 29.7499L43.1701 29.0649C43.1151 27.9979 40.1251 20.3749 40.1251 20.3749L42.1501 19.3189L35.9311 11.5189L37.4161 10.6849L32.3341 8.68489L26.0001 8.08789L19.6661 8.68789L14.5841 10.6879L16.0681 11.5219L9.8501 19.3219L11.8751 20.3779C11.8751 20.3779 8.8851 27.9999 8.8291 29.0649L12.5001 29.7499C12.5001 29.7499 12.5881 37.2309 12.7271 39.1819L16.0001 35.9999L17.8751 41.1249L22.0001 36.8749L26.0001 41.9659Z">
             </GeometryDrawing>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M25.9999 11.3169C18.9609 11.3169 14.6399 17.6409 15.1709 26.3219C15.6349 33.8999 20.0439 39.2379 25.9999 39.2379C31.9559 39.2379 36.3639 33.9009 36.8279 26.3219C37.3599 17.6409 33.0379 11.3169 25.9999 11.3169Z">
+                             Geometry="M26.0002 12.52C19.6652 12.52 15.7762 18.212 16.2542 26.02C16.6722 32.842 20.6392 37.644 26.0002 37.644C31.3602 37.644 35.3282 32.844 35.7462 26.02C36.2242 18.212 32.3352 12.52 26.0002 12.52Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.228" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M15.883 27.3008L21.125 18.4998L21.173 24.8878L30.625 17.1248L35.281 26.5588L37.044 20.4328L33.425 11.7078L25.257 8.92383L18.481 10.5948L14.305 16.5338L13.655 24.8878L15.883 27.3008Z">
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+
+    <DrawingImage x:Key="MiiHair74">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor3}"
+                             Geometry="M26 39.8151C26.335 39.8151 33.125 37.0001 33.125 37.0001L34.125 40.0001L36.625 36.8751L37.544 39.7301C39.1011 38.255 40.293 36.4372 41.025 34.4211C42.777 28.6701 41.45 24.1551 40.232 20.4991C38.375 14.9311 33.072 8.43408 26 8.43408C18.928 8.43408 13.623 14.9311 11.767 20.5001C10.549 24.1561 9.22197 28.6711 10.974 34.4221C11.7059 36.4382 12.8978 38.256 14.455 39.7311L15.374 36.8761L17.874 40.0001L18.874 37.0001C18.874 37.0001 25.664 39.8151 26 39.8151Z">
+            </GeometryDrawing>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M25.9999 11.0898C18.9609 11.0898 14.6399 17.4138 15.1709 26.0948C15.6349 33.6738 20.0429 39.0108 25.9999 39.0108C31.9559 39.0108 36.3649 33.6738 36.8279 26.0948C37.3589 17.4138 33.0369 11.0898 25.9999 11.0898Z">
                 <GeometryDrawing.Pen>
                     <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
                 </GeometryDrawing.Pen>
             </GeometryDrawing>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
-                             Geometry="M26 12.941L30.177 14.488C31.337 17.04 33.348 21.062 35.513 25.088C37.876 29.474 38.993 31.276 38.993 31.276C38.993 31.276 41.004 25.32 39.638 19.776C37.905 12.748 33.073 8.44995 26 8.44995C18.926 8.44995 14.094 12.75 12.361 19.776C10.995 25.316 13.005 31.276 13.005 31.276C13.005 31.276 14.124 29.476 16.486 25.088C18.651 21.066 20.663 17.044 21.823 14.488L26 12.941Z">
+                             Geometry="M13.1309 27.638C13.1309 27.638 25.3799 24.938 31.5669 15.267C32.3385 17.535 33.2424 19.7558 34.2739 21.918C36.6419 26.518 39.4589 27.638 39.4589 27.638L36.1309 13.333L26.9999 8.77002L19.4199 10.626L13.4829 18.446L13.1309 27.638Z">
             </GeometryDrawing>
         </DrawingGroup>
     </DrawingImage>

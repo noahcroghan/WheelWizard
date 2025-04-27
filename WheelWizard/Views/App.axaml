@@ -15,7 +15,15 @@
                 <ResourceInclude Source="Styles/Resources/Icons.axaml" />
                 <ResourceInclude Source="Styles/Resources/MultiIcons.axaml" />
                 
+                <!-- MiiIcons -->
                 <ResourceInclude Source="Styles/Resources/MiiIcons/MiiHair.axaml" />
+                <ResourceInclude Source="Styles/Resources/MiiIcons/MiiEye.axaml" />
+                <ResourceInclude Source="Styles/Resources/MiiIcons/MiiNose.axaml" />
+                <ResourceInclude Source="Styles/Resources/MiiIcons/MiiEyebrow.axaml" />
+                <ResourceInclude Source="Styles/Resources/MiiIcons/MiiGlasses.axaml" />
+                <ResourceInclude Source="Styles/Resources/MiiIcons/MiiMouth.axaml" />
+                <ResourceInclude Source="Styles/Resources/MiiIcons/MiiFace.axaml" />
+                <ResourceInclude Source="Styles/Resources/MiiIcons/MiiMustache.axaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- CONVERTERS -->

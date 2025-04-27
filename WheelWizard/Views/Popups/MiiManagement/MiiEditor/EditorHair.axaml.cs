@@ -45,11 +45,12 @@ public partial class EditorHair : MiiEditorBaseControl
         for (var i = 0; i <= 71; i++)
         {
             var index = i;
+            var indexStr = index < 10 ? $"0{i}" : index.ToString();
             var button = new MultiIconRadioButton()
             {
                 IsChecked = index == Editor.Mii.MiiHair.HairType,
                 Margin = new(6),
-                IconData = GetMiiIconData($"Hair{index}"),
+                IconData = GetMiiIconData($"MiiHair{indexStr}"),
                 Color1 = Color1,
                 Color2 = Color2,
                 Color3 = Color3,

@@ -25,12 +25,9 @@
 
                 <StackPanel> <!-- Eye Type -->
                     <components:FormFieldLabel Text="Eye Type:"/>
-                    <ComboBox
-                        x:Name="EyeTypeBox"
-                        SelectionChanged="EyeTypeBox_OnSelectionChanged"
-                        Width="150"
-                        MaxDropDownHeight="200"
-                        />
+                    <UniformGrid Columns="5" x:Name="EyeTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
                 </StackPanel>
 
                 <StackPanel> <!-- Eye Color -->

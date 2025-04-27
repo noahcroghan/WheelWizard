@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -29,10 +31,7 @@ public partial class EditorEyes : MiiEditorBaseControl
     private void PopulateValues()
     {
         var currentEyes = Editor.Mii.MiiEyes;
-        EyeTypeBox.Items.Clear();
-        var eyeTypes = Enumerable.Range(MinType, MaxType - MinType + 1).Cast<object>().ToList(); // 0 to 47
-        EyeTypeBox.ItemsSource = eyeTypes;
-        EyeTypeBox.SelectedItem = currentEyes.Type;
+        GenerateEyeButtons();
         EyeColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(EyeColor)))
         {
@@ -41,6 +40,66 @@ public partial class EditorEyes : MiiEditorBaseControl
                 EyeColorBox.SelectedItem = color;
         }
         UpdateValueTexts(currentEyes);
+    }
+
+    private void GenerateEyeButtons()
+    {
+        var Color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var Color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var Color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
+        var Color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
+        var Color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
+        var SelectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
+
+        for (var i = 0; i <= 47; i++)
+        {
+            var index = i;
+            //for Eyes single digits are 0 padded
+            var indexStr = index < 10 ? $"0{i}" : index.ToString();
+            var button = new MultiIconRadioButton()
+            {
+                IsChecked = index == Editor.Mii.MiiEyes.Type,
+                Margin = new(6),
+                IconData = GetMiiIconData($"Miieye{indexStr}"),
+                Color1 = Color1,
+                Color2 = Color2,
+                Color3 = Color3,
+                Color4 = Color4,
+                Color5 = Color5,
+
+                SelectedColor3 = SelectedColor3,
+            };
+
+            button.Click += (_, _) => SetEyesType(index);
+            EyeTypesGrid.Children.Add(button);
+        }
+    }
+
+    private void SetEyesType(int index)
+    {
+        if (Editor?.Mii?.MiiEyes == null)
+            return;
+
+        var current = Editor.Mii.MiiEyes;
+        if (index == current.Type)
+            return;
+
+        var result = MiiEye.Create(index, current.Rotation, current.Vertical, current.Color, current.Size, current.Spacing);
+        if (result.IsSuccess)
+        {
+            Editor.Mii.MiiEyes = result.Value;
+            Editor.Mii.ClearImages();
+            UpdateValueTexts(result.Value);
+        }
+        else
+        {
+            // Reset to previous value
+            var currentType = current.Type;
+            foreach (var item in EyeTypesGrid.Children.OfType<MultiIconRadioButton>())
+            {
+                item.IsChecked = item.IconData == GetMiiIconData($"Eyes{currentType:D2}");
+            }
+        }
     }
 
     private void UpdateValueTexts(MiiEye eyes)
@@ -126,29 +185,6 @@ public partial class EditorEyes : MiiEditorBaseControl
         Editor.Mii.MiiEyes = result.Value;
         Editor.Mii.ClearImages();
         UpdateValueTexts(result.Value);
-    }
-
-    private void EyeTypeBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || EyeTypeBox.SelectedItem == null || Editor?.Mii?.MiiEyes == null)
-            return;
-        if (EyeTypeBox.SelectedItem is not int newType)
-            return;
-
-        var current = Editor.Mii.MiiEyes;
-        if (newType == current.Type)
-            return;
-
-        var result = MiiEye.Create(newType, current.Rotation, current.Vertical, current.Color, current.Size, current.Spacing);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiEyes = result.Value;
-            Editor.Mii.ClearImages();
-        }
-        else
-        {
-            EyeTypeBox.SelectedItem = current.Type;
-        }
     }
 
     private void EyeColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
