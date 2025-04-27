@@ -42,27 +42,18 @@ public partial class EditorHair : MiiEditorBaseControl
         var Color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
         var SelectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
 
-        for (var i = 0; i <= 71; i++)
-        {
-            var index = i;
-            var indexStr = index < 10 ? $"0{i}" : index.ToString();
-            var button = new MultiIconRadioButton()
+        SetButtons("MiiHair", 71, HairTypesGrid, (index, button) =>
             {
-                IsChecked = index == Editor.Mii.MiiHair.HairType,
-                Margin = new(6),
-                IconData = GetMiiIconData($"MiiHair{indexStr}"),
-                Color1 = Color1,
-                Color2 = Color2,
-                Color3 = Color3,
-                Color4 = Color4,
-                Color5 = Color5,
-
-                SelectedColor3 = SelectedColor3,
-            };
-
-            button.Click += (_, _) => SetHairType(index);
-            HairTypesGrid.Children.Add(button);
-        }
+                button.IsChecked = index == Editor.Mii.MiiHair.HairType;
+                button.Color1 = Color1;
+                button.Color2 = Color2;
+                button.Color3 = Color3;
+                button.Color4 = Color4;
+                button.Color5 = Color5;
+                button.Click += (s, e) => SetHairType(index);
+                button.SelectedColor3 = SelectedColor3;
+            }
+        );
     }
 
     private void SetHairType(int type)
