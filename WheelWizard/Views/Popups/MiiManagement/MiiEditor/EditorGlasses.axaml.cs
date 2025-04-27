@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -23,15 +25,6 @@ public partial class EditorGlasses : MiiEditorBaseControl
     private void PopulateValues()
     {
         var currentGlasses = Editor.Mii.MiiGlasses;
-
-        GlassesTypeBox.Items.Clear();
-        foreach (var type in Enum.GetNames(typeof(GlassesType)))
-        {
-            GlassesTypeBox.Items.Add(type);
-            if (type == currentGlasses.Type.ToString())
-                GlassesTypeBox.SelectedItem = type;
-        }
-
         GlassesColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(GlassesColor)))
         {
@@ -40,8 +33,68 @@ public partial class EditorGlasses : MiiEditorBaseControl
                 GlassesColorBox.SelectedItem = color;
         }
 
+        GenerateGlassessButtons();
         UpdateValueTexts(currentGlasses);
         HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != GlassesType.None;
+    }
+
+    private void GenerateGlassessButtons()
+    {
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
+        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
+
+        SetButtons(
+            "MiiGlasses",
+            7,
+            GlassesTypesGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiFacial.FaceShape;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.Color5 = color5;
+                button.Click += (_, _) => SetGlassesType(index);
+                button.SelectedColor3 = selectedColor3;
+            }
+        );
+    }
+
+    private void SetGlassesType(int index)
+    {
+        if (Editor?.Mii?.MiiGlasses == null)
+            return;
+
+        var current = Editor.Mii.MiiGlasses;
+
+        if (index == (int)current.Type)
+            return;
+
+        var result = MiiGlasses.Create((GlassesType)index, current.Color, current.Size, current.Vertical);
+        if (result.IsSuccess)
+        {
+            Editor.Mii.MiiGlasses = result.Value;
+            Editor.Mii.ClearImages();
+            UpdateValueTexts(result.Value);
+            HideIfNoGlasses.IsVisible = result.Value.Type != GlassesType.None;
+        }
+        else
+        {
+            foreach (var child in GlassesTypesGrid.Children)
+            {
+                if (child is MultiIconRadioButton button && button.IsChecked == true)
+                {
+                    button.IsChecked = false;
+                }
+            }
+            var currentButton = GlassesTypesGrid.Children[index] as MultiIconRadioButton;
+            currentButton.IsChecked = true;
+        }
     }
 
     private void UpdateValueTexts(MiiGlasses glasses)
@@ -109,32 +162,6 @@ public partial class EditorGlasses : MiiEditorBaseControl
         Editor.Mii.MiiGlasses = result.Value;
         Editor.Mii.ClearImages();
         UpdateValueTexts(result.Value);
-    }
-
-    private void GlassesTypeBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || GlassesTypeBox.SelectedItem == null || Editor?.Mii?.MiiGlasses == null)
-            return;
-        if (GlassesTypeBox.SelectedItem is not string typeStr)
-            return;
-
-        var newType = (GlassesType)Enum.Parse(typeof(GlassesType), typeStr);
-        var current = Editor.Mii.MiiGlasses;
-        if (newType == current.Type)
-            return;
-
-        var result = MiiGlasses.Create(newType, current.Color, current.Size, current.Vertical);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiGlasses = result.Value;
-            Editor.Mii.ClearImages();
-        }
-        else
-        {
-            GlassesTypeBox.SelectedItem = current.Type.ToString();
-        }
-
-        HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != GlassesType.None;
     }
 
     private void GlassesColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

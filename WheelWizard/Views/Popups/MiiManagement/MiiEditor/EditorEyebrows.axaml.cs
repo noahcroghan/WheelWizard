@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -28,13 +30,8 @@ public partial class EditorEyebrows : MiiEditorBaseControl
     private void PopulateValues()
     {
         var currentEyebrows = Editor.Mii.MiiEyebrows;
-
-        // Populate ComboBoxes (same as before)
-        EyebrowTypeBox.Items.Clear();
         var eyebrowTypes = Enumerable.Range(0, 24).Cast<object>().ToList();
-        EyebrowTypeBox.ItemsSource = eyebrowTypes;
-        EyebrowTypeBox.SelectedItem = currentEyebrows.Type;
-
+        CreateEyebrowButtons();
         EyebrowColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(EyebrowColor)))
         {
@@ -45,6 +42,63 @@ public partial class EditorEyebrows : MiiEditorBaseControl
 
         // Populate TextBlocks
         UpdateValueTexts(currentEyebrows);
+    }
+
+    private void CreateEyebrowButtons()
+    {
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
+        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
+        SetButtons(
+            "MiiEyebrow",
+            23,
+            EyebrowTypesGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == Editor.Mii.MiiEyebrows.Type;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.Color5 = color5;
+                button.Click += (_, _) => SetEyebrowType(index);
+                button.SelectedColor3 = selectedColor3;
+            }
+        );
+    }
+
+    private void SetEyebrowType(int index)
+    {
+        if (Editor?.Mii?.MiiEyebrows == null)
+            return;
+
+        var current = Editor.Mii.MiiEyebrows;
+        if (index == current.Type)
+            return;
+
+        var result = MiiEyebrow.Create(index, current.Rotation, current.Color, current.Size, current.Vertical, current.Spacing);
+        if (result.IsSuccess)
+        {
+            Editor.Mii.MiiEyebrows = result.Value;
+            Editor.Mii.ClearImages();
+        }
+        else
+        {
+            // Reset the button to the current type if creation fails
+            foreach (var child in EyebrowTypesGrid.Children)
+            {
+                if (child is MultiIconRadioButton button && button.IsChecked == true)
+                {
+                    button.IsChecked = false;
+                }
+            }
+
+            var currentButton = EyebrowTypesGrid.Children[index] as MultiIconRadioButton;
+            currentButton.IsChecked = true;
+        }
     }
 
     // Helper to update all value TextBlocks
@@ -135,29 +189,6 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         Editor.Mii.MiiEyebrows = result.Value;
         Editor.Mii.ClearImages();
         UpdateValueTexts(result.Value);
-    }
-
-    private void EyebrowTypeBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || EyebrowTypeBox.SelectedItem == null || Editor?.Mii?.MiiEyebrows == null)
-            return;
-        if (EyebrowTypeBox.SelectedItem is not int newType)
-            return;
-
-        var current = Editor.Mii.MiiEyebrows;
-        if (newType == current.Type)
-            return;
-
-        var result = MiiEyebrow.Create(newType, current.Rotation, current.Color, current.Size, current.Vertical, current.Spacing);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiEyebrows = result.Value;
-            Editor.Mii.ClearImages();
-        }
-        else
-        {
-            EyebrowTypeBox.SelectedItem = current.Type;
-        }
     }
 
     private void EyebrowColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

@@ -21,8 +21,9 @@
 
                 <StackPanel> <!-- Eyebrow Type -->
                     <components:FormFieldLabel Text="Eyebrow Type:"/>
-                    <ComboBox x:Name="EyebrowTypeBox" SelectionChanged="EyebrowTypeBox_OnSelectionChanged"
-                              Width="150" MaxDropDownHeight="200"/>
+                    <UniformGrid Columns="5" x:Name="EyebrowTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
                 </StackPanel>
 
                 <StackPanel> <!-- Eyebrow Color -->

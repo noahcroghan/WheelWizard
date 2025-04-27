@@ -24,13 +24,10 @@
                 <!-- The list of elements you want to edit in this page -->
 
                 <StackPanel> <!-- Lip Type -->
-                    <components:FormFieldLabel Text="Lip Type:"/>
-                    <ComboBox
-                        x:Name="LipTypeBox"
-                        SelectionChanged="LipTypeBox_OnSelectionChanged"
-                        Width="150"
-                        MaxDropDownHeight="200"
-                        />
+                    <components:FormFieldLabel Text="Mouth Type:"/>
+                    <UniformGrid Columns="5" x:Name="MouthTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
                 </StackPanel>
 
                  <StackPanel> <!-- Lip Color -->

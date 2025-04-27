@@ -23,13 +23,6 @@
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="15"> <!-- Keep Spacing -->
                 <!-- The list of elements you want to edit in this page -->
 
-                <StackPanel> <!-- Eye Type -->
-                    <components:FormFieldLabel Text="Eye Type:"/>
-                    <UniformGrid Columns="5" x:Name="EyeTypesGrid">
-                        <!-- Generated elements -->
-                    </UniformGrid>
-                </StackPanel>
-
                 <StackPanel> <!-- Eye Color -->
                     <components:FormFieldLabel Text="Eye Color:"/>
                     <ComboBox
@@ -79,6 +72,12 @@
                      </StackPanel>
                  </StackPanel>
 
+                <StackPanel> <!-- Eye Type -->
+                    <components:FormFieldLabel Text="Eye Type:"/>
+                    <UniformGrid Columns="5" x:Name="EyeTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
 

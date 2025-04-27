@@ -42,7 +42,11 @@ public partial class EditorHair : MiiEditorBaseControl
         var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
         var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
 
-        SetButtons("MiiHair", 71, HairTypesGrid, (index, button) =>
+        SetButtons(
+            "MiiHair",
+            71,
+            HairTypesGrid,
+            (index, button) =>
             {
                 button.IsChecked = index == Editor.Mii.MiiHair.HairType;
                 button.Color1 = color1;

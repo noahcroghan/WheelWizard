@@ -23,13 +23,11 @@
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="10">
                 <!-- The list of elements you want to edit in this page -->
 
-                <StackPanel> <!-- Head Shape -->
+                <StackPanel> <!-- Head Type -->
                     <components:FormFieldLabel Text="Head Shape:"/>
-                    <ComboBox
-                        x:Name="HeadShapeBox"
-                        SelectionChanged="HeadShapeBox_OnSelectionChanged"
-                        Width="150"
-                        />
+                    <UniformGrid Columns="5" x:Name="HeadTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
                 </StackPanel>
 
                 <StackPanel> <!-- Skin Color -->

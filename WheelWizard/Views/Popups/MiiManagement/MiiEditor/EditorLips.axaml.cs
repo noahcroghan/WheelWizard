@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.Media;
+using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -25,12 +27,7 @@ public partial class EditorLips : MiiEditorBaseControl
     private void PopulateValues()
     {
         var currentLips = Editor.Mii.MiiLips;
-
-        LipTypeBox.Items.Clear();
         var lipTypes = Enumerable.Range(MinType, MaxType - MinType + 1).Cast<object>().ToList(); // 0 to 23
-        LipTypeBox.ItemsSource = lipTypes;
-        LipTypeBox.SelectedItem = currentLips.Type;
-
         LipColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(LipColor)))
         {
@@ -38,8 +35,66 @@ public partial class EditorLips : MiiEditorBaseControl
             if (color == currentLips.Color.ToString())
                 LipColorBox.SelectedItem = color;
         }
-
+        GenerateMouthButtons();
         UpdateValueTexts(currentLips);
+    }
+
+    private void GenerateMouthButtons()
+    {
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
+        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
+
+        SetButtons(
+            "MiiMouth",
+            23,
+            MouthTypesGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == Editor.Mii.MiiLips.Type;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.Color5 = color5;
+                button.Click += (_, _) => SetMouthType(index);
+                button.SelectedColor3 = selectedColor3;
+            }
+        );
+    }
+
+    private void SetMouthType(int index)
+    {
+        if (Editor?.Mii?.MiiLips == null)
+            return;
+
+        var current = Editor.Mii.MiiLips;
+        if (index == current.Type)
+            return;
+
+        // MiiLip.Create(int type, LipColor color, int size, int vertical)
+        var result = MiiLip.Create(index, current.Color, current.Size, current.Vertical);
+        if (result.IsSuccess)
+        {
+            Editor.Mii.MiiLips = result.Value;
+            Editor.Mii.ClearImages();
+            UpdateValueTexts(result.Value);
+        }
+        else
+        {
+            foreach (var child in MouthTypesGrid.Children)
+            {
+                if (child is MultiIconRadioButton button && button.IsChecked == true)
+                {
+                    button.IsChecked = false;
+                }
+            }
+            var currentButton = MouthTypesGrid.Children[index] as MultiIconRadioButton;
+            currentButton.IsChecked = true;
+        }
     }
 
     private void UpdateValueTexts(MiiLip lips)
@@ -107,30 +162,6 @@ public partial class EditorLips : MiiEditorBaseControl
         Editor.Mii.MiiLips = result.Value;
         Editor.Mii.ClearImages();
         UpdateValueTexts(result.Value);
-    }
-
-    private void LipTypeBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || LipTypeBox.SelectedItem == null || Editor?.Mii?.MiiLips == null)
-            return;
-        if (LipTypeBox.SelectedItem is not int newType)
-            return;
-
-        var current = Editor.Mii.MiiLips;
-        if (newType == current.Type)
-            return;
-
-        // MiiLip.Create(int type, LipColor color, int size, int vertical)
-        var result = MiiLip.Create(newType, current.Color, current.Size, current.Vertical);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiLips = result.Value;
-            Editor.Mii.ClearImages();
-        }
-        else
-        {
-            LipTypeBox.SelectedItem = current.Type;
-        }
     }
 
     private void LipColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
