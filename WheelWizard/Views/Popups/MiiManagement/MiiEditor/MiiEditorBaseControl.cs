@@ -31,11 +31,20 @@ public class MiiEditorBaseControl : UserControlBase
 
     protected void SetButtons(string type, int count, UniformGrid addTo, Action<int, MultiIconRadioButton> modify)
     {
-        for (var i = 0; i <= count; i++)
+        for (var i = 0; i < count; i++)
         {
             var index = i;
-            var indexStr = index < 10 ? $"0{i}" : index.ToString();
-            var button = new MultiIconRadioButton() { Margin = new(6), IconData = GetMiiIconData($"{type}{indexStr}") };
+
+            var iconName = "";
+            if (type == "Color")
+                iconName = "MiiColorBall";
+            else
+            {
+                var indexStr = index < 10 ? $"0{i}" : index.ToString();
+                iconName = $"{type}{indexStr}";
+            }
+
+            var button = new MultiIconRadioButton() { Margin = new(6), IconData = GetMiiIconData(iconName) };
             modify(index, button);
             addTo.Children.Add(button);
         }

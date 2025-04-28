@@ -50,7 +50,7 @@ public partial class EditorLips : MiiEditorBaseControl
 
         SetButtons(
             "MiiMouth",
-            23,
+            24,
             MouthTypesGrid,
             (index, button) =>
             {

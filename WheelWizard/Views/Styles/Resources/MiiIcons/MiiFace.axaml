@@ -55,8 +55,18 @@
             </UniformGrid>
         </Border>
     </Design.PreviewWith>
-
-
+    
+    <DrawingImage x:Key="MiiColorBall">
+        <DrawingGroup>
+            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
+                             Geometry="M25.9999 42.0501C34.8862 42.0501 42.0899 34.8464 42.0899 25.9601C42.0899 17.0739 34.8862 9.87012 25.9999 9.87012C17.1137 9.87012 9.90991 17.0739 9.90991 25.9601C9.90991 34.8464 17.1137 42.0501 25.9999 42.0501Z">
+                <GeometryDrawing.Pen>
+                    <Pen Thickness="2.48" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen>
+            </GeometryDrawing>
+        </DrawingGroup>
+    </DrawingImage>
+    
     <DrawingImage x:Key="MiiFace00">
         <DrawingGroup>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"

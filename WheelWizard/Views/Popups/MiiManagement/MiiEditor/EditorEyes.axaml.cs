@@ -53,7 +53,7 @@ public partial class EditorEyes : MiiEditorBaseControl
 
         SetButtons(
             "MiiEye",
-            47,
+            48,
             EyeTypesGrid,
             (index, button) =>
             {

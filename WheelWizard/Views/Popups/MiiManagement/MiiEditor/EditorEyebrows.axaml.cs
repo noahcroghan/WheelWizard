@@ -51,7 +51,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Primary400);
         SetButtons(
             "MiiEyebrow",
-            23,
+            24,
             EyebrowTypesGrid,
             (index, button) =>
             {

@@ -47,7 +47,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Hair Color
         SetButtons(
             "MiiGoatee",
-            3,
+            4,
             BeardTypesGrid,
             (index, button) =>
             {
@@ -93,7 +93,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Hair Color
         SetButtons(
             "MiiMustache",
-            3,
+            4,
             MustacheTypesGrid,
             (index, button) =>
             {

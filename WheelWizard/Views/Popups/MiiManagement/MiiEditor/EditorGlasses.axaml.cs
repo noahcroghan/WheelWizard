@@ -46,7 +46,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
         SetButtons(
             "MiiGlasses",
-            7,
+            8,
             GlassesTypesGrid,
             (index, button) =>
             {
@@ -82,9 +82,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
             foreach (var child in GlassesTypesGrid.Children)
             {
                 if (child is MultiIconRadioButton button && button.IsChecked == true)
-                {
                     button.IsChecked = false;
-                }
             }
             var currentButton = GlassesTypesGrid.Children[index] as MultiIconRadioButton;
             currentButton.IsChecked = true;

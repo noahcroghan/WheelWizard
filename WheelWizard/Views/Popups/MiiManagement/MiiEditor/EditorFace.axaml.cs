@@ -1,6 +1,5 @@
 using Avalonia.Controls;
 using Avalonia.Media;
-using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -14,21 +13,25 @@ public partial class EditorFace : MiiEditorBaseControl
         PopulateValues();
     }
 
+    private static readonly Dictionary<MiiSkinColor, (Color, Color)> SkinColors = new()
+    {
+        [MiiSkinColor.Light] = (Color.FromRgb(255, 242, 226), Color.FromRgb(224, 194, 154)),
+        [MiiSkinColor.Yellow] = (Color.FromRgb(255, 208, 132), Color.FromRgb(229, 167, 80)),
+        [MiiSkinColor.Red] = (Color.FromRgb(222, 154, 91), Color.FromRgb(224, 118, 48)),
+        [MiiSkinColor.Pink] = (Color.FromRgb(255, 203, 195), Color.FromRgb(255, 173, 158)),
+        [MiiSkinColor.DarkBrown] = (Color.FromRgb(194, 106, 33), Color.FromRgb(154, 69, 18)),
+        [MiiSkinColor.Brown] = (Color.FromRgb(145, 98, 40), Color.FromRgb(58, 43, 11)),
+    };
+
     private void PopulateValues()
     {
-        foreach (var color in Enum.GetNames(typeof(MiiSkinColor)))
-        {
-            SkinColorBox.Items.Add(color);
-            if (color == Editor.Mii.MiiFacial.SkinColor.ToString())
-                SkinColorBox.SelectedItem = color;
-        }
-
         foreach (var feature in Enum.GetNames(typeof(MiiFacialFeature)))
         {
             FacialFeatureBox.Items.Add(feature);
             if (feature == Editor.Mii.MiiFacial.FacialFeature.ToString())
                 FacialFeatureBox.SelectedItem = feature;
         }
+        CreateSkinColorButtons();
         CreateHeadShapeButtons();
     }
 
@@ -39,7 +42,7 @@ public partial class EditorFace : MiiEditorBaseControl
         var color3 = new SolidColorBrush(Colors.Transparent); // Face features
         SetButtons(
             "MiiFace",
-            7,
+            8,
             HeadTypesGrid,
             (index, button) =>
             {
@@ -52,13 +55,26 @@ public partial class EditorFace : MiiEditorBaseControl
         );
     }
 
+    private void CreateSkinColorButtons()
+    {
+        SetButtons(
+            "Color",
+            6,
+            SkinColorGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiFacial.SkinColor;
+                button.Color1 = new SolidColorBrush(SkinColors[(MiiSkinColor)index].Item1);
+                button.Color2 = new SolidColorBrush(SkinColors[(MiiSkinColor)index].Item2);
+                button.Click += (_, _) => SetSkinColor(index);
+            }
+        );
+    }
+
     private void SetFaceType(int index)
     {
-        if (Editor?.Mii?.MiiEyebrows == null)
-            return;
-
         var current = Editor.Mii.MiiFacial;
-        //faceshape is an enum so when comparing
+        //face shape is an enum so when comparing
         if (index == (int)current.FaceShape)
             return; // No change
         var result = MiiFacialFeatures.Create(
@@ -69,54 +85,27 @@ public partial class EditorFace : MiiEditorBaseControl
             current.Downloaded
         );
         if (result.IsFailure)
-        {
-            ViewUtils.ShowSnackbar($"Error updating Face Shape: {result.Error.Message}");
-            // Reset the button state
-            foreach (var child in HeadTypesGrid.Children)
-            {
-                if (child is MultiIconRadioButton button && button.IsChecked == true)
-                {
-                    button.IsChecked = false;
-                }
-            }
             return;
-        }
+
         Editor.Mii.MiiFacial = result.Value;
         Editor.Mii.ClearImages();
-        // Update the selected button
-        foreach (var child in HeadTypesGrid.Children)
-        {
-            if (child is MultiIconRadioButton button && button.IsChecked == true)
-            {
-                button.IsChecked = false;
-            }
-        }
     }
 
-    private void SkinColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void SetSkinColor(int index)
     {
-        var value = SkinColorBox.SelectedItem;
-        if (value is null)
-            return;
-
-        var selectedColor = (MiiSkinColor)Enum.Parse(typeof(MiiSkinColor), value.ToString()!);
-        var currentFacial = Editor.Mii.MiiFacial;
-
-        if (selectedColor == currentFacial.SkinColor)
+        var current = Editor.Mii.MiiFacial;
+        //face shape is an enum so when comparing
+        if (index == (int)current.FaceShape)
             return; // No change
-
         var result = MiiFacialFeatures.Create(
-            currentFacial.FaceShape,
-            selectedColor,
-            currentFacial.FacialFeature,
-            currentFacial.MingleOff,
-            currentFacial.Downloaded
+            current.FaceShape,
+            (MiiSkinColor)index,
+            current.FacialFeature,
+            current.MingleOff,
+            current.Downloaded
         );
-
         if (result.IsFailure)
-        {
             return;
-        }
 
         Editor.Mii.MiiFacial = result.Value;
         Editor.Mii.ClearImages();

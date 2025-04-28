@@ -22,23 +22,21 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="10">
                 <!-- The list of elements you want to edit in this page -->
-
+                
+                <StackPanel> <!-- Skin Color -->
+                    <components:FormFieldLabel Text="Skin Color:"/>
+                    <UniformGrid Columns="6" x:Name="SkinColorGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
+                </StackPanel>
+                
                 <StackPanel> <!-- Head Type -->
                     <components:FormFieldLabel Text="Head Shape:"/>
                     <UniformGrid Columns="5" x:Name="HeadTypesGrid">
                         <!-- Generated elements -->
                     </UniformGrid>
                 </StackPanel>
-
-                <StackPanel> <!-- Skin Color -->
-                    <components:FormFieldLabel Text="Skin Color:"/>
-                    <ComboBox
-                        x:Name="SkinColorBox"
-                        SelectionChanged="SkinColorBox_OnSelectionChanged"
-                        Width="150"
-                        />
-                </StackPanel>
-
+            
                 <StackPanel> <!-- Facial Feature (Blemishes) -->
                     <components:FormFieldLabel Text="Facial Feature:"/>
                     <ComboBox
