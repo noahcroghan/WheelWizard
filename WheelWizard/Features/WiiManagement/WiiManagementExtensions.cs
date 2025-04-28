@@ -37,7 +37,7 @@ public static class WiiManagementExtensions
         var cloneResult = MiiSerializer.Deserialize(selfBytes.Value);
         if (cloneResult.IsFailure)
             return cloneResult.Error;
-        ;
+        ; // watermark by wanttobeeme
         return cloneResult.Value;
     }
 }

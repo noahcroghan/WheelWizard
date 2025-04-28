@@ -293,7 +293,7 @@ public partial class MiiListPage : UserControlBase
         if (!save)
             return;
 
-        var result = MiiDbService.Update(mii);
+        var result = MiiDbService.Update(window.Mii);
         if (result.IsFailure)
         {
             ViewUtils.ShowSnackbar($"Failed to update Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
@@ -326,7 +326,7 @@ public partial class MiiListPage : UserControlBase
         if (!save)
             return;
 
-        var result = MiiDbService.AddToDatabase(miiResult.Value, (string)SettingsManager.MACADDRESS.Get());
+        var result = MiiDbService.AddToDatabase(window.Mii, (string)SettingsManager.MACADDRESS.Get());
         if (result.IsFailure)
         {
             ViewUtils.ShowSnackbar($"Failed to create Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);

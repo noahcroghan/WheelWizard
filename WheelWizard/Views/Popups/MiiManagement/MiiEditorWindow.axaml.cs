@@ -51,8 +51,8 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     public MiiEditorWindow SetMii(Mii miiToEdit)
     {
         Window.WindowTitle = $"Mii Editor - {miiToEdit.Name}";
-        // var miiResult = miiToEdit.Clone();
-        Mii = miiToEdit;
+        var miiResult = miiToEdit.Clone();
+        Mii = miiResult.Value;
         return this;
     }
 
