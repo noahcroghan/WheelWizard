@@ -32,7 +32,7 @@ public partial class EditorNose : MiiEditorBaseControl
     private void GenerateNoseButtons()
     {
         var color1 = new SolidColorBrush(ViewUtils.Colors.Black);
-        var selectedColor1 = new SolidColorBrush(ViewUtils.Colors.Neutral700);
+        var selectedColor1 = new SolidColorBrush(ViewUtils.Colors.Primary400);
         SetButtons(
             "MiiNose",
             11,

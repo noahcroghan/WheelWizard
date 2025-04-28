@@ -3,22 +3,28 @@
         xmlns:conv="clr-namespace:WheelWizard.Views.Converters"
         xmlns:controls="using:WheelWizard.Views.Components">
     <Design.PreviewWith>
-        <Border Padding="10" Background="{StaticResource Neutral600}">
+        <Border Padding="10" Background="{StaticResource Neutral800}">
             <StackPanel Spacing="10">
                 <controls:MultiIconRadioButton IconData="{StaticResource Example}"
                                                Color1="{StaticResource Neutral400}"
-                                               Color2="{StaticResource Neutral100}"
-                                               Color3="{StaticResource Neutral900}"
-                                               HoverColor3="{StaticResource Neutral950}"
-                                               SelectedColor3="{StaticResource Neutral800}"
+                                               Color2="{StaticResource Neutral500}"
+                                               Color3="{StaticResource Neutral100}"
+                                               HoverColor3="{StaticResource Neutral100}"
+                                               SelectedColor3="{StaticResource Warning200}"
                                                />
                 <controls:MultiIconRadioButton IconData="{StaticResource Example}"
                                                Color1="{StaticResource Neutral400}"
-                                               Color2="{StaticResource Neutral100}"
-                                               Color3="{StaticResource Neutral900}"
-                                               HoverColor3="{StaticResource Neutral950}"
-                                               SelectedColor3="{StaticResource Neutral800}"/>
-                <controls:MultiIconRadioButton IconData="{StaticResource Example}" IsChecked="True" />
+                                               Color2="{StaticResource Neutral500}"
+                                               Color3="{StaticResource Neutral100}"
+                                               HoverColor3="{StaticResource Neutral100}"
+                                               SelectedColor3="{StaticResource Warning200}"/>
+                
+                <controls:MultiIconRadioButton IconData="{StaticResource Example}" IsChecked="True"
+                                               Color1="{StaticResource Neutral400}"
+                                               Color2="{StaticResource Neutral500}"
+                                               Color3="{StaticResource Neutral100}"
+                                               HoverColor3="{StaticResource Neutral100}"
+                                               SelectedColor3="{StaticResource Warning200}"/>
                 <controls:MultiIconRadioButton IconData="{StaticResource Example}" />
                 <controls:MultiIconRadioButton IconData="{StaticResource Example}" IsEnabled="False"
                                                DisabledColor1="{StaticResource Neutral900}"
@@ -33,9 +39,6 @@
 
     <Style Selector="controls|MultiIconRadioButton">
         <!-- Set Defaults -->
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent"/>
-        
         <Setter Property="Template">
             <ControlTemplate>
                 <Border CornerRadius="{StaticResource GlobalCornerRadius}"
@@ -57,6 +60,8 @@
             </ControlTemplate>
         </Setter>
         
+        <Setter Property="Background" Value="Transparent" />
+
         <Style Selector="^ /template/ controls|MultiColoredIcon#PART_MultiIcon">
             <Setter Property="Color1" Value="{TemplateBinding Color1}" />
             <Setter Property="Color2" Value="{TemplateBinding Color2}" />
@@ -76,7 +81,6 @@
     <Style Selector="controls|MultiIconRadioButton:pointerover">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Background" Value="{StaticResource Neutral700}" />
-        <Setter Property="BorderBrush" Value="{StaticResource Neutral700}" />
         <Style Selector="^ /template/ controls|MultiColoredIcon#PART_MultiIcon">
             <Setter Property="Color1">
                 <Setter.Value>
@@ -281,7 +285,7 @@
     </Style>
     
     <Style Selector="controls|MultiIconRadioButton[IsEnabled=False]">
-        <Setter Property="Background" Value="{StaticResource Neutral800}" />
+        <Setter Property="Background" Value="{StaticResource Neutral900}" />
         <Style Selector="^ /template/ controls|MultiColoredIcon#PART_MultiIcon">
                         <Setter Property="Color1">
                 <Setter.Value>

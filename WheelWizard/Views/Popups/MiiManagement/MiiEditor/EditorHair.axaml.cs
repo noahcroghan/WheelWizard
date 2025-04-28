@@ -35,13 +35,11 @@ public partial class EditorHair : MiiEditorBaseControl
 
     private void GenerateHairButtons()
     {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral100); // Skin Color
         var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
-        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
-        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
-        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
-
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Primary800); // Hat main color
+        var color5 = new SolidColorBrush(ViewUtils.Colors.Primary900); // Hat accent color
         SetButtons(
             "MiiHair",
             71,
@@ -55,7 +53,6 @@ public partial class EditorHair : MiiEditorBaseControl
                 button.Color4 = color4;
                 button.Color5 = color5;
                 button.Click += (_, _) => SetHairType(index);
-                button.SelectedColor3 = selectedColor3;
             }
         );
     }

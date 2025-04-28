@@ -138,4 +138,9 @@
         <AvaloniaResource Include="Resources\Fonts\Roboto-Regular.ttf"/>
         <AvaloniaResource Include="Resources\Fonts\ctmkf.ttf"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="Views\Popups\MiiCreatorTabs\MiiCreatorGeneralPage.axaml" />
+      <UpToDateCheckInput Remove="Views\Popups\MiiCreatorTabs\MiiCreatorWindow.axaml" />
+    </ItemGroup>
 </Project>

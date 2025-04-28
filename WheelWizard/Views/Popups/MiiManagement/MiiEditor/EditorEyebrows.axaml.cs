@@ -46,9 +46,9 @@ public partial class EditorEyebrows : MiiEditorBaseControl
     private void CreateEyebrowButtons()
     {
         var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Skin border Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
         var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Eyebrow Color
-        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700);
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Primary400);
         SetButtons(
             "MiiEyebrow",
             23,
