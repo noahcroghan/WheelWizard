@@ -18,7 +18,7 @@ public static class MiiImageVariants
     {
         [Variant.SMALL] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.FACE, ImageSize.SMALL),
         [Variant.MEDIUM] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.FACE, ImageSize.MEDIUM),
-        [Variant.FULL_BODY_CAROUSEL] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.ALL_BODY, ImageSize.MEDIUM, instanceCount: 8),
+        [Variant.FULL_BODY_CAROUSEL] = GetMiiImageUrlFromResponse(Expression.NORMAL, BodyType.ALL_BODY, ImageSize.SMALL, instanceCount: 8),
         [Variant.SLIGHT_SIDE_PROFILE_DEFAULT] = GetMiiImageUrlFromResponse(
             Expression.NORMAL,
             BodyType.FACE,
@@ -100,6 +100,8 @@ public static class MiiImageVariants
     {
         SMALL = 270,
         MEDIUM = 512,
+        LARGE = 1024,
+        HUGE = 2048,
     }
 
     #endregion

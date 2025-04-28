@@ -24,6 +24,9 @@ public partial class MiiListPage : UserControlBase
     private IMiiDbService MiiDbService { get; set; } = null!;
 
     [Inject]
+    private IMiiRepositoryService MiiRepositoryService { get; set; } = null!;
+
+    [Inject]
     private IFileSystem FileSystem { get; set; } = null!;
 
     [Inject]
@@ -35,7 +38,15 @@ public partial class MiiListPage : UserControlBase
         DataContext = this;
 
         var miiDbExists = MiiDbService.Exists();
-        VisibleWhenNoDb.IsVisible = !miiDbExists;
+        if (!miiDbExists)
+        {
+            var sucess = MiiRepositoryService.ForceCreateDatabase();
+            if (sucess.IsFailure)
+            {
+                ViewUtils.ShowSnackbar($"Failed to create Mii database '{sucess.Error.Message}'", ViewUtils.SnackbarType.Danger);
+                VisibleWhenNoDb.IsVisible = !miiDbExists;
+            }
+        }
 
         if (miiDbExists)
         {

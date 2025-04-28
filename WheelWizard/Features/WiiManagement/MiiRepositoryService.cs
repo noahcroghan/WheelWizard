@@ -43,10 +43,17 @@ public interface IMiiRepositoryService
     /// Whether the database file exists or not.
     /// </summary>
     bool Exists();
+
+    /// <summary>
+    /// Forcefully creates a new database file.
+    /// </summary>
+    /// <returns></returns>
+    OperationResult ForceCreateDatabase();
 }
 
 public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositoryService
 {
+    private readonly IFileSystem _fileSystem;
     private const int MiiLength = 74;
     private const int MaxMiiSlots = 100;
     private const int CrcOffset = 0x1F1DE;
@@ -136,6 +143,23 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     }
 
     public bool Exists() => fileSystem.File.Exists(_wiiDbFilePath);
+
+    public OperationResult ForceCreateDatabase()
+    {
+        if (fileSystem.File.Exists(_wiiDbFilePath))
+            return "Database already exists.";
+
+        var directory = Path.GetDirectoryName(_wiiDbFilePath);
+        if (!string.IsNullOrEmpty(directory) && !fileSystem.Directory.Exists(directory))
+        {
+            fileSystem.Directory.CreateDirectory(directory);
+        }
+
+        var db = new byte[CrcOffset + 2];
+        fileSystem.File.WriteAllBytes(_wiiDbFilePath, db);
+
+        return Ok();
+    }
 
     public OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock)
     {
