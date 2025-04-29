@@ -1,19 +1,24 @@
 using Avalonia.Media.Imaging;
 using WheelWizard.MiiImages.Domain;
 using WheelWizard.Shared.Services;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.MiiImages;
 
 public interface IMiiImagesSingletonService
 {
-    Task<OperationResult<Bitmap>> GetImageAsync(string data);
+    Task<OperationResult<Bitmap>> GetImageAsync(Mii mii);
 }
 
 public class MiiImagesSingletonService(IApiCaller<IMiiIMagesApi> apiCaller) : IMiiImagesSingletonService
 {
-    public async Task<OperationResult<Bitmap>> GetImageAsync(string data)
+    public async Task<OperationResult<Bitmap>> GetImageAsync(Mii mii)
     {
-        return await apiCaller.CallApiAsync(api => GetBitmapAsync(api, data));
+        var data = MiiStudioDataSerializer.Serialize(mii);
+        if (data.IsFailure)
+            return data.Error;
+        
+        return await apiCaller.CallApiAsync(api => GetBitmapAsync(api, data.Value));
     }
 
     private static async Task<Bitmap> GetBitmapAsync(IMiiIMagesApi api, string data)
