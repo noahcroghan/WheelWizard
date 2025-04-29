@@ -19,13 +19,6 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="15">
 
-                <StackPanel> <!-- Eyebrow Type -->
-                    <components:FormFieldLabel Text="Eyebrow Type:"/>
-                    <UniformGrid Columns="5" x:Name="EyebrowTypesGrid">
-                        <!-- Generated elements -->
-                    </UniformGrid>
-                </StackPanel>
-
                 <StackPanel> <!-- Eyebrow Color -->
                     <components:FormFieldLabel Text="Eyebrow Color:"/>
                     <ComboBox x:Name="EyebrowColorBox" SelectionChanged="EyebrowColorBox_OnSelectionChanged"
@@ -71,7 +64,12 @@
                          <Button x:Name="SpacingIncreaseButton" Content="+" Click="SpacingIncrease_Click" Width="30"/>
                      </StackPanel>
                  </StackPanel>
-
+                <StackPanel> <!-- Eyebrow Type -->
+                    <components:FormFieldLabel Text="Eyebrow Type:"/>
+                    <UniformGrid Columns="5" x:Name="EyebrowTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

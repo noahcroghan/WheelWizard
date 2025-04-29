@@ -21,12 +21,6 @@
 
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="15">
-                <!-- The list of elements you want to edit in this page -->
-                <!-- NoseType -->
-                <components:FormFieldLabel Text="Nose Type:"/>
-                <UniformGrid Columns="5" x:Name="NoseTypesGrid">
-                    <!-- Generated elements -->
-                </UniformGrid>
 
                 <!-- Vertical Position (Up/Down) -->
                 <StackPanel>
@@ -48,8 +42,12 @@
                     </StackPanel>
                 </StackPanel>
 
-                <!-- Removed Rotation and Spacing controls -->
-
+                <!-- NoseType -->
+                <components:FormFieldLabel Text="Nose Type:"/>
+                <UniformGrid Columns="5" x:Name="NoseTypesGrid">
+                    <!-- Generated elements -->
+                </UniformGrid>
+    
             </StackPanel>
         </ScrollViewer>
 

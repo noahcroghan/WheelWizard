@@ -22,14 +22,7 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="15">
                 <!-- The list of elements you want to edit in this page -->
-
-                <StackPanel> <!-- Lip Type -->
-                    <components:FormFieldLabel Text="Mouth Type:"/>
-                    <UniformGrid Columns="5" x:Name="MouthTypesGrid">
-                        <!-- Generated elements -->
-                    </UniformGrid>
-                </StackPanel>
-
+                
                  <StackPanel> <!-- Lip Color -->
                     <components:FormFieldLabel Text="Lip Color:"/>
                     <ComboBox
@@ -58,7 +51,12 @@
                         <Button x:Name="SizeIncreaseButton" Content="+" Click="SizeIncrease_Click" Width="30"/>
                     </StackPanel>
                 </StackPanel>
-
+                <StackPanel> <!-- Lip Type -->
+                    <components:FormFieldLabel Text="Mouth Type:"/>
+                    <UniformGrid Columns="5" x:Name="MouthTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
 

@@ -23,20 +23,6 @@
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="15">
                 <!-- The list of elements you want to edit in this page -->
 
-                <StackPanel> <!-- Mustache Type -->
-                    <components:FormFieldLabel Text="Mustache Type:"/>
-                    <UniformGrid Columns="5" x:Name="MustacheTypesGrid">
-                        <!-- Generated elements -->
-                    </UniformGrid>
-                </StackPanel>
-
-                <StackPanel> <!-- Beard Type -->
-                    <components:FormFieldLabel Text="Beard Type:"/>
-                    <UniformGrid Columns="5" x:Name="BeardTypesGrid">
-                        <!-- Generated elements -->
-                    </UniformGrid>
-                </StackPanel>
-
                  <StackPanel> <!-- Facial Hair Color -->
                     <components:FormFieldLabel Text="Facial Hair Color:"/>
                     <ComboBox
@@ -65,7 +51,20 @@
                         <Button x:Name="SizeIncreaseButton" Content="+" Click="SizeIncrease_Click" Width="30"/>
                     </StackPanel>
                 </StackPanel>
+                
+                <StackPanel> <!-- Mustache Type -->
+                    <components:FormFieldLabel Text="Mustache Type:"/>
+                    <UniformGrid Columns="5" x:Name="MustacheTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
+                </StackPanel>
 
+                <StackPanel> <!-- Beard Type -->
+                    <components:FormFieldLabel Text="Beard Type:"/>
+                    <UniformGrid Columns="5" x:Name="BeardTypesGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
 
