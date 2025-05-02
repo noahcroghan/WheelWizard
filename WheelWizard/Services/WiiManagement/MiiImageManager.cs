@@ -365,7 +365,7 @@ public static class MiiImageManager
                 Console.WriteLine($"Received empty image stream from {fullImageUrl}.");
                 return (null, false);
             }
-            
+
             var bitmap = new Bitmap(memoryStream); // Bitmap constructor reads from the stream
             return (bitmap, true); // Success
         }

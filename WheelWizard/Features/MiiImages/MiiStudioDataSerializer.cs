@@ -9,14 +9,17 @@ public class MiiStudioDataSerializer
 {
     private static readonly int[] MakeupMap = [0, 1, 6, 9, 0, 0, 0, 0, 0, 10, 0, 0];
     private static readonly int[] WrinklesMap = [0, 0, 0, 0, 5, 2, 3, 7, 8, 0, 9, 11];
-    
+
     /// <summary>
     /// Serialize the Mii in t the encoded data string required by the Nintendo Mii Image URL.
     /// </summary>
-    public static OperationResult<string> Serialize(Mii mii)
+    public static OperationResult<string> Serialize(Mii? mii)
     {
+        if (mii == null)
+            return Fail<string>("Mii cannot be null.");
+
         // First we create a clone of the Mii that only contains features that are visual
-        // This means no name, date or other non-visual features. 
+        // This means no name, date or other non-visual features.
         // That way when you change a feature that is not visual, it will not result in different bytes.
         Mii visualMiiClone = new();
         visualMiiClone.MiiEyebrows = mii.MiiEyebrows;
@@ -29,18 +32,19 @@ public class MiiStudioDataSerializer
         visualMiiClone.Height = mii.Height;
         visualMiiClone.Weight = mii.Weight;
         visualMiiClone.IsGirl = mii.IsGirl;
-        visualMiiClone.MiiMole  = mii.MiiMole;
+        visualMiiClone.MiiMole = mii.MiiMole;
         visualMiiClone.MiiFavoriteColor = mii.MiiFavoriteColor;
         visualMiiClone.MiiFacial = mii.MiiFacial;
-        
+        visualMiiClone.MiiId = 1; // Mii ID cant be 0 if you want to serialize it so...
+
         var serialized = MiiSerializer.Serialize(visualMiiClone);
-        if(serialized.IsFailure)
+        if (serialized.IsFailure)
             return serialized.Error;
 
         var bytes = GenerateStudioDataArray(serialized.Value);
         return Ok(EncodeStudioData(bytes));
     }
-    
+
     /// <summary>
     /// Encodes the studio data array into the hex string format required by the API.
     /// Based on the encodeStudio function in the provided JS.
@@ -58,7 +62,7 @@ public class MiiStudioDataSerializer
         }
         return dest.ToString();
     }
-    
+
     /// <summary>
     /// Parses the Wii Mii data and generates the 46-byte studio data array.
     /// Based on the miiFileRead logic for Wii data in the provided JS.
@@ -112,36 +116,36 @@ public class MiiStudioDataSerializer
         var eyebrowRotation = (int)((tmpU32_24 >> 22) & 0xF); // Note: JS uses 0xF mask
         var eyebrowColor = (int)((tmpU32_24 >> 13) & 7);
         var eyebrowScale = (int)((tmpU32_24 >> 9) & 0xF);
-        var eyebrowYscale = 3; // Hardcoded in JS
-        var eyebrowYposition = (int)((tmpU32_24 >> 4) & 0x1F);
-        var eyebrowXspacing = (int)(tmpU32_24 & 0xF);
+        var eyebrowYScale = 3; // Hardcoded in JS
+        var eyebrowYPosition = (int)((tmpU32_24 >> 4) & 0x1F);
+        var eyebrowXSpacing = (int)(tmpU32_24 & 0xF);
 
         studio[0xE] = (byte)eyebrowStyle;
         studio[0xC] = (byte)eyebrowRotation;
         studio[0xB] = (byte)(eyebrowColor == 0 ? 8 : eyebrowColor); // Map color 0 to 8
         studio[0xD] = (byte)eyebrowScale;
-        studio[0xA] = (byte)eyebrowYscale;
-        studio[0x10] = (byte)eyebrowYposition;
-        studio[0xF] = (byte)eyebrowXspacing;
+        studio[0xA] = (byte)eyebrowYScale;
+        studio[0x10] = (byte)eyebrowYPosition;
+        studio[0xF] = (byte)eyebrowXSpacing;
 
         // --- Eyes ---
         var tmpU32_28 = BigEndianBinaryReader.BufferToUint32(buf, 0x28);
         var eyeStyle = (int)(tmpU32_28 >> 26);
         var eyeRotation = (int)((tmpU32_28 >> 21) & 7); // Note: JS uses 7 (0b111) mask
-        var eyeYposition = (int)((tmpU32_28 >> 16) & 0x1F);
+        var eyeYPosition = (int)((tmpU32_28 >> 16) & 0x1F);
         var eyeColor = (int)((tmpU32_28 >> 13) & 7);
         var eyeScale = (int)((tmpU32_28 >> 9) & 7); // Note: JS uses 7 mask
-        var eyeYscale = 3; // Hardcoded in JS
-        var eyeXspacing = (int)((tmpU32_28 >> 5) & 0xF);
+        var eyeYScale = 3; // Hardcoded in JS
+        var eyeXSpacing = (int)((tmpU32_28 >> 5) & 0xF);
         // int unknownEyeBit = (int)(tmpU32_28 & 0x1F); // Lower 5 bits unused in JS mapping
 
         studio[7] = (byte)eyeStyle;
         studio[5] = (byte)eyeRotation;
-        studio[9] = (byte)eyeYposition;
+        studio[9] = (byte)eyeYPosition;
         studio[4] = (byte)(eyeColor + 8); // Map color 0-7 to 8-15
         studio[6] = (byte)eyeScale;
-        studio[3] = (byte)eyeYscale;
-        studio[8] = (byte)eyeXspacing;
+        studio[3] = (byte)eyeYScale;
+        studio[8] = (byte)eyeXSpacing;
 
         // --- Nose ---
         var tmpU16_2C = BigEndianBinaryReader.BufferToUint16(buf, 0x2C);
@@ -159,14 +163,14 @@ public class MiiStudioDataSerializer
         var mouseStyle = (int)(tmpU16_2E >> 11);
         var mouseColor = (int)((tmpU16_2E >> 9) & 3); // Lip color (0-3)
         var mouseScale = (int)((tmpU16_2E >> 5) & 0xF);
-        var mouseYscale = 3; // Hardcoded in JS
-        var mouseYposition = (int)(tmpU16_2E & 0x1F);
+        var mouseYScale = 3; // Hardcoded in JS
+        var mouseYPosition = (int)(tmpU16_2E & 0x1F);
 
         studio[0x26] = (byte)mouseStyle;
         studio[0x24] = (byte)(mouseColor < 4 ? mouseColor + 19 : 0); // Map 0-3 to 19-22, else 0
         studio[0x25] = (byte)mouseScale;
-        studio[0x23] = (byte)mouseYscale;
-        studio[0x27] = (byte)mouseYposition;
+        studio[0x23] = (byte)mouseYScale;
+        studio[0x27] = (byte)mouseYPosition;
 
         // --- Beard / Mustache ---
         var tmpU16_32 = BigEndianBinaryReader.BufferToUint16(buf, 0x32);
@@ -174,20 +178,20 @@ public class MiiStudioDataSerializer
         var beardStyle = (int)((tmpU16_32 >> 12) & 3);
         var facialHairColor = (int)((tmpU16_32 >> 9) & 7);
         var mustacheScale = (int)((tmpU16_32 >> 5) & 0xF);
-        var mustacheYposition = (int)(tmpU16_32 & 0x1F);
+        var mustacheYPosition = (int)(tmpU16_32 & 0x1F);
 
         studio[0x29] = (byte)mustacheStyle;
         studio[1] = (byte)beardStyle; // Mapped to index 1
         studio[0] = (byte)(facialHairColor == 0 ? 8 : facialHairColor); // Map color 0 to 8, Mapped to index 0
         studio[0x28] = (byte)mustacheScale;
-        studio[0x2A] = (byte)mustacheYposition;
+        studio[0x2A] = (byte)mustacheYPosition;
 
         // --- Glasses ---
         var tmpU16_30 = BigEndianBinaryReader.BufferToUint16(buf, 0x30);
         var glassesStyle = (int)(tmpU16_30 >> 12);
         var glassesColor = (int)((tmpU16_30 >> 9) & 7);
         var glassesScale = (int)((tmpU16_30 >> 5) & 7); // Note: JS uses 7 mask
-        var glassesYposition = (int)(tmpU16_30 & 0x1F);
+        var glassesYPosition = (int)(tmpU16_30 & 0x1F);
         // int unknownGlassesBits = (int)((tmpU16_30 >> 12) & 7); // Middle bits unused
 
         studio[0x19] = (byte)glassesStyle;
@@ -200,20 +204,20 @@ public class MiiStudioDataSerializer
             mappedGlassesColor = 0; // 6, 7 -> 0 (no mapping?)
         studio[0x17] = mappedGlassesColor;
         studio[0x18] = (byte)glassesScale;
-        studio[0x1A] = (byte)glassesYposition;
+        studio[0x1A] = (byte)glassesYPosition;
 
         // --- Mole ---
         var tmpU16_34 = BigEndianBinaryReader.BufferToUint16(buf, 0x34);
         var enableMole = (int)(tmpU16_34 >> 15);
         var moleScale = (int)((tmpU16_34 >> 11) & 0xF);
-        var moleYposition = (int)((tmpU16_34 >> 6) & 0x1F);
-        var moleXposition = (int)((tmpU16_34 >> 1) & 0x1F);
+        var moleYPosition = (int)((tmpU16_34 >> 6) & 0x1F);
+        var moleXPosition = (int)((tmpU16_34 >> 1) & 0x1F);
         // int unknownMoleBit = (int)(tmpU16_34 & 1); // Lowest bit unused
 
         studio[0x20] = (byte)enableMole;
         studio[0x1F] = (byte)moleScale;
-        studio[0x22] = (byte)moleYposition;
-        studio[0x21] = (byte)moleXposition;
+        studio[0x22] = (byte)moleYPosition;
+        studio[0x21] = (byte)moleXPosition;
 
         return studio;
     }

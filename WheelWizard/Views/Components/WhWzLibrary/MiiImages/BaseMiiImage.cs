@@ -2,6 +2,7 @@
 using Avalonia;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media.Imaging;
+using WheelWizard.MiiImages;
 using WheelWizard.Models.MiiImages;
 using WheelWizard.WiiManagement.Domain.Mii;
 
@@ -66,44 +67,43 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         return value;
     }
 
-    protected void OnVariantChanged(MiiImageVariants.Variant newValue)
+    protected void OnVariantChanged(MiiImageVariants.Variant newValue) => ReloadImage(Mii, newValue);
+
+    protected void OnMiiChanged(Mii? newValue) => ReloadImage(newValue, ImageVariant);
+
+    protected async void ReloadImage(Mii? newMii, MiiImageVariants.Variant variant)
     {
-        ReloadImage(Mii?.GetImage(ImageVariant), Mii?.GetImage(newValue));
-    }
-
-    protected void OnMiiChanged(Mii? newValue)
-    {
-        ReloadImage(Mii?.GetImage(ImageVariant), newValue?.GetImage(ImageVariant));
-    }
-
-    protected void ReloadImage(MiiImage? oldImage, MiiImage? newImage)
-    {
-        if (oldImage != null)
-            oldImage.PropertyChanged -= NotifyMiiImageChangedInternally;
-
-        if (newImage != null)
-            newImage.PropertyChanged += NotifyMiiImageChangedInternally;
-        MiiImage = newImage?.Image;
-        MiiLoaded = newImage?.LoadedImageSuccessfully == true;
-
-        MiiChanged?.Invoke(this, EventArgs.Empty);
-    }
-
-    protected void NotifyMiiImageChangedInternally(object? sender, PropertyChangedEventArgs args)
-    {
-        var variantedImage = Mii?.GetImage(ImageVariant);
-        if (args.PropertyName != nameof(variantedImage.Image))
+        // If the mii was already null, it did not actually change (even if the variant did change).
+        if (newMii == null && Mii != null)
             return;
-        MiiImage = Mii?.GetImage(ImageVariant).Image;
-        MiiLoaded = Mii?.GetImage(ImageVariant).LoadedImageSuccessfully == true;
+
+        MiiLoaded = false;
+        if (newMii == null)
+        {
+            MiiImage = null;
+            MiiLoaded = true;
+            return;
+        }
+
+        var imageService = App.Services.GetService<IMiiImagesSingletonService>()!;
+        var image = await imageService.GetImageAsync(newMii);
+
+        if (image.IsFailure)
+        {
+            MiiImage = null;
+            MiiLoaded = false;
+            return;
+        }
+
+        MiiImage = image.Value;
+        MiiLoaded = true;
     }
 
-    public event EventHandler MiiChanged;
     public event EventHandler MiiImageLoaded;
 
     #region PropertyChanged
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged(string propertyName)
     {

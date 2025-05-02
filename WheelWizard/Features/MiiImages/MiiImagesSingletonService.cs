@@ -7,17 +7,17 @@ namespace WheelWizard.MiiImages;
 
 public interface IMiiImagesSingletonService
 {
-    Task<OperationResult<Bitmap>> GetImageAsync(Mii mii);
+    Task<OperationResult<Bitmap>> GetImageAsync(Mii? mii);
 }
 
 public class MiiImagesSingletonService(IApiCaller<IMiiIMagesApi> apiCaller) : IMiiImagesSingletonService
 {
-    public async Task<OperationResult<Bitmap>> GetImageAsync(Mii mii)
+    public async Task<OperationResult<Bitmap>> GetImageAsync(Mii? mii)
     {
         var data = MiiStudioDataSerializer.Serialize(mii);
         if (data.IsFailure)
             return data.Error;
-        
+
         return await apiCaller.CallApiAsync(api => GetBitmapAsync(api, data.Value));
     }
 
