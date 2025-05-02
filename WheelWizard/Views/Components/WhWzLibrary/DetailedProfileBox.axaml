@@ -3,6 +3,8 @@
         xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
         xmlns:components="using:WheelWizard.Views.Components"
         xmlns:components1="clr-namespace:WheelWizard.Views.Components"
+        
+        xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
         xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages">
     <Design.PreviewWith>
         <StackPanel Orientation="Horizontal">
@@ -60,7 +62,7 @@
                                  Background="{StaticResource Neutral950}">
                            <Grid>
                                <miiImages:MiiImageLoader Mii="{TemplateBinding Mii}" HorizontalAlignment="Center" VerticalAlignment="Stretch" 
-                                                        ImageVariant="SLIGHT_SIDE_PROFILE_DEFAULT" ConstraintRotationToVertical="True"
+                                                        ImageVariant="{x:Static miiVars:MiiImageVariants.SlightSideProfile}" ConstraintRotationToVertical="True"
                                                         x:Name="MiiFaceImageLoader"
                                                         FallBackColor="{StaticResource Neutral700}" />
                         

@@ -4,9 +4,6 @@ using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Media.Imaging;
-using WheelWizard.Models.MiiImages;
-using WheelWizard.Services.Settings;
-using WheelWizard.Views.Components.MiiImages;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Components;
@@ -169,22 +166,6 @@ public class DetailedProfileBox : TemplatedControl, INotifyPropertyChanged
         var copyFcButton = e.NameScope.Find<IconLabelButton>("CopyFcButton");
         if (copyFcButton != null)
             copyFcButton.Click += CopyFriendCode;
-
-        var miiImageLoader = e.NameScope.Find<MiiImageLoader>("MiiFaceImageLoader");
-        var animationsEnabled = (bool)SettingsManager.ENABLE_ANIMATIONS.Get();
-        if (miiImageLoader != null && animationsEnabled)
-        {
-            // We set them all at least one, just to make sure the request is being send.
-            // sometimes this still works goofy though, for some reason
-            miiImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_HOVER;
-            miiImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_INTERACT;
-            miiImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_DEFAULT;
-
-            miiImageLoader.PointerEntered += (_, _) => miiImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_HOVER;
-            miiImageLoader.PointerExited += (_, _) => miiImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_DEFAULT;
-            miiImageLoader.PointerPressed += (_, _) => miiImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_INTERACT;
-            miiImageLoader.PointerReleased += (_, _) => miiImageLoader.ImageVariant = MiiImageVariants.Variant.SLIGHT_SIDE_PROFILE_HOVER;
-        }
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

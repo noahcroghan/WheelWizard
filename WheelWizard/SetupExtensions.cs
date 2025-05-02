@@ -1,4 +1,5 @@
 ﻿using System.IO.Abstractions;
+using Microsoft.Extensions.Caching.Memory;
 using Serilog;
 using Testably.Abstractions;
 using WheelWizard.AutoUpdating;
@@ -33,6 +34,7 @@ public static class SetupExtensions
         // IO Abstractions
         services.AddSingleton<IFileSystem, RealFileSystem>();
         services.AddSingleton<ITimeSystem, RealTimeSystem>();
+        services.AddSingleton<IMemoryCache>(_ => new MemoryCache(new MemoryCacheOptions()));
 
         // Logging
         services.AddTransient<AvaloniaLoggerAdapter>();

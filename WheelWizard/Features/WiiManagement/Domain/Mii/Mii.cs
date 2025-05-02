@@ -1,6 +1,4 @@
-﻿using WheelWizard.Models.MiiImages;
-
-namespace WheelWizard.WiiManagement.Domain.Mii;
+﻿namespace WheelWizard.WiiManagement.Domain.Mii;
 
 public class Mii
 {

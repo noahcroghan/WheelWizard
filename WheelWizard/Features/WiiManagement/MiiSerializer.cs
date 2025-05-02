@@ -10,8 +10,11 @@ public static class MiiSerializer
 
     public static OperationResult<byte[]> Serialize(Mii? mii)
     {
-        if (mii == null || mii.MiiId == 0)
-            return Fail<byte[]>("Mii cannot be null. (no have a Mii ID of 0)");
+        if (mii == null)
+            return Fail<byte[]>("Mii cannot be null.");
+        if (mii.MiiId == 0)
+            return Fail<byte[]>("Mii ID cannot be 0.");
+
         var data = new byte[MiiBlockSize];
 
         // Header (0x00 - 0x01)
@@ -310,7 +313,7 @@ public static class MiiSerializer
             (MustacheType)mustacheType,
             (BeardType)beardType,
             (MustacheColor)color,
-           ((facial >> 5) & 0x0F),
+            ((facial >> 5) & 0x0F),
             (facial & 0x1F)
         );
         if (miiFacialHairResult.IsFailure)

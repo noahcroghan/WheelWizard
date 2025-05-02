@@ -3,7 +3,7 @@ using Avalonia;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media.Imaging;
 using WheelWizard.MiiImages;
-using WheelWizard.Models.MiiImages;
+using WheelWizard.MiiImages.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Components.MiiImages;
@@ -36,12 +36,12 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         }
     }
 
-    public static readonly StyledProperty<MiiImageVariants.Variant> ImageVariantProperty = AvaloniaProperty.Register<
+    public static readonly StyledProperty<MiiImageSpecifications> ImageVariantProperty = AvaloniaProperty.Register<
         BaseMiiImage,
-        MiiImageVariants.Variant
-    >(nameof(ImageVariant), MiiImageVariants.Variant.SMALL, coerce: CoerceVariant);
+        MiiImageSpecifications
+    >(nameof(ImageVariant), MiiImageVariants.Small, coerce: CoerceVariant);
 
-    public MiiImageVariants.Variant ImageVariant
+    public MiiImageSpecifications ImageVariant
     {
         get => GetValue(ImageVariantProperty);
         set => SetValue(ImageVariantProperty, value);
@@ -55,7 +55,7 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         set => SetValue(MiiProperty, value);
     }
 
-    private static MiiImageVariants.Variant CoerceVariant(AvaloniaObject o, MiiImageVariants.Variant value)
+    private static MiiImageSpecifications CoerceVariant(AvaloniaObject o, MiiImageSpecifications value)
     {
         ((BaseMiiImage)o).OnVariantChanged(value);
         return value;
@@ -67,11 +67,11 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         return value;
     }
 
-    protected void OnVariantChanged(MiiImageVariants.Variant newValue) => ReloadImage(Mii, newValue);
+    protected void OnVariantChanged(MiiImageSpecifications newValue) => ReloadImage(Mii, newValue);
 
     protected void OnMiiChanged(Mii? newValue) => ReloadImage(newValue, ImageVariant);
 
-    protected async void ReloadImage(Mii? newMii, MiiImageVariants.Variant variant)
+    protected async void ReloadImage(Mii? newMii, MiiImageSpecifications variant)
     {
         // If the mii was already null, it did not actually change (even if the variant did change).
         if (newMii == null && Mii != null)
@@ -86,12 +86,12 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         }
 
         var imageService = App.Services.GetService<IMiiImagesSingletonService>()!;
-        var image = await imageService.GetImageAsync(newMii);
+        var image = await imageService.GetImageAsync(newMii, variant);
 
         if (image.IsFailure)
         {
             MiiImage = null;
-            MiiLoaded = false;
+            MiiLoaded = true;
             return;
         }
 
