@@ -4,14 +4,14 @@ namespace WheelWizard.MiiImages.Domain;
 
 public static class MiiImageVariants
 {
-    public static MiiImageSpecifications Small = new()
+    public static readonly MiiImageSpecifications Small = new()
     {
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.face,
         Size = MiiImageSpecifications.ImageSize.small,
     };
 
-    public static MiiImageSpecifications FullBodyCarousel = new()
+    public static readonly MiiImageSpecifications FullBodyCarousel = new()
     {
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.all_body,
@@ -19,7 +19,7 @@ public static class MiiImageVariants
         InstanceCount = 8,
     };
 
-    public static MiiImageSpecifications SlightSideProfile = new()
+    public static readonly MiiImageSpecifications SlightSideProfile = new()
     {
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.face,
