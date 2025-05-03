@@ -82,7 +82,6 @@ public partial class EditorEyes : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiEyes = result.Value;
-            Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value);
         }
         else
@@ -177,7 +176,6 @@ public partial class EditorEyes : MiiEditorBaseControl
             return;
 
         Editor.Mii.MiiEyes = result.Value;
-        Editor.Mii.ClearImages();
         UpdateValueTexts(result.Value);
     }
 
@@ -197,7 +195,6 @@ public partial class EditorEyes : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiEyes = result.Value;
-            Editor.Mii.ClearImages();
         }
         else
         {

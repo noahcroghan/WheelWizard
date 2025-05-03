@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
              xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
+             xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
              x:Class="WheelWizard.Views.BehaviorComponent.CurrentUserProfile"
              x:DataType="behaviorComponent:CurrentUserProfile">
 
@@ -24,7 +25,7 @@
                                       LoadingColor="{StaticResource Neutral600}"
                                       Mii="{Binding Mii}" x:Name="Part_MiiImage"
                                       FallBackColor="{StaticResource Neutral600}"
-                                      ImageVariant="SMALL" />
+                                      ImageVariant="{x:Static miiVars:MiiImageVariants.CurrentUserSmall}" />
         </Border>
 
         <StackPanel.Styles>

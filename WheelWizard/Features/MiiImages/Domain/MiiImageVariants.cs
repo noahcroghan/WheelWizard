@@ -14,6 +14,14 @@ public static class MiiImageVariants
         CachePriority = CacheItemPriority.High,
     };
 
+    public static readonly MiiImageSpecifications MiiEditorProfile = new()
+    {
+        Name = "CurrentUserSmall",
+        Expression = MiiImageSpecifications.FaceExpression.normal,
+        Type = MiiImageSpecifications.BodyType.face,
+        Size = MiiImageSpecifications.ImageSize.medium,
+    };
+
     public static readonly MiiImageSpecifications OnlinePlayerSmall = new()
     {
         Name = "OnlinePlayerSmall",

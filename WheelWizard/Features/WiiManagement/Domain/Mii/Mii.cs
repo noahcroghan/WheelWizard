@@ -2,7 +2,6 @@
 
 public class Mii
 {
-
     public bool IsInvalid { get; set; }
     public bool IsGirl { get; set; }
     public DateOnly Date { get; set; } = new(2000, 1, 1);

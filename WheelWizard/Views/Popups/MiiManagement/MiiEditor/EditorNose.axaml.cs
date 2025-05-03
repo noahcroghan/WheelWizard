@@ -57,7 +57,6 @@ public partial class EditorNose : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiNose = result.Value;
-            Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value);
         }
         else
@@ -138,7 +137,6 @@ public partial class EditorNose : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiNose = result.Value;
-            Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value);
         }
     }

@@ -70,7 +70,6 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiFacialHair = result.Value;
-            Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value); // Update UI TextBlocks
         }
         else
@@ -116,7 +115,6 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiFacialHair = result.Value;
-            Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value); // Update UI TextBlocks
         }
         else
@@ -197,7 +195,6 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiFacialHair = result.Value;
-            Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value); // Update UI TextBlocks
         }
         else
@@ -222,7 +219,6 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiFacialHair = result.Value;
-            Editor.Mii.ClearImages();
         }
         else
         {

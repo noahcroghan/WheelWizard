@@ -1,6 +1,7 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="using:WheelWizard.Views.Components"
+        xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
         xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages">
     <Design.PreviewWith>
         <StackPanel Spacing="13" Background="{StaticResource Neutral950}">
@@ -48,7 +49,7 @@
                                                       Mii="{TemplateBinding Mii}" ImageOnlyMargin="-4,-9,-4,0"
                                                       FallBackColor="{StaticResource Neutral500}"
                                                       LoadingColor="{StaticResource Neutral950}"
-                                                      ImageVariant="MEDIUM" />
+                                                      ImageVariant="{x:Static miiVars:MiiImageVariants.MiiEditorProfile}" />
                             
                             <PathIcon Data="{StaticResource StarIcon}" Height="17"
                                       IsVisible="{TemplateBinding IsFavorite}" HorizontalAlignment="Left" VerticalAlignment="Top"

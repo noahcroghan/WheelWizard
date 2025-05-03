@@ -80,7 +80,6 @@ public partial class EditorLips : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiLips = result.Value;
-            Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value);
         }
         else
@@ -160,7 +159,6 @@ public partial class EditorLips : MiiEditorBaseControl
             return;
 
         Editor.Mii.MiiLips = result.Value;
-        Editor.Mii.ClearImages();
         UpdateValueTexts(result.Value);
     }
 
@@ -180,7 +178,6 @@ public partial class EditorLips : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiLips = result.Value;
-            Editor.Mii.ClearImages();
         }
         else
         {

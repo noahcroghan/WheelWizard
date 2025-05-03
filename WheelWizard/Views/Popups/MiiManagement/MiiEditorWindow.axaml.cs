@@ -85,7 +85,6 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     public void RefreshImage()
     {
         MiiLoadingIcon.IsVisible = true;
-        Mii.ClearImages();
         Carousel.Mii = Mii;
     }
 
