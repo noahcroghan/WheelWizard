@@ -19,16 +19,15 @@
                       ClipToBounds="True">
                     <components:LoadingIcon HorizontalAlignment="Center" VerticalAlignment="Stretch" x:Name="MiiLoadingIcon"
                                             Foreground="{TemplateBinding LoadingColor}"
-                                            IsVisible="{TemplateBinding MiiImage, Converter={x:Static ObjectConverters.IsNull} }"/>
+                                            IsVisible="{TemplateBinding MiiLoaded, Converter={x:Static BoolConverters.Not} }"/>
                     
                     <PathIcon x:Name="MiiFallBackIcon" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                               Foreground="{TemplateBinding FallBackColor}" Data="{StaticResource User}">
                         <PathIcon.IsVisible>
                             <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                <Binding Path="MiiLoaded" RelativeSource="{RelativeSource TemplatedParent}"
-                                         Converter="{x:Static BoolConverters.Not}"/>
+                                <Binding Path="MiiLoaded" RelativeSource="{RelativeSource TemplatedParent}"/>
                                 <Binding Path="MiiImage" RelativeSource="{RelativeSource TemplatedParent}"
-                                         Converter="{x:Static ObjectConverters.IsNotNull}" />
+                                                                                     Converter="{x:Static ObjectConverters.IsNull}" />
                             </MultiBinding>
                         </PathIcon.IsVisible>
                     </PathIcon>

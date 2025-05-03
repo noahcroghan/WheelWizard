@@ -1,6 +1,7 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:components="using:WheelWizard.Views.Components"
+        xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
         xmlns:miiComp="using:WheelWizard.Views.Components.MiiImages">
     <Design.PreviewWith>
         <StackPanel Background="{StaticResource Neutral950}">
@@ -47,7 +48,7 @@
                                                     LoadingColor="{StaticResource Neutral600}"
                                                     Mii="{TemplateBinding Mii}"
                                                     FallBackColor="{StaticResource Neutral600}"
-                                                    ImageVariant="SMALL"/>
+                                                    ImageVariant="{x:Static miiVars:MiiImageVariants.OnlinePlayerSmall}"/>
                         </Border>
            
                         <StackPanel Grid.Column="1" VerticalAlignment="Center" >

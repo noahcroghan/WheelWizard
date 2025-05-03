@@ -1,7 +1,7 @@
 ﻿using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Media;
-using WheelWizard.Models.MiiImages;
+using WheelWizard.MiiImages.Domain;
 
 namespace WheelWizard.Views.Components.MiiImages;
 
@@ -12,7 +12,7 @@ public class MiiCarousel : BaseMiiImage
 
     public MiiCarousel()
     {
-        ImageVariant = MiiImageVariants.Variant.FULL_BODY_CAROUSEL;
+        ImageVariant = MiiImageVariants.FullBodyCarousel;
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)

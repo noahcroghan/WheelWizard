@@ -1,8 +1,10 @@
 ﻿using Avalonia.Interactivity;
 using Avalonia.Threading;
+using Microsoft.Extensions.Caching.Memory;
 using WheelWizard.Helpers;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.WiiManagement;
+using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups.Base;
@@ -12,6 +14,9 @@ namespace WheelWizard.Views.Popups;
 
 public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
 {
+    [Inject]
+    private IMemoryCache Cache { get; set; } = null!;
+
     public DevToolWindow()
         : base(true, true, true, "Dev Tool")
     {
@@ -34,8 +39,7 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
     public void OnUpdate(RepeatedTaskManager sender)
     {
         RrRefreshTimeLeft.Text = RRLiveRooms.Instance.TimeUntilNextTick.Seconds.ToString();
-        MiiImagesCashed.Text = MiiImageManager.ImageCount.ToString();
-        MiiParsedDataCashed.Text = MiiImageManager.ParsedMiiDataCount.ToString();
+        MiiImagesCashed.Text = ((MemoryCache)Cache).Count.ToString();
     }
 
     private void LoadSettings()
@@ -51,7 +55,7 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
 
     private void ForceEnableLayout_OnClick(object sender, RoutedEventArgs e) => ViewUtils.GetLayout().SetInteractable(true);
 
-    private void ClearImageCache_OnClick(object sender, RoutedEventArgs e) => MiiImageManager.ClearImageCache();
+    private void ClearCache_OnClick(object sender, RoutedEventArgs e) => ((MemoryCache)Cache).Clear();
 
     #region Popup Tests
 
@@ -93,7 +97,7 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
             .SetMessageType(MessageBoxWindow.MessageType.Warning)
             .SetTitleText("Invalid license.")
             .SetInfoText(
-                "This license has no Mii data or is incomplete.\n" + "Please use the Mii Channel to create a Mii first. \n \n \n abncd"
+                "This license has no Mii data or is incomplete.\n" + "Please use the Mii Channel to create a Mii first. \n \n \n more text"
             )
             .Show();
 
