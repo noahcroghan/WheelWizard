@@ -1,24 +1,20 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mocker="clr-namespace:WheelWizard.Utilities.Mockers"
-        xmlns:miiImages1="clr-namespace:WheelWizard.Views.Components.MiiImages"
+        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
         xmlns:components="clr-namespace:WheelWizard.Views.Components">
     <Design.PreviewWith>
         <Border Padding="10" Background="{StaticResource Neutral950}"
                 Width="440" Height="300">
-            <miiImages1:MiiCarousel Mii="{x:Static mocker:MiiFactory.StaticSingle}"/>
+            <miiImages:MiiCarousel Mii="{x:Static mocker:MiiFactory.StaticSingle}"/>
         </Border>
     </Design.PreviewWith>
 
-    <Style Selector="miiImages1|MiiCarousel">
+    <Style Selector="miiImages|MiiCarousel">
         <Setter Property="Template">
             <ControlTemplate>
-                <Grid IsVisible="{TemplateBinding MiiLoaded}">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
+                <Grid IsVisible="{TemplateBinding MiiImage, Converter={x:Static ObjectConverters.IsNotNull}}"
+                      ColumnDefinitions="Auto,*,Auto">
                     <Border Grid.Column="1" ClipToBounds="True" x:Name="MiiImageCounter"
                             Width="{TemplateBinding Height}" Height="{TemplateBinding Height}">
                         <Image HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="MiiImage"

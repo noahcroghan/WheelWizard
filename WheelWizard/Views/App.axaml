@@ -14,7 +14,6 @@
                 <ResourceInclude Source="Styles/Resources/Constants.axaml" />
                 <ResourceInclude Source="Styles/Resources/Icons.axaml" />
                 <ResourceInclude Source="Styles/Resources/MultiIcons.axaml" />
-                
                 <!-- MiiIcons -->
                 <ResourceInclude Source="Styles/Resources/MiiIcons/MiiHair.axaml" />
                 <ResourceInclude Source="Styles/Resources/MiiIcons/MiiEye.axaml" />

@@ -22,6 +22,11 @@ public static class Endpoints
     /// </summary>
     public const string GitHubAddress = "https://api.github.com";
 
+    /// <summary>
+    /// The address for the Mii image
+    /// </summary>
+    public const string MiiImageAddress = "https://studio.mii.nintendo.com";
+
     // TODO: Refactor all the URLs seen below
 
     // Retro Rewind
@@ -37,7 +42,6 @@ public static class Endpoints
     public const string SupportLink = "https://ko-fi.com/wheelwizard";
 
     // Other
-    public const string MiiStudioUrl = "https://qrcode.rc24.xyz/cgi-bin/studio.cgi";
     public const string MiiImageUrl = "https://studio.mii.nintendo.com/miis/image.png";
     public const string MiiChannelWAD = "-";
 

@@ -1,20 +1,7 @@
-﻿using WheelWizard.Models.MiiImages;
-
-namespace WheelWizard.WiiManagement.Domain.Mii;
+﻿namespace WheelWizard.WiiManagement.Domain.Mii;
 
 public class Mii
 {
-    //todo: Remove images out of class
-    private readonly Dictionary<MiiImageVariants.Variant, MiiImage> _images = new();
-
-    public MiiImage GetImage(MiiImageVariants.Variant variant)
-    {
-        if (!_images.ContainsKey(variant))
-            _images[variant] = new(this, variant);
-        return _images[variant];
-    }
-
-    public void ClearImages() => _images.Clear();
 
     public bool IsInvalid { get; set; }
     public bool IsGirl { get; set; }
@@ -44,7 +31,7 @@ public class Mii
         }
     }
 
-    //This is also refferd as Client ID
+    //This is also referred as Client ID
     public byte SystemId0 { get; set; }
     public byte SystemId1 { get; set; }
     public byte SystemId2 { get; set; }
