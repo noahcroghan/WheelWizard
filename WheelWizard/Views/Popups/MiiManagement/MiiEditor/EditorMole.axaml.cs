@@ -104,7 +104,6 @@ public partial class EditorMole : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiMole = result.Value;
-            Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value);
         }
         else { }
@@ -126,7 +125,6 @@ public partial class EditorMole : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiMole = result.Value;
-            Editor.Mii.ClearImages();
         }
         else
         {

@@ -1,6 +1,3 @@
-﻿using WheelWizard.Models.MiiImages;
-using WheelWizard.WiiManagement.Domain.Mii.Custom;
-
 namespace WheelWizard.WiiManagement.Domain.Mii;
 
 /*
@@ -119,24 +116,6 @@ This gives us a total of 28 bits to play with.
 
 public class Mii
 {
-    //todo: Remove images out of class
-    private readonly Dictionary<MiiImageVariants.Variant, MiiImage> _images = new();
-
-    public MiiImage GetImage(MiiImageVariants.Variant variant)
-    {
-        if (!_images.ContainsKey(variant))
-            _images[variant] = new(this, variant);
-        return _images[variant];
-    }
-
-    public void ClearImages() => _images.Clear();
-
-    /// <summary>
-    /// The 28 unknown Wii‑Mii bits, exposed through a high‑level wrapper.
-    /// Always initialised (never null).
-    /// </summary>
-    public CustomMiiData CustomData { get; set; } = CustomMiiData.CreateEmpty();
-
     public bool IsInvalid { get; set; }
     public bool IsGirl { get; set; }
     public DateOnly Date { get; set; } = new(2000, 1, 1);
@@ -165,7 +144,7 @@ public class Mii
         }
     }
 
-    //This is also refferd as Client ID
+    //This is also referred as Client ID
     public byte SystemId0 { get; set; }
     public byte SystemId1 { get; set; }
     public byte SystemId2 { get; set; }

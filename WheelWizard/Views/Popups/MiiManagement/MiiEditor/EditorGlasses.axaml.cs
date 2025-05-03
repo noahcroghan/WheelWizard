@@ -73,7 +73,6 @@ public partial class EditorGlasses : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiGlasses = result.Value;
-            Editor.Mii.ClearImages();
             UpdateValueTexts(result.Value);
             HideIfNoGlasses.IsVisible = result.Value.Type != GlassesType.None;
         }
@@ -152,7 +151,6 @@ public partial class EditorGlasses : MiiEditorBaseControl
             return;
 
         Editor.Mii.MiiGlasses = result.Value;
-        Editor.Mii.ClearImages();
         UpdateValueTexts(result.Value);
     }
 
@@ -172,7 +170,6 @@ public partial class EditorGlasses : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiGlasses = result.Value;
-            Editor.Mii.ClearImages();
         }
         else
         {

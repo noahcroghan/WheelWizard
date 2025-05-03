@@ -78,7 +78,6 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiEyebrows = result.Value;
-            Editor.Mii.ClearImages();
         }
         else
         {
@@ -182,7 +181,6 @@ public partial class EditorEyebrows : MiiEditorBaseControl
             return;
 
         Editor.Mii.MiiEyebrows = result.Value;
-        Editor.Mii.ClearImages();
         UpdateValueTexts(result.Value);
     }
 
@@ -202,7 +200,6 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         if (result.IsSuccess)
         {
             Editor.Mii.MiiEyebrows = result.Value;
-            Editor.Mii.ClearImages();
         }
         else
         {

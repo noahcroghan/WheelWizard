@@ -2,11 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime"
                     xmlns:util="clr-namespace:WheelWizard.Styles.Util">
-
+    
     <!-- You can toggle these to have a different designer view, Make sure to run the app after changing to apply it-->
     <sys:Boolean x:Key="ShowTemplateBaseColors">True</sys:Boolean>
     <sys:Boolean x:Key="ShowTemplateSetColors">True</sys:Boolean>
-
+    
     <Design.PreviewWith>
         <Border Padding="20" Background="#8B91A5">
             <UniformGrid Columns="5">
@@ -17,7 +17,7 @@
             </UniformGrid>
         </Border>
     </Design.PreviewWith>
-
+    
     <!-- These colors are used to swap colors around in the template -->
     <!-- All template colors have an Alpha of 254 instead of 255 -->
     <Color x:Key="TemplateColor1">#feff0000</Color>
@@ -33,18 +33,18 @@
     <Color x:Key="TemplateColor11">#feff1493</Color>
     <Color x:Key="TemplateColor12">#feff69b4</Color>
     <!-- We can always add more if necessary, However, 12 imo is actually already to-much -->
-
+    
     <!-- Please remove this example if there are enough actual icons so we can use those as reference -->
     <DrawingImage x:Key="Example">
-        <DrawingGroup>
+        <DrawingGroup >
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M39.254 20.0749C38.6963 16.9657 37.0632 14.1515 34.6404 12.1246C32.2176 10.0976 29.1593 8.98706 26.0005 8.98706C22.8416 8.98706 19.7833 10.0976 17.3605 12.1246C14.9377 14.1515 13.3047 16.9657 12.747 20.0749C11.502 26.1829 11.654 32.3749 14.525 34.7509C18.617 38.1309 26 38.1309 26 38.1309C26 38.1309 33.383 38.1309 37.475 34.7509C40.348 32.3789 40.5 26.1829 39.254 20.0749Z">
             </GeometryDrawing>
             <GeometryDrawing Brush="{StaticResource TemplateColor1}"
                              Geometry="M26.0001 11.0608C18.9621 11.0608 14.6411 17.3848 15.1721 26.0608C15.6361 33.6408 20.0451 38.9778 26.0001 38.9778C31.9551 38.9778 36.3641 33.6408 36.8281 26.0608C37.3591 17.3848 33.0381 11.0608 26.0001 11.0608Z">
                 <GeometryDrawing.Pen>
-                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}" />
-                </GeometryDrawing.Pen>
+                    <Pen Thickness="2.475" Brush="{StaticResource TemplateColor2}"/>
+                </GeometryDrawing.Pen> 
             </GeometryDrawing>
             <GeometryDrawing Brush="{StaticResource TemplateColor3}"
                              Geometry="M38.3641 18.7349L33.1161 11.5839L26.0001 9.26294L18.8851 11.5839L13.6371 18.7349L12.5691 29.4139C12.5691 29.4139 16.1281 20.3139 26.0001 20.3139C35.8721 20.3139 39.4321 29.4139 39.4321 29.4139L38.3641 18.7349Z">

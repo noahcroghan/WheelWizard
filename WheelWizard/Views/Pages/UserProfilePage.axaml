@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="656" d:DesignHeight="876"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
              xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
              xmlns:pages="clr-namespace:WheelWizard.Views.Pages"
              x:Class="WheelWizard.Views.Pages.UserProfilePage"
@@ -91,7 +92,7 @@
                         <Grid>
                             <miiImages:MiiImageLoader Mii="{Binding CurrentMii}" HorizontalAlignment="Center"
                                                       VerticalAlignment="Stretch" ConstraintRotationToVertical="True"
-                                                      ImageVariant="SLIGHT_SIDE_PROFILE_DEFAULT"
+                                                      ImageVariant="{x:Static miiVars:MiiImageVariants.CurrentUserSideProfile}"
                                                       FallBackColor="{StaticResource Neutral700}" />
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="10"
                                           VerticalAlignment="Bottom" HorizontalAlignment="Left">
