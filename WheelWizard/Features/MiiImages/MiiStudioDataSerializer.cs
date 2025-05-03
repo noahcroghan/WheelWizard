@@ -35,7 +35,8 @@ public class MiiStudioDataSerializer
         visualMiiClone.MiiMole = mii.MiiMole;
         visualMiiClone.MiiFavoriteColor = mii.MiiFavoriteColor;
         visualMiiClone.MiiFacial = mii.MiiFacial;
-        visualMiiClone.MiiId = 1; // Mii ID cant be 0 if you want to serialize it so...
+        // If id is 0, we keep it 0, any other ID will be set to 1.
+        visualMiiClone.MiiId = (uint)(mii.MiiId == 0 ? 0 : 1);
 
         var serialized = MiiSerializer.Serialize(visualMiiClone);
         if (serialized.IsFailure)

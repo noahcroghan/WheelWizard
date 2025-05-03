@@ -10,7 +10,7 @@
              mc:Ignorable="d" d:DesignHeight="670" d:DesignWidth="550">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-        <components:LoadingIcon x:Name="LoadingView" IconSize="90" IsVisible="False" />
+        <components:LoadingIcon x:Name="LoadingView" Width="90" Height="90" IsVisible="False" />
 
         <components:EmptyPageInfo x:Name="NoDetailsView" IsVisible="False"
                                   Title="No mod selected" BodyText="Select a mod to view its details"

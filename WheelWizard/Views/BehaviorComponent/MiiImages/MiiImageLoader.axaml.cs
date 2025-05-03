@@ -1,0 +1,72 @@
+using Avalonia;
+using Avalonia.Media;
+using WheelWizard.MiiImages.Domain;
+using WheelWizard.WiiManagement.Domain.Mii;
+
+namespace WheelWizard.Views.BehaviorComponent;
+
+public partial class MiiImageLoader : BaseMiiImage
+{
+    #region properties
+
+    public static readonly StyledProperty<IBrush> LoadingColorProperty = AvaloniaProperty.Register<MiiImageLoader, IBrush>(
+        nameof(LoadingColor),
+        new SolidColorBrush(ViewUtils.Colors.Neutral900)
+    );
+
+    public IBrush LoadingColor
+    {
+        get => GetValue(LoadingColorProperty);
+        set => SetValue(LoadingColorProperty, value);
+    }
+
+    public static readonly StyledProperty<IBrush> FallBackColorProperty = AvaloniaProperty.Register<MiiImageLoader, IBrush>(
+        nameof(FallBackColor),
+        new SolidColorBrush(ViewUtils.Colors.Neutral700)
+    );
+
+    public IBrush FallBackColor
+    {
+        get => GetValue(FallBackColorProperty);
+        set => SetValue(FallBackColorProperty, value);
+    }
+
+    public static readonly StyledProperty<Thickness> ImageOnlyMarginProperty = AvaloniaProperty.Register<MiiImageLoader, Thickness>(
+        nameof(ImageOnlyMargin),
+        enableDataValidation: true
+    );
+
+    public Thickness ImageOnlyMargin
+    {
+        get => GetValue(ImageOnlyMarginProperty);
+        set => SetValue(ImageOnlyMarginProperty, value);
+    }
+
+    public static readonly StyledProperty<MiiImageSpecifications> ImageVariantProperty = AvaloniaProperty.Register<
+        BaseMiiImage,
+        MiiImageSpecifications
+    >(nameof(ImageVariant), MiiImageVariants.OnlinePlayerSmall, coerce: CoerceVariant);
+
+    public MiiImageSpecifications ImageVariant
+    {
+        get => GetValue(ImageVariantProperty);
+        set => SetValue(ImageVariantProperty, value);
+    }
+
+    private static MiiImageSpecifications CoerceVariant(AvaloniaObject o, MiiImageSpecifications value)
+    {
+        ((MiiImageLoader)o).OnVariantChanged(value);
+        return value;
+    }
+
+    #endregion
+
+    public MiiImageLoader()
+    {
+        InitializeComponent();
+    }
+
+    protected void OnVariantChanged(MiiImageSpecifications newSpecifications) => ReloadImages(Mii, [newSpecifications]);
+
+    protected override void OnMiiChanged(Mii? newMii) => ReloadImages(newMii, [ImageVariant]);
+}

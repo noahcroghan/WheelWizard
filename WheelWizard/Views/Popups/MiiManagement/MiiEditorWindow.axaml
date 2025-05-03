@@ -20,7 +20,7 @@
            <components:Button Text="" Click="RefreshButton_OnClick" IconData="{StaticResource Refresh}"
                               Variant="Default" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
            
-           <components:LoadingIcon HorizontalAlignment="Center" VerticalAlignment="Center" IconSize="180"
+           <components:LoadingIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" Height="180"
                                    x:Name="MiiLoadingIcon" Foreground="{StaticResource Neutral800}" />
            <miiImages:MiiCarousel x:Name="Carousel" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="300" 
                                   Mii="{Binding Mii}" Margin="50,0"/>

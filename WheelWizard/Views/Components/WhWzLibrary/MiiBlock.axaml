@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="using:WheelWizard.Views.Components"
         xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
-        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages">
+        xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent">
     <Design.PreviewWith>
         <StackPanel Spacing="13" Background="{StaticResource Neutral950}">
             <controls:MiiBlock Width="90" Height="90" />
@@ -44,12 +44,12 @@
                                       IsVisible="{TemplateBinding Mii, Converter={x:Static ObjectConverters.IsNull} }"
                                       Width="1000" Foreground="{StaticResource Neutral500}" />
                             
-                            <miiImages:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                                      IsVisible="{TemplateBinding Mii, Converter={x:Static ObjectConverters.IsNotNull} }"
-                                                      Mii="{TemplateBinding Mii}" ImageOnlyMargin="-4,-9,-4,0"
-                                                      FallBackColor="{StaticResource Neutral500}"
-                                                      LoadingColor="{StaticResource Neutral950}"
-                                                      ImageVariant="{x:Static miiVars:MiiImageVariants.MiiEditorProfile}" />
+                            <behaviorComponent:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                              IsVisible="{TemplateBinding Mii, Converter={x:Static ObjectConverters.IsNotNull} }"
+                                                              Mii="{TemplateBinding Mii}" ImageOnlyMargin="-4,-9,-4,0"
+                                                              FallBackColor="{StaticResource Neutral500}"
+                                                              LoadingColor="{StaticResource Neutral950}"
+                                                              ImageVariant="{x:Static miiVars:MiiImageVariants.MiiEditorProfile}" />
                             
                             <PathIcon Data="{StaticResource StarIcon}" Height="17"
                                       IsVisible="{TemplateBinding IsFavorite}" HorizontalAlignment="Left" VerticalAlignment="Top"

@@ -21,11 +21,11 @@
 
         <Border CornerRadius="999999" ClipToBounds="True" Background="{StaticResource Neutral900}"
                 Width="50" Height="50" x:Name="Part_MiiBall">
-            <miiImages:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                      LoadingColor="{StaticResource Neutral600}"
-                                      Mii="{Binding Mii}" x:Name="Part_MiiImage"
-                                      FallBackColor="{StaticResource Neutral600}"
-                                      ImageVariant="{x:Static miiVars:MiiImageVariants.CurrentUserSmall}" />
+            <behaviorComponent:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                              LoadingColor="{StaticResource Neutral600}"
+                                              Mii="{Binding Mii}" x:Name="Part_MiiImage"
+                                              FallBackColor="{StaticResource Neutral600}"
+                                              ImageVariant="{x:Static miiVars:MiiImageVariants.CurrentUserSmall}" />
         </Border>
 
         <StackPanel.Styles>
@@ -34,7 +34,7 @@
                 <Style Selector="^ Border#Part_MiiBall">
                     <Setter Property="Background" Value="{StaticResource Neutral800}"/>
                 </Style>
-                <Style Selector="^ miiImages|MiiImageLoader#Part_MiiImage">
+                <Style Selector="^ behaviorComponent|MiiImageLoader#Part_MiiImage">
                     <Setter Property="LoadingColor" Value="{StaticResource Neutral500}"/>
                     <Setter Property="FallBackColor" Value="{StaticResource Neutral500}"/>
                 </Style>

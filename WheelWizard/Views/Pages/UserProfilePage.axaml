@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="656" d:DesignHeight="876"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+             xmlns:behavior="clr-namespace:WheelWizard.Views.BehaviorComponent"
              xmlns:components="clr-namespace:WheelWizard.Views.Components"
              xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
              xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
@@ -90,10 +91,9 @@
                             BorderThickness="1" Margin="0,0,5,10" CornerRadius="4" x:Name="PART_HeadBorderFace"
                             Background="{StaticResource Neutral950}">
                         <Grid>
-                            <miiImages:MiiImageLoader Mii="{Binding CurrentMii}" HorizontalAlignment="Center"
-                                                      VerticalAlignment="Stretch" ConstraintRotationToVertical="True"
-                                                      ImageVariant="{x:Static miiVars:MiiImageVariants.CurrentUserSideProfile}"
-                                                      FallBackColor="{StaticResource Neutral700}" />
+                            <behavior:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                     Mii="{Binding CurrentMii}" FallBackColor="{StaticResource Neutral700}"
+                                                     ImageVariant="{x:Static miiVars:MiiImageVariants.CurrentUserSideProfile}"/>
                             <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="10"
                                           VerticalAlignment="Bottom" HorizontalAlignment="Left">
                                 <StackPanel Orientation="Horizontal" x:Name="BadgeContainer" Spacing="3" />
