@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:behaviorComp="clr-namespace:WheelWizard.Views.BehaviorComponent"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:converters="clr-namespace:WheelWizard.Views.Converters"
+             x:Class="WheelWizard.Views.BehaviorComponent.MiiCarousel" x:Name="Self">
+    
+    <behaviorComp:AspectGrid x:Name="MiiImageContainer" ColumnDefinitions="1.5*,10*,1.5*" AspectRatio="1.3" ClipToBounds="False"
+                             IsVisible="{Binding GeneratedImages, ElementName=Self, 
+                             Converter={x:Static converters:CollectionConverters.FirstIsNotNull}}"
+                             VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+        
+        <Border Grid.Column="1" ClipToBounds="False" x:Name="MiiImageCounter" 
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Image Grid.Column="1" x:Name="MiiImage" HorizontalAlignment="Left"
+                   Stretch="UniformToFill" ClipToBounds="False" RenderTransformOrigin="0,0"
+                   Source="{Binding GeneratedImages, ElementName=Self, 
+                        Converter={x:Static converters:CollectionConverters.First} }"/>
+        </Border>
+  
+        
+        <components:Button Grid.Column="0" VerticalAlignment="Center" IconData="{StaticResource RotateLeft}"
+                           CornerRadius="9999" IconSize="15" Padding="12" Click="RotateLeft_Click"/>
+                    
+        <components:Button Grid.Column="2" VerticalAlignment="Center" IconData="{StaticResource RotateRight}"
+                           CornerRadius="9999" IconSize="15" Padding="12" Click="RotateRight_Click"/>
+    </behaviorComp:AspectGrid>
+</UserControl>

@@ -43,7 +43,7 @@ public partial class MiiImageLoader : BaseMiiImage
     }
 
     public static readonly StyledProperty<MiiImageSpecifications> ImageVariantProperty = AvaloniaProperty.Register<
-        BaseMiiImage,
+        MiiImageLoader,
         MiiImageSpecifications
     >(nameof(ImageVariant), MiiImageVariants.OnlinePlayerSmall, coerce: CoerceVariant);
 
