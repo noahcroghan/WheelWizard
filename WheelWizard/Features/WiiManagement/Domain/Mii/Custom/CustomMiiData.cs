@@ -128,13 +128,13 @@ public sealed class CustomMiiData
     /// <summary>
     /// Gets or sets the 3-bit schema version (bits 0-2).
     /// This should always be the first field defined.
-    /// The setter is private to ensure it's only set internally (e.g., in CreateEmpty).
+    /// The setter is private to ensure its only set internally (e.g., in CreateEmpty).
     /// </summary>
     [BitField(3)]
     public byte Version
     {
         get => (byte)GetField();
-        private set => SetField(value);
+        set => SetField(value);
     }
 
     /// <summary>
@@ -199,7 +199,7 @@ public sealed class CustomMiiData
     {
         var result = CustomBitsCodec.Extract(rawMiiBytes);
         return new(result);
-    } 
+    }
 
     /// <summary>
     /// Creates a <see cref="CustomMiiData"/> instance by extracting the 28 custom bits
@@ -220,7 +220,6 @@ public sealed class CustomMiiData
     /// </summary>
     /// <returns>A new, default-initialized <see cref="CustomMiiData"/> instance.</returns>
     public static CustomMiiData CreateEmpty() => new(0) { Version = SchemaVersion };
-    
 
     // ──────────────────────────────────────────  APPLY / SERIALIZE METHODS ──────────────────────────────────────────
 
@@ -279,9 +278,12 @@ public sealed class CustomMiiData
     /// </summary>
     /// <param name="value">The value to set for the field.</param>
     /// <param name="propName">The name of the calling property, automatically supplied by the compiler.</param>
-    /// <exception cref="ArgumentOutOfRangeException">Thrown if the value is too large for the field's bit width.</exception>
     private void SetField(uint value, [CallerMemberName] string? propName = null)
     {
+        if (propName != nameof(Version) && GetField(nameof(Version)) == 0)
+        {
+            SetField(SchemaVersion, nameof(Version));
+        }
         // Look up the metadata for the property.
         var meta = _meta[propName!];
 

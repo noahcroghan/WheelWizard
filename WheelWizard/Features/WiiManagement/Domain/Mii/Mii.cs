@@ -1,3 +1,5 @@
+using WheelWizard.WiiManagement.Domain.Mii.Custom;
+
 namespace WheelWizard.WiiManagement.Domain.Mii;
 
 /*
@@ -162,6 +164,11 @@ public class Mii
         }
     }
 
+    /// <summary>
+    /// The 28 unknown Wii‑Mii bits, exposed through a high‑level wrapper.
+    /// Always initialised (never null).
+    /// </summary>
+    public CustomMiiData CustomData { get; set; } = CustomMiiData.CreateEmpty();
     public MiiFacialFeatures MiiFacial { get; set; } = new(MiiFaceShape.Bread, MiiSkinColor.Light, MiiFacialFeature.None, false, false);
 
     public MiiHair MiiHair { get; set; } = new(1, HairColor.Black, false);

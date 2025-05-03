@@ -339,7 +339,6 @@ public static class MiiSerializer
             return creatorNameResult.Error;
         mii.CreatorName = creatorNameResult.Value;
         mii.CustomData = CustomMiiData.FromBytes(data);
-        
         return mii;
     }
 }
