@@ -6,12 +6,7 @@ namespace WheelWizard.MiiImages.Domain;
 
 public class MiiImageSpecifications
 {
-    public override string ToString()
-    {
-        // If we put all the things in this string, then the Key at least is unique
-        return $"{Size}{Expression}{Type}_{BackgroundColor}{InstanceCount}_{CharacterRotate}{CameraRotate}";
-    }
-
+    public string Name { get; set; } = string.Empty;
     public ImageSize Size { get; set; } = ImageSize.small;
     public FaceExpression Expression { get; set; } = FaceExpression.normal;
     public BodyType Type { get; set; } = BodyType.face;
@@ -24,6 +19,12 @@ public class MiiImageSpecifications
 
     public TimeSpan? ExpirationSeconds { get; set; } = TimeSpan.FromMinutes(30);
     public CacheItemPriority CachePriority { get; set; } = CacheItemPriority.Normal;
+
+    public override string ToString()
+    {
+        // If we put all the things in this string, then the Key at least is unique
+        return $"{Name}_{Size}{Expression}{Type}_{BackgroundColor}{InstanceCount}_{CharacterRotate}{CameraRotate}_{CachePriority}";
+    }
 
     #region Enums
 

@@ -29,7 +29,7 @@
                                                 LoadingColor="{StaticResource Neutral600}"
                                                 Mii="{TemplateBinding Mii}" x:Name="Part_MiiImage"
                                                 FallBackColor="{StaticResource Neutral600}"
-                                                ImageVariant="{x:Static miiVars:MiiImageVariants.Small}"/>
+                                                ImageVariant="{x:Static miiVars:MiiImageVariants.CurrentUserSmall}"/>
                     </Border>
                
                 </StackPanel>

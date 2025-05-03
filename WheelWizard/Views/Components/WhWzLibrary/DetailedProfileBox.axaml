@@ -62,7 +62,7 @@
                                  Background="{StaticResource Neutral950}">
                            <Grid>
                                <miiImages:MiiImageLoader Mii="{TemplateBinding Mii}" HorizontalAlignment="Center" VerticalAlignment="Stretch" 
-                                                        ImageVariant="{x:Static miiVars:MiiImageVariants.SlightSideProfile}" ConstraintRotationToVertical="True"
+                                                        ImageVariant="{x:Static miiVars:MiiImageVariants.CurrentUserSideProfile}" ConstraintRotationToVertical="True"
                                                         x:Name="MiiFaceImageLoader"
                                                         FallBackColor="{StaticResource Neutral700}" />
                         

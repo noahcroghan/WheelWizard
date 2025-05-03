@@ -39,7 +39,7 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
     public static readonly StyledProperty<MiiImageSpecifications> ImageVariantProperty = AvaloniaProperty.Register<
         BaseMiiImage,
         MiiImageSpecifications
-    >(nameof(ImageVariant), MiiImageVariants.Small, coerce: CoerceVariant);
+    >(nameof(ImageVariant), MiiImageVariants.OnlinePlayerSmall, coerce: CoerceVariant);
 
     public MiiImageSpecifications ImageVariant
     {
@@ -99,7 +99,7 @@ public abstract class BaseMiiImage : TemplatedControl, INotifyPropertyChanged
         MiiLoaded = true;
     }
 
-    public event EventHandler MiiImageLoaded;
+    public event EventHandler? MiiImageLoaded;
 
     #region PropertyChanged
 
