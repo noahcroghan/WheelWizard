@@ -30,7 +30,9 @@
                     <components:FormFieldLabel Text="Creator Name:"/>
                     <behavior:FeedbackTextBox x:Name="CreatorName" Watermark="Enter creator name Optional" TextChanged="Name_TextChanged" />
                 </StackPanel>
-                
+                <StackPanel>
+                    <TextBox x:Name="WhWzMii"></TextBox>
+                </StackPanel>
                 <StackPanel> <!-- Gender -->
                     <components:FormFieldLabel Text="Gender:"/>
                     <StackPanel Orientation="Horizontal" Spacing="10">
@@ -38,6 +40,9 @@
                         <RadioButton Content="Male" IsChecked="True" GroupName="GenderGroup"/>
                         <RadioButton Content="Female" x:Name="GirlToggle" IsCheckedChanged="IsGirl_OnIsCheckedChanged" GroupName="GenderGroup"/>
                     </StackPanel>
+                    <CheckBox 
+                        x:Name="IsCopyAble"
+                        Content="IsCopyable" IsChecked="False" IsCheckedChanged="IsCopyAbleChanged"></CheckBox>
                 </StackPanel>
              
              <StackPanel>

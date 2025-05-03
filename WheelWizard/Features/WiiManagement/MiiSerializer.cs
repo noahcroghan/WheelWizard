@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.Domain.Mii.Custom;
 
 namespace WheelWizard.WiiManagement;
 
@@ -135,6 +136,9 @@ public static class MiiSerializer
 
         // Creator Name (0x36 - 0x49)
         Buffer.BlockCopy(mii.CreatorName.ToBytes(), 0, data, 0x36, 20);
+
+        // Apply the custom data from all those little bits :)
+        mii.CustomData.ApplyTo(data);
 
         return data;
     }
@@ -331,6 +335,8 @@ public static class MiiSerializer
         if (creatorNameResult.IsFailure)
             return creatorNameResult.Error;
         mii.CreatorName = creatorNameResult.Value;
+        mii.CustomData = CustomMiiData.FromBytes(data);
+        
         return mii;
     }
 }

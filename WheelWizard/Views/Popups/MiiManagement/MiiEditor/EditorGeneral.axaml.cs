@@ -30,6 +30,13 @@ public partial class EditorGeneral : MiiEditorBaseControl
             if (color == Editor.Mii.MiiFavoriteColor.ToString())
                 FavoriteColorBox.SelectedItem = color;
         }
+        IsCopyAble.IsChecked = Editor.Mii.CustomData.IsCopyable;
+        if (Editor.Mii.CustomData.Version == 1)
+            WhWzMii.Text = "WhWz Mii v1";
+        else
+        {
+            WhWzMii.Text = "Not WhWzMii";
+        }
     }
 
     protected override void BeforeBack()
@@ -114,5 +121,17 @@ public partial class EditorGeneral : MiiEditorBaseControl
         if (color == Editor.Mii.MiiFavoriteColor)
             return;
         Editor.Mii.MiiFavoriteColor = color;
+    }
+
+    private void IsCopyAbleChanged(object? sender, RoutedEventArgs e)
+    {
+        var value = IsCopyAble.IsChecked;
+        if (value is null)
+            return;
+        Editor.Mii.CustomData.IsCopyable = (bool)value;
+        if (Editor.Mii.CustomData.IsCopyable)
+            IsCopyAble.IsChecked = true;
+        else
+            IsCopyAble.IsChecked = false;
     }
 }
