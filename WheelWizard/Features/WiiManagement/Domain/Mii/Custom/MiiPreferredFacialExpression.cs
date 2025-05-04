@@ -1,7 +1,7 @@
 namespace WheelWizard.WiiManagement.Domain.Mii.Custom;
 
 //this value is only stored in 3 bits, so there can be only 8 values
-public enum MiiPerferedFacialExpression : uint
+public enum MiiPreferredFacialExpression : uint
 {
     none = 0,
     FacialExpression1 = 1,

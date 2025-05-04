@@ -144,27 +144,38 @@ public sealed class CustomMiiData
     /// Gets or sets eight individual feature flags packed into 3 bits
     /// </summary>
     [BitField(3)]
-    public MiiPerferedFacialExpression FacialExpression
+    public MiiPreferredFacialExpression FacialExpression
     {
-        get => (MiiPerferedFacialExpression)GetField();
+        get => (MiiPreferredFacialExpression)GetField();
         set => SetField((uint)value);
     }
 
     [BitField(2)]
-    public MiiPerferedCameraAngle CameraAngle
+    public MiiPreferredCameraAngle CameraAngle
     {
-        get => (MiiPerferedCameraAngle)GetField();
+        get => (MiiPreferredCameraAngle)GetField();
         set => SetField((uint)value);
     }
-
-    /// <summary>
-    /// </summary>
-    [BitField(15)]
+    
+    [BitField(5)]
+    public MiiPreferredTagline Tagline
+    {
+        get => (MiiPreferredTagline)GetField();
+        set => SetField((uint)value);
+    }
+    
+    [BitField(10)]
     public ushort Spare
     {
         get => (ushort)GetField();
         set => SetField(value);
     }
+    
+    
+    
+    
+    
+    
 
     // Add new properties here.
     // Simply declare them with a [BitField(width)] attribute.
