@@ -44,13 +44,11 @@ public partial class EditorEyes : MiiEditorBaseControl
 
     private void GenerateEyeButtons()
     {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
-        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
-        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
-        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
-
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Eye white Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Eye border Color
+        var selectedColor2 = new SolidColorBrush(ViewUtils.Colors.Black);
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Primary400); // Eye Iris Color
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Primary300);
         SetButtons(
             "MiiEye",
             48,
@@ -60,9 +58,8 @@ public partial class EditorEyes : MiiEditorBaseControl
                 button.IsChecked = index == Editor.Mii.MiiEyes.Type;
                 button.Color1 = color1;
                 button.Color2 = color2;
+                button.SelectedColor2 = selectedColor2;
                 button.Color3 = color3;
-                button.Color4 = color4;
-                button.Color5 = color5;
                 button.Click += (_, _) => SetEyesType(index);
                 button.SelectedColor3 = selectedColor3;
             }

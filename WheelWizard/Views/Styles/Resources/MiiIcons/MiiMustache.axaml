@@ -13,9 +13,7 @@
         <Border Padding="20" Background="{StaticResource Neutral400}">
             <UniformGrid Columns="5">
                 <util:MultiColorExampleComponent IconData="{DynamicResource MiiMustache00}" IconName="MiiMustache00"
-                                                 Color1="{StaticResource Neutral50}"
-                                                 Color2="{StaticResource Neutral300}"
-                                                 Color3="{StaticResource Neutral600}"
+                                                 Color4="{StaticResource Danger500}"
                                                  />
                 <util:MultiColorExampleComponent IconData="{DynamicResource MiiMustache01}" IconName="MiiMustache01"
                                                  Color1="{StaticResource Neutral50}"
@@ -39,11 +37,8 @@
 
     <DrawingImage x:Key="MiiMustache00">
         <DrawingGroup>
-            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M26 39.3602C34.2014 39.3602 40.85 32.7116 40.85 24.5102C40.85 16.3087 34.2014 9.66016 26 9.66016C17.7986 9.66016 11.15 16.3087 11.15 24.5102C11.15 32.7116 17.7986 39.3602 26 39.3602Z">
-                <GeometryDrawing.Pen>
-                    <Pen Thickness="2.48" Brush="{StaticResource TemplateColor2}"/>
-                </GeometryDrawing.Pen>
+            <GeometryDrawing Brush="{StaticResource TemplateColor4}"
+                             Geometry="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z">
             </GeometryDrawing>
         </DrawingGroup>
     </DrawingImage>

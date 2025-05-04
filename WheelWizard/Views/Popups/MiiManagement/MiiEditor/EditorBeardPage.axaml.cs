@@ -45,6 +45,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
         var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
         var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger500); // Skin Color
         SetButtons(
             "MiiGoatee",
             4,
@@ -55,6 +56,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
+                button.Color4 = color4;
                 button.Click += (_, _) => SetBeardType(index);
             }
         );
@@ -92,6 +94,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
         var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
         var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger500); // Skin Color
         SetButtons(
             "MiiMustache",
             4,
@@ -102,6 +105,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
+                button.Color4 = color4;
                 button.Click += (_, _) => SetMustacheType(index);
             }
         );

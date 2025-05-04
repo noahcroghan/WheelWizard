@@ -45,10 +45,8 @@ public partial class EditorEyebrows : MiiEditorBaseControl
 
     private void CreateEyebrowButtons()
     {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Eyebrow Color
-        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Primary400);
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Danger500); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Black); // Eyebrow Color
         SetButtons(
             "MiiEyebrow",
             24,
@@ -58,8 +56,6 @@ public partial class EditorEyebrows : MiiEditorBaseControl
                 button.IsChecked = index == Editor.Mii.MiiEyebrows.Type;
                 button.Color1 = color1;
                 button.Color2 = color2;
-                button.Color3 = color3;
-                button.SelectedColor3 = selectedColor3;
                 button.Click += (_, _) => SetEyebrowType(index);
             }
         );
@@ -85,9 +81,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
             foreach (var child in EyebrowTypesGrid.Children)
             {
                 if (child is MultiIconRadioButton button && button.IsChecked == true)
-                {
                     button.IsChecked = false;
-                }
             }
 
             var currentButton = EyebrowTypesGrid.Children[index] as MultiIconRadioButton;
@@ -155,9 +149,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
 
         // Check range BEFORE attempting to create
         if (newValue < min || newValue > max)
-        {
             return;
-        }
 
         OperationResult<MiiEyebrow> result;
         switch (property)
