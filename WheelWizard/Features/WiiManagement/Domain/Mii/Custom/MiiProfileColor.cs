@@ -6,7 +6,7 @@ namespace WheelWizard.WiiManagement.Domain.Mii.Custom;
 /// </summary>
 public enum MiiProfileColor : uint
 {
-    none = 0,
+    None = 0,
     Color1 = 1,
     Color2 = 2,
     Color3 = 3,
