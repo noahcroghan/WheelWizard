@@ -6,6 +6,7 @@ namespace WheelWizard.MiiImages.Domain;
 
 public class MiiImageSpecifications
 {
+    // IMPORTANT: if you change this, make sure you also edit the Clone method in the extensions of this feature
     public string Name { get; set; } = string.Empty;
     public ImageSize Size { get; set; } = ImageSize.small;
     public FaceExpression Expression { get; set; } = FaceExpression.normal;

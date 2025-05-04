@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading;
 using Avalonia;
 using Avalonia.Media.Imaging;
 using WheelWizard.MiiImages;
@@ -13,7 +14,8 @@ public abstract class BaseMiiImage : UserControlBase, INotifyPropertyChanged
 {
     public enum ReloadMethodType
     {
-        ClearThenNew, // Clears all images, then reloads them
+        ClearAllThenInstanceNew, // Clears all images, then reloads each image when it is loaded
+        ClearAllThenAllNew, // Clears all images, then reloads them when all images are all loaded again
         KeepAllUntilNew, // reloads all images, and only then swap them (aka, only then send signal out that they are changed)
         KeepInstanceUntilNew, // reload each image, and swap them if loaded. If there are more images, they will
     }
@@ -79,9 +81,18 @@ public abstract class BaseMiiImage : UserControlBase, INotifyPropertyChanged
 
     protected abstract void OnMiiChanged(Mii? newMii);
 
+    private CancellationTokenSource? _reloadCts;
+
     protected async void ReloadImages(Mii? newMii, ICollection<MiiImageSpecifications> variants)
     {
-        if (ReloadMethod == ReloadMethodType.ClearThenNew)
+        // Cancel and dispose previous operation if any
+        _reloadCts?.Cancel();
+        _reloadCts?.Dispose();
+        _reloadCts = new CancellationTokenSource();
+
+        var cancellationToken = _reloadCts.Token;
+
+        if (ReloadMethod is ReloadMethodType.ClearAllThenAllNew or ReloadMethodType.ClearAllThenInstanceNew)
         {
             GeneratedImages.Clear();
             OnPropertyChanged(nameof(GeneratedImages));
@@ -94,12 +105,18 @@ public abstract class BaseMiiImage : UserControlBase, INotifyPropertyChanged
             return;
         }
 
-        if (ReloadMethod == ReloadMethodType.KeepInstanceUntilNew)
+        if (ReloadMethod is ReloadMethodType.KeepInstanceUntilNew or ReloadMethodType.ClearAllThenInstanceNew)
         {
             var index = 0;
             foreach (var variant in variants)
             {
+                if (cancellationToken.IsCancellationRequested)
+                    return;
+                // Assuming GetImageAsync accepts a CancellationToken
                 var imageResult = await MiiImageService.GetImageAsync(newMii, variant);
+                if (cancellationToken.IsCancellationRequested)
+                    return;
+
                 var imageToAdd = imageResult.IsSuccess ? imageResult.Value : null;
                 if (index < GeneratedImages.Count)
                     GeneratedImages[index] = imageToAdd;
@@ -109,14 +126,20 @@ public abstract class BaseMiiImage : UserControlBase, INotifyPropertyChanged
                 OnPropertyChanged(nameof(GeneratedImages));
             }
         }
-        else if (ReloadMethod is ReloadMethodType.KeepAllUntilNew or ReloadMethodType.ClearThenNew)
+        else if (ReloadMethod is ReloadMethodType.KeepAllUntilNew or ReloadMethodType.ClearAllThenAllNew)
         {
             var loadedBitmaps = new List<Bitmap?>();
             foreach (var variant in variants)
             {
+                if (cancellationToken.IsCancellationRequested)
+                    return;
+                // Assuming GetImageAsync accepts a CancellationToken
                 var imageResult = await MiiImageService.GetImageAsync(newMii, variant);
+                if (cancellationToken.IsCancellationRequested)
+                    return;
                 loadedBitmaps.Add(imageResult.IsSuccess ? imageResult.Value : null);
             }
+
             GeneratedImages.Clear();
             foreach (var bmp in loadedBitmaps)
             {

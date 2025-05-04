@@ -1,5 +1,8 @@
+using System.Numerics;
 using Avalonia;
 using Avalonia.Media;
+using Microsoft.Extensions.Caching.Memory;
+using WheelWizard.MiiImages;
 using WheelWizard.MiiImages.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 
@@ -8,6 +11,16 @@ namespace WheelWizard.Views.BehaviorComponent;
 public partial class MiiImageLoader : BaseMiiImage
 {
     #region properties
+
+    public static readonly StyledProperty<bool> LowQualitySpeedupProperty = AvaloniaProperty.Register<MiiCarousel, bool>(
+        nameof(LowQualitySpeedup)
+    );
+
+    public bool LowQualitySpeedup
+    {
+        get => GetValue(LowQualitySpeedupProperty);
+        set => SetValue(LowQualitySpeedupProperty, value);
+    }
 
     public static readonly StyledProperty<IBrush> LoadingColorProperty = AvaloniaProperty.Register<MiiImageLoader, IBrush>(
         nameof(LoadingColor),
@@ -66,7 +79,39 @@ public partial class MiiImageLoader : BaseMiiImage
         InitializeComponent();
     }
 
-    protected void OnVariantChanged(MiiImageSpecifications newSpecifications) => ReloadImages(Mii, [newSpecifications]);
+    protected void OnVariantChanged(MiiImageSpecifications newSpecifications)
+    {
+        List<MiiImageSpecifications> variants = [];
 
-    protected override void OnMiiChanged(Mii? newMii) => ReloadImages(newMii, [ImageVariant]);
+        if (LowQualitySpeedup)
+        {
+            if (GeneratedImages.Count > 1)
+                GeneratedImages[1] = null;
+            var lowQualityClone = newSpecifications.Clone();
+            lowQualityClone.Size = MiiImageSpecifications.ImageSize.small;
+            lowQualityClone.CachePriority = CacheItemPriority.Low;
+            variants.Add(lowQualityClone);
+        }
+
+        variants.Add(newSpecifications);
+        ReloadImages(Mii, variants);
+    }
+
+    protected override void OnMiiChanged(Mii? newMii)
+    {
+        List<MiiImageSpecifications> variants = [];
+
+        if (LowQualitySpeedup)
+        {
+            if (GeneratedImages.Count > 1)
+                GeneratedImages[1] = null;
+            var lowQualityClone = ImageVariant.Clone();
+            lowQualityClone.Size = MiiImageSpecifications.ImageSize.small;
+            lowQualityClone.CachePriority = CacheItemPriority.Low;
+            variants.Add(lowQualityClone);
+        }
+
+        variants.Add(ImageVariant);
+        ReloadImages(newMii, variants);
+    }
 }

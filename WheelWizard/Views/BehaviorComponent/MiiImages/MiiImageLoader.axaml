@@ -35,8 +35,19 @@
                 </MultiBinding>
             </Path.IsVisible>
         </Path>
-        <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="Image"
-               Margin="{Binding ImageOnlyMargin, ElementName=Self}" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"
-               Source="{Binding GeneratedImages, ElementName=Self, Converter={x:Static conv:CollectionConverters.First }}"/>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+              Margin="{Binding ImageOnlyMargin, ElementName=Self}" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+           
+            <!-- LowQuality (or Normal if low quality doesn't exist) -->
+            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                   Source="{Binding GeneratedImages, ElementName=Self, Converter={x:Static conv:CollectionConverters.First }}"
+                   IsVisible="{Binding GeneratedImages, ElementName=Self, Converter={x:Static conv:CollectionConverters.SecondIsNull }}"/>
+           
+            <!-- Normal (if low quality exists) -->
+            <Image HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                   Source="{Binding GeneratedImages, ElementName=Self, Converter={x:Static conv:CollectionConverters.Second }}"
+                   IsVisible="{Binding GeneratedImages, ElementName=Self, Converter={x:Static conv:CollectionConverters.SecondIsNotNull }}"/>
+        </Grid>
+     
     </behaviorComp:AspectGrid>
 </UserControl>

@@ -1,6 +1,5 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages"
              xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
              xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
              x:Class="WheelWizard.Views.BehaviorComponent.CurrentUserProfile"

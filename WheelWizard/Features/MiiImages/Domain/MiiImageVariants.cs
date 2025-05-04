@@ -14,9 +14,9 @@ public static class MiiImageVariants
         CachePriority = CacheItemPriority.High,
     };
 
-    public static readonly MiiImageSpecifications MiiEditorProfile = new()
+    public static readonly MiiImageSpecifications MiiBlockProfile = new()
     {
-        Name = "CurrentUserSmall",
+        Name = "MiiBlockProfile",
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.face,
         Size = MiiImageSpecifications.ImageSize.medium,
@@ -36,7 +36,7 @@ public static class MiiImageVariants
         Name = "MiiEditorPreviewSmall",
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.face,
-        Size = MiiImageSpecifications.ImageSize.small,
+        Size = MiiImageSpecifications.ImageSize.medium,
         ExpirationSeconds = TimeSpan.FromSeconds(30),
         CachePriority = CacheItemPriority.Low,
     };
@@ -77,6 +77,7 @@ public static class MiiImageVariants
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.all_body,
         Size = MiiImageSpecifications.ImageSize.medium,
+        ExpirationSeconds = TimeSpan.FromMinutes(10),
         InstanceCount = 8,
     };
 }
