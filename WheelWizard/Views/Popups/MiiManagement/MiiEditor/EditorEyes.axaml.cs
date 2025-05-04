@@ -8,8 +8,6 @@ namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 
 public partial class EditorEyes : MiiEditorBaseControl
 {
-    private const int MinType = 0;
-    private const int MaxType = 47;
     private const int MinRotation = 0;
     private const int MaxRotation = 7;
     private const int MinVertical = 0;
@@ -99,6 +97,15 @@ public partial class EditorEyes : MiiEditorBaseControl
         SizeValueText.Text = eyes.Size.ToString();
         RotationValueText.Text = eyes.Rotation.ToString();
         SpacingValueText.Text = eyes.Spacing.ToString();
+
+        VerticalDecreaseButton.IsEnabled = eyes.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = eyes.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = eyes.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = eyes.Size < MaxSize;
+        RotationDecreaseButton.IsEnabled = eyes.Rotation > MinRotation;
+        RotationIncreaseButton.IsEnabled = eyes.Rotation < MaxRotation;
+        SpacingDecreaseButton.IsEnabled = eyes.Spacing > MinSpacing;
+        SpacingIncreaseButton.IsEnabled = eyes.Spacing < MaxSpacing;
     }
 
     private enum EyeProperty

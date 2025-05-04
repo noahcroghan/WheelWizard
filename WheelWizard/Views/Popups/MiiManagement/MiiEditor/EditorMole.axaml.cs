@@ -36,6 +36,13 @@ public partial class EditorMole : MiiEditorBaseControl
         VerticalValueText.Text = mole.Vertical.ToString();
         SizeValueText.Text = mole.Size.ToString();
         HorizontalValueText.Text = mole.Horizontal.ToString();
+
+        VerticalDecreaseButton.IsEnabled = mole.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = mole.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = mole.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = mole.Size < MaxSize;
+        HorizontalDecreaseButton.IsEnabled = mole.Horizontal > MinHorizontal;
+        HorizontalIncreaseButton.IsEnabled = mole.Horizontal < MaxHorizontal;
     }
 
     private enum MoleProperty

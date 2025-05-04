@@ -96,6 +96,11 @@ public partial class EditorLips : MiiEditorBaseControl
     {
         VerticalValueText.Text = lips.Vertical.ToString();
         SizeValueText.Text = lips.Size.ToString();
+
+        VerticalDecreaseButton.IsEnabled = lips.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = lips.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = lips.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = lips.Size < MaxSize;
     }
 
     private enum LipProperty

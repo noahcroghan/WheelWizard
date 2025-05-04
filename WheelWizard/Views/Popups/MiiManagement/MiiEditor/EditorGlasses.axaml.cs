@@ -96,6 +96,11 @@ public partial class EditorGlasses : MiiEditorBaseControl
     {
         VerticalValueText.Text = glasses.Vertical.ToString();
         SizeValueText.Text = glasses.Size.ToString();
+
+        VerticalDecreaseButton.IsEnabled = glasses.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = glasses.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = glasses.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = glasses.Size < MaxSize;
     }
 
     private enum GlassesProperty

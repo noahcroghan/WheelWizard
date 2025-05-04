@@ -78,6 +78,11 @@ public partial class EditorNose : MiiEditorBaseControl
     {
         VerticalValueText.Text = nose.Vertical.ToString();
         SizeValueText.Text = nose.Size.ToString();
+
+        VerticalDecreaseButton.IsEnabled = nose.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = nose.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = nose.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = nose.Size < MaxSize;
     }
 
     private enum NoseProperty

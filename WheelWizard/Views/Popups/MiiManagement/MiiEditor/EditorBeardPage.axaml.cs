@@ -146,6 +146,11 @@ public partial class EditorFacialHair : MiiEditorBaseControl
     {
         VerticalValueText.Text = facialHair.Vertical.ToString();
         SizeValueText.Text = facialHair.Size.ToString();
+
+        VerticalDecreaseButton.IsEnabled = facialHair.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = facialHair.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = facialHair.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = facialHair.Size < MaxSize;
     }
 
     // Enum to identify which property is being changed by buttons

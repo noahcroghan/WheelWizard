@@ -95,10 +95,19 @@ public partial class EditorEyebrows : MiiEditorBaseControl
     // Helper to update all value TextBlocks
     private void UpdateValueTexts(MiiEyebrow eyebrows)
     {
-        VerticalValueText.Text = eyebrows.Vertical.ToString();
         SizeValueText.Text = eyebrows.Size.ToString();
         RotationValueText.Text = eyebrows.Rotation.ToString();
         SpacingValueText.Text = eyebrows.Spacing.ToString();
+        VerticalValueText.Text = eyebrows.Vertical.ToString();
+
+        VerticalDecreaseButton.IsEnabled = eyebrows.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = eyebrows.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = eyebrows.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = eyebrows.Size < MaxSize;
+        RotationDecreaseButton.IsEnabled = eyebrows.Rotation > MinRotation;
+        RotationIncreaseButton.IsEnabled = eyebrows.Rotation < MaxRotation;
+        SpacingDecreaseButton.IsEnabled = eyebrows.Spacing > MinSpacing;
+        SpacingIncreaseButton.IsEnabled = eyebrows.Spacing < MaxSpacing;
     }
 
     private enum EyebrowProperty
