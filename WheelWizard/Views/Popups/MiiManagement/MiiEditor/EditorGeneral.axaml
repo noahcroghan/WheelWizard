@@ -46,6 +46,10 @@
                 </StackPanel>
 
                 <StackPanel>
+                    <CheckBox Content="Allow others to copy your Mii" IsChecked="False" x:Name="AllowCopy" IsCheckedChanged="AllowCopy_OnIsCheckedChanged"/>
+                </StackPanel>
+                
+                <StackPanel>
                     <components:FormFieldLabel Text="Height:" />
                     <Slider x:Name="LengthSlider"
                             ValueChanged="Length_OnValueChanged"
