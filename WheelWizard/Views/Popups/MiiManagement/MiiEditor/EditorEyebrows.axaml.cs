@@ -98,7 +98,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         SizeValueText.Text = eyebrows.Size.ToString();
         RotationValueText.Text = eyebrows.Rotation.ToString();
         SpacingValueText.Text = eyebrows.Spacing.ToString();
-        VerticalValueText.Text = eyebrows.Vertical.ToString();
+        VerticalValueText.Text = (eyebrows.Vertical - 3).ToString(); // lying a bit here, but then people are not questions why it goes from 3 instead of 0
 
         VerticalDecreaseButton.IsEnabled = eyebrows.Vertical > MinVertical;
         VerticalIncreaseButton.IsEnabled = eyebrows.Vertical < MaxVertical;
