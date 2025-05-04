@@ -34,6 +34,14 @@ public class MiiBlock : RadioButton
         private set => SetValue(IsFavoriteProperty, value);
     }
 
+    public static readonly StyledProperty<bool> IsGlobalProperty = AvaloniaProperty.Register<MiiBlock, bool>(nameof(IsGlobal));
+
+    public bool IsGlobal
+    {
+        get => GetValue(IsGlobalProperty);
+        private set => SetValue(IsGlobalProperty, value);
+    }
+
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
