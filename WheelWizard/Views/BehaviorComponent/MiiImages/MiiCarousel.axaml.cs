@@ -48,15 +48,17 @@ public partial class MiiCarousel : BaseMiiImage
 
     private void RotateLeft_Click(object? sender, RoutedEventArgs e)
     {
-        CurrentCarouselInstance = (CurrentCarouselInstance + 1) % CarouselInstanceCount;
-        var translationX = -CurrentCarouselInstance * MiiImage.Bounds.Width;
-        MiiImage.RenderTransform = new TranslateTransform(translationX, 0);
+        CurrentCarouselInstance += 1;
+        if (CurrentCarouselInstance > 0)
+            CurrentCarouselInstance -= CarouselInstanceCount;
+        CurrentCarouselInstance %= CarouselInstanceCount;
+        MiiImage.RenderTransform = new TranslateTransform(CurrentCarouselInstance * MiiImage.Bounds.Height, 0);
     }
 
     private void RotateRight_Click(object? sender, RoutedEventArgs e)
     {
-        CurrentCarouselInstance = (CurrentCarouselInstance - 1 + CarouselInstanceCount) % CarouselInstanceCount;
-        var translationX = -CurrentCarouselInstance * MiiImage.Bounds.Height;
-        MiiImage.RenderTransform = new TranslateTransform(translationX, 0);
+        CurrentCarouselInstance -= 1;
+        CurrentCarouselInstance %= CarouselInstanceCount;
+        MiiImage.RenderTransform = new TranslateTransform(CurrentCarouselInstance * MiiImage.Bounds.Height, 0);
     }
 }

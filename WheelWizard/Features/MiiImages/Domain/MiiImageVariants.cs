@@ -54,6 +54,6 @@ public static class MiiImageVariants
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.all_body,
         Size = MiiImageSpecifications.ImageSize.medium,
-        InstanceCount = 2,
+        InstanceCount = 5,
     };
 }
