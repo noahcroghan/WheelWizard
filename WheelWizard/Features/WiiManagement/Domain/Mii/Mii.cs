@@ -105,10 +105,10 @@ Free bits available for custom use and what we will map them to:
 This gives us a total of 28 bits to play with.
 ----------------------------------------------------
 0x20–0x21 : Bits 10–12   (unknown_0, 3 bits)
-0x20–0x21 : Bit 14       (unknown_1, 1 bit)
-0x22–0x23 : Bits 11–15   (unknown_2, 5 bits)
+0x20–0x21 : Bit 14       (unknown_1, 1 bit) BREAKS IT
+0x22–0x23 : Bits 11–15   (unknown_2, 5 bits) top 2 bits break it
 0x24–0x27 : Bit 5        (unknown_3, 1 bit)
-0x24–0x27 : Bits 10–15   (unknown_4, 6 bits)
+0x24–0x27 : Bits 10–15   (unknown_4, 6 bits) bit 3 breaks it
 0x28–0x2B : Bits 6–7     (unknown_5, 2 bits)
 0x28–0x2B : Bit 19       (unknown_6, 1 bit)
 0x28–0x2B : Bits 27–31   (unknown_7, 5 bits)
