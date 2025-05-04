@@ -35,7 +35,6 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     {
         InitializeComponent();
         DataContext = this;
-        MiiCarousel.MiiImageLoaded += (_, _) => CarouselLoading.IsVisible = false;
     }
 
     protected override void BeforeOpen()

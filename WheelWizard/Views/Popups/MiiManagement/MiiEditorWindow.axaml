@@ -30,8 +30,6 @@
            </Grid>
            
            <Grid Grid.Row="0" x:Name="VisualizationCarousel" IsVisible="False">
-               <components:LoadingIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" Height="180"
-                                       x:Name="CarouselLoading" Foreground="{StaticResource Neutral800}" />
                <behavior:MiiCarousel x:Name="MiiCarousel" Height="350" Width="388" HorizontalAlignment="Center" VerticalAlignment="Center"
                                      ReloadMethod="KeepInstanceUntilNew"
                                      ImageVariant="{x:Static miiVars:MiiImageVariants.MiiEditorPreviewCarousel}"

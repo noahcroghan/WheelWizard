@@ -45,7 +45,7 @@ public static class MiiImageVariants
         Name = "MiiEditorPreviewCarousel",
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.all_body,
-        Size = MiiImageSpecifications.ImageSize.small,
+        Size = MiiImageSpecifications.ImageSize.medium,
         CachePriority = CacheItemPriority.Low,
         ExpirationSeconds = TimeSpan.FromSeconds(30),
         InstanceCount = 8,

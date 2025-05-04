@@ -2,6 +2,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
+using WheelWizard.MiiImages;
 using WheelWizard.MiiImages.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 
@@ -37,15 +40,30 @@ public partial class MiiCarousel : BaseMiiImage
     protected void OnVariantChanged(MiiImageSpecifications newSpecifications)
     {
         CarouselInstanceCount = newSpecifications.InstanceCount;
-        ReloadImages(Mii, [newSpecifications]);
+        List<MiiImageSpecifications> variants = [GetPreviewClone(newSpecifications), newSpecifications];
+        if (GeneratedImages.Count > 1)
+            GeneratedImages[1] = null;
+        ReloadImages(Mii, variants);
         ApplyRotation();
     }
 
     protected override void OnMiiChanged(Mii? newMii)
     {
         CurrentCarouselInstance = 0;
-        ReloadImages(newMii, [ImageVariant]);
+        List<MiiImageSpecifications> variants = [GetPreviewClone(ImageVariant), ImageVariant];
+        if (GeneratedImages.Count > 1)
+            GeneratedImages[1] = null;
+        ReloadImages(newMii, variants);
         ApplyRotation();
+    }
+
+    private MiiImageSpecifications GetPreviewClone(MiiImageSpecifications specifications)
+    {
+        var lowQualityClone = specifications.Clone();
+        lowQualityClone.Size = MiiImageSpecifications.ImageSize.small;
+        lowQualityClone.CachePriority = CacheItemPriority.Low;
+        lowQualityClone.InstanceCount = 1;
+        return lowQualityClone;
     }
 
     private void ApplyRotation()

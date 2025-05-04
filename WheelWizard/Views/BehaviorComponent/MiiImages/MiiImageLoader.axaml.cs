@@ -87,10 +87,7 @@ public partial class MiiImageLoader : BaseMiiImage
         {
             if (GeneratedImages.Count > 1)
                 GeneratedImages[1] = null;
-            var lowQualityClone = newSpecifications.Clone();
-            lowQualityClone.Size = MiiImageSpecifications.ImageSize.small;
-            lowQualityClone.CachePriority = CacheItemPriority.Low;
-            variants.Add(lowQualityClone);
+            variants.Add(GetLowQualityClone(newSpecifications));
         }
 
         variants.Add(newSpecifications);
@@ -105,13 +102,18 @@ public partial class MiiImageLoader : BaseMiiImage
         {
             if (GeneratedImages.Count > 1)
                 GeneratedImages[1] = null;
-            var lowQualityClone = ImageVariant.Clone();
-            lowQualityClone.Size = MiiImageSpecifications.ImageSize.small;
-            lowQualityClone.CachePriority = CacheItemPriority.Low;
-            variants.Add(lowQualityClone);
+            variants.Add(GetLowQualityClone(ImageVariant));
         }
 
         variants.Add(ImageVariant);
         ReloadImages(newMii, variants);
+    }
+
+    private MiiImageSpecifications GetLowQualityClone(MiiImageSpecifications specifications)
+    {
+        var lowQualityClone = specifications.Clone();
+        lowQualityClone.Size = MiiImageSpecifications.ImageSize.small;
+        lowQualityClone.CachePriority = CacheItemPriority.Low;
+        return lowQualityClone;
     }
 }

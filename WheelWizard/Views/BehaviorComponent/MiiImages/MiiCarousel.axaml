@@ -14,17 +14,28 @@
                     BorderBrush="{StaticResource BackgroundLineColor}" SizeChanged="ImageBorder_OnSizeChanged">
                 <behaviorComp:AspectGrid ClipToBounds="True" x:Name="MiiImageCounter"
                                          VerticalAlignment="Stretch">
+                    <Image HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="MiiPreviewImage"
+                           Source="{Binding GeneratedImages, ElementName=Self, Converter={x:Static 
+                   converters:CollectionConverters.First }}" RenderTransformOrigin="0,0"
+                           IsVisible="{Binding GeneratedImages, ElementName=Self, Converter={x:Static 
+                   converters:CollectionConverters.SecondIsNull } }"
+                           />
+                    
                     <Image HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="MiiImage"
                            Source="{Binding GeneratedImages, ElementName=Self, Converter={x:Static 
-                   converters:CollectionConverters.First }}" RenderTransformOrigin="0,0"/>
+                   converters:CollectionConverters.Second }}" RenderTransformOrigin="0,0"/>
                 </behaviorComp:AspectGrid>
             </Border>
             
             <components:Button Grid.Column="0" VerticalAlignment="Center" IconData="{StaticResource RotateLeft}"
                                CornerRadius="99999" IconSize="15" Padding="12" Click="RotateLeft_Click"
-                               Margin="0,0,-20,0"/>
+                               Margin="0,0,-20,0"
+                               IsEnabled="{Binding GeneratedImages, ElementName=Self, Converter={x:Static 
+                   converters:CollectionConverters.SecondIsNotNull } }"/>
             <components:Button Grid.Column="2" VerticalAlignment="Center" IconData="{StaticResource RotateRight}"
                                CornerRadius="99999" IconSize="15" Padding="12" Click="RotateRight_Click"
-                               Margin="-20,0,0,0"/>
+                               Margin="-20,0,0,0"
+                               IsEnabled="{Binding GeneratedImages, ElementName=Self, Converter={x:Static 
+                   converters:CollectionConverters.SecondIsNotNull } }"/>
         </Grid>
 </UserControl>
