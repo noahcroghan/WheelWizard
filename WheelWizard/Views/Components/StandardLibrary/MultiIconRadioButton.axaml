@@ -30,8 +30,13 @@
                                                DisabledColor1="{StaticResource Neutral900}"
                                                DisabledColor2="{StaticResource Neutral950}"
                                                DisabledColor3="{StaticResource Neutral950}"
-                                               
                                                />
+                <controls:MultiIconRadioButton IconGeo="{StaticResource Heart}"
+                                               Color1="{StaticResource Neutral400}"/>
+                <controls:MultiIconRadioButton IconGeo="{StaticResource Home}"
+                                               Color1="{StaticResource Neutral400}"
+                                               HoverColor1="{StaticResource Danger50}"
+                                               SelectedColor1="{StaticResource Primary400}"/>
             </StackPanel>
         </Border>
        
@@ -51,6 +56,15 @@
                                     Height="50" Width="30" Effect="blur(90)" Background="{StaticResource Primary200}">
                             </Border>
                          
+                         <Border Background="Transparent"
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6">
+                             <Path Data="{TemplateBinding IconGeo}"
+                                   Stretch="Uniform" x:Name="Part_SingleIcon"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">
+                             </Path>
+                         </Border>
+                         
                          <controls:MultiColoredIcon IconData="{TemplateBinding IconData}" Margin="6"
                                                     x:Name="PART_MultiIcon"
                                                     UndefinedColorsTransparent="{TemplateBinding UndefinedColorsTransparent}"
@@ -62,6 +76,9 @@
         
         <Setter Property="Background" Value="Transparent" />
 
+        <Style Selector="^ /template/ Path#Part_SingleIcon">
+            <Setter Property="Fill" Value="{TemplateBinding Color1}" />
+        </Style>
         <Style Selector="^ /template/ controls|MultiColoredIcon#PART_MultiIcon">
             <Setter Property="Color1" Value="{TemplateBinding Color1}" />
             <Setter Property="Color2" Value="{TemplateBinding Color2}" />
@@ -81,6 +98,16 @@
     <Style Selector="controls|MultiIconRadioButton:pointerover">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Background" Value="{StaticResource Neutral700}" />
+        <Style Selector="^ /template/ Path#Part_SingleIcon">
+            <Setter Property="Fill">
+                <Setter.Value>
+                    <MultiBinding Converter="{x:Static conv:FallbackConverters.Brushes}">
+                        <Binding Path="HoverColor1" RelativeSource="{RelativeSource TemplatedParent}" />
+                        <Binding Path="Color1" RelativeSource="{RelativeSource TemplatedParent}" />
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style Selector="^ /template/ controls|MultiColoredIcon#PART_MultiIcon">
             <Setter Property="Color1">
                 <Setter.Value>
@@ -184,6 +211,16 @@
 
     <Style Selector="controls|MultiIconRadioButton:checked">
         <Setter Property="Background" Value="{StaticResource Neutral950}" />
+        <Style Selector="^ /template/ Path#Part_SingleIcon">
+            <Setter Property="Fill">
+                <Setter.Value>
+                    <MultiBinding Converter="{x:Static conv:FallbackConverters.Brushes}">
+                        <Binding Path="SelectedColor1" RelativeSource="{RelativeSource TemplatedParent}" />
+                        <Binding Path="Color1" RelativeSource="{RelativeSource TemplatedParent}" />
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style Selector="^ /template/ controls|MultiColoredIcon#PART_MultiIcon">
                        <Setter Property="Color1">
                 <Setter.Value>
@@ -286,6 +323,16 @@
     
     <Style Selector="controls|MultiIconRadioButton[IsEnabled=False]">
         <Setter Property="Background" Value="{StaticResource Neutral900}" />
+        <Style Selector="^ /template/ Path#Part_SingleIcon">
+            <Setter Property="Fill">
+                <Setter.Value>
+                    <MultiBinding Converter="{x:Static conv:FallbackConverters.Brushes}">
+                        <Binding Path="DisabledColor1" RelativeSource="{RelativeSource TemplatedParent}" />
+                        <Binding Path="Color1" RelativeSource="{RelativeSource TemplatedParent}" />
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style Selector="^ /template/ controls|MultiColoredIcon#PART_MultiIcon">
                         <Setter Property="Color1">
                 <Setter.Value>

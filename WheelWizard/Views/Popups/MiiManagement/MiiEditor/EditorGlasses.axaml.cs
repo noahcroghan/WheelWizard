@@ -33,12 +33,12 @@ public partial class EditorGlasses : MiiEditorBaseControl
                 GlassesColorBox.SelectedItem = color;
         }
 
-        GenerateGlassessButtons();
+        GenerateGlassesButtons();
         UpdateValueTexts(currentGlasses);
         HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != GlassesType.None;
     }
 
-    private void GenerateGlassessButtons()
+    private void GenerateGlassesButtons()
     {
         var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
         var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
@@ -86,6 +86,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
             var currentButton = GlassesTypesGrid.Children[index] as MultiIconRadioButton;
             currentButton.IsChecked = true;
         }
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiGlasses glasses)
@@ -130,9 +131,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
         newValue = currentValue + change;
 
         if (newValue < min || newValue > max)
-        {
             return;
-        }
 
         OperationResult<MiiGlasses> result;
         switch (property)
@@ -147,11 +146,12 @@ public partial class EditorGlasses : MiiEditorBaseControl
                 return;
         }
 
-        if (!result.IsSuccess)
+        if (result.IsFailure)
             return;
 
         Editor.Mii.MiiGlasses = result.Value;
         UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void GlassesColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

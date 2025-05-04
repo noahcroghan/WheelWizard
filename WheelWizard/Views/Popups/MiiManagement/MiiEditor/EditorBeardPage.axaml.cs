@@ -83,6 +83,8 @@ public partial class EditorFacialHair : MiiEditorBaseControl
                 }
             }
         }
+
+        Editor.RefreshImage();
     }
 
     private void GenerateMustacheButtons()
@@ -128,6 +130,8 @@ public partial class EditorFacialHair : MiiEditorBaseControl
                 }
             }
         }
+
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiFacialHair facialHair)
@@ -192,15 +196,12 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         }
 
         // Handle the result
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiFacialHair = result.Value;
-            UpdateValueTexts(result.Value); // Update UI TextBlocks
-        }
-        else
-        {
-            ViewUtils.ShowSnackbar($"Error: {result.Error.Message}");
-        }
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiFacialHair = result.Value;
+        UpdateValueTexts(result.Value); // Update UI TextBlocks
+        Editor.RefreshImage();
     }
 
     private void FacialHairColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

@@ -94,6 +94,7 @@ public partial class EditorLips : MiiEditorBaseControl
             var currentButton = MouthTypesGrid.Children[index] as MultiIconRadioButton;
             currentButton.IsChecked = true;
         }
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiLip lips)
@@ -155,11 +156,12 @@ public partial class EditorLips : MiiEditorBaseControl
                 return;
         }
 
-        if (!result.IsSuccess)
+        if (result.IsFailure)
             return;
 
         Editor.Mii.MiiLips = result.Value;
         UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void LipColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

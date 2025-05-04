@@ -39,6 +39,10 @@ public partial class EditorGeneral : MiiEditorBaseControl
             Editor.Mii.Name = new(MiiName.Text);
         if (!_hasCreatorNameError)
             Editor.Mii.CreatorName = new(CreatorName.Text);
+
+        // For now i put it here, since i dont thing we want each value to be set when you change length or width
+        // only when you stop moving that bar do we want that i think
+        Editor.RefreshImage();
     }
 
     // We only have to check if it's a female, since if it's not, we already know the other option is going to be the male

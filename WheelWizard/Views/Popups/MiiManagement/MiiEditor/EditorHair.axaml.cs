@@ -60,6 +60,7 @@ public partial class EditorHair : MiiEditorBaseControl
     private void SetHairType(int type)
     {
         Editor.Mii.MiiHair = new(type, Editor.Mii.MiiHair.HairColor, Editor.Mii.MiiHair.HairFlipped);
+        Editor.RefreshImage();
     }
 
     private void HairColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -100,10 +101,9 @@ public partial class EditorHair : MiiEditorBaseControl
         var result = MiiHair.Create(currentHair.HairType, currentHair.HairColor, isChecked); // New value
 
         if (result.IsFailure)
-        {
             return;
-        }
 
         Editor.Mii.MiiHair = result.Value;
+        Editor.RefreshImage();
     }
 }

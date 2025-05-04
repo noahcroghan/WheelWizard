@@ -88,6 +88,7 @@ public partial class EditorFace : MiiEditorBaseControl
             return;
 
         Editor.Mii.MiiFacial = result.Value;
+        Editor.RefreshImage();
     }
 
     private void SetSkinColor(int index)
@@ -107,6 +108,7 @@ public partial class EditorFace : MiiEditorBaseControl
             return;
 
         Editor.Mii.MiiFacial = result.Value;
+        Editor.RefreshImage();
     }
 
     private void FacialFeatureBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

@@ -93,6 +93,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
             var currentButton = EyebrowTypesGrid.Children[index] as MultiIconRadioButton;
             currentButton.IsChecked = true;
         }
+        Editor.RefreshImage();
     }
 
     // Helper to update all value TextBlocks
@@ -177,11 +178,12 @@ public partial class EditorEyebrows : MiiEditorBaseControl
                 return;
         }
 
-        if (!result.IsSuccess)
+        if (result.IsFailure)
             return;
 
         Editor.Mii.MiiEyebrows = result.Value;
         UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void EyebrowColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

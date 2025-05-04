@@ -93,6 +93,7 @@ public partial class EditorEyes : MiiEditorBaseControl
                 item.IsChecked = item.IconData == GetMiiIconData($"Eyes{currentType:D2}");
             }
         }
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiEye eyes)
@@ -172,11 +173,12 @@ public partial class EditorEyes : MiiEditorBaseControl
                 return;
         }
 
-        if (!result.IsSuccess)
+        if (result.IsFailure)
             return;
 
         Editor.Mii.MiiEyes = result.Value;
         UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void EyeColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

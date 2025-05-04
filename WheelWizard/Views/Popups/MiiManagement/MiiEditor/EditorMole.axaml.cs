@@ -101,12 +101,12 @@ public partial class EditorMole : MiiEditorBaseControl
                 return;
         }
 
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiMole = result.Value;
-            UpdateValueTexts(result.Value);
-        }
-        else { }
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiMole = result.Value;
+        UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void MoleEnabledCheck_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
@@ -131,6 +131,7 @@ public partial class EditorMole : MiiEditorBaseControl
             MoleEnabledCheck.IsChecked = current.Exists;
         }
         MoleControlsPanel.IsVisible = Editor.Mii.MiiMole.Exists;
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateMoleValue(-1, MoleProperty.Vertical);

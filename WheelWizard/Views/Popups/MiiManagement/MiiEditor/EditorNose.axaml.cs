@@ -73,6 +73,7 @@ public partial class EditorNose : MiiEditorBaseControl
             var currentButton = NoseTypesGrid.Children[index] as MultiIconRadioButton;
             currentButton.IsChecked = true;
         }
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiNose nose)
@@ -134,11 +135,12 @@ public partial class EditorNose : MiiEditorBaseControl
                 return;
         }
 
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiNose = result.Value;
-            UpdateValueTexts(result.Value);
-        }
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiNose = result.Value;
+        UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateNoseValue(-1, NoseProperty.Vertical);

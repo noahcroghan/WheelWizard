@@ -17,15 +17,44 @@
        </Border>
        <Border Grid.Column="1" Background="{StaticResource BackgroundLineColor}" Margin="0,-10"
                Width="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" />
-       <Grid Grid.Column="2">
-           <components:Button Text="" Click="RefreshButton_OnClick" IconData="{StaticResource Refresh}"
-                              Variant="Default" Padding="10" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+       <Grid Grid.Column="2" RowDefinitions="*,Auto">
+
+           <Grid Grid.Row="0" x:Name="VisualizationFace" IsVisible="True">
+               <Border CornerRadius="6"  BorderBrush="{StaticResource BackgroundLineColor}" BorderThickness="1"
+                       Height="350" Width="350" HorizontalAlignment="Center" VerticalAlignment="Center">
+                   <behavior:MiiImageLoader  x:Name="MiiFaceImage" ReloadMethod="KeepInstanceUntilNew"
+                                            Mii="{Binding Mii}" FallBackColor="{StaticResource Neutral700}"
+                                            ImageVariant="{x:Static miiVars:MiiImageVariants.OnlinePlayerSmall}"/>
+               </Border>
+      
+           </Grid>
            
-           <components:LoadingIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" Height="180"
-                                   x:Name="MiiLoadingIcon" Foreground="{StaticResource Neutral800}" />
-           <behavior:MiiCarousel x:Name="Carousel" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="300" 
-                                 ImageVariant="{x:Static miiVars:MiiImageVariants.FullBodyCarousel}"
-                                 Mii="{Binding Mii}" Margin="50,0"/>
+           <Grid Grid.Row="0" x:Name="VisualizationCarousel" IsVisible="False">
+               <components:LoadingIcon HorizontalAlignment="Center" VerticalAlignment="Center" Width="180" Height="180"
+                                       x:Name="CarouselLoading" Foreground="{StaticResource Neutral800}" />
+               <behavior:MiiCarousel x:Name="MiiCarousel" Height="350" Width="388" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                     ReloadMethod="KeepInstanceUntilNew"
+                                     ImageVariant="{x:Static miiVars:MiiImageVariants.FullBodyCarousel}"
+                                     Mii="{Binding Mii}"/>
+           </Grid>
+           
+
+           <Border Grid.Row="1" CornerRadius="6" Background="{StaticResource Neutral900}" Margin="0,10,0,0" 
+                   HorizontalAlignment="Center">
+               <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Stretch" Spacing="6" Margin="6">
+                   <components:MultiIconRadioButton GroupName="VisualizationGroup" Checked="MiiFaceToggle_OnChecked"
+                                                    IconGeo="{StaticResource User}" Width="40" Height="40"
+                                                    Color1="{StaticResource Neutral400}" IsChecked="True"
+                                                    HoverColor1="{StaticResource Neutral300}" 
+                                                    SelectedColor1="{StaticResource Primary400}"/>
+                   <components:MultiIconRadioButton GroupName="VisualizationGroup" Checked="MiiCarouselToggle_OnChecked"
+                                                    IconGeo="{StaticResource LilGuy}" Width="40" Height="40"
+                                                    Color1="{StaticResource Neutral400}"
+                                                    HoverColor1="{StaticResource Neutral300}"
+                                                    SelectedColor1="{StaticResource Primary400}"/>
+               </StackPanel>
+           </Border>
+           
        </Grid>
     </Grid>
 </base:PopupContent>
