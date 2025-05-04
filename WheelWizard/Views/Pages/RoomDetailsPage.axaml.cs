@@ -143,11 +143,11 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
         if (selectedPlayer.FirstMii == null)
             return;
 
-        if (selectedPlayer.FirstMii?.CustomData.IsCopyable != true)
-        {
-            ViewUtils.ShowSnackbar("This player doesn't want you to copy their Mii", ViewUtils.SnackbarType.Warning);
-            return;
-        }
+        // if (selectedPlayer.FirstMii?.CustomData.IsCopyable != true)
+        // {
+        //     ViewUtils.ShowSnackbar("This player doesn't want you to copy their Mii", ViewUtils.SnackbarType.Warning);
+        //     return;
+        // }
         var desiredMii = selectedPlayer.FirstMii;
 
         var macAddress = (string)SettingsManager.MACADDRESS.Get();
@@ -172,6 +172,6 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
         if (PlayersListView.SelectedItem is not RrPlayer selectedPlayer)
             return;
 
-        CopyMiiButton.IsEnabled = selectedPlayer.FirstMii?.CustomData.IsCopyable == true;
+        // CopyMiiButton.IsEnabled = selectedPlayer.FirstMii?.CustomData.IsCopyable == true;
     }
 }
