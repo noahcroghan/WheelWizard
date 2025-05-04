@@ -105,23 +105,32 @@ public static class FilePickerHelper
 
     public static void OpenFolderInFileManager(string folderPath)
     {
+        string? openExecutable;
         if (OperatingSystem.IsWindows())
         {
-            Process.Start("explorer.exe", folderPath);
+            openExecutable = "explorer.exe";
         }
         else if (OperatingSystem.IsLinux())
         {
-            Process.Start("xdg-open", folderPath);
+            openExecutable = "xdg-open";
         }
         else if (OperatingSystem.IsMacOS())
         {
-            // Ensures the ~/Library/Application Support/ folder is escaped properly
-            folderPath = $"\"{folderPath}\"";
-            Process.Start("open", folderPath);
+            openExecutable = "open";
         }
         else
         {
             throw new PlatformNotSupportedException("Unsupported operating system.");
         }
+
+        var info = new ProcessStartInfo(openExecutable)
+        {
+            // Ensures the folder path is escaped properly
+            ArgumentList = {
+                folderPath,
+            }
+        };
+
+        Process.Start(info);
     }
 }
