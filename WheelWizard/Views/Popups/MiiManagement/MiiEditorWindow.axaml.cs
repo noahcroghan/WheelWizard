@@ -35,6 +35,8 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     {
         InitializeComponent();
         DataContext = this;
+
+        Window.BetaFlag = true;
     }
 
     protected override void BeforeOpen()

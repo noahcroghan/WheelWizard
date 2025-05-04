@@ -13,6 +13,9 @@ public partial class StateBox : TemplatedControl // Change to TemplatedControl
     {
         Default,
         Dark,
+        Success,
+        Warning,
+        Danger,
     }
 
     public StateBox()

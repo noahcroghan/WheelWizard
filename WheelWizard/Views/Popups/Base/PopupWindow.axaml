@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
+        xmlns:components="clr-namespace:WheelWizard.Views.Components"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="WheelWizard.Views.Popups.Base.PopupWindow"
         SystemDecorations="None" SizeToContent="WidthAndHeight"
@@ -24,9 +25,14 @@
                 <Border Grid.Row="0" Background="{StaticResource FrameColor}"
                         CornerRadius="3,3,0,0" PointerPressed="TopBar_PointerPressed">
                     <Grid>
-                        <TextBlock FontSize="16" Margin="10,0" Text="{Binding WindowTitle}"
-                                   VerticalAlignment="Center" HorizontalAlignment="Left"
-                                   Foreground="{StaticResource Neutral300}" />
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left"
+                                    Orientation="Horizontal" Margin="10,0" Spacing="10">
+                            <components:StateBox Text="Beta" Variant="Warning" IconSize="0" Margin="0,-1,0,0"
+                                                 IsVisible="{Binding BetaFlag}"/>
+                            <TextBlock FontSize="16" Text="{Binding WindowTitle}"
+                                       Foreground="{StaticResource Neutral300}" />
+                        </StackPanel>
+                       
 
                         <DockPanel HorizontalAlignment="Right" VerticalAlignment="Center">
 
