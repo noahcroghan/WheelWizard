@@ -182,6 +182,7 @@
 
             <behavior:MiiCarousel VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                   Mii="{Binding CurrentMii}"
+                                  Margin="0,20"
                                   ImageVariant="{x:Static miiVars:MiiImageVariants.FullBodyCarousel}"
                                   x:Name="CurrentUserCarousel" Height="280" />
 

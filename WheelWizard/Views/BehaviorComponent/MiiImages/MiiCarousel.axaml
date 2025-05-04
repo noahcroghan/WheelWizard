@@ -8,21 +8,23 @@
              xmlns:converters="clr-namespace:WheelWizard.Views.Converters"
              x:Class="WheelWizard.Views.BehaviorComponent.MiiCarousel" x:Name="Self">
     
-    <Grid IsVisible="{Binding GeneratedImages, ElementName=Self, Converter={x:Static 
-                   converters:CollectionConverters.FirstIsNotNull }}"
-          ColumnDefinitions="Auto,*,Auto">
-        <Border Grid.Column="1" ClipToBounds="True" x:Name="MiiImageCounter"
-                Width="{Binding Height, ElementName=Self}" Height="{Binding Height, ElementName=Self}">
-            <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" x:Name="MiiImage"
-                   Source="{Binding GeneratedImages, ElementName=Self, Converter={x:Static 
-                   converters:CollectionConverters.First }}"
-                   RenderTransformOrigin="0,0"/>
-        </Border>
-                    
-        <components:Button Grid.Column="0" VerticalAlignment="Center" IconData="{StaticResource RotateLeft}"
-                           CornerRadius="9999" IconSize="15" Padding="12" Click="RotateLeft_Click"/>
-                    
-        <components:Button Grid.Column="2" VerticalAlignment="Center" IconData="{StaticResource RotateRight}"
-                           CornerRadius="9999" IconSize="15" Padding="12" Click="RotateRight_Click"/>
-    </Grid>
+        <Grid ColumnDefinitions="Auto,*,Auto" IsVisible="{Binding GeneratedImages, ElementName=Self, Converter={x:Static 
+                   converters:CollectionConverters.FirstIsNotNull }}">
+            <Border Grid.Column="1" Padding="6" CornerRadius="6" BorderThickness="1" x:Name="ImageBorder"
+                    BorderBrush="{StaticResource BackgroundLineColor}" SizeChanged="ImageBorder_OnSizeChanged">
+                <behaviorComp:AspectGrid ClipToBounds="True" x:Name="MiiImageCounter"
+                                         VerticalAlignment="Stretch">
+                    <Image HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="MiiImage"
+                           Source="{Binding GeneratedImages, ElementName=Self, Converter={x:Static 
+                   converters:CollectionConverters.First }}" RenderTransformOrigin="0,0"/>
+                </behaviorComp:AspectGrid>
+            </Border>
+            
+            <components:Button Grid.Column="0" VerticalAlignment="Center" IconData="{StaticResource RotateLeft}"
+                               CornerRadius="99999" IconSize="15" Padding="12" Click="RotateLeft_Click"
+                               Margin="0,0,-20,0"/>
+            <components:Button Grid.Column="2" VerticalAlignment="Center" IconData="{StaticResource RotateRight}"
+                               CornerRadius="99999" IconSize="15" Padding="12" Click="RotateRight_Click"
+                               Margin="-20,0,0,0"/>
+        </Grid>
 </UserControl>

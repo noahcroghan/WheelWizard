@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using WheelWizard.MiiImages.Domain;
@@ -37,13 +38,22 @@ public partial class MiiCarousel : BaseMiiImage
     {
         CarouselInstanceCount = newSpecifications.InstanceCount;
         ReloadImages(Mii, [newSpecifications]);
+        ApplyRotation();
     }
 
     protected override void OnMiiChanged(Mii? newMii)
     {
         CurrentCarouselInstance = 0;
-        MiiImage.RenderTransform = new TranslateTransform(0, 0);
         ReloadImages(newMii, [ImageVariant]);
+        ApplyRotation();
+    }
+
+    private void ApplyRotation()
+    {
+        var transGroup = new TransformGroup();
+        transGroup.Children.Add(new ScaleTransform(CarouselInstanceCount, CarouselInstanceCount));
+        transGroup.Children.Add(new TranslateTransform(CurrentCarouselInstance * MiiImage.Bounds.Height * CarouselInstanceCount, 0));
+        MiiImage.RenderTransform = transGroup;
     }
 
     private void RotateLeft_Click(object? sender, RoutedEventArgs e)
@@ -52,13 +62,19 @@ public partial class MiiCarousel : BaseMiiImage
         if (CurrentCarouselInstance > 0)
             CurrentCarouselInstance -= CarouselInstanceCount;
         CurrentCarouselInstance %= CarouselInstanceCount;
-        MiiImage.RenderTransform = new TranslateTransform(CurrentCarouselInstance * MiiImage.Bounds.Height, 0);
+        ApplyRotation();
     }
 
     private void RotateRight_Click(object? sender, RoutedEventArgs e)
     {
         CurrentCarouselInstance -= 1;
         CurrentCarouselInstance %= CarouselInstanceCount;
-        MiiImage.RenderTransform = new TranslateTransform(CurrentCarouselInstance * MiiImage.Bounds.Height, 0);
+        ApplyRotation();
+    }
+
+    private void ImageBorder_OnSizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        MiiImageCounter.RenderTransform = new ScaleTransform(1.5, 1.5);
+        MiiImageCounter.Margin = new(0, -ImageBorder.Bounds.Height * 0.4, 0, 0);
     }
 }

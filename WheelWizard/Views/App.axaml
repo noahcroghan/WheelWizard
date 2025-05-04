@@ -66,6 +66,5 @@
         <StyleInclude Source="Components/WhWzLibrary/PlayerListItem.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/Badge.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/MiiBlock.axaml" />
-        <StyleInclude Source="Components/WhWzLibrary/MiiImages/MiiCarousel.axaml" />
     </Application.Styles>
 </Application>
