@@ -183,6 +183,11 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
         if (selectedPlayer.Mii == null)
             return;
 
+        if (selectedPlayer.Mii?.CustomData.IsCopyable != true)
+        {
+            ViewUtils.ShowSnackbar("This player doesn't want you to copy their Mii", ViewUtils.SnackbarType.Warning);
+            return;
+        }
         var desiredMii = selectedPlayer.Mii;
 
         var macAddress = (string)SettingsManager.MACADDRESS.Get();
@@ -212,4 +217,12 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
     }
 
     #endregion
+
+    private void ContextMenu_OnOpening(object? sender, CancelEventArgs e)
+    {
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
+            return;
+
+        CopyMiiButton.IsEnabled = selectedPlayer.Mii?.CustomData.IsCopyable == true;
+    }
 }

@@ -20,7 +20,7 @@ public sealed class CustomMiiData
     // allowing older versions to recognize or ignore newer data formats.
     private const int SchemaVersion = 1;
 
-    #region LAYOUT METADATA
+    #region Layout Metadata
 
     // The total number of bits available for custom data within the Mii format's unused sections.
     // This is a hard limit, Never change this!
@@ -176,7 +176,7 @@ public sealed class CustomMiiData
         set => SetField(value);
     }
 
-    #region CONSTRUCTORS
+    #region Constructors
 
     /// <summary>
     /// Private constructor used internally to create an instance with a given payload.
@@ -220,6 +220,7 @@ public sealed class CustomMiiData
             return new(rawpayload);
 
         // If it’s an older, supported version, migrate it forward one step at a time:
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
         if (diskVersion >= SchemaVersion) // don't remove this, once version goes above 1 this check is not redundant anymore
             return CreateEmpty();
 
@@ -330,7 +331,10 @@ public sealed class CustomMiiData
         // Calculate the maximum possible value for the given width (2^width - 1).
         var maxValue = (1u << meta.Width) - 1;
         if (value > maxValue)
+        {
+            // ReSharper disable once LocalizableElement
             throw new ArgumentOutOfRangeException(propName, $"Value {value} exceeds the {meta.Width}-bit limit (max {maxValue}).");
+        }
 
         // Update the payload:
         // 1. Clear the bits for this field in the current payload using the inverted mask.
