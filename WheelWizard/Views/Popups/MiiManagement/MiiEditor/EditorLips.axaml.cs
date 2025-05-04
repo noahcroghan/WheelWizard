@@ -180,6 +180,7 @@ public partial class EditorLips : MiiEditorBaseControl
         {
             LipColorBox.SelectedItem = current.Color.ToString();
         }
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(-1, LipProperty.Vertical);

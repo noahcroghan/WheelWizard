@@ -85,6 +85,7 @@ public partial class EditorHair : MiiEditorBaseControl
         }
 
         Editor.Mii.MiiHair = result.Value;
+        Editor.RefreshImage();
     }
 
     private void HairFlippedCheck_OnIsCheckedChanged(object? sender, RoutedEventArgs e)

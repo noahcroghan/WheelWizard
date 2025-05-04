@@ -43,7 +43,8 @@ public partial class EditorGlasses : MiiEditorBaseControl
         var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
         var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
         var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral600); // Glass Color
-
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger400);
+        var selectedColor4 = new SolidColorBrush(ViewUtils.Colors.Danger500);
         SetButtons(
             "MiiGlasses",
             8,
@@ -54,6 +55,8 @@ public partial class EditorGlasses : MiiEditorBaseControl
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
+                button.Color4 = color4;
+                button.SelectedColor4 = selectedColor4;
                 button.Click += (_, _) => SetGlassesType(index);
             }
         );

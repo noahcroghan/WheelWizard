@@ -138,5 +138,6 @@ public partial class EditorFace : MiiEditorBaseControl
         }
 
         Editor.Mii.MiiFacial = result.Value;
+        Editor.RefreshImage();
     }
 }

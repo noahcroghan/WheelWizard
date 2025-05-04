@@ -55,11 +55,8 @@
 
     <DrawingImage x:Key="MiiGlasses00">
         <DrawingGroup>
-            <GeometryDrawing Brush="{StaticResource TemplateColor1}"
-                             Geometry="M26 42.0902C34.8863 42.0902 42.09 34.8864 42.09 26.0002C42.09 17.1139 34.8863 9.91016 26 9.91016C17.1137 9.91016 9.91 17.1139 9.91 26.0002C9.91 34.8864 17.1137 42.0902 26 42.0902Z">
-                <GeometryDrawing.Pen>
-                    <Pen Thickness="2.48" Brush="{StaticResource TemplateColor2}" />
-                </GeometryDrawing.Pen>
+            <GeometryDrawing Brush="{StaticResource TemplateColor4}"
+                             Geometry="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z">
             </GeometryDrawing>
         </DrawingGroup>
     </DrawingImage>

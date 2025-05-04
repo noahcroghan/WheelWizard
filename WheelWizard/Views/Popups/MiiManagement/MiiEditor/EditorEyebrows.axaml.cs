@@ -9,7 +9,7 @@ namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 public partial class EditorEyebrows : MiiEditorBaseControl
 {
     // Define ranges for clarity and maintainability
-    private const int MinVertical = 0;
+    private const int MinVertical = 3;
     private const int MaxVertical = 18;
     private const int MinSize = 0;
     private const int MaxSize = 8;
@@ -45,7 +45,8 @@ public partial class EditorEyebrows : MiiEditorBaseControl
 
     private void CreateEyebrowButtons()
     {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Danger500); // Skin Color
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Danger400);
+        var selectedColor1 = new SolidColorBrush(ViewUtils.Colors.Danger500);
         var color2 = new SolidColorBrush(ViewUtils.Colors.Black); // Eyebrow Color
         SetButtons(
             "MiiEyebrow",
@@ -55,6 +56,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
             {
                 button.IsChecked = index == Editor.Mii.MiiEyebrows.Type;
                 button.Color1 = color1;
+                button.SelectedColor1 = selectedColor1;
                 button.Color2 = color2;
                 button.Click += (_, _) => SetEyebrowType(index);
             }
@@ -199,6 +201,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         {
             EyebrowColorBox.SelectedItem = current.Color.ToString();
         }
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, EyebrowProperty.Vertical);
