@@ -36,6 +36,13 @@ public partial class EditorMole : MiiEditorBaseControl
         VerticalValueText.Text = mole.Vertical.ToString();
         SizeValueText.Text = mole.Size.ToString();
         HorizontalValueText.Text = mole.Horizontal.ToString();
+
+        VerticalDecreaseButton.IsEnabled = mole.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = mole.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = mole.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = mole.Size < MaxSize;
+        HorizontalDecreaseButton.IsEnabled = mole.Horizontal > MinHorizontal;
+        HorizontalIncreaseButton.IsEnabled = mole.Horizontal < MaxHorizontal;
     }
 
     private enum MoleProperty
@@ -101,12 +108,12 @@ public partial class EditorMole : MiiEditorBaseControl
                 return;
         }
 
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiMole = result.Value;
-            UpdateValueTexts(result.Value);
-        }
-        else { }
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiMole = result.Value;
+        UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void MoleEnabledCheck_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
@@ -131,6 +138,7 @@ public partial class EditorMole : MiiEditorBaseControl
             MoleEnabledCheck.IsChecked = current.Exists;
         }
         MoleControlsPanel.IsVisible = Editor.Mii.MiiMole.Exists;
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateMoleValue(-1, MoleProperty.Vertical);

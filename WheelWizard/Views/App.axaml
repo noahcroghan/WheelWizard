@@ -38,7 +38,7 @@
         <!-- !!Only used for the designer!! -->
         <StyleInclude Source="Styles/Util/MultiColorExampleComponent.axaml" />
         <!-- !!Only used for the designer!! -->
-        
+
         <!-- STYLES -->
         <StyleInclude Source="Styles/Styles/ButtonStyles.axaml" />
         <StyleInclude Source="Styles/Styles/TextStyles.axaml" />
@@ -46,6 +46,7 @@
         <StyleInclude Source="Styles/Styles/MiscStyles.axaml" />
         <StyleInclude Source="Styles/Styles/TextBoxStyles.axaml" />
         <StyleInclude Source="Styles/Styles/DropdownStyles.axaml" />
+        <StyleInclude Source="Styles/Styles/SliderStyles.axaml" />
 
         <!-- STANDARD COMPONENTS -->
         <StyleInclude Source="Components/StandardLibrary/MultiColoredIcon.axaml" />
@@ -66,7 +67,5 @@
         <StyleInclude Source="Components/WhWzLibrary/PlayerListItem.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/Badge.axaml" />
         <StyleInclude Source="Components/WhWzLibrary/MiiBlock.axaml" />
-        <StyleInclude Source="Components/WhWzLibrary/MiiImages/MiiImageLoader.axaml" />
-        <StyleInclude Source="Components/WhWzLibrary/MiiImages/MiiCarousel.axaml" />
     </Application.Styles>
 </Application>

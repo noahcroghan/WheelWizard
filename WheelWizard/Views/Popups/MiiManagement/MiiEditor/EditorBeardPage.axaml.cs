@@ -45,6 +45,8 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
         var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
         var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger400);
+        var selectedColor4 = new SolidColorBrush(ViewUtils.Colors.Danger500);
         SetButtons(
             "MiiGoatee",
             4,
@@ -55,6 +57,8 @@ public partial class EditorFacialHair : MiiEditorBaseControl
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
+                button.Color4 = color4;
+                button.SelectedColor4 = selectedColor4;
                 button.Click += (_, _) => SetBeardType(index);
             }
         );
@@ -83,6 +87,8 @@ public partial class EditorFacialHair : MiiEditorBaseControl
                 }
             }
         }
+
+        Editor.RefreshImage();
     }
 
     private void GenerateMustacheButtons()
@@ -90,6 +96,8 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
         var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
         var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger400);
+        var selectedColor4 = new SolidColorBrush(ViewUtils.Colors.Danger500);
         SetButtons(
             "MiiMustache",
             4,
@@ -100,6 +108,8 @@ public partial class EditorFacialHair : MiiEditorBaseControl
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
+                button.Color4 = color4;
+                button.SelectedColor4 = selectedColor4;
                 button.Click += (_, _) => SetMustacheType(index);
             }
         );
@@ -128,12 +138,19 @@ public partial class EditorFacialHair : MiiEditorBaseControl
                 }
             }
         }
+
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiFacialHair facialHair)
     {
         VerticalValueText.Text = facialHair.Vertical.ToString();
         SizeValueText.Text = facialHair.Size.ToString();
+
+        VerticalDecreaseButton.IsEnabled = facialHair.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = facialHair.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = facialHair.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = facialHair.Size < MaxSize;
     }
 
     // Enum to identify which property is being changed by buttons
@@ -192,15 +209,12 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         }
 
         // Handle the result
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiFacialHair = result.Value;
-            UpdateValueTexts(result.Value); // Update UI TextBlocks
-        }
-        else
-        {
-            ViewUtils.ShowSnackbar($"Error: {result.Error.Message}");
-        }
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiFacialHair = result.Value;
+        UpdateValueTexts(result.Value); // Update UI TextBlocks
+        Editor.RefreshImage();
     }
 
     private void FacialHairColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -224,6 +238,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         {
             MustacheColorBox.SelectedItem = current.Color.ToString();
         }
+        Editor.RefreshImage();
     }
 
     // --- Button Click Handlers ---

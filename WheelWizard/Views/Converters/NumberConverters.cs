@@ -15,4 +15,6 @@ public static class NumberConverters
     public static readonly IValueConverter SmallerThan0 = new FuncValueConverter<double, bool>(x => x < 0);
     public static readonly IValueConverter GreaterThanOrEqual0 = new FuncValueConverter<double, bool>(x => x >= 0);
     public static readonly IValueConverter SmallerThanOrEqual0 = new FuncValueConverter<double, bool>(x => x <= 0);
+
+    public static readonly IValueConverter AlwaysFalse = new FuncValueConverter<bool, bool>(x => false);
 }

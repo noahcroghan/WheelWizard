@@ -105,7 +105,7 @@
                                 </LinearGradientBrush>
                             </Border.Background>
                             
-                            <components:LoadingIcon IconSize="50" IsVisible="True" 
+                            <components:LoadingIcon Width="50" Height="50" IsVisible="True" 
                                                     Foreground="{StaticResource Neutral700}"/>
                         </Border>
                     </Grid>

@@ -8,8 +8,6 @@ namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 
 public partial class EditorEyes : MiiEditorBaseControl
 {
-    private const int MinType = 0;
-    private const int MaxType = 47;
     private const int MinRotation = 0;
     private const int MaxRotation = 7;
     private const int MinVertical = 0;
@@ -44,13 +42,11 @@ public partial class EditorEyes : MiiEditorBaseControl
 
     private void GenerateEyeButtons()
     {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
-        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
-        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
-        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
-
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Eye white Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Eye border Color
+        var selectedColor2 = new SolidColorBrush(ViewUtils.Colors.Black);
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Primary400); // Eye Iris Color
+        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Primary300);
         SetButtons(
             "MiiEye",
             48,
@@ -60,9 +56,8 @@ public partial class EditorEyes : MiiEditorBaseControl
                 button.IsChecked = index == Editor.Mii.MiiEyes.Type;
                 button.Color1 = color1;
                 button.Color2 = color2;
+                button.SelectedColor2 = selectedColor2;
                 button.Color3 = color3;
-                button.Color4 = color4;
-                button.Color5 = color5;
                 button.Click += (_, _) => SetEyesType(index);
                 button.SelectedColor3 = selectedColor3;
             }
@@ -93,6 +88,7 @@ public partial class EditorEyes : MiiEditorBaseControl
                 item.IsChecked = item.IconData == GetMiiIconData($"Eyes{currentType:D2}");
             }
         }
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiEye eyes)
@@ -101,6 +97,15 @@ public partial class EditorEyes : MiiEditorBaseControl
         SizeValueText.Text = eyes.Size.ToString();
         RotationValueText.Text = eyes.Rotation.ToString();
         SpacingValueText.Text = eyes.Spacing.ToString();
+
+        VerticalDecreaseButton.IsEnabled = eyes.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = eyes.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = eyes.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = eyes.Size < MaxSize;
+        RotationDecreaseButton.IsEnabled = eyes.Rotation > MinRotation;
+        RotationIncreaseButton.IsEnabled = eyes.Rotation < MaxRotation;
+        SpacingDecreaseButton.IsEnabled = eyes.Spacing > MinSpacing;
+        SpacingIncreaseButton.IsEnabled = eyes.Spacing < MaxSpacing;
     }
 
     private enum EyeProperty
@@ -172,11 +177,12 @@ public partial class EditorEyes : MiiEditorBaseControl
                 return;
         }
 
-        if (!result.IsSuccess)
+        if (result.IsFailure)
             return;
 
         Editor.Mii.MiiEyes = result.Value;
         UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void EyeColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

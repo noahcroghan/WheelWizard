@@ -28,12 +28,13 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
         }
     }
 
+    private VisualizationType selectedVisualization = VisualizationType.Face;
+
     public MiiEditorWindow()
         : base(true, false, false, "Mii Editor")
     {
         InitializeComponent();
         DataContext = this;
-        Carousel.MiiImageLoaded += (_, _) => MiiLoadingIcon.IsVisible = false;
     }
 
     protected override void BeforeOpen()
@@ -80,12 +81,12 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
         return await _tcs.Task;
     }
 
-    private void RefreshButton_OnClick(object? sender, RoutedEventArgs e) => RefreshImage();
-
     public void RefreshImage()
     {
-        MiiLoadingIcon.IsVisible = true;
-        Carousel.Mii = Mii;
+        if (selectedVisualization == VisualizationType.Carousel)
+            MiiCarousel.Mii = Mii;
+        else if (selectedVisualization == VisualizationType.Face)
+            MiiFaceImage.Mii = Mii;
     }
 
     #region PropertyChanged
@@ -98,4 +99,25 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     }
 
     #endregion
+
+
+    private void SetVisualization(VisualizationType type)
+    {
+        if (!IsInitialized)
+            return;
+        VisualizationFace.IsVisible = type == VisualizationType.Face;
+        VisualizationCarousel.IsVisible = type == VisualizationType.Carousel;
+        selectedVisualization = type;
+        RefreshImage();
+    }
+
+    private void MiiFaceToggle_OnChecked(object? sender, RoutedEventArgs e) => SetVisualization(VisualizationType.Face);
+
+    private void MiiCarouselToggle_OnChecked(object? sender, RoutedEventArgs e) => SetVisualization(VisualizationType.Carousel);
+
+    private enum VisualizationType
+    {
+        Face,
+        Carousel,
+    }
 }

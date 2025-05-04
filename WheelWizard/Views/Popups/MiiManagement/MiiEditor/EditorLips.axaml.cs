@@ -41,13 +41,10 @@ public partial class EditorLips : MiiEditorBaseControl
 
     private void GenerateMouthButtons()
     {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Hair Color
-        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger800); // Hat main color
-        var color5 = new SolidColorBrush(ViewUtils.Colors.Danger900); // Hat accent color
-        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Neutral700); // Hair Color - Selected
-
+        var color1 = new SolidColorBrush(new Color(255, 165, 57, 29)); // Lip Top Color
+        var color2 = new SolidColorBrush(new Color(255, 255, 93, 13)); // Lip bottom Color
+        var color3 = new SolidColorBrush(Colors.Black); // LipLine Color
+        var color4 = new SolidColorBrush(Colors.White); // tooth color
         SetButtons(
             "MiiMouth",
             24,
@@ -59,9 +56,7 @@ public partial class EditorLips : MiiEditorBaseControl
                 button.Color2 = color2;
                 button.Color3 = color3;
                 button.Color4 = color4;
-                button.Color5 = color5;
                 button.Click += (_, _) => SetMouthType(index);
-                button.SelectedColor3 = selectedColor3;
             }
         );
     }
@@ -94,12 +89,18 @@ public partial class EditorLips : MiiEditorBaseControl
             var currentButton = MouthTypesGrid.Children[index] as MultiIconRadioButton;
             currentButton.IsChecked = true;
         }
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiLip lips)
     {
         VerticalValueText.Text = lips.Vertical.ToString();
         SizeValueText.Text = lips.Size.ToString();
+
+        VerticalDecreaseButton.IsEnabled = lips.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = lips.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = lips.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = lips.Size < MaxSize;
     }
 
     private enum LipProperty
@@ -155,11 +156,12 @@ public partial class EditorLips : MiiEditorBaseControl
                 return;
         }
 
-        if (!result.IsSuccess)
+        if (result.IsFailure)
             return;
 
         Editor.Mii.MiiLips = result.Value;
         UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void LipColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -183,6 +185,7 @@ public partial class EditorLips : MiiEditorBaseControl
         {
             LipColorBox.SelectedItem = current.Color.ToString();
         }
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(-1, LipProperty.Vertical);

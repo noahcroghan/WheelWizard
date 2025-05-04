@@ -35,21 +35,25 @@
                 <!-- Vertical Position (Up/Down) -->
                 <StackPanel>
                     <components:FormFieldLabel Text="Vertical Position (Up/Down):"/>
-                    <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
-                        <Button x:Name="VerticalDecreaseButton" Content="-" Click="VerticalDecrease_Click" Width="30"/>
-                        <TextBlock x:Name="VerticalValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
-                        <Button x:Name="VerticalIncreaseButton" Content="+" Click="VerticalIncrease_Click" Width="30"/>
-                    </StackPanel>
+                    <Border Background="{StaticResource Neutral950}" CornerRadius="6" Padding="2" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                            <components:Button x:Name="VerticalDecreaseButton" IconData="{StaticResource MinMark}" IconSize="14" Padding="4" Click="VerticalDecrease_Click" />
+                            <TextBlock x:Name="VerticalValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                            <components:Button x:Name="VerticalIncreaseButton" IconData="{StaticResource  PlusMark}" IconSize="14" Padding="4"  Click="VerticalIncrease_Click"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
 
                 <!-- Size (Zoom In/Out) -->
                 <StackPanel>
                     <components:FormFieldLabel Text="Size (Zoom In/Out):"/>
-                    <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
-                        <Button x:Name="SizeDecreaseButton" Content="-" Click="SizeDecrease_Click" Width="30"/>
-                        <TextBlock x:Name="SizeValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
-                        <Button x:Name="SizeIncreaseButton" Content="+" Click="SizeIncrease_Click" Width="30"/>
-                    </StackPanel>
+                    <Border Background="{StaticResource Neutral950}" CornerRadius="6" Padding="2" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+                            <components:Button x:Name="SizeDecreaseButton" IconData="{StaticResource MinMark}" IconSize="14" Padding="4" Click="SizeDecrease_Click"/>
+                            <TextBlock x:Name="SizeValueText" Classes="BodyText" MinWidth="30" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                            <components:Button x:Name="SizeIncreaseButton" IconData="{StaticResource  PlusMark}" IconSize="14" Padding="4" Click="SizeIncrease_Click"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
                 
                 <StackPanel> <!-- Mustache Type -->

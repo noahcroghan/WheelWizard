@@ -32,7 +32,6 @@ public partial class EditorNose : MiiEditorBaseControl
     private void GenerateNoseButtons()
     {
         var color1 = new SolidColorBrush(ViewUtils.Colors.Black);
-        var selectedColor1 = new SolidColorBrush(ViewUtils.Colors.Primary400);
         SetButtons(
             "MiiNose",
             12,
@@ -41,7 +40,6 @@ public partial class EditorNose : MiiEditorBaseControl
             {
                 button.IsChecked = index == (int)Editor.Mii.MiiNose.Type;
                 button.Color1 = color1;
-                button.SelectedColor1 = selectedColor1;
                 button.Click += (_, _) => SetNoseType(index);
             }
         );
@@ -73,12 +71,18 @@ public partial class EditorNose : MiiEditorBaseControl
             var currentButton = NoseTypesGrid.Children[index] as MultiIconRadioButton;
             currentButton.IsChecked = true;
         }
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiNose nose)
     {
         VerticalValueText.Text = nose.Vertical.ToString();
         SizeValueText.Text = nose.Size.ToString();
+
+        VerticalDecreaseButton.IsEnabled = nose.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = nose.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = nose.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = nose.Size < MaxSize;
     }
 
     private enum NoseProperty
@@ -134,11 +138,12 @@ public partial class EditorNose : MiiEditorBaseControl
                 return;
         }
 
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiNose = result.Value;
-            UpdateValueTexts(result.Value);
-        }
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiNose = result.Value;
+        UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateNoseValue(-1, NoseProperty.Vertical);

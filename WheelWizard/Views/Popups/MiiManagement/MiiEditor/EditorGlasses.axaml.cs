@@ -33,17 +33,18 @@ public partial class EditorGlasses : MiiEditorBaseControl
                 GlassesColorBox.SelectedItem = color;
         }
 
-        GenerateGlassessButtons();
+        GenerateGlassesButtons();
         UpdateValueTexts(currentGlasses);
         HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != GlassesType.None;
     }
 
-    private void GenerateGlassessButtons()
+    private void GenerateGlassesButtons()
     {
         var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
         var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
         var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral600); // Glass Color
-
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger400);
+        var selectedColor4 = new SolidColorBrush(ViewUtils.Colors.Danger500);
         SetButtons(
             "MiiGlasses",
             8,
@@ -54,6 +55,8 @@ public partial class EditorGlasses : MiiEditorBaseControl
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
+                button.Color4 = color4;
+                button.SelectedColor4 = selectedColor4;
                 button.Click += (_, _) => SetGlassesType(index);
             }
         );
@@ -86,12 +89,18 @@ public partial class EditorGlasses : MiiEditorBaseControl
             var currentButton = GlassesTypesGrid.Children[index] as MultiIconRadioButton;
             currentButton.IsChecked = true;
         }
+        Editor.RefreshImage();
     }
 
     private void UpdateValueTexts(MiiGlasses glasses)
     {
         VerticalValueText.Text = glasses.Vertical.ToString();
         SizeValueText.Text = glasses.Size.ToString();
+
+        VerticalDecreaseButton.IsEnabled = glasses.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = glasses.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = glasses.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = glasses.Size < MaxSize;
     }
 
     private enum GlassesProperty
@@ -130,9 +139,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
         newValue = currentValue + change;
 
         if (newValue < min || newValue > max)
-        {
             return;
-        }
 
         OperationResult<MiiGlasses> result;
         switch (property)
@@ -147,11 +154,12 @@ public partial class EditorGlasses : MiiEditorBaseControl
                 return;
         }
 
-        if (!result.IsSuccess)
+        if (result.IsFailure)
             return;
 
         Editor.Mii.MiiGlasses = result.Value;
         UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void GlassesColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

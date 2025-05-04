@@ -3,7 +3,7 @@
         xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
         xmlns:components="clr-namespace:WheelWizard.Views.Components"
         xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
-        xmlns:miiImages="clr-namespace:WheelWizard.Views.Components.MiiImages">
+        xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent">
     <Design.PreviewWith>
         <StackPanel Spacing="6" Background="{StaticResource Neutral950}">
             <components:FriendsListItem Width="428" Height="124"
@@ -51,9 +51,10 @@
                     <Grid ColumnDefinitions="2*, 5*, 5*">
                         <Border Grid.Column="0" Background="{StaticResource Neutral700}"
                                 Margin="-10,-5,0,-5" CornerRadius="7,0,0,7"/>
-                        <miiImages:MiiImageLoader Grid.Column="0" Grid.ColumnSpan="2" Margin="-35,-25,0,-5" HorizontalAlignment="Left"
-                                                Mii="{TemplateBinding Mii}" FallBackColor="{StaticResource Neutral500}"
-                                                ImageVariant="{x:Static miiVars:MiiImageVariants.FriendsSideProfile}" LoadingColor="Transparent"/>
+                        <behaviorComponent:MiiImageLoader Grid.Column="0" Grid.ColumnSpan="2" Margin="-180,-25,0,-5" HorizontalAlignment="Left"
+                                                          VerticalAlignment="Stretch"
+                                                          Mii="{TemplateBinding Mii}" FallBackColor="{StaticResource Neutral500}"
+                                                          ImageVariant="{x:Static miiVars:MiiImageVariants.FriendsSideProfile}" LoadingColor="Transparent"/>
                         
                         <Border Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource Neutral900}"
                                 Margin="-10,-5,0,-5" CornerRadius="7,0,0,7">

@@ -9,7 +9,7 @@ namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 public partial class EditorEyebrows : MiiEditorBaseControl
 {
     // Define ranges for clarity and maintainability
-    private const int MinVertical = 0;
+    private const int MinVertical = 3;
     private const int MaxVertical = 18;
     private const int MinSize = 0;
     private const int MaxSize = 8;
@@ -45,10 +45,9 @@ public partial class EditorEyebrows : MiiEditorBaseControl
 
     private void CreateEyebrowButtons()
     {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Eyebrow Color
-        var selectedColor3 = new SolidColorBrush(ViewUtils.Colors.Primary400);
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Danger400);
+        var selectedColor1 = new SolidColorBrush(ViewUtils.Colors.Danger500);
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Black); // Eyebrow Color
         SetButtons(
             "MiiEyebrow",
             24,
@@ -57,9 +56,8 @@ public partial class EditorEyebrows : MiiEditorBaseControl
             {
                 button.IsChecked = index == Editor.Mii.MiiEyebrows.Type;
                 button.Color1 = color1;
+                button.SelectedColor1 = selectedColor1;
                 button.Color2 = color2;
-                button.Color3 = color3;
-                button.SelectedColor3 = selectedColor3;
                 button.Click += (_, _) => SetEyebrowType(index);
             }
         );
@@ -85,23 +83,31 @@ public partial class EditorEyebrows : MiiEditorBaseControl
             foreach (var child in EyebrowTypesGrid.Children)
             {
                 if (child is MultiIconRadioButton button && button.IsChecked == true)
-                {
                     button.IsChecked = false;
-                }
             }
 
             var currentButton = EyebrowTypesGrid.Children[index] as MultiIconRadioButton;
             currentButton.IsChecked = true;
         }
+        Editor.RefreshImage();
     }
 
     // Helper to update all value TextBlocks
     private void UpdateValueTexts(MiiEyebrow eyebrows)
     {
-        VerticalValueText.Text = eyebrows.Vertical.ToString();
         SizeValueText.Text = eyebrows.Size.ToString();
         RotationValueText.Text = eyebrows.Rotation.ToString();
         SpacingValueText.Text = eyebrows.Spacing.ToString();
+        VerticalValueText.Text = eyebrows.Vertical.ToString();
+
+        VerticalDecreaseButton.IsEnabled = eyebrows.Vertical > MinVertical;
+        VerticalIncreaseButton.IsEnabled = eyebrows.Vertical < MaxVertical;
+        SizeDecreaseButton.IsEnabled = eyebrows.Size > MinSize;
+        SizeIncreaseButton.IsEnabled = eyebrows.Size < MaxSize;
+        RotationDecreaseButton.IsEnabled = eyebrows.Rotation > MinRotation;
+        RotationIncreaseButton.IsEnabled = eyebrows.Rotation < MaxRotation;
+        SpacingDecreaseButton.IsEnabled = eyebrows.Spacing > MinSpacing;
+        SpacingIncreaseButton.IsEnabled = eyebrows.Spacing < MaxSpacing;
     }
 
     private enum EyebrowProperty
@@ -154,9 +160,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
 
         // Check range BEFORE attempting to create
         if (newValue < min || newValue > max)
-        {
             return;
-        }
 
         OperationResult<MiiEyebrow> result;
         switch (property)
@@ -177,11 +181,12 @@ public partial class EditorEyebrows : MiiEditorBaseControl
                 return;
         }
 
-        if (!result.IsSuccess)
+        if (result.IsFailure)
             return;
 
         Editor.Mii.MiiEyebrows = result.Value;
         UpdateValueTexts(result.Value);
+        Editor.RefreshImage();
     }
 
     private void EyebrowColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -205,6 +210,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         {
             EyebrowColorBox.SelectedItem = current.Color.ToString();
         }
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, EyebrowProperty.Vertical);

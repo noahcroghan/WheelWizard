@@ -42,7 +42,7 @@
                     <ComboBox
                         x:Name="FacialFeatureBox"
                         SelectionChanged="FacialFeatureBox_OnSelectionChanged"
-                        Width="150"
+                        Width="200"
                         />
                 </StackPanel>
 

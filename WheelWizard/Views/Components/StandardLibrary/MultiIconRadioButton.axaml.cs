@@ -142,6 +142,15 @@ public class MultiIconRadioButton : RadioButton
         set => SetValue(IconDataProperty, value);
     }
 
+    public static readonly StyledProperty<Geometry> IconGeoProperty = AvaloniaProperty.Register<MultiIconRadioButton, Geometry>(
+        nameof(IconGeo)
+    );
+    public Geometry IconGeo
+    {
+        get => GetValue(IconGeoProperty);
+        set => SetValue(IconGeoProperty, value);
+    }
+
     public static readonly StyledProperty<bool> UndefinedColorsTransparentProperty = AvaloniaProperty.Register<MultiIconRadioButton, bool>(
         nameof(UndefinedColorsTransparent)
     );

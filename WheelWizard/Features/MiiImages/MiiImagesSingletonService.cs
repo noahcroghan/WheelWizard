@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using Avalonia.Media.Imaging;
 using Microsoft.Extensions.Caching.Memory;
 using WheelWizard.MiiImages.Domain;
@@ -13,6 +14,9 @@ public interface IMiiImagesSingletonService
 
 public class MiiImagesSingletonService(IApiCaller<IMiiIMagesApi> apiCaller, IMemoryCache cache) : IMiiImagesSingletonService
 {
+    // Track in-flight requests to prevent duplicate API calls
+    private readonly ConcurrentDictionary<string, SemaphoreSlim> _inFlightRequests = new();
+
     public async Task<OperationResult<Bitmap>> GetImageAsync(Mii? mii, MiiImageSpecifications specifications)
     {
         var data = MiiStudioDataSerializer.Serialize(mii);
@@ -20,23 +24,46 @@ public class MiiImagesSingletonService(IApiCaller<IMiiIMagesApi> apiCaller, IMem
             return data.Error;
 
         var miiConfigKey = data.Value + specifications;
-        var isCached = cache.TryGetValue(miiConfigKey, out Bitmap? cachedValue);
-        if (isCached)
+
+        // Even tho we also check it in the semaphore section, we also check here if it's in the cache, just to be tad faster.
+        if (cache.TryGetValue(miiConfigKey, out Bitmap? cachedValue))
             return cachedValue ?? Fail<Bitmap>("Cached image is null.");
 
-        var newImageResult = await apiCaller.CallApiAsync(api => GetBitmapAsync(api, data.Value, specifications));
-        Bitmap? newImage = null;
-        if (newImageResult.IsSuccess)
-            newImage = newImageResult.Value;
+        var requestSemaphore = _inFlightRequests.GetOrAdd(miiConfigKey, _ => new(1, 1));
 
-        using (var entry = cache.CreateEntry(miiConfigKey))
+        try
         {
-            entry.Value = newImage;
-            entry.SlidingExpiration = specifications.ExpirationSeconds;
-            entry.Priority = specifications.CachePriority;
-        }
+            // Wait to acquire the semaphore - only the first request will proceed immediately
+            await requestSemaphore.WaitAsync();
 
-        return newImage ?? Fail<Bitmap>("Failed to get new image.");
+            // Double-check the cache after acquiring the semaphore
+            // Another thread might have completed the request while we were waiting
+            if (cache.TryGetValue(miiConfigKey, out Bitmap? doubleCheckCached))
+                return doubleCheckCached ?? Fail<Bitmap>("Cached image is null.");
+
+            // If we get here, we're the first request and need to call the API
+            var newImageResult = await apiCaller.CallApiAsync(api => GetBitmapAsync(api, data.Value, specifications));
+
+            Bitmap? newImage = null;
+            if (newImageResult.IsSuccess)
+                newImage = newImageResult.Value;
+
+            using (var entry = cache.CreateEntry(miiConfigKey))
+            {
+                entry.Value = newImage;
+                entry.SlidingExpiration = specifications.ExpirationSeconds;
+                entry.Priority = specifications.CachePriority;
+            }
+
+            return newImage ?? Fail<Bitmap>("Failed to get new image.");
+        }
+        finally
+        {
+            // We can also do it all without try catch. But we need to make sure that whatever happens, we release the semaphore
+            // So just to be safe, if anything happens, we release the semaphore anyway.
+            requestSemaphore.Release();
+            _inFlightRequests.TryRemove(miiConfigKey, out _);
+        }
     }
 
     private static async Task<Bitmap> GetBitmapAsync(IMiiIMagesApi api, string data, MiiImageSpecifications specifications)

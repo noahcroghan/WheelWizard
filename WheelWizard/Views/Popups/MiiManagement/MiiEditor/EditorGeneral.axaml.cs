@@ -1,6 +1,8 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Input;
 using Avalonia.Interactivity;
+using Avalonia.Threading;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -9,12 +11,14 @@ public partial class EditorGeneral : MiiEditorBaseControl
 {
     private bool _hasMiiNameError;
     private bool _hasCreatorNameError;
+    private readonly DispatcherTimer _refreshTimer = new() { Interval = TimeSpan.FromSeconds(0.7), IsEnabled = false };
 
     public EditorGeneral(MiiEditorWindow ew)
         : base(ew)
     {
         InitializeComponent();
         PopulateValues();
+        _refreshTimer.Tick += RefreshTimer_Tick;
     }
 
     private void PopulateValues()
@@ -40,6 +44,10 @@ public partial class EditorGeneral : MiiEditorBaseControl
             Editor.Mii.Name = new(MiiName.Text);
         if (!_hasCreatorNameError)
             Editor.Mii.CreatorName = new(CreatorName.Text);
+
+        // For now i put it here, since i dont thing we want each value to be set when you change length or width
+        // only when you stop moving that bar do we want that i think
+        Editor.RefreshImage();
     }
 
     // We only have to check if it's a female, since if it's not, we already know the other option is going to be the male
@@ -88,6 +96,7 @@ public partial class EditorGeneral : MiiEditorBaseControl
             return;
         }
         Editor.Mii.Height = heightResult.Value;
+        RestartRefreshTimer();
     }
 
     private void Width_OnValueChanged(object? sender, RangeBaseValueChangedEventArgs e)
@@ -104,6 +113,7 @@ public partial class EditorGeneral : MiiEditorBaseControl
             return;
         }
         Editor.Mii.Weight = weightResult.Value;
+        RestartRefreshTimer();
     }
 
     private void FavoriteColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
@@ -115,6 +125,19 @@ public partial class EditorGeneral : MiiEditorBaseControl
         if (color == Editor.Mii.MiiFavoriteColor)
             return;
         Editor.Mii.MiiFavoriteColor = color;
+        Editor.RefreshImage();
+    }
+
+    private void RestartRefreshTimer()
+    {
+        _refreshTimer.Stop();
+        _refreshTimer.Start();
+    }
+
+    private void RefreshTimer_Tick(object? sender, EventArgs e)
+    {
+        _refreshTimer.Stop();
+        Editor.RefreshImage();
     }
 
     private void IsCopyAbleChanged(object? sender, RoutedEventArgs e)
