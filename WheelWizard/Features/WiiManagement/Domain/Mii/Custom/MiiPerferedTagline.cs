@@ -34,5 +34,5 @@ public enum MiiPreferredTagline
     Tagline28 = 28,
     Tagline29 = 29,
     Tagline30 = 30,
-    Tagline31 = 31
+    Tagline31 = 31,
 }

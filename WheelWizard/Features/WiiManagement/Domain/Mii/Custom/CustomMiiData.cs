@@ -156,31 +156,25 @@ public sealed class CustomMiiData
         get => (MiiPreferredCameraAngle)GetField();
         set => SetField((uint)value);
     }
-    
+
     [BitField(5)]
     public MiiPreferredTagline Tagline
     {
         get => (MiiPreferredTagline)GetField();
         set => SetField((uint)value);
     }
-    
+
+    // Add new properties here.
+    // Simply declare them with a [BitField(width)] attribute.
+    // They will be automatically allocated space in the payload after the 'Spare' field,
+    // provided the total width does not exceed 28 bits. The static constructor handles layout.
+
     [BitField(10)]
     public ushort Spare
     {
         get => (ushort)GetField();
         set => SetField(value);
     }
-    
-    
-    
-    
-    
-    
-
-    // Add new properties here.
-    // Simply declare them with a [BitField(width)] attribute.
-    // They will be automatically allocated space in the payload after the 'Spare' field,
-    // provided the total width does not exceed 28 bits. The static constructor handles layout.
 
     #region CONSTRUCTORS
 
@@ -197,7 +191,7 @@ public sealed class CustomMiiData
     public static CustomMiiData FromBytes(byte[] rawMiiBytes)
     {
         var result = CustomBitsCodec.Extract(rawMiiBytes);
-        return new(result);
+        return FromPayload(result);
     }
 
     /// <summary>
@@ -210,7 +204,27 @@ public sealed class CustomMiiData
         var serializeResult = MiiSerializer.Serialize(mii);
         if (!serializeResult.IsSuccess)
             throw new InvalidOperationException("Failed to serialize Mii object to extract custom data.");
-        return new(CustomBitsCodec.Extract(serializeResult.Value));
+        return FromPayload(CustomBitsCodec.Extract(serializeResult.Value));
+    }
+
+    private static CustomMiiData FromPayload(uint rawpayload)
+    {
+        //read version from dirk
+        var versionMask = (1u << 3) - 1u;
+        var diskVersion = (byte)(rawpayload & versionMask);
+
+        // Let's say we are on version 4, and we read version 1
+        // We go Case 1, and map to version 2, then we call this function again
+        // and again until it reaches the latest version
+        switch (diskVersion)
+        {
+            case 0:
+                return new(rawpayload);
+            case SchemaVersion:
+                return new(rawpayload);
+            default:
+                return CreateEmpty();
+        }
     }
 
     /// <summary>
