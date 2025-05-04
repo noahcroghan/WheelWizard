@@ -24,7 +24,7 @@
                        Height="350" Width="350" HorizontalAlignment="Center" VerticalAlignment="Center">
                    <behavior:MiiImageLoader  x:Name="MiiFaceImage" ReloadMethod="KeepInstanceUntilNew"
                                             Mii="{Binding Mii}" FallBackColor="{StaticResource Neutral700}"
-                                            ImageVariant="{x:Static miiVars:MiiImageVariants.OnlinePlayerSmall}"/>
+                                            ImageVariant="{x:Static miiVars:MiiImageVariants.MiiEditorSmall}"/>
                </Border>
       
            </Grid>
@@ -34,7 +34,7 @@
                                        x:Name="CarouselLoading" Foreground="{StaticResource Neutral800}" />
                <behavior:MiiCarousel x:Name="MiiCarousel" Height="350" Width="388" HorizontalAlignment="Center" VerticalAlignment="Center"
                                      ReloadMethod="KeepInstanceUntilNew"
-                                     ImageVariant="{x:Static miiVars:MiiImageVariants.FullBodyCarousel}"
+                                     ImageVariant="{x:Static miiVars:MiiImageVariants.MiiEditorPreviewCarousel}"
                                      Mii="{Binding Mii}"/>
            </Grid>
            
