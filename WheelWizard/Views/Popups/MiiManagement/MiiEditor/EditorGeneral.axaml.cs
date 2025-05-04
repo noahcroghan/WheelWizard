@@ -31,12 +31,6 @@ public partial class EditorGeneral : MiiEditorBaseControl
                 FavoriteColorBox.SelectedItem = color;
         }
         IsCopyAble.IsChecked = Editor.Mii.CustomData.IsCopyable;
-        if (Editor.Mii.CustomData.Version == 1)
-            WhWzMii.Text = "WhWz Mii v1";
-        else
-        {
-            WhWzMii.Text = "Not WhWzMii";
-        }
     }
 
     protected override void BeforeBack()

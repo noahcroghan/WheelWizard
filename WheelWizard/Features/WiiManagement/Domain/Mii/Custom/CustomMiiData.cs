@@ -214,19 +214,19 @@ public sealed class CustomMiiData
 
         // If it’s exactly what we expect, we’re done:
         if (diskVersion == SchemaVersion)
-            return new (rawpayload);
-        
+            return new(rawpayload);
+
         if (diskVersion == 0)
-            return new (rawpayload);
+            return new(rawpayload);
 
         // If it’s an older, supported version, migrate it forward one step at a time:
         if (diskVersion >= SchemaVersion) // don't remove this, once version goes above 1 this check is not redundant anymore
             return CreateEmpty();
-        
+
         var migrated = MigrateFromVersion(rawpayload, diskVersion);
         return FromPayload(migrated);
     }
-    
+
     /// <summary>
     /// Takes a payload encoded with “version N” and produces a payload encoded with “version N+1”.
     /// Each case handles the bit‐shuffling or defaulting needed to move from one schema to the next.
@@ -248,7 +248,6 @@ public sealed class CustomMiiData
                 return CreateEmpty()._payload;
         }
     }
-
 
     /// <summary>
     /// Creates a new <see cref="CustomMiiData"/> instance with all custom bits initially set to zero,

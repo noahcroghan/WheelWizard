@@ -30,9 +30,6 @@
                     <components:FormFieldLabel Text="Creator Name:"/>
                     <behavior:FeedbackTextBox x:Name="CreatorName" Watermark="Enter creator name Optional" TextChanged="Name_TextChanged" />
                 </StackPanel>
-                <StackPanel>
-                    <TextBox x:Name="WhWzMii"></TextBox>
-                </StackPanel>
                 <StackPanel> <!-- Gender -->
                     <components:FormFieldLabel Text="Gender:"/>
                     <StackPanel Orientation="Horizontal" Spacing="10">
