@@ -40,7 +40,7 @@
                                 </Border.Styles>
                             </Border>
 
-                            <PathIcon Data="{StaticResource Plus}" Height="35" x:Name="PART_AddIcon"
+                            <PathIcon Data="{StaticResource PlusMark}" Height="35" x:Name="PART_AddIcon"
                                       IsVisible="{TemplateBinding Mii, Converter={x:Static ObjectConverters.IsNull} }"
                                       Width="1000" Foreground="{StaticResource Neutral500}" />
                             
