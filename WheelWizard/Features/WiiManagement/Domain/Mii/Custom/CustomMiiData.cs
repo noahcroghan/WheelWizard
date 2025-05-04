@@ -209,23 +209,46 @@ public sealed class CustomMiiData
 
     private static CustomMiiData FromPayload(uint rawpayload)
     {
-        //read version from dirk
         var versionMask = (1u << 3) - 1u;
         var diskVersion = (byte)(rawpayload & versionMask);
 
-        // Let's say we are on version 4, and we read version 1
-        // We go Case 1, and map to version 2, then we call this function again
-        // and again until it reaches the latest version
-        switch (diskVersion)
+        // If it’s exactly what we expect, we’re done:
+        if (diskVersion == SchemaVersion)
+            return new (rawpayload);
+        
+        if (diskVersion == 0)
+            return new (rawpayload);
+
+        // If it’s an older, supported version, migrate it forward one step at a time:
+        if (diskVersion >= SchemaVersion) // don't remove this, once version goes above 1 this check is not redundant anymore
+            return CreateEmpty();
+        
+        var migrated = MigrateFromVersion(rawpayload, diskVersion);
+        return FromPayload(migrated);
+    }
+    
+    /// <summary>
+    /// Takes a payload encoded with “version N” and produces a payload encoded with “version N+1”.
+    /// Each case handles the bit‐shuffling or defaulting needed to move from one schema to the next.
+    /// </summary>
+    /// <param name="oldPayload">The 28‐bit data block from an older schema version.</param>
+    /// <param name="oldVersion">The schema version of that payload.</param>
+    private static uint MigrateFromVersion(uint oldPayload, byte oldVersion)
+    {
+        switch (oldVersion)
         {
-            case 0:
-                return new(rawpayload);
-            case SchemaVersion:
-                return new(rawpayload);
+            case 1: // to version 2
+                return oldPayload;
+
+            // case 2: // to version 3
+            //     // Migration logic for version 3 goes here...
+            //     break;
+
             default:
-                return CreateEmpty();
+                return CreateEmpty()._payload;
         }
     }
+
 
     /// <summary>
     /// Creates a new <see cref="CustomMiiData"/> instance with all custom bits initially set to zero,
