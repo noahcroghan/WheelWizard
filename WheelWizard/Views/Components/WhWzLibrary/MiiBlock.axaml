@@ -5,7 +5,7 @@
         xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent">
     <Design.PreviewWith>
         <StackPanel Spacing="13" Background="{StaticResource Neutral950}">
-            <controls:MiiBlock Width="90" Height="90" />
+            <controls:MiiBlock Width="90" Height="90" IsGlobal="True"/>
             <controls:MiiBlock Width="90" Height="90" IsChecked="True" />
             <controls:MiiBlock Width="90" Height="90" />
             <controls:MiiBlock Width="90" Height="90" IsFavorite="True" />
@@ -54,6 +54,11 @@
                             <PathIcon Data="{StaticResource StarIcon}" Height="17"
                                       IsVisible="{TemplateBinding IsFavorite}" HorizontalAlignment="Left" VerticalAlignment="Top"
                                       Margin="6" Width="17" Foreground="{StaticResource Warning400}" />
+                               
+                            <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6" Width="17" Spacing="6">
+                                <PathIcon Data="{StaticResource Global}" Height="17" Width="17"
+                                          IsVisible="{TemplateBinding IsGlobal}" Foreground="DeepSkyBlue" />
+                            </StackPanel>
                         </Grid>
                     </Border>
                     <Border HorizontalAlignment="Center" Background="{StaticResource Black}" VerticalAlignment="Bottom"

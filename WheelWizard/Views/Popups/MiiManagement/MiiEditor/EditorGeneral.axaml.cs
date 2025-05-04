@@ -34,7 +34,6 @@ public partial class EditorGeneral : MiiEditorBaseControl
             if (color == Editor.Mii.MiiFavoriteColor.ToString())
                 FavoriteColorBox.SelectedItem = color;
         }
-        IsCopyAble.IsChecked = Editor.Mii.CustomData.IsCopyable;
     }
 
     protected override void BeforeBack()
@@ -138,17 +137,5 @@ public partial class EditorGeneral : MiiEditorBaseControl
     {
         _refreshTimer.Stop();
         Editor.RefreshImage();
-    }
-
-    private void IsCopyAbleChanged(object? sender, RoutedEventArgs e)
-    {
-        var value = IsCopyAble.IsChecked;
-        if (value is null)
-            return;
-        Editor.Mii.CustomData.IsCopyable = (bool)value;
-        if (Editor.Mii.CustomData.IsCopyable)
-            IsCopyAble.IsChecked = true;
-        else
-            IsCopyAble.IsChecked = false;
     }
 }
