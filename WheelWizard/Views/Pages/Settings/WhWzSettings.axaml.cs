@@ -69,17 +69,9 @@ public partial class WhWzSettings : UserControl
             DolphinUserPathInput.Text = folderPath;
     }
 
-    private string WrapOnWhiteSpace(string inputText)
+    private void AssignWrappedDolphinExeInput(string inputText)
     {
-        if (inputText.Any(character => Char.IsWhiteSpace(character)))
-            return $"\"{inputText}\"";
-
-        return inputText;
-    }
-
-    private async void AssignWrappedDolphinExeInput(string inputText)
-    {
-        DolphinExeInput.Text = WrapOnWhiteSpace(inputText);
+        DolphinExeInput.Text = EnvHelper.SingleQuotePath(inputText);
     }
 
     private async void DolphinExeBrowse_OnClick(object sender, RoutedEventArgs e)

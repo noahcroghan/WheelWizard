@@ -117,7 +117,7 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             Write-Output 'Starting update process...'
 
             # Wait for the original application to exit
-            while (Get-Process -Name '{{fileSystem.Path.GetFileNameWithoutExtension(originalFileName)}}' -ErrorAction SilentlyContinue) {
+            while (Get-Process -Name {{EnvHelper.SingleQuotePath(fileSystem.Path.GetFileNameWithoutExtension(originalFileName))}} -ErrorAction SilentlyContinue) {
                 Write-Output 'Waiting for {{originalFileName}} to exit...'
                 Start-Sleep -Seconds 1
             }
@@ -129,7 +129,7 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
 
             while (-not $deleted -and $retryCount -lt $maxRetries) {
                 try {
-                    Remove-Item -Path '{{fileSystem.Path.Combine(currentFolder, originalFileName)}}' -Force -ErrorAction Stop
+                    Remove-Item -Path {{EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}} -Force -ErrorAction Stop
                     $deleted = $true
                 }
                 catch {
@@ -147,10 +147,10 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
 
             Write-Output 'Renaming new executable...'
             try {
-                Rename-Item -Path '{{fileSystem.Path.Combine(
+                Rename-Item -Path {{EnvHelper.SingleQuotePath(fileSystem.Path.Combine(
                 currentFolder,
                 newFileName
-            )}}' -NewName '{{originalFileName}}' -ErrorAction Stop
+            ))}} -NewName {{EnvHelper.SingleQuotePath(originalFileName)}} -ErrorAction Stop
             }
             catch {
                 Write-Output 'Failed to rename {{newFileName}} to {{originalFileName}}. Update aborted.'
@@ -159,13 +159,13 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             }
 
             Write-Output 'Starting the updated application...'
-            Start-Process -FilePath '{{fileSystem.Path.Combine(currentFolder, originalFileName)}}'
+            Start-Process -FilePath {{EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}}
 
             Write-Output 'Cleaning up...'
-            Remove-Item -Path '{{scriptFilePath}}' -Force
+            Remove-Item -Path {{EnvHelper.SingleQuotePath(scriptFilePath)}} -Force
 
             Write-Output 'Update completed successfully.'
-            
+
             """;
 
         fileSystem.File.WriteAllText(scriptFilePath, scriptContent);
@@ -173,7 +173,7 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         var processStartInfo = new ProcessStartInfo
         {
             FileName = "powershell.exe",
-            Arguments = $"-NoProfile -ExecutionPolicy Bypass -File \"{scriptFilePath}\"",
+            ArgumentList = { "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", scriptFilePath },
             CreateNoWindow = false,
             UseShellExecute = false,
             WorkingDirectory = currentFolder,

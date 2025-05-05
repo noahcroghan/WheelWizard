@@ -13,7 +13,7 @@ public static class AutoUpdatingExtensions
         implementationType = typeof(WindowsUpdatePlatform);
 #elif LINUX
         // We can enable this again once the auto updater has been fixed and tested
-        // implementationType = typeof(LinuxUpdatePlatform);
+        implementationType = typeof(LinuxUpdatePlatform);
 #elif MACOS
         // MacOS updater
 #endif
