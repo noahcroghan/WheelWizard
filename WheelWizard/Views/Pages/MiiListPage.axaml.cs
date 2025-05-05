@@ -201,7 +201,7 @@ public partial class MiiListPage : UserControlBase
             var mii = result.Value;
 
             //We duplicate to make sure it does not actually have the original MiiId
-            var macAddress = (string)SettingsManager.MACADDRESS.Get();
+            var macAddress = "02:11:11:11:11:11";
             var saveResult = MiiDbService.AddToDatabase(mii, macAddress);
             if (saveResult.IsFailure)
             {

@@ -47,7 +47,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
         var selectedColor4 = new SolidColorBrush(ViewUtils.Colors.Danger500);
         SetButtons(
             "MiiGlasses",
-            8,
+            9,
             GlassesTypesGrid,
             (index, button) =>
             {

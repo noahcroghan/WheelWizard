@@ -185,9 +185,10 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
         var desiredMii = selectedPlayer.Mii;
 
-        var macAddress = (string)SettingsManager.MACADDRESS.Get();
         //We set the miiId to 0 so it will be added as a new Mii
         desiredMii.MiiId = 0;
+        //Since we are actually copying this mii, we want to set the mac Adress to a dummy value
+        var macAddress = "02:11:11:11:11:11";
         var databaseResult = MiiDbService.AddToDatabase(desiredMii, macAddress);
         if (databaseResult.IsFailure)
         {
