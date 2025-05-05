@@ -51,7 +51,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
             GlassesTypesGrid,
             (index, button) =>
             {
-                button.IsChecked = index == (int)Editor.Mii.MiiFacial.FaceShape;
+                button.IsChecked = index == (int)Editor.Mii.MiiGlasses.Type;
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
