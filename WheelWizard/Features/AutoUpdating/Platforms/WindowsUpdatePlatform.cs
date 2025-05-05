@@ -173,13 +173,7 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         var processStartInfo = new ProcessStartInfo
         {
             FileName = "powershell.exe",
-            ArgumentList = {
-                "-NoProfile",
-                "-ExecutionPolicy",
-                "Bypass",
-                "-File",
-                scriptFilePath
-            },
+            ArgumentList = { "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", scriptFilePath },
             CreateNoWindow = false,
             UseShellExecute = false,
             WorkingDirectory = currentFolder,

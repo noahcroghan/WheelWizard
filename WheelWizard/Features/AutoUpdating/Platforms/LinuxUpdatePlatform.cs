@@ -81,7 +81,9 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
 
             echo 'Replacing old executable...'
             rm -f {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}
-            mv {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, newFileName))} {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}
+            mv {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, newFileName))} {EnvHelper.SingleQuotePath(
+                fileSystem.Path.Combine(currentFolder, originalFileName)
+            )}
             chmod +x {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}
 
             echo 'Starting the updated application...'
@@ -91,7 +93,7 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             rm -- {EnvHelper.SingleQuotePath(scriptFilePath)}
 
             echo 'Update completed successfully.'
-
+            
             """;
         fileSystem.File.WriteAllText(scriptFilePath, scriptContent);
 

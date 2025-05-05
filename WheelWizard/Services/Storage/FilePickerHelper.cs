@@ -126,9 +126,7 @@ public static class FilePickerHelper
         var info = new ProcessStartInfo(openExecutable)
         {
             // Ensures the folder path is escaped properly
-            ArgumentList = {
-                folderPath,
-            }
+            ArgumentList = { folderPath },
         };
 
         Process.Start(info);
