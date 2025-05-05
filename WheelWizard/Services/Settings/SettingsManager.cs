@@ -142,7 +142,11 @@ public class SettingsManager
     );
 
     //Readonly settings
-    public static readonly Setting MACADDRESS = new DolphinSetting(typeof(string), ("Dolphin.ini", "General", "WirelessMac"), "");
+    public static readonly Setting MACADDRESS = new DolphinSetting(
+        typeof(string),
+        ("Dolphin.ini", "General", "WirelessMac"),
+        "02:01:02:03:04:05"
+    );
     #endregion
 
     #region Virtual Settings
