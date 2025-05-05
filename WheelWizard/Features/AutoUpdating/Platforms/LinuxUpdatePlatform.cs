@@ -80,15 +80,17 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             sleep 1
 
             echo 'Replacing old executable...'
-            rm -f "{fileSystem.Path.Combine(currentFolder, originalFileName)}"
-            mv "{fileSystem.Path.Combine(currentFolder, newFileName)}" "{fileSystem.Path.Combine(currentFolder, originalFileName)}"
-            chmod +x "{fileSystem.Path.Combine(currentFolder, originalFileName)}"
+            rm -f {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}
+            mv {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, newFileName))} {EnvHelper.SingleQuotePath(
+                fileSystem.Path.Combine(currentFolder, originalFileName)
+            )}
+            chmod +x {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}
 
             echo 'Starting the updated application...'
-            nohup "{fileSystem.Path.Combine(currentFolder, originalFileName)}" > /dev/null 2>&1 &
+            nohup {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))} > /dev/null 2>&1 &
 
             echo 'Cleaning up...'
-            rm -- "{scriptFilePath}"
+            rm -- {EnvHelper.SingleQuotePath(scriptFilePath)}
 
             echo 'Update completed successfully.'
             

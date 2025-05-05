@@ -39,7 +39,7 @@ public class RrLauncher : ILauncher
             RetroRewindLaunchHelper.GenerateLaunchJson();
             var dolphinLaunchType = (bool)SettingsManager.LAUNCH_WITH_DOLPHIN.Get() ? "" : "-b";
             DolphinLaunchHelper.LaunchDolphin(
-                $"{dolphinLaunchType} -e \"{Path.GetFullPath(RrLaunchJsonFilePath)}\" --config=Dolphin.Core.EnableCheats=False"
+                $"{dolphinLaunchType} -e {EnvHelper.QuotePath(Path.GetFullPath(RrLaunchJsonFilePath))} --config=Dolphin.Core.EnableCheats=False"
             );
         }
         catch (Exception ex)

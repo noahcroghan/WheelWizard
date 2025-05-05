@@ -213,7 +213,7 @@ namespace WheelWizard.Test.Features
                     IconUrl = "",
                 },
                 ModelName = "Mod",
-                PreviewMedia = new()
+                PreviewMedia = new(),
             };
         }
 
