@@ -40,19 +40,28 @@ public partial class MiiListPage : UserControlBase
         var miiDbExists = MiiDbService.Exists();
         if (!miiDbExists)
         {
-            var sucess = MiiRepositoryService.ForceCreateDatabase();
-            if (sucess.IsFailure)
+            if (SettingsHelper.PathsSetupCorrectly())
             {
-                ViewUtils.ShowSnackbar($"Failed to create Mii database '{sucess.Error.Message}'", ViewUtils.SnackbarType.Danger);
-                VisibleWhenNoDb.IsVisible = !miiDbExists;
+                var sucess = MiiRepositoryService.ForceCreateDatabase();
+                if (sucess.IsFailure)
+                {
+                    ViewUtils.ShowSnackbar($"Failed to create Mii database '{sucess.Error.Message}'", ViewUtils.SnackbarType.Danger);
+                    VisibleWhenNoDb.IsVisible = !miiDbExists;
+                }
+            }
+            else
+            {
+                VisibleWhenDb.IsVisible = false;
+                VisibleWhenNoDb.IsVisible = true;
             }
         }
         miiDbExists = MiiDbService.Exists();
-        if (miiDbExists)
-        {
-            VisibleWhenDb.IsVisible = true;
-            ReloadMiiList();
-        }
+        if (!miiDbExists)
+            return;
+
+        VisibleWhenDb.IsVisible = true;
+        VisibleWhenNoDb.IsVisible = false;
+        ReloadMiiList();
     }
 
     #region Multi and Single select
