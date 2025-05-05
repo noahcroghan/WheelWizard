@@ -213,10 +213,52 @@ public partial class MiiListPage : UserControlBase
 
     private async void ExportMultipleMiiFiles(Mii[] miis)
     {
-        // TODO: This is not how we should do it, instead it should ask for a folder
-        //   2 story points
+        if (miis.Length == 1)
+        {
+            ExportMiiAsFile(miis[0]);
+            return;
+        }
+
+        // Ask user for a target file path for the first Mii
+        var firstMii = miis[0];
+        var dialog = await FilePickerHelper.SaveFileAsync(
+            title: "Save first Mii as file",
+            fileTypes: new[] { new FilePickerFileType("Mii file") { Patterns = new[] { "*.mii" } } },
+            defaultFileName: $"{firstMii.Name}.mii"
+        );
+
+        if (dialog is null)
+            return;
+
+        var folderPath = FileSystem.Path.GetDirectoryName(dialog)!;
+
         foreach (var mii in miis)
-            ExportMiiAsFile(mii);
+        {
+            var result = MiiDbService.GetByAvatarId(mii.MiiId);
+            if (result.IsFailure)
+            {
+                ViewUtils.ShowSnackbar($"Failed to get Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
+                return;
+            }
+
+            var miiToExport = result.Value;
+            var safeName = ReplaceInvalidFileNameChars($"{miiToExport.Name}.mii"); // Optional
+            var targetPath = FileSystem.Path.Combine(folderPath, safeName);
+            var saveResult = SaveMiiToDisk(miiToExport, targetPath);
+            if (saveResult.IsFailure)
+            {
+                ViewUtils.ShowSnackbar($"Failed to save Mii '{saveResult.Error.Message}'", ViewUtils.SnackbarType.Danger);
+                return;
+            }
+        }
+
+        ViewUtils.ShowSnackbar($"Successfully saved {miis.Length} Miis to folder '{folderPath}'");
+    }
+
+    public static string ReplaceInvalidFileNameChars(string filename)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        return string.Join("_", filename.Split(invalid, StringSplitOptions.RemoveEmptyEntries));
     }
 
     private async void ExportMiiAsFile(Mii mii)
@@ -234,15 +276,19 @@ public partial class MiiListPage : UserControlBase
             ViewUtils.ShowSnackbar($"Failed to get Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
             return;
         }
+        var miiToExport = result.Value;
+        var saveResult = SaveMiiToDisk(miiToExport, diaglog);
+    }
 
-        var miiData = MiiSerializer.Serialize(result.Value);
+    private OperationResult SaveMiiToDisk(Mii mii, string path)
+    {
+        var miiData = MiiSerializer.Serialize(mii);
         if (miiData.IsFailure)
         {
             ViewUtils.ShowSnackbar($"Failed to serialize Mii '{miiData.Error.Message}'", ViewUtils.SnackbarType.Danger);
-            return;
+            return miiData;
         }
-
-        var file = FileSystem.FileInfo.New(diaglog);
+        var file = FileSystem.FileInfo.New(path);
         using var stream = file.Open(FileMode.Create, FileAccess.Write);
         using var writer = new BinaryWriter(stream);
         writer.Write(miiData.Value);
@@ -250,6 +296,7 @@ public partial class MiiListPage : UserControlBase
         writer.Close();
         stream.Close();
         ViewUtils.ShowSnackbar($"Saved Mii '{mii.Name}' to file '{file.FullName}'");
+        return Ok();
     }
 
     private async void DeleteMii(Mii[] miis)
