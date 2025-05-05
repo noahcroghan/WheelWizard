@@ -183,6 +183,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
         {
             GlassesColorBox.SelectedItem = current.Color.ToString();
         }
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(-1, GlassesProperty.Vertical);
