@@ -243,6 +243,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             return;
         }
         CurrentMii = selectedMii;
+        GameLicenseService.LoadLicense();
+        UpdatePage();
         ViewUtils.ShowSnackbar("Mii changed successfully");
     }
 
