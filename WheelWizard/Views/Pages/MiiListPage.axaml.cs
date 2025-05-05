@@ -47,7 +47,7 @@ public partial class MiiListPage : UserControlBase
                 VisibleWhenNoDb.IsVisible = !miiDbExists;
             }
         }
-
+        miiDbExists = MiiDbService.Exists();
         if (miiDbExists)
         {
             VisibleWhenDb.IsVisible = true;

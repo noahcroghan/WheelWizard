@@ -70,7 +70,6 @@
             <ScrollViewer Grid.Row="1">
                 <UniformGrid Columns="4" HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="MiiList">
                     <components:MiiBlock Width="90" Height="90" Margin="8,10" />
-                    <components:MiiBlock Width="90" Height="90" Margin="8,10" />
                 </UniformGrid>
             </ScrollViewer>
         </Grid>
