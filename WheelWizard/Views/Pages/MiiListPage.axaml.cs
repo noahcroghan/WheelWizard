@@ -218,6 +218,7 @@ public partial class MiiListPage : UserControlBase
                 return;
             }
         }
+        ReloadMiiList();
     }
 
     private async void ExportMultipleMiiFiles(Mii[] miis)
