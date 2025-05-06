@@ -107,11 +107,9 @@ public static class RetroRewindUpdater
                 //because we are actually getting the path from the server,
                 //we need to make sure we are not getting hacked, so we check if the path is in the riivolution folder
                 var resolvedPath = Path.GetFullPath(new FileInfo(filePath).FullName);
-                if (
-                    !resolvedPath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal)
-                    || !filePath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal)
-                    || file.Path.Contains("..")
-                )
+                if (!resolvedPath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal) ||
+                    !filePath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal) ||
+                    file.Path.Contains(".."))
                 {
                     AbortingUpdate("Invalid file path detected. Please contact the developers.\n Server error: " + resolvedPath);
                     return false;
