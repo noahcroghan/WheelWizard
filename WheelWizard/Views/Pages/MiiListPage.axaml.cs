@@ -222,46 +222,15 @@ public partial class MiiListPage : UserControlBase
 
     private async void ExportMultipleMiiFiles(Mii[] miis)
     {
-        if (miis.Length == 1)
+        if (miis.Length == 0)
         {
-            ExportMiiAsFile(miis[0]);
+            ViewUtils.ShowSnackbar("It seems there where no Miis to export", ViewUtils.SnackbarType.Warning);
             return;
         }
-
-        // Ask user for a target file path for the first Mii
-        var firstMii = miis[0];
-        var dialog = await FilePickerHelper.SaveFileAsync(
-            title: "Save first Mii as file",
-            fileTypes: new[] { new FilePickerFileType("Mii file") { Patterns = new[] { "*.mii" } } },
-            defaultFileName: $"{firstMii.Name}.mii"
-        );
-
-        if (dialog is null)
-            return;
-
-        var folderPath = FileSystem.Path.GetDirectoryName(dialog)!;
-
         foreach (var mii in miis)
         {
-            var result = MiiDbService.GetByAvatarId(mii.MiiId);
-            if (result.IsFailure)
-            {
-                ViewUtils.ShowSnackbar($"Failed to get Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
-                return;
-            }
-
-            var miiToExport = result.Value;
-            var safeName = ReplaceInvalidFileNameChars($"{miiToExport.Name}.mii"); // Optional
-            var targetPath = FileSystem.Path.Combine(folderPath, safeName);
-            var saveResult = SaveMiiToDisk(miiToExport, targetPath);
-            if (saveResult.IsFailure)
-            {
-                ViewUtils.ShowSnackbar($"Failed to save Mii '{saveResult.Error.Message}'", ViewUtils.SnackbarType.Danger);
-                return;
-            }
+            ExportMiiAsFile(mii);
         }
-
-        ViewUtils.ShowSnackbar($"Successfully saved {miis.Length} Miis to folder '{folderPath}'");
     }
 
     public static string ReplaceInvalidFileNameChars(string filename)
@@ -272,10 +241,11 @@ public partial class MiiListPage : UserControlBase
 
     private async void ExportMiiAsFile(Mii mii)
     {
+        var exportName = ReplaceInvalidFileNameChars(mii.Name.ToString());
         var diaglog = await FilePickerHelper.SaveFileAsync(
             title: "Save Mii as file",
             fileTypes: new[] { new FilePickerFileType("Mii file") { Patterns = new[] { "*.mii" } } },
-            defaultFileName: $"{mii.Name}"
+            defaultFileName: $"{exportName}"
         );
         if (diaglog == null)
             return;
@@ -287,6 +257,12 @@ public partial class MiiListPage : UserControlBase
         }
         var miiToExport = result.Value;
         var saveResult = SaveMiiToDisk(miiToExport, diaglog);
+        if (saveResult.IsFailure)
+        {
+            ViewUtils.ShowSnackbar($"Failed to save Mii '{saveResult.Error.Message}'", ViewUtils.SnackbarType.Danger);
+            return;
+        }
+        ViewUtils.ShowSnackbar($"Exported Mii '{miiToExport.Name}' to file '{diaglog}'");
     }
 
     private OperationResult SaveMiiToDisk(Mii mii, string path)
