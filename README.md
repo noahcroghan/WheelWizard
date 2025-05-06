@@ -30,6 +30,8 @@ Feel free to join our community on [Discord](https://discord.gg/vZ7T2wJnsq) for 
   <img src="https://github.com/TeamWheelWizard/.github/blob/main/images/screenshots/rooms_page.png" alt="Wheel Wizard Logo" width="450"/>
   <img src="https://github.com/TeamWheelWizard/.github/blob/main/images/screenshots/profile_page.png" alt="Wheel Wizard Logo" width="450"/>
   <img src="https://github.com/TeamWheelWizard/.github/blob/main/images/screenshots/mods_browser.png" alt="Wheel Wizard Logo" width="450"/>
+  <img src="https://github.com/TeamWheelWizard/.github/blob/main/images/screenshots/miieditor_page.png" alt="Wheel Wizard Logo" width="450"/>
+  <img src="https://github.com/TeamWheelWizard/.github/blob/main/images/screenshots/mii_page.png" alt="Wheel Wizard Logo" width="450"/>
 </p>
 ---
 
