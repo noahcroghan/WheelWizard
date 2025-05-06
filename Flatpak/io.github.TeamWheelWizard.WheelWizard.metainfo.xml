@@ -31,19 +31,19 @@
   <screenshots>
     <screenshot type="default">
       <caption>Wheel Wizard's home page</caption>
-      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d8eb58433cea25d438f4d6fb79bfececd5ccbc73/images/screenshots/home_page.png</image>
+      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d1c065020c1a526d80eb08f53423543f0f5c3439/images/screenshots/home_page.png</image>
     </screenshot>
     <screenshot>
       <caption>Wheel Wizard's room details page</caption>
-      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d8eb58433cea25d438f4d6fb79bfececd5ccbc73/images/screenshots/rooms_page.png</image>
+      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d1c065020c1a526d80eb08f53423543f0f5c3439/images/screenshots/rooms_page.png</image>
     </screenshot>
     <screenshot>
       <caption>Wheel Wizard's profile page</caption>
-      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d8eb58433cea25d438f4d6fb79bfececd5ccbc73/images/screenshots/profile_page.png</image>
+      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d1c065020c1a526d80eb08f53423543f0f5c3439/images/screenshots/profile_page.png</image>
     </screenshot>
     <screenshot>
-      <caption>Wheel Wizard's mod browser</caption>
-      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d8eb58433cea25d438f4d6fb79bfececd5ccbc73/images/screenshots/mods_browser.png</image>
+      <caption>Wheel Wizard's Mii management page</caption>
+      <image type="source">https://raw.githubusercontent.com/TeamWheelWizard/.github/d1c065020c1a526d80eb08f53423543f0f5c3439/images/screenshots/mii_page.png</image>
     </screenshot>
   </screenshots>
 
@@ -55,6 +55,7 @@
   </provides>
 
   <releases>
+    <release version="2.2.1" date="2025-05-06"/>
     <release version="2.1.3" date="2025-04-13"/>
     <release version="2.1.0" date="2025-04-11"/>
   </releases>
