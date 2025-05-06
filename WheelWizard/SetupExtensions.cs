@@ -34,6 +34,7 @@ public static class SetupExtensions
         // IO Abstractions
         services.AddSingleton<IFileSystem, RealFileSystem>();
         services.AddSingleton<ITimeSystem, RealTimeSystem>();
+        services.AddSingleton<IRandomSystem, RealRandomSystem>();
         services.AddSingleton<IMemoryCache>(_ => new MemoryCache(new MemoryCacheOptions()));
 
         // Logging

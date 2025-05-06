@@ -81,4 +81,7 @@
     <data name="Stat_RoomID" xml:space="preserve">
         <value>Lobby ID</value>
     </data>
+    <data name="ListTitle_Miis" xml:space="preserve">
+        <value>Mii's</value>
+    </data>
 </root>

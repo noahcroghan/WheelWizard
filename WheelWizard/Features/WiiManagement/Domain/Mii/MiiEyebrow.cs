@@ -17,7 +17,7 @@ public class MiiEyebrow
             throw new ArgumentException("Rotation invalid");
         if (size is < 0 or > 8)
             throw new ArgumentException("Size invalid");
-        if (vertical is < 0 or > 18)
+        if (vertical is < 3 or > 18)
             throw new ArgumentException("Vertical position invalid");
         if (spacing is < 0 or > 12)
             throw new ArgumentException("Spacing invalid");

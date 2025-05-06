@@ -4,7 +4,7 @@ using Avalonia.Interactivity;
 
 namespace WheelWizard.Views.BehaviorComponent;
 
-public partial class FeedbackTextBox : UserControl
+public partial class FeedbackTextBox : UserControlBase
 {
     #region Properties
 

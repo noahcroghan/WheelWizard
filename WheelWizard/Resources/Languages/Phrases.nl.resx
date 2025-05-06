@@ -261,4 +261,10 @@ Om aan een specifieke lobby, moet je deelnemen via een vriend, of hopen deel te 
     <data name="PopupText_RRNotDeterment" xml:space="preserve">
         <value>Je versie van Retro Rewind kon niet worden bepaald. Wil je Retro Rewind downloaden?</value>
     </data>
+    <data name="EmptyText_NoMiis_Title" xml:space="preserve">
+        <value>Je hebt nog geen Mii's</value>
+    </data>
+    <data name="EmptyText_NoMiis" xml:space="preserve">
+        <value>We kunnen niet de Mii data van je systeem aflezen. Zorg dat je het spel minimaal 1 keer hebt opgestart</value>
+    </data>
 </root>

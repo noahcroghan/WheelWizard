@@ -2,27 +2,18 @@ import xml.etree.ElementTree as ET
 import os
 import argparse
 import re
+from collections import OrderedDict # To keep color order somewhat consistent
 
-# --- Configuration: Color Mapping ---
-COLOR_MAP = {
-    # Fill mappings
-    "#ffffff": "{StaticResource TemplateColor1}", # white
-    "white":   "{StaticResource TemplateColor1}",
-    "#5f5f5f": "{StaticResource TemplateColor3}",
-    "#808080": "{StaticResource TemplateColor4}",
-    "#404040": "{StaticResource TemplateColor5}",
-
-    # Stroke mappings
-    "#bfbfbf": "{StaticResource TemplateColor2}",
-}
-KEEP_UNMAPPED_COLORS = True
-DEFAULT_UNMAPPED_BRUSH = "Black"
+# --- Configuration ---
+DEFAULT_UNMAPPED_BRUSH = "Black" # Fallback if keeping named colors fails or unexpected errors
+# UPDATED: Increased max template colors
+MAX_TEMPLATE_COLORS = 12 # How many TemplateColorX options to offer
 
 # Preview Configuration
 PREVIEW_NAMESPACE_UTIL = "clr-namespace:WheelWizard.Styles.Util" # ADJUST THIS
-MAX_PREVIEW_ITEMS = 15 # Limit how many icons show in the preview (increased slightly)
+MAX_PREVIEW_ITEMS = 79
 
-# --- Helper Functions (normalize_color, get_avalonia_brush_attribute - unchanged) ---
+# --- Helper Functions ---
 def normalize_color(color_str):
     """Converts color to lowercase hex or name."""
     if not color_str:
@@ -30,32 +21,152 @@ def normalize_color(color_str):
     color_str = color_str.lower().strip()
     if color_str == 'none':
         return 'none'
-    if color_str.startswith('#'):
-        if len(color_str) == 4:
-           color_str = f"#{color_str[1]*2}{color_str[2]*2}{color_str[3]*2}"
-        return color_str
+    # Normalize short hex codes (#rgb -> #rrggbb)
+    if color_str.startswith('#') and len(color_str) == 4:
+       color_str = f"#{color_str[1]*2}{color_str[2]*2}{color_str[3]*2}"
     return color_str
 
-def get_avalonia_brush_attribute(svg_color, is_stroke=False):
-    """Gets the Avalonia Brush attribute string based on the mapping."""
+def find_unique_colors_in_svgs(svg_folder):
+    """Scans all SVGs in a folder and returns a set of unique normalized colors."""
+    unique_colors = set()
+    namespaces = {'svg': 'http://www.w3.org/2000/svg'}
+    ET.register_namespace('', namespaces['svg'])
+
+    print("Scanning SVGs for unique colors...")
+    svg_files = [f for f in os.listdir(svg_folder) if f.lower().endswith('.svg')]
+    if not svg_files:
+        print("No SVG files found to scan.")
+        return set()
+
+    for filename in svg_files:
+        svg_path = os.path.join(svg_folder, filename)
+        try:
+            tree = ET.parse(svg_path)
+            root = tree.getroot()
+            # Find colors in paths, circles, rects, etc. (adjust if needed)
+            elements_with_color = root.findall('.//*[@fill]', namespaces) + \
+                                  root.findall('.//*[@stroke]', namespaces)
+            # Also check root element style attributes
+            elements_with_style = root.findall('.//*[@style]', namespaces)
+
+            for elem in elements_with_color:
+                 fill = normalize_color(elem.get('fill'))
+                 stroke = normalize_color(elem.get('stroke'))
+                 if fill and fill != 'none':
+                     unique_colors.add(fill)
+                 if stroke and stroke != 'none':
+                     unique_colors.add(stroke)
+
+            # Rudimentary style attribute parsing
+            for elem in elements_with_style:
+                 style_str = elem.get('style', '')
+                 # Look for fill: #xxxxxx or fill: name
+                 fill_match = re.search(r'fill:\s*([^;]+)', style_str)
+                 if fill_match:
+                     fill = normalize_color(fill_match.group(1))
+                     if fill and fill != 'none':
+                        unique_colors.add(fill)
+                 # Look for stroke: #xxxxxx or stroke: name
+                 stroke_match = re.search(r'stroke:\s*([^;]+)', style_str)
+                 if stroke_match:
+                     stroke = normalize_color(stroke_match.group(1))
+                     if stroke and stroke != 'none':
+                         unique_colors.add(stroke)
+
+        except ET.ParseError as e:
+            print(f"Warning: Could not parse {filename} during color scan: {e}")
+        except FileNotFoundError:
+            print(f"Warning: File {filename} not found during color scan.")
+        except Exception as e:
+             print(f"Warning: An unexpected error occurred scanning {filename}: {e}")
+
+
+    print(f"Found {len(unique_colors)} unique colors.")
+    # Sort for consistent order - hex codes first, then names
+    sorted_colors = sorted(list(unique_colors), key=lambda c: (not c.startswith('#'), c))
+    return sorted_colors # Return a list for ordered processing
+
+# UPDATED: build_interactive_color_map
+def build_interactive_color_map(colors_to_map):
+    """Interactively asks the user to map detected colors."""
+    dynamic_color_map = {}
+    print("\n--- Interactive Color Mapping ---")
+    # UPDATED: Instructions reflect new range and no skip option
+    print(f"Enter a number (1-{MAX_TEMPLATE_COLORS}) to map to the corresponding TemplateColor.")
+    print("Enter '0' to keep the original color (use hex/name directly).")
+    print("---------------------------------")
+
+    if not colors_to_map:
+        print("No colors found to map.")
+        return {}
+
+    for color in colors_to_map:
+        while True:
+            prompt = f"Map color '{color}': "
+            user_input = input(prompt).strip().lower()
+
+            # REMOVED: Skip ('s') option
+            # if user_input == 's':
+            #     dynamic_color_map[color] = DEFAULT_UNMAPPED_BRUSH # Map to default Brush *value*
+            #     print(f"  Mapping '{color}' -> {DEFAULT_UNMAPPED_BRUSH}")
+            #     break
+
+            if user_input == '0':
+                if color.startswith('#'):
+                    dynamic_color_map[color] = color.upper() # Keep original hex
+                    print(f"  Keeping '{color}' -> {color.upper()}")
+                else:
+                    # Keeping named colors directly can be less reliable than hex.
+                    # Map named colors kept via '0' to the default brush for safety.
+                    # If you trust your named colors (like 'white', 'black'), you could try:
+                    # dynamic_color_map[color] = color.capitalize()
+                    print(f"  Warning: Keeping named color '{color}' directly might not work reliably.")
+                    print(f"  Mapping '{color}' (requested keep) -> {DEFAULT_UNMAPPED_BRUSH}")
+                    dynamic_color_map[color] = DEFAULT_UNMAPPED_BRUSH
+                break
+            elif user_input.isdigit():
+                template_num = int(user_input)
+                # UPDATED: Check range 1 to MAX_TEMPLATE_COLORS
+                if 1 <= template_num <= MAX_TEMPLATE_COLORS:
+                    avalonia_resource = f"{{StaticResource TemplateColor{template_num}}}"
+                    dynamic_color_map[color] = avalonia_resource
+                    print(f"  Mapping '{color}' -> TemplateColor{template_num}")
+                    break
+                else:
+                    # UPDATED: Error message reflects new range
+                    print(f"  Invalid number. Please enter 0 or a number between 1 and {MAX_TEMPLATE_COLORS}.")
+            else:
+                # UPDATED: Error message reflects new range and no 's'
+                print(f"  Invalid input. Please enter 0 or a number between 1 and {MAX_TEMPLATE_COLORS}.")
+
+    print("---------------------------------")
+    print("Color mapping complete.")
+    return dynamic_color_map
+
+def get_avalonia_brush_attribute(svg_color, color_map):
+    """Gets the Avalonia Brush attribute string based on the dynamic mapping."""
     normalized = normalize_color(svg_color)
     if not normalized or normalized == 'none':
-        return ""
+        return "" # No brush for 'none' or empty
 
-    if normalized in COLOR_MAP:
-        resource_key = COLOR_MAP[normalized]
-        return f'Brush="{resource_key}"'
-    elif KEEP_UNMAPPED_COLORS and normalized.startswith('#'):
-         return f'Brush="{normalized.upper()}"'
-    elif not KEEP_UNMAPPED_COLORS:
-         return f'Brush="{DEFAULT_UNMAPPED_BRUSH}"'
+    if normalized in color_map:
+        brush_value = color_map[normalized]
+        # Check if it's a resource key or a direct color
+        if brush_value.startswith("{") and brush_value.endswith("}"):
+             return f'Brush="{brush_value}"' # e.g., Brush="{StaticResource TemplateColor1}"
+        else:
+             return f'Brush="{brush_value}"' # e.g., Brush="#FF0000" or Brush="Black"
     else:
-        print(f"Warning: Unmapped color '{svg_color}' found and cannot be kept directly. Skipping brush.")
-        return ""
+        # This case should ideally not happen now without skip,
+        # but as a fallback, use the default.
+        print(f"Warning: Color '{svg_color}' (normalized: '{normalized}') was not found in the map. Using default '{DEFAULT_UNMAPPED_BRUSH}'.")
+        return f'Brush="{DEFAULT_UNMAPPED_BRUSH}"'
 
-# --- Core XAML Generation Function (generate_xaml_for_svg - unchanged) ---
-def generate_xaml_for_svg(svg_path, output_key):
-    """Parses an SVG and generates the Avalonia DrawingImage XAML."""
+
+# --- Core XAML Generation Function ---
+# Needs to accept the dynamic_color_map
+def generate_xaml_for_svg(svg_path, output_key, dynamic_color_map):
+    """Parses an SVG and generates the Avalonia DrawingImage XAML using the dynamic map."""
     try:
         namespaces = {'svg': 'http://www.w3.org/2000/svg'}
         ET.register_namespace('', namespaces['svg'])
@@ -69,57 +180,130 @@ def generate_xaml_for_svg(svg_path, output_key):
         return None
 
     geometry_drawings = []
-    paths = root.findall('.//svg:path', namespaces)
-    if not paths:
-        paths = root.findall('.//path')
-        if not paths:
-             print(f"Warning: No <path> elements found in {svg_path}")
-             return None
+    # Combine search for different element types if needed (paths are most common)
+    elements_to_process = root.findall('.//svg:path[@d]', namespaces)
+    if not elements_to_process:
+         elements_to_process = root.findall('.//path[@d]') # Try without namespace if needed
 
-    indent = "            "
+    # --- Add other shapes if necessary ---
+    # elements_to_process.extend(root.findall('.//svg:rect', namespaces))
+    # elements_to_process.extend(root.findall('.//svg:circle', namespaces))
+    # ... you'd need to adapt geometry extraction for these ...
 
-    for path in paths:
-        path_data = path.get('d')
-        if not path_data:
-            print(f"Warning: Path in {svg_path} missing 'd' attribute. Skipping.")
+    if not elements_to_process:
+         # Allow processing even if no paths, in case other shapes are added later
+         # print(f"Warning: No <path> elements with 'd' attribute found in {svg_path}")
+         pass # Continue to check for other potential elements if logic were added
+
+    # --- Logic to handle other shapes (rect, circle, etc.) would go here ---
+    # Example for rect (needs x, y, width, height extraction)
+    # rects = root.findall('.//svg:rect', namespaces)
+    # if not rects: rects = root.findall('.//rect')
+    # elements_to_process.extend(rects)
+    #
+    # circles = root.findall('.//svg:circle', namespaces)
+    # if not circles: circles = root.findall('.//circle')
+    # elements_to_process.extend(circles)
+    # --- End Example ---
+
+    if not elements_to_process:
+         print(f"Warning: No processable geometry elements (path, rect, circle, etc.) found in {svg_path}")
+         return None # Return None if absolutely nothing was found
+
+    indent = "            " # 12 spaces
+
+    for element in elements_to_process:
+        geometry_attribute = None
+        # --- Geometry Extraction ---
+        tag_name = element.tag.split('}')[-1] # Get tag name without namespace
+
+        if tag_name == 'path':
+            path_data = element.get('d')
+            if not path_data: continue
+            path_data = re.sub(r'\s+', ' ', path_data).strip()
+            path_data_xaml = path_data.replace('"', '"') # Use XML entity for quotes in data
+            geometry_attribute = f'Geometry="{path_data_xaml}"'
+
+        # --- Add logic here to extract geometry for other shapes if needed ---
+        # elif tag_name == 'rect':
+        #     try:
+        #         x = float(element.get('x', 0))
+        #         y = float(element.get('y', 0))
+        #         w = float(element.get('width'))
+        #         h = float(element.get('height'))
+        #         # Basic RectangleGeometry - Avalonia might prefer Path syntax for complex transforms
+        #         geometry_attribute = f'Geometry="M{x},{y} L{x+w},{y} L{x+w},{y+h} L{x},{y+h} Z"'
+        #     except (ValueError, TypeError, AttributeError) as e:
+        #          print(f"Warning: Skipping rect in {svg_path} due to invalid attributes: {e}")
+        #          continue
+        # elif tag_name == 'circle':
+        #      try:
+        #         cx = float(element.get('cx'))
+        #         cy = float(element.get('cy'))
+        #         r = float(element.get('r'))
+        #         if r <= 0: continue # Skip circles with no radius
+        #         # EllipseGeometry for circle
+        #         geometry_attribute = f'Geometry="M{cx-r},{cy} A{r},{r} 0 1 0 {cx+r},{cy} A{r},{r} 0 1 0 {cx-r},{cy} Z"'
+        #      except (ValueError, TypeError, AttributeError) as e:
+        #           print(f"Warning: Skipping circle in {svg_path} due to invalid attributes: {e}")
+        #           continue
+        # Add elif for ellipse, polygon, polyline etc. if required
+
+        else:
+            # Only warn if it's an element we *might* have expected (like if we added rect logic but it failed)
+            # Or just ignore unknown elements silently. Let's ignore for now.
+            # print(f"Warning: Skipping unsupported element type '{tag_name}' in {svg_path}")
+             continue
+
+        if not geometry_attribute: # Skip if geometry couldn't be extracted
             continue
 
-        path_data = re.sub(r'\s+', ' ', path_data).strip()
-        path_data_xaml = path_data.replace('"', '"')
+        # --- Style Extraction (Handles fill, stroke, stroke-width from attributes) ---
+        # TODO: Add parsing for 'style' attribute if needed (more complex)
+        fill_color = element.get('fill')
+        stroke_color = element.get('stroke')
+        stroke_width = element.get('stroke-width')
 
-        fill_color = path.get('fill')
-        stroke_color = path.get('stroke')
-        stroke_width = path.get('stroke-width')
-
-        brush_attribute = get_avalonia_brush_attribute(fill_color, is_stroke=False)
+        # Get Fill Brush
+        brush_attribute = get_avalonia_brush_attribute(fill_color, dynamic_color_map)
         brush_attribute_spaced = f" {brush_attribute}" if brush_attribute else ""
 
+        # Get Pen (Stroke)
         pen_xaml = ""
-        if stroke_color and stroke_color.lower() != 'none' and stroke_width:
+        normalized_stroke = normalize_color(stroke_color)
+        if normalized_stroke and normalized_stroke != 'none' and stroke_width:
             try:
                 thickness = float(stroke_width)
-                if thickness <= 0: thickness = 1.0
+                if thickness <= 0: thickness = 1.0 # Default thickness if 0 or negative
             except (ValueError, TypeError):
                  print(f"Warning: Invalid stroke-width '{stroke_width}' in {svg_path}. Using default 1.")
                  thickness = 1.0
 
-            pen_brush_attribute = get_avalonia_brush_attribute(stroke_color, is_stroke=True)
+            pen_brush_attribute = get_avalonia_brush_attribute(stroke_color, dynamic_color_map)
 
             if pen_brush_attribute:
+                pen_brush_value = pen_brush_attribute.split('=', 1)[1].strip('"')
                 pen_xaml = f"""
 {indent}    <GeometryDrawing.Pen>
-{indent}        <Pen Thickness="{thickness}" {pen_brush_attribute}/>
+{indent}        <Pen Thickness="{thickness}" Brush="{pen_brush_value}"/>
 {indent}    </GeometryDrawing.Pen>"""
+            else:
+                 # This shouldn't happen easily without the 'skip' option, but good fallback.
+                 print(f"Warning: Could not determine Pen brush for stroke '{stroke_color}' in {svg_path}. Stroke ignored.")
 
+
+        # Assemble Drawing XAML
         drawing_xaml = f"""
 {indent}<GeometryDrawing{brush_attribute_spaced}
-{indent}                 Geometry="{path_data_xaml}">{pen_xaml}
+{indent}                 {geometry_attribute}>{pen_xaml}
 {indent}</GeometryDrawing>"""
         geometry_drawings.append(drawing_xaml)
 
     if not geometry_drawings:
+        print(f"Warning: No drawable geometry found or converted for {svg_path}")
         return None
 
+    # Assemble the final DrawingImage
     xaml_template = f"""
     <DrawingImage x:Key="{output_key}">
         <DrawingGroup>{"".join(geometry_drawings)}
@@ -127,17 +311,18 @@ def generate_xaml_for_svg(svg_path, output_key):
     </DrawingImage>"""
     return xaml_template
 
-# --- Helper Function (sanitize_key - UPDATED) ---
+
+# --- Helper Function (sanitize_key - unchanged) ---
 def sanitize_key(filename):
     """Creates a valid PascalCase XAML key from a filename."""
     base = os.path.splitext(filename)[0]
     # Remove invalid characters, replace separators with space for title casing later
-    key = re.sub(r'[^\w\s-]', '', base) # Allow word chars, space, hyphen
-    key = re.sub(r'[-\s]+', ' ', key).strip() # Replace separators with single space
+    key = re.sub(r'[^\w\s-]', '', base)  # Allow word chars, space, hyphen
+    key = re.sub(r'[-\s]+', ' ', key).strip()  # Replace separators with single space
 
-    # Simple title casing (split by space, capitalize each part)
+    # Smart title casing without forcing lowercase
     parts = key.split(' ')
-    key = "".join(part.capitalize() for part in parts)
+    key = "".join(part[:1].upper() + part[1:] for part in parts if part)
 
     # Ensure it doesn't start with a number
     if key and key[0].isdigit():
@@ -145,20 +330,15 @@ def sanitize_key(filename):
     # Ensure it's not empty
     if not key:
         key = "UnnamedIcon"
-    # Ensure first letter is uppercase (should be covered by capitalize, but good check)
-    if key:
-         key = key[0].upper() + key[1:]
-
     return key
 
-
-# --- Function to generate Preview XAML - UPDATED ---
+# --- Function to generate Preview XAML (unchanged) ---
 def generate_preview_xaml(resource_keys):
     """Generates the Design.PreviewWith XAML block."""
     if not resource_keys:
         return ""
 
-    items_indent = "                "
+    items_indent = "                " # 16 spaces
     preview_items = []
     # Take only the first MAX_PREVIEW_ITEMS for the preview
     for key in resource_keys[:MAX_PREVIEW_ITEMS]:
@@ -171,6 +351,8 @@ def generate_preview_xaml(resource_keys):
 {items_indent}                                 Color4="{{StaticResource Neutral800}}"
 {items_indent}                                 Color5="{{StaticResource Neutral950}}"
 {items_indent}/>""" # Removed Width/Height
+        # Note: This preview component only shows 5 colors. If you map to TemplateColor6-12,
+        # they won't be visualized here unless the MultiColorExampleComponent is updated.
         preview_items.append(item_xaml)
 
     # Removed Width from UniformGrid, Updated Border Background
@@ -193,8 +375,16 @@ if __name__ == "__main__":
         if not os.path.isdir(input_folder):
             print(f"Error: '{input_folder}' is not a valid directory. Please try again.")
 
+    # --- 1. Find Unique Colors ---
+    unique_svg_colors = find_unique_colors_in_svgs(input_folder)
+
+    # --- 2. Build Color Map Interactively ---
+    # Pass the sorted list of unique colors
+    interactive_color_map = build_interactive_color_map(unique_svg_colors)
+
+    # --- Prepare Output Path ---
     folder_name = os.path.basename(os.path.normpath(input_folder))
-    parent_dir = os.path.dirname(input_folder)
+    parent_dir = os.path.dirname(input_folder) if os.path.dirname(input_folder) else '.' # Handle case where input is just folder name
     output_filename = f"{folder_name}.axaml"
     output_path = os.path.join(parent_dir, output_filename)
 
@@ -210,13 +400,15 @@ if __name__ == "__main__":
         print("No SVG files found in the directory.")
         exit(0)
 
-    svg_files.sort()
+    svg_files.sort() # Ensure consistent processing order
 
+    # --- 3. Generate XAML using the Interactive Map ---
     for filename in svg_files:
         input_path = os.path.join(input_folder, filename)
-        output_key = sanitize_key(filename) # Key is now PascalCase
+        output_key = sanitize_key(filename)
         print(f"  Processing {filename} -> Key: {output_key}")
-        xaml_output = generate_xaml_for_svg(input_path, output_key)
+        # Pass the created interactive_color_map to the generation function
+        xaml_output = generate_xaml_for_svg(input_path, output_key, interactive_color_map)
         if xaml_output:
             all_xaml_outputs.append(xaml_output)
             generated_keys.append(output_key)
@@ -225,15 +417,16 @@ if __name__ == "__main__":
         print("No valid XAML generated.")
         exit(0)
 
-    preview_block = generate_preview_xaml(generated_keys) # Generate updated preview
-    joined_icon_xaml = "\n".join(all_xaml_outputs) # Add newline separator
+    # --- 4. Generate Preview and Final Output ---
+    preview_block = generate_preview_xaml(generated_keys)
+    joined_icon_xaml = "\n".join(all_xaml_outputs)
 
-    # Assemble final XAML including namespace, preview, and icons
     final_xaml = f"""<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:util="{PREVIEW_NAMESPACE_UTIL}">
 
     <!-- Generated by svg_to_avalonia.py from folder: {folder_name} -->
+    <!-- Color mappings were defined interactively during script execution. -->
 {preview_block}
 {joined_icon_xaml}
 </ResourceDictionary>
@@ -241,7 +434,9 @@ if __name__ == "__main__":
 
     try:
         output_dir_check = os.path.dirname(output_path)
+        # Create output directory if it doesn't exist and is not the current directory
         if output_dir_check and not os.path.exists(output_dir_check):
+             print(f"Creating output directory: {output_dir_check}")
              os.makedirs(output_dir_check)
 
         with open(output_path, 'w', encoding='utf-8') as f:

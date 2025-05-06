@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
+using WheelWizard.Models.Settings;
 using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
@@ -64,6 +65,11 @@ public interface IGameLicenseSingletonService
     /// Subscribes a listener to the repeated task manager.
     /// </summary>
     void Subscribe(IRepeatedTaskListener subscriber);
+
+    /// <summary>
+    /// Changes the Mii for a specific user index.
+    /// </summary>
+    OperationResult ChangeMii(int userIndex, Mii? newMii);
 }
 
 public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSingletonService
@@ -128,16 +134,16 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
         // If the file was invalid or not found, create 4 dummy licenses
         Licenses.Users.Clear();
         for (var i = 0; i < MaxPlayerNum; i++)
-            Licenses.Users.Add(CreateDummyUser());
+            Licenses.Users.Add(CreateDummyLicense());
         return Ok();
     }
 
-    private static LicenseProfile CreateDummyUser()
+    private static LicenseProfile CreateDummyLicense()
     {
-        var dummyUser = new LicenseProfile
+        var dummyLicense = new LicenseProfile
         {
             FriendCode = "0000-0000-0000",
-            Mii = new(),
+            Mii = new() { Name = new MiiName(SettingValues.NoLicense) },
             Vr = 5000,
             Br = 5000,
             TotalRaceCount = 0,
@@ -146,7 +152,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             RegionId = 10, // 10 => “unknown”
             IsOnline = false,
         };
-        return dummyUser;
+        return dummyLicense;
     }
 
     private OperationResult ParseUsers()
@@ -161,14 +167,14 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             var rkpdCheck = Encoding.ASCII.GetString(_rksysData, rkpdOffset, RkpdMagic.Length) == RkpdMagic;
             if (!rkpdCheck)
             {
-                Licenses.Users.Add(CreateDummyUser());
+                Licenses.Users.Add(CreateDummyLicense());
                 continue;
             }
 
             var user = ParseLicenseUser(rkpdOffset);
             if (user.IsFailure)
             {
-                Licenses.Users.Add(CreateDummyUser());
+                Licenses.Users.Add(CreateDummyLicense());
                 continue;
             }
             Licenses.Users.Add(user.Value);
@@ -177,7 +183,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
         // Keep this here so we always have 4 users if the code above were to be changed
         while (Licenses.Users.Count < 4)
         {
-            Licenses.Users.Add(CreateDummyUser());
+            Licenses.Users.Add(CreateDummyLicense());
         }
         return Ok();
     }
@@ -260,6 +266,45 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             };
             licenseProfile.Friends.Add(friend);
         }
+    }
+
+    public OperationResult ChangeMii(int userIndex, Mii? newMii)
+    {
+        if (newMii is null)
+            return "Mii cannot be null.";
+        if (userIndex is < 0 or >= MaxPlayerNum)
+            return "Invalid license index. Please select a valid license.";
+
+        var serialised = MiiSerializer.Serialize(newMii);
+        if (serialised.IsFailure)
+            return serialised.Error!.Message;
+
+        var existing = _miiService.GetByAvatarId(newMii.MiiId);
+        if (existing.IsFailure)
+            return existing.Error!.Message;
+
+        var licence = Licenses.Users[userIndex];
+        licence.Mii = newMii;
+
+        if (_rksysData is null || _rksysData.Length < RksysSize)
+            return "Invalid or unloaded rksys.dat data.";
+
+        var rkpdOffset = 0x08 + userIndex * RkpdSize;
+        BigEndianBinaryReader.WriteUInt32BigEndian(_rksysData, rkpdOffset + 0x28, newMii.MiiId); // Avatar ID
+
+        var systemid = newMii.SystemId0 << 24 | newMii.SystemId1 << 16 | newMii.SystemId2 << 8 | newMii.SystemId3;
+
+        BigEndianBinaryReader.WriteUInt32BigEndian(_rksysData, rkpdOffset + 0x2C, (uint)systemid);
+
+        var nameWrite = WriteLicenseNameToSaveData(userIndex, newMii.Name.ToString());
+        if (nameWrite.IsFailure)
+            return nameWrite.Error!.Message;
+
+        var saveResult = SaveRksysToFile();
+        if (saveResult.IsFailure)
+            return saveResult.Error!.Message;
+
+        return Ok();
     }
 
     private bool CheckForMiiData(int offset)

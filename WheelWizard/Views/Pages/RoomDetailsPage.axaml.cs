@@ -4,14 +4,22 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.RRInfo;
 using WheelWizard.Services.LiveData;
+using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.Mockers;
 using WheelWizard.Utilities.RepeatedTasks;
-using WheelWizard.Views.Popups;
+using WheelWizard.Views.Popups.MiiManagement;
+using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views.Pages;
 
 public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, IRepeatedTaskListener
 {
+    [Inject]
+    private IGameLicenseSingletonService GameDataService { get; set; } = null!;
+
+    [Inject]
+    private IMiiDbService MiiDbService { get; set; } = null!;
+
     private RrRoom _room = null!;
 
     public RrRoom Room

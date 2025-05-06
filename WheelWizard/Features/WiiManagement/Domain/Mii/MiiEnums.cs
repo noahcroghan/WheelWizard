@@ -5,6 +5,7 @@ public enum MiiFavoriteColor : uint
     Red,
     Orange,
     Yellow,
+    LightGreen,
     Green,
     Blue,
     LightBlue,
@@ -13,16 +14,15 @@ public enum MiiFavoriteColor : uint
     Brown,
     White,
     Black,
-    Gray,
 }
 
 public enum MiiFaceShape
 {
-    RoundPointChin,
+    Teardrop,
     Circle,
     Oval,
-    BlobFatChin,
-    RightAnglePointChin,
+    Glob,
+    Pointy,
     Bread,
     Octagon,
     Square,
@@ -31,8 +31,8 @@ public enum MiiFaceShape
 public enum MiiSkinColor
 {
     Light,
-    LightTan,
-    Tan,
+    Yellow,
+    Red,
     Pink,
     DarkBrown,
     Brown,
@@ -51,7 +51,7 @@ public enum MiiFacialFeature
     EyeShadow,
     Beard,
     MouthCorners,
-    Old,
+    Wrinkles,
 }
 
 public enum HairColor
@@ -82,7 +82,7 @@ public enum EyeColor : uint
 {
     Black,
     Grey,
-    Red,
+    Brown,
     Gold,
     Blue,
     Green,
@@ -95,7 +95,7 @@ public enum NoseType
     Dots,
     VShape,
     FullNose,
-    Triangle,
+    UShape,
     FlatC,
     UpsideDownC,
     Squidward,
@@ -142,16 +142,16 @@ public enum MustacheColor
     LightRed,
     Grey,
     LightBrown,
-    Blonde,
+    Tan,
     White,
 }
 
 public enum MustacheType
 {
     None,
-    Fat,
-    Thin,
-    Goatee,
+    Normal,
+    Lines,
+    Droopy,
 }
 
 public enum BeardType

@@ -7,12 +7,13 @@
 
     <Style Selector="components|IconLabelButton">
         <Setter Property="Cursor" Value="Hand"/>
+        <!-- Setting it to transparent won't change the actual visual part. but ti does make the border react to :pointerover events -->
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                  
                     
                     <components:IconLabel Text="{TemplateBinding Text}"
                                         Foreground="{TemplateBinding Foreground}"
@@ -22,7 +23,7 @@
                                         IsUnderlined="{TemplateBinding IsUnderlined}"
                                         IsIconLeft="{TemplateBinding IsIconLeft}">
                         <components:IconLabel.Styles>
-                            <Style Selector="components|IconLabel:pointerover">
+                            <Style Selector="components|IconLabelButton:pointerover /template/ components|IconLabel">
                                 <Setter Property="Foreground" Value="{Binding HoverForeground, RelativeSource={RelativeSource AncestorType=components:IconLabelButton}}"/>
                                 <Setter Property="IsUnderlined" Value="True" />
                             </Style>

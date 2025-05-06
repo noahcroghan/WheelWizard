@@ -142,6 +142,8 @@ public static class MiiSerializer
         return data;
     }
 
+    public static OperationResult<Mii> Deserialize(string data) => Deserialize(Convert.FromBase64String(data));
+
     public static OperationResult<Mii> Deserialize(byte[]? data)
     {
         if (data == null || data.Length != 74)

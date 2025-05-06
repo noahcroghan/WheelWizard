@@ -84,4 +84,7 @@
     <data name="Stat_AverageRoomVr" xml:space="preserve">
         <value>Avarage VR</value>
     </data>
+    <data name="ListTitle_Miis" xml:space="preserve">
+        <value>Miis</value>
+    </data>
 </root>

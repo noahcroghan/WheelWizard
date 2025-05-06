@@ -4,10 +4,11 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.GameData;
 using WheelWizard.Services.LiveData;
+using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
-using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views.Pages;
@@ -23,6 +24,9 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     [Inject]
     private IGameLicenseSingletonService GameLicenseService { get; set; } = null!;
+
+    [Inject]
+    private IMiiDbService MiiDbService { get; set; } = null!;
 
     public ObservableCollection<FriendProfile> FriendList
     {
@@ -164,6 +168,39 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
             .SetInfoText("Whoops, could not find the room that this player is supposedly playing in")
             .SetMessageType(MessageBoxWindow.MessageType.Warning)
             .Show();
+    }
+
+    private void SaveMii_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (!MiiDbService.Exists())
+        {
+            ViewUtils.ShowSnackbar("Cant save Mii", ViewUtils.SnackbarType.Warning);
+            return;
+        }
+
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
+            return;
+        if (selectedPlayer.Mii == null)
+            return;
+
+        var desiredMii = selectedPlayer.Mii;
+
+        //We set the miiId to 0 so it will be added as a new Mii
+        desiredMii.MiiId = 0;
+        //Since we are actually copying this mii, we want to set the mac Adress to a dummy value
+        var macAddress = "02:11:11:11:11:11";
+        var databaseResult = MiiDbService.AddToDatabase(desiredMii, macAddress);
+        if (databaseResult.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetTitleText("Failed to Copy Mii")
+                .SetInfoText(databaseResult.Error!.Message)
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .Show();
+            return;
+        }
+
+        ViewUtils.ShowSnackbar("Mii has been added to your Miis");
     }
 
     #region PropertyChanged

@@ -78,6 +78,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Miis.
+        /// </summary>
+        public static string ListTitle_Miis {
+            get {
+                return ResourceManager.GetString("ListTitle_Miis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Players.
         /// </summary>
         public static string ListTitle_Players {

@@ -9,7 +9,11 @@ using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
 using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Views.Components;
+using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.Views.Popups.MiiManagement;
+using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
 
@@ -19,9 +23,16 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
     private LicenseProfile? currentPlayer;
     private Mii? _currentMii;
+    private bool _isOnline;
 
     [Inject]
     private IGameLicenseSingletonService GameLicenseService { get; set; } = null!;
+
+    [Inject]
+    private IWhWzDataSingletonService BadgeService { get; set; } = null!;
+
+    [Inject]
+    private IMiiDbService MiiDbService { get; set; } = null!;
 
     public Mii? CurrentMii
     {
@@ -30,6 +41,16 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         {
             _currentMii = value;
             OnPropertyChanged(nameof(CurrentMii));
+        }
+    }
+
+    public bool IsOnline
+    {
+        get => _isOnline;
+        set
+        {
+            _isOnline = value;
+            OnPropertyChanged(nameof(IsOnline));
         }
     }
 
@@ -47,6 +68,30 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         // Make sure this action gets subscribed AFTER the PopulateRegions method
         RegionDropdown.SelectionChanged += RegionDropdown_SelectionChanged;
     }
+
+    private void PopulateRegions()
+    {
+        var validRegions = RRRegionManager.GetValidRegions();
+        var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
+        foreach (var region in Enum.GetValues<MarioKartWiiEnums.Regions>())
+        {
+            if (region == MarioKartWiiEnums.Regions.None)
+                continue;
+
+            var itemForRegionDropdown = new ComboBoxItem
+            {
+                Content = region.ToString(),
+                Tag = region,
+                IsEnabled = validRegions.Contains(region),
+            };
+            RegionDropdown.Items.Add(itemForRegionDropdown);
+
+            if (currentRegion == region)
+                RegionDropdown.SelectedItem = itemForRegionDropdown;
+        }
+    }
+
+    #region Update page
 
     private void ResetMiiTopBar()
     {
@@ -76,75 +121,43 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         }
     }
 
+    private void UpdatePage()
+    {
+        PrimaryCheckBox.IsChecked = FocussedUser == _currentUserIndex;
+        CurrentUserProfile.Classes.Clear();
+        if (currentPlayer?.IsOnline == true)
+            CurrentUserProfile.Classes.Add("Online");
+
+        currentPlayer = GameLicenseService.GetUserData(_currentUserIndex);
+        ProfileAttribFriendCode.Text = currentPlayer.FriendCode;
+        ProfileAttribFriendCode.IsVisible = !string.IsNullOrEmpty(currentPlayer.FriendCode);
+        ProfileAttribUserName.Text = currentPlayer.NameOfMii;
+        ProfileAttribVr.Text = currentPlayer.Vr.ToString();
+        ProfileAttribBr.Text = currentPlayer.Br.ToString();
+        CurrentMii = currentPlayer.Mii;
+
+        ProfileAttribTotalRaces.Text = currentPlayer.TotalRaceCount.ToString();
+        ProfileAttribTotalWins.Text = currentPlayer.TotalWinCount.ToString();
+
+        BadgeContainer.Children.Clear();
+        var badges = BadgeService.GetBadges(currentPlayer.FriendCode).Select(variant => new Badge { Variant = variant });
+        foreach (var badge in badges)
+        {
+            badge.Height = 30;
+            badge.Width = 30;
+            BadgeContainer.Children.Add(badge);
+        }
+        ResetMiiTopBar();
+    }
+
+    #endregion
+
     private void ViewMii(int? mii = null)
     {
         _currentUserIndex = mii ?? _currentUserIndex;
         if (RadioButtons.Children[_currentUserIndex] is RadioButton radioButton)
             radioButton.IsChecked = true;
     }
-
-    private void PopulateRegions()
-    {
-        var validRegions = RRRegionManager.GetValidRegions();
-        var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
-        foreach (var region in Enum.GetValues<MarioKartWiiEnums.Regions>())
-        {
-            if (region == MarioKartWiiEnums.Regions.None)
-                continue;
-
-            var itemForRegionDropdown = new ComboBoxItem
-            {
-                Content = region.ToString(),
-                Tag = region,
-                IsEnabled = validRegions.Contains(region),
-            };
-            RegionDropdown.Items.Add(itemForRegionDropdown);
-
-            if (currentRegion == region)
-                RegionDropdown.SelectedItem = itemForRegionDropdown;
-        }
-    }
-
-    private void TopBarRadio_OnClick(object? sender, RoutedEventArgs e)
-    {
-        var oldIndex = _currentUserIndex;
-
-        if (sender is not RadioButton button || !int.TryParse((string?)button.Tag, out _currentUserIndex))
-            return;
-        if (oldIndex == _currentUserIndex)
-            return;
-
-        UpdatePage();
-    }
-
-    private void UpdatePage()
-    {
-        CurrentUserProfile.IsChecked = FocussedUser == _currentUserIndex;
-        if (currentPlayer != null)
-            currentPlayer.PropertyChanged -= OnMiiNameChanged;
-
-        currentPlayer = GameLicenseService.GetUserData(_currentUserIndex);
-        CurrentUserProfile.FriendCode = currentPlayer.FriendCode;
-        CurrentUserProfile.UserName = currentPlayer.NameOfMii;
-        CurrentUserProfile.IsOnline = currentPlayer.IsOnline;
-        CurrentUserProfile.Vr = currentPlayer.Vr.ToString();
-        CurrentUserProfile.Br = currentPlayer.Br.ToString();
-        CurrentMii = currentPlayer.Mii;
-
-        currentPlayer.PropertyChanged += OnMiiNameChanged;
-        CurrentUserProfile.TotalRaces = currentPlayer.TotalRaceCount.ToString();
-        CurrentUserProfile.TotalWon = currentPlayer.TotalWinCount.ToString();
-        ResetMiiTopBar();
-    }
-
-    private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
-    {
-        if (args.PropertyName != nameof(currentPlayer.NameOfMii))
-            return;
-        CurrentUserProfile.UserName = currentPlayer?.NameOfMii ?? "";
-    }
-
-    private void CheckBox_SetPrimaryUser(object sender, RoutedEventArgs e) => SetUserAsPrimary();
 
     private void SetUserAsPrimary()
     {
@@ -153,7 +166,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         SettingsManager.FOCUSSED_USER.Set(_currentUserIndex);
 
-        CurrentUserProfile.IsChecked = true;
+        PrimaryCheckBox.IsChecked = true;
         // Even though it's true when this method is called, we still set it to true,
         // since Avalonia has some weird ass cashing, It might just be that that is because this method is actually deprecated
 
@@ -186,6 +199,82 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         ViewUtils.GetLayout().UpdateFriendCount();
     }
 
+    private void TopBarRadio_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var oldIndex = _currentUserIndex;
+
+        if (sender is not RadioButton button || !int.TryParse((string?)button.Tag, out _currentUserIndex))
+            return;
+        if (oldIndex == _currentUserIndex)
+            return;
+
+        UpdatePage();
+    }
+
+    private void CheckBox_SetPrimaryUser(object sender, RoutedEventArgs e) => SetUserAsPrimary();
+
+    private async void OpenMiiSelector_Click(object? sender, RoutedEventArgs e)
+    {
+        var availableMiis = MiiDbService.GetAllMiis();
+        if (!availableMiis.Any())
+        {
+            new MessageBoxWindow()
+                .SetTitleText("No Miis Found")
+                .SetInfoText("There are no other Miis available to select.")
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .Show();
+            return;
+        }
+
+        var selectedMii = await new MiiSelectorWindow().SetMiiOptions(availableMiis, CurrentMii).AwaitAnswer();
+
+        if (selectedMii == null)
+            return;
+
+        var result = GameLicenseService.ChangeMii(_currentUserIndex, selectedMii);
+
+        if (result.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetTitleText("Failed to Change Mii")
+                .SetInfoText(result.Error!.Message)
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .Show();
+            return;
+        }
+        CurrentMii = selectedMii;
+        GameLicenseService.LoadLicense();
+        UpdatePage();
+        ViewUtils.ShowSnackbar("Mii changed successfully");
+    }
+
+    private void ViewRoom_OnClick(object? sender, RoutedEventArgs e)
+    {
+        foreach (var room in RRLiveRooms.Instance.CurrentRooms)
+        {
+            if (room.Players.All(player => player.Value.Fc != currentPlayer?.FriendCode))
+                continue;
+
+            NavigationManager.NavigateTo<RoomDetailsPage>(room);
+            return;
+        }
+
+        new MessageBoxWindow()
+            .SetTitleText("Couldn't find the room")
+            .SetInfoText("Whoops, could not find the room that this player is supposedly playing in")
+            .SetMessageType(MessageBoxWindow.MessageType.Warning)
+            .Show();
+    }
+
+    private void CopyFriendCode_OnClick(object? sender, EventArgs e)
+    {
+        if (currentPlayer?.FriendCode == null)
+            return;
+
+        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(currentPlayer.FriendCode);
+        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
+    }
+
     // This is intentionally a separate validation method besides the true name validation. That name validation allows less than 3.
     // But we as team wheel wizard don't think it makes sense to have a mii name shorter than 3, and so from the UI we don't allow it
     private OperationResult ValidateMiiName(string? oldName, string newName)
@@ -196,7 +285,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         return Ok();
     }
 
-    private async void ChangeMiiName(object? obj, EventArgs e)
+    private async void RenameMii_OnClick(object? sender, EventArgs e)
     {
         var oldName = CurrentMii?.Name.ToString();
         var renamePopup = new TextInputWindow()
@@ -223,24 +312,6 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         //reload game data, since multiple licenses can use the same mii
         GameLicenseService.LoadLicense();
         UpdatePage();
-    }
-
-    private void ViewRoom_OnClick(string friendCode)
-    {
-        foreach (var room in RRLiveRooms.Instance.CurrentRooms)
-        {
-            if (room.Players.All(player => player.Value.Fc != friendCode))
-                continue;
-
-            NavigationManager.NavigateTo<RoomDetailsPage>(room);
-            return;
-        }
-
-        new MessageBoxWindow()
-            .SetTitleText("Couldn't find the room")
-            .SetInfoText("Whoops, could not find the room that this player is supposedly playing in")
-            .SetMessageType(MessageBoxWindow.MessageType.Warning)
-            .Show();
     }
 
     #region PropertyChanged

@@ -18,8 +18,6 @@ public interface IMiiIMagesApi
         int instanceCount = 1,
         int cameraXRotate = 0,
         int cameraYRotate = 0,
-        int cameraZRotate = 0,
-        string lightDirectionMode = "none",
-        string instanceRotationMode = "model"
+        int cameraZRotate = 0
     );
 }

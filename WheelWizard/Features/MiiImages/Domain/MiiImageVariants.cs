@@ -14,6 +14,14 @@ public static class MiiImageVariants
         CachePriority = CacheItemPriority.High,
     };
 
+    public static readonly MiiImageSpecifications MiiBlockProfile = new()
+    {
+        Name = "MiiBlockProfile",
+        Expression = MiiImageSpecifications.FaceExpression.normal,
+        Type = MiiImageSpecifications.BodyType.face,
+        Size = MiiImageSpecifications.ImageSize.medium,
+    };
+
     public static readonly MiiImageSpecifications OnlinePlayerSmall = new()
     {
         Name = "OnlinePlayerSmall",
@@ -23,8 +31,29 @@ public static class MiiImageVariants
         CachePriority = CacheItemPriority.Low,
     };
 
+    public static readonly MiiImageSpecifications MiiEditorSmall = new()
+    {
+        Name = "MiiEditorPreviewSmall",
+        Expression = MiiImageSpecifications.FaceExpression.normal,
+        Type = MiiImageSpecifications.BodyType.face,
+        Size = MiiImageSpecifications.ImageSize.medium,
+        ExpirationSeconds = TimeSpan.FromSeconds(30),
+        CachePriority = CacheItemPriority.Low,
+    };
+    public static readonly MiiImageSpecifications MiiEditorPreviewCarousel = new()
+    {
+        Name = "MiiEditorPreviewCarousel",
+        Expression = MiiImageSpecifications.FaceExpression.normal,
+        Type = MiiImageSpecifications.BodyType.all_body,
+        Size = MiiImageSpecifications.ImageSize.medium,
+        CachePriority = CacheItemPriority.Low,
+        ExpirationSeconds = TimeSpan.FromSeconds(30),
+        InstanceCount = 8,
+    };
+
     public static readonly MiiImageSpecifications CurrentUserSideProfile = new()
     {
+        Name = "CurrentUserSideProfile",
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.face,
         Size = MiiImageSpecifications.ImageSize.medium,
@@ -33,6 +62,7 @@ public static class MiiImageVariants
     };
     public static readonly MiiImageSpecifications FriendsSideProfile = new()
     {
+        Name = "FriendsSideProfile",
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.face,
         Size = MiiImageSpecifications.ImageSize.medium,
@@ -43,9 +73,11 @@ public static class MiiImageVariants
 
     public static readonly MiiImageSpecifications FullBodyCarousel = new()
     {
+        Name = "FullBodyCarousel",
         Expression = MiiImageSpecifications.FaceExpression.normal,
         Type = MiiImageSpecifications.BodyType.all_body,
         Size = MiiImageSpecifications.ImageSize.medium,
+        ExpirationSeconds = TimeSpan.FromMinutes(10),
         InstanceCount = 8,
     };
 }

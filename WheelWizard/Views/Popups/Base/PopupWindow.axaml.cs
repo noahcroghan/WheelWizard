@@ -46,6 +46,18 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
         }
     }
 
+    private bool _betaFlag;
+
+    public bool BetaFlag
+    {
+        get => _betaFlag;
+        set
+        {
+            _betaFlag = value;
+            OnPropertyChanged(nameof(BetaFlag));
+        }
+    }
+
     private string _windowTitle = "Wheel Wizard Popup";
 
     public string WindowTitle

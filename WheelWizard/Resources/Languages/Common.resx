@@ -180,4 +180,19 @@
     <data name="Action_ViewMod" xml:space="preserve">
         <value>View Mod</value>
     </data>
+    <data name="Action_SaveExternalMii" xml:space="preserve">
+        <value>Add Mii to "My Miis"</value>
+    </data>
+    <data name="PageTitle_MyMiis" xml:space="preserve">
+        <value>My Miis</value>
+    </data>
+    <data name="Action_ViewMii" xml:space="preserve">
+        <value>View Mii</value>
+    </data>
+    <data name="Action_Duplicate" xml:space="preserve">
+        <value>Duplicate</value>
+    </data>
+    <data name="Action_Back" xml:space="preserve">
+        <value>Back</value>
+    </data>
 </root>

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-using Avalonia;
-using Avalonia.Controls.Primitives;
+﻿using Avalonia;
 using Avalonia.Input;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
@@ -9,10 +7,12 @@ using WheelWizard.Views.Pages;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
 
-namespace WheelWizard.Views.Components;
+namespace WheelWizard.Views.BehaviorComponent;
 
-public class CurrentUserProfile : UserControlBase, INotifyPropertyChanged
+public partial class CurrentUserProfile : UserControlBase
 {
+    #region Properties
+
     [Inject]
     private IGameLicenseSingletonService GameLicenseService { get; set; } = null!;
 
@@ -41,17 +41,19 @@ public class CurrentUserProfile : UserControlBase, INotifyPropertyChanged
     public Mii? Mii
     {
         get => GetValue(MiiProperty);
-        set
-        {
-            SetValue(MiiProperty, value);
-            OnPropertyChanged(nameof(Mii));
-        }
+        set => SetValue(MiiProperty, value);
     }
 
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    #endregion
+
+    public CurrentUserProfile()
     {
-        base.OnApplyTemplate(e);
+        InitializeComponent();
+        DataContext = this;
+
         GameLicenseService.RefreshOnlineStatus();
+        GameLicenseService.LoadLicense();
+
         var currentUser = GameLicenseService.ActiveUser;
 
         var name = currentUser.NameOfMii;
@@ -66,15 +68,4 @@ public class CurrentUserProfile : UserControlBase, INotifyPropertyChanged
     }
 
     protected override void OnPointerPressed(PointerPressedEventArgs e) => NavigationManager.NavigateTo<UserProfilePage>();
-
-    #region PropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new(propertyName));
-    }
-
-    #endregion
 }
