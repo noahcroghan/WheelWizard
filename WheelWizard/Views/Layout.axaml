@@ -9,7 +9,7 @@
         xmlns:settings="clr-namespace:WheelWizard.Views.Pages.Settings"
         xmlns:components="clr-namespace:WheelWizard.Views.Components"
         Height="876" Width="656" WindowStartupLocation="CenterScreen"
-        SystemDecorations="Full"
+        SystemDecorations="None"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         CanResize='False' Background="Transparent">

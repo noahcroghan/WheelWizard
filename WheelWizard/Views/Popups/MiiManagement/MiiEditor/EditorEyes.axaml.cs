@@ -206,6 +206,7 @@ public partial class EditorEyes : MiiEditorBaseControl
         {
             EyeColorBox.SelectedItem = current.Color.ToString();
         }
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(-1, EyeProperty.Vertical);

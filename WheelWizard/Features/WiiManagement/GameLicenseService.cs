@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
+using WheelWizard.Models.Settings;
 using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
@@ -133,16 +134,16 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
         // If the file was invalid or not found, create 4 dummy licenses
         Licenses.Users.Clear();
         for (var i = 0; i < MaxPlayerNum; i++)
-            Licenses.Users.Add(CreateDummyUser());
+            Licenses.Users.Add(CreateDummyLicense());
         return Ok();
     }
 
-    private static LicenseProfile CreateDummyUser()
+    private static LicenseProfile CreateDummyLicense()
     {
-        var dummyUser = new LicenseProfile
+        var dummyLicense = new LicenseProfile
         {
             FriendCode = "0000-0000-0000",
-            Mii = new(),
+            Mii = new() { Name = new MiiName(SettingValues.NoLicense) },
             Vr = 5000,
             Br = 5000,
             TotalRaceCount = 0,
@@ -151,7 +152,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             RegionId = 10, // 10 => “unknown”
             IsOnline = false,
         };
-        return dummyUser;
+        return dummyLicense;
     }
 
     private OperationResult ParseUsers()
@@ -166,14 +167,14 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             var rkpdCheck = Encoding.ASCII.GetString(_rksysData, rkpdOffset, RkpdMagic.Length) == RkpdMagic;
             if (!rkpdCheck)
             {
-                Licenses.Users.Add(CreateDummyUser());
+                Licenses.Users.Add(CreateDummyLicense());
                 continue;
             }
 
             var user = ParseLicenseUser(rkpdOffset);
             if (user.IsFailure)
             {
-                Licenses.Users.Add(CreateDummyUser());
+                Licenses.Users.Add(CreateDummyLicense());
                 continue;
             }
             Licenses.Users.Add(user.Value);
@@ -182,7 +183,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
         // Keep this here so we always have 4 users if the code above were to be changed
         while (Licenses.Users.Count < 4)
         {
-            Licenses.Users.Add(CreateDummyUser());
+            Licenses.Users.Add(CreateDummyLicense());
         }
         return Ok();
     }

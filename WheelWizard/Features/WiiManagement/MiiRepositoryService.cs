@@ -59,7 +59,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     private const int CrcOffset = 0x1F1DE;
     private const int HeaderOffset = 0x04;
     private static readonly byte[] EmptyMii = Enumerable.Repeat((byte)0x00, MiiLength).ToArray();
-    private readonly string _wiiDbFilePath = PathManager.WiiDbFile;
+    private string _miiDbFilePath => PathManager.MiiDbFile;
 
     public List<byte[]> LoadAllBlocks()
     {
@@ -87,7 +87,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
 
     public OperationResult SaveAllBlocks(List<byte[]> blocks)
     {
-        if (!fileSystem.File.Exists(_wiiDbFilePath))
+        if (!fileSystem.File.Exists(_miiDbFilePath))
             return "RFL_DB.dat not found.";
 
         var db = ReadDatabase();
@@ -119,7 +119,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
             db[CrcOffset + 1] = (byte)(crc & 0xFF);
         }
 
-        fileSystem.File.WriteAllBytes(_wiiDbFilePath, db);
+        fileSystem.File.WriteAllBytes(_miiDbFilePath, db);
         return Ok();
     }
 
@@ -142,21 +142,42 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
         return null;
     }
 
-    public bool Exists() => fileSystem.File.Exists(_wiiDbFilePath);
+    public bool Exists() => fileSystem.File.Exists(_miiDbFilePath);
 
     public OperationResult ForceCreateDatabase()
     {
-        if (fileSystem.File.Exists(_wiiDbFilePath))
+        if (fileSystem.File.Exists(_miiDbFilePath))
             return "Database already exists.";
 
-        var directory = Path.GetDirectoryName(_wiiDbFilePath);
+        var directory = Path.GetDirectoryName(_miiDbFilePath);
         if (!string.IsNullOrEmpty(directory) && !fileSystem.Directory.Exists(directory))
         {
             fileSystem.Directory.CreateDirectory(directory);
         }
 
-        var db = new byte[CrcOffset + 2];
-        fileSystem.File.WriteAllBytes(_wiiDbFilePath, db);
+        var db = new byte[779_968];
+        // first 4 bytes should be the RNOD magic "RNOD"
+        db[0] = 0x52;
+        db[1] = 0x4E;
+        db[2] = 0x4F;
+        db[3] = 0x44;
+
+        db[0x1CE0 + 0x0C] = 0x80;
+        //and at offset 0x01d00 we have the RNHD magic "RNHD"
+        db[0x1D00] = 0x52;
+        db[0x1D01] = 0x4E;
+        db[0x1D02] = 0x48;
+        db[0x1D03] = 0x44;
+
+        db[0x1D04] = 0xFF;
+        db[0x1D05] = 0xFF;
+        db[0x1D06] = 0xFF;
+        db[0x1D07] = 0xFF;
+
+        var crc = CalculateCrc16(db, 0, CrcOffset);
+        db[CrcOffset] = (byte)(crc >> 8);
+        db[CrcOffset + 1] = (byte)(crc & 0xFF);
+        fileSystem.File.WriteAllBytes(_miiDbFilePath, db);
 
         return Ok();
     }
@@ -167,7 +188,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
             return "Invalid ClientId.";
         if (newBlock.Length != MiiLength)
             return "Mii block size invalid.";
-        if (!fileSystem.File.Exists(_wiiDbFilePath))
+        if (!fileSystem.File.Exists(_miiDbFilePath))
             return "RFL_DB.dat not found.";
 
         var allBlocks = LoadAllBlocks();
@@ -198,7 +219,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     {
         try
         {
-            return Exists() ? fileSystem.File.ReadAllBytes(_wiiDbFilePath) : [];
+            return Exists() ? fileSystem.File.ReadAllBytes(_miiDbFilePath) : [];
         }
         catch
         {

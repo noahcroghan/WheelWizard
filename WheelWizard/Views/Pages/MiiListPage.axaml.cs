@@ -40,19 +40,28 @@ public partial class MiiListPage : UserControlBase
         var miiDbExists = MiiDbService.Exists();
         if (!miiDbExists)
         {
-            var sucess = MiiRepositoryService.ForceCreateDatabase();
-            if (sucess.IsFailure)
+            if (SettingsHelper.PathsSetupCorrectly())
             {
-                ViewUtils.ShowSnackbar($"Failed to create Mii database '{sucess.Error.Message}'", ViewUtils.SnackbarType.Danger);
-                VisibleWhenNoDb.IsVisible = !miiDbExists;
+                var sucess = MiiRepositoryService.ForceCreateDatabase();
+                if (sucess.IsFailure)
+                {
+                    ViewUtils.ShowSnackbar($"Failed to create Mii database '{sucess.Error.Message}'", ViewUtils.SnackbarType.Danger);
+                    VisibleWhenNoDb.IsVisible = !miiDbExists;
+                }
+            }
+            else
+            {
+                VisibleWhenDb.IsVisible = false;
+                VisibleWhenNoDb.IsVisible = true;
             }
         }
+        miiDbExists = MiiDbService.Exists();
+        if (!miiDbExists)
+            return;
 
-        if (miiDbExists)
-        {
-            VisibleWhenDb.IsVisible = true;
-            ReloadMiiList();
-        }
+        VisibleWhenDb.IsVisible = true;
+        VisibleWhenNoDb.IsVisible = false;
+        ReloadMiiList();
     }
 
     #region Multi and Single select
@@ -201,7 +210,7 @@ public partial class MiiListPage : UserControlBase
             var mii = result.Value;
 
             //We duplicate to make sure it does not actually have the original MiiId
-            var macAddress = (string)SettingsManager.MACADDRESS.Get();
+            var macAddress = "02:11:11:11:11:11";
             var saveResult = MiiDbService.AddToDatabase(mii, macAddress);
             if (saveResult.IsFailure)
             {
@@ -209,22 +218,35 @@ public partial class MiiListPage : UserControlBase
                 return;
             }
         }
+        ReloadMiiList();
     }
 
     private async void ExportMultipleMiiFiles(Mii[] miis)
     {
-        // TODO: This is not how we should do it, instead it should ask for a folder
-        //   2 story points
+        if (miis.Length == 0)
+        {
+            ViewUtils.ShowSnackbar("It seems there where no Miis to export", ViewUtils.SnackbarType.Warning);
+            return;
+        }
         foreach (var mii in miis)
+        {
             ExportMiiAsFile(mii);
+        }
+    }
+
+    public static string ReplaceInvalidFileNameChars(string filename)
+    {
+        var invalid = Path.GetInvalidFileNameChars();
+        return string.Join("_", filename.Split(invalid, StringSplitOptions.RemoveEmptyEntries));
     }
 
     private async void ExportMiiAsFile(Mii mii)
     {
+        var exportName = ReplaceInvalidFileNameChars(mii.Name.ToString());
         var diaglog = await FilePickerHelper.SaveFileAsync(
             title: "Save Mii as file",
             fileTypes: new[] { new FilePickerFileType("Mii file") { Patterns = new[] { "*.mii" } } },
-            defaultFileName: $"{mii.Name}"
+            defaultFileName: $"{exportName}"
         );
         if (diaglog == null)
             return;
@@ -234,15 +256,25 @@ public partial class MiiListPage : UserControlBase
             ViewUtils.ShowSnackbar($"Failed to get Mii '{result.Error.Message}'", ViewUtils.SnackbarType.Danger);
             return;
         }
+        var miiToExport = result.Value;
+        var saveResult = SaveMiiToDisk(miiToExport, diaglog);
+        if (saveResult.IsFailure)
+        {
+            ViewUtils.ShowSnackbar($"Failed to save Mii '{saveResult.Error.Message}'", ViewUtils.SnackbarType.Danger);
+            return;
+        }
+        ViewUtils.ShowSnackbar($"Exported Mii '{miiToExport.Name}' to file '{diaglog}'");
+    }
 
-        var miiData = MiiSerializer.Serialize(result.Value);
+    private OperationResult SaveMiiToDisk(Mii mii, string path)
+    {
+        var miiData = MiiSerializer.Serialize(mii);
         if (miiData.IsFailure)
         {
             ViewUtils.ShowSnackbar($"Failed to serialize Mii '{miiData.Error.Message}'", ViewUtils.SnackbarType.Danger);
-            return;
+            return miiData;
         }
-
-        var file = FileSystem.FileInfo.New(diaglog);
+        var file = FileSystem.FileInfo.New(path);
         using var stream = file.Open(FileMode.Create, FileAccess.Write);
         using var writer = new BinaryWriter(stream);
         writer.Write(miiData.Value);
@@ -250,6 +282,7 @@ public partial class MiiListPage : UserControlBase
         writer.Close();
         stream.Close();
         ViewUtils.ShowSnackbar($"Saved Mii '{mii.Name}' to file '{file.FullName}'");
+        return Ok();
     }
 
     private async void DeleteMii(Mii[] miis)

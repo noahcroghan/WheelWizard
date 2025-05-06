@@ -82,7 +82,7 @@ public enum EyeColor : uint
 {
     Black,
     Grey,
-    Red,
+    Brown,
     Gold,
     Blue,
     Green,

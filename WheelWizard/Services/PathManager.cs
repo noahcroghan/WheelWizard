@@ -35,7 +35,7 @@ public static class PathManager
     public static readonly string RetroRewindTempFile = Path.Combine(TempModsFolderPath, "RetroRewind.zip");
     public static string RetroRewindVersionFile => Path.Combine(RetroRewind6FolderPath, "version.txt");
     public static string WiiDbFolder => Path.Combine(WiiFolderPath, "shared2", "menu", "FaceLib");
-    public static string WiiDbFile => Path.Combine(WiiDbFolder, "RFL_DB.dat");
+    public static string MiiDbFile => Path.Combine(WiiDbFolder, "RFL_DB.dat");
 
     //In case it is unclear, the mods folder is a folder with mods that are desired to be installed (if enabled)
     //When launching we want to move the mods from the Mods folder to the MyStuff folder since that is the folder the game uses

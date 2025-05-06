@@ -47,11 +47,11 @@ public partial class EditorGlasses : MiiEditorBaseControl
         var selectedColor4 = new SolidColorBrush(ViewUtils.Colors.Danger500);
         SetButtons(
             "MiiGlasses",
-            8,
+            9,
             GlassesTypesGrid,
             (index, button) =>
             {
-                button.IsChecked = index == (int)Editor.Mii.MiiFacial.FaceShape;
+                button.IsChecked = index == (int)Editor.Mii.MiiGlasses.Type;
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
@@ -183,6 +183,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
         {
             GlassesColorBox.SelectedItem = current.Color.ToString();
         }
+        Editor.RefreshImage();
     }
 
     private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(-1, GlassesProperty.Vertical);

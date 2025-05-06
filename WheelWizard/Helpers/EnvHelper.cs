@@ -19,8 +19,8 @@ public static class EnvHelper
             };
 
             using var process = Process.Start(processInfo);
-            process.WaitForExit();
-            return process.ExitCode == 0;
+            process?.WaitForExit();
+            return process?.ExitCode == 0;
         }
         catch
         {
@@ -56,5 +56,25 @@ public static class EnvHelper
     public static string? NullIfRelativeLinuxPath(string path)
     {
         return IsRelativeLinuxPath(path) ? null : path;
+    }
+
+    public static string SingleQuotePath(string path)
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            // PowerShell expects doubled single quotes inside the quoted string
+            return $"'{path.Replace("'", "''")}'";
+        }
+        return $"'{path.Replace("'", "'\\''")}'";
+    }
+
+    public static string QuotePath(string path)
+    {
+        if (OperatingSystem.IsWindows())
+        {
+            // Use double quotes outside of PowerShell
+            return $"\"{path}\"";
+        }
+        return SingleQuotePath(path);
     }
 }

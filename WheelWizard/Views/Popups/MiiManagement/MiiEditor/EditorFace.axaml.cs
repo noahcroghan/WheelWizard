@@ -95,7 +95,7 @@ public partial class EditorFace : MiiEditorBaseControl
     {
         var current = Editor.Mii.MiiFacial;
         //face shape is an enum so when comparing
-        if (index == (int)current.FaceShape)
+        if (index == (int)current.SkinColor)
             return; // No change
         var result = MiiFacialFeatures.Create(
             current.FaceShape,

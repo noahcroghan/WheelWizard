@@ -127,7 +127,7 @@ public static class DolphinLaunchHelper
             var startInfo = new ProcessStartInfo();
 
             var cannotPassUserFolder = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && PathManager.IsLinuxDolphinConfigSplit();
-            var userFolderArgument = cannotPassUserFolder ? "" : $"-u \"{Path.GetFullPath(PathManager.UserFolderPath)}\"";
+            var userFolderArgument = cannotPassUserFolder ? "" : $"-u {EnvHelper.QuotePath(Path.GetFullPath(PathManager.UserFolderPath))}";
             var dolphinLaunchArguments = $"{arguments} {userFolderArgument}";
 
             var dolphinLocation = (string)SettingsManager.DOLPHIN_LOCATION.Get();
