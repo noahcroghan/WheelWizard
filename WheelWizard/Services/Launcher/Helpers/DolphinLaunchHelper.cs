@@ -91,7 +91,7 @@ public static class DolphinLaunchHelper
             var flatpakRunCommand = "flatpak run";
             fixedFlatpakDolphinLocation = fixedFlatpakDolphinLocation.Replace(
                 flatpakRunCommand,
-                $"{flatpakRunCommand} --filesystem={EnvHelper.SingleQuotePath(Path.GetFullPath(newFilesystemPerm))}{mode}"
+                $"{flatpakRunCommand} --filesystem=\"{Path.GetFullPath(newFilesystemPerm)}\"{mode}"
             );
         }
 
