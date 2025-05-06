@@ -8,7 +8,8 @@ namespace WheelWizard.Views.Pages.Settings;
 
 public partial class SettingsPage : UserControlBase
 {
-    public SettingsPage() : this(new WhWzSettings()) { }
+    public SettingsPage()
+        : this(new WhWzSettings()) { }
 
     public SettingsPage(UserControl initialSettingsPage)
     {
@@ -22,7 +23,7 @@ public partial class SettingsPage : UserControlBase
         part1 = "Dev";
         DevButton.IsVisible = true;
 #endif
-        // We intentionally use preprocessor directives (#if, #elif, #endif) instead of Environment.OSVersion  
+        // We intentionally use preprocessor directives (#if, #elif, #endif) instead of Environment.OSVersion
         // because 'part2' represents the OS this code was built for, not the OS it is currently running on.
 #if WINDOWS
         part2 = "Windows";
@@ -49,7 +50,7 @@ public partial class SettingsPage : UserControlBase
         if (sender is not RadioButton radioButton)
             return;
 
-        // As long as the Ks... files are next to this file, it works. 
+        // As long as the Ks... files are next to this file, it works.
         var namespaceName = GetType().Namespace;
         var typeName = $"{namespaceName}.{radioButton.Tag}";
         var type = Type.GetType(typeName);

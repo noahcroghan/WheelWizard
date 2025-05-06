@@ -1,9 +1,10 @@
-<self:PopupContent xmlns="https://github.com/avaloniaui"
+<base:PopupContent xmlns="https://github.com/avaloniaui"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:self="clr-namespace:WheelWizard.Views.Popups"
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:components="clr-namespace:WheelWizard.Views.Components"
+                   xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
                    mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
                    x:Class="WheelWizard.Views.Popups.Generic.YesNoWindow">
     <Grid Width="400" MinHeight="150" MaxHeight="350">
@@ -20,14 +21,14 @@
         
         <UniformGrid Columns="2" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                      x:Name="ButtonContainer">
-            <components:Button x:Name="YesButton" Variant="Primary"
-                               IsEnabled="True" Text="Yes"
-                               IconData="{StaticResource CheckMark}"
-                               Click="yesButton_Click" Margin="0,0,5,0"/>
             <components:Button x:Name="NoButton" Variant="Default"
                                IsEnabled="True" Text="No" 
                                IconData="{StaticResource XMark}"
-                               Click="noButton_Click" Margin="5,0,0,0"/>
+                               Click="noButton_Click" Margin="0,0,5,0"/>
+            <components:Button x:Name="YesButton" Variant="Primary"
+                               IsEnabled="True" Text="Yes"
+                               IconData="{StaticResource CheckMark}"
+                               Click="yesButton_Click" Margin="5,0,0,0"/>
         </UniformGrid>
     </Grid>
-</self:PopupContent>
+</base:PopupContent>

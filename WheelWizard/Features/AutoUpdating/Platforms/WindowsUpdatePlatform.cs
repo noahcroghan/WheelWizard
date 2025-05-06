@@ -13,8 +13,7 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
     public GithubAsset? GetAssetForCurrentPlatform(GithubRelease release)
     {
         // Select the first asset ending with ".exe"
-        return release.Assets.FirstOrDefault(asset =>
-            asset.BrowserDownloadUrl.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
+        return release.Assets.FirstOrDefault(asset => asset.BrowserDownloadUrl.EndsWith(".exe", StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<OperationResult> ExecuteUpdateAsync(string downloadUrl)
@@ -26,7 +25,8 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         // Otherwise, ask if the user wants to restart as admin.
         var restartAsAdmin = await new YesNoWindow()
             .SetMainText(Phrases.PopupText_UpdateAdmin)
-            .SetExtraText(Phrases.PopupText_UpdateAdminExplained).AwaitAnswer();
+            .SetExtraText(Phrases.PopupText_UpdateAdminExplained)
+            .AwaitAnswer();
 
         if (!restartAsAdmin)
             return await UpdateAsync(downloadUrl);
@@ -41,14 +41,17 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             UseShellExecute = true,
             WorkingDirectory = Environment.CurrentDirectory,
             FileName = Environment.ProcessPath,
-            Verb = "runas" // This verb asks for elevation.
+            Verb = "runas", // This verb asks for elevation.
         };
 
-        return TryCatch(() =>
-        {
-            Process.Start(startInfo);
-            Environment.Exit(0);
-        }, errorMessage: Phrases.PopupText_RestartAdminFail);
+        return TryCatch(
+            () =>
+            {
+                Process.Start(startInfo);
+                Environment.Exit(0);
+            },
+            errorMessage: Phrases.PopupText_RestartAdminFail
+        );
     }
 
     private static bool IsAdministrator()
@@ -67,7 +70,6 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         if (currentExecutablePath is null)
             return Phrases.PopupText_UnableUpdateWhWz_ReasonLocation;
 
-
         var currentExecutableName = fileSystem.Path.GetFileNameWithoutExtension(currentExecutablePath);
         var currentFolder = fileSystem.Path.GetDirectoryName(currentExecutablePath);
 
@@ -84,7 +86,8 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             newFilePath,
             Phrases.PopupText_UpdateWhWz,
             Phrases.PopupText_LatestWhWzGithub,
-            ForceGivenFilePath: true);
+            ForceGivenFilePath: true
+        );
 
         // Wait briefly to ensure the file is saved on disk.
         await Task.Delay(200);
@@ -109,69 +112,71 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         var originalFileName = fileSystem.Path.GetFileName(currentFilePath);
         var newFileName = fileSystem.Path.GetFileName(newFilePath);
 
-        var scriptContent =
-            $$"""
+        var scriptContent = $$"""
 
-              Write-Output 'Starting update process...'
+            Write-Output 'Starting update process...'
 
-              # Wait for the original application to exit
-              while (Get-Process -Name '{{fileSystem.Path.GetFileNameWithoutExtension(originalFileName)}}' -ErrorAction SilentlyContinue) {
-                  Write-Output 'Waiting for {{originalFileName}} to exit...'
-                  Start-Sleep -Seconds 1
-              }
+            # Wait for the original application to exit
+            while (Get-Process -Name {{EnvHelper.SingleQuotePath(fileSystem.Path.GetFileNameWithoutExtension(originalFileName))}} -ErrorAction SilentlyContinue) {
+                Write-Output 'Waiting for {{originalFileName}} to exit...'
+                Start-Sleep -Seconds 1
+            }
 
-              Write-Output 'Deleting old executable...'
-              $maxRetries = 5
-              $retryCount = 0
-              $deleted = $false
+            Write-Output 'Deleting old executable...'
+            $maxRetries = 5
+            $retryCount = 0
+            $deleted = $false
 
-              while (-not $deleted -and $retryCount -lt $maxRetries) {
-                  try {
-                      Remove-Item -Path '{{fileSystem.Path.Combine(currentFolder, originalFileName)}}' -Force -ErrorAction Stop
-                      $deleted = $true
-                  }
-                  catch {
-                      Write-Output 'Failed to delete {{originalFileName}}. Retrying in 2 seconds...'
-                      Start-Sleep -Seconds 2
-                      $retryCount++
-                  }
-              }
+            while (-not $deleted -and $retryCount -lt $maxRetries) {
+                try {
+                    Remove-Item -Path {{EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}} -Force -ErrorAction Stop
+                    $deleted = $true
+                }
+                catch {
+                    Write-Output 'Failed to delete {{originalFileName}}. Retrying in 2 seconds...'
+                    Start-Sleep -Seconds 2
+                    $retryCount++
+                }
+            }
 
-              if (-not $deleted) {
-                  Write-Output 'Could not delete {{originalFileName}}. Update aborted.'
-                  pause
-                  exit 1
-              }
+            if (-not $deleted) {
+                Write-Output 'Could not delete {{originalFileName}}. Update aborted.'
+                pause
+                exit 1
+            }
 
-              Write-Output 'Renaming new executable...'
-              try {
-                  Rename-Item -Path '{{fileSystem.Path.Combine(currentFolder, newFileName)}}' -NewName '{{originalFileName}}' -ErrorAction Stop
-              }
-              catch {
-                  Write-Output 'Failed to rename {{newFileName}} to {{originalFileName}}. Update aborted.'
-                  pause
-                  exit 1
-              }
+            Write-Output 'Renaming new executable...'
+            try {
+                Rename-Item -Path {{EnvHelper.SingleQuotePath(fileSystem.Path.Combine(
+                currentFolder,
+                newFileName
+            ))}} -NewName {{EnvHelper.SingleQuotePath(originalFileName)}} -ErrorAction Stop
+            }
+            catch {
+                Write-Output 'Failed to rename {{newFileName}} to {{originalFileName}}. Update aborted.'
+                pause
+                exit 1
+            }
 
-              Write-Output 'Starting the updated application...'
-              Start-Process -FilePath '{{fileSystem.Path.Combine(currentFolder, originalFileName)}}'
+            Write-Output 'Starting the updated application...'
+            Start-Process -FilePath {{EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}}
 
-              Write-Output 'Cleaning up...'
-              Remove-Item -Path '{{scriptFilePath}}' -Force
+            Write-Output 'Cleaning up...'
+            Remove-Item -Path {{EnvHelper.SingleQuotePath(scriptFilePath)}} -Force
 
-              Write-Output 'Update completed successfully.'
+            Write-Output 'Update completed successfully.'
 
-              """;
+            """;
 
         fileSystem.File.WriteAllText(scriptFilePath, scriptContent);
 
         var processStartInfo = new ProcessStartInfo
         {
             FileName = "powershell.exe",
-            Arguments = $"-NoProfile -ExecutionPolicy Bypass -File \"{scriptFilePath}\"",
+            ArgumentList = { "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", scriptFilePath },
             CreateNoWindow = false,
             UseShellExecute = false,
-            WorkingDirectory = currentFolder
+            WorkingDirectory = currentFolder,
         };
 
         return TryCatch(() => Process.Start(processStartInfo), errorMessage: "Failed to execute the update script.");

@@ -15,6 +15,6 @@ public class MiiHair
         HairFlipped = hairFlipped;
     }
 
-    public static OperationResult<MiiHair> Create(int hairType, HairColor hairColor, bool hairFlipped) => TryCatch(()
-        => new MiiHair(hairType, hairColor, hairFlipped));
+    public static OperationResult<MiiHair> Create(int hairType, HairColor hairColor, bool hairFlipped) =>
+        TryCatch(() => new MiiHair(hairType, hairColor, hairFlipped));
 }

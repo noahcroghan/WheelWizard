@@ -11,7 +11,7 @@ public interface IUpdatePlatform
     /// Gets the asset for the current platform.
     /// </summary>
     GithubAsset? GetAssetForCurrentPlatform(GithubRelease release);
-    
+
     /// <summary>
     /// Executes the update logic for the current platform.
     /// </summary>

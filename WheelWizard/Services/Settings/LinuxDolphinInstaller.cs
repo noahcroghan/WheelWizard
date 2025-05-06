@@ -1,6 +1,6 @@
-﻿using Avalonia.Threading;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Avalonia.Threading;
 using WheelWizard.Helpers;
 using WheelWizard.Views.Popups.Generic;
 
@@ -33,8 +33,7 @@ public static class LinuxDolphinInstaller
     }
 
     // Helper method to run a process asynchronously with progress reporting.
-    private static async Task<int> RunProcessWithProgressAsync(string fileName, string arguments,
-        IProgress<int> progress = null)
+    private static async Task<int> RunProcessWithProgressAsync(string fileName, string arguments, IProgress<int> progress = null)
     {
         var processInfo = new ProcessStartInfo
         {
@@ -110,15 +109,12 @@ public static class LinuxDolphinInstaller
         {
             Dispatcher.UIThread.InvokeAsync(() =>
             {
-                new MessageBoxWindow().SetTitleText("Error")
-                    .SetTitleText("You need to be an administrator to install Flatpak").Show();
+                new MessageBoxWindow().SetTitleText("Error").SetTitleText("You need to be an administrator to install Flatpak").Show();
             });
         }
 
         return exitCode == 0 && isFlatPakInstalled();
     }
-
-
 
     /// <summary>
     /// Installs Dolphin via Flatpak.
@@ -141,8 +137,10 @@ public static class LinuxDolphinInstaller
         {
             Dispatcher.UIThread.InvokeAsync(() =>
             {
-                new MessageBoxWindow().SetTitleText("Error")
-                    .SetTitleText("You need to be an administrator to install Dolphin via Flatpak").Show();
+                new MessageBoxWindow()
+                    .SetTitleText("Error")
+                    .SetTitleText("You need to be an administrator to install Dolphin via Flatpak")
+                    .Show();
             });
             return false;
         }
@@ -153,7 +151,7 @@ public static class LinuxDolphinInstaller
         {
             var dolphinProcess = new Process
             {
-                StartInfo = new ProcessStartInfo
+                StartInfo = new()
                 {
                     FileName = "flatpak",
                     Arguments = "run org.DolphinEmu.dolphin-emu",
@@ -161,7 +159,7 @@ public static class LinuxDolphinInstaller
                     RedirectStandardError = true,
                     UseShellExecute = false,
                     CreateNoWindow = true,
-                }
+                },
             };
 
             dolphinProcess.Start();
@@ -172,13 +170,10 @@ public static class LinuxDolphinInstaller
         {
             Dispatcher.UIThread.InvokeAsync(() =>
             {
-                new MessageBoxWindow().SetTitleText("Error")
-                    .SetTitleText($"Failed to launch Dolphin")
-                    .SetInfoText(ex.Message).Show();
+                new MessageBoxWindow().SetTitleText("Error").SetTitleText($"Failed to launch Dolphin").SetInfoText(ex.Message).Show();
             });
         }
 
         return true;
     }
-
 }

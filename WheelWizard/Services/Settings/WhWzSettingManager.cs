@@ -1,5 +1,5 @@
-using Microsoft.Extensions.Logging;
 using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Settings;
 using WheelWizard.Views;
@@ -14,6 +14,7 @@ public class WhWzSettingManager
     private readonly Dictionary<string, WhWzSetting> _settings = new();
 
     public static WhWzSettingManager Instance { get; } = new();
+
     private WhWzSettingManager() { }
 
     public void RegisterSetting(WhWzSetting setting)
@@ -66,8 +67,7 @@ public class WhWzSettingManager
         }
         catch (JsonException e)
         {
-            App.Services.GetRequiredService<ILogger<WhWzSettingManager>>()
-                .LogError(e, "Failed to deserialize the JSON config");
+            App.Services.GetRequiredService<ILogger<WhWzSettingManager>>().LogError(e, "Failed to deserialize the JSON config");
         }
     }
 }

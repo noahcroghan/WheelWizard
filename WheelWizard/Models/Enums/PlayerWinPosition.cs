@@ -5,5 +5,5 @@ public enum PlayerWinPosition
     None,
     First,
     Second,
-    Third
+    Third,
 }

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent"
              mc:Ignorable="d" d:DesignWidth="656" d:DesignHeight="876"
              ClipToBounds="False"
              x:Class="WheelWizard.Views.Pages.HomePage">
@@ -20,7 +21,7 @@
         <Border Grid.Row="1" Background="{StaticResource BackgroundLineColor}" Height="1" HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom" />
         
-        <components:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
+        <behaviorComponent:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
                                       HorizontalAlignment="Right" VerticalAlignment="Top"/>
 
         <StackPanel Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Top" Margin="0,6" HorizontalAlignment="Right"

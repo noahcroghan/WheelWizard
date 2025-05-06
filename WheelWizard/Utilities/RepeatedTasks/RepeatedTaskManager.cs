@@ -6,12 +6,12 @@ public abstract class RepeatedTaskManager
 {
     protected int SubscriberCount => _subscribers.Count;
     public readonly double IntervalSeconds;
-    private readonly List<IRepeatedTaskListener> _subscribers = new();
+    private readonly List<IRepeatedTaskListener> _subscribers = [];
     private DispatcherTimer? _timer;
     private DateTime _nextTick;
-    
+
     public TimeSpan TimeUntilNextTick => _nextTick - DateTime.Now;
-    
+
     // Since we are using DispatcherTimer, we cant use CancellationTokenSource, so we just do it with a bool ¯\(°_o)/¯
     private static bool _globalCancellation;
 
@@ -28,15 +28,13 @@ public abstract class RepeatedTaskManager
 
     public void Start()
     {
-        if (_globalCancellation || _timer != null) return;
+        if (_globalCancellation || _timer != null)
+            return;
 
-        _timer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(IntervalSeconds)
-        };
-        
+        _timer = new() { Interval = TimeSpan.FromSeconds(IntervalSeconds) };
+
         _nextTick = DateTime.Now.AddSeconds(IntervalSeconds);
-        
+
         _timer.Tick += async (_, _) =>
         {
             await ExecuteAndNotifyAsync();
@@ -56,6 +54,7 @@ public abstract class RepeatedTaskManager
     }
 
     public virtual bool Unsubscribe(IRepeatedTaskListener subscriber) => _subscribers.Remove(subscriber);
+
     public virtual void Subscribe(IRepeatedTaskListener subscriber)
     {
         if (!_subscribers.Contains(subscriber))

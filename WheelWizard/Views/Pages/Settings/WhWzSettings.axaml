@@ -158,6 +158,7 @@
         <components1:FormFieldLabel Text="{x:Static lang:Settings.Section_WhWzAppearance}" Margin="0,10,0,0" />
         <Border Classes="SettingsBlockStyle" x:Name="WhWzAppearance">
             <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <!-- There are no animations in the current version of the app, Will enable again once there are animations again
                 <CheckBox Margin="0,2,0,6"
                           IsChecked="True"
                           Classes="Switch"
@@ -166,6 +167,7 @@
                     <components1:FormFieldLabel Text="{x:Static lang:Settings.Option_EnableAnimations}"
                                                 TipText="{x:Static lang:Settings.InfoText_EnableAnimations}" />
                 </CheckBox>
+                -->
                 <components1:FormFieldLabel Text="{x:Static lang:Settings.Option_WindowScale}"/>
                 <ComboBox
                     x:Name="WindowScaleDropdown"

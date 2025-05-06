@@ -4,11 +4,11 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.GameData;
 using WheelWizard.Services.LiveData;
-using WheelWizard.Services.WiiManagement.SaveData;
+using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
-using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WiiManagement;
 
 namespace WheelWizard.Views.Pages;
@@ -20,8 +20,13 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
     // Though I do see the use in saving it when using the app so you can swap pages in the meantime
     private static ListOrderCondition CurrentOrder = ListOrderCondition.IS_ONLINE;
 
-    private ObservableCollection<FriendProfile> _friendlist = new();
-    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
+    private ObservableCollection<FriendProfile> _friendlist = [];
+
+    [Inject]
+    private IGameLicenseSingletonService GameLicenseService { get; set; } = null!;
+
+    [Inject]
+    private IMiiDbService MiiDbService { get; set; } = null!;
 
     public ObservableCollection<FriendProfile> FriendList
     {
@@ -36,7 +41,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
     public FriendsPage()
     {
         InitializeComponent();
-        GameDataService.Subscribe(this);
+        GameLicenseService.Subscribe(this);
         UpdateFriendList();
 
         DataContext = this;
@@ -47,7 +52,8 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     public void OnUpdate(RepeatedTaskManager sender)
     {
-        if (sender is not GameDataSingletonService) return;
+        if (sender is not GameLicenseSingletonService)
+            return;
         UpdateFriendList();
     }
 
@@ -57,8 +63,10 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
         // Instead of setting entire list every single time, we just update the indexes accordingly, which is faster
         for (var i = 0; i < newList.Count; i++)
         {
-            if (i < FriendList.Count) FriendList[i] = newList[i];
-            else FriendList.Add(newList[i]);
+            if (i < FriendList.Count)
+                FriendList[i] = newList[i];
+            else
+                FriendList.Add(newList[i]);
         }
 
         while (FriendList.Count > newList.Count)
@@ -87,7 +95,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
             ListOrderCondition.TOTAL_RACES => f => f.Losses + f.Wins,
             ListOrderCondition.IS_ONLINE or _ => f => f.IsOnline,
         };
-        return GameDataService.CurrentFriends.OrderByDescending(orderMethod).ToList();
+        return GameLicenseService.ActiveCurrentFriends.OrderByDescending(orderMethod).ToList();
     }
 
     private void PopulateSortingList()
@@ -102,7 +110,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
                 ListOrderCondition.NAME => "Name",
                 ListOrderCondition.WINS => "Total Wins",
                 ListOrderCondition.TOTAL_RACES => "Total Races",
-                ListOrderCondition.IS_ONLINE => "Is Online"
+                ListOrderCondition.IS_ONLINE => "Is Online",
             };
 
             SortByDropdown.Items.Add(name);
@@ -129,14 +137,18 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     private void CopyFriendCode_OnClick(object sender, RoutedEventArgs e)
     {
-        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer) return;
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
+            return;
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedPlayer.FriendCode);
+        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
     }
 
     private void OpenCarousel_OnClick(object sender, RoutedEventArgs e)
     {
-        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer) return;
-        if (selectedPlayer.Mii == null) return;
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
+            return;
+        if (selectedPlayer.Mii == null)
+            return;
         new MiiCarouselWindow().SetMii(selectedPlayer.Mii).Show();
     }
 
@@ -158,13 +170,46 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
             .Show();
     }
 
+    private void SaveMii_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (!MiiDbService.Exists())
+        {
+            ViewUtils.ShowSnackbar("Cant save Mii", ViewUtils.SnackbarType.Warning);
+            return;
+        }
+
+        if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
+            return;
+        if (selectedPlayer.Mii == null)
+            return;
+
+        var desiredMii = selectedPlayer.Mii;
+
+        //We set the miiId to 0 so it will be added as a new Mii
+        desiredMii.MiiId = 0;
+        //Since we are actually copying this mii, we want to set the mac Adress to a dummy value
+        var macAddress = "02:11:11:11:11:11";
+        var databaseResult = MiiDbService.AddToDatabase(desiredMii, macAddress);
+        if (databaseResult.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetTitleText("Failed to Copy Mii")
+                .SetInfoText(databaseResult.Error!.Message)
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .Show();
+            return;
+        }
+
+        ViewUtils.ShowSnackbar("Mii has been added to your Miis");
+    }
+
     #region PropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion

@@ -11,23 +11,24 @@
         Height="876" Width="656" WindowStartupLocation="CenterScreen"
         SystemDecorations="None"
         ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome" 
+        ExtendClientAreaChromeHints="NoChrome"
         CanResize='False' Background="Transparent">
-    <Grid ColumnDefinitions="192,*" RowDefinitions="25,17,88,*,80" x:Name="CompleteGrid"
+    <Grid ColumnDefinitions="192,*" RowDefinitions="27,17,18,70,*,80" x:Name="CompleteGrid"
           Background="{StaticResource FrameColor}">
-                
+
         <Border Grid.ColumnSpan="2"
                 CornerRadius="0"
                 Background="{StaticResource FrameColor}"
                 PointerPressed="TopBar_PointerPressed">
         </Border>
-        
+
         <Border Grid.RowSpan="999" Grid.ColumnSpan="999" ZIndex="999" IsVisible="false"
                 x:Name="DisabledDarkenEffect" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                Background="Black"  Opacity="0.3"/> 
-        
-        <DockPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <Button Width="30" Height="25" Click="MinimizeButton_Click"  Classes="TopButton">
+                Background="Black" Opacity="0.3" />
+
+        <DockPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                   x:Name="TopBarButtons">
+            <Button Width="30" Height="25" Click="MinimizeButton_Click" Classes="TopButton">
                 <PathIcon Data="{StaticResource MinMark}" Width="12" Height="12"
                           Foreground="{Binding $parent[Button].Foreground}" />
             </Button>
@@ -36,137 +37,238 @@
                           Foreground="{Binding $parent[Button].Foreground}" />
             </Button>
         </DockPanel>
-        
-        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Bottom">
+
+        <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" VerticalAlignment="Bottom">
             <components:IconLabel IconData="{StaticResource WheelIcon}" x:Name="TitleLabel"
-                             Foreground="{StaticResource Neutral400}"
-                             FontSize="20"
-                             Margin="10,10,0,0"
-                             IconSize="31" />
+                                  Foreground="{StaticResource Neutral400}"
+                                  FontSize="20" IconSize="31" IsHitTestVisible="False"
+                                  Margin="10,10,0,18" />
         </Border>
-        
-        <Border Grid.Row="3"
-                VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
+
+        <Border Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
             <StackPanel>
-                <TextBlock Classes="TinyText" x:Name="MadeBy_Part1" Text="Made by: Patchzy" HorizontalAlignment="Right"/>
-                <TextBlock Classes="TinyText" x:Name="MadeBy_Part2" Text="And WantToBeeMe" HorizontalAlignment="Right"/>
+                <TextBlock Classes="TinyText" x:Name="MadeBy_Part1" Text="Made by: Patchzy" HorizontalAlignment="Right" />
+                <TextBlock Classes="TinyText" x:Name="MadeBy_Part2" Text="And WantToBeeMe" HorizontalAlignment="Right" />
             </StackPanel>
         </Border>
-        
 
-        <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="4"
+
+        <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="5"
                 CornerRadius="{StaticResource WindowCornerRadiusLeftRightTwix}"
-                Background="{StaticResource BackgroundColor}"/>
-        <ContentControl Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" ClipToBounds="False"
-                        x:Name="ContentArea" Margin="{StaticResource EdgeGap}"/>
-        
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center">
+                Background="{StaticResource BackgroundColor}" />
+        <ContentControl Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" ClipToBounds="False"
+                        x:Name="ContentArea" Margin="{StaticResource EdgeGap}" />
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Bottom"
+                    Margin="0,0,0,25">
             <components:StateBox x:Name="PlayerCountBox" Text="0" Variant="Dark"
-                                  IconData="{StaticResource UserCouple}"
-                                  TipText="{x:Static lang:Phrases.Hover_PlayersOnline_0}"
-                                  Margin="10,0,0,0" />
+                                 IconData="{StaticResource UserCouple}"
+                                 TipText="{x:Static lang:Phrases.Hover_PlayersOnline_0}"
+                                 Margin="10,0,0,0" />
             <components:StateBox x:Name="RoomCountBox" Text="0" Variant="Dark"
-                            IconData="{StaticResource RoomUsers}"
-                            TipText="{x:Static lang:Phrases.Hover_RoomsOnline_0}"
-                            Margin="10,0,0,0" />
+                                 IconData="{StaticResource RoomUsers}"
+                                 TipText="{x:Static lang:Phrases.Hover_RoomsOnline_0}"
+                                 Margin="10,0,0,0" />
         </StackPanel>
-        
-        <Border Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+
+        <Border Grid.Column="0" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left"
                 ToolTip.Tip="This only shows regions YOU have played on"
                 ToolTip.Placement="TopEdgeAlignedLeft" ToolTip.ShowDelay="20"
                 x:Name="LiveStatusBorder" IsVisible="False"
                 Width="32" Height="32" Margin="6">
-            <PathIcon VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <PathIcon VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
             <Border.Styles>
                 <Style Selector="Border PathIcon">
-                    <Setter Property="Foreground" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="Transparent" />
                 </Style>
                 <Style Selector="Border.Warning PathIcon">
-                    <Setter Property="Foreground" Value="{StaticResource Warning500}"/>
-                    <Setter Property="Data" Value="{StaticResource WarningTip}"/>
+                    <Setter Property="Foreground" Value="{StaticResource Warning500}" />
+                    <Setter Property="Data" Value="{StaticResource WarningTip}" />
                 </Style>
                 <Style Selector="Border.Error PathIcon">
-                    <Setter Property="Foreground" Value="{StaticResource Danger500}"/>
-                    <Setter Property="Data" Value="{StaticResource ErrorTip}"/>
+                    <Setter Property="Foreground" Value="{StaticResource Danger500}" />
+                    <Setter Property="Data" Value="{StaticResource ErrorTip}" />
                 </Style>
                 <Style Selector="Border.Success PathIcon">
-                    <Setter Property="Foreground" Value="{StaticResource Primary300}"/>
-                    <Setter Property="Data" Value="{StaticResource SuccessTip}"/>
+                    <Setter Property="Foreground" Value="{StaticResource Primary300}" />
+                    <Setter Property="Data" Value="{StaticResource SuccessTip}" />
                 </Style>
                 <Style Selector="Border.Info PathIcon">
-                    <Setter Property="Foreground" Value="{StaticResource Neutral200}"/>
-                    <Setter Property="Data" Value="{StaticResource InfoTip}"/>
+                    <Setter Property="Foreground" Value="{StaticResource Neutral200}" />
+                    <Setter Property="Data" Value="{StaticResource InfoTip}" />
                 </Style>
                 <Style Selector="Border.Question PathIcon">
-                    <Setter Property="Foreground" Value="{StaticResource Warning600}"/>
-                    <Setter Property="Data" Value="{StaticResource QuestionTip}"/>
+                    <Setter Property="Foreground" Value="{StaticResource Warning600}" />
+                    <Setter Property="Data" Value="{StaticResource QuestionTip}" />
                 </Style>
                 <Style Selector="Border.Party PathIcon">
-                    <Setter Property="Foreground" Value="{StaticResource Danger300}"/>
-                    <Setter Property="Data" Value="{StaticResource StarIcon}"/>
+                    <Setter Property="Foreground" Value="{StaticResource Danger300}" />
+                    <Setter Property="Data" Value="{StaticResource StarIcon}" />
                 </Style>
             </Border.Styles>
         </Border>
-       
-        
+
+
         <!-- Sidebar -->
         <TextBlock Text="{x:Static lang:Common.Term_General}" Classes="SidebarSectionText"
-                   VerticalAlignment="Bottom" Grid.Row="2" />
-        <StackPanel x:Name="SidePanelButtons" Grid.Column="0" Grid.Row="3" Width="192" VerticalAlignment="Top">
+                   VerticalAlignment="Bottom" Grid.Row="3" />
+        <StackPanel x:Name="SidePanelButtons" Grid.Column="0" Grid.Row="4" Width="192" VerticalAlignment="Top">
             <components:SidebarRadioButton IconData="{StaticResource Home}"
-                                        Text="{x:Static lang:Common.PageTitle_Home}"
-                                        PageType="{x:Type pages:HomePage}"
-                                        IsChecked="True"/>
+                                           Text="{x:Static lang:Common.PageTitle_Home}"
+                                           PageType="{x:Type pages:HomePage}"
+                                           IsChecked="True" />
             <components:SidebarRadioButton IconData="{StaticResource UserCircle}"
-                                        PageType="{x:Type pages:UserProfilePage}"
-                                        Text="{x:Static lang:Common.PageTitle_MyProfiles}" x:Name="MyProfilesButton"/>
+                                           PageType="{x:Type pages:UserProfilePage}"
+                                           Text="{x:Static lang:Common.PageTitle_MyProfiles}" x:Name="MyProfilesButton" />
             <components:SidebarRadioButton IconData="{StaticResource CubesStacked}"
-                                        PageType="{x:Type pages:ModsPage}"
-                                        Text="{x:Static lang:Common.PageTitle_Mods}"/>
+                                           PageType="{x:Type pages:ModsPage}"
+                                           Text="{x:Static lang:Common.PageTitle_Mods}" />
+            <components:SidebarRadioButton IconData="{StaticResource Shirt}"
+                                           PageType="{x:Type pages:MiiListPage}"
+                                           Text="{x:Static lang:Common.PageTitle_MyMiis}" />
             <TextBlock Text="{x:Static lang:Common.Term_Online}" Classes="SidebarSectionText" />
             <components:SidebarRadioButton IconData="{StaticResource RoomUsers}"
-                                        PageType="{x:Type pages:RoomsPage}"
-                                        Text="{x:Static lang:Common.PageTitle_Rooms}" x:Name="RoomsButton"/>
+                                           PageType="{x:Type pages:RoomsPage}"
+                                           Text="{x:Static lang:Common.PageTitle_Rooms}" x:Name="RoomsButton" />
             <components:SidebarRadioButton IconData="{StaticResource Friends}"
-                                        Text="{x:Static lang:Common.PageTitle_Friends}" x:Name="FriendsButton"
-                                        PageType="{x:Type pages:FriendsPage}"
-                                        BoxText="0/0"/>
+                                           Text="{x:Static lang:Common.PageTitle_Friends}" x:Name="FriendsButton"
+                                           PageType="{x:Type pages:FriendsPage}"
+                                           BoxText="0/0" />
 
             <TextBlock Text="{x:Static lang:Common.Term_Other}" Classes="SidebarSectionText" />
             <components:SidebarRadioButton IconData="{StaticResource Settings}"
-                                        PageType="{x:Type settings:SettingsPage}"
-                                        Text="{x:Static lang:Common.PageTitle_Settings}" x:Name="SettingsButton"/>
+                                           PageType="{x:Type settings:SettingsPage}"
+                                           Text="{x:Static lang:Common.PageTitle_Settings}" x:Name="SettingsButton" />
             <components:SidebarRadioButton IconData="{StaticResource Spinner}" IsVisible="False"
-                                        Text="Kitchen Sink" x:Name="KitchenSinkButton"/>
+                                           Text="Kitchen Sink" x:Name="KitchenSinkButton" />
         </StackPanel>
-        
-        <Border Grid.Column="0" Grid.Row="4" Background="{StaticResource Neutral800}">
+
+        <Border Grid.Column="0" Grid.Row="5" Background="{StaticResource Neutral800}">
             <StackPanel VerticalAlignment="Center" Spacing="5">
                 <components:IconLabelButton IconData="{StaticResource DiscordIcon}"
-                                       Text="{x:Static lang:Phrases.Sidebar_Link_Discord}"
-                                       Foreground="{StaticResource Neutral400}"
-                                       HoverForeground="{StaticResource Primary300}"
-                                       FontSize="13"
-                                       Click="Discord_Click"
-                                       Margin="10,0,0,0"
-                                       IconSize="20" />
+                                            Text="{x:Static lang:Phrases.Sidebar_Link_Discord}"
+                                            Foreground="{StaticResource Neutral400}"
+                                            HoverForeground="{StaticResource Primary300}"
+                                            FontSize="13"
+                                            Click="Discord_Click"
+                                            Margin="10,0,0,0"
+                                            IconSize="20" />
                 <components:IconLabelButton IconData="{StaticResource GithubIcon}"
-                                       Text="{x:Static lang:Phrases.Sidebar_Link_Github}"
-                                       Foreground="{StaticResource Neutral400}"
-                                       HoverForeground="{StaticResource Primary300}"
-                                       FontSize="13"
-                                       Click="Github_Click"
-                                       Margin="10,0,0,0"
-                                       IconSize="20" />
+                                            Text="{x:Static lang:Phrases.Sidebar_Link_Github}"
+                                            Foreground="{StaticResource Neutral400}"
+                                            HoverForeground="{StaticResource Primary300}"
+                                            FontSize="13"
+                                            Click="Github_Click"
+                                            Margin="10,0,0,0"
+                                            IconSize="20" />
                 <components:IconLabelButton IconData="{StaticResource CoffeeIcon}"
-                                       Text="{x:Static lang:Phrases.Sidebar_Link_Support}"
-                                       Foreground="{StaticResource Neutral400}"
-                                       HoverForeground="{StaticResource Primary300}"
-                                       FontSize="13"
-                                       Click="Support_Click"
-                                       Margin="10,0,0,0"
-                                       IconSize="20" />
+                                            Text="{x:Static lang:Phrases.Sidebar_Link_Support}"
+                                            Foreground="{StaticResource Neutral400}"
+                                            HoverForeground="{StaticResource Primary300}"
+                                            FontSize="13"
+                                            Click="Support_Click"
+                                            Margin="10,0,0,0"
+                                            IconSize="20" />
             </StackPanel>
         </Border>
+
+        <!-- Snackbar -->
+        <Grid Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Bottom"
+              MinHeight="40" Margin="30,13,30,16" x:Name="Snackbar">
+
+            <Border HorizontalAlignment="Stretch" x:Name="SnackbarBlur"
+                    VerticalAlignment="Stretch" CornerRadius="9999" Effect="blur(150)" Opacity="0.1" />
+
+            <Border Background="{StaticResource Neutral700}" HorizontalAlignment="Stretch"
+                    BorderThickness="1" x:Name="SnackbarContainer"
+                    CornerRadius="{StaticResource GlobalCornerRadius}">
+                <Grid VerticalAlignment="Center" ColumnDefinitions="40,*,40">
+                    <PathIcon Width="20" /> <!-- check mark, warning or error icon -->
+                    <TextBlock Grid.Column="1" Classes="BodyText" VerticalAlignment="Center"
+                               Foreground="{StaticResource Neutral200}"
+                               x:Name="SnackbarText">
+                        Example text
+                    </TextBlock>
+                    <components:IconLabelButton Grid.Column="2" IconData="{StaticResource XMark}"
+                                                Foreground="{StaticResource Neutral400}"
+                                                Click="CloseSnackbar_OnClick" HorizontalAlignment="Center"
+                                                HoverForeground="{StaticResource Neutral100}"
+                                                Text="" IconSize="14" />
+                </Grid>
+            </Border>
+
+            <Grid.Styles>
+                <Style Selector="Grid#Snackbar">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
+
+                <Style Selector="Grid#Snackbar.success">
+                    <Style Selector="^ PathIcon">
+                        <Setter Property="Data" Value="{StaticResource SuccessTip}" />
+                        <Setter Property="Foreground" Value="{StaticResource Primary400}" />
+                    </Style>
+                    <Style Selector="^ Border#SnackbarBlur">
+                        <Setter Property="Background" Value="{StaticResource Primary300}" />
+                    </Style>
+                    <Style Selector="^ Border#SnackbarContainer">
+                        <Setter Property="BorderBrush" Value="{StaticResource Primary400}" />
+                    </Style>
+                </Style>
+
+                <Style Selector="Grid#Snackbar.warning">
+                    <Style Selector="^ PathIcon">
+                        <Setter Property="Data" Value="{StaticResource WarningTip}" />
+                        <Setter Property="Foreground" Value="{StaticResource Warning500}" />
+                    </Style>
+                    <Style Selector="^ Border#SnackbarBlur">
+                        <Setter Property="Background" Value="{StaticResource Warning600}" />
+                    </Style>
+                    <Style Selector="^ Border#SnackbarContainer">
+                        <Setter Property="BorderBrush" Value="{StaticResource Warning500}" />
+                    </Style>
+                </Style>
+
+                <Style Selector="Grid#Snackbar.danger">
+                    <Style Selector="^ PathIcon">
+                        <Setter Property="Data" Value="{StaticResource ErrorTip}" />
+                        <Setter Property="Foreground" Value="{StaticResource Danger400}" />
+                    </Style>
+                    <Style Selector="^ Border#SnackbarBlur">
+                        <Setter Property="Background" Value="{StaticResource Danger500}" />
+                    </Style>
+                    <Style Selector="^ Border#SnackbarContainer">
+                        <Setter Property="BorderBrush" Value="{StaticResource Danger400}" />
+                    </Style>
+                </Style>
+
+                <Style Selector="Grid#Snackbar.show">
+                    <Style.Animations>
+                        <!-- Whenever you change the time, also change the keyframes so the animation looks fine again, try to keep it the 0.2 seconds -->
+                        <Animation Duration="0:0:6" IterationCount="1" FillMode="Forward">
+                            <KeyFrame Cue="0%">
+                                <Setter Property="IsVisible" Value="True" />
+                                <Setter Property="Opacity" Value="0" />
+                                <Setter Property="TranslateTransform.Y" Value="100" />
+                            </KeyFrame>
+                            <KeyFrame Cue="0.6%"> <!-- 0.1 seconds -->
+                                <Setter Property="Opacity" Value="1" />
+                                <Setter Property="TranslateTransform.Y" Value="20" />
+                            </KeyFrame>
+                            <KeyFrame Cue="1.2%"> <!-- 0.2 seconds -->
+                                <Setter Property="TranslateTransform.Y" Value="0" />
+                            </KeyFrame>
+
+                            <KeyFrame Cue="98.8%">
+                                <Setter Property="Opacity" Value="1" />
+                            </KeyFrame>
+                            <KeyFrame Cue="100%"> <!-- vanish in 0.2 seconds -->
+                                <Setter Property="Opacity" Value="0" />
+                                <Setter Property="IsVisible" Value="False" />
+                            </KeyFrame>
+                        </Animation>
+                    </Style.Animations>
+                </Style>
+            </Grid.Styles>
+        </Grid>
     </Grid>
 </Window>

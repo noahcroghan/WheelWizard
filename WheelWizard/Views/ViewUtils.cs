@@ -3,21 +3,26 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using WheelWizard.Services.LiveData;
-using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Utilities.RepeatedTasks;
 
 namespace WheelWizard.Views;
 
 public static class ViewUtils
 {
+    public enum SnackbarType
+    {
+        Success,
+        Warning,
+        Danger,
+    }
+
     public static void OpenLink(string link)
     {
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = link,
-            UseShellExecute = true
-        });
+        Process.Start(new ProcessStartInfo { FileName = link, UseShellExecute = true });
+        ShowSnackbar("Opened link");
     }
+
+    public static void ShowSnackbar(string message, SnackbarType type = SnackbarType.Success) => GetLayout().ShowSnackbar(message, type);
 
     public static Layout GetLayout() => Layout.Instance;
 
@@ -48,14 +53,18 @@ public static class ViewUtils
     public static T? FindParent<T>(object? child, int maxSearchDepth = 10)
     {
         StyledElement? currentParent = null;
-        if (child is StyledElement childElement) currentParent = childElement.Parent;
-        if (currentParent == null) return default;
+        if (child is StyledElement childElement)
+            currentParent = childElement.Parent;
+        if (currentParent == null)
+            return default;
 
         var currentDepth = 1;
         while (currentDepth < maxSearchDepth)
         {
-            if (currentParent is T parentElement) return parentElement;
-            if (currentParent?.Parent != null) currentParent = currentParent.Parent;
+            if (currentParent is T parentElement)
+                return parentElement;
+            if (currentParent?.Parent != null)
+                currentParent = currentParent.Parent;
             currentDepth++;
         }
 
@@ -116,7 +125,7 @@ public static class ViewUtils
 
         public static Color Black = GetColor("Black");
 
-        private static Color GetColor(string name) => (Color)Application.Current.FindResource(name);
+        private static Color GetColor(string name) => (Color)Application.Current!.FindResource(name)!;
     }
 
     #endregion

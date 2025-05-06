@@ -12,8 +12,7 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
     public GithubAsset? GetAssetForCurrentPlatform(GithubRelease release)
     {
         string identifier;
-        if (RuntimeInformation.ProcessArchitecture == Architecture.Arm ||
-            RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+        if (RuntimeInformation.ProcessArchitecture == Architecture.Arm || RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
         {
             identifier = "WheelWizard_arm64_Linux";
         }
@@ -22,8 +21,7 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             identifier = "WheelWizard_Linux";
         }
 
-        return release.Assets.FirstOrDefault(asset =>
-            asset.BrowserDownloadUrl.Contains(identifier, StringComparison.OrdinalIgnoreCase));
+        return release.Assets.FirstOrDefault(asset => asset.BrowserDownloadUrl.Contains(identifier, StringComparison.OrdinalIgnoreCase));
     }
 
     public async Task<OperationResult> ExecuteUpdateAsync(string downloadUrl)
@@ -48,7 +46,8 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
             newFilePath,
             Phrases.PopupText_UpdateWhWz,
             Phrases.PopupText_LatestWhWzGithub,
-            ForceGivenFilePath: true);
+            ForceGivenFilePath: true
+        );
 
         // Wait briefly to ensure the file is fully written.
         await Task.Delay(201);
@@ -73,45 +72,46 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         var originalFileName = fileSystem.Path.GetFileName(currentFilePath);
         var newFileName = fileSystem.Path.GetFileName(newFilePath);
 
-        var scriptContent =
-            $"""
-             #!/usr/bin/env sh
-             echo 'Starting update process...'
+        var scriptContent = $"""
+            #!/usr/bin/env sh
+            echo 'Starting update process...'
 
-             # Give a short delay to ensure the application has exited
-             sleep 1
+            # Give a short delay to ensure the application has exited
+            sleep 1
 
-             echo 'Replacing old executable...'
-             rm -f "{fileSystem.Path.Combine(currentFolder, originalFileName)}"
-             mv "{fileSystem.Path.Combine(currentFolder, newFileName)}" "{fileSystem.Path.Combine(currentFolder, originalFileName)}"
-             chmod +x "{fileSystem.Path.Combine(currentFolder, originalFileName)}"
+            echo 'Replacing old executable...'
+            rm -f {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}
+            mv {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, newFileName))} {EnvHelper.SingleQuotePath(
+                fileSystem.Path.Combine(currentFolder, originalFileName)
+            )}
+            chmod +x {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))}
 
-             echo 'Starting the updated application...'
-             nohup "{fileSystem.Path.Combine(currentFolder, originalFileName)}" > /dev/null 2>&1 &
+            echo 'Starting the updated application...'
+            nohup {EnvHelper.SingleQuotePath(fileSystem.Path.Combine(currentFolder, originalFileName))} > /dev/null 2>&1 &
 
-             echo 'Cleaning up...'
-             rm -- "{scriptFilePath}"
+            echo 'Cleaning up...'
+            rm -- {EnvHelper.SingleQuotePath(scriptFilePath)}
 
-             echo 'Update completed successfully.'
-
-             """;
+            echo 'Update completed successfully.'
+            
+            """;
         fileSystem.File.WriteAllText(scriptFilePath, scriptContent);
 
         // Ensure the script is executable.
-        var chmodResult = TryCatch(() =>
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "/usr/bin/env",
-                    ArgumentList =
-                    {
-                        "chmod",
-                        "+x",
-                        "--",
-                        scriptFilePath,
-                    },
-                    CreateNoWindow = true,
-                    UseShellExecute = false
-                })?.WaitForExit(), errorMessage: "Failed to set execute permission for the update script."
+        var chmodResult = TryCatch(
+            () =>
+                Process
+                    .Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = "/usr/bin/env",
+                            ArgumentList = { "chmod", "+x", "--", scriptFilePath },
+                            CreateNoWindow = true,
+                            UseShellExecute = false,
+                        }
+                    )
+                    ?.WaitForExit(),
+            errorMessage: "Failed to set execute permission for the update script."
         );
 
         if (chmodResult.IsFailure)
@@ -120,15 +120,10 @@ public class LinuxUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         var processStartInfo = new ProcessStartInfo
         {
             FileName = "/usr/bin/env",
-            ArgumentList =
-            {
-                "sh",
-                "--",
-                scriptFilePath,
-            },
+            ArgumentList = { "sh", "--", scriptFilePath },
             CreateNoWindow = false,
             UseShellExecute = false,
-            WorkingDirectory = currentFolder
+            WorkingDirectory = currentFolder,
         };
 
         return TryCatch(() => Process.Start(processStartInfo), errorMessage: "Failed to execute the update script.");

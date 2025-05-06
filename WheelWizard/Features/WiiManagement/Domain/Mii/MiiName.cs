@@ -34,8 +34,7 @@ public class MiiName
 
     public byte[] ToBytes() => Encoding.BigEndianUnicode.GetBytes(_value.PadRight(10, '\0'));
 
-    public static MiiName FromBytes(byte[] data, int offset) =>
-        new(Encoding.BigEndianUnicode.GetString(data, offset, 20).TrimEnd('\0'));
+    public static MiiName FromBytes(byte[] data, int offset) => new(Encoding.BigEndianUnicode.GetString(data, offset, 20).TrimEnd('\0'));
 
     public override string ToString() => _value;
 }

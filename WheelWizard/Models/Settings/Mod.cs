@@ -1,43 +1,26 @@
-﻿using IniParser;
-using IniParser.Model;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using WheelWizard.Services;
+using IniParser;
+using IniParser.Model;
 
 namespace WheelWizard.Models.Settings;
 
 public class Mod : INotifyPropertyChanged
 {
     private bool _isEnabled;
-    private string _title;
-    private string _author;
+    private string _title = string.Empty;
+    private string _author = string.Empty;
     private int _modID;
     private int _priority; // New property for mod priority
-
-    private bool IsLowest => _priority == ModManager.Instance.GetLowestActivePriority();
-    private bool IsHighest => _priority == ModManager.Instance.GetHighestActivePriority();
-
-    public Mod()
-    {
-        ModManager.Instance.PropertyChanged += OnModManagerChanged;
-    }
-
-    private void OnModManagerChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        if (e.PropertyName != nameof(ModManager.Instance.Mods)) return;
-        OnPropertyChanged(nameof(IsLowest));
-        OnPropertyChanged(nameof(IsHighest));
-    }
-
 
     public bool IsEnabled
     {
         get => _isEnabled;
         set
         {
-            if (_isEnabled == value) 
+            if (_isEnabled == value)
                 return;
-            
+
             _isEnabled = value;
             OnPropertyChanged(nameof(IsEnabled));
         }
@@ -48,9 +31,9 @@ public class Mod : INotifyPropertyChanged
         get => _title;
         set
         {
-            if (_title == value) 
+            if (_title == value)
                 return;
-            
+
             _title = value;
             OnPropertyChanged(nameof(Title));
         }
@@ -95,17 +78,10 @@ public class Mod : INotifyPropertyChanged
         }
     }
 
-    #region PropertyChanged
-    public event PropertyChangedEventHandler? PropertyChanged;
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-    #endregion
-    
     protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+        if (EqualityComparer<T>.Default.Equals(field, value))
+            return false;
         field = value;
         OnPropertyChanged(propertyName);
         return true;
@@ -124,7 +100,7 @@ public class Mod : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            throw new Exception($"Failed to read INI file '{iniFilePath}': {ex.Message}");
+            throw new($"Failed to read INI file '{iniFilePath}': {ex.Message}");
         }
 
         var mod = new Mod
@@ -133,7 +109,7 @@ public class Mod : INotifyPropertyChanged
             Author = data["Mod"]["Author"],
             ModID = int.TryParse(data["Mod"]["ModID"], out var id) ? id : -1,
             IsEnabled = bool.TryParse(data["Mod"]["IsEnabled"], out var enabled) ? enabled : true,
-            Priority = int.TryParse(data["Mod"]["Priority"], out var priority) ? priority : 0
+            Priority = int.TryParse(data["Mod"]["Priority"], out var priority) ? priority : 0,
         };
 
         return await Task.FromResult(mod);
@@ -158,16 +134,24 @@ public class Mod : INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            throw new Exception($"Failed to write INI file '{iniFilePath}': {ex.Message}");
+            throw new($"Failed to write INI file '{iniFilePath}': {ex.Message}");
         }
 
         await Task.CompletedTask;
     }
-}
 
+    #region PropertyChanged
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string? propertyName)
+    {
+        PropertyChanged?.Invoke(this, new(propertyName));
+    }
+    #endregion
+}
 
 public class ModData
 {
     public bool IsEnabled { get; set; }
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 }

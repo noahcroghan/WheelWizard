@@ -1,7 +1,8 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:components="using:WheelWizard.Views.Components"
-        xmlns:miiComp="using:WheelWizard.Views.Components.MiiImages">
+        xmlns:miiVars="using:WheelWizard.MiiImages.Domain"
+        xmlns:behaviorComponent="clr-namespace:WheelWizard.Views.BehaviorComponent">
     <Design.PreviewWith>
         <StackPanel Background="{StaticResource Neutral950}">
             <components:PlayerListItem Width="428" Height="124"
@@ -43,11 +44,11 @@
                     <Grid ColumnDefinitions="Auto,130,80,70,*">
                         <Border Grid.Column="0" CornerRadius="999999" ClipToBounds="True" 
                                 Background="{StaticResource Neutral950}" Width="50" Height="50" Margin="0,3">
-                            <miiComp:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                                    LoadingColor="{StaticResource Neutral600}"
-                                                    Mii="{TemplateBinding Mii}"
-                                                    FallBackColor="{StaticResource Neutral600}"
-                                                    ImageVariant="SMALL"/>
+                            <behaviorComponent:MiiImageLoader HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                                              LoadingColor="{StaticResource Neutral600}"
+                                                              Mii="{TemplateBinding Mii}"
+                                                              FallBackColor="{StaticResource Neutral600}"
+                                                              ImageVariant="{x:Static miiVars:MiiImageVariants.OnlinePlayerSmall}"/>
                         </Border>
            
                         <StackPanel Grid.Column="1" VerticalAlignment="Center" >

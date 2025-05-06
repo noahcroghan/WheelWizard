@@ -9,5 +9,5 @@ public enum WheelWizardStatus
     NotInstalled,
     NoServerButInstalled,
     OutOfDate,
-    Ready
+    Ready,
 }

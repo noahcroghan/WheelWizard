@@ -78,6 +78,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We cant read the Mii data from your system. Make sure you started the game at least once.
+        /// </summary>
+        public static string EmptyText_NoMiis {
+            get {
+                return ResourceManager.GetString("EmptyText_NoMiis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Miis yet!.
+        /// </summary>
+        public static string EmptyText_NoMiis_Title {
+            get {
+                return ResourceManager.GetString("EmptyText_NoMiis_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mods can alter how the game works. Start importing your first mod by clicking the button below..
         /// </summary>
         public static string EmptyText_NoMods {
@@ -268,7 +286,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you dont know what all of this means, just click yes :) \nDolphin Emulator folder found. Would you like to use this folder?.
+        ///   Looks up a localized string similar to Dolphin Emulator folder found. Would you like to use this folder? If you dont know what all of this means, just click yes :).
         /// </summary>
         public static string PopupText_DolphinFoundText {
             get {

@@ -236,9 +236,7 @@ public class OperationResultTests
     public void TryCatchWithoutException_ShouldHaveCorrectSuccessState()
     {
         // Arrange
-        void Action()
-        {
-        }
+        void Action() { }
 
         // Act
         var result = TryCatch(Action);
@@ -346,7 +344,6 @@ public class OperationResultTests
         Assert.True(result.IsSuccess);
         Assert.Equal(expectedValue, result.Value);
     }
-
 
     [Fact(DisplayName = "Generic safe execute async with exception, should have failed state")]
     public async Task GenericTryCatchAsyncWithException_ShouldHaveFailedState()

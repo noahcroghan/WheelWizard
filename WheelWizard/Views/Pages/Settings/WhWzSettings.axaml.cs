@@ -47,8 +47,7 @@ public partial class WhWzSettings : UserControl
             WindowScaleDropdown.Items.Add(selectedItemText);
         WindowScaleDropdown.SelectedItem = selectedItemText;
 
-
-        EnableAnimations.IsChecked = (bool)SettingsManager.ENABLE_ANIMATIONS.Get();
+        // EnableAnimations.IsChecked = (bool)SettingsManager.ENABLE_ANIMATIONS.Get();
     }
 
     private static string ScaleToString(double scale)
@@ -70,17 +69,9 @@ public partial class WhWzSettings : UserControl
             DolphinUserPathInput.Text = folderPath;
     }
 
-    private string WrapOnWhiteSpace(string inputText)
+    private void AssignWrappedDolphinExeInput(string inputText)
     {
-        if (inputText.Any(character => Char.IsWhiteSpace(character)))
-            return $"\"{inputText}\"";
-
-        return inputText;
-    }
-
-    private async void AssignWrappedDolphinExeInput(string inputText)
-    {
-        DolphinExeInput.Text = WrapOnWhiteSpace(inputText);
+        DolphinExeInput.Text = EnvHelper.SingleQuotePath(inputText);
     }
 
     private async void DolphinExeBrowse_OnClick(object sender, RoutedEventArgs e)
@@ -92,8 +83,8 @@ public partial class WhWzSettings : UserControl
                 PlatformID.Win32NT => new[] { "*.exe" },
                 PlatformID.Unix => new[] { "*", "*.sh" },
                 PlatformID.MacOSX => new[] { "*", "*.app" },
-                _ => new[] { "*" } // Fallback
-            }
+                _ => new[] { "*" }, // Fallback
+            },
         };
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
@@ -109,8 +100,10 @@ public partial class WhWzSettings : UserControl
                 var wantsAutomaticInstall = await new YesNoWindow()
                     .SetMainText("Dolphin Flatpak Installation")
                     .SetExtraText(
-                        "The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?")
-                    .SetButtonText("Install", "Manual").AwaitAnswer();
+                        "The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?"
+                    )
+                    .SetButtonText("Install", "Manual")
+                    .AwaitAnswer();
                 if (wantsAutomaticInstall)
                 {
                     var progressWindow = new ProgressWindow()
@@ -126,8 +119,7 @@ public partial class WhWzSettings : UserControl
                         await new MessageBoxWindow()
                             .SetMessageType(MessageBoxWindow.MessageType.Error)
                             .SetTitleText("Failed to install Dolphin")
-                            .SetInfoText(
-                                "The installation of Dolphin Emulator failed. Please try manually installing flatpak dolphin.")
+                            .SetInfoText("The installation of Dolphin Emulator failed. Please try manually installing flatpak dolphin.")
                             .ShowDialog();
                         return;
                     }
@@ -137,7 +129,6 @@ public partial class WhWzSettings : UserControl
                 }
             }
         }
-
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
         {
@@ -174,7 +165,7 @@ public partial class WhWzSettings : UserControl
             return; // do not do normal selection for MacOS
         }
 
-        var filePath = await FilePickerHelper.OpenSingleFileAsync("Select Dolphin Emulator", new[] { executableFileType });
+        var filePath = await FilePickerHelper.OpenSingleFileAsync("Select Dolphin Emulator", [executableFileType]);
         if (!string.IsNullOrEmpty(filePath))
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
@@ -196,12 +187,9 @@ public partial class WhWzSettings : UserControl
 
     private async void GameLocationBrowse_OnClick(object sender, RoutedEventArgs e)
     {
-        var fileType = new FilePickerFileType("Game files")
-        {
-            Patterns = new[] { "*.iso", "*.wbfs", "*.rvz" }
-        };
+        var fileType = new FilePickerFileType("Game files") { Patterns = ["*.iso", "*.wbfs", "*.rvz"] };
 
-        var filePath = await FilePickerHelper.OpenSingleFileAsync("Select Mario Kart Wii Game File", new[] { fileType });
+        var filePath = await FilePickerHelper.OpenSingleFileAsync("Select Mario Kart Wii Game File", [fileType]);
         if (!string.IsNullOrEmpty(filePath))
         {
             MarioKartInput.Text = filePath;
@@ -257,7 +245,6 @@ public partial class WhWzSettings : UserControl
         }
     }
 
-
     private async void SaveButton_OnClick(object sender, RoutedEventArgs e)
     {
         var oldPath1 = (string)SettingsManager.DOLPHIN_LOCATION.Get();
@@ -292,6 +279,7 @@ public partial class WhWzSettings : UserControl
     }
 
     private void CancelButton_OnClick(object sender, RoutedEventArgs e) => TogglePathSettings(false);
+
     private void EditButton_OnClick(object sender, RoutedEventArgs e) => TogglePathSettings(true);
 
     private void WhWzFolder_Click(object sender, RoutedEventArgs e)
@@ -301,6 +289,7 @@ public partial class WhWzSettings : UserControl
 
         FilePickerHelper.OpenFolderInFileManager(PathManager.WheelWizardAppdataPath);
     }
+
     private void GameFileFolder_Click(object? sender, RoutedEventArgs e)
     {
         if (!Directory.Exists(PathManager.RiivolutionWhWzFolderPath))
@@ -348,13 +337,12 @@ public partial class WhWzSettings : UserControl
 
         _editingScale = true;
         var selectedLanguage = WindowScaleDropdown.SelectedItem.ToString();
-        var scale = double.Parse(selectedLanguage!.Split(" ").Last()
-            .Replace("%", "")) / 100;
+        var scale = double.Parse(selectedLanguage!.Split(" ").Last().Replace("%", "")) / 100;
 
         SettingsManager.WINDOW_SCALE.Set(scale);
         var seconds = 10;
-        string ExtraText() => $"This change will revert in {Humanizer.HumanizeSeconds(seconds)} "
-                              + $"unless you decide to keep the change.";
+        string ExtraText() =>
+            $"This change will revert in {Humanizer.HumanizeSeconds(seconds)} " + $"unless you decide to keep the change.";
 
         var yesNoWindow = new YesNoWindow()
             .SetButtonText(Common.Action_Apply, Common.Action_Revert)
@@ -386,8 +374,5 @@ public partial class WhWzSettings : UserControl
         _editingScale = false;
     }
 
-    private void EnableAnimations_OnClick(object sender, RoutedEventArgs e) =>
-        SettingsManager.ENABLE_ANIMATIONS.Set(EnableAnimations.IsChecked == true);
-
-
+    //private void EnableAnimations_OnClick(object sender, RoutedEventArgs e) => SettingsManager.ENABLE_ANIMATIONS.Set(EnableAnimations.IsChecked == true);
 }

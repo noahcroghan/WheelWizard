@@ -50,23 +50,29 @@ public static class DolphinLaunchHelper
         {
             try
             {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = "flatpak",
-                    ArgumentList =
-                    {
-                        "document-export",
-                        "--app=org.DolphinEmu.dolphin-emu",
-                        // Default to a flag that is on by default
-                        string.IsNullOrWhiteSpace(additionalFlag) ? "-r" : additionalFlag,
-                        "--",
-                        path
-                    },
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                })?.WaitForExit();
+                Process
+                    .Start(
+                        new ProcessStartInfo
+                        {
+                            FileName = "flatpak",
+                            ArgumentList =
+                            {
+                                "document-export",
+                                "--app=org.DolphinEmu.dolphin-emu",
+                                // Default to a flag that is on by default
+                                string.IsNullOrWhiteSpace(additionalFlag)
+                                    ? "-r"
+                                    : additionalFlag,
+                                "--",
+                                path,
+                            },
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true,
+                            UseShellExecute = false,
+                        }
+                    )
+                    ?.WaitForExit();
                 return true;
             }
             catch
@@ -121,7 +127,7 @@ public static class DolphinLaunchHelper
             var startInfo = new ProcessStartInfo();
 
             var cannotPassUserFolder = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && PathManager.IsLinuxDolphinConfigSplit();
-            var userFolderArgument = cannotPassUserFolder ? "" : $"-u \"{Path.GetFullPath(PathManager.UserFolderPath)}\"";
+            var userFolderArgument = cannotPassUserFolder ? "" : $"-u {EnvHelper.QuotePath(Path.GetFullPath(PathManager.UserFolderPath))}";
             var dolphinLaunchArguments = $"{arguments} {userFolderArgument}";
 
             var dolphinLocation = (string)SettingsManager.DOLPHIN_LOCATION.Get();

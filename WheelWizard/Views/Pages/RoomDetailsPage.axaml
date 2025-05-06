@@ -37,7 +37,7 @@
                                     Foreground="{StaticResource TitleTextColor}"
                                     HoverForeground="{StaticResource Primary200}"
                                     VerticalAlignment="Top" HorizontalAlignment="Left"
-                                    Click="GoBackClick" />
+                                    FontSize="16" Click="GoBackClick" />
 
         <Grid Grid.Row="1" ColumnDefinitions="4*,6*,2*,2*" Margin="10,0">
             <StackPanel
@@ -96,7 +96,7 @@
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{x:Static lang:Common.Action_CopyFriendCode}" Click="CopyFriendCode_OnClick" />
-                        <MenuItem Header="View Mii" Click="OpenCarousel_OnClick" />
+                        <MenuItem Header="{x:Static lang:Common.Action_ViewMii}" Click="OpenCarousel_OnClick" />
                         <!--
                         <MenuItem Header="{x:Static lang:Common.Action_CopyFriendCode}" Click="CopyFriendCode_OnClick" />
                         <Separator />

@@ -11,10 +11,19 @@ using WheelWizard.Views.Popups.ModManagement;
 
 namespace WheelWizard.Views.Pages;
 
+public record ModListItem(Mod Mod, bool IsLowest, bool IsHighest);
+
 public partial class ModsPage : UserControlBase, INotifyPropertyChanged
 {
     public ModManager ModManager => ModManager.Instance;
-    public ObservableCollection<Mod> Mods => ModManager.Mods;
+    public ObservableCollection<ModListItem> Mods =>
+        new(
+            ModManager.Mods.Select(mod => new ModListItem(
+                mod,
+                mod.Priority == ModManager.Instance.GetLowestActivePriority(),
+                mod.Priority == ModManager.Instance.GetHighestActivePriority()
+            ))
+        );
 
     private bool _hasMods;
 
@@ -23,7 +32,8 @@ public partial class ModsPage : UserControlBase, INotifyPropertyChanged
         get => _hasMods;
         set
         {
-            if (_hasMods == value) return;
+            if (_hasMods == value)
+                return;
 
             _hasMods = value;
             OnPropertyChanged(nameof(HasMods));
@@ -66,30 +76,31 @@ public partial class ModsPage : UserControlBase, INotifyPropertyChanged
 
     private void RenameMod_Click(object sender, RoutedEventArgs e)
     {
-        if (ModsListBox.SelectedItem is not Mod selectedMod)
+        if (ModsListBox.SelectedItem is not ModListItem selectedMod)
             return;
-        ModManager.RenameMod(selectedMod);
+
+        ModManager.RenameMod(selectedMod.Mod);
     }
 
     private void DeleteMod_Click(object sender, RoutedEventArgs e)
     {
-        if (ModsListBox.SelectedItem is not Mod selectedMod)
+        if (ModsListBox.SelectedItem is not ModListItem selectedMod)
             return;
 
-        ModManager.DeleteMod(selectedMod);
+        ModManager.DeleteMod(selectedMod.Mod);
     }
 
     private void OpenFolder_Click(object sender, RoutedEventArgs e)
     {
-        if (ModsListBox.SelectedItem is not Mod selectedMod)
+        if (ModsListBox.SelectedItem is not ModListItem selectedMod)
             return;
 
-        ModManager.OpenModFolder(selectedMod);
+        ModManager.OpenModFolder(selectedMod.Mod);
     }
 
     private void ViewMod_Click(object sender, RoutedEventArgs e)
     {
-        if (ModsListBox.SelectedItem is not Mod selectedMod)
+        if (ModsListBox.SelectedItem is not ModListItem selectedMod)
         {
             // You actually never see this error, however, if for some unknown reason it happens, we don't want to disregard it
             new MessageBoxWindow()
@@ -100,7 +111,7 @@ public partial class ModsPage : UserControlBase, INotifyPropertyChanged
             return;
         }
 
-        if (selectedMod.ModID == -1)
+        if (selectedMod.Mod.ModID == -1)
         {
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Warning)
@@ -111,80 +122,54 @@ public partial class ModsPage : UserControlBase, INotifyPropertyChanged
         }
 
         var modPopup = new ModIndependentWindow();
-        modPopup.LoadModAsync(selectedMod.ModID);
+        _ = modPopup.LoadModAsync(selectedMod.Mod.ModID);
         modPopup.ShowDialog();
     }
-
 
     private void ToggleButton_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
     {
         ModManager.ToggleAllMods(EnableAllCheckbox.IsChecked == true);
     }
 
-    /*
-private static ListOrderCondition CurrentOrder = ListOrderCondition.PRIORITY;
-private void PopulateSortingList()
-{
-    foreach (ListOrderCondition type in Enum.GetValues(typeof(ListOrderCondition)))
-    {
-        var name = type switch
-        { // TODO: Should be replaced with actual translations
-            ListOrderCondition.IS_CHECKED => "Is Enabled",
-            ListOrderCondition.NAME => "Mod Name",
-            ListOrderCondition.PRIORITY => "Priority"
-        };
-
-        SortByDropdown.Items.Add(name);
-    }
-    SortByDropdown.SelectedIndex = (int)CurrentOrder;
-}
-
-private void SortByDropdown_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-{
-    CurrentOrder = (ListOrderCondition)SortByDropdown.SelectedIndex;
-}
-
-private enum ListOrderCondition
-{
-    PRIORITY,
-    IS_CHECKED,
-    NAME
-}
-*/
-
-    #region PropertyChanged
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    #endregion
-
-    private void InputElement_OnLostFocus(object? sender, RoutedEventArgs e)
+    private void PriorityText_OnLostFocus(object? sender, RoutedEventArgs e)
     {
         var mod = GetParentsMod(e);
-        if (mod == null || e.Source is not TextBox textBox) return;
+        if (mod == null || e.Source is not TextBox textBox)
+            return;
 
+        textBox.Classes.Remove("error"); // In case this class has been added, then we remove it again
         if (int.TryParse(textBox.Text, out var newPriority))
             mod.Priority = newPriority;
         else
             textBox.Text = mod.Priority.ToString();
     }
 
+    private void PriorityText_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        var mod = GetParentsMod(e);
+        if (mod == null || e.Source is not TextBox textBox)
+            return;
+
+        // We intentionally don't use the FeedbackTextBox here since that component is a bit to big for this use case.
+        if (int.TryParse(textBox.Text, out _))
+            textBox.Classes.Remove("error");
+        else if (!textBox.Classes.Contains("error"))
+            textBox.Classes.Add("error");
+    }
+
     private Mod? GetParentsMod(RoutedEventArgs eventArgs)
     {
         var parent = ViewUtils.FindParent<ListBoxItem>(eventArgs.Source);
-        if (parent?.Content is Mod mod) return mod;
+        if (parent?.Content is ModListItem mod)
+            return mod.Mod;
         return null;
     }
 
     private void ButtonUp_OnClick(object? sender, RoutedEventArgs e)
     {
         var mod = GetParentsMod(e);
-        if (mod == null) return;
+        if (mod == null)
+            return;
 
         ModManager.DecreasePriority(mod);
     }
@@ -192,7 +177,8 @@ private enum ListOrderCondition
     private void ButtonDown_OnClick(object? sender, RoutedEventArgs e)
     {
         var mod = GetParentsMod(e);
-        if (mod == null) return;
+        if (mod == null)
+            return;
 
         ModManager.IncreasePriority(mod);
     }
@@ -211,17 +197,33 @@ private enum ListOrderCondition
 
         foreach (var elementToSwapClass in elementsToSwapClasses)
         {
-            if (asRows) elementToSwapClass.Classes.Remove("Blocks");
-            else elementToSwapClass.Classes.Add("Blocks");
+            if (asRows)
+                elementToSwapClass.Classes.Remove("Blocks");
+            else
+                elementToSwapClass.Classes.Add("Blocks");
 
-            if (asRows) elementToSwapClass.Classes.Add("Rows");
-            else elementToSwapClass.Classes.Remove("Rows");
+            if (asRows)
+                elementToSwapClass.Classes.Add("Rows");
+            else
+                elementToSwapClass.Classes.Remove("Rows");
         }
     }
 
     private void PriorityText_OnKeyDown(object? sender, KeyEventArgs e)
     {
-        if (e.Key != Key.Enter || sender is not TextBox) return;
+        if (e.Key != Key.Enter || sender is not TextBox)
+            return;
         ViewUtils.FindParent<ListBoxItem>(e.Source)?.Focus();
     }
+
+    #region PropertyChanged
+
+    public new event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new(propertyName));
+    }
+
+    #endregion
 }

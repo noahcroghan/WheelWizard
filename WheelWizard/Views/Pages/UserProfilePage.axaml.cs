@@ -1,18 +1,19 @@
 ﻿using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Layout;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
-using WheelWizard.Models.MiiImages;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
 using WheelWizard.Services.Settings;
-using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Views.Components;
+using WheelWizard.Views.Popups;
 using WheelWizard.Views.Popups.Generic;
+using WheelWizard.Views.Popups.MiiManagement;
+using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.Domain.Mii;
 
@@ -22,7 +23,16 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 {
     private LicenseProfile? currentPlayer;
     private Mii? _currentMii;
-    [Inject] private IGameDataSingletonService GameDataService { get; set; } = null!;
+    private bool _isOnline;
+
+    [Inject]
+    private IGameLicenseSingletonService GameLicenseService { get; set; } = null!;
+
+    [Inject]
+    private IWhWzDataSingletonService BadgeService { get; set; } = null!;
+
+    [Inject]
+    private IMiiDbService MiiDbService { get; set; } = null!;
 
     public Mii? CurrentMii
     {
@@ -31,6 +41,16 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         {
             _currentMii = value;
             OnPropertyChanged(nameof(CurrentMii));
+        }
+    }
+
+    public bool IsOnline
+    {
+        get => _isOnline;
+        set
+        {
+            _isOnline = value;
+            OnPropertyChanged(nameof(IsOnline));
         }
     }
 
@@ -49,41 +69,6 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         RegionDropdown.SelectionChanged += RegionDropdown_SelectionChanged;
     }
 
-    private void ResetMiiTopBar()
-    {
-        var validUsers = GameDataService.HasAnyValidUsers;
-        CurrentUserProfile.IsVisible = validUsers;
-        CurrentUserCarousel.IsVisible = validUsers;
-        NoProfilesInfo.IsVisible = !validUsers;
-
-        var data = GameDataService.LicenseCollection;
-        var userAmount = data.Users.Count;
-        for (var i = 0; i < userAmount; i++)
-        {
-            var radioButton = RadioButtons.Children[i] as RadioButton;
-            if (radioButton == null!)
-                continue;
-
-            var miiName = data.Users[i].MiiData?.Mii?.Name.ToString() ?? SettingValues.NoName;
-            var noLicense = miiName == SettingValues.NoLicense;
-
-            radioButton.IsEnabled = !noLicense;
-            radioButton.Content = miiName switch
-            {
-                SettingValues.NoName => Online.NoName,
-                SettingValues.NoLicense => Online.NoLicense,
-                _ => miiName
-            };
-        }
-    }
-
-    private void ViewMii(int? mii = null)
-    {
-        _currentUserIndex = mii ?? _currentUserIndex;
-        if (RadioButtons.Children[_currentUserIndex] is RadioButton radioButton)
-            radioButton.IsChecked = true;
-    }
-
     private void PopulateRegions()
     {
         var validRegions = RRRegionManager.GetValidRegions();
@@ -97,7 +82,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             {
                 Content = region.ToString(),
                 Tag = region,
-                IsEnabled = validRegions.Contains(region)
+                IsEnabled = validRegions.Contains(region),
             };
             RegionDropdown.Items.Add(itemForRegionDropdown);
 
@@ -106,44 +91,73 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         }
     }
 
-    private void TopBarRadio_OnClick(object? sender, RoutedEventArgs e)
+    #region Update page
+
+    private void ResetMiiTopBar()
     {
-        var oldIndex = _currentUserIndex;
+        var validUsers = GameLicenseService.HasAnyValidUsers;
+        CurrentUserProfile.IsVisible = validUsers;
+        CurrentUserCarousel.IsVisible = validUsers;
+        NoProfilesInfo.IsVisible = !validUsers;
 
-        if (sender is not RadioButton button || !int.TryParse((string?)button.Tag, out _currentUserIndex))
-            return;
-        if (oldIndex == _currentUserIndex)
-            return;
+        var data = GameLicenseService.LicenseCollection;
+        var userAmount = data.Users.Count;
+        for (var i = 0; i < userAmount; i++)
+        {
+            var radioButton = RadioButtons.Children[i] as RadioButton;
+            if (radioButton == null!)
+                continue;
 
-        UpdatePage();
+            var miiName = data.Users[i].Mii?.Name.ToString() ?? SettingValues.NoName;
+            var noLicense = miiName == SettingValues.NoLicense;
+
+            radioButton.IsEnabled = !noLicense;
+            radioButton.Content = miiName switch
+            {
+                SettingValues.NoName => Online.NoName,
+                SettingValues.NoLicense => Online.NoLicense,
+                _ => miiName,
+            };
+        }
     }
 
     private void UpdatePage()
     {
-        CurrentUserProfile.IsChecked = FocussedUser == _currentUserIndex;
-        if (currentPlayer != null) currentPlayer.PropertyChanged -= OnMiiNameChanged;
+        PrimaryCheckBox.IsChecked = FocussedUser == _currentUserIndex;
+        CurrentUserProfile.Classes.Clear();
+        if (currentPlayer?.IsOnline == true)
+            CurrentUserProfile.Classes.Add("Online");
 
-        currentPlayer = GameDataService.GetUserData(_currentUserIndex);
-        CurrentUserProfile.FriendCode = currentPlayer.FriendCode;
-        CurrentUserProfile.UserName = currentPlayer.NameOfMii;
-        CurrentUserProfile.IsOnline = currentPlayer.IsOnline;
-        CurrentUserProfile.Vr = currentPlayer.Vr.ToString();
-        CurrentUserProfile.Br = currentPlayer.Br.ToString();
-        CurrentMii = currentPlayer.MiiData?.Mii;
+        currentPlayer = GameLicenseService.GetUserData(_currentUserIndex);
+        ProfileAttribFriendCode.Text = currentPlayer.FriendCode;
+        ProfileAttribFriendCode.IsVisible = !string.IsNullOrEmpty(currentPlayer.FriendCode);
+        ProfileAttribUserName.Text = currentPlayer.NameOfMii;
+        ProfileAttribVr.Text = currentPlayer.Vr.ToString();
+        ProfileAttribBr.Text = currentPlayer.Br.ToString();
+        CurrentMii = currentPlayer.Mii;
 
-        currentPlayer.PropertyChanged += OnMiiNameChanged;
-        CurrentUserProfile.TotalRaces = currentPlayer.TotalRaceCount.ToString();
-        CurrentUserProfile.TotalWon = currentPlayer.TotalWinCount.ToString();
+        ProfileAttribTotalRaces.Text = currentPlayer.TotalRaceCount.ToString();
+        ProfileAttribTotalWins.Text = currentPlayer.TotalWinCount.ToString();
+
+        BadgeContainer.Children.Clear();
+        var badges = BadgeService.GetBadges(currentPlayer.FriendCode).Select(variant => new Badge { Variant = variant });
+        foreach (var badge in badges)
+        {
+            badge.Height = 30;
+            badge.Width = 30;
+            BadgeContainer.Children.Add(badge);
+        }
         ResetMiiTopBar();
     }
 
-    private void OnMiiNameChanged(object? sender, PropertyChangedEventArgs args)
-    {
-        if (args.PropertyName != nameof(currentPlayer.NameOfMii)) return;
-        CurrentUserProfile.UserName = currentPlayer?.NameOfMii ?? "";
-    }
+    #endregion
 
-    private void CheckBox_SetPrimaryUser(object sender, RoutedEventArgs e) => SetUserAsPrimary();
+    private void ViewMii(int? mii = null)
+    {
+        _currentUserIndex = mii ?? _currentUserIndex;
+        if (RadioButtons.Children[_currentUserIndex] is RadioButton radioButton)
+            radioButton.IsChecked = true;
+    }
 
     private void SetUserAsPrimary()
     {
@@ -152,12 +166,13 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         SettingsManager.FOCUSSED_USER.Set(_currentUserIndex);
 
-        CurrentUserProfile.IsChecked = true;
+        PrimaryCheckBox.IsChecked = true;
         // Even though it's true when this method is called, we still set it to true,
         // since Avalonia has some weird ass cashing, It might just be that that is because this method is actually deprecated
 
         //now we refresh the sidebar friend amount
         ViewUtils.GetLayout().UpdateFriendCount();
+        ViewUtils.ShowSnackbar("Set profile as primary");
     }
 
     private void RegionDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -167,7 +182,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         SettingsManager.RR_REGION.Set(region);
         ResetMiiTopBar();
-        var loadResult = GameDataService.LoadGameData();
+        var loadResult = GameLicenseService.LoadLicense();
         if (loadResult.IsFailure)
         {
             new MessageBoxWindow()
@@ -184,54 +199,60 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         ViewUtils.GetLayout().UpdateFriendCount();
     }
 
-    // This is intentionally a separate validation method besides the true name validation. That name validation allows less than 3.
-    // But we as team wheel wizard don't think it makes sense to have a mii name shorter than 3, and so from the UI we don't allow it
-    private OperationResult ValidateMiiName(string? oldName, string newName)
+    private void TopBarRadio_OnClick(object? sender, RoutedEventArgs e)
     {
-        if (newName.Length is > 10 or < 3)
-            return Fail("Names must be between 3 and 10 characters long.");
+        var oldIndex = _currentUserIndex;
 
-        return Ok();
-    }
-
-    private async void ChangeMiiName(object? obj, EventArgs e)
-    {
-        var oldName = CurrentMii?.Name.ToString();
-        var renamePopup = new TextInputWindow()
-            .SetMainText($"Enter new name")
-            .SetExtraText($"Changing name from: {oldName}")
-            .SetAllowCustomChars(true)
-            .SetValidation(ValidateMiiName)
-            .SetInitialText(oldName ?? "")
-            .SetPlaceholderText(oldName ?? "");
-
-        var newName = await renamePopup.ShowDialog();
-        if (oldName == newName || newName == null)
+        if (sender is not RadioButton button || !int.TryParse((string?)button.Tag, out _currentUserIndex))
             return;
-        var changeNameResult = GameDataService.ChangeMiiName(_currentUserIndex, newName);
-        if (changeNameResult.IsFailure)
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Failed to change name")
-                .SetInfoText(changeNameResult.Error.Message)
-                .Show();
-        else
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Message)
-                .SetTitleText("Name changed")
-                .SetInfoText($"Successfully changed name to {newName}")
-                .Show();
+        if (oldIndex == _currentUserIndex)
+            return;
 
-        //reload game data, since multiple licenses can use the same mii
-        GameDataService.LoadGameData();
         UpdatePage();
     }
 
-    private void ViewRoom_OnClick(string friendCode)
+    private void CheckBox_SetPrimaryUser(object sender, RoutedEventArgs e) => SetUserAsPrimary();
+
+    private async void OpenMiiSelector_Click(object? sender, RoutedEventArgs e)
+    {
+        var availableMiis = MiiDbService.GetAllMiis();
+        if (!availableMiis.Any())
+        {
+            new MessageBoxWindow()
+                .SetTitleText("No Miis Found")
+                .SetInfoText("There are no other Miis available to select.")
+                .SetMessageType(MessageBoxWindow.MessageType.Warning)
+                .Show();
+            return;
+        }
+
+        var selectedMii = await new MiiSelectorWindow().SetMiiOptions(availableMiis, CurrentMii).AwaitAnswer();
+
+        if (selectedMii == null)
+            return;
+
+        var result = GameLicenseService.ChangeMii(_currentUserIndex, selectedMii);
+
+        if (result.IsFailure)
+        {
+            new MessageBoxWindow()
+                .SetTitleText("Failed to Change Mii")
+                .SetInfoText(result.Error!.Message)
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .Show();
+            return;
+        }
+        CurrentMii = selectedMii;
+        GameLicenseService.LoadLicense();
+        UpdatePage();
+        ViewUtils.ShowSnackbar("Mii changed successfully");
+    }
+
+    private void ViewRoom_OnClick(object? sender, RoutedEventArgs e)
     {
         foreach (var room in RRLiveRooms.Instance.CurrentRooms)
         {
-            if (room.Players.All(player => player.Value.Fc != friendCode))
+            if (room.Players.All(player => player.Value.Fc != currentPlayer?.FriendCode))
                 continue;
 
             NavigationManager.NavigateTo<RoomDetailsPage>(room);
@@ -245,13 +266,61 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             .Show();
     }
 
+    private void CopyFriendCode_OnClick(object? sender, EventArgs e)
+    {
+        if (currentPlayer?.FriendCode == null)
+            return;
+
+        TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(currentPlayer.FriendCode);
+        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
+    }
+
+    // This is intentionally a separate validation method besides the true name validation. That name validation allows less than 3.
+    // But we as team wheel wizard don't think it makes sense to have a mii name shorter than 3, and so from the UI we don't allow it
+    private OperationResult ValidateMiiName(string? oldName, string newName)
+    {
+        if (newName.Length is > 10 or < 3)
+            return Fail("Names must be between 3 and 10 characters long.");
+
+        return Ok();
+    }
+
+    private async void RenameMii_OnClick(object? sender, EventArgs e)
+    {
+        var oldName = CurrentMii?.Name.ToString();
+        var renamePopup = new TextInputWindow()
+            .SetMainText($"Enter new name")
+            .SetExtraText($"Changing name from: {oldName}")
+            .SetAllowCustomChars(true)
+            .SetValidation(ValidateMiiName)
+            .SetInitialText(oldName ?? "")
+            .SetPlaceholderText(oldName ?? "");
+
+        var newName = await renamePopup.ShowDialog();
+        if (oldName == newName || newName == null)
+            return;
+        var changeNameResult = GameLicenseService.ChangeMiiName(_currentUserIndex, newName);
+        if (changeNameResult.IsFailure)
+            new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Failed to change name")
+                .SetInfoText(changeNameResult.Error.Message)
+                .Show();
+        else
+            ViewUtils.ShowSnackbar($"Successfully changed name to {newName}");
+
+        //reload game data, since multiple licenses can use the same mii
+        GameLicenseService.LoadLicense();
+        UpdatePage();
+    }
+
     #region PropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged(string propertyName)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        PropertyChanged?.Invoke(this, new(propertyName));
     }
 
     #endregion

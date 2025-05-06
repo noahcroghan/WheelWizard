@@ -10,11 +10,12 @@ public static class WhWzDataExtensions
 {
     public static IServiceCollection AddWhWzData(this IServiceCollection services)
     {
-        services.AddWhWzRefitApi<IWhWzDataApi>(Endpoints.WhWzDataBaseAddress,
+        services.AddWhWzRefitApi<IWhWzDataApi>(
+            Endpoints.WhWzDataBaseAddress,
             new()
             {
                 PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
-                Converters = { new EnumWithFallbackConverter<BadgeVariant>(), new JsonStringEnumConverter() }
+                Converters = { new EnumWithFallbackConverter<BadgeVariant>(), new JsonStringEnumConverter() },
             }
         );
 

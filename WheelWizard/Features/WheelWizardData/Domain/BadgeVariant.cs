@@ -9,5 +9,5 @@ public enum BadgeVariant
     TranslatorLead,
     GoldWinner,
     SilverWinner,
-    BronzeWinner
+    BronzeWinner,
 }

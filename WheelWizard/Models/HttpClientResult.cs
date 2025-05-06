@@ -9,6 +9,4 @@ public class HttpClientResult<T>
 
     // Returns the status code group (1xx, 2xx, 3xx, 4xx, 5xx)
     public int StatusCodeGroup => (StatusCode / 100);
-
 }
-
