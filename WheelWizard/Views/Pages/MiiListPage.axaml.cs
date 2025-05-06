@@ -333,6 +333,8 @@ public partial class MiiListPage : UserControlBase
             return;
         }
         ReloadMiiList();
+        CurrentUserProfile.Mii = window.Mii;
+        CurrentUserProfile.UserName = window.Mii.Name.ToString();
     }
 
     private async void CreateNewMii()
