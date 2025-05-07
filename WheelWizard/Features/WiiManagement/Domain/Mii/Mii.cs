@@ -44,7 +44,7 @@ Mii data Structure  from the wii looks like this:
 
 0x24–0x27 :
   - Bits 0–4   : eyebrowType (0–23)
-  - Bit 5      : unknown_3 (1 bit long)
+  - Bit 5      : unknown_3 (1 bit long)     DO NOT USE!
   - Bits 6–9   : eyebrowRotation (0–11)
   - Bits 10–15 : unknown_4 (6 bits long)
   - Bits 16–18 : eyebrowColor (0–7)
@@ -54,11 +54,11 @@ Mii data Structure  from the wii looks like this:
 
 0x28–0x2B :
   - Bits 0–5   : eyeType (0–47)
-  - Bits 6–7   : unknown_5 (2 bits long)
+  - Bits 6–7   : unknown_5 (2 bits long)    DO NOT USE!
   - Bits 8–10  : eyeRotation (0–7)
   - Bits 11–15 : eyeVertPos (0–18)
   - Bits 16–18 : eyeColor (0–5)
-  - Bit 19     : unknown_6 (1 bit long)
+  - Bit 19     : unknown_6 (1 bit long)     DO NOT USE!
   - Bits 20–22 : eyeSize (0–7)
   - Bits 23–26 : eyeHorizSpacing (0–12)
   - Bits 27–31 : unknown_7 (5 bits long)
@@ -105,12 +105,14 @@ Free bits available for custom use and what we will map them to:
 This gives us a total of 28 bits to play with.
 ----------------------------------------------------
 0x20–0x21 : Bits 10–12   (unknown_0, 3 bits)
-0x20–0x21 : Bit 14       (unknown_1, 1 bit) BREAKS IT
-0x22–0x23 : Bits 11–15   (unknown_2, 5 bits) top 2 bits break it
-0x24–0x27 : Bit 5        (unknown_3, 1 bit)
-0x24–0x27 : Bits 10–15   (unknown_4, 6 bits) bit 3 breaks it
-0x28–0x2B : Bits 6–7     (unknown_5, 2 bits)
-0x28–0x2B : Bit 19       (unknown_6, 1 bit)
+
+0x20–0x21 : Bit 14       (unknown_1, 1 bit)
+0x22–0x23 : Bits 11–15   (unknown_2, 5 bits)
+0x24–0x27 : Bit 5        (unknown_3, 1 bit) DO NOT USE!
+0x24–0x27 : Bits 10–15   (unknown_4, 6 bits)
+0x28–0x2B : Bits 6–7     (unknown_5, 2 bits) DO NOT USE
+0x28–0x2B : Bit 19       (unknown_6, 1 bit) DO NOT USE
+
 0x28–0x2B : Bits 27–31   (unknown_7, 5 bits)
 0x2C–0x2D : Bits 13–15   (unknown_8, 3 bits)
 0x34–0x35 : Bit 15       (unknown_10, 1 bit)

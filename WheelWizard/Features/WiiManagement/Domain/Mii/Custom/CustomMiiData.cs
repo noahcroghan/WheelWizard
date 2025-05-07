@@ -4,13 +4,13 @@ using System.Runtime.CompilerServices;
 namespace WheelWizard.WiiManagement.Domain.Mii.Custom;
 
 /// <summary>
-/// Provides a structured way to access and modify the 28 "unknown" or unused bits
+/// Provides a structured way to access and modify the 24 "unknown" or unused bits
 /// found within the standard 74-byte Mii data format. This allows storing custom data
 /// without breaking compatibility with standard Mii readers.
 ///
-/// The 28 bits are laid out as follows by this class:
+/// The 24 bits are laid out as follows by this class:
 /// • Bits 0–2  : Schema version. This helps manage different layouts of the custom data over time.
-/// • Bits 3–27 : Available for custom fields defined as properties below. These are automatically
+/// • Bits 3–24 : Available for custom fields defined as properties below. These are automatically
 ///               packed based on their declaration order and specified [BitField] width.
 /// </summary>
 public sealed class CustomMiiData
@@ -24,15 +24,15 @@ public sealed class CustomMiiData
 
     // The total number of bits available for custom data within the Mii format's unused sections.
     // This is a hard limit, Never change this!
-    private const int TotalBits = 28;
+    private const int TotalBits = 24;
 
     // Stores the packed custom data as a 32-bit unsigned integer.
-    // Only the lower 28 bits are used. Bit 0 is the least significant bit (LSB).
+    // Only the lower 24 bits are used. Bit 0 is the least significant bit (LSB).
     private uint _payload;
 
     // A helper record to store metadata about each property marked with [BitField].
     // Prop: The reflection PropertyInfo object itself.
-    // Offset: The starting bit position of this field within the 28-bit payload (0-27).
+    // Offset: The starting bit position of this field within the 24-bit payload (0-27).
     // Width: The number of bits allocated to this field.
     // Mask: A pre-calculated bitmask to easily isolate/find or clear this field's bits within the payload.
     private sealed record FieldMeta(PropertyInfo Prop, int Offset, int Width, uint Mask);
@@ -73,7 +73,7 @@ public sealed class CustomMiiData
             // Check if adding this property exceeds the total available bits.
             if (currentBitOffset + width > TotalBits)
                 throw new InvalidOperationException(
-                    $"Layout overflow – Adding '{prop.Name}' ({width} bits) exceeds the {TotalBits}-bit budget. Current offset: {currentBitOffset}."
+                    $"Layout overflow - Adding '{prop.Name}' ({width} bits) exceeds the {TotalBits}-bit budget. Current offset: {currentBitOffset}."
                 );
 
             // Calculate the bitmask for this field.
@@ -91,7 +91,7 @@ public sealed class CustomMiiData
             currentBitOffset += width;
         }
 
-        // if not all 28 bits were used by the defined properties.
+        // if not all 24 bits were used by the defined properties.
         if (currentBitOffset < TotalBits)
         {
             //for now do nothing but we could add stuff here
@@ -167,9 +167,9 @@ public sealed class CustomMiiData
     // Add new properties here.
     // Simply declare them with a [BitField(width)] attribute.
     // They will be automatically allocated space in the payload after the 'Spare' field,
-    // provided the total width does not exceed 28 bits. The static constructor handles layout.
+    // provided the total width does not exceed 24 bits. The static constructor handles layout.
 
-    [BitField(10)]
+    [BitField(6)]
     public ushort Spare
     {
         get => (ushort)GetField();
@@ -181,11 +181,11 @@ public sealed class CustomMiiData
     /// <summary>
     /// Private constructor used internally to create an instance with a given payload.
     /// </summary>
-    /// <param name="payload">The packed 28-bit data.</param>
+    /// <param name="payload">The packed 24-bit data.</param>
     private CustomMiiData(uint payload) => _payload = payload;
 
     /// <summary>
-    /// Creates a <see cref="CustomMiiData"/> instance by extracting the 28 custom bits
+    /// Creates a <see cref="CustomMiiData"/> instance by extracting the 24 custom bits
     /// from a raw 74-byte Mii data block.
     /// </summary>
     public static CustomMiiData FromBytes(byte[] rawMiiBytes)
@@ -195,7 +195,7 @@ public sealed class CustomMiiData
     }
 
     /// <summary>
-    /// Creates a <see cref="CustomMiiData"/> instance by extracting the 28 custom bits
+    /// Creates a <see cref="CustomMiiData"/> instance by extracting the 24 custom bits
     /// from a <see cref="Mii"/> object.
     /// This involves serializing the Mii object to bytes first.
     /// </summary>
@@ -232,7 +232,7 @@ public sealed class CustomMiiData
     /// Takes a payload encoded with “version N” and produces a payload encoded with “version N+1”.
     /// Each case handles the bit‐shuffling or defaulting needed to move from one schema to the next.
     /// </summary>
-    /// <param name="oldPayload">The 28‐bit data block from an older schema version.</param>
+    /// <param name="oldPayload">The 24‐bit data block from an older schema version.</param>
     /// <param name="oldVersion">The schema version of that payload.</param>
     private static uint MigrateFromVersion(uint oldPayload, byte oldVersion)
     {
