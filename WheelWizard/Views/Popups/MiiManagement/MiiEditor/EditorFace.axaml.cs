@@ -13,14 +13,14 @@ public partial class EditorFace : MiiEditorBaseControl
         PopulateValues();
     }
 
-    private static readonly Dictionary<MiiSkinColor, (Color, Color)> SkinColors = new()
+    private static readonly Dictionary<MiiSkinColor, Color> SkinColors = new()
     {
-        [MiiSkinColor.Light] = (Color.FromRgb(255, 242, 226), Color.FromRgb(224, 194, 154)),
-        [MiiSkinColor.Yellow] = (Color.FromRgb(255, 208, 132), Color.FromRgb(229, 167, 80)),
-        [MiiSkinColor.Red] = (Color.FromRgb(222, 154, 91), Color.FromRgb(224, 118, 48)),
-        [MiiSkinColor.Pink] = (Color.FromRgb(255, 203, 195), Color.FromRgb(255, 173, 158)),
-        [MiiSkinColor.DarkBrown] = (Color.FromRgb(194, 106, 33), Color.FromRgb(154, 69, 18)),
-        [MiiSkinColor.Brown] = (Color.FromRgb(145, 98, 40), Color.FromRgb(58, 43, 11)),
+        [MiiSkinColor.Light] = Color.FromRgb(255, 211, 157),
+        [MiiSkinColor.Yellow] = Color.FromRgb(255, 185, 99),
+        [MiiSkinColor.Red] = Color.FromRgb(222, 123, 61),
+        [MiiSkinColor.Pink] = Color.FromRgb(255, 171, 128),
+        [MiiSkinColor.DarkBrown] = Color.FromRgb(200, 83, 39),
+        [MiiSkinColor.Brown] = Color.FromRgb(117, 46, 23),
     };
 
     private void PopulateValues()
@@ -57,6 +57,8 @@ public partial class EditorFace : MiiEditorBaseControl
 
     private void CreateSkinColorButtons()
     {
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral950);
+        var selectedColor2 = new SolidColorBrush(ViewUtils.Colors.Neutral900);
         SetButtons(
             "Color",
             6,
@@ -64,8 +66,9 @@ public partial class EditorFace : MiiEditorBaseControl
             (index, button) =>
             {
                 button.IsChecked = index == (int)Editor.Mii.MiiFacial.SkinColor;
-                button.Color1 = new SolidColorBrush(SkinColors[(MiiSkinColor)index].Item1);
-                button.Color2 = new SolidColorBrush(SkinColors[(MiiSkinColor)index].Item2);
+                button.Color1 = new SolidColorBrush(SkinColors[(MiiSkinColor)index]);
+                button.Color2 = color2;
+                button.SelectedColor2 = selectedColor2;
                 button.Click += (_, _) => SetSkinColor(index);
             }
         );

@@ -37,7 +37,7 @@ public class MiiEditorBaseControl : UserControlBase
 
             var iconName = "";
             if (type == "Color")
-                iconName = "MiiColorBall";
+                iconName = "Multi-PaintBrush";
             else
             {
                 var indexStr = index < 10 ? $"0{i}" : index.ToString();
