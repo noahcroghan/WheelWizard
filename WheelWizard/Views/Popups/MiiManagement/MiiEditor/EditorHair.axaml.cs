@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -12,16 +11,18 @@ public partial class EditorHair : MiiEditorBaseControl
         : base(ew)
     {
         InitializeComponent();
-        if (Editor?.Mii?.MiiHair == null)
-            return;
         PopulateValues();
     }
 
     private void PopulateValues()
     {
+        // Attribute:
         var currentHair = Editor.Mii.MiiHair;
+
+        // Hair:
         GenerateHairButtons();
 
+        // Hair Color:
         HairColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(HairColor)))
         {
@@ -30,6 +31,7 @@ public partial class EditorHair : MiiEditorBaseControl
                 HairColorBox.SelectedItem = color;
         }
 
+        // Hair Flipped:
         HairFlippedCheck.IsChecked = currentHair.HairFlipped;
     }
 
@@ -80,9 +82,7 @@ public partial class EditorHair : MiiEditorBaseControl
         var result = MiiHair.Create(currentHair.HairType, selectedColor, currentHair.HairFlipped);
 
         if (result.IsFailure)
-        {
             return;
-        }
 
         Editor.Mii.MiiHair = result.Value;
         Editor.RefreshImage();

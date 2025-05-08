@@ -1,4 +1,3 @@
-using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using WheelWizard.Views.Components;
@@ -17,15 +16,18 @@ public partial class EditorNose : MiiEditorBaseControl
         : base(ew)
     {
         InitializeComponent();
-        if (Editor?.Mii?.MiiNose == null)
-            return;
         PopulateValues();
     }
 
     private void PopulateValues()
     {
+        // Attribute:
         var currentNose = Editor.Mii.MiiNose;
+
+        // Nose:
         GenerateNoseButtons();
+
+        // Transform attributes:
         UpdateValueTexts(currentNose);
     }
 
@@ -52,25 +54,10 @@ public partial class EditorNose : MiiEditorBaseControl
         var current = Editor.Mii.MiiNose;
         var noseType = (NoseType)index;
         var result = MiiNose.Create(noseType, current.Size, current.Vertical);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiNose = result.Value;
-            UpdateValueTexts(result.Value);
-        }
-        else
-        {
-            // Reset the button to the current type if creation fails
-            foreach (var child in NoseTypesGrid.Children)
-            {
-                if (child is MultiIconRadioButton button && button.IsChecked == true)
-                {
-                    button.IsChecked = false;
-                }
-            }
+        if (result.IsFailure)
+            return;
 
-            var currentButton = NoseTypesGrid.Children[index] as MultiIconRadioButton;
-            currentButton.IsChecked = true;
-        }
+        Editor.Mii.MiiNose = result.Value;
         Editor.RefreshImage();
     }
 
@@ -115,28 +102,20 @@ public partial class EditorNose : MiiEditorBaseControl
                 max = MaxSize;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(property), property, null);
+                throw new ArgumentException($"{property} is not an option that you can change in Nose");
         }
 
         newValue = currentValue + change;
 
         if (newValue < min || newValue > max)
-        {
             return;
-        }
 
-        OperationResult<MiiNose> result;
-        switch (property)
+        var result = property switch
         {
-            case NoseProperty.Vertical:
-                result = MiiNose.Create(current.Type, current.Size, newValue);
-                break;
-            case NoseProperty.Size:
-                result = MiiNose.Create(current.Type, newValue, current.Vertical);
-                break;
-            default:
-                return;
-        }
+            NoseProperty.Vertical => MiiNose.Create(current.Type, current.Size, newValue),
+            NoseProperty.Size => MiiNose.Create(current.Type, newValue, current.Vertical),
+            _ => throw new ArgumentException($"{property} is not an option that you can change in Nose"),
+        };
 
         if (result.IsFailure)
             return;

@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -21,15 +20,18 @@ public partial class EditorEyes : MiiEditorBaseControl
         : base(ew)
     {
         InitializeComponent();
-        if (Editor?.Mii?.MiiEyes == null)
-            return;
         PopulateValues();
     }
 
     private void PopulateValues()
     {
+        // Attribute:
         var currentEyes = Editor.Mii.MiiEyes;
+
+        // Eyes:
         GenerateEyeButtons();
+
+        // Eye Color:
         EyeColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(EyeColor)))
         {
@@ -37,6 +39,8 @@ public partial class EditorEyes : MiiEditorBaseControl
             if (color == currentEyes.Color.ToString())
                 EyeColorBox.SelectedItem = color;
         }
+
+        // Transform attributes:
         UpdateValueTexts(currentEyes);
     }
 
@@ -74,20 +78,10 @@ public partial class EditorEyes : MiiEditorBaseControl
             return;
 
         var result = MiiEye.Create(index, current.Rotation, current.Vertical, current.Color, current.Size, current.Spacing);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiEyes = result.Value;
-            UpdateValueTexts(result.Value);
-        }
-        else
-        {
-            // Reset to previous value
-            var currentType = current.Type;
-            foreach (var item in EyeTypesGrid.Children.OfType<MultiIconRadioButton>())
-            {
-                item.IsChecked = item.IconData == GetMiiIconData($"Eyes{currentType:D2}");
-            }
-        }
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiEyes = result.Value;
         Editor.RefreshImage();
     }
 
@@ -149,33 +143,21 @@ public partial class EditorEyes : MiiEditorBaseControl
                 max = MaxSpacing;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(property), property, null);
+                throw new ArgumentException($"{property} is not an option that you can change in Eye");
         }
 
         newValue = currentValue + change;
         if (newValue < min || newValue > max)
-        {
             return;
-        }
 
-        OperationResult<MiiEye> result;
-        switch (property)
+        var result = property switch
         {
-            case EyeProperty.Vertical:
-                result = MiiEye.Create(current.Type, current.Rotation, newValue, current.Color, current.Size, current.Spacing); // Note Vertical position
-                break;
-            case EyeProperty.Size:
-                result = MiiEye.Create(current.Type, current.Rotation, current.Vertical, current.Color, newValue, current.Spacing); // Note Size position
-                break;
-            case EyeProperty.Rotation:
-                result = MiiEye.Create(current.Type, newValue, current.Vertical, current.Color, current.Size, current.Spacing); // Note Rotation position
-                break;
-            case EyeProperty.Spacing:
-                result = MiiEye.Create(current.Type, current.Rotation, current.Vertical, current.Color, current.Size, newValue); // Note Spacing position
-                break;
-            default:
-                return;
-        }
+            EyeProperty.Vertical => MiiEye.Create(current.Type, current.Rotation, newValue, current.Color, current.Size, current.Spacing),
+            EyeProperty.Size => MiiEye.Create(current.Type, current.Rotation, current.Vertical, current.Color, newValue, current.Spacing),
+            EyeProperty.Rotation => MiiEye.Create(current.Type, newValue, current.Vertical, current.Color, current.Size, current.Spacing),
+            EyeProperty.Spacing => MiiEye.Create(current.Type, current.Rotation, current.Vertical, current.Color, current.Size, newValue),
+            _ => throw new ArgumentException($"{property} is not an option that you can change in Eye"),
+        };
 
         if (result.IsFailure)
             return;
@@ -199,13 +181,10 @@ public partial class EditorEyes : MiiEditorBaseControl
 
         var result = MiiEye.Create(current.Type, current.Rotation, current.Vertical, newColor, current.Size, current.Spacing);
         if (result.IsSuccess)
-        {
             Editor.Mii.MiiEyes = result.Value;
-        }
         else
-        {
             EyeColorBox.SelectedItem = current.Color.ToString();
-        }
+
         Editor.RefreshImage();
     }
 

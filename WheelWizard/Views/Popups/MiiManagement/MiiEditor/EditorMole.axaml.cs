@@ -16,18 +16,19 @@ public partial class EditorMole : MiiEditorBaseControl
         : base(ew)
     {
         InitializeComponent();
-        if (Editor?.Mii?.MiiMole == null)
-            return;
         PopulateValues();
     }
 
     private void PopulateValues()
     {
+        // Attribute:
         var currentMole = Editor.Mii.MiiMole;
 
+        // Mole enabled:
         MoleEnabledCheck.IsChecked = currentMole.Exists;
-        MoleControlsPanel.IsVisible = currentMole.Exists;
 
+        // Transform attributes:
+        MoleControlsPanel.IsVisible = currentMole.Exists;
         UpdateValueTexts(currentMole);
     }
 
@@ -81,32 +82,21 @@ public partial class EditorMole : MiiEditorBaseControl
                 max = MaxHorizontal;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(property), property, null);
+                throw new ArgumentException($"{property} is not an option that you can change in Mole");
         }
 
         newValue = currentValue + change;
 
         if (newValue < min || newValue > max)
-        {
-            Console.WriteLine($"Mole {property} limit reached ({newValue}).");
             return;
-        }
 
-        OperationResult<MiiMole> result;
-        switch (property)
+        var result = property switch
         {
-            case MoleProperty.Vertical:
-                result = MiiMole.Create(current.Exists, current.Size, newValue, current.Horizontal);
-                break;
-            case MoleProperty.Size:
-                result = MiiMole.Create(current.Exists, newValue, current.Vertical, current.Horizontal);
-                break;
-            case MoleProperty.Horizontal:
-                result = MiiMole.Create(current.Exists, current.Size, current.Vertical, newValue);
-                break;
-            default:
-                return;
-        }
+            MoleProperty.Vertical => MiiMole.Create(current.Exists, current.Size, newValue, current.Horizontal),
+            MoleProperty.Size => MiiMole.Create(current.Exists, newValue, current.Vertical, current.Horizontal),
+            MoleProperty.Horizontal => MiiMole.Create(current.Exists, current.Size, current.Vertical, newValue),
+            _ => throw new ArgumentException($"{property} is not an option that you can change in Mole"),
+        };
 
         if (result.IsFailure)
             return;
@@ -121,7 +111,7 @@ public partial class EditorMole : MiiEditorBaseControl
         if (!IsLoaded || Editor?.Mii?.MiiMole == null)
             return;
 
-        bool isEnabled = MoleEnabledCheck.IsChecked == true;
+        var isEnabled = MoleEnabledCheck.IsChecked == true;
         var current = Editor.Mii.MiiMole;
 
         if (isEnabled == current.Exists)
@@ -130,13 +120,10 @@ public partial class EditorMole : MiiEditorBaseControl
         var result = MiiMole.Create(isEnabled, current.Size, current.Vertical, current.Horizontal);
 
         if (result.IsSuccess)
-        {
             Editor.Mii.MiiMole = result.Value;
-        }
         else
-        {
             MoleEnabledCheck.IsChecked = current.Exists;
-        }
+
         MoleControlsPanel.IsVisible = Editor.Mii.MiiMole.Exists;
         Editor.RefreshImage();
     }

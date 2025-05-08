@@ -17,14 +17,18 @@ public partial class EditorGlasses : MiiEditorBaseControl
         : base(ew)
     {
         InitializeComponent();
-        if (Editor?.Mii?.MiiGlasses == null)
-            return;
         PopulateValues();
     }
 
     private void PopulateValues()
     {
+        // Attribute:
         var currentGlasses = Editor.Mii.MiiGlasses;
+
+        // Glasses:
+        GenerateGlassesButtons();
+
+        // Glass color:
         GlassesColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(GlassesColor)))
         {
@@ -33,9 +37,9 @@ public partial class EditorGlasses : MiiEditorBaseControl
                 GlassesColorBox.SelectedItem = color;
         }
 
-        GenerateGlassesButtons();
-        UpdateValueTexts(currentGlasses);
+        // Transform attributes:
         HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != GlassesType.None;
+        UpdateValueTexts(currentGlasses);
     }
 
     private void GenerateGlassesButtons()
@@ -73,22 +77,11 @@ public partial class EditorGlasses : MiiEditorBaseControl
             return;
 
         var result = MiiGlasses.Create((GlassesType)index, current.Color, current.Size, current.Vertical);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiGlasses = result.Value;
-            UpdateValueTexts(result.Value);
-            HideIfNoGlasses.IsVisible = result.Value.Type != GlassesType.None;
-        }
-        else
-        {
-            foreach (var child in GlassesTypesGrid.Children)
-            {
-                if (child is MultiIconRadioButton button && button.IsChecked == true)
-                    button.IsChecked = false;
-            }
-            var currentButton = GlassesTypesGrid.Children[index] as MultiIconRadioButton;
-            currentButton.IsChecked = true;
-        }
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiGlasses = result.Value;
+        HideIfNoGlasses.IsVisible = result.Value.Type != GlassesType.None;
         Editor.RefreshImage();
     }
 
@@ -133,7 +126,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
                 max = MaxSize;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(property), property, null);
+                throw new ArgumentException($"{property} is not an option that you can change in Glasses");
         }
 
         newValue = currentValue + change;
@@ -141,18 +134,12 @@ public partial class EditorGlasses : MiiEditorBaseControl
         if (newValue < min || newValue > max)
             return;
 
-        OperationResult<MiiGlasses> result;
-        switch (property)
+        var result = property switch
         {
-            case GlassesProperty.Vertical:
-                result = MiiGlasses.Create(current.Type, current.Color, current.Size, newValue); // Note Vertical position
-                break;
-            case GlassesProperty.Size:
-                result = MiiGlasses.Create(current.Type, current.Color, newValue, current.Vertical); // Note Size position
-                break;
-            default:
-                return;
-        }
+            GlassesProperty.Vertical => MiiGlasses.Create(current.Type, current.Color, current.Size, newValue),
+            GlassesProperty.Size => MiiGlasses.Create(current.Type, current.Color, newValue, current.Vertical),
+            _ => throw new ArgumentException($"{property} is not an option that you can change in Glasses"),
+        };
 
         if (result.IsFailure)
             return;
@@ -176,13 +163,10 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
         var result = MiiGlasses.Create(current.Type, newColor, current.Size, current.Vertical);
         if (result.IsSuccess)
-        {
             Editor.Mii.MiiGlasses = result.Value;
-        }
         else
-        {
             GlassesColorBox.SelectedItem = current.Color.ToString();
-        }
+
         Editor.RefreshImage();
     }
 

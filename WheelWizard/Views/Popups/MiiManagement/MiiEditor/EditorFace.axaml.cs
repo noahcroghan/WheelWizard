@@ -25,51 +25,44 @@ public partial class EditorFace : MiiEditorBaseControl
 
     private void PopulateValues()
     {
+        // Attribute:
+        var currentFacial = Editor.Mii.MiiFacial;
+
+        // Facial features:
         foreach (var feature in Enum.GetNames(typeof(MiiFacialFeature)))
         {
             FacialFeatureBox.Items.Add(feature);
-            if (feature == Editor.Mii.MiiFacial.FacialFeature.ToString())
+            if (feature == currentFacial.FacialFeature.ToString())
                 FacialFeatureBox.SelectedItem = feature;
         }
-        CreateSkinColorButtons();
-        CreateHeadShapeButtons();
-    }
 
-    private void CreateHeadShapeButtons()
-    {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var color3 = new SolidColorBrush(Colors.Transparent); // Face features
+        // Skin color:
+        SetColorButtons(
+            6,
+            SkinColorGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)currentFacial.SkinColor;
+                button.Color1 = new SolidColorBrush(SkinColors[(MiiSkinColor)index]);
+                button.Click += (_, _) => SetSkinColor(index);
+            }
+        );
+
+        // Head shape:
+        var headShapeColor1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var headShapeColor2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var headShapeColor3 = new SolidColorBrush(Colors.Transparent); // Face features
         SetButtons(
             "MiiFace",
             8,
             HeadTypesGrid,
             (index, button) =>
             {
-                button.IsChecked = index == (int)Editor.Mii.MiiFacial.FaceShape;
-                button.Color1 = color1;
-                button.Color2 = color2;
-                button.Color3 = color3;
+                button.IsChecked = index == (int)currentFacial.FaceShape;
+                button.Color1 = headShapeColor1;
+                button.Color2 = headShapeColor2;
+                button.Color3 = headShapeColor3;
                 button.Click += (_, _) => SetFaceType(index);
-            }
-        );
-    }
-
-    private void CreateSkinColorButtons()
-    {
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral950);
-        var selectedColor2 = new SolidColorBrush(ViewUtils.Colors.Neutral900);
-        SetButtons(
-            "Color",
-            6,
-            SkinColorGrid,
-            (index, button) =>
-            {
-                button.IsChecked = index == (int)Editor.Mii.MiiFacial.SkinColor;
-                button.Color1 = new SolidColorBrush(SkinColors[(MiiSkinColor)index]);
-                button.Color2 = color2;
-                button.SelectedColor2 = selectedColor2;
-                button.Click += (_, _) => SetSkinColor(index);
             }
         );
     }

@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -22,30 +21,16 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         : base(ew)
     {
         InitializeComponent();
-        if (Editor?.Mii?.MiiEyebrows == null)
-            return;
         PopulateValues();
     }
 
     private void PopulateValues()
     {
+        // Attribute:
         var currentEyebrows = Editor.Mii.MiiEyebrows;
-        CreateEyebrowButtons();
-        EyebrowColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(EyebrowColor)))
-        {
-            EyebrowColorBox.Items.Add(color);
-            if (color == currentEyebrows.Color.ToString())
-                EyebrowColorBox.SelectedItem = color;
-        }
 
-        // Populate TextBlocks
-        UpdateValueTexts(currentEyebrows);
-    }
-
-    private void CreateEyebrowButtons()
-    {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Danger400);
+        // Eyebrows:
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Danger400); // NONE Color
         var selectedColor1 = new SolidColorBrush(ViewUtils.Colors.Danger500);
         var color2 = new SolidColorBrush(ViewUtils.Colors.Black); // Eyebrow Color
         SetButtons(
@@ -54,13 +39,25 @@ public partial class EditorEyebrows : MiiEditorBaseControl
             EyebrowTypesGrid,
             (index, button) =>
             {
-                button.IsChecked = index == Editor.Mii.MiiEyebrows.Type;
+                button.IsChecked = index == currentEyebrows.Type;
                 button.Color1 = color1;
                 button.SelectedColor1 = selectedColor1;
                 button.Color2 = color2;
                 button.Click += (_, _) => SetEyebrowType(index);
             }
         );
+
+        // Eyebrow Color:
+        EyebrowColorBox.Items.Clear();
+        foreach (var color in Enum.GetNames(typeof(EyebrowColor)))
+        {
+            EyebrowColorBox.Items.Add(color);
+            if (color == currentEyebrows.Color.ToString())
+                EyebrowColorBox.SelectedItem = color;
+        }
+
+        // Transform attributes:
+        UpdateTransformTextValues(currentEyebrows);
     }
 
     private void SetEyebrowType(int index)
@@ -73,32 +70,19 @@ public partial class EditorEyebrows : MiiEditorBaseControl
             return;
 
         var result = MiiEyebrow.Create(index, current.Rotation, current.Color, current.Size, current.Vertical, current.Spacing);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiEyebrows = result.Value;
-        }
-        else
-        {
-            // Reset the button to the current type if creation fails
-            foreach (var child in EyebrowTypesGrid.Children)
-            {
-                if (child is MultiIconRadioButton button && button.IsChecked == true)
-                    button.IsChecked = false;
-            }
+        if (result.IsFailure)
+            return;
 
-            var currentButton = EyebrowTypesGrid.Children[index] as MultiIconRadioButton;
-            currentButton.IsChecked = true;
-        }
+        Editor.Mii.MiiEyebrows = result.Value;
         Editor.RefreshImage();
     }
 
-    // Helper to update all value TextBlocks
-    private void UpdateValueTexts(MiiEyebrow eyebrows)
+    private void UpdateTransformTextValues(MiiEyebrow eyebrows)
     {
         SizeValueText.Text = eyebrows.Size.ToString();
         RotationValueText.Text = eyebrows.Rotation.ToString();
         SpacingValueText.Text = eyebrows.Spacing.ToString();
-        VerticalValueText.Text = (eyebrows.Vertical - 3).ToString(); // lying a bit here, but then people are not questions why it goes from 3 instead of 0
+        VerticalValueText.Text = (eyebrows.Vertical - 3).ToString();
 
         VerticalDecreaseButton.IsEnabled = eyebrows.Vertical > MinVertical;
         VerticalIncreaseButton.IsEnabled = eyebrows.Vertical < MaxVertical;
@@ -153,7 +137,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
                 max = MaxSpacing;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(property), property, null);
+                throw new ArgumentException($"{property} is not an option that you can change in Eyebrow");
         }
 
         newValue = currentValue + change;
@@ -162,30 +146,48 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         if (newValue < min || newValue > max)
             return;
 
-        OperationResult<MiiEyebrow> result;
-        switch (property)
+        var result = property switch
         {
-            case EyebrowProperty.Vertical:
-                result = MiiEyebrow.Create(current.Type, current.Rotation, current.Color, current.Size, newValue, current.Spacing);
-                break;
-            case EyebrowProperty.Size:
-                result = MiiEyebrow.Create(current.Type, current.Rotation, current.Color, newValue, current.Vertical, current.Spacing);
-                break;
-            case EyebrowProperty.Rotation:
-                result = MiiEyebrow.Create(current.Type, newValue, current.Color, current.Size, current.Vertical, current.Spacing);
-                break;
-            case EyebrowProperty.Spacing:
-                result = MiiEyebrow.Create(current.Type, current.Rotation, current.Color, current.Size, current.Vertical, newValue);
-                break;
-            default:
-                return;
-        }
+            EyebrowProperty.Vertical => MiiEyebrow.Create(
+                current.Type,
+                current.Rotation,
+                current.Color,
+                current.Size,
+                newValue,
+                current.Spacing
+            ),
+            EyebrowProperty.Size => MiiEyebrow.Create(
+                current.Type,
+                current.Rotation,
+                current.Color,
+                newValue,
+                current.Vertical,
+                current.Spacing
+            ),
+            EyebrowProperty.Rotation => MiiEyebrow.Create(
+                current.Type,
+                newValue,
+                current.Color,
+                current.Size,
+                current.Vertical,
+                current.Spacing
+            ),
+            EyebrowProperty.Spacing => MiiEyebrow.Create(
+                current.Type,
+                current.Rotation,
+                current.Color,
+                current.Size,
+                current.Vertical,
+                newValue
+            ),
+            _ => throw new ArgumentException($"{property} is not an option that you can change in Eyebrow"),
+        };
 
         if (result.IsFailure)
             return;
 
         Editor.Mii.MiiEyebrows = result.Value;
-        UpdateValueTexts(result.Value);
+        UpdateTransformTextValues(result.Value);
         Editor.RefreshImage();
     }
 

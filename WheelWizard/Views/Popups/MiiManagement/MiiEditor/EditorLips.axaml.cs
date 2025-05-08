@@ -8,8 +8,6 @@ namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 
 public partial class EditorLips : MiiEditorBaseControl
 {
-    private const int MinType = 0;
-    private const int MaxType = 23;
     private const int MinVertical = 0;
     private const int MaxVertical = 18;
     private const int MinSize = 0;
@@ -19,15 +17,18 @@ public partial class EditorLips : MiiEditorBaseControl
         : base(ew)
     {
         InitializeComponent();
-        if (Editor?.Mii?.MiiLips == null)
-            return;
         PopulateValues();
     }
 
     private void PopulateValues()
     {
+        // Attribute:
         var currentLips = Editor.Mii.MiiLips;
-        var lipTypes = Enumerable.Range(MinType, MaxType - MinType + 1).Cast<object>().ToList(); // 0 to 23
+
+        // Lips:
+        GenerateMouthButtons();
+
+        // Lip Colors:
         LipColorBox.Items.Clear();
         foreach (var color in Enum.GetNames(typeof(LipColor)))
         {
@@ -35,7 +36,8 @@ public partial class EditorLips : MiiEditorBaseControl
             if (color == currentLips.Color.ToString())
                 LipColorBox.SelectedItem = color;
         }
-        GenerateMouthButtons();
+
+        // Transform attributes:
         UpdateValueTexts(currentLips);
     }
 
@@ -72,23 +74,10 @@ public partial class EditorLips : MiiEditorBaseControl
 
         // MiiLip.Create(int type, LipColor color, int size, int vertical)
         var result = MiiLip.Create(index, current.Color, current.Size, current.Vertical);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiLips = result.Value;
-            UpdateValueTexts(result.Value);
-        }
-        else
-        {
-            foreach (var child in MouthTypesGrid.Children)
-            {
-                if (child is MultiIconRadioButton button && button.IsChecked == true)
-                {
-                    button.IsChecked = false;
-                }
-            }
-            var currentButton = MouthTypesGrid.Children[index] as MultiIconRadioButton;
-            currentButton.IsChecked = true;
-        }
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiLips = result.Value;
         Editor.RefreshImage();
     }
 
@@ -133,28 +122,20 @@ public partial class EditorLips : MiiEditorBaseControl
                 max = MaxSize;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(property), property, null);
+                throw new ArgumentException($"{property} is not an option that you can change in Lips");
         }
 
         newValue = currentValue + change;
 
         if (newValue < min || newValue > max)
-        {
             return;
-        }
 
-        OperationResult<MiiLip> result;
-        switch (property)
+        var result = property switch
         {
-            case LipProperty.Vertical:
-                result = MiiLip.Create(current.Type, current.Color, current.Size, newValue); // Note Vertical position
-                break;
-            case LipProperty.Size:
-                result = MiiLip.Create(current.Type, current.Color, newValue, current.Vertical); // Note Size position
-                break;
-            default:
-                return;
-        }
+            LipProperty.Vertical => MiiLip.Create(current.Type, current.Color, current.Size, newValue),
+            LipProperty.Size => MiiLip.Create(current.Type, current.Color, newValue, current.Vertical),
+            _ => throw new ArgumentException($"{property} is not an option that you can change in Lips"),
+        };
 
         if (result.IsFailure)
             return;
@@ -178,13 +159,10 @@ public partial class EditorLips : MiiEditorBaseControl
 
         var result = MiiLip.Create(current.Type, newColor, current.Size, current.Vertical);
         if (result.IsSuccess)
-        {
             Editor.Mii.MiiLips = result.Value;
-        }
         else
-        {
             LipColorBox.SelectedItem = current.Color.ToString();
-        }
+
         Editor.RefreshImage();
     }
 
