@@ -80,9 +80,9 @@ public partial class EditorEyebrows : MiiEditorBaseControl
     private void UpdateTransformTextValues(MiiEyebrow eyebrows)
     {
         SizeValueText.Text = eyebrows.Size.ToString();
-        RotationValueText.Text = eyebrows.Rotation.ToString();
+        RotationValueText.Text = (eyebrows.Rotation - 6).ToString();
         SpacingValueText.Text = eyebrows.Spacing.ToString();
-        VerticalValueText.Text = (eyebrows.Vertical - 3).ToString();
+        VerticalValueText.Text = ((eyebrows.Vertical - 10) * -1).ToString();
 
         VerticalDecreaseButton.IsEnabled = eyebrows.Vertical > MinVertical;
         VerticalIncreaseButton.IsEnabled = eyebrows.Vertical < MaxVertical;
@@ -94,15 +94,9 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         SpacingIncreaseButton.IsEnabled = eyebrows.Spacing < MaxSpacing;
     }
 
-    private enum EyebrowProperty
-    {
-        Vertical,
-        Size,
-        Rotation,
-        Spacing,
-    }
+    #region Transform
 
-    private void TryUpdateEyebrowValue(int change, EyebrowProperty property)
+    private void TryUpdateEyebrowValue(int change, MiiTransformProperty property)
     {
         if (Editor?.Mii?.MiiEyebrows == null || !IsLoaded)
             return;
@@ -116,22 +110,22 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         // Determine current value, new value, and range based on property
         switch (property)
         {
-            case EyebrowProperty.Vertical:
+            case MiiTransformProperty.Vertical:
                 currentValue = current.Vertical;
                 min = MinVertical;
                 max = MaxVertical;
                 break;
-            case EyebrowProperty.Size:
+            case MiiTransformProperty.Size:
                 currentValue = current.Size;
                 min = MinSize;
                 max = MaxSize;
                 break;
-            case EyebrowProperty.Rotation:
+            case MiiTransformProperty.Rotation:
                 currentValue = current.Rotation;
                 min = MinRotation;
                 max = MaxRotation;
                 break;
-            case EyebrowProperty.Spacing:
+            case MiiTransformProperty.Spacing:
                 currentValue = current.Spacing;
                 min = MinSpacing;
                 max = MaxSpacing;
@@ -148,7 +142,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
 
         var result = property switch
         {
-            EyebrowProperty.Vertical => MiiEyebrow.Create(
+            MiiTransformProperty.Vertical => MiiEyebrow.Create(
                 current.Type,
                 current.Rotation,
                 current.Color,
@@ -156,7 +150,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
                 newValue,
                 current.Spacing
             ),
-            EyebrowProperty.Size => MiiEyebrow.Create(
+            MiiTransformProperty.Size => MiiEyebrow.Create(
                 current.Type,
                 current.Rotation,
                 current.Color,
@@ -164,7 +158,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
                 current.Vertical,
                 current.Spacing
             ),
-            EyebrowProperty.Rotation => MiiEyebrow.Create(
+            MiiTransformProperty.Rotation => MiiEyebrow.Create(
                 current.Type,
                 newValue,
                 current.Color,
@@ -172,7 +166,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
                 current.Vertical,
                 current.Spacing
             ),
-            EyebrowProperty.Spacing => MiiEyebrow.Create(
+            MiiTransformProperty.Spacing => MiiEyebrow.Create(
                 current.Type,
                 current.Rotation,
                 current.Color,
@@ -215,19 +209,21 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         Editor.RefreshImage();
     }
 
-    private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, EyebrowProperty.Vertical);
+    private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, MiiTransformProperty.Vertical);
 
-    private void VerticalIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(+1, EyebrowProperty.Vertical);
+    private void VerticalIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(+1, MiiTransformProperty.Vertical);
 
-    private void SizeDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, EyebrowProperty.Size);
+    private void SizeDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, MiiTransformProperty.Size);
 
-    private void SizeIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(+1, EyebrowProperty.Size);
+    private void SizeIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(+1, MiiTransformProperty.Size);
 
-    private void RotationDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, EyebrowProperty.Rotation);
+    private void RotationDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, MiiTransformProperty.Rotation);
 
-    private void RotationIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(+1, EyebrowProperty.Rotation);
+    private void RotationIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(+1, MiiTransformProperty.Rotation);
 
-    private void SpacingDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, EyebrowProperty.Spacing);
+    private void SpacingDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(-1, MiiTransformProperty.Spacing);
 
-    private void SpacingIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(+1, EyebrowProperty.Spacing);
+    private void SpacingIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyebrowValue(+1, MiiTransformProperty.Spacing);
+
+    #endregion
 }

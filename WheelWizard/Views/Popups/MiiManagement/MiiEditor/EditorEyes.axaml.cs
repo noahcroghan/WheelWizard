@@ -29,23 +29,6 @@ public partial class EditorEyes : MiiEditorBaseControl
         var currentEyes = Editor.Mii.MiiEyes;
 
         // Eyes:
-        GenerateEyeButtons();
-
-        // Eye Color:
-        EyeColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(EyeColor)))
-        {
-            EyeColorBox.Items.Add(color);
-            if (color == currentEyes.Color.ToString())
-                EyeColorBox.SelectedItem = color;
-        }
-
-        // Transform attributes:
-        UpdateValueTexts(currentEyes);
-    }
-
-    private void GenerateEyeButtons()
-    {
         var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Eye white Color
         var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral950); // Eye border Color
         var selectedColor2 = new SolidColorBrush(ViewUtils.Colors.Black);
@@ -57,7 +40,7 @@ public partial class EditorEyes : MiiEditorBaseControl
             EyeTypesGrid,
             (index, button) =>
             {
-                button.IsChecked = index == Editor.Mii.MiiEyes.Type;
+                button.IsChecked = index == currentEyes.Type;
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.SelectedColor2 = selectedColor2;
@@ -66,6 +49,18 @@ public partial class EditorEyes : MiiEditorBaseControl
                 button.SelectedColor3 = selectedColor3;
             }
         );
+
+        // Eye Color:
+        EyeColorBox.Items.Clear();
+        foreach (var color in Enum.GetNames(typeof(EyeColor)))
+        {
+            EyeColorBox.Items.Add(color);
+            if (color == currentEyes.Color.ToString())
+                EyeColorBox.SelectedItem = color;
+        }
+
+        // Transform attributes:
+        UpdateTransformTextValues(currentEyes);
     }
 
     private void SetEyesType(int index)
@@ -85,11 +80,13 @@ public partial class EditorEyes : MiiEditorBaseControl
         Editor.RefreshImage();
     }
 
-    private void UpdateValueTexts(MiiEye eyes)
+    #region Transform
+
+    private void UpdateTransformTextValues(MiiEye eyes)
     {
-        VerticalValueText.Text = eyes.Vertical.ToString();
+        VerticalValueText.Text = ((eyes.Vertical - 12) * -1).ToString();
         SizeValueText.Text = eyes.Size.ToString();
-        RotationValueText.Text = eyes.Rotation.ToString();
+        RotationValueText.Text = (eyes.Rotation - 4).ToString();
         SpacingValueText.Text = eyes.Spacing.ToString();
 
         VerticalDecreaseButton.IsEnabled = eyes.Vertical > MinVertical;
@@ -102,15 +99,7 @@ public partial class EditorEyes : MiiEditorBaseControl
         SpacingIncreaseButton.IsEnabled = eyes.Spacing < MaxSpacing;
     }
 
-    private enum EyeProperty
-    {
-        Vertical,
-        Size,
-        Rotation,
-        Spacing,
-    }
-
-    private void TryUpdateEyeValue(int change, EyeProperty property)
+    private void TryUpdateEyeValue(int change, MiiTransformProperty property)
     {
         if (Editor?.Mii?.MiiEyes == null || !IsLoaded)
             return;
@@ -122,22 +111,22 @@ public partial class EditorEyes : MiiEditorBaseControl
             max;
         switch (property)
         {
-            case EyeProperty.Vertical:
+            case MiiTransformProperty.Vertical:
                 currentValue = current.Vertical;
                 min = MinVertical;
                 max = MaxVertical;
                 break;
-            case EyeProperty.Size:
+            case MiiTransformProperty.Size:
                 currentValue = current.Size;
                 min = MinSize;
                 max = MaxSize;
                 break;
-            case EyeProperty.Rotation:
+            case MiiTransformProperty.Rotation:
                 currentValue = current.Rotation;
                 min = MinRotation;
                 max = MaxRotation;
                 break;
-            case EyeProperty.Spacing:
+            case MiiTransformProperty.Spacing:
                 currentValue = current.Spacing;
                 min = MinSpacing;
                 max = MaxSpacing;
@@ -152,10 +141,38 @@ public partial class EditorEyes : MiiEditorBaseControl
 
         var result = property switch
         {
-            EyeProperty.Vertical => MiiEye.Create(current.Type, current.Rotation, newValue, current.Color, current.Size, current.Spacing),
-            EyeProperty.Size => MiiEye.Create(current.Type, current.Rotation, current.Vertical, current.Color, newValue, current.Spacing),
-            EyeProperty.Rotation => MiiEye.Create(current.Type, newValue, current.Vertical, current.Color, current.Size, current.Spacing),
-            EyeProperty.Spacing => MiiEye.Create(current.Type, current.Rotation, current.Vertical, current.Color, current.Size, newValue),
+            MiiTransformProperty.Vertical => MiiEye.Create(
+                current.Type,
+                current.Rotation,
+                newValue,
+                current.Color,
+                current.Size,
+                current.Spacing
+            ),
+            MiiTransformProperty.Size => MiiEye.Create(
+                current.Type,
+                current.Rotation,
+                current.Vertical,
+                current.Color,
+                newValue,
+                current.Spacing
+            ),
+            MiiTransformProperty.Rotation => MiiEye.Create(
+                current.Type,
+                newValue,
+                current.Vertical,
+                current.Color,
+                current.Size,
+                current.Spacing
+            ),
+            MiiTransformProperty.Spacing => MiiEye.Create(
+                current.Type,
+                current.Rotation,
+                current.Vertical,
+                current.Color,
+                current.Size,
+                newValue
+            ),
             _ => throw new ArgumentException($"{property} is not an option that you can change in Eye"),
         };
 
@@ -163,7 +180,7 @@ public partial class EditorEyes : MiiEditorBaseControl
             return;
 
         Editor.Mii.MiiEyes = result.Value;
-        UpdateValueTexts(result.Value);
+        UpdateTransformTextValues(result.Value);
         Editor.RefreshImage();
     }
 
@@ -188,19 +205,21 @@ public partial class EditorEyes : MiiEditorBaseControl
         Editor.RefreshImage();
     }
 
-    private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(-1, EyeProperty.Vertical);
+    private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(-1, MiiTransformProperty.Vertical);
 
-    private void VerticalIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(+1, EyeProperty.Vertical);
+    private void VerticalIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(+1, MiiTransformProperty.Vertical);
 
-    private void SizeDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(-1, EyeProperty.Size);
+    private void SizeDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(-1, MiiTransformProperty.Size);
 
-    private void SizeIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(+1, EyeProperty.Size);
+    private void SizeIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(+1, MiiTransformProperty.Size);
 
-    private void RotationDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(-1, EyeProperty.Rotation);
+    private void RotationDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(-1, MiiTransformProperty.Rotation);
 
-    private void RotationIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(+1, EyeProperty.Rotation);
+    private void RotationIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(+1, MiiTransformProperty.Rotation);
 
-    private void SpacingDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(-1, EyeProperty.Spacing);
+    private void SpacingDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(-1, MiiTransformProperty.Spacing);
 
-    private void SpacingIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(+1, EyeProperty.Spacing);
+    private void SpacingIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateEyeValue(+1, MiiTransformProperty.Spacing);
+
+    #endregion
 }

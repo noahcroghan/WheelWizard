@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -26,7 +25,24 @@ public partial class EditorLips : MiiEditorBaseControl
         var currentLips = Editor.Mii.MiiLips;
 
         // Lips:
-        GenerateMouthButtons();
+        var color1 = new SolidColorBrush(new Color(255, 165, 57, 29)); // Lip Top Color
+        var color2 = new SolidColorBrush(new Color(255, 255, 93, 13)); // Lip bottom Color
+        var color3 = new SolidColorBrush(Colors.Black); // LipLine Color
+        var color4 = new SolidColorBrush(Colors.White); // tooth color
+        SetButtons(
+            "MiiMouth",
+            24,
+            MouthTypesGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == currentLips.Type;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.Click += (_, _) => SetMouthType(index);
+            }
+        );
 
         // Lip Colors:
         LipColorBox.Items.Clear();
@@ -38,29 +54,7 @@ public partial class EditorLips : MiiEditorBaseControl
         }
 
         // Transform attributes:
-        UpdateValueTexts(currentLips);
-    }
-
-    private void GenerateMouthButtons()
-    {
-        var color1 = new SolidColorBrush(new Color(255, 165, 57, 29)); // Lip Top Color
-        var color2 = new SolidColorBrush(new Color(255, 255, 93, 13)); // Lip bottom Color
-        var color3 = new SolidColorBrush(Colors.Black); // LipLine Color
-        var color4 = new SolidColorBrush(Colors.White); // tooth color
-        SetButtons(
-            "MiiMouth",
-            24,
-            MouthTypesGrid,
-            (index, button) =>
-            {
-                button.IsChecked = index == Editor.Mii.MiiLips.Type;
-                button.Color1 = color1;
-                button.Color2 = color2;
-                button.Color3 = color3;
-                button.Color4 = color4;
-                button.Click += (_, _) => SetMouthType(index);
-            }
-        );
+        UpdateTransformTextValues(currentLips);
     }
 
     private void SetMouthType(int index)
@@ -81,9 +75,9 @@ public partial class EditorLips : MiiEditorBaseControl
         Editor.RefreshImage();
     }
 
-    private void UpdateValueTexts(MiiLip lips)
+    private void UpdateTransformTextValues(MiiLip lips)
     {
-        VerticalValueText.Text = lips.Vertical.ToString();
+        VerticalValueText.Text = ((lips.Vertical - 13) * -1).ToString();
         SizeValueText.Text = lips.Size.ToString();
 
         VerticalDecreaseButton.IsEnabled = lips.Vertical > MinVertical;
@@ -92,13 +86,9 @@ public partial class EditorLips : MiiEditorBaseControl
         SizeIncreaseButton.IsEnabled = lips.Size < MaxSize;
     }
 
-    private enum LipProperty
-    {
-        Vertical,
-        Size,
-    }
+    #region Transform
 
-    private void TryUpdateLipValue(int change, LipProperty property)
+    private void TryUpdateLipValue(int change, MiiTransformProperty property)
     {
         if (Editor?.Mii?.MiiLips == null || !IsLoaded)
             return;
@@ -111,12 +101,12 @@ public partial class EditorLips : MiiEditorBaseControl
 
         switch (property)
         {
-            case LipProperty.Vertical:
+            case MiiTransformProperty.Vertical:
                 currentValue = current.Vertical;
                 min = MinVertical;
                 max = MaxVertical;
                 break;
-            case LipProperty.Size:
+            case MiiTransformProperty.Size:
                 currentValue = current.Size;
                 min = MinSize;
                 max = MaxSize;
@@ -132,8 +122,8 @@ public partial class EditorLips : MiiEditorBaseControl
 
         var result = property switch
         {
-            LipProperty.Vertical => MiiLip.Create(current.Type, current.Color, current.Size, newValue),
-            LipProperty.Size => MiiLip.Create(current.Type, current.Color, newValue, current.Vertical),
+            MiiTransformProperty.Vertical => MiiLip.Create(current.Type, current.Color, current.Size, newValue),
+            MiiTransformProperty.Size => MiiLip.Create(current.Type, current.Color, newValue, current.Vertical),
             _ => throw new ArgumentException($"{property} is not an option that you can change in Lips"),
         };
 
@@ -141,7 +131,7 @@ public partial class EditorLips : MiiEditorBaseControl
             return;
 
         Editor.Mii.MiiLips = result.Value;
-        UpdateValueTexts(result.Value);
+        UpdateTransformTextValues(result.Value);
         Editor.RefreshImage();
     }
 
@@ -166,11 +156,13 @@ public partial class EditorLips : MiiEditorBaseControl
         Editor.RefreshImage();
     }
 
-    private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(-1, LipProperty.Vertical);
+    private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(-1, MiiTransformProperty.Vertical);
 
-    private void VerticalIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(+1, LipProperty.Vertical);
+    private void VerticalIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(+1, MiiTransformProperty.Vertical);
 
-    private void SizeDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(-1, LipProperty.Size);
+    private void SizeDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(-1, MiiTransformProperty.Size);
 
-    private void SizeIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(+1, LipProperty.Size);
+    private void SizeIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateLipValue(+1, MiiTransformProperty.Size);
+
+    #endregion
 }

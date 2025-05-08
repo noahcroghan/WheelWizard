@@ -130,12 +130,12 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         Editor.RefreshImage();
     }
 
-    #region TransformFunctions
+    #region Transform
 
     private void UpdateTransformTextValues(MiiFacialHair facialHair)
     {
         VerticalValueText.Text = ((facialHair.Vertical - 10) * -1).ToString();
-        SizeValueText.Text = (facialHair.Size - 4).ToString();
+        SizeValueText.Text = facialHair.Size.ToString();
 
         VerticalDecreaseButton.IsEnabled = facialHair.Vertical > MinVertical;
         VerticalIncreaseButton.IsEnabled = facialHair.Vertical < MaxVertical;

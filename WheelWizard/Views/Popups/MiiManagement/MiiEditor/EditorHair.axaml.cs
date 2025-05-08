@@ -20,7 +20,26 @@ public partial class EditorHair : MiiEditorBaseControl
         var currentHair = Editor.Mii.MiiHair;
 
         // Hair:
-        GenerateHairButtons();
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral100); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Hair Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Primary800); // Hat main color
+        var color5 = new SolidColorBrush(ViewUtils.Colors.Primary900); // Hat accent color
+        SetButtons(
+            "MiiHair",
+            72,
+            HairTypesGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == currentHair.HairType;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.Color5 = color5;
+                button.Click += (_, _) => SetHairType(index);
+            }
+        );
 
         // Hair Color:
         HairColorBox.Items.Clear();
@@ -33,30 +52,6 @@ public partial class EditorHair : MiiEditorBaseControl
 
         // Hair Flipped:
         HairFlippedCheck.IsChecked = currentHair.HairFlipped;
-    }
-
-    private void GenerateHairButtons()
-    {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral100); // Skin Color
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var color3 = new SolidColorBrush(ViewUtils.Colors.Black); // Hair Color
-        var color4 = new SolidColorBrush(ViewUtils.Colors.Primary800); // Hat main color
-        var color5 = new SolidColorBrush(ViewUtils.Colors.Primary900); // Hat accent color
-        SetButtons(
-            "MiiHair",
-            72,
-            HairTypesGrid,
-            (index, button) =>
-            {
-                button.IsChecked = index == Editor.Mii.MiiHair.HairType;
-                button.Color1 = color1;
-                button.Color2 = color2;
-                button.Color3 = color3;
-                button.Color4 = color4;
-                button.Color5 = color5;
-                button.Click += (_, _) => SetHairType(index);
-            }
-        );
     }
 
     private void SetHairType(int type)

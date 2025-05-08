@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using WheelWizard.Views.Components;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -26,7 +25,26 @@ public partial class EditorGlasses : MiiEditorBaseControl
         var currentGlasses = Editor.Mii.MiiGlasses;
 
         // Glasses:
-        GenerateGlassesButtons();
+        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
+        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
+        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral600); // Glass Color
+        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger400); // NONE Color
+        var selectedColor4 = new SolidColorBrush(ViewUtils.Colors.Danger500);
+        SetButtons(
+            "MiiGlasses",
+            9,
+            GlassesTypesGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)currentGlasses.Type;
+                button.Color1 = color1;
+                button.Color2 = color2;
+                button.Color3 = color3;
+                button.Color4 = color4;
+                button.SelectedColor4 = selectedColor4;
+                button.Click += (_, _) => SetGlassesType(index);
+            }
+        );
 
         // Glass color:
         GlassesColorBox.Items.Clear();
@@ -39,31 +57,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
         // Transform attributes:
         HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != GlassesType.None;
-        UpdateValueTexts(currentGlasses);
-    }
-
-    private void GenerateGlassesButtons()
-    {
-        var color1 = new SolidColorBrush(ViewUtils.Colors.Neutral50); // Skin Color
-        var color2 = new SolidColorBrush(ViewUtils.Colors.Neutral300); // Skin border Color
-        var color3 = new SolidColorBrush(ViewUtils.Colors.Neutral600); // Glass Color
-        var color4 = new SolidColorBrush(ViewUtils.Colors.Danger400);
-        var selectedColor4 = new SolidColorBrush(ViewUtils.Colors.Danger500);
-        SetButtons(
-            "MiiGlasses",
-            9,
-            GlassesTypesGrid,
-            (index, button) =>
-            {
-                button.IsChecked = index == (int)Editor.Mii.MiiGlasses.Type;
-                button.Color1 = color1;
-                button.Color2 = color2;
-                button.Color3 = color3;
-                button.Color4 = color4;
-                button.SelectedColor4 = selectedColor4;
-                button.Click += (_, _) => SetGlassesType(index);
-            }
-        );
+        UpdateTransformTextValues(currentGlasses);
     }
 
     private void SetGlassesType(int index)
@@ -85,7 +79,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
         Editor.RefreshImage();
     }
 
-    private void UpdateValueTexts(MiiGlasses glasses)
+    private void UpdateTransformTextValues(MiiGlasses glasses)
     {
         VerticalValueText.Text = glasses.Vertical.ToString();
         SizeValueText.Text = glasses.Size.ToString();
@@ -96,13 +90,9 @@ public partial class EditorGlasses : MiiEditorBaseControl
         SizeIncreaseButton.IsEnabled = glasses.Size < MaxSize;
     }
 
-    private enum GlassesProperty
-    {
-        Vertical,
-        Size,
-    }
+    #region Transfrom
 
-    private void TryUpdateGlassValue(int change, GlassesProperty property)
+    private void TryUpdateGlassValue(int change, MiiTransformProperty property)
     {
         if (Editor?.Mii?.MiiGlasses == null || !IsLoaded)
             return;
@@ -115,12 +105,12 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
         switch (property)
         {
-            case GlassesProperty.Vertical:
+            case MiiTransformProperty.Vertical:
                 currentValue = current.Vertical;
                 min = MinVertical;
                 max = MaxVertical;
                 break;
-            case GlassesProperty.Size:
+            case MiiTransformProperty.Size:
                 currentValue = current.Size;
                 min = MinSize;
                 max = MaxSize;
@@ -136,8 +126,8 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
         var result = property switch
         {
-            GlassesProperty.Vertical => MiiGlasses.Create(current.Type, current.Color, current.Size, newValue),
-            GlassesProperty.Size => MiiGlasses.Create(current.Type, current.Color, newValue, current.Vertical),
+            MiiTransformProperty.Vertical => MiiGlasses.Create(current.Type, current.Color, current.Size, newValue),
+            MiiTransformProperty.Size => MiiGlasses.Create(current.Type, current.Color, newValue, current.Vertical),
             _ => throw new ArgumentException($"{property} is not an option that you can change in Glasses"),
         };
 
@@ -145,7 +135,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
             return;
 
         Editor.Mii.MiiGlasses = result.Value;
-        UpdateValueTexts(result.Value);
+        UpdateTransformTextValues(result.Value);
         Editor.RefreshImage();
     }
 
@@ -170,11 +160,13 @@ public partial class EditorGlasses : MiiEditorBaseControl
         Editor.RefreshImage();
     }
 
-    private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(-1, GlassesProperty.Vertical);
+    private void VerticalDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(-1, MiiTransformProperty.Vertical);
 
-    private void VerticalIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(+1, GlassesProperty.Vertical);
+    private void VerticalIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(+1, MiiTransformProperty.Vertical);
 
-    private void SizeDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(-1, GlassesProperty.Size);
+    private void SizeDecrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(-1, MiiTransformProperty.Size);
 
-    private void SizeIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(+1, GlassesProperty.Size);
+    private void SizeIncrease_Click(object? sender, RoutedEventArgs e) => TryUpdateGlassValue(+1, MiiTransformProperty.Size);
+
+    #endregion
 }
