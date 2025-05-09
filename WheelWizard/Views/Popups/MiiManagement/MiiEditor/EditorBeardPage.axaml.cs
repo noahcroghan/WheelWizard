@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using WheelWizard.WiiManagement.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -66,13 +67,16 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         );
 
         // Facial Hair Color:
-        MustacheColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(MiiHairColor))) // Using MustacheColor enum
-        {
-            MustacheColorBox.Items.Add(color);
-            if (color == currentFacialHair.Color.ToString())
-                MustacheColorBox.SelectedItem = color;
-        }
+        SetColorButtons(
+            MiiColorMappings.HairColor.Count,
+            HairColorGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiFacialHair.Color;
+                button.Color1 = new SolidColorBrush(MiiColorMappings.HairColor[(MiiHairColor)index]);
+                button.Click += (_, _) => SetHairColor(index);
+            }
+        );
 
         // Transform attributes:
         MustacheTransformOptions.IsVisible = Editor.Mii.MiiFacialHair.MiiMustacheType != MiiMustacheType.None;
@@ -93,6 +97,20 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         Editor.RefreshImage();
     }
 
+    private void SetHairColor(int index)
+    {
+        if (Editor?.Mii?.MiiFacialHair == null || !IsLoaded)
+            return;
+        var current = Editor.Mii.MiiFacialHair;
+        var hairColor = (MiiHairColor)index;
+        var result = MiiFacialHair.Create(current.MiiMustacheType, current.MiiBeardType, hairColor, current.Size, current.Vertical);
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiFacialHair = result.Value;
+        Editor.RefreshImage();
+    }
+
     private void SetMustacheType(int index)
     {
         if (Editor?.Mii?.MiiFacialHair == null || !IsLoaded)
@@ -106,27 +124,6 @@ public partial class EditorFacialHair : MiiEditorBaseControl
 
         MustacheTransformOptions.IsVisible = mustacheType != MiiMustacheType.None;
         Editor.Mii.MiiFacialHair = result.Value;
-        Editor.RefreshImage();
-    }
-
-    private void FacialHairColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || MustacheColorBox.SelectedItem == null || Editor?.Mii?.MiiFacialHair == null)
-            return;
-        if (MustacheColorBox.SelectedItem is not string colorStr)
-            return;
-
-        var newColor = (MiiHairColor)Enum.Parse(typeof(MiiHairColor), colorStr);
-        var current = Editor.Mii.MiiFacialHair;
-        if (newColor == current.Color)
-            return;
-
-        var result = MiiFacialHair.Create(current.MiiMustacheType, current.MiiBeardType, newColor, current.Size, current.Vertical);
-        if (result.IsSuccess)
-            Editor.Mii.MiiFacialHair = result.Value;
-        else
-            MustacheColorBox.SelectedItem = current.Color.ToString();
-
         Editor.RefreshImage();
     }
 

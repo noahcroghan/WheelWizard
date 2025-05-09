@@ -1,5 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Media;
+using WheelWizard.WiiManagement.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -12,16 +13,6 @@ public partial class EditorFace : MiiEditorBaseControl
         InitializeComponent();
         PopulateValues();
     }
-
-    private static readonly Dictionary<MiiSkinColor, Color> ColorMap = new()
-    {
-        [MiiSkinColor.Light] = Color.FromRgb(255, 211, 157),
-        [MiiSkinColor.Yellow] = Color.FromRgb(255, 185, 99),
-        [MiiSkinColor.Red] = Color.FromRgb(222, 123, 61),
-        [MiiSkinColor.Pink] = Color.FromRgb(255, 171, 128),
-        [MiiSkinColor.DarkBrown] = Color.FromRgb(200, 83, 39),
-        [MiiSkinColor.Brown] = Color.FromRgb(117, 46, 23),
-    };
 
     private void PopulateValues()
     {
@@ -38,12 +29,12 @@ public partial class EditorFace : MiiEditorBaseControl
 
         // Skin color:
         SetColorButtons(
-            6,
+            MiiColorMappings.SkinColor.Count,
             SkinColorGrid,
             (index, button) =>
             {
                 button.IsChecked = index == (int)currentFacial.SkinColor;
-                button.Color1 = new SolidColorBrush(ColorMap[(MiiSkinColor)index]);
+                button.Color1 = new SolidColorBrush(MiiColorMappings.SkinColor[(MiiSkinColor)index]);
                 button.Click += (_, _) => SetSkinColor(index);
             }
         );

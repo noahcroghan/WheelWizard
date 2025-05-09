@@ -3,6 +3,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
+using WheelWizard.WiiManagement.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -12,22 +13,6 @@ public partial class EditorGeneral : MiiEditorBaseControl
     private bool _hasMiiNameError;
     private bool _hasCreatorNameError;
     private readonly DispatcherTimer _refreshTimer = new() { Interval = TimeSpan.FromSeconds(0.7), IsEnabled = false };
-
-    private static readonly Dictionary<MiiFavoriteColor, Color> ColorMap = new()
-    {
-        [MiiFavoriteColor.Black] = Colors.Black,
-        [MiiFavoriteColor.Yellow] = Color.FromRgb(255, 237, 33),
-        [MiiFavoriteColor.Red] = Color.FromRgb(252, 33, 20),
-        [MiiFavoriteColor.Pink] = Color.FromRgb(255, 98, 126),
-        [MiiFavoriteColor.Blue] = Color.FromRgb(10, 80, 184),
-        [MiiFavoriteColor.Green] = Color.FromRgb(0, 130, 50),
-        [MiiFavoriteColor.Orange] = Color.FromRgb(255, 119, 27),
-        [MiiFavoriteColor.Purple] = Color.FromRgb(138, 42, 176),
-        [MiiFavoriteColor.LightBlue] = Color.FromRgb(71, 186, 225),
-        [MiiFavoriteColor.LightGreen] = Color.FromRgb(143, 240, 31),
-        [MiiFavoriteColor.Brown] = Color.FromRgb(87, 62, 23),
-        [MiiFavoriteColor.White] = Color.FromRgb(255, 255, 250),
-    };
 
     public EditorGeneral(MiiEditorWindow ew)
         : base(ew)
@@ -48,12 +33,12 @@ public partial class EditorGeneral : MiiEditorBaseControl
 
         // Favorite color:
         SetColorButtons(
-            12,
+            MiiColorMappings.FavoriteColor.Count,
             FavoriteColorGrid,
             (index, button) =>
             {
                 button.IsChecked = index == (int)Editor.Mii.MiiFavoriteColor;
-                button.Color1 = new SolidColorBrush(ColorMap[(MiiFavoriteColor)index]);
+                button.Color1 = new SolidColorBrush(MiiColorMappings.FavoriteColor[(MiiFavoriteColor)index]);
                 button.Click += (_, _) => SetSkinColor(index);
             }
         );

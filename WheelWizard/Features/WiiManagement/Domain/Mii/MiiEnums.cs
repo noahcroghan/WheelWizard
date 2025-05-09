@@ -63,7 +63,7 @@ public enum MiiHairColor
     Grey,
     LightBrown,
     Blonde,
-    White,
+    Gold,
 }
 
 public enum MiiEyeColor : uint

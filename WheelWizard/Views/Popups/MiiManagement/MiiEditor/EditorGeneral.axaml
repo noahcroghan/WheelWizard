@@ -60,7 +60,7 @@
                 </StackPanel>
                 
                 
-                <StackPanel> <!-- Skin Color -->
+                <StackPanel> <!-- Favorite Color -->
                     <components:FormFieldLabel Text="Favorite Color:"/>
                     <UniformGrid Columns="5" x:Name="FavoriteColorGrid">
                         <!-- Generated elements -->

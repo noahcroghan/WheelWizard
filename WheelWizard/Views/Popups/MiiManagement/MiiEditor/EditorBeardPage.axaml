@@ -23,14 +23,13 @@
             <StackPanel Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Spacing="15">
                 <!-- The list of elements you want to edit in this page -->
 
-                 <StackPanel> <!-- Facial Hair Color -->
-                    <components:FormFieldLabel Text="Facial Hair Color:"/>
-                    <ComboBox
-                        x:Name="MustacheColorBox"
-                        SelectionChanged="FacialHairColorBox_OnSelectionChanged"
-                        Width="150"
-                        />
+                <StackPanel> <!-- Hair Color -->
+                    <components:FormFieldLabel Text="Hair Color:"/>
+                    <UniformGrid Columns="5" x:Name="HairColorGrid">
+                        <!-- Generated elements -->
+                    </UniformGrid>
                 </StackPanel>
+
 
                 <StackPanel> <!-- Mustache Type -->
                     <components:FormFieldLabel Text="Mustache Type:"/>
