@@ -46,7 +46,7 @@ public partial class EditorLips : MiiEditorBaseControl
 
         // Lip Colors:
         LipColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(LipColor)))
+        foreach (var color in Enum.GetNames(typeof(MiiLipColor)))
         {
             LipColorBox.Items.Add(color);
             if (color == currentLips.Color.ToString())
@@ -142,7 +142,7 @@ public partial class EditorLips : MiiEditorBaseControl
         if (LipColorBox.SelectedItem is not string colorStr)
             return;
 
-        var newColor = (LipColor)Enum.Parse(typeof(LipColor), colorStr);
+        var newColor = (MiiLipColor)Enum.Parse(typeof(MiiLipColor), colorStr);
         var current = Editor.Mii.MiiLips;
         if (newColor == current.Color)
             return;

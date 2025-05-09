@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
+using Avalonia.Media;
 using Avalonia.Threading;
 using WheelWizard.WiiManagement.Domain.Mii;
 
@@ -12,6 +13,22 @@ public partial class EditorGeneral : MiiEditorBaseControl
     private bool _hasCreatorNameError;
     private readonly DispatcherTimer _refreshTimer = new() { Interval = TimeSpan.FromSeconds(0.7), IsEnabled = false };
 
+    private static readonly Dictionary<MiiFavoriteColor, Color> ColorMap = new()
+    {
+        [MiiFavoriteColor.Black] = Colors.Black,
+        [MiiFavoriteColor.Yellow] = Color.FromRgb(255, 237, 33),
+        [MiiFavoriteColor.Red] = Color.FromRgb(252, 33, 20),
+        [MiiFavoriteColor.Pink] = Color.FromRgb(255, 98, 126),
+        [MiiFavoriteColor.Blue] = Color.FromRgb(10, 80, 184),
+        [MiiFavoriteColor.Green] = Color.FromRgb(0, 130, 50),
+        [MiiFavoriteColor.Orange] = Color.FromRgb(255, 119, 27),
+        [MiiFavoriteColor.Purple] = Color.FromRgb(138, 42, 176),
+        [MiiFavoriteColor.LightBlue] = Color.FromRgb(71, 186, 225),
+        [MiiFavoriteColor.LightGreen] = Color.FromRgb(143, 240, 31),
+        [MiiFavoriteColor.Brown] = Color.FromRgb(87, 62, 23),
+        [MiiFavoriteColor.White] = Color.FromRgb(255, 255, 250),
+    };
+
     public EditorGeneral(MiiEditorWindow ew)
         : base(ew)
     {
@@ -22,17 +39,24 @@ public partial class EditorGeneral : MiiEditorBaseControl
 
     private void PopulateValues()
     {
+        // random attributes:
         MiiName.Text = Editor.Mii.Name.ToString();
         CreatorName.Text = Editor.Mii.CreatorName.ToString();
         GirlToggle.IsChecked = Editor.Mii.IsGirl;
         LengthSlider.Value = Editor.Mii.Height.Value;
         WidthSlider.Value = Editor.Mii.Weight.Value;
-        foreach (var color in Enum.GetNames(typeof(MiiFavoriteColor)))
-        {
-            FavoriteColorBox.Items.Add(color);
-            if (color == Editor.Mii.MiiFavoriteColor.ToString())
-                FavoriteColorBox.SelectedItem = color;
-        }
+
+        // Favorite color:
+        SetColorButtons(
+            12,
+            FavoriteColorGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiFavoriteColor;
+                button.Color1 = new SolidColorBrush(ColorMap[(MiiFavoriteColor)index]);
+                button.Click += (_, _) => SetSkinColor(index);
+            }
+        );
     }
 
     protected override void BeforeBack()
@@ -43,8 +67,8 @@ public partial class EditorGeneral : MiiEditorBaseControl
         if (!_hasCreatorNameError)
             Editor.Mii.CreatorName = new(CreatorName.Text);
 
-        // For now i put it here, since i dont thing we want each value to be set when you change length or width
-        // only when you stop moving that bar do we want that i think
+        // For nowI put it here, since I don't think we want each value to be set when you change length or width
+        // only when you stop moving that bar so we want that, I think at least
         Editor.RefreshImage();
     }
 
@@ -114,15 +138,9 @@ public partial class EditorGeneral : MiiEditorBaseControl
         RestartRefreshTimer();
     }
 
-    private void FavoriteColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    private void SetSkinColor(int index)
     {
-        var value = FavoriteColorBox.SelectedItem;
-        if (value is null)
-            return;
-        var color = (MiiFavoriteColor)Enum.Parse(typeof(MiiFavoriteColor), value.ToString()!);
-        if (color == Editor.Mii.MiiFavoriteColor)
-            return;
-        Editor.Mii.MiiFavoriteColor = color;
+        Editor.Mii.MiiFavoriteColor = (MiiFavoriteColor)index;
         Editor.RefreshImage();
     }
 

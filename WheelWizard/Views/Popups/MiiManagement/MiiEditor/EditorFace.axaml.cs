@@ -13,7 +13,7 @@ public partial class EditorFace : MiiEditorBaseControl
         PopulateValues();
     }
 
-    private static readonly Dictionary<MiiSkinColor, Color> SkinColors = new()
+    private static readonly Dictionary<MiiSkinColor, Color> ColorMap = new()
     {
         [MiiSkinColor.Light] = Color.FromRgb(255, 211, 157),
         [MiiSkinColor.Yellow] = Color.FromRgb(255, 185, 99),
@@ -26,7 +26,7 @@ public partial class EditorFace : MiiEditorBaseControl
     private void PopulateValues()
     {
         // Attribute:
-        var currentFacial = Editor.Mii.MiiFacial;
+        var currentFacial = Editor.Mii.MiiFacialFeatures;
 
         // Facial features:
         foreach (var feature in Enum.GetNames(typeof(MiiFacialFeature)))
@@ -43,7 +43,7 @@ public partial class EditorFace : MiiEditorBaseControl
             (index, button) =>
             {
                 button.IsChecked = index == (int)currentFacial.SkinColor;
-                button.Color1 = new SolidColorBrush(SkinColors[(MiiSkinColor)index]);
+                button.Color1 = new SolidColorBrush(ColorMap[(MiiSkinColor)index]);
                 button.Click += (_, _) => SetSkinColor(index);
             }
         );
@@ -69,7 +69,7 @@ public partial class EditorFace : MiiEditorBaseControl
 
     private void SetFaceType(int index)
     {
-        var current = Editor.Mii.MiiFacial;
+        var current = Editor.Mii.MiiFacialFeatures;
         //face shape is an enum so when comparing
         if (index == (int)current.FaceShape)
             return; // No change
@@ -83,13 +83,13 @@ public partial class EditorFace : MiiEditorBaseControl
         if (result.IsFailure)
             return;
 
-        Editor.Mii.MiiFacial = result.Value;
+        Editor.Mii.MiiFacialFeatures = result.Value;
         Editor.RefreshImage();
     }
 
     private void SetSkinColor(int index)
     {
-        var current = Editor.Mii.MiiFacial;
+        var current = Editor.Mii.MiiFacialFeatures;
         //face shape is an enum so when comparing
         if (index == (int)current.SkinColor)
             return; // No change
@@ -103,7 +103,7 @@ public partial class EditorFace : MiiEditorBaseControl
         if (result.IsFailure)
             return;
 
-        Editor.Mii.MiiFacial = result.Value;
+        Editor.Mii.MiiFacialFeatures = result.Value;
         Editor.RefreshImage();
     }
 
@@ -114,7 +114,7 @@ public partial class EditorFace : MiiEditorBaseControl
             return;
 
         var selectedFeature = (MiiFacialFeature)Enum.Parse(typeof(MiiFacialFeature), value.ToString()!);
-        var currentFacial = Editor.Mii.MiiFacial;
+        var currentFacial = Editor.Mii.MiiFacialFeatures;
 
         if (selectedFeature == currentFacial.FacialFeature)
             return; // No change
@@ -133,7 +133,7 @@ public partial class EditorFace : MiiEditorBaseControl
             return;
         }
 
-        Editor.Mii.MiiFacial = result.Value;
+        Editor.Mii.MiiFacialFeatures = result.Value;
         Editor.RefreshImage();
     }
 }

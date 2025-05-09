@@ -48,7 +48,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
         // Glass color:
         GlassesColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(GlassesColor)))
+        foreach (var color in Enum.GetNames(typeof(MiiGlassesColor)))
         {
             GlassesColorBox.Items.Add(color);
             if (color == currentGlasses.Color.ToString())
@@ -56,7 +56,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
         }
 
         // Transform attributes:
-        HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != GlassesType.None;
+        HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != MiiGlassesType.None;
         UpdateTransformTextValues(currentGlasses);
     }
 
@@ -70,12 +70,12 @@ public partial class EditorGlasses : MiiEditorBaseControl
         if (index == (int)current.Type)
             return;
 
-        var result = MiiGlasses.Create((GlassesType)index, current.Color, current.Size, current.Vertical);
+        var result = MiiGlasses.Create((MiiGlassesType)index, current.Color, current.Size, current.Vertical);
         if (result.IsFailure)
             return;
 
         Editor.Mii.MiiGlasses = result.Value;
-        HideIfNoGlasses.IsVisible = result.Value.Type != GlassesType.None;
+        HideIfNoGlasses.IsVisible = result.Value.Type != MiiGlassesType.None;
         Editor.RefreshImage();
     }
 
@@ -146,7 +146,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
         if (GlassesColorBox.SelectedItem is not string colorStr)
             return;
 
-        var newColor = (GlassesColor)Enum.Parse(typeof(GlassesColor), colorStr);
+        var newColor = (MiiGlassesColor)Enum.Parse(typeof(MiiGlassesColor), colorStr);
         var current = Editor.Mii.MiiGlasses;
         if (newColor == current.Color)
             return;

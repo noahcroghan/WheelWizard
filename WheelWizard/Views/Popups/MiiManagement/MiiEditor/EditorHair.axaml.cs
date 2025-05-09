@@ -7,6 +7,18 @@ namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 
 public partial class EditorHair : MiiEditorBaseControl
 {
+    private static readonly Dictionary<MiiHairColor, Color> ColorMap = new()
+    {
+        [MiiHairColor.Black] = Colors.Black,
+        [MiiHairColor.Brown] = Color.FromRgb(86, 45, 27),
+        [MiiHairColor.Red] = Color.FromRgb(120, 37, 21),
+        [MiiHairColor.LightRed] = Color.FromRgb(157, 74, 32),
+        [MiiHairColor.Grey] = Color.FromRgb(152, 139, 140),
+        [MiiHairColor.LightBrown] = Color.FromRgb(104, 78, 27),
+        [MiiHairColor.Blonde] = Color.FromRgb(171, 106, 36),
+        [MiiHairColor.White] = Color.FromRgb(255, 183, 87),
+    };
+
     public EditorHair(MiiEditorWindow ew)
         : base(ew)
     {
@@ -43,10 +55,10 @@ public partial class EditorHair : MiiEditorBaseControl
 
         // Hair Color:
         HairColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(HairColor)))
+        foreach (var color in Enum.GetNames(typeof(MiiHairColor)))
         {
             HairColorBox.Items.Add(color);
-            if (color == currentHair.HairColor.ToString())
+            if (color == currentHair.MiiHairColor.ToString())
                 HairColorBox.SelectedItem = color;
         }
 
@@ -56,7 +68,7 @@ public partial class EditorHair : MiiEditorBaseControl
 
     private void SetHairType(int type)
     {
-        Editor.Mii.MiiHair = new(type, Editor.Mii.MiiHair.HairColor, Editor.Mii.MiiHair.HairFlipped);
+        Editor.Mii.MiiHair = new(type, Editor.Mii.MiiHair.MiiHairColor, Editor.Mii.MiiHair.HairFlipped);
         Editor.RefreshImage();
     }
 
@@ -69,9 +81,9 @@ public partial class EditorHair : MiiEditorBaseControl
         if (value is null)
             return;
 
-        var selectedColor = (HairColor)Enum.Parse(typeof(HairColor), value.ToString()!);
+        var selectedColor = (MiiHairColor)Enum.Parse(typeof(MiiHairColor), value.ToString()!);
         var currentHair = Editor.Mii.MiiHair;
-        if (selectedColor == currentHair.HairColor)
+        if (selectedColor == currentHair.MiiHairColor)
             return;
 
         var result = MiiHair.Create(currentHair.HairType, selectedColor, currentHair.HairFlipped);
@@ -94,7 +106,7 @@ public partial class EditorHair : MiiEditorBaseControl
         if (isChecked == currentHair.HairFlipped)
             return;
 
-        var result = MiiHair.Create(currentHair.HairType, currentHair.HairColor, isChecked); // New value
+        var result = MiiHair.Create(currentHair.HairType, currentHair.MiiHairColor, isChecked); // New value
 
         if (result.IsFailure)
             return;

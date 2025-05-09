@@ -38,7 +38,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
             MustacheTypesGrid,
             (index, button) =>
             {
-                button.IsChecked = index == (int)currentFacialHair.MustacheType;
+                button.IsChecked = index == (int)currentFacialHair.MiiMustacheType;
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
@@ -55,7 +55,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
             BeardTypesGrid,
             (index, button) =>
             {
-                button.IsChecked = index == (int)currentFacialHair.BeardType;
+                button.IsChecked = index == (int)currentFacialHair.MiiBeardType;
                 button.Color1 = color1;
                 button.Color2 = color2;
                 button.Color3 = color3;
@@ -67,7 +67,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
 
         // Facial Hair Color:
         MustacheColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(MustacheColor))) // Using MustacheColor enum
+        foreach (var color in Enum.GetNames(typeof(MiiHairColor))) // Using MustacheColor enum
         {
             MustacheColorBox.Items.Add(color);
             if (color == currentFacialHair.Color.ToString())
@@ -75,7 +75,7 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         }
 
         // Transform attributes:
-        MustacheTransformOptions.IsVisible = Editor.Mii.MiiFacialHair.MustacheType != MustacheType.None;
+        MustacheTransformOptions.IsVisible = Editor.Mii.MiiFacialHair.MiiMustacheType != MiiMustacheType.None;
         UpdateTransformTextValues(currentFacialHair);
     }
 
@@ -84,8 +84,8 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         if (Editor?.Mii?.MiiFacialHair == null || !IsLoaded)
             return;
         var current = Editor.Mii.MiiFacialHair;
-        var beardType = (BeardType)index;
-        var result = MiiFacialHair.Create(current.MustacheType, beardType, current.Color, current.Size, current.Vertical);
+        var beardType = (MiiBeardType)index;
+        var result = MiiFacialHair.Create(current.MiiMustacheType, beardType, current.Color, current.Size, current.Vertical);
         if (result.IsFailure)
             return;
 
@@ -99,12 +99,12 @@ public partial class EditorFacialHair : MiiEditorBaseControl
             return;
 
         var current = Editor.Mii.MiiFacialHair;
-        var mustacheType = (MustacheType)index;
-        var result = MiiFacialHair.Create(mustacheType, current.BeardType, current.Color, current.Size, current.Vertical);
+        var mustacheType = (MiiMustacheType)index;
+        var result = MiiFacialHair.Create(mustacheType, current.MiiBeardType, current.Color, current.Size, current.Vertical);
         if (result.IsFailure)
             return;
 
-        MustacheTransformOptions.IsVisible = mustacheType != MustacheType.None;
+        MustacheTransformOptions.IsVisible = mustacheType != MiiMustacheType.None;
         Editor.Mii.MiiFacialHair = result.Value;
         Editor.RefreshImage();
     }
@@ -116,12 +116,12 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         if (MustacheColorBox.SelectedItem is not string colorStr)
             return;
 
-        var newColor = (MustacheColor)Enum.Parse(typeof(MustacheColor), colorStr);
+        var newColor = (MiiHairColor)Enum.Parse(typeof(MiiHairColor), colorStr);
         var current = Editor.Mii.MiiFacialHair;
         if (newColor == current.Color)
             return;
 
-        var result = MiiFacialHair.Create(current.MustacheType, current.BeardType, newColor, current.Size, current.Vertical);
+        var result = MiiFacialHair.Create(current.MiiMustacheType, current.MiiBeardType, newColor, current.Size, current.Vertical);
         if (result.IsSuccess)
             Editor.Mii.MiiFacialHair = result.Value;
         else
@@ -179,16 +179,16 @@ public partial class EditorFacialHair : MiiEditorBaseControl
         var result = property switch
         {
             MiiTransformProperty.Vertical => MiiFacialHair.Create(
-                current.MustacheType,
-                current.BeardType,
+                current.MiiMustacheType,
+                current.MiiBeardType,
                 current.Color,
                 current.Size,
                 newValue
             ) // Note Vertical position
             ,
             MiiTransformProperty.Size => MiiFacialHair.Create(
-                current.MustacheType,
-                current.BeardType,
+                current.MiiMustacheType,
+                current.MiiBeardType,
                 current.Color,
                 newValue,
                 current.Vertical

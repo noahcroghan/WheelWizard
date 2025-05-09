@@ -52,7 +52,7 @@ public partial class EditorEyes : MiiEditorBaseControl
 
         // Eye Color:
         EyeColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(EyeColor)))
+        foreach (var color in Enum.GetNames(typeof(MiiEyeColor)))
         {
             EyeColorBox.Items.Add(color);
             if (color == currentEyes.Color.ToString())
@@ -191,7 +191,7 @@ public partial class EditorEyes : MiiEditorBaseControl
         if (EyeColorBox.SelectedItem is not string colorStr)
             return;
 
-        var newColor = (EyeColor)Enum.Parse(typeof(EyeColor), colorStr);
+        var newColor = (MiiEyeColor)Enum.Parse(typeof(MiiEyeColor), colorStr);
         var current = Editor.Mii.MiiEyes;
         if (newColor == current.Color)
             return;

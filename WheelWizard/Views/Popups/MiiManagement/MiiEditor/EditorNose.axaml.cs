@@ -46,7 +46,7 @@ public partial class EditorNose : MiiEditorBaseControl
         if (Editor?.Mii?.MiiNose == null || !IsLoaded)
             return;
         var current = Editor.Mii.MiiNose;
-        var noseType = (NoseType)index;
+        var noseType = (MiiNoseType)index;
         var result = MiiNose.Create(noseType, current.Size, current.Vertical);
         if (result.IsFailure)
             return;

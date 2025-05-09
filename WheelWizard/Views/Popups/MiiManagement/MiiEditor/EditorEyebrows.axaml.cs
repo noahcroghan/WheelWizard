@@ -49,7 +49,7 @@ public partial class EditorEyebrows : MiiEditorBaseControl
 
         // Eyebrow Color:
         EyebrowColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(EyebrowColor)))
+        foreach (var color in Enum.GetNames(typeof(MiiHairColor)))
         {
             EyebrowColorBox.Items.Add(color);
             if (color == currentEyebrows.Color.ToString())
@@ -92,6 +92,27 @@ public partial class EditorEyebrows : MiiEditorBaseControl
         RotationIncreaseButton.IsEnabled = eyebrows.Rotation < MaxRotation;
         SpacingDecreaseButton.IsEnabled = eyebrows.Spacing > MinSpacing;
         SpacingIncreaseButton.IsEnabled = eyebrows.Spacing < MaxSpacing;
+    }
+
+    private void EyebrowColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (!IsLoaded || EyebrowColorBox.SelectedItem == null || Editor?.Mii?.MiiEyebrows == null)
+            return;
+        if (EyebrowColorBox.SelectedItem is not string colorStr)
+            return;
+
+        var newColor = (MiiHairColor)Enum.Parse(typeof(MiiHairColor), colorStr);
+        var current = Editor.Mii.MiiEyebrows;
+        if (newColor == current.Color)
+            return;
+
+        var result = MiiEyebrow.Create(current.Type, current.Rotation, newColor, current.Size, current.Vertical, current.Spacing);
+        if (result.IsSuccess)
+            Editor.Mii.MiiEyebrows = result.Value;
+        else
+            EyebrowColorBox.SelectedItem = current.Color.ToString();
+
+        Editor.RefreshImage();
     }
 
     #region Transform
@@ -182,30 +203,6 @@ public partial class EditorEyebrows : MiiEditorBaseControl
 
         Editor.Mii.MiiEyebrows = result.Value;
         UpdateTransformTextValues(result.Value);
-        Editor.RefreshImage();
-    }
-
-    private void EyebrowColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || EyebrowColorBox.SelectedItem == null || Editor?.Mii?.MiiEyebrows == null)
-            return;
-        if (EyebrowColorBox.SelectedItem is not string colorStr)
-            return;
-
-        var newColor = (EyebrowColor)Enum.Parse(typeof(EyebrowColor), colorStr);
-        var current = Editor.Mii.MiiEyebrows;
-        if (newColor == current.Color)
-            return;
-
-        var result = MiiEyebrow.Create(current.Type, current.Rotation, newColor, current.Size, current.Vertical, current.Spacing);
-        if (result.IsSuccess)
-        {
-            Editor.Mii.MiiEyebrows = result.Value;
-        }
-        else
-        {
-            EyebrowColorBox.SelectedItem = current.Color.ToString();
-        }
         Editor.RefreshImage();
     }
 
