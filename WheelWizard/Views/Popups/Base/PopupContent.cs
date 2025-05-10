@@ -36,4 +36,6 @@ public abstract class PopupContent : UserControlBase
     public void Minimize() => Window.WindowState = WindowState.Minimized;
 
     public void Focus() => Window.Focus();
+
+    public void DisableOpen() => Window.DisableOpen();
 }

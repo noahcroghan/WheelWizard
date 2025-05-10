@@ -92,7 +92,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
     private void UpdateTransformTextValues(MiiGlasses glasses)
     {
-        VerticalValueText.Text = glasses.Vertical.ToString();
+        VerticalValueText.Text = ((glasses.Vertical - 10) * -1).ToString();
         SizeValueText.Text = glasses.Size.ToString();
 
         VerticalDecreaseButton.IsEnabled = glasses.Vertical > MinVertical;

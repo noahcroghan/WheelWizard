@@ -337,24 +337,7 @@ public partial class MiiListPage : UserControlBase
 
     private async void CreateNewMii()
     {
-        string[] presets =
-        [
-            "liwAZgByADMAZAAAAAAAAAAAAAAAAFYXiRPnfsJmn7skBGWAYIAociBsKEATSLCNEIoAiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-            "hDQAZwByAG8AbQBwAGEAAAAAAAAAAC8AiRPogsJmn7syxGkAGYCIoiyMCECESACNAIoIiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-            "xCAAZABhAG4AaQBlAGwAbABlAAAAAGYaiRPo48Jmn7sARAjAAQBokniNaEBjUHiOAIsGiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-            "0rIAZgBvAHoAaQBsAGwAYQAAAGUAAEBAiRPpIMJmn7sABBLAAUBooohsKECjSGiNAIoGiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-            "hCgAZgByADAAZAAAAAAAAAAAAAAAAEBAiRPoU8Jmn7sABHDAWYBokoCLKEB0QIiMAIkGiiUEAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-        ];
-
-        var randomIndex = (int)(Random.Random.Shared.NextDouble() * presets.Length);
-        var miiResult = MiiSerializer.Deserialize(presets[randomIndex]);
-        if (miiResult.IsFailure)
-        {
-            ViewUtils.ShowSnackbar($"Failed to create a new Mii, Please try again, or message a developer", ViewUtils.SnackbarType.Danger);
-            return;
-        }
-
-        var window = new MiiEditorWindow().SetMii(miiResult.Value);
+        var window = new MiiEditorWindow().SetMii(MiiFactory.CreateDefaultMale());
         var save = await window.AwaitAnswer();
         if (!save)
             return;
