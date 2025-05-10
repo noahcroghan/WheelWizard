@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using WheelWizard.WiiManagement.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -47,13 +48,16 @@ public partial class EditorGlasses : MiiEditorBaseControl
         );
 
         // Glass color:
-        GlassesColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(MiiGlassesColor)))
-        {
-            GlassesColorBox.Items.Add(color);
-            if (color == currentGlasses.Color.ToString())
-                GlassesColorBox.SelectedItem = color;
-        }
+        SetColorButtons(
+            MiiColorMappings.GlassesColor.Count,
+            GlassesColorGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiGlasses.Color;
+                button.Color1 = new SolidColorBrush(MiiColorMappings.GlassesColor[(MiiGlassesColor)index]);
+                button.Click += (_, _) => SetGlassesColor(index);
+            }
+        );
 
         // Transform attributes:
         HideIfNoGlasses.IsVisible = Editor.Mii.MiiGlasses.Type != MiiGlassesType.None;
@@ -62,11 +66,7 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
     private void SetGlassesType(int index)
     {
-        if (Editor?.Mii?.MiiGlasses == null)
-            return;
-
         var current = Editor.Mii.MiiGlasses;
-
         if (index == (int)current.Type)
             return;
 
@@ -76,6 +76,17 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
         Editor.Mii.MiiGlasses = result.Value;
         HideIfNoGlasses.IsVisible = result.Value.Type != MiiGlassesType.None;
+        Editor.RefreshImage();
+    }
+
+    private void SetGlassesColor(int index)
+    {
+        var current = Editor.Mii.MiiGlasses;
+        var result = MiiGlasses.Create(current.Type, (MiiGlassesColor)index, current.Size, current.Vertical);
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiGlasses = result.Value;
         Editor.RefreshImage();
     }
 
@@ -136,27 +147,6 @@ public partial class EditorGlasses : MiiEditorBaseControl
 
         Editor.Mii.MiiGlasses = result.Value;
         UpdateTransformTextValues(result.Value);
-        Editor.RefreshImage();
-    }
-
-    private void GlassesColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || GlassesColorBox.SelectedItem == null || Editor?.Mii?.MiiGlasses == null)
-            return;
-        if (GlassesColorBox.SelectedItem is not string colorStr)
-            return;
-
-        var newColor = (MiiGlassesColor)Enum.Parse(typeof(MiiGlassesColor), colorStr);
-        var current = Editor.Mii.MiiGlasses;
-        if (newColor == current.Color)
-            return;
-
-        var result = MiiGlasses.Create(current.Type, newColor, current.Size, current.Vertical);
-        if (result.IsSuccess)
-            Editor.Mii.MiiGlasses = result.Value;
-        else
-            GlassesColorBox.SelectedItem = current.Color.ToString();
-
         Editor.RefreshImage();
     }
 

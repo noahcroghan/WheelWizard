@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using WheelWizard.WiiManagement.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -45,13 +46,16 @@ public partial class EditorLips : MiiEditorBaseControl
         );
 
         // Lip Colors:
-        LipColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(MiiLipColor)))
-        {
-            LipColorBox.Items.Add(color);
-            if (color == currentLips.Color.ToString())
-                LipColorBox.SelectedItem = color;
-        }
+        SetColorButtons(
+            MiiColorMappings.LipBottomColor.Count,
+            LipColorGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiLips.Color;
+                button.Color1 = new SolidColorBrush(MiiColorMappings.LipBottomColor[(MiiLipColor)index]);
+                button.Click += (_, _) => SetMouthColor(index);
+            }
+        );
 
         // Transform attributes:
         UpdateTransformTextValues(currentLips);
@@ -59,15 +63,27 @@ public partial class EditorLips : MiiEditorBaseControl
 
     private void SetMouthType(int index)
     {
-        if (Editor?.Mii?.MiiLips == null)
-            return;
-
         var current = Editor.Mii.MiiLips;
         if (index == current.Type)
             return;
 
         // MiiLip.Create(int type, LipColor color, int size, int vertical)
         var result = MiiLip.Create(index, current.Color, current.Size, current.Vertical);
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiLips = result.Value;
+        Editor.RefreshImage();
+    }
+
+    private void SetMouthColor(int index)
+    {
+        var current = Editor.Mii.MiiLips;
+        if (index == current.Type)
+            return;
+
+        // MiiLip.Create(int type, LipColor color, int size, int vertical)
+        var result = MiiLip.Create(current.Type, (MiiLipColor)index, current.Size, current.Vertical);
         if (result.IsFailure)
             return;
 
@@ -132,27 +148,6 @@ public partial class EditorLips : MiiEditorBaseControl
 
         Editor.Mii.MiiLips = result.Value;
         UpdateTransformTextValues(result.Value);
-        Editor.RefreshImage();
-    }
-
-    private void LipColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || LipColorBox.SelectedItem == null || Editor?.Mii?.MiiLips == null)
-            return;
-        if (LipColorBox.SelectedItem is not string colorStr)
-            return;
-
-        var newColor = (MiiLipColor)Enum.Parse(typeof(MiiLipColor), colorStr);
-        var current = Editor.Mii.MiiLips;
-        if (newColor == current.Color)
-            return;
-
-        var result = MiiLip.Create(current.Type, newColor, current.Size, current.Vertical);
-        if (result.IsSuccess)
-            Editor.Mii.MiiLips = result.Value;
-        else
-            LipColorBox.SelectedItem = current.Color.ToString();
-
         Editor.RefreshImage();
     }
 

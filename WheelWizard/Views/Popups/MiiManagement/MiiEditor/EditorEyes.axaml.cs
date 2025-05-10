@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using WheelWizard.WiiManagement.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -45,34 +46,48 @@ public partial class EditorEyes : MiiEditorBaseControl
                 button.Color2 = color2;
                 button.SelectedColor2 = selectedColor2;
                 button.Color3 = color3;
-                button.Click += (_, _) => SetEyesType(index);
+                button.Click += (_, _) => SetEyeType(index);
                 button.SelectedColor3 = selectedColor3;
             }
         );
 
         // Eye Color:
-        EyeColorBox.Items.Clear();
-        foreach (var color in Enum.GetNames(typeof(MiiEyeColor)))
-        {
-            EyeColorBox.Items.Add(color);
-            if (color == currentEyes.Color.ToString())
-                EyeColorBox.SelectedItem = color;
-        }
+        SetColorButtons(
+            MiiColorMappings.EyeColor.Count,
+            EyeColorGrid,
+            (index, button) =>
+            {
+                button.IsChecked = index == (int)Editor.Mii.MiiEyes.Color;
+                button.Color1 = new SolidColorBrush(MiiColorMappings.EyeColor[(MiiEyeColor)index]);
+                button.Click += (_, _) => SetEyeColor(index);
+            }
+        );
 
         // Transform attributes:
         UpdateTransformTextValues(currentEyes);
     }
 
-    private void SetEyesType(int index)
+    private void SetEyeType(int index)
     {
-        if (Editor?.Mii?.MiiEyes == null)
-            return;
-
         var current = Editor.Mii.MiiEyes;
         if (index == current.Type)
             return;
 
         var result = MiiEye.Create(index, current.Rotation, current.Vertical, current.Color, current.Size, current.Spacing);
+        if (result.IsFailure)
+            return;
+
+        Editor.Mii.MiiEyes = result.Value;
+        Editor.RefreshImage();
+    }
+
+    private void SetEyeColor(int index)
+    {
+        var current = Editor.Mii.MiiEyes;
+        if (index == current.Type)
+            return;
+
+        var result = MiiEye.Create(current.Type, current.Rotation, current.Vertical, (MiiEyeColor)index, current.Size, current.Spacing);
         if (result.IsFailure)
             return;
 
@@ -181,27 +196,6 @@ public partial class EditorEyes : MiiEditorBaseControl
 
         Editor.Mii.MiiEyes = result.Value;
         UpdateTransformTextValues(result.Value);
-        Editor.RefreshImage();
-    }
-
-    private void EyeColorBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if (!IsLoaded || EyeColorBox.SelectedItem == null || Editor?.Mii?.MiiEyes == null)
-            return;
-        if (EyeColorBox.SelectedItem is not string colorStr)
-            return;
-
-        var newColor = (MiiEyeColor)Enum.Parse(typeof(MiiEyeColor), colorStr);
-        var current = Editor.Mii.MiiEyes;
-        if (newColor == current.Color)
-            return;
-
-        var result = MiiEye.Create(current.Type, current.Rotation, current.Vertical, newColor, current.Size, current.Spacing);
-        if (result.IsSuccess)
-            Editor.Mii.MiiEyes = result.Value;
-        else
-            EyeColorBox.SelectedItem = current.Color.ToString();
-
         Editor.RefreshImage();
     }
 

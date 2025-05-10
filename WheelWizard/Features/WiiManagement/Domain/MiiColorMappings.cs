@@ -1,4 +1,5 @@
 using Avalonia.Media;
+using WheelWizard.Views;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement.Domain;
@@ -41,5 +42,39 @@ public static class MiiColorMappings
         [MiiHairColor.LightBrown] = Color.FromRgb(104, 78, 27),
         [MiiHairColor.Blonde] = Color.FromRgb(171, 106, 36),
         [MiiHairColor.Gold] = Color.FromRgb(255, 183, 87),
+    };
+
+    public static readonly Dictionary<MiiGlassesColor, Color> GlassesColor = new()
+    {
+        [MiiGlassesColor.Grey] = Color.FromRgb(144, 144, 144),
+        [MiiGlassesColor.Gold] = Color.FromRgb(255, 175, 71),
+        [MiiGlassesColor.DarkGold] = Color.FromRgb(202, 147, 102),
+        [MiiGlassesColor.Blue] = Color.FromRgb(123, 135, 189),
+        [MiiGlassesColor.Red] = Color.FromRgb(255, 87, 77),
+        [MiiGlassesColor.White] = Color.FromRgb(220, 197, 190),
+    };
+
+    public static readonly Dictionary<MiiLipColor, Color> LipBottomColor = new()
+    {
+        [MiiLipColor.Red] = Color.FromRgb(255, 18, 13),
+        [MiiLipColor.Pink] = Color.FromRgb(255, 83, 77),
+        [MiiLipColor.Skin] = Color.FromRgb(255, 93, 13),
+    };
+
+    public static readonly Dictionary<MiiLipColor, Color> LipTopColor = new()
+    {
+        [MiiLipColor.Red] = Color.FromRgb(154, 19, 18),
+        [MiiLipColor.Pink] = Color.FromRgb(175, 41, 47),
+        [MiiLipColor.Skin] = Color.FromRgb(167, 59, 30),
+    };
+
+    public static readonly Dictionary<MiiEyeColor, Color> EyeColor = new()
+    {
+        [MiiEyeColor.Black] = Colors.Black,
+        [MiiEyeColor.Grey] = ViewUtils.Colors.Neutral700,
+        [MiiEyeColor.Brown] = Color.FromRgb(150, 72, 45),
+        [MiiEyeColor.Gold] = Color.FromRgb(165, 152, 55),
+        [MiiEyeColor.Blue] = Color.FromRgb(85, 93, 195),
+        [MiiEyeColor.Green] = Color.FromRgb(72, 143, 100),
     };
 }

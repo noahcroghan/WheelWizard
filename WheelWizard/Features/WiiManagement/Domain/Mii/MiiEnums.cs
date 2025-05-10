@@ -101,7 +101,7 @@ public enum MiiLipColor
 
 public enum MiiGlassesColor
 {
-    Dark,
+    Grey,
     DarkGold,
     Red,
     Blue,
