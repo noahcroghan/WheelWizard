@@ -58,7 +58,7 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
         var miiResult = miiToEdit.Clone();
         if (miiResult.IsFailure)
         {
-            DisableOpen();
+            DisableOpen(true);
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Error)
                 .SetTitleText("Cant open Mii Editor")

@@ -75,10 +75,10 @@ public partial class PopupWindow : BaseWindow, INotifyPropertyChanged
     public Action BeforeOpen { get; set; } = () => { };
     public Action BeforeClose { get; set; } = () => { };
 
-    public void DisableOpen()
+    public void DisableOpen(bool value)
     {
-        _disableOpening = true;
-        if (IsLoaded)
+        _disableOpening = value;
+        if (IsLoaded && _disableOpening)
             Close();
     }
 
