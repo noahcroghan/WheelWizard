@@ -338,7 +338,7 @@ public partial class MiiListPage : UserControlBase
     private async void CreateNewMii()
     {
         Mii? mii = null;
-        var optionsWindow = await new OptionsWindow()
+        await new OptionsWindow()
             .AddOption("Dice", "Coming Soon", () => { }, false)
             .AddOption("PersonMale", "Male", () => mii = MiiFactory.CreateDefaultMale())
             .AddOption("PersonFemale", "Female", () => mii = MiiFactory.CreateDefaultFemale())
