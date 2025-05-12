@@ -128,22 +128,8 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
         // You can do things in the action with the options.
         // However, you can also read the button click based on the title
         var optionsWindow = await new OptionsWindow()
-            .AddOption(
-                "PersonMale",
-                "Boy!",
-                () =>
-                {
-                    Console.WriteLine("Option Boy!");
-                }
-            )
-            .AddOption(
-                "PersonFemale",
-                "Girl!",
-                () =>
-                {
-                    Console.WriteLine("Option Girl!");
-                }
-            )
+            .AddOption("PersonMale", "Boy!", () => Console.WriteLine("Option Boy!"))
+            .AddOption("PersonFemale", "Girl!", () => Console.WriteLine("Option Girl!"))
             .AddOption("Banana", "Not an Option", () => { }, false)
             .AwaitAnswer();
 
