@@ -1,4 +1,5 @@
-﻿using WheelWizard.WiiManagement.Domain.Mii;
+﻿using Testably.Abstractions.RandomSystem;
+using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement;
 
@@ -49,6 +50,18 @@ public static class MiiFactory
         baseMii.MiiHair = new(33, MiiHairColor.Brown, false);
         baseMii.MiiEyebrows = new(6, 6, MiiHairColor.Brown, 4, 10, 2);
         baseMii.MiiEyes = new(2, 4, 12, MiiEyeColor.Black, 4, 2);
+        return baseMii;
+    }
+
+    public static Mii CreateRandomMii(IRandom random)
+    {
+        var baseMii = CreateDefaultBase();
+        var hairColor = (MiiHairColor)(random.Next() % 8);
+
+        baseMii.IsGirl = random.Next() % 2 == 0;
+        baseMii.MiiHair = new(random.Next() % 71, hairColor, random.Next() % 2 == 0);
+        baseMii.MiiEyebrows = new(random.Next() % 23, 6, hairColor, 4, 10, 2);
+        baseMii.MiiEyes = new(random.Next() % 47, 4, 12, (MiiEyeColor)(random.Next() % 6), 4, 2);
         return baseMii;
     }
 }

@@ -4,7 +4,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using Avalonia.Platform.Storage;
 using Testably.Abstractions;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services;
@@ -42,10 +41,10 @@ public partial class MiiListPage : UserControlBase
         {
             if (SettingsHelper.PathsSetupCorrectly())
             {
-                var sucess = MiiRepositoryService.ForceCreateDatabase();
-                if (sucess.IsFailure)
+                var success = MiiRepositoryService.ForceCreateDatabase();
+                if (success.IsFailure)
                 {
-                    ViewUtils.ShowSnackbar($"Failed to create Mii database '{sucess.Error.Message}'", ViewUtils.SnackbarType.Danger);
+                    ViewUtils.ShowSnackbar($"Failed to create Mii database '{success.Error.Message}'", ViewUtils.SnackbarType.Danger);
                     VisibleWhenNoDb.IsVisible = !miiDbExists;
                 }
             }
@@ -339,7 +338,7 @@ public partial class MiiListPage : UserControlBase
     {
         Mii? mii = null;
         await new OptionsWindow()
-            .AddOption("Dice", "Coming Soon", () => { }, false)
+            .AddOption("Dice", "Randomize", () => mii = MiiFactory.CreateRandomMii(Random.Random.Shared))
             .AddOption("PersonMale", "Male", () => mii = MiiFactory.CreateDefaultMale())
             .AddOption("PersonFemale", "Female", () => mii = MiiFactory.CreateDefaultFemale())
             .AwaitAnswer();
