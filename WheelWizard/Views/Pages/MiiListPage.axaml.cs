@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Testably.Abstractions;
+using WheelWizard.CustomCharacters;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services;
 using WheelWizard.Services.Settings;
@@ -19,6 +20,9 @@ namespace WheelWizard.Views.Pages;
 
 public partial class MiiListPage : UserControlBase
 {
+    [Inject]
+    private ICustomCharactersService CustomCharactersService { get; set; } = null!;
+
     [Inject]
     private IMiiDbService MiiDbService { get; set; } = null!;
 
@@ -265,7 +269,7 @@ public partial class MiiListPage : UserControlBase
 
     private async void ExportMiiAsFile(Mii mii)
     {
-        var exportName = ReplaceInvalidFileNameChars(mii.Name.ToString());
+        var exportName = ReplaceInvalidFileNameChars(CustomCharactersService.NormalizeToAscii(mii.Name.ToString()));
         var diaglog = await FilePickerHelper.SaveFileAsync(
             title: "Save Mii as file",
             fileTypes: [CustomFilePickerFileType.Miis],
