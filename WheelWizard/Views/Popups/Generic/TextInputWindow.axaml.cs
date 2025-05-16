@@ -41,9 +41,15 @@ public partial class TextInputWindow : PopupContent
         return this;
     }
 
-    public TextInputWindow SetAllowCustomChars(bool allow)
+    public TextInputWindow SetAllowCustomChars(bool allow, bool initiallyOpen = false)
     {
         CustomCharsButton.IsVisible = allow;
+
+        if (allow && initiallyOpen)
+        {
+            CustomChars.IsVisible = true;
+            CustomCharsButton.IsVisible = false;
+        }
         return this;
     }
 
