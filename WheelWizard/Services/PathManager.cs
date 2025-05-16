@@ -180,6 +180,9 @@ public static class PathManager
             $"{flatpakRunCommand} {dolphinAppId}",
             $"{flatpakRunCommand} --system {dolphinAppId}",
             $"{flatpakRunCommand} --user {dolphinAppId}",
+            $"{flatpakRunCommand} -p {dolphinAppId}",
+            $"{flatpakRunCommand} --system -p {dolphinAppId}",
+            $"{flatpakRunCommand} --user -p {dolphinAppId}",
         ];
         foreach (string possibleFlatpakDolphinCommand in possibleFlatpakDolphinCommands)
         {
