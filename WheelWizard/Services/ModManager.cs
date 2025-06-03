@@ -201,15 +201,6 @@ public class ModManager : INotifyPropertyChanged
         if (newName.Any(x => _illegalChars.Contains(x)))
             return Fail("Mod name contains illegal characters.");
 
-        if (newName.Any(x => _illegalChars.Contains(x)))
-            return Fail("Mod name contains illegal characters.");
-
-        if (newName.Any(x => _illegalChars.Contains(x)))
-            return Fail("Mod name contains illegal characters.");
-
-        if (newName.Any(x => _illegalChars.Contains(x)))
-            return Fail("Mod name contains illegal characters.");
-
         return Ok();
     }
 
