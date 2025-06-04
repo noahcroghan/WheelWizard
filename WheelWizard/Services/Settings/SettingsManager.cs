@@ -69,7 +69,7 @@ public class SettingsManager
                     return false;
                 }
             }
-            return FileHelper.FileExists(pathOrCommand) || EnvHelper.IsValidUnixCommand(pathOrCommand);
+            return EnvHelper.IsValidUnixCommand(pathOrCommand);
         }
 
         return FileHelper.FileExists(pathOrCommand);
