@@ -136,8 +136,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         if (IsOnline)
             CurrentUserProfile.Classes.Add("Online");
 
-        ProfileAttribTotalRaces.Text = currentPlayer.TotalRaceCount.ToString();
-        ProfileAttribTotalWins.Text = currentPlayer.TotalWinCount.ToString();
+        ProfileAttribTotalRaces.Text = currentPlayer.Statistics.RaceTotals.OnlineRacesCount.ToString();
+        ProfileAttribTotalWins.Text = currentPlayer.Statistics.RaceTotals.WinsVsLosses.OnlineVs.Wins.ToString();
 
         BadgeContainer.Children.Clear();
         var badges = BadgeService.GetBadges(currentPlayer.FriendCode).Select(variant => new Badge { Variant = variant });

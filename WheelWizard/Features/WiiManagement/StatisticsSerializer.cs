@@ -8,6 +8,9 @@ namespace WheelWizard.WiiManagement;
 public static class StatisticsSerializer
 {
     private static readonly string[] CupNames = { "Mushroom", "Flower", "Star", "Special", "Shell", "Banana", "Leaf", "Lightning" };
+
+    // On retro rewind these are different, but for the original game these are the engine classes.
+    // So whenever we display we should check if the game is retro rewind or not.
     private static readonly string[] EngineClasses = { "50cc", "100cc", "150cc", "Mirror" };
 
     public static Statistics ParseStatistics(byte[] rksysData, int rkpdOffset)
@@ -28,7 +31,7 @@ public static class StatisticsSerializer
     {
         return new()
         {
-            Races = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xB4),
+            AllRacesCount = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xB4),
             BattleMatches = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xB8),
             GhostChallengesSent = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xC8),
             GhostChallengesReceived = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xCC),
@@ -143,9 +146,9 @@ public static class StatisticsSerializer
         const int cupBlockSize = 0x60;
 
         var cupIndex = 0;
-        for (var engineIdx = 0; engineIdx < EngineClasses.Length; engineIdx++)
+        foreach (var engineClass in EngineClasses)
         {
-            for (var nameIdx = 0; nameIdx < CupNames.Length; nameIdx++)
+            foreach (var cupName in CupNames)
             {
                 var cupOffset = cupDataStartOffset + (cupIndex * cupBlockSize);
 
@@ -160,7 +163,7 @@ public static class StatisticsSerializer
                     Completed = (completedByte & 0x01) == 1,
                 };
 
-                var key = $"{CupNames[nameIdx]} Cup ({EngineClasses[engineIdx]})";
+                var key = $"{cupName} Cup ({engineClass})";
                 cabinet.PerCup[key] = info;
 
                 cupIndex++;
