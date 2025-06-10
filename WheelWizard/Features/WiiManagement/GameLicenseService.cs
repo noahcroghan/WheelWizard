@@ -151,6 +151,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             Friends = [],
             RegionId = 10, // 10 => “unknown”
             IsOnline = false,
+            Statistics = new(),
         };
         return dummyLicense;
     }
@@ -196,6 +197,9 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
         var friendCode = FriendCodeGenerator.GetFriendCode(_rksysData, rkpdOffset + 0x5C);
         var miiDataResult = ParseMiiData(rkpdOffset);
         var miiToUse = miiDataResult.IsFailure ? new() : miiDataResult.Value;
+
+        var statistics = StatisticsSerializer.ParseStatistics(_rksysData, rkpdOffset);
+
         var user = new LicenseProfile
         {
             Mii = miiToUse,
@@ -208,6 +212,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             // Region is often found near offset 0x23308 + 0x3802 in RKGD. This code is a partial guess.
             // In practice, region might be read differently depending on your rksys layout.
             RegionId = BigEndianBinaryReader.BufferToUint16(_rksysData, 0x23308 + 0x3802) / 4096,
+            Statistics = statistics,
         };
 
         ParseFriends(user, rkpdOffset);

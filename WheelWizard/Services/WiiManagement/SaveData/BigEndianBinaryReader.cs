@@ -39,6 +39,15 @@ public static class BigEndianBinaryReader
         data[offset + 3] = (byte)(value & 0xFF);
     }
 
+    public static float BufferToFloat(byte[] data, int offset)
+    {
+        // for a big-endian float before converting.
+        var bytes = new byte[4];
+        Array.Copy(data, offset, bytes, 0, 4);
+        Array.Reverse(bytes);
+        return BitConverter.ToSingle(bytes, 0);
+    }
+
     public static void WriteUInt16BigEndian(byte[] data, int offset, ushort value)
     {
         data[offset] = (byte)(value >> 8);

@@ -1,5 +1,3 @@
-using System.Reflection.PortableExecutable;
-
 namespace WheelWizard.Models.GameData;
 
 public class Statistics
@@ -8,6 +6,7 @@ public class Statistics
     public PreferredControls Controls { get; set; } = new();
     public Performance Performance { get; init; } = new();
     public RaceCompletions RaceCompletions { get; init; } = new();
+    public PreferredControls PreferredControls { get; init; } = new();
     public BattleCompletions BattleCompletions { get; init; } = new();
     public ushort TotalCompetitions { get; init; }
     public TrophyCabinet? Trophies { get; init; }
@@ -16,7 +15,7 @@ public class Statistics
 public class TrophyCabinet
 {
     /// <summary>
-    /// Key = “Mushroom Cup 50cc”, Value = TrophyInfo 
+    /// Key = “Mushroom Cup 50cc”, Value = TrophyInfo
     /// </summary>
     public Dictionary<string, TrophyInfo> PerCup { get; init; } = new();
 }
@@ -26,9 +25,9 @@ public class TrophyCabinet
 /// </summary>
 public class TrophyInfo
 {
-    public CupTrophyType CupType { get; set; }   // Gold, Silver, Bronze, None
-    public CupRank    Rank { get; set; }         // ThreeStars, TwoStars, OneStar, A, B, C, D, E, F
-    public bool       Completed { get; set; }    // bit 0x52: 1 = completed
+    public CupTrophyType CupType { get; set; } // Gold, Silver, Bronze, None
+    public CupRank Rank { get; set; } // ThreeStars, TwoStars, OneStar, A, B, C, D, E, F
+    public bool Completed { get; set; } // bit 0x52: 1 = completed
 }
 
 public enum CupTrophyType
@@ -36,7 +35,7 @@ public enum CupTrophyType
     Gold = 0,
     Silver = 1,
     Bronze = 2,
-    None = 3
+    None = 3,
 }
 
 public enum CupRank
@@ -49,7 +48,7 @@ public enum CupRank
     C = 5,
     D = 6,
     E = 7,
-    F = 8
+    F = 8,
 }
 
 public class BattleCompletions
@@ -72,21 +71,21 @@ public enum Stage : byte
     DSTwilightHouse,
     SNESBattleCourse4,
     GBABattleCourse3,
-    N64Skyscraper
+    N64Skyscraper,
 }
 
 public class RaceCompletions
 {
     public Dictionary<Character, int> Character { get; set; } = new();
-    
+
     /// <summary>
-    /// Key = Vehicle enum, Value = races completed count.  
+    /// Key = Vehicle enum, Value = races completed count.
     /// Uses 36 entries starting at 0x11E.
     /// </summary>
     public Dictionary<Vehicle, int> Vehicle { get; init; } = new();
 
     /// <summary>
-    /// Key = Course enum, Value = races completed count.  
+    /// Key = Course enum, Value = races completed count.
     /// Uses 32 entries starting at 0x166.
     /// </summary>
     public Dictionary<Course, int> Course { get; init; } = new();
@@ -125,10 +124,8 @@ public enum Course : byte
     N64BowsersCastle,
     N64DKsJungleParkway,
     GBABowserCastle3,
-    GBAShyGuyBeach
+    GBAShyGuyBeach,
 }
-
-
 
 public enum Vehicle : byte
 {
@@ -167,7 +164,7 @@ public enum Vehicle : byte
     Spear,
     JetBubble,
     DolphinDasher,
-    Phantom
+    Phantom,
 }
 
 // The 24 playable characters in the order they appear in RKPD (0xEC onward).
@@ -197,7 +194,7 @@ public enum Character : byte
     DryBowser,
     FunkyKong,
     Rosalina,
-    Mii = 23
+    Mii = 23,
 }
 
 public class Performance
@@ -209,9 +206,11 @@ public class Performance
     public float DistanceTotal { get; set; } // Total Distance driven
     public float DistanceInFirstPlace { get; set; } // Total Distance driven in first place
     public float DistanceVsRaces { get; set; }
+
     // percentage of time in 1st = floor(DistanceInFirstPlace / DistanceVsRaces * 100).
 
-    public int PercentTimeInFirstPlace {
+    public int PercentTimeInFirstPlace
+    {
         get
         {
             if (DistanceVsRaces == 0)
@@ -238,15 +237,13 @@ public class PreferredControls
     }
     public DriftType PreferredDriftType { get; set; } = DriftType.Standard; // preferred drift type, default is standard
 }
+
 public enum DriftType
 {
     Standard = 0,
     Manual = 1,
-    Automatic = 2
+    Automatic = 2,
 }
-
-
-
 
 public class RaceTotals
 {
@@ -264,10 +261,9 @@ public class WinsVsLosses
     public WinLoss OnlineVs { get; set; } = new();
     public WinLoss OnlineBattle { get; set; } = new();
 }
+
 public class WinLoss
 {
     public uint Wins { get; set; }
     public uint Losses { get; set; }
 }
-
-
