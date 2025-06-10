@@ -76,7 +76,25 @@ public enum Stage : byte
 
 public class RaceCompletions
 {
-    public Dictionary<Character, int> Character { get; set; } = new();
+    public Dictionary<Character, int> CharacterCompletions { get; set; } = new();
+
+    public Character FavoriteCharacter
+    {
+        get
+        {
+            var currentFavorite = Character.Mario; // Default to Mario
+            var maxCompletions = 0;
+            foreach (var kvp in CharacterCompletions)
+            {
+                if (kvp.Value > maxCompletions)
+                {
+                    maxCompletions = kvp.Value;
+                    currentFavorite = kvp.Key;
+                }
+            }
+            return currentFavorite;
+        }
+    }
 
     /// <summary>
     /// Key = Vehicle enum, Value = races completed count.

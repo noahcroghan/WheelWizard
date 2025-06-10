@@ -103,7 +103,7 @@ public static class StatisticsSerializer
         foreach (Character character in Enum.GetValues(typeof(Character)))
         {
             var offset = charBaseOffset + (int)character * 2;
-            completions.Character[character] = (int)BigEndianBinaryReader.BufferToUint16(rksysData, offset);
+            completions.CharacterCompletions[character] = (int)BigEndianBinaryReader.BufferToUint16(rksysData, offset);
         }
 
         // Favorite Vehicle (0x11E, 36 entries)
