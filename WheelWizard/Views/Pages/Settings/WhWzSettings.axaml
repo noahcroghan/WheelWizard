@@ -60,7 +60,7 @@
                                                            TipText="{x:Static lang:Settings.HelperText_EndWithExe}" />
     
                                 <TextBox  Classes="dark" Grid.Row="1" Grid.Column="0" Height="40"
-                                          Watermark="{x:Static lang:Phrases.Placeholder_EnterPath}"
+                                          Watermark="{x:Static lang:Settings.Placeholder_EnterPath}"
                                           HorizontalAlignment="Stretch"
                                           x:Name="DolphinExeInput" />
                                 
@@ -83,7 +83,7 @@
                                                            TipText="Path can end with: .wbfs/.iso/.rvz"
                                                            Margin="0,6,0,0" />
                                 <TextBox  Classes="dark" Grid.Row="1" Grid.Column="0" Height="40"
-                                          Watermark="{x:Static lang:Phrases.Placeholder_EnterPath}"
+                                          Watermark="{x:Static lang:Settings.Placeholder_EnterPath}"
                                           HorizontalAlignment="Stretch"
                                           x:Name="MarioKartInput" />
                                 <components1:Button Grid.Row="1" Grid.Column="1"
@@ -106,7 +106,7 @@
                                                            Margin="0,6,0,0" />
                                 <TextBox  Classes="dark" Grid.Row="1" Grid.Column="0"
                                           HorizontalAlignment="Stretch" Height="40"
-                                          Watermark="{x:Static lang:Phrases.Placeholder_EnterPath}"
+                                          Watermark="{x:Static lang:Settings.Placeholder_EnterPath}"
                                           x:Name="DolphinUserPathInput" />
                                 <components1:Button Grid.Row="1" Grid.Column="1"
                                                    FontSize="16" Height="40"

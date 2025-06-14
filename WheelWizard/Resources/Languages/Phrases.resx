@@ -93,12 +93,6 @@
     <data name="Time_Seconds_x" xml:space="preserve">
         <value>{$1} seconds</value>
     </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Search For Players...</value>
-    </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Enter desired path here...</value>
-    </data>
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
         <value>Please note that this page does not offer any functionality to join a room directly.
 To join a specific room, you'll need to either join through a friend, or hope to join it by joining the online servers.</value>

@@ -60,9 +60,6 @@
     <data name="EmptyText_NoProfiles" xml:space="preserve">
         <value>Du musst das Spiel mindestens ein Mal gespielt haben, um deine Profile hier aufgelistet zu sehen.</value>
     </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Gewünschten Pfad hier eingeben...</value>
-    </data>
     <data name="EmptyText_NoMods" xml:space="preserve">
         <value>Mods können die Funktionsweise des Spiels verändern. Beginne mit dem Importieren deines ersten Mods, indem Du auf die Schaltfläche unten klickst.</value>
     </data>
@@ -78,9 +75,6 @@
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
         <value>Bitte beachte, dass diese Seite keine Funktion bietet, um Dich mit einem Raum direkt zu verbinden.
 Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treffen oder hoffen, ihm beizutreten, indem Du in den Online-Servern beitrittst.</value>
-    </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Suche nach Spielern...</value>
     </data>
     <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
         <value>Geschätzte verbleibende Zeit:</value>

@@ -180,4 +180,10 @@
     <data name="Category_General" xml:space="preserve">
         <value>Algemeen</value>
     </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>Zoek Voor Spelers...</value>
+    </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>Vul bestandslocatie in...</value>
+    </data>
 </root>

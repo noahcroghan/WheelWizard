@@ -69,12 +69,6 @@
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
         <value>Tem em conta que esta página não te oferece a funcionalidade de entrares  diretamente numa sala. Para entrares numa sala em específico, terás de entrar através de um amigo, ou então esperas que entres na sala ao entrares nos servers online</value>
     </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Introduz aqui o caminho desejado...</value>
-    </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Procura Por Jogadores...</value>
-    </data>
     <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
         <value>Já existem ficheiros na tua pasta do Retro Rewind. Gostarias de instalar?</value>
     </data>

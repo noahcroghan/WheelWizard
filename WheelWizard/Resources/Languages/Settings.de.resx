@@ -171,4 +171,10 @@
     <data name="Category_General" xml:space="preserve">
         <value>Allgemein</value>
     </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>Suche nach Spielern...</value>
+    </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>Gewünschten Pfad hier eingeben...</value>
+    </data>
 </root>

@@ -96,4 +96,10 @@
     <data name="Value_Language_CompletePercentage" xml:space="preserve">
         <value>0</value>
     </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>Introduz aqui o caminho desejado...</value>
+    </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>Procura Por Jogadores...</value>
+    </data>
 </root>

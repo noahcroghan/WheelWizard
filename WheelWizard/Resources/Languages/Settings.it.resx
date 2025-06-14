@@ -171,4 +171,10 @@
     <data name="Category_Other" xml:space="preserve">
         <value>Altro</value>
     </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>Cerca giocatori...</value>
+    </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>Inserisci qui l'indirizzo desiderato...</value>
+    </data>
 </root>

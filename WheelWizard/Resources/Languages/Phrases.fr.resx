@@ -51,9 +51,6 @@
     <data name="Text_ThanksTranslators" xml:space="preserve">
         <value>Merci à tous les traducteurs:</value>
     </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Choisissez le chemin désiré ici...</value>
-    </data>
     <data name="EmptyText_NoFriends" xml:space="preserve">
         <value>Vous pouvez ajouter vos amis in-game</value>
     </data>
@@ -78,9 +75,6 @@
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
         <value>Attention, cete page ne propose pas la possibilité de rejoindre la salle directement.
 Pour rejoindre une salle spécifique, vous devez soit la rejoindre via un ami ou espérer de la rejoindre via les serveur en ligne.</value>
-    </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Recherche de joueurs...</value>
     </data>
     <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
         <value>Temps restant estimé: </value>

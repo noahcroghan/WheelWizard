@@ -69,12 +69,6 @@
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
         <value>Atención. Esta pagina no tiene la funcionalidad de unirte a una sala directamente. Para unirte a una sala en especifico, necesitará unirse mediante un amigo, o con suerte, encontrando la sala en VS Mundial.</value>
     </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Ingrese la ruta deseada...</value>
-    </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Buscando jugadores...</value>
-    </data>
     <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
         <value>Ya hay archivos en tu carpeta de Retro Rewind. ¿Desea instalar?</value>
     </data>

@@ -69,12 +69,6 @@
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
         <value>Вы не можете заходить в комнаты прямо через это меню. Чтобы зайти в определённую комнату, вам нужно либо зайти через друга, либо надеяться попасть в неё через онлайн сервера.</value>
     </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Вставьте сюда путь к файлу...</value>
-    </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Искать игроков...</value>
-    </data>
     <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
         <value>В папке RetroRewind уже есть файлы. Желаете продолжить?</value>
     </data>

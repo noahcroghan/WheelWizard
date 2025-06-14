@@ -171,4 +171,10 @@
     <data name="Category_General" xml:space="preserve">
         <value>一般</value>
     </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>希望のパスを入力してください...</value>
+    </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>プレイヤーを検索します...</value>
+    </data>
 </root>

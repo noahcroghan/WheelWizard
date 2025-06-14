@@ -79,12 +79,6 @@
         <value>ルームに直接合流する機能はないことに注意してください。
 特定のルームに参加するには、フレンドを通して合流するか、オンラインサーバーに参加して合流する必要があります。</value>
     </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>希望のパスを入力してください...</value>
-    </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>プレイヤーを検索します...</value>
-    </data>
     <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
         <value>既にRetroRewindフォルダーにファイルがあります。
 インストールしますか？</value>

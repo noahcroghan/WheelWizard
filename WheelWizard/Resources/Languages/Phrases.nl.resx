@@ -86,12 +86,6 @@
     <data name="Time_Seconds_x" xml:space="preserve">
         <value>{$1} secondes</value>
     </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Zoek Voor Spelers...</value>
-    </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Vul bestandslocatie in...</value>
-    </data>
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
         <value>Merk op dat deze pagina er niet voor kan zorgen om direct deel te nemen aan een kamer.
 Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf via de online servers doen.</value>
