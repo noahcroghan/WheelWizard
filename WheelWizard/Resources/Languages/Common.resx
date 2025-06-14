@@ -264,4 +264,7 @@
     <data name="Action_Link_Support" xml:space="preserve">
         <value>Support us!</value>
     </data>
+    <data name="Attribute_Message" xml:space="preserve">
+        <value>Message</value>
+    </data>
 </root>

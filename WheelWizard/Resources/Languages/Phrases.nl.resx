@@ -48,7 +48,7 @@
         <value>Je moet het spel minimaal één keer hebben gespeeld om hier je profielen te kunnen bekijken</value>
     </data>
     <data name="EmptyContent_NoFriends_Title" xml:space="preserve">
-        <value>Je hebt nog geen vrienden!</value>
+        <value>Je hebt nog geen vrienden! LOL</value>
     </data>
     <data name="EmptyContent_NoFriends" xml:space="preserve">
         <value>Je kan vrienden in het spel toevoegen</value>
@@ -87,7 +87,7 @@
         <value>{$1} secondes</value>
     </data>
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
-        <value>Merk op dat deze pagina er niet voor kan zorgen om direct deel te nemen aan een kamer.
+        <value>Let op dat deze pagina er niet voor kan zorgen om direct deel te nemen aan een kamer.
 Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf via de online servers doen.</value>
     </data>
     <data name="EmptyContent_NoRooms_Title" xml:space="preserve">
@@ -251,5 +251,8 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="EmptyContent_NoMiis" xml:space="preserve">
         <value>We kunnen niet de Mii data van je systeem aflezen. Zorg dat je het spel minimaal 1 keer hebt opgestart</value>
+    </data>
+    <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
+        <value>Om vrienden toe te voegen moet je ze in het spel toevoegen.</value>
     </data>
 </root>

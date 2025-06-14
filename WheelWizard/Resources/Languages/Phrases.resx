@@ -262,4 +262,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="EmptyContent_NoMiis" xml:space="preserve">
         <value>We cant read the Mii data from your system. Make sure you started the game at least once</value>
     </data>
+    <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
+        <value>To add friends you need to add them in-game.</value>
+    </data>
 </root>

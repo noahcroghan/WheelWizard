@@ -261,4 +261,10 @@
     <data name="Action_Link_Discord" xml:space="preserve">
         <value>Kom gezellig praten!</value>
     </data>
+    <data name="Attribute_Message" xml:space="preserve">
+        <value>Bericht</value>
+    </data>
+    <data name="Attribute_AverageRoomVr" xml:space="preserve">
+        <value>Gemiddelde Vr</value>
+    </data>
 </root>

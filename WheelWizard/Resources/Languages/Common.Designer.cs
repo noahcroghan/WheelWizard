@@ -411,6 +411,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string Attribute_Message {
+            get {
+                return ResourceManager.GetString("Attribute_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mods Name.
         /// </summary>
         public static string Attribute_ModName {

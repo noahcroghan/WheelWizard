@@ -168,6 +168,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To add friends you need to add them in-game..
+        /// </summary>
+        public static string Hover_FriendsPageDisclaimer {
+            get {
+                return ResourceManager.GetString("Hover_FriendsPageDisclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are currently no players online.
         /// </summary>
         public static string Hover_PlayersOnline_0 {
