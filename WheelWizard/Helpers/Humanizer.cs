@@ -17,8 +17,8 @@ public static class Humanizer
 
     public static string HumanizeTimeSpan(TimeSpan timeSpan)
     {
-        // we use langauge to do the words like Phrases.Time_Days_1 or Phrases.Time_Days_x
-        // howver, the one with x has to be put in the method: ReplaceDynamic(Phrases.Time_Days_x, 10);
+        // we use language to do the words like Phrases.Time_Days_1 or Phrases.Time_Days_x
+        // however, the one with x has to be put in the method: ReplaceDynamic(Phrases.Time_Days_x, 10);
 
         // now e need to replace all the old with the new language versions
 
