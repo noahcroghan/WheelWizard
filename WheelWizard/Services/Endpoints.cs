@@ -1,3 +1,5 @@
+using WheelWizard.Services.Settings;
+
 namespace WheelWizard.Services;
 
 public static class Endpoints
@@ -10,12 +12,12 @@ public static class Endpoints
     /// <summary>
     /// The base address for accessing the WheelWizard data (data that we control)
     /// </summary>
-    public const string WhWzDataBaseAddress = "https://raw.githubusercontent.com/TeamWheelWizard/WheelWizard-Data/main";
+    public const string WhWzDataBaseAddress = "https://185.199.109.133/TeamWheelWizard/WheelWizard-Data/main";
 
     /// <summary>
     /// The base address for accessing the GameBanana API
     /// </summary>
-    public const string GameBananaBaseAddress = "https://gamebanana.com/apiv11";
+    public const string GameBananaBaseAddress = "https://104.26.8.16/apiv11";
 
     /// <summary>
     /// The address for the GitHub API
@@ -25,7 +27,10 @@ public static class Endpoints
     /// <summary>
     /// The address for the Mii image
     /// </summary>
-    public const string MiiImageAddress = "https://studio.mii.nintendo.com";
+    public static string MiiImageAddress =>
+        (string)SettingsManager.URL_OVERRIDE_MII_IMAGE.Get() != ""
+            ? (string)SettingsManager.URL_OVERRIDE_MII_IMAGE.Get()
+            : "https://studio.mii.nintendo.com"; //216.239.32.21
 
     // TODO: Refactor all the URLs seen below
 
@@ -42,9 +47,5 @@ public static class Endpoints
     public const string SupportLink = "https://ko-fi.com/wheelwizard";
 
     // Other
-    public const string MiiImageUrl = "https://studio.mii.nintendo.com/miis/image.png";
     public const string MiiChannelWAD = "-";
-
-    //GameBanana
-    public const string GameBananaBaseUrl = "https://gamebanana.com/apiv11";
 }

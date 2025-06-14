@@ -16,7 +16,8 @@ public static class WhWzDataExtensions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower,
                 Converters = { new EnumWithFallbackConverter<BadgeVariant>(), new JsonStringEnumConverter() },
-            }
+            },
+            "raw.githubusercontent.com"
         );
 
         services.AddSingleton<IWhWzDataSingletonService, WhWzDataSingletonService>();

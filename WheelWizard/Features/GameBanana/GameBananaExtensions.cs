@@ -7,7 +7,7 @@ public static class GameBananaExtensions
 {
     public static IServiceCollection AddGameBanana(this IServiceCollection services)
     {
-        services.AddWhWzRefitApi<IGameBananaApi>(Endpoints.GameBananaBaseAddress);
+        services.AddWhWzRefitApi<IGameBananaApi>(Endpoints.GameBananaBaseAddress, null, "gamebanana.com");
         services.AddSingleton<IGameBananaSingletonService, GameBananaSingletonService>();
         return services;
     }
