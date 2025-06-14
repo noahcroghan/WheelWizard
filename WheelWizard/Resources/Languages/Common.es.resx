@@ -174,4 +174,61 @@
     <data name="Action_ViewMii" xml:space="preserve">
         <value>Mirar Mii</value>
     </data>
+    <data name="ListTitle_Friends" xml:space="preserve">
+        <value>Amigos</value>
+    </data>
+    <data name="ListTitle_Players" xml:space="preserve">
+        <value>Jugadores</value>
+    </data>
+    <data name="ListTitle_Rooms" xml:space="preserve">
+        <value>Salas</value>
+    </data>
+    <data name="State_NoLicense" xml:space="preserve">
+        <value>Sin licencia</value>
+    </data>
+    <data name="State_NoName" xml:space="preserve">
+        <value>Sin nombre</value>
+    </data>
+    <data name="State_NoProfiles" xml:space="preserve">
+        <value>Sin perfiles</value>
+    </data>
+    <data name="Region_America" xml:space="preserve">
+        <value>América</value>
+    </data>
+    <data name="Region_Australia" xml:space="preserve">
+        <value>Australia</value>
+    </data>
+    <data name="Region_China" xml:space="preserve">
+        <value>China</value>
+    </data>
+    <data name="Region_Europe" xml:space="preserve">
+        <value>Europa</value>
+    </data>
+    <data name="Region_Japan" xml:space="preserve">
+        <value>Japón</value>
+    </data>
+    <data name="Region_SouthKorea" xml:space="preserve">
+        <value>Corea del Sur</value>
+    </data>
+    <data name="Region_Taiwan" xml:space="preserve">
+        <value>Taiwan</value>
+    </data>
+    <data name="Attribute_FriendCode" xml:space="preserve">
+        <value>Clave de amigo</value>
+    </data>
+    <data name="Attribute_Losses" xml:space="preserve">
+        <value>Derrotas</value>
+    </data>
+    <data name="Attribute_PlayerCount" xml:space="preserve">
+        <value>Jugadores</value>
+    </data>
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
+        <value>Carreras jugadas</value>
+    </data>
+    <data name="Attribute_TimeOnline" xml:space="preserve">
+        <value>Tiempo en línea</value>
+    </data>
+    <data name="Attribute_Wins" xml:space="preserve">
+        <value>Victorias</value>
+    </data>
 </root>

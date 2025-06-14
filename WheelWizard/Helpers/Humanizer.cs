@@ -66,13 +66,13 @@ public static class Humanizer
     {
         return regionID switch
         {
-            0 => Online.Region_Japan,
-            1 => Online.Region_America,
-            2 => Online.Region_Europe,
-            3 => Online.Region_Australia,
-            4 => Online.Region_Taiwan,
-            5 => Online.Region_SouthKorea,
-            6 => Online.Region_China,
+            0 => Common.Region_Japan,
+            1 => Common.Region_America,
+            2 => Common.Region_Europe,
+            3 => Common.Region_Australia,
+            4 => Common.Region_Taiwan,
+            5 => Common.Region_SouthKorea,
+            6 => Common.Region_China,
             _ => Common.State_Unknown,
         };
     }

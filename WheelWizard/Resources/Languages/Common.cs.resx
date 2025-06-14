@@ -138,4 +138,55 @@
     <data name="State_Warning" xml:space="preserve">
         <value>Varování</value>
     </data>
+    <data name="ListTitle_Friends" xml:space="preserve">
+        <value>Kamarádi</value>
+    </data>
+    <data name="ListTitle_Players" xml:space="preserve">
+        <value>Hráči</value>
+    </data>
+    <data name="ListTitle_Rooms" xml:space="preserve">
+        <value>Místnosti</value>
+    </data>
+    <data name="State_NoLicense" xml:space="preserve">
+        <value>Žádný účet</value>
+    </data>
+    <data name="State_NoName" xml:space="preserve">
+        <value>Žádné jméno</value>
+    </data>
+    <data name="State_NoProfiles" xml:space="preserve">
+        <value>Žádné profily</value>
+    </data>
+    <data name="Region_America" xml:space="preserve">
+        <value>Amerika</value>
+    </data>
+    <data name="Region_Australia" xml:space="preserve">
+        <value>Austrálie</value>
+    </data>
+    <data name="Region_China" xml:space="preserve">
+        <value>Čína</value>
+    </data>
+    <data name="Region_Europe" xml:space="preserve">
+        <value>Evropa</value>
+    </data>
+    <data name="Region_Japan" xml:space="preserve">
+        <value>Japonsko</value>
+    </data>
+    <data name="Region_SouthKorea" xml:space="preserve">
+        <value>Jižní Korea</value>
+    </data>
+    <data name="Region_Taiwan" xml:space="preserve">
+        <value>Tchaj-wan</value>
+    </data>
+    <data name="Attribute_Losses" xml:space="preserve">
+        <value>Prohry</value>
+    </data>
+    <data name="Attribute_PlayerCount" xml:space="preserve">
+        <value>Hráči</value>
+    </data>
+    <data name="Attribute_TimeOnline" xml:space="preserve">
+        <value>Čas Online</value>
+    </data>
+    <data name="Attribute_Wins" xml:space="preserve">
+        <value>Vyhry</value>
+    </data>
 </root>

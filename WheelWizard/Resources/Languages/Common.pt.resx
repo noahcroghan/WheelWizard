@@ -135,4 +135,22 @@
     <data name="Action_ViewMii" xml:space="preserve">
         <value>Ver Mii</value>
     </data>
+    <data name="ListTitle_Friends" xml:space="preserve">
+        <value>Amigos</value>
+    </data>
+    <data name="ListTitle_Players" xml:space="preserve">
+        <value>Jogadores</value>
+    </data>
+    <data name="ListTitle_Rooms" xml:space="preserve">
+        <value>Salas não econtradas</value>
+    </data>
+    <data name="State_NoLicense" xml:space="preserve">
+        <value>Sem licença</value>
+    </data>
+    <data name="State_NoName" xml:space="preserve">
+        <value>Sem nome</value>
+    </data>
+    <data name="State_NoProfiles" xml:space="preserve">
+        <value>Sem perfil</value>
+    </data>
 </root>

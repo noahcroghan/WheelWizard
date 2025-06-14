@@ -58,9 +58,9 @@ public partial class CurrentUserProfile : UserControlBase
 
         var name = currentUser.NameOfMii;
         if (name == SettingValues.NoName)
-            name = Online.State_NoName;
+            name = Common.State_NoName;
         if (name == SettingValues.NoLicense)
-            name = Online.State_NoLicense;
+            name = Common.State_NoLicense;
 
         UserName = name;
         FriendCode = currentUser.FriendCode;

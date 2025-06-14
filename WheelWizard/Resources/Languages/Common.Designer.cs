@@ -357,11 +357,29 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Friend Code.
+        /// </summary>
+        public static string Attribute_FriendCode {
+            get {
+                return ResourceManager.GetString("Attribute_FriendCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string Attribute_Id {
             get {
                 return ResourceManager.GetString("Attribute_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Losses.
+        /// </summary>
+        public static string Attribute_Losses {
+            get {
+                return ResourceManager.GetString("Attribute_Losses", resourceCulture);
             }
         }
         
@@ -402,11 +420,38 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Players.
+        /// </summary>
+        public static string Attribute_PlayerCount {
+            get {
+                return ResourceManager.GetString("Attribute_PlayerCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Races played.
+        /// </summary>
+        public static string Attribute_RacesPlayed {
+            get {
+                return ResourceManager.GetString("Attribute_RacesPlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Speed.
         /// </summary>
         public static string Attribute_Speed {
             get {
                 return ResourceManager.GetString("Attribute_Speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time Online.
+        /// </summary>
+        public static string Attribute_TimeOnline {
+            get {
+                return ResourceManager.GetString("Attribute_TimeOnline", resourceCulture);
             }
         }
         
@@ -425,6 +470,51 @@ namespace WheelWizard.Resources.Languages {
         public static string Attribute_Type {
             get {
                 return ResourceManager.GetString("Attribute_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wins.
+        /// </summary>
+        public static string Attribute_Wins {
+            get {
+                return ResourceManager.GetString("Attribute_Wins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friends.
+        /// </summary>
+        public static string ListTitle_Friends {
+            get {
+                return ResourceManager.GetString("ListTitle_Friends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Miis.
+        /// </summary>
+        public static string ListTitle_Miis {
+            get {
+                return ResourceManager.GetString("ListTitle_Miis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Players.
+        /// </summary>
+        public static string ListTitle_Players {
+            get {
+                return ResourceManager.GetString("ListTitle_Players", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rooms.
+        /// </summary>
+        public static string ListTitle_Rooms {
+            get {
+                return ResourceManager.GetString("ListTitle_Rooms", resourceCulture);
             }
         }
         
@@ -501,6 +591,69 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to America.
+        /// </summary>
+        public static string Region_America {
+            get {
+                return ResourceManager.GetString("Region_America", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Australia.
+        /// </summary>
+        public static string Region_Australia {
+            get {
+                return ResourceManager.GetString("Region_Australia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to China.
+        /// </summary>
+        public static string Region_China {
+            get {
+                return ResourceManager.GetString("Region_China", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Europe.
+        /// </summary>
+        public static string Region_Europe {
+            get {
+                return ResourceManager.GetString("Region_Europe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Japan.
+        /// </summary>
+        public static string Region_Japan {
+            get {
+                return ResourceManager.GetString("Region_Japan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to South Korea.
+        /// </summary>
+        public static string Region_SouthKorea {
+            get {
+                return ResourceManager.GetString("Region_SouthKorea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taiwan.
+        /// </summary>
+        public static string Region_Taiwan {
+            get {
+                return ResourceManager.GetString("Region_Taiwan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Config Not Finished.
         /// </summary>
         public static string State_ConfigNotFinished {
@@ -542,6 +695,33 @@ namespace WheelWizard.Resources.Languages {
         public static string State_Loading {
             get {
                 return ResourceManager.GetString("State_Loading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No license.
+        /// </summary>
+        public static string State_NoLicense {
+            get {
+                return ResourceManager.GetString("State_NoLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No name.
+        /// </summary>
+        public static string State_NoName {
+            get {
+                return ResourceManager.GetString("State_NoName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No profiles.
+        /// </summary>
+        public static string State_NoProfiles {
+            get {
+                return ResourceManager.GetString("State_NoProfiles", resourceCulture);
             }
         }
         

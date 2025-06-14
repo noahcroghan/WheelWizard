@@ -171,4 +171,61 @@
     <data name="Action_ViewRoom" xml:space="preserve">
         <value>ルームを見る</value>
     </data>
+    <data name="ListTitle_Friends" xml:space="preserve">
+        <value>フレンド</value>
+    </data>
+    <data name="ListTitle_Players" xml:space="preserve">
+        <value>プレイヤー</value>
+    </data>
+    <data name="State_NoLicense" xml:space="preserve">
+        <value>ライセンスなし</value>
+    </data>
+    <data name="State_NoName" xml:space="preserve">
+        <value>Player</value>
+    </data>
+    <data name="State_NoProfiles" xml:space="preserve">
+        <value>プロフィールなし</value>
+    </data>
+    <data name="Region_America" xml:space="preserve">
+        <value>アメリカ合衆国</value>
+    </data>
+    <data name="Region_Australia" xml:space="preserve">
+        <value>オーストラリア</value>
+    </data>
+    <data name="Region_China" xml:space="preserve">
+        <value>中国</value>
+    </data>
+    <data name="Region_Europe" xml:space="preserve">
+        <value>ヨーロッパ</value>
+    </data>
+    <data name="Region_Japan" xml:space="preserve">
+        <value>日本</value>
+    </data>
+    <data name="Region_SouthKorea" xml:space="preserve">
+        <value>韓国</value>
+    </data>
+    <data name="Region_Taiwan" xml:space="preserve">
+        <value>台湾</value>
+    </data>
+    <data name="Attribute_FriendCode" xml:space="preserve">
+        <value>フレンドコード</value>
+    </data>
+    <data name="Attribute_Losses" xml:space="preserve">
+        <value>負け</value>
+    </data>
+    <data name="Attribute_PlayerCount" xml:space="preserve">
+        <value>プレイヤー</value>
+    </data>
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
+        <value>プレイしたレース数</value>
+    </data>
+    <data name="Attribute_Wins" xml:space="preserve">
+        <value>勝ち</value>
+    </data>
+    <data name="ListTitle_Rooms" xml:space="preserve">
+        <value>ルーム</value>
+    </data>
+    <data name="Attribute_TimeOnline" xml:space="preserve">
+        <value>オンライン時間</value>
+    </data>
 </root>

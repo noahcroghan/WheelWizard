@@ -192,4 +192,64 @@
     <data name="Action_ViewRoom" xml:space="preserve">
         <value>Bekijk Kamer</value>
     </data>
+    <data name="State_NoName" xml:space="preserve">
+        <value>Geen naam</value>
+    </data>
+    <data name="Attribute_Wins" xml:space="preserve">
+        <value>Gewonnen</value>
+    </data>
+    <data name="Attribute_Losses" xml:space="preserve">
+        <value>Verloren</value>
+    </data>
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
+        <value>Races gespeeld</value>
+    </data>
+    <data name="State_NoLicense" xml:space="preserve">
+        <value>Geen licentie</value>
+    </data>
+    <data name="State_NoProfiles" xml:space="preserve">
+        <value>Geen profielen</value>
+    </data>
+    <data name="Region_Europe" xml:space="preserve">
+        <value>Europa</value>
+    </data>
+    <data name="Region_Japan" xml:space="preserve">
+        <value>Japan</value>
+    </data>
+    <data name="Region_China" xml:space="preserve">
+        <value>China</value>
+    </data>
+    <data name="Region_SouthKorea" xml:space="preserve">
+        <value>Zuid-Korea</value>
+    </data>
+    <data name="Region_Taiwan" xml:space="preserve">
+        <value>Taiwan</value>
+    </data>
+    <data name="Region_America" xml:space="preserve">
+        <value>Amerika</value>
+    </data>
+    <data name="Region_Australia" xml:space="preserve">
+        <value>Australië</value>
+    </data>
+    <data name="ListTitle_Friends" xml:space="preserve">
+        <value>Vrienden</value>
+    </data>
+    <data name="Attribute_FriendCode" xml:space="preserve">
+        <value>Vriendcode</value>
+    </data>
+    <data name="ListTitle_Players" xml:space="preserve">
+        <value>Spelers</value>
+    </data>
+    <data name="Attribute_PlayerCount" xml:space="preserve">
+        <value>Spelers</value>
+    </data>
+    <data name="Attribute_TimeOnline" xml:space="preserve">
+        <value>Tijd Online</value>
+    </data>
+    <data name="ListTitle_Rooms" xml:space="preserve">
+        <value>Kamers</value>
+    </data>
+    <data name="ListTitle_Miis" xml:space="preserve">
+        <value>Mii's</value>
+    </data>
 </root>

@@ -31,19 +31,19 @@
                 <!-- WE ARE LAZY IN THE CODE, AND SO WE USE CHILD INDEXING TO GET THE RADIO BUTTONS -->
                 <RadioButton Classes="TopBar"
                              Click="TopBarRadio_OnClick" Tag="0"
-                             x:Name="Mii0" Content="{x:Static lang:Online.State_NoLicense}"
+                             x:Name="Mii0" Content="{x:Static lang:Common.State_NoLicense}"
                              IsChecked="True" IsEnabled="False" />
                 <RadioButton Classes="TopBar"
                              Click="TopBarRadio_OnClick" Tag="1"
-                             x:Name="Mii1" Content="{x:Static lang:Online.State_NoLicense}"
+                             x:Name="Mii1" Content="{x:Static lang:Common.State_NoLicense}"
                              IsEnabled="False" />
                 <RadioButton Classes="TopBar"
                              Click="TopBarRadio_OnClick" Tag="2"
-                             x:Name="Mii2" Content="{x:Static lang:Online.State_NoLicense}"
+                             x:Name="Mii2" Content="{x:Static lang:Common.State_NoLicense}"
                              IsEnabled="False" />
                 <RadioButton Classes="TopBar"
                              Click="TopBarRadio_OnClick" Tag="3"
-                             x:Name="Mii3" Content="{x:Static lang:Online.State_NoLicense}"
+                             x:Name="Mii3" Content="{x:Static lang:Common.State_NoLicense}"
                              IsEnabled="False" />
             </StackPanel>
         </ScrollViewer>
@@ -188,7 +188,7 @@
                                   x:Name="CurrentUserCarousel" Height="280" />
 
             <components:EmptyPageInfo x:Name="NoProfilesInfo"
-                                      HorizontalAlignment="Center" Title="{x:Static lang:Online.State_NoProfiles}"
+                                      HorizontalAlignment="Center" Title="{x:Static lang:Common.State_NoProfiles}"
                                       BodyText="{x:Static lang:Phrases.EmptyText_NoProfiles}" />
         </Grid>
     </Grid>

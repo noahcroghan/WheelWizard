@@ -171,4 +171,61 @@
     <data name="Action_ViewRoom" xml:space="preserve">
         <value>Vedi la stanza</value>
     </data>
+    <data name="ListTitle_Friends" xml:space="preserve">
+        <value>Amici</value>
+    </data>
+    <data name="ListTitle_Players" xml:space="preserve">
+        <value>Giocatori</value>
+    </data>
+    <data name="ListTitle_Rooms" xml:space="preserve">
+        <value>Stanze</value>
+    </data>
+    <data name="State_NoLicense" xml:space="preserve">
+        <value>Nessuna patente</value>
+    </data>
+    <data name="State_NoName" xml:space="preserve">
+        <value>Nessun nome</value>
+    </data>
+    <data name="State_NoProfiles" xml:space="preserve">
+        <value>Nessun profilo</value>
+    </data>
+    <data name="Region_America" xml:space="preserve">
+        <value>America</value>
+    </data>
+    <data name="Region_Australia" xml:space="preserve">
+        <value>Australia</value>
+    </data>
+    <data name="Region_China" xml:space="preserve">
+        <value>Cina</value>
+    </data>
+    <data name="Region_Europe" xml:space="preserve">
+        <value>Europa</value>
+    </data>
+    <data name="Region_Japan" xml:space="preserve">
+        <value>Giappone</value>
+    </data>
+    <data name="Region_SouthKorea" xml:space="preserve">
+        <value>Corea del Sud</value>
+    </data>
+    <data name="Region_Taiwan" xml:space="preserve">
+        <value>Taiwan</value>
+    </data>
+    <data name="Attribute_FriendCode" xml:space="preserve">
+        <value>Codice Amico</value>
+    </data>
+    <data name="Attribute_Losses" xml:space="preserve">
+        <value>Sconfitte</value>
+    </data>
+    <data name="Attribute_PlayerCount" xml:space="preserve">
+        <value>Giocatori</value>
+    </data>
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
+        <value>Gare giocate</value>
+    </data>
+    <data name="Attribute_TimeOnline" xml:space="preserve">
+        <value>Tempo online</value>
+    </data>
+    <data name="Attribute_Wins" xml:space="preserve">
+        <value>Vittorie</value>
+    </data>
 </root>

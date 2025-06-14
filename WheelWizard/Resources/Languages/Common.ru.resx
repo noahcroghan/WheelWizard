@@ -171,4 +171,61 @@
     <data name="Action_ViewRoom" xml:space="preserve">
         <value>Просмотреть комнату</value>
     </data>
+    <data name="ListTitle_Friends" xml:space="preserve">
+        <value>Друзья</value>
+    </data>
+    <data name="ListTitle_Players" xml:space="preserve">
+        <value>Игроки</value>
+    </data>
+    <data name="ListTitle_Rooms" xml:space="preserve">
+        <value>Комнаты</value>
+    </data>
+    <data name="State_NoLicense" xml:space="preserve">
+        <value>Нет удостоверения</value>
+    </data>
+    <data name="State_NoName" xml:space="preserve">
+        <value>Нет имени</value>
+    </data>
+    <data name="State_NoProfiles" xml:space="preserve">
+        <value>Нет профилей</value>
+    </data>
+    <data name="Region_America" xml:space="preserve">
+        <value>Америка</value>
+    </data>
+    <data name="Region_Australia" xml:space="preserve">
+        <value>Австралия</value>
+    </data>
+    <data name="Region_China" xml:space="preserve">
+        <value>Китай</value>
+    </data>
+    <data name="Region_Europe" xml:space="preserve">
+        <value>Европа</value>
+    </data>
+    <data name="Region_Japan" xml:space="preserve">
+        <value>Япония</value>
+    </data>
+    <data name="Region_SouthKorea" xml:space="preserve">
+        <value>Южная Корея</value>
+    </data>
+    <data name="Region_Taiwan" xml:space="preserve">
+        <value>Тайвань</value>
+    </data>
+    <data name="Attribute_FriendCode" xml:space="preserve">
+        <value>Код друга</value>
+    </data>
+    <data name="Attribute_Losses" xml:space="preserve">
+        <value>Поражения</value>
+    </data>
+    <data name="Attribute_PlayerCount" xml:space="preserve">
+        <value>Игроки</value>
+    </data>
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
+        <value>Сыграно гонок</value>
+    </data>
+    <data name="Attribute_TimeOnline" xml:space="preserve">
+        <value>Время онлайн</value>
+    </data>
+    <data name="Attribute_Wins" xml:space="preserve">
+        <value>Победы</value>
+    </data>
 </root>

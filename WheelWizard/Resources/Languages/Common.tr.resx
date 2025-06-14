@@ -171,4 +171,61 @@
     <data name="Action_ViewRoom" xml:space="preserve">
         <value>Odayı Görüntüle</value>
     </data>
+    <data name="ListTitle_Friends" xml:space="preserve">
+        <value>Arkadaşlar</value>
+    </data>
+    <data name="ListTitle_Players" xml:space="preserve">
+        <value>Oyuncular</value>
+    </data>
+    <data name="ListTitle_Rooms" xml:space="preserve">
+        <value>Odalar</value>
+    </data>
+    <data name="State_NoLicense" xml:space="preserve">
+        <value>Lisans yok</value>
+    </data>
+    <data name="State_NoName" xml:space="preserve">
+        <value>Ad yok</value>
+    </data>
+    <data name="State_NoProfiles" xml:space="preserve">
+        <value>Profil yok</value>
+    </data>
+    <data name="Region_America" xml:space="preserve">
+        <value>Amerika</value>
+    </data>
+    <data name="Region_Australia" xml:space="preserve">
+        <value>Avustralya</value>
+    </data>
+    <data name="Region_China" xml:space="preserve">
+        <value>Çin</value>
+    </data>
+    <data name="Region_Europe" xml:space="preserve">
+        <value>Avrupa</value>
+    </data>
+    <data name="Region_Japan" xml:space="preserve">
+        <value>Japonya</value>
+    </data>
+    <data name="Region_SouthKorea" xml:space="preserve">
+        <value>Güney Kore</value>
+    </data>
+    <data name="Region_Taiwan" xml:space="preserve">
+        <value>Tayvan</value>
+    </data>
+    <data name="Attribute_FriendCode" xml:space="preserve">
+        <value>Arkadaş Kodu</value>
+    </data>
+    <data name="Attribute_Losses" xml:space="preserve">
+        <value>Kayıplar</value>
+    </data>
+    <data name="Attribute_PlayerCount" xml:space="preserve">
+        <value>Oyuncular</value>
+    </data>
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
+        <value>Oynanan Yarışlar</value>
+    </data>
+    <data name="Attribute_TimeOnline" xml:space="preserve">
+        <value>Çevrimiçi Süre</value>
+    </data>
+    <data name="Attribute_Wins" xml:space="preserve">
+        <value>Galibiyetler</value>
+    </data>
 </root>
