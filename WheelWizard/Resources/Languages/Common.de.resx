@@ -54,13 +54,13 @@
     <data name="PageTitle_Settings" xml:space="preserve">
         <value>Einstellungen</value>
     </data>
-    <data name="Term_General" xml:space="preserve">
+    <data name="Category_General" xml:space="preserve">
         <value>Allgemein</value>
     </data>
-    <data name="Term_Online" xml:space="preserve">
+    <data name="Attribute_Online" xml:space="preserve">
         <value>Online</value>
     </data>
-    <data name="Term_Other" xml:space="preserve">
+    <data name="Category_Other" xml:space="preserve">
         <value>Sonstiges</value>
     </data>
     <data name="State_Installing" xml:space="preserve">
@@ -108,7 +108,7 @@
     <data name="Attribute_Title" xml:space="preserve">
         <value>Titel</value>
     </data>
-    <data name="Term_Offline" xml:space="preserve">
+    <data name="Attribute_Offline" xml:space="preserve">
         <value>Offline</value>
     </data>
     <data name="State_Unknown" xml:space="preserve">
@@ -141,7 +141,7 @@
     <data name="Action_No" xml:space="preserve">
         <value>Nein</value>
     </data>
-    <data name="Term_Speed" xml:space="preserve">
+    <data name="Attribute_Speed" xml:space="preserve">
         <value>Geschwindigkeit</value>
     </data>
     <data name="State_Warning" xml:space="preserve">

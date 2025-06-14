@@ -150,19 +150,19 @@
     <data name="State_Error" xml:space="preserve">
         <value>Hata</value>
     </data>
-    <data name="Term_General" xml:space="preserve">
+    <data name="Category_General" xml:space="preserve">
         <value>Genel</value>
     </data>
-    <data name="Term_Offline" xml:space="preserve">
+    <data name="Attribute_Offline" xml:space="preserve">
         <value>Çevrimdışı</value>
     </data>
-    <data name="Term_Online" xml:space="preserve">
+    <data name="Attribute_Online" xml:space="preserve">
         <value>Çevrimiçi</value>
     </data>
-    <data name="Term_Other" xml:space="preserve">
+    <data name="Category_Other" xml:space="preserve">
         <value>Diğer</value>
     </data>
-    <data name="Term_Speed" xml:space="preserve">
+    <data name="Attribute_Speed" xml:space="preserve">
         <value>Hız</value>
     </data>
     <data name="State_Success" xml:space="preserve">

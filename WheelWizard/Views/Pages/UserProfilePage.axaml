@@ -135,9 +135,9 @@
 
                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,7,0,0">
                         <components:FormFieldLabel Text="Status"/>
-                        <SelectableTextBlock IsVisible="{Binding IsOnline}" Text="{x:Static lang:Common.Term_Online}"
+                        <SelectableTextBlock IsVisible="{Binding IsOnline}" Text="{x:Static lang:Common.Attribute_Online}"
                                              FontSize="16" Foreground="{StaticResource Primary400}" />
-                        <SelectableTextBlock Classes="BodyText" Text="{x:Static lang:Common.Term_Offline}"
+                        <SelectableTextBlock Classes="BodyText" Text="{x:Static lang:Common.Attribute_Offline}"
                                              IsVisible="{Binding IsOnline, Converter={x:Static BoolConverters.Not}}" />
                     </StackPanel>
 

@@ -66,9 +66,9 @@
                             </Border.OpacityMask>
                         </Border>
                         <TextBlock Grid.Column="0" VerticalAlignment="Bottom" IsVisible="{TemplateBinding IsOnline}" 
-                                   Text="{x:Static lang:Common.Term_Online}"
+                                   Text="{x:Static lang:Common.Attribute_Online}"
                                    FontSize="16" Foreground="{StaticResource Neutral200}"/>
-                        <TextBlock Grid.Column="0" VerticalAlignment="Bottom"  Text="{x:Static lang:Common.Term_Offline}"
+                        <TextBlock Grid.Column="0" VerticalAlignment="Bottom"  Text="{x:Static lang:Common.Attribute_Offline}"
                                    FontSize="16" IsVisible="{TemplateBinding IsOnline,Converter={x:Static BoolConverters.Not}}" 
                                    Foreground="{StaticResource Neutral200}" />
                         

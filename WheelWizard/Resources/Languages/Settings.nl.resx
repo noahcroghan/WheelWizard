@@ -129,7 +129,7 @@
     <data name="Option_MakePrimary" xml:space="preserve">
         <value>Maak Hoofdprofiel</value>
     </data>
-    <data name="CompletePercentage" xml:space="preserve">
+    <data name="Value_Language_CompletePercentage" xml:space="preserve">
         <value>100</value>
     </data>
     <data name="Option_RemoveBlur" xml:space="preserve">

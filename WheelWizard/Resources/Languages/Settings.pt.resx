@@ -93,4 +93,7 @@
     <data name="Option_WindowScale" xml:space="preserve">
         <value>Escala da janela</value>
     </data>
+    <data name="Value_Language_CompletePercentage" xml:space="preserve">
+        <value>0</value>
+    </data>
 </root>

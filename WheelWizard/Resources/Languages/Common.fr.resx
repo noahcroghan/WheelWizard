@@ -33,13 +33,13 @@
     <data name="PageTitle_Settings" xml:space="preserve">
         <value>Paramètres</value>
     </data>
-    <data name="Term_General" xml:space="preserve">
+    <data name="Category_General" xml:space="preserve">
         <value>Général</value>
     </data>
-    <data name="Term_Online" xml:space="preserve">
+    <data name="Attribute_Online" xml:space="preserve">
         <value>En Ligne </value>
     </data>
-    <data name="Term_Other" xml:space="preserve">
+    <data name="Category_Other" xml:space="preserve">
         <value>Autre</value>
     </data>
     <data name="PageTitle_Home" xml:space="preserve">
@@ -132,10 +132,10 @@
     <data name="State_Error" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="Term_Offline" xml:space="preserve">
+    <data name="Attribute_Offline" xml:space="preserve">
         <value>Hors-Ligne</value>
     </data>
-    <data name="Term_Speed" xml:space="preserve">
+    <data name="Attribute_Speed" xml:space="preserve">
         <value>Vitesse</value>
     </data>
     <data name="State_Unknown" xml:space="preserve">

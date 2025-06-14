@@ -54,7 +54,7 @@ public partial class ProgressWindow : PopupContent
         if (_totalMb != null)
         {
             var downloadedMb = (_progress / 100.0) * (double)_totalMb;
-            bottomText = $"{Common.Term_Speed}: {downloadedMb / elapsedSeconds:F2} MB/s | {bottomText}";
+            bottomText = $"{Common.Attribute_Speed}: {downloadedMb / elapsedSeconds:F2} MB/s | {bottomText}";
         }
 
         LiveTextBlock.Text = bottomText;

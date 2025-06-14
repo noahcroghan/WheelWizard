@@ -67,10 +67,10 @@ public partial class OtherSettings : UserControl
         var whWzLanguageDisplayName = SettingValues.WhWzLanguages[currentWhWzLanguage];
         WhWzLanguageDropdown.SelectedItem = whWzLanguageDisplayName();
 
-        if (WheelWizard.Resources.Languages.Settings.CompletePercentage != "100")
+        if (WheelWizard.Resources.Languages.Settings.Value_Language_CompletePercentage != "100")
         {
             TranslationsPercentageText.IsVisible = true;
-            var percentage = WheelWizard.Resources.Languages.Settings.CompletePercentage;
+            var percentage = WheelWizard.Resources.Languages.Settings.Value_Language_CompletePercentage;
             var phrase = Phrases.Text_WhWzTranslationPercentage;
             TranslationsPercentageText.Text = Humanizer.ReplaceDynamic(phrase, percentage);
         }

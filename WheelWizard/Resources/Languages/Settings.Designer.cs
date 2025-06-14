@@ -78,15 +78,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 100.
-        /// </summary>
-        public static string CompletePercentage {
-            get {
-                return ResourceManager.GetString("CompletePercentage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This setting will force the game to run in 30 FPS (default is 60).
         /// </summary>
         public static string InfoText_30FPS {
@@ -434,6 +425,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Value_Language_ChineseOg {
             get {
                 return ResourceManager.GetString("Value_Language_ChineseOg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 100.
+        /// </summary>
+        public static string Value_Language_CompletePercentage {
+            get {
+                return ResourceManager.GetString("Value_Language_CompletePercentage", resourceCulture);
             }
         }
         

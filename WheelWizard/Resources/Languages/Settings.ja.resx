@@ -129,7 +129,7 @@
     <data name="Value_Language_Turkish" xml:space="preserve">
         <value>トルコ語</value>
     </data>
-    <data name="CompletePercentage" xml:space="preserve">
+    <data name="Value_Language_CompletePercentage" xml:space="preserve">
         <value>100</value>
     </data>
     <data name="InfoText_EnableAnimations" xml:space="preserve">

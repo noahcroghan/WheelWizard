@@ -126,16 +126,16 @@
     <data name="State_Error" xml:space="preserve">
         <value>Chyba</value>
     </data>
-    <data name="Term_General" xml:space="preserve">
+    <data name="Category_General" xml:space="preserve">
         <value>Obecný</value>
     </data>
-    <data name="Term_Offline" xml:space="preserve">
+    <data name="Attribute_Offline" xml:space="preserve">
         <value>Offline</value>
     </data>
-    <data name="Term_Online" xml:space="preserve">
+    <data name="Attribute_Online" xml:space="preserve">
         <value>Online</value>
     </data>
-    <data name="Term_Speed" xml:space="preserve">
+    <data name="Attribute_Speed" xml:space="preserve">
         <value>Rychlost</value>
     </data>
     <data name="State_Warning" xml:space="preserve">

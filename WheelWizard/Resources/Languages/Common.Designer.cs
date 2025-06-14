@@ -366,6 +366,33 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Offline.
+        /// </summary>
+        public static string Attribute_Offline {
+            get {
+                return ResourceManager.GetString("Attribute_Offline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online.
+        /// </summary>
+        public static string Attribute_Online {
+            get {
+                return ResourceManager.GetString("Attribute_Online", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speed.
+        /// </summary>
+        public static string Attribute_Speed {
+            get {
+                return ResourceManager.GetString("Attribute_Speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Attribute_Title {
@@ -380,6 +407,24 @@ namespace WheelWizard.Resources.Languages {
         public static string Attribute_Type {
             get {
                 return ResourceManager.GetString("Attribute_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string Category_General {
+            get {
+                return ResourceManager.GetString("Category_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        public static string Category_Other {
+            get {
+                return ResourceManager.GetString("Category_Other", resourceCulture);
             }
         }
         
@@ -542,51 +587,6 @@ namespace WheelWizard.Resources.Languages {
         public static string State_Warning {
             get {
                 return ResourceManager.GetString("State_Warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to General.
-        /// </summary>
-        public static string Term_General {
-            get {
-                return ResourceManager.GetString("Term_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline.
-        /// </summary>
-        public static string Term_Offline {
-            get {
-                return ResourceManager.GetString("Term_Offline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Online.
-        /// </summary>
-        public static string Term_Online {
-            get {
-                return ResourceManager.GetString("Term_Online", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Other.
-        /// </summary>
-        public static string Term_Other {
-            get {
-                return ResourceManager.GetString("Term_Other", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Speed.
-        /// </summary>
-        public static string Term_Speed {
-            get {
-                return ResourceManager.GetString("Term_Speed", resourceCulture);
             }
         }
     }
