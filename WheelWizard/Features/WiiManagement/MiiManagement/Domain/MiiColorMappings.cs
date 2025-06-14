@@ -1,8 +1,8 @@
 using Avalonia.Media;
 using WheelWizard.Views;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
-namespace WheelWizard.WiiManagement.Domain;
+namespace WheelWizard.WiiManagement.MiiManagement.Domain;
 
 public static class MiiColorMappings
 {

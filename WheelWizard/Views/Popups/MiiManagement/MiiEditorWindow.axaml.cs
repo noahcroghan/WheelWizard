@@ -5,7 +5,8 @@ using WheelWizard.Views.Popups.Base;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement;
 

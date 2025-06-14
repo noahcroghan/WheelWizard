@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using WheelWizard.Models.GameData;
 using WheelWizard.Services.WiiManagement.SaveData;
+using WheelWizard.WiiManagement.GameLicense.Domain;
 
-namespace WheelWizard.WiiManagement;
+namespace WheelWizard.WiiManagement.GameLicense;
 
 public static class StatisticsSerializer
 {

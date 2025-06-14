@@ -2,7 +2,6 @@ using System.IO.Abstractions;
 using System.Text;
 using System.Text.RegularExpressions;
 using WheelWizard.Models.Enums;
-using WheelWizard.Models.GameData;
 using WheelWizard.Models.Settings;
 using WheelWizard.Services;
 using WheelWizard.Services.LiveData;
@@ -12,16 +11,18 @@ using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.Utilities.Generators;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.WheelWizardData;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.GameLicense.Domain;
+using WheelWizard.WiiManagement.MiiManagement;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
-namespace WheelWizard.WiiManagement;
+namespace WheelWizard.WiiManagement.GameLicense;
 
 // big big thanks to https://kazuki-4ys.github.io/web_apps/FaceThief/ for the JS implementation
 // Also Refer to this documentation https://wiki.tockdom.com/wiki/Rksys.dat
 public interface IGameLicenseSingletonService
 {
     /// <summary>
-    /// Gets the currently loaded <see cref="Models.GameData.LicenseCollection"/>.
+    /// Gets the currently loaded <see cref="Domain.LicenseCollection"/>.
     /// </summary>
     LicenseCollection LicenseCollection { get; }
 

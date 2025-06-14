@@ -4,8 +4,8 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
 using WheelWizard.Views.Popups.Generic;
-using WheelWizard.WiiManagement.Domain;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement.Domain;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 

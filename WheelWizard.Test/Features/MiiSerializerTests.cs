@@ -1,4 +1,5 @@
 using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.MiiManagement;
 
 namespace WheelWizard.Test.Features;
 

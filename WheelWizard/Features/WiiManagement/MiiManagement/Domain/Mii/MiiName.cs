@@ -1,6 +1,6 @@
 using System.Text;
 
-namespace WheelWizard.WiiManagement.Domain.Mii;
+namespace WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 /// <summary>
 /// Represents a Mii name.

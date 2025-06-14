@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
-using WheelWizard.WiiManagement.Domain;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement.Domain;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 

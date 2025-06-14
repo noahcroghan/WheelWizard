@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using WheelWizard.Services.WiiManagement.SaveData;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
-namespace WheelWizard.WiiManagement;
+namespace WheelWizard.WiiManagement.MiiManagement;
 
 public static class MiiSerializer
 {

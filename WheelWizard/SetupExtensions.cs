@@ -12,6 +12,7 @@ using WheelWizard.RrRooms;
 using WheelWizard.Shared.Services;
 using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.MiiManagement;
 
 namespace WheelWizard;
 

@@ -2,9 +2,9 @@
 using WheelWizard.Helpers;
 using WheelWizard.Services.LiveData;
 using WheelWizard.WheelWizardData.Domain;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
-namespace WheelWizard.Models.GameData;
+namespace WheelWizard.WiiManagement.GameLicense.Domain;
 
 public abstract class PlayerProfileBase : INotifyPropertyChanged
 {

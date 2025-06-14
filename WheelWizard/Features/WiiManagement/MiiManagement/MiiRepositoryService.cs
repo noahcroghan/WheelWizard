@@ -2,7 +2,7 @@
 using WheelWizard.Services;
 using WheelWizard.Services.WiiManagement.SaveData;
 
-namespace WheelWizard.WiiManagement;
+namespace WheelWizard.WiiManagement.MiiManagement;
 
 public interface IMiiRepositoryService
 {

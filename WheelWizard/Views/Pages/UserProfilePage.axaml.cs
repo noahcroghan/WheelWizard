@@ -2,7 +2,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.Enums;
-using WheelWizard.Models.GameData;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
@@ -14,7 +13,10 @@ using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.GameLicense;
+using WheelWizard.WiiManagement.GameLicense.Domain;
+using WheelWizard.WiiManagement.MiiManagement;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Pages;
 

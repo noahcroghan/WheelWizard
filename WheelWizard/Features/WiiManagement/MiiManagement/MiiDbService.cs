@@ -1,7 +1,7 @@
 ﻿using Testably.Abstractions;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
-namespace WheelWizard.WiiManagement;
+namespace WheelWizard.WiiManagement.MiiManagement;
 
 /// <summary>
 /// Provides high-level operations for managing Miis in the Wii Mii database.

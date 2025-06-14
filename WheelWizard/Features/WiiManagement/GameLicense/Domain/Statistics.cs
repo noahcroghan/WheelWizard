@@ -1,4 +1,4 @@
-namespace WheelWizard.Models.GameData;
+namespace WheelWizard.WiiManagement.GameLicense.Domain;
 
 public class Statistics
 {

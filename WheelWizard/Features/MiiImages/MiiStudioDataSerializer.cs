@@ -1,7 +1,8 @@
 using System.Text;
 using WheelWizard.Services.WiiManagement.SaveData;
 using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 namespace WheelWizard.MiiImages;
 

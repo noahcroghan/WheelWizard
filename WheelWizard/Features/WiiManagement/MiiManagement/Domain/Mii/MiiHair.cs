@@ -1,4 +1,4 @@
-namespace WheelWizard.WiiManagement.Domain.Mii;
+namespace WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 public class MiiHair
 {
