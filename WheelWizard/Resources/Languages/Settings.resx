@@ -175,7 +175,7 @@
         <value>Enable Animations</value>
     </data>
     <data name="InfoText_EnableAnimations" xml:space="preserve">
-        <value>This enables the animations in the the Wheel Wizard app</value>
+        <value>This enables the animations in the Wheel Wizard app</value>
     </data>
     <data name="Value_Language_Russian" xml:space="preserve">
         <value>Russian</value>
@@ -184,31 +184,31 @@
         <value>Русский</value>
     </data>
     <data name="Value_Language_Arabic" xml:space="preserve">
-        <value />
+        <value>Arabic</value>
     </data>
     <data name="Value_Language_ArabicOg" xml:space="preserve">
         <value>-</value>
     </data>
     <data name="Value_Language_Czech" xml:space="preserve">
-        <value />
+        <value>Czech</value>
     </data>
     <data name="Value_Language_CzechOg" xml:space="preserve">
         <value>-</value>
     </data>
     <data name="Value_Language_Norwegian" xml:space="preserve">
-        <value />
+        <value>Norwegian</value>
     </data>
     <data name="Value_Language_NorwegianOg" xml:space="preserve">
         <value>-</value>
     </data>
     <data name="Value_Language_Chinese" xml:space="preserve">
-        <value />
+        <value>Chinese</value>
     </data>
     <data name="Value_Language_ChineseOg" xml:space="preserve">
         <value>-</value>
     </data>
     <data name="Value_Language_Portuguese" xml:space="preserve">
-        <value />
+        <value>Portuguese</value>
     </data>
     <data name="Value_Language_PortugueseOg" xml:space="preserve">
         <value>-</value>

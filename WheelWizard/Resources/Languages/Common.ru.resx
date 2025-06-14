@@ -34,13 +34,13 @@
         <value>Удалить</value>
     </data>
     <data name="Action_DisableAll" xml:space="preserve">
-        <value>Отключить всё</value>
+        <value>Отключить все</value>
     </data>
     <data name="Action_Edit" xml:space="preserve">
         <value>Редактировать</value>
     </data>
     <data name="Action_EnableAll" xml:space="preserve">
-        <value>Включить всё</value>
+        <value>Включить все</value>
     </data>
     <data name="Action_Export" xml:space="preserve">
         <value>Экспортировать</value>
@@ -61,7 +61,7 @@
         <value>Нет</value>
     </data>
     <data name="Action_OK" xml:space="preserve">
-        <value>ОК</value>
+        <value>OK</value>
     </data>
     <data name="Action_OpenFolder" xml:space="preserve">
         <value>Открыть папку</value>
@@ -70,7 +70,7 @@
         <value>Играть</value>
     </data>
     <data name="Action_PlayOffline" xml:space="preserve">
-        <value>Играть оффлайн</value>
+        <value>Играть офлайн</value>
     </data>
     <data name="Action_Rename" xml:space="preserve">
         <value>Переименовать</value>
@@ -94,7 +94,7 @@
         <value>ID</value>
     </data>
     <data name="Attribute_ModName" xml:space="preserve">
-        <value>Название мода</value>
+        <value>Название модов</value>
     </data>
     <data name="Attribute_Name" xml:space="preserve">
         <value>Название</value>
@@ -106,10 +106,10 @@
         <value>Друзья</value>
     </data>
     <data name="PageTitle_Home" xml:space="preserve">
-        <value>Заглавная</value>
+        <value>Главная</value>
     </data>
     <data name="PageTitle_Mods" xml:space="preserve">
-        <value>Моды</value>
+        <value>My Stuff</value>
     </data>
     <data name="PageTitle_MyProfiles" xml:space="preserve">
         <value>Мои профили</value>

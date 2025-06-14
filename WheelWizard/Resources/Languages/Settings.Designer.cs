@@ -96,7 +96,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This enables the animations in the the Wheel Wizard app.
+        ///   Looks up a localized string similar to This enables the animations in the Wheel Wizard app.
         /// </summary>
         public static string InfoText_EnableAnimations {
             get {
@@ -402,7 +402,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Arabic.
         /// </summary>
         public static string Value_Language_Arabic {
             get {
@@ -420,7 +420,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Chinese.
         /// </summary>
         public static string Value_Language_Chinese {
             get {
@@ -438,7 +438,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Czech.
         /// </summary>
         public static string Value_Language_Czech {
             get {
@@ -600,7 +600,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Norwegian.
         /// </summary>
         public static string Value_Language_Norwegian {
             get {
@@ -618,7 +618,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Portuguese.
         /// </summary>
         public static string Value_Language_Portuguese {
             get {

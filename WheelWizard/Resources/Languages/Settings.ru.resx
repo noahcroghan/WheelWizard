@@ -25,7 +25,7 @@
         <value>Видео</value>
     </data>
     <data name="InfoText_30FPS" xml:space="preserve">
-        <value>Эта настройка поставит максимальное количество ФПС нв 30 (стандарт - 60)</value>
+        <value>Эта настройка поставит максимальное количество FPS на 30 (стандарт - 60)</value>
     </data>
     <data name="InfoText_EnableAnimations" xml:space="preserve">
         <value>Эта настройка включает анимации в лаунчере Wheel Wizard.</value>
@@ -149,5 +149,20 @@
     </data>
     <data name="Value_Language_Turkish" xml:space="preserve">
         <value>Турецкий</value>
+    </data>
+    <data name="Value_Language_Arabic" xml:space="preserve">
+        <value>Арабский</value>
+    </data>
+    <data name="Value_Language_Chinese" xml:space="preserve">
+        <value>Китайский</value>
+    </data>
+    <data name="Value_Language_Czech" xml:space="preserve">
+        <value>Чешский</value>
+    </data>
+    <data name="Value_Language_Norwegian" xml:space="preserve">
+        <value>Норвежский</value>
+    </data>
+    <data name="Value_Language_Portuguese" xml:space="preserve">
+        <value>Португальский</value>
     </data>
 </root>

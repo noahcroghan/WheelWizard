@@ -28,16 +28,16 @@
         <value>Verloren</value>
     </data>
     <data name="Stat_RacesPlayed" xml:space="preserve">
-        <value>Aantal races</value>
+        <value>Races gespeeld</value>
     </data>
     <data name="Button_ViewRoom" xml:space="preserve">
-        <value>Bekijk lobby</value>
+        <value>Bekijk Kamer</value>
     </data>
     <data name="NoLicense" xml:space="preserve">
         <value>Geen licentie</value>
     </data>
     <data name="NoProfiles" xml:space="preserve">
-        <value>Geen Profielen</value>
+        <value>Geen profielen</value>
     </data>
     <data name="Region_Europe" xml:space="preserve">
         <value>Europa</value>
@@ -49,13 +49,13 @@
         <value>China</value>
     </data>
     <data name="Region_SouthKorea" xml:space="preserve">
-        <value>Zuid Korea</value>
+        <value>Zuid-Korea</value>
     </data>
     <data name="Region_Taiwan" xml:space="preserve">
         <value>Taiwan</value>
     </data>
     <data name="Region_America" xml:space="preserve">
-        <value>America</value>
+        <value>Amerika</value>
     </data>
     <data name="Region_Australia" xml:space="preserve">
         <value>Australië</value>
@@ -73,13 +73,13 @@
         <value>Spelers</value>
     </data>
     <data name="Stat_TimeOnline" xml:space="preserve">
-        <value>Tijd online</value>
+        <value>Tijd Online</value>
     </data>
     <data name="ListTitle_Rooms" xml:space="preserve">
-        <value>Lobbies</value>
+        <value>Kamers</value>
     </data>
     <data name="Stat_RoomID" xml:space="preserve">
-        <value>Lobby ID</value>
+        <value>Kamer ID</value>
     </data>
     <data name="ListTitle_Miis" xml:space="preserve">
         <value>Mii's</value>

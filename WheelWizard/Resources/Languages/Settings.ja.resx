@@ -150,4 +150,19 @@
     <data name="Value_Language_Russian" xml:space="preserve">
         <value>ロシア語</value>
     </data>
+    <data name="Value_Language_Arabic" xml:space="preserve">
+        <value>アラビア語</value>
+    </data>
+    <data name="Value_Language_Chinese" xml:space="preserve">
+        <value>中国語</value>
+    </data>
+    <data name="Value_Language_Czech" xml:space="preserve">
+        <value>チェコ語</value>
+    </data>
+    <data name="Value_Language_Norwegian" xml:space="preserve">
+        <value>ノルウェー語</value>
+    </data>
+    <data name="Value_Language_Portuguese" xml:space="preserve">
+        <value>ポルトガル語</value>
+    </data>
 </root>

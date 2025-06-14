@@ -22,7 +22,7 @@
         <value>Kein Name</value>
     </data>
     <data name="Button_ViewRoom" xml:space="preserve">
-        <value>Raum Anzeigen</value>
+        <value>Raum anzeigen</value>
     </data>
     <data name="ListTitle_Friends" xml:space="preserve">
         <value>Freunde</value>
@@ -52,7 +52,7 @@
         <value>Japan</value>
     </data>
     <data name="Region_SouthKorea" xml:space="preserve">
-        <value>Süd Korea</value>
+        <value>Südkorea</value>
     </data>
     <data name="Region_Taiwan" xml:space="preserve">
         <value>Taiwan</value>
@@ -61,16 +61,16 @@
         <value>Freundescode</value>
     </data>
     <data name="Stat_Losses" xml:space="preserve">
-        <value>Verloren</value>
+        <value>Verlorene Rennen</value>
     </data>
     <data name="Stat_PlayerCount" xml:space="preserve">
         <value>Spieler</value>
     </data>
     <data name="Stat_Wins" xml:space="preserve">
-        <value>Gewinne</value>
+        <value>Gewonnene Rennen</value>
     </data>
     <data name="Stat_TimeOnline" xml:space="preserve">
-        <value>Zeit Online</value>
+        <value>Zeit online</value>
     </data>
     <data name="Stat_RacesPlayed" xml:space="preserve">
         <value>Gespielte Rennen</value>

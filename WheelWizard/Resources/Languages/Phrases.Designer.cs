@@ -286,7 +286,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dolphin Emulator folder found. Would you like to use this folder? If you dont know what all of this means, just click yes :).
+        ///   Looks up a localized string similar to If you dont know what all of this means, just click yes :) \nDolphin Emulator folder found. Would you like to use this folder?.
         /// </summary>
         public static string PopupText_DolphinFoundText {
             get {

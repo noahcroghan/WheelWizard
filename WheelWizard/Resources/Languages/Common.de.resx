@@ -31,10 +31,10 @@
         <value>Spielen</value>
     </data>
     <data name="Action_PlayOffline" xml:space="preserve">
-        <value>Spiele Offline</value>
+        <value>Offline spielen</value>
     </data>
     <data name="Action_Update" xml:space="preserve">
-        <value>Aktualisierung</value>
+        <value>Aktualisieren</value>
     </data>
     <data name="PageTitle_Friends" xml:space="preserve">
         <value>Freunde</value>
@@ -85,7 +85,7 @@
         <value>Löschen</value>
     </data>
     <data name="Action_DisableAll" xml:space="preserve">
-        <value>Alles Deaktiverien</value>
+        <value>Alle deaktivieren</value>
     </data>
     <data name="Action_EnableAll" xml:space="preserve">
         <value>Alle aktivieren</value>
@@ -133,7 +133,7 @@
         <value>Typ</value>
     </data>
     <data name="PageTitle_RoomDetails" xml:space="preserve">
-        <value>Raum Details</value>
+        <value>Raumdetails</value>
     </data>
     <data name="Term_Error" xml:space="preserve">
         <value>Fehler</value>
@@ -157,7 +157,7 @@
         <value>Ja</value>
     </data>
     <data name="Action_MaybeLater" xml:space="preserve">
-        <value>Vielleicht Später</value>
+        <value>Vielleicht später</value>
     </data>
     <data name="Action_OK" xml:space="preserve">
         <value>Ok</value>
@@ -166,10 +166,10 @@
         <value>Rückgängig machen</value>
     </data>
     <data name="Attribute_ModName" xml:space="preserve">
-        <value>Mod Name</value>
+        <value>Mod-Name</value>
     </data>
     <data name="State_Extracting" xml:space="preserve">
-        <value>Extrahiere Datein</value>
+        <value>Dateien werden extrahiert...</value>
     </data>
     <data name="Term_Success" xml:space="preserve">
         <value>Erfolgreich</value>

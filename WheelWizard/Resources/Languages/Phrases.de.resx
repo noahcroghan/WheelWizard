@@ -49,7 +49,7 @@
         <value>Rede mit uns!</value>
     </data>
     <data name="Sidebar_Link_Github" xml:space="preserve">
-        <value>Source Code</value>
+        <value>Quellcode</value>
     </data>
     <data name="Sidebar_Link_Support" xml:space="preserve">
         <value>Unterstützt uns!</value>
@@ -67,13 +67,13 @@
         <value>Noch keine Freunde!</value>
     </data>
     <data name="EmptyText_NoProfiles" xml:space="preserve">
-        <value>Du musst das Spiel mindestens ein Mal gespielt haben, um deine Profile hier aufgelistet zu sehen</value>
+        <value>Du musst das Spiel mindestens ein Mal gespielt haben, um deine Profile hier aufgelistet zu sehen.</value>
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Gewünschten Pfad hier eingeben...</value>
     </data>
     <data name="EmptyText_NoMods" xml:space="preserve">
-        <value>Mods können die Funktionsweise des Spiels verändern. Beginne mit dem Importerien deines ersten Mods, indem Du auf die Schaltfläche unten klickst.</value>
+        <value>Mods können die Funktionsweise des Spiels verändern. Beginne mit dem Importieren deines ersten Mods, indem Du auf die Schaltfläche unten klickst.</value>
     </data>
     <data name="EmptyText_NoMods_Title" xml:space="preserve">
         <value>Keine Mods gefunden</value>
@@ -85,11 +85,11 @@
         <value>Keine Räume gefunden</value>
     </data>
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
-        <value>Bitte beachte, dass diese Seite keine Funktion bietet, um dich mit einem Raum direkt zu verbinden.
-Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treffen oder hoffen, ihm beizutreten, indem du in den Online-Servern beitrittst.</value>
+        <value>Bitte beachte, dass diese Seite keine Funktion bietet, um Dich mit einem Raum direkt zu verbinden.
+Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treffen oder hoffen, ihm beizutreten, indem Du in den Online-Servern beitrittst.</value>
     </data>
     <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Suche nach Spielern</value>
+        <value>Suche nach Spielern...</value>
     </data>
     <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
         <value>Geschätzte verbleibende Zeit:</value>
@@ -104,7 +104,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Mods gefunden</value>
     </data>
     <data name="PopupText_ModsFoundQuestion" xml:space="preserve">
-        <value>Du bist dabei, das Spiel ohne Mods zu starten. Möchtest du deinen my-stuff ordner leeren?</value>
+        <value>Du bist dabei, das Spiel ohne Mods zu starten. Möchtest du Deinen My Stuff ordner leeren?</value>
     </data>
     <data name="PopupText_NotFindDolphin" xml:space="preserve">
         <value>Der Dolphin Emulator konnte nicht gefunden werden. Bitte lege den Pfad in den Einstellungen fest.</value>
@@ -143,22 +143,22 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>{$1} Sekunden</value>
     </data>
     <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
-        <value>In Deinem RetroRewind-Ordner befinden sich bereits Dateien. willst du sie dir installieren?</value>
+        <value>In Deinem RetroRewind-Ordner befinden sich bereits Dateien. Möchtest Du trotzdem installieren?</value>
     </data>
     <data name="PopupText_ApplyScale" xml:space="preserve">
-        <value>Möchtest du die neue Skala anwenden?</value>
+        <value>Möchtest Du die neue Skala anwenden?</value>
     </data>
     <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
-        <value>Es konnte keine Verbindung zum Server hergestellt werden. Bitte versuchen Sie es später noch einmal.</value>
+        <value>Es konnte keine Verbindung zum Server hergestellt werden. Bitte versuche es später noch einmal.</value>
     </data>
     <data name="PopupText_DolphinFound" xml:space="preserve">
-        <value>Dolphin Emulator Order gefunden</value>
+        <value>Dolphin Emulator Ordner gefunden</value>
     </data>
     <data name="PopupText_DolphinFoundText" xml:space="preserve">
-        <value>Wenn du nicht weißt, was das alles bedeutet, klick einfach auf „Ja“ :) \nDolphin Emulator-Ordner gefunden. Möchtest du diesen Ordner verwenden?</value>
+        <value>Wenn Du nicht weißt, was das alles bedeutet, klick einfach auf „Ja“ :) \nDolphin Emulator-Ordner gefunden. Möchtest Du diesen Ordner verwenden?</value>
     </data>
     <data name="PopupText_DolphinNotFound" xml:space="preserve">
-        <value>Dolphin Emulator Order nicht gefunden</value>
+        <value>Dolphin Emulator Ordner nicht gefunden</value>
     </data>
     <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
         <value>Der Ordner „Dolphin Emulator“ wurde nicht automatisch gefunden. Versuche bitte, den Ordner manuell zu finden. Für weitere Informationen einfach auf „Hilfe“ klicken.</value>
@@ -167,8 +167,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Installiere Retro Rewind</value>
     </data>
     <data name="PopupText_EnsurePathsExists" xml:space="preserve">
-        <value>Bitte stell es sicher, dass alle Pfade korrekt sind, und versuche es erneut
-</value>
+        <value>Bitte stell es sicher, dass alle Pfade korrekt sind, und versuche es erneut.</value>
     </data>
     <data name="PopupText_EnterModName" xml:space="preserve">
         <value>Gib den Mod-Namen ein:</value>
@@ -180,7 +179,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Die Suche nach Updates ist fehlgeschlagen</value>
     </data>
     <data name="PopupText_FailedUpdateApply" xml:space="preserve">
-        <value>Das Update konnte nicht angewendet werden.Abbruch.</value>
+        <value>Das Update konnte nicht installiert werden. Abbruch.</value>
     </data>
     <data name="PopupText_FailedUpdateDelete" xml:space="preserve">
         <value>Dateien für das Update konnten nicht gelöscht werden. Abbruch.</value>
@@ -189,13 +188,13 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Installiere Retro Rewind</value>
     </data>
     <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
-        <value>Installiere Retro Rewind zum ersten mal</value>
+        <value>Installiere Retro Rewind zum ersten Mal</value>
     </data>
     <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
         <value>Beziehe die neueste Wheel Wizard-Version vom Github</value>
     </data>
     <data name="PopupText_ModCombineQuestion" xml:space="preserve">
-        <value>Möchtest du alle Dateien in einem Mod zusammenfassen?</value>
+        <value>Möchtest Du alle Dateien in einem Mod zusammenfassen?</value>
     </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
         <value>Mod Name darf nicht leer sein</value>
@@ -204,7 +203,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Eine Mod mit dem Namen '{$1}' existiert schon</value>
     </data>
     <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
-        <value>Mehrere Datein ausgewählt</value>
+        <value>Mehrere Dateien ausgewählt</value>
     </data>
     <data name="PopupText_NewVersionWhWz" xml:space="preserve">
         <value>Version {$1} von Wheel Wizard ist verfügbar (derzeit für {$2}). Möchtest Du jetzt updaten?</value>
@@ -216,7 +215,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Alte rksys.dat gefunden</value>
     </data>
     <data name="PopupText_OldRksysFoundExplained" xml:space="preserve">
-        <value>Alte Save Dateien wurden gefunden. Möchtest du sie benutzen? (Empfohlen)</value>
+        <value>Alte Speicherdaten wurden gefunden. Möchtest Du sie benutzen? (Empfohlen)</value>
     </data>
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>Alte Retro Rewind Version gefunden</value>
@@ -246,10 +245,10 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Einstellungen erfolgreich gespeichert!</value>
     </data>
     <data name="PopupText_SureDeleteQuestion" xml:space="preserve">
-        <value>Bist du sicher, dass du {$1} löschen möchtest?</value>
+        <value>Bist Du sicher, dass du {$1} löschen möchtest?</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
-        <value>Wheel Wizard kann nicht aktualisiert werden. Bitte stell es sicher, dass sich die Anwendung in einem Ordner befindet, in den geschrieben werden kann.\n Der aktuelle Ordner konnte nicht gefunden werden.</value>
+        <value>Wheel Wizard kann nicht aktualisiert werden. Bitte stelle sicher, dass sich die Anwendung in einem Ordner befindet, in den geschrieben werden kann.\n Der aktuelle Ordner konnte nicht gefunden werden.</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
         <value>Es kann nicht überprüft werden, ob Wheel Wizard auf dem neuesten Stand ist. \nMöglicherweise treten derzeit Netzwerkprobleme auf.</value>
@@ -258,7 +257,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Update mit Admin</value>
     </data>
     <data name="PopupText_UpdateAdminExplained" xml:space="preserve">
-        <value>Manchmal erfordert ein Update Admin rechte. Möchtest Du sie für diesen Update aktivieren?</value>
+        <value>Manchmal erfordert ein Update Adminrechte. Möchtest Du sie für dieses Update aktivieren?</value>
     </data>
     <data name="PopupText_UpdateRR" xml:space="preserve">
         <value>Aktualisiere Retro Rewind</value>

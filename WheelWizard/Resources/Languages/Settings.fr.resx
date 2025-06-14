@@ -88,10 +88,10 @@
         <value>Langue</value>
     </data>
     <data name="Section_LocationPaths" xml:space="preserve">
-        <value>paramètres de localisation</value>
+        <value>Paramètres de localisation</value>
     </data>
     <data name="Section_Performance" xml:space="preserve">
-        <value>Paramètres perfomance</value>
+        <value>Paramètres de perfomance</value>
     </data>
     <data name="Section_Renderer" xml:space="preserve">
         <value>Paramètres de rendu </value>
@@ -149,5 +149,20 @@
     </data>
     <data name="Value_Language_Russian" xml:space="preserve">
         <value>Russe</value>
+    </data>
+    <data name="Value_Language_Arabic" xml:space="preserve">
+        <value>Arabe</value>
+    </data>
+    <data name="Value_Language_Chinese" xml:space="preserve">
+        <value>Chinois </value>
+    </data>
+    <data name="Value_Language_Czech" xml:space="preserve">
+        <value>Tchèque</value>
+    </data>
+    <data name="Value_Language_Norwegian" xml:space="preserve">
+        <value>Norvégien</value>
+    </data>
+    <data name="Value_Language_Portuguese" xml:space="preserve">
+        <value>Portugais</value>
     </data>
 </root>

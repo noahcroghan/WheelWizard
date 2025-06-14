@@ -31,7 +31,7 @@
         <value>Startpagina</value>
     </data>
     <data name="PageTitle_Rooms" xml:space="preserve">
-        <value>Lobbies</value>
+        <value>Kamers</value>
     </data>
     <data name="PageTitle_Friends" xml:space="preserve">
         <value>Vrienden</value>
@@ -55,37 +55,37 @@
         <value>Updaten...</value>
     </data>
     <data name="Action_Install" xml:space="preserve">
-        <value>Installeer</value>
+        <value>Installeren</value>
     </data>
     <data name="Action_Play" xml:space="preserve">
         <value>Speel</value>
     </data>
     <data name="Action_PlayOffline" xml:space="preserve">
-        <value>Speel offline</value>
+        <value>Speel Offline</value>
     </data>
     <data name="Action_Update" xml:space="preserve">
-        <value>Update</value>
+        <value>Updaten...</value>
     </data>
     <data name="State_ConfigNotFinished" xml:space="preserve">
-        <value>Instellingen niet compleet</value>
+        <value>Instellingen Niet Compleet</value>
     </data>
     <data name="State_NoServer" xml:space="preserve">
-        <value>Geen server</value>
+        <value>Geen Server</value>
     </data>
     <data name="Term_Unknown" xml:space="preserve">
         <value>Onbekend</value>
     </data>
     <data name="Attribute_Enabled" xml:space="preserve">
-        <value>Aan/Uit</value>
+        <value>Ingeschakeld</value>
     </data>
     <data name="Attribute_Title" xml:space="preserve">
         <value>Titel</value>
     </data>
     <data name="Action_DisableAll" xml:space="preserve">
-        <value>Alles uit zetten</value>
+        <value>Alles Uitschakelen</value>
     </data>
     <data name="Action_EnableAll" xml:space="preserve">
-        <value>Alles aan zetten</value>
+        <value>Alles Inschakelen</value>
     </data>
     <data name="Action_Import" xml:space="preserve">
         <value>Importeren</value>
@@ -97,7 +97,7 @@
         <value>Open Map</value>
     </data>
     <data name="Action_Rename" xml:space="preserve">
-        <value>Hernoem</value>
+        <value>Hernoemen</value>
     </data>
     <data name="Term_Offline" xml:space="preserve">
         <value>Offline</value>
@@ -106,10 +106,10 @@
         <value>Naam</value>
     </data>
     <data name="Action_Edit" xml:space="preserve">
-        <value>Bewerk</value>
+        <value>Bewerken</value>
     </data>
     <data name="Action_Cancel" xml:space="preserve">
-        <value>Annuleer</value>
+        <value>Annuleren</value>
     </data>
     <data name="Action_Save" xml:space="preserve">
         <value>Opslaan</value>
@@ -124,10 +124,10 @@
         <value>Type</value>
     </data>
     <data name="Action_CopyFriendCode" xml:space="preserve">
-        <value>Vriendcode kopiëren</value>
+        <value>Vriendcode Kopiëren</value>
     </data>
     <data name="PageTitle_RoomDetails" xml:space="preserve">
-        <value>Lobby Info</value>
+        <value>Kamerinformatie</value>
     </data>
     <data name="Action_Export" xml:space="preserve">
         <value>Exporteren</value>
@@ -151,22 +151,22 @@
         <value>Behouden</value>
     </data>
     <data name="Action_OK" xml:space="preserve">
-        <value>Oke</value>
+        <value>Oké</value>
     </data>
     <data name="Attribute_ModName" xml:space="preserve">
-        <value>Mod naam</value>
+        <value>Mod-Naam</value>
     </data>
     <data name="Term_Success" xml:space="preserve">
-        <value>Success</value>
+        <value>Succes</value>
     </data>
     <data name="Action_Revert" xml:space="preserve">
-        <value>Ongedaan maken</value>
+        <value>Ongedaan Maken</value>
     </data>
     <data name="State_Extracting" xml:space="preserve">
         <value>Bestanden uitpakken...</value>
     </data>
     <data name="Action_MaybeLater" xml:space="preserve">
-        <value>Misschien later</value>
+        <value>Misschien Later</value>
     </data>
     <data name="Term_No" xml:space="preserve">
         <value>Nee</value>
@@ -175,7 +175,7 @@
         <value>Ja</value>
     </data>
     <data name="Action_Browse" xml:space="preserve">
-        <value>Zoek</value>
+        <value>Zoeken</value>
     </data>
     <data name="Action_ViewMod" xml:space="preserve">
         <value>Bekijk Mod</value>

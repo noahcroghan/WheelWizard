@@ -58,7 +58,7 @@
         <value>Tamam</value>
     </data>
     <data name="Action_Play" xml:space="preserve">
-        <value>Oynat</value>
+        <value>Oyna</value>
     </data>
     <data name="Action_PlayOffline" xml:space="preserve">
         <value>Çevrimdışı Oyna</value>
@@ -115,7 +115,7 @@
         <value>Anasayfa</value>
     </data>
     <data name="PageTitle_Mods" xml:space="preserve">
-        <value>Benim Eşyalarım</value>
+        <value>My Stuff</value>
     </data>
     <data name="PageTitle_MyProfiles" xml:space="preserve">
         <value>Profillerim</value>
