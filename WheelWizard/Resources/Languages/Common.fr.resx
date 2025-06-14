@@ -33,14 +33,8 @@
     <data name="PageTitle_Settings" xml:space="preserve">
         <value>Paramètres</value>
     </data>
-    <data name="Category_General" xml:space="preserve">
-        <value>Général</value>
-    </data>
     <data name="Attribute_Online" xml:space="preserve">
         <value>En Ligne </value>
-    </data>
-    <data name="Category_Other" xml:space="preserve">
-        <value>Autre</value>
     </data>
     <data name="PageTitle_Home" xml:space="preserve">
         <value>Accueil</value>
@@ -173,5 +167,8 @@
     </data>
     <data name="Action_ViewMod" xml:space="preserve">
         <value>Détail du Mod</value>
+    </data>
+    <data name="Action_ViewRoom" xml:space="preserve">
+        <value>Voir la salle</value>
     </data>
 </root>

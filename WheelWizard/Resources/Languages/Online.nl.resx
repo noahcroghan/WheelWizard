@@ -30,9 +30,6 @@
     <data name="Stat_RacesPlayed" xml:space="preserve">
         <value>Races gespeeld</value>
     </data>
-    <data name="Button_ViewRoom" xml:space="preserve">
-        <value>Bekijk Kamer</value>
-    </data>
     <data name="NoLicense" xml:space="preserve">
         <value>Geen licentie</value>
     </data>

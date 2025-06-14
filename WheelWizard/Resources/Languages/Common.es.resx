@@ -144,17 +144,11 @@
     <data name="State_Error" xml:space="preserve">
         <value>Error</value>
     </data>
-    <data name="Category_General" xml:space="preserve">
-        <value>General</value>
-    </data>
     <data name="Attribute_Offline" xml:space="preserve">
         <value>Desconectado</value>
     </data>
     <data name="Attribute_Online" xml:space="preserve">
         <value>En línea</value>
-    </data>
-    <data name="Category_Other" xml:space="preserve">
-        <value>Otro</value>
     </data>
     <data name="Attribute_Speed" xml:space="preserve">
         <value>Velocidad</value>
@@ -173,5 +167,11 @@
     </data>
     <data name="Action_ViewMod" xml:space="preserve">
         <value>Mirar Mod</value>
+    </data>
+    <data name="Action_ViewRoom" xml:space="preserve">
+        <value>Mirar sala</value>
+    </data>
+    <data name="Action_ViewMii" xml:space="preserve">
+        <value>Mirar Mii</value>
     </data>
 </root>

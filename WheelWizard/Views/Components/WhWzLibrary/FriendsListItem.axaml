@@ -129,7 +129,7 @@
                         <components:Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top"
                                            Variant="Primary"
                                            IsEnabled="{TemplateBinding IsOnline}" x:Name="ViewRoomButton"
-                                           Text="{x:Static lang:Online.Button_ViewRoom}" 
+                                           Text="{x:Static lang:Common.Action_ViewRoom}" 
                                            IconData="{StaticResource Road}" Margin="5,10"/>
                         
                         <Grid Grid.Column="2" Margin="15,0,0,5" ColumnDefinitions="3*,4*" VerticalAlignment="Bottom">

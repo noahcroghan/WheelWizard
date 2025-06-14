@@ -126,9 +126,6 @@
     <data name="State_Error" xml:space="preserve">
         <value>Chyba</value>
     </data>
-    <data name="Category_General" xml:space="preserve">
-        <value>Obecný</value>
-    </data>
     <data name="Attribute_Offline" xml:space="preserve">
         <value>Offline</value>
     </data>

@@ -54,14 +54,8 @@
     <data name="PageTitle_Settings" xml:space="preserve">
         <value>Einstellungen</value>
     </data>
-    <data name="Category_General" xml:space="preserve">
-        <value>Allgemein</value>
-    </data>
     <data name="Attribute_Online" xml:space="preserve">
         <value>Online</value>
-    </data>
-    <data name="Category_Other" xml:space="preserve">
-        <value>Sonstiges</value>
     </data>
     <data name="State_Installing" xml:space="preserve">
         <value>Installiert...</value>
@@ -173,5 +167,8 @@
     </data>
     <data name="Action_ViewMod" xml:space="preserve">
         <value>Mod ansehen</value>
+    </data>
+    <data name="Action_ViewRoom" xml:space="preserve">
+        <value>Raum anzeigen</value>
     </data>
 </root>

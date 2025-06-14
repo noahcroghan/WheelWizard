@@ -102,4 +102,7 @@
     <data name="Value_Language_Spanish" xml:space="preserve">
         <value>Španělština</value>
     </data>
+    <data name="Category_General" xml:space="preserve">
+        <value>Obecný</value>
+    </data>
 </root>

@@ -60,15 +60,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View Room.
-        /// </summary>
-        public static string Button_ViewRoom {
-            get {
-                return ResourceManager.GetString("Button_ViewRoom", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Friends.
         /// </summary>
         public static string ListTitle_Friends {

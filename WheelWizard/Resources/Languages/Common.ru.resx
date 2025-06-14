@@ -150,17 +150,11 @@
     <data name="State_Error" xml:space="preserve">
         <value>Ошибка</value>
     </data>
-    <data name="Category_General" xml:space="preserve">
-        <value>Основное</value>
-    </data>
     <data name="Attribute_Offline" xml:space="preserve">
         <value>Не в сети</value>
     </data>
     <data name="Attribute_Online" xml:space="preserve">
         <value>В сети</value>
-    </data>
-    <data name="Category_Other" xml:space="preserve">
-        <value>Другое</value>
     </data>
     <data name="Attribute_Speed" xml:space="preserve">
         <value>Скорость</value>
@@ -173,5 +167,8 @@
     </data>
     <data name="State_Warning" xml:space="preserve">
         <value>Внимание</value>
+    </data>
+    <data name="Action_ViewRoom" xml:space="preserve">
+        <value>Просмотреть комнату</value>
     </data>
 </root>

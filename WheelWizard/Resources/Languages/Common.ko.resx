@@ -150,17 +150,11 @@
     <data name="State_Error" xml:space="preserve">
         <value>에러</value>
     </data>
-    <data name="Category_General" xml:space="preserve">
-        <value>일반</value>
-    </data>
     <data name="Attribute_Offline" xml:space="preserve">
         <value>오프라인</value>
     </data>
     <data name="Attribute_Online" xml:space="preserve">
         <value>온라인</value>
-    </data>
-    <data name="Category_Other" xml:space="preserve">
-        <value>기타</value>
     </data>
     <data name="Attribute_Speed" xml:space="preserve">
         <value>속도</value>
@@ -173,5 +167,8 @@
     </data>
     <data name="State_Warning" xml:space="preserve">
         <value>경고</value>
+    </data>
+    <data name="Action_ViewRoom" xml:space="preserve">
+        <value>방을 보기</value>
     </data>
 </root>

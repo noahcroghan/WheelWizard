@@ -21,9 +21,6 @@
     <data name="NoName" xml:space="preserve">
         <value>Kein Name</value>
     </data>
-    <data name="Button_ViewRoom" xml:space="preserve">
-        <value>Raum anzeigen</value>
-    </data>
     <data name="ListTitle_Friends" xml:space="preserve">
         <value>Freunde</value>
     </data>

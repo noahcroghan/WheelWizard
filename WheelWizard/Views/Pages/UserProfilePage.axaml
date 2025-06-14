@@ -157,7 +157,7 @@
                     <components:Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left"
                                        VerticalAlignment="Bottom" Click="ViewRoom_OnClick"
                                        IsEnabled="{Binding IsOnline}" x:Name="ViewRoomButton"
-                                       Text="{x:Static lang:Online.Button_ViewRoom}"
+                                       Text="{x:Static lang:Common.Action_ViewRoom}"
                                        IconData="{StaticResource Road}" Margin="0,0,0,10" />
                     <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                             Background="{StaticResource BackgroundLineColor}" Height="1"

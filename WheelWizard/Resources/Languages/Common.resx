@@ -36,12 +36,6 @@
     <data name="PageTitle_Friends" xml:space="preserve">
         <value>Friends</value>
     </data>
-    <data name="Category_General" xml:space="preserve">
-        <value>General</value>
-    </data>
-    <data name="Category_Other" xml:space="preserve">
-        <value>Other</value>
-    </data>
     <data name="Attribute_Online" xml:space="preserve">
         <value>Online</value>
     </data>
@@ -194,5 +188,8 @@
     </data>
     <data name="Action_Favorite" xml:space="preserve">
         <value>Favorite</value>
+    </data>
+    <data name="Action_ViewRoom" xml:space="preserve">
+        <value>View Room</value>
     </data>
 </root>

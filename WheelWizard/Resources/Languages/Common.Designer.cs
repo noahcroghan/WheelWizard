@@ -321,6 +321,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View Room.
+        /// </summary>
+        public static string Action_ViewRoom {
+            get {
+                return ResourceManager.GetString("Action_ViewRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Action_Yes {
@@ -407,24 +416,6 @@ namespace WheelWizard.Resources.Languages {
         public static string Attribute_Type {
             get {
                 return ResourceManager.GetString("Attribute_Type", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to General.
-        /// </summary>
-        public static string Category_General {
-            get {
-                return ResourceManager.GetString("Category_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Other.
-        /// </summary>
-        public static string Category_Other {
-            get {
-                return ResourceManager.GetString("Category_Other", resourceCulture);
             }
         }
         

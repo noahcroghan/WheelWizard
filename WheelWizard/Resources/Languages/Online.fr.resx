@@ -24,9 +24,6 @@
     <data name="ListTitle_Rooms" xml:space="preserve">
         <value>Salles</value>
     </data>
-    <data name="Button_ViewRoom" xml:space="preserve">
-        <value>Voir la salle</value>
-    </data>
     <data name="ListTitle_Friends" xml:space="preserve">
         <value>Amis</value>
     </data>

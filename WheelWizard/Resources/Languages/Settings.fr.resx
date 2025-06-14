@@ -165,4 +165,10 @@
     <data name="Value_Language_Portuguese" xml:space="preserve">
         <value>Portugais</value>
     </data>
+    <data name="Category_Other" xml:space="preserve">
+        <value>Autre</value>
+    </data>
+    <data name="Category_General" xml:space="preserve">
+        <value>Général</value>
+    </data>
 </root>

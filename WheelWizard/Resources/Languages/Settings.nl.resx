@@ -174,4 +174,10 @@
     <data name="Value_Language_Portuguese" xml:space="preserve">
         <value>Portugees</value>
     </data>
+    <data name="Category_Other" xml:space="preserve">
+        <value>Overig</value>
+    </data>
+    <data name="Category_General" xml:space="preserve">
+        <value>Algemeen</value>
+    </data>
 </root>

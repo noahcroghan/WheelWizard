@@ -129,4 +129,10 @@
     <data name="PageTitle_Settings" xml:space="preserve">
         <value>Definições</value>
     </data>
+    <data name="Action_ViewRoom" xml:space="preserve">
+        <value>Ver sala</value>
+    </data>
+    <data name="Action_ViewMii" xml:space="preserve">
+        <value>Ver Mii</value>
+    </data>
 </root>
