@@ -134,11 +134,11 @@
                         
                         <Grid Grid.Column="2" Margin="15,0,0,5" ColumnDefinitions="3*,4*" VerticalAlignment="Bottom">
                             <StackPanel Grid.Column="0">
-                                <components:FormFieldLabel Text="{x:Static lang:Online.Stat_Wins}" />
+                                <components:FormFieldLabel Text="{x:Static lang:Online.Attribute_Wins}" />
                                 <SelectableTextBlock Classes="BodyText" Text="{TemplateBinding TotalWon}"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1">
-                                <components:FormFieldLabel Text="{x:Static lang:Online.Stat_Losses}" />
+                                <components:FormFieldLabel Text="{x:Static lang:Online.Attribute_Losses}" />
                                 <SelectableTextBlock Classes="BodyText" Text="{TemplateBinding TotalLosses}"/>
                             </StackPanel>
                         </Grid>

@@ -339,6 +339,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Avarage VR.
+        /// </summary>
+        public static string Attribute_AverageRoomVr {
+            get {
+                return ResourceManager.GetString("Attribute_AverageRoomVr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enabled.
         /// </summary>
         public static string Attribute_Enabled {

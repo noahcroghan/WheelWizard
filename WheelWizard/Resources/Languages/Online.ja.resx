@@ -54,28 +54,25 @@
     <data name="Region_Taiwan" xml:space="preserve">
         <value>台湾</value>
     </data>
-    <data name="Stat_FriendCode" xml:space="preserve">
+    <data name="Attribute_FriendCode" xml:space="preserve">
         <value>フレンドコード</value>
     </data>
-    <data name="Stat_Losses" xml:space="preserve">
+    <data name="Attribute_Losses" xml:space="preserve">
         <value>負け</value>
     </data>
-    <data name="Stat_PlayerCount" xml:space="preserve">
+    <data name="Attribute_PlayerCount" xml:space="preserve">
         <value>プレイヤー</value>
     </data>
-    <data name="Stat_RacesPlayed" xml:space="preserve">
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
         <value>プレイしたレース数</value>
     </data>
-    <data name="Stat_Wins" xml:space="preserve">
+    <data name="Attribute_Wins" xml:space="preserve">
         <value>勝ち</value>
     </data>
     <data name="ListTitle_Rooms" xml:space="preserve">
         <value>ルーム</value>
     </data>
-    <data name="Stat_RoomID" xml:space="preserve">
-        <value>ルームID</value>
-    </data>
-    <data name="Stat_TimeOnline" xml:space="preserve">
+    <data name="Attribute_TimeOnline" xml:space="preserve">
         <value>オンライン時間</value>
     </data>
 </root>

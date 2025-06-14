@@ -94,7 +94,7 @@
                                 </StackPanel>
 
                                 <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                                    <components:FormFieldLabel Text="{x:Static lang:Online.Stat_TimeOnline}"
+                                    <components:FormFieldLabel Text="{x:Static lang:Online.Attribute_TimeOnline}"
                                                                Margin="10,0,0,0" />
                                     <TextBlock Text="{Binding TimeOnline}" FontSize="14"
                                                Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"

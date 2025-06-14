@@ -192,4 +192,7 @@
     <data name="Action_ViewRoom" xml:space="preserve">
         <value>View Room</value>
     </data>
+    <data name="Attribute_AverageRoomVr" xml:space="preserve">
+        <value>Avarage VR</value>
+    </data>
 </root>

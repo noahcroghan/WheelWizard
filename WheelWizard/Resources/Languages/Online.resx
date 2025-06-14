@@ -21,13 +21,13 @@
     <data name="State_NoName" xml:space="preserve">
         <value>No name</value>
     </data>
-    <data name="Stat_Losses" xml:space="preserve">
+    <data name="Attribute_Losses" xml:space="preserve">
         <value>Losses</value>
     </data>
-    <data name="Stat_Wins" xml:space="preserve">
+    <data name="Attribute_Wins" xml:space="preserve">
         <value>Wins</value>
     </data>
-    <data name="Stat_RacesPlayed" xml:space="preserve">
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
         <value>Races played</value>
     </data>
     <data name="State_NoLicense" xml:space="preserve">
@@ -60,26 +60,20 @@
     <data name="ListTitle_Friends" xml:space="preserve">
         <value>Friends</value>
     </data>
-    <data name="Stat_FriendCode" xml:space="preserve">
+    <data name="Attribute_FriendCode" xml:space="preserve">
         <value>Friend Code</value>
     </data>
     <data name="ListTitle_Players" xml:space="preserve">
         <value>Players</value>
     </data>
-    <data name="Stat_PlayerCount" xml:space="preserve">
+    <data name="Attribute_PlayerCount" xml:space="preserve">
         <value>Players</value>
     </data>
-    <data name="Stat_TimeOnline" xml:space="preserve">
+    <data name="Attribute_TimeOnline" xml:space="preserve">
         <value>Time Online</value>
     </data>
     <data name="ListTitle_Rooms" xml:space="preserve">
         <value>Rooms</value>
-    </data>
-    <data name="Stat_RoomID" xml:space="preserve">
-        <value>Room ID</value>
-    </data>
-    <data name="Stat_AverageRoomVr" xml:space="preserve">
-        <value>Avarage VR</value>
     </data>
     <data name="ListTitle_Miis" xml:space="preserve">
         <value>Miis</value>

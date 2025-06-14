@@ -60,6 +60,60 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Friend Code.
+        /// </summary>
+        public static string Attribute_FriendCode {
+            get {
+                return ResourceManager.GetString("Attribute_FriendCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Losses.
+        /// </summary>
+        public static string Attribute_Losses {
+            get {
+                return ResourceManager.GetString("Attribute_Losses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Players.
+        /// </summary>
+        public static string Attribute_PlayerCount {
+            get {
+                return ResourceManager.GetString("Attribute_PlayerCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Races played.
+        /// </summary>
+        public static string Attribute_RacesPlayed {
+            get {
+                return ResourceManager.GetString("Attribute_RacesPlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time Online.
+        /// </summary>
+        public static string Attribute_TimeOnline {
+            get {
+                return ResourceManager.GetString("Attribute_TimeOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wins.
+        /// </summary>
+        public static string Attribute_Wins {
+            get {
+                return ResourceManager.GetString("Attribute_Wins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Friends.
         /// </summary>
         public static string ListTitle_Friends {
@@ -155,78 +209,6 @@ namespace WheelWizard.Resources.Languages {
         public static string Region_Taiwan {
             get {
                 return ResourceManager.GetString("Region_Taiwan", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Avarage VR.
-        /// </summary>
-        public static string Stat_AverageRoomVr {
-            get {
-                return ResourceManager.GetString("Stat_AverageRoomVr", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Friend Code.
-        /// </summary>
-        public static string Stat_FriendCode {
-            get {
-                return ResourceManager.GetString("Stat_FriendCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Losses.
-        /// </summary>
-        public static string Stat_Losses {
-            get {
-                return ResourceManager.GetString("Stat_Losses", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Players.
-        /// </summary>
-        public static string Stat_PlayerCount {
-            get {
-                return ResourceManager.GetString("Stat_PlayerCount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Races played.
-        /// </summary>
-        public static string Stat_RacesPlayed {
-            get {
-                return ResourceManager.GetString("Stat_RacesPlayed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Room ID.
-        /// </summary>
-        public static string Stat_RoomID {
-            get {
-                return ResourceManager.GetString("Stat_RoomID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Time Online.
-        /// </summary>
-        public static string Stat_TimeOnline {
-            get {
-                return ResourceManager.GetString("Stat_TimeOnline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wins.
-        /// </summary>
-        public static string Stat_Wins {
-            get {
-                return ResourceManager.GetString("Stat_Wins", resourceCulture);
             }
         }
         

@@ -57,25 +57,22 @@
     <data name="Region_Taiwan" xml:space="preserve">
         <value>대만</value>
     </data>
-    <data name="Stat_FriendCode" xml:space="preserve">
+    <data name="Attribute_FriendCode" xml:space="preserve">
         <value>친구 코드</value>
     </data>
-    <data name="Stat_Losses" xml:space="preserve">
+    <data name="Attribute_Losses" xml:space="preserve">
         <value>패배</value>
     </data>
-    <data name="Stat_PlayerCount" xml:space="preserve">
+    <data name="Attribute_PlayerCount" xml:space="preserve">
         <value>플레이어</value>
     </data>
-    <data name="Stat_RacesPlayed" xml:space="preserve">
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
         <value>플레이한 레이스 수</value>
     </data>
-    <data name="Stat_RoomID" xml:space="preserve">
-        <value>룸 ID</value>
-    </data>
-    <data name="Stat_TimeOnline" xml:space="preserve">
+    <data name="Attribute_TimeOnline" xml:space="preserve">
         <value>온라인 시간</value>
     </data>
-    <data name="Stat_Wins" xml:space="preserve">
+    <data name="Attribute_Wins" xml:space="preserve">
         <value>승리</value>
     </data>
 </root>

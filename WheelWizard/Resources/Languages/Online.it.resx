@@ -57,25 +57,22 @@
     <data name="Region_Taiwan" xml:space="preserve">
         <value>Taiwan</value>
     </data>
-    <data name="Stat_FriendCode" xml:space="preserve">
+    <data name="Attribute_FriendCode" xml:space="preserve">
         <value>Codice Amico</value>
     </data>
-    <data name="Stat_Losses" xml:space="preserve">
+    <data name="Attribute_Losses" xml:space="preserve">
         <value>Sconfitte</value>
     </data>
-    <data name="Stat_PlayerCount" xml:space="preserve">
+    <data name="Attribute_PlayerCount" xml:space="preserve">
         <value>Giocatori</value>
     </data>
-    <data name="Stat_RacesPlayed" xml:space="preserve">
+    <data name="Attribute_RacesPlayed" xml:space="preserve">
         <value>Gare giocate</value>
     </data>
-    <data name="Stat_RoomID" xml:space="preserve">
-        <value>ID della stanza</value>
-    </data>
-    <data name="Stat_TimeOnline" xml:space="preserve">
+    <data name="Attribute_TimeOnline" xml:space="preserve">
         <value>Tempo online</value>
     </data>
-    <data name="Stat_Wins" xml:space="preserve">
+    <data name="Attribute_Wins" xml:space="preserve">
         <value>Vittorie</value>
     </data>
 </root>
