@@ -1,8 +1,8 @@
 ﻿using System.Text;
 
-namespace WheelWizard.Services.WiiManagement.SaveData;
+namespace WheelWizard.Helpers;
 
-public static class BigEndianBinaryReader
+public static class BigEndianBinaryHelper
 {
     //Helper functions to convert a buffer to an uint using big endian
     public static uint BufferToUint32(byte[] data, int offset)

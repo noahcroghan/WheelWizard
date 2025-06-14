@@ -1,5 +1,5 @@
-using WheelWizard.Services.WiiManagement.SaveData;
-using WheelWizard.WiiManagement.GameLicense.Domain;
+using WheelWizard.Helpers;
+using WheelWizard.WiiManagement.GameLicense.Domain.Statistics;
 
 namespace WheelWizard.WiiManagement.GameLicense;
 
@@ -11,7 +11,7 @@ public static class StatisticsSerializer
     // So whenever we display we should check if the game is retro rewind or not.
     private static readonly string[] EngineClasses = { "50cc", "100cc", "150cc", "Mirror" };
 
-    public static Statistics ParseStatistics(byte[] rksysData, int rkpdOffset)
+    public static LicenseStatistics ParseStatistics(byte[] rksysData, int rkpdOffset)
     {
         return new()
         {
@@ -20,7 +20,7 @@ public static class StatisticsSerializer
             PreferredControls = ParsePreferredControls(rksysData, rkpdOffset),
             RaceCompletions = ParseRaceCompletions(rksysData, rkpdOffset),
             BattleCompletions = ParseBattleCompletions(rksysData, rkpdOffset),
-            TotalCompetitions = (ushort)BigEndianBinaryReader.BufferToUint16(rksysData, rkpdOffset + 0xE8),
+            TotalCompetitions = (ushort)BigEndianBinaryHelper.BufferToUint16(rksysData, rkpdOffset + 0xE8),
             Trophies = ParseTrophyCabinet(rksysData, rkpdOffset),
         };
     }
@@ -29,31 +29,31 @@ public static class StatisticsSerializer
     {
         return new()
         {
-            AllRacesCount = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xB4),
-            BattleMatches = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xB8),
-            GhostChallengesSent = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xC8),
-            GhostChallengesReceived = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xCC),
+            AllRacesCount = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xB4),
+            BattleMatches = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xB8),
+            GhostChallengesSent = (int)BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xC8),
+            GhostChallengesReceived = (int)BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xCC),
             WinsVsLosses = new()
             {
                 OfflineVs = new()
                 {
-                    Wins = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0x88),
-                    Losses = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0x8C),
+                    Wins = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0x88),
+                    Losses = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0x8C),
                 },
                 OfflineBattle = new()
                 {
-                    Wins = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0x90),
-                    Losses = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0x94),
+                    Wins = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0x90),
+                    Losses = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0x94),
                 },
                 OnlineVs = new()
                 {
-                    Wins = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0x98),
-                    Losses = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0x9C),
+                    Wins = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0x98),
+                    Losses = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0x9C),
                 },
                 OnlineBattle = new()
                 {
-                    Wins = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xA0),
-                    Losses = BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xA4),
+                    Wins = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xA0),
+                    Losses = BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xA4),
                 },
             },
         };
@@ -63,13 +63,13 @@ public static class StatisticsSerializer
     {
         return new()
         {
-            ItemHitsDealt = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xD0),
-            ItemHitsReceived = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xD4),
-            TricksPerformed = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xD8),
-            FirstPlaces = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xDC),
-            DistanceTotal = BigEndianBinaryReader.BufferToFloat(rksysData, rkpdOffset + 0xC4),
-            DistanceInFirstPlace = BigEndianBinaryReader.BufferToFloat(rksysData, rkpdOffset + 0xE0),
-            DistanceVsRaces = BigEndianBinaryReader.BufferToFloat(rksysData, rkpdOffset + 0xE4),
+            ItemHitsDealt = (int)BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xD0),
+            ItemHitsReceived = (int)BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xD4),
+            TricksPerformed = (int)BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xD8),
+            FirstPlaces = (int)BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xDC),
+            DistanceTotal = BigEndianBinaryHelper.BufferToFloat(rksysData, rkpdOffset + 0xC4),
+            DistanceInFirstPlace = BigEndianBinaryHelper.BufferToFloat(rksysData, rkpdOffset + 0xE0),
+            DistanceVsRaces = BigEndianBinaryHelper.BufferToFloat(rksysData, rkpdOffset + 0xE4),
         };
     }
 
@@ -86,8 +86,8 @@ public static class StatisticsSerializer
 
         return new PreferredControls
         {
-            WiiWheelRaces = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xBC),
-            WiiWheelBattles = (int)BigEndianBinaryReader.BufferToUint32(rksysData, rkpdOffset + 0xC0),
+            WiiWheelRaces = (int)BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xBC),
+            WiiWheelBattles = (int)BigEndianBinaryHelper.BufferToUint32(rksysData, rkpdOffset + 0xC0),
             PreferredDriftType = driftType,
         };
     }
@@ -101,7 +101,7 @@ public static class StatisticsSerializer
         foreach (Character character in Enum.GetValues(typeof(Character)))
         {
             var offset = charBaseOffset + (int)character * 2;
-            completions.CharacterCompletions[character] = (int)BigEndianBinaryReader.BufferToUint16(rksysData, offset);
+            completions.CharacterCompletions[character] = (int)BigEndianBinaryHelper.BufferToUint16(rksysData, offset);
         }
 
         // Favorite Vehicle (0x11E, 36 entries)
@@ -109,7 +109,7 @@ public static class StatisticsSerializer
         foreach (Vehicle vehicle in Enum.GetValues(typeof(Vehicle)))
         {
             var offset = vehicleBaseOffset + (int)vehicle * 2;
-            completions.Vehicle[vehicle] = (int)BigEndianBinaryReader.BufferToUint16(rksysData, offset);
+            completions.Vehicle[vehicle] = (int)BigEndianBinaryHelper.BufferToUint16(rksysData, offset);
         }
 
         // Favorite Course (0x166, 32 entries)
@@ -117,7 +117,7 @@ public static class StatisticsSerializer
         foreach (Course course in Enum.GetValues(typeof(Course)))
         {
             var offset = courseBaseOffset + (int)course * 2;
-            completions.Course[course] = (int)BigEndianBinaryReader.BufferToUint16(rksysData, offset);
+            completions.Course[course] = (int)BigEndianBinaryHelper.BufferToUint16(rksysData, offset);
         }
 
         return completions;
@@ -132,7 +132,7 @@ public static class StatisticsSerializer
         foreach (Stage stage in Enum.GetValues(typeof(Stage)))
         {
             var offset = stageBaseOffset + (int)stage * 2;
-            completions.Stage[stage] = (int)BigEndianBinaryReader.BufferToUint16(rksysData, offset);
+            completions.Stage[stage] = (int)BigEndianBinaryHelper.BufferToUint16(rksysData, offset);
         }
         return completions;
     }
