@@ -709,33 +709,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Talk to us!.
-        /// </summary>
-        public static string Sidebar_Link_Discord {
-            get {
-                return ResourceManager.GetString("Sidebar_Link_Discord", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Source code.
-        /// </summary>
-        public static string Sidebar_Link_Github {
-            get {
-                return ResourceManager.GetString("Sidebar_Link_Github", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Support us!.
-        /// </summary>
-        public static string Sidebar_Link_Support {
-            get {
-                return ResourceManager.GetString("Sidebar_Link_Support", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Made by: {$1} \n And {$2}.
         /// </summary>
         public static string Text_MadeByString {

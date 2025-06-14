@@ -189,4 +189,7 @@
     <data name="Attribute_Wins" xml:space="preserve">
         <value>Vyhry</value>
     </data>
+    <data name="Action_Link_Discord" xml:space="preserve">
+        <value>Mluvte s námi!</value>
+    </data>
 </root>

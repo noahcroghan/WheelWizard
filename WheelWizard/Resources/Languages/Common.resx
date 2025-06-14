@@ -255,4 +255,13 @@
     <data name="ListTitle_Miis" xml:space="preserve">
         <value>Miis</value>
     </data>
+    <data name="Action_Link_Discord" xml:space="preserve">
+        <value>Talk to us!</value>
+    </data>
+    <data name="Action_Link_Github" xml:space="preserve">
+        <value>Source code</value>
+    </data>
+    <data name="Action_Link_Support" xml:space="preserve">
+        <value>Support us!</value>
+    </data>
 </root>

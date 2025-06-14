@@ -228,4 +228,13 @@
     <data name="Attribute_Wins" xml:space="preserve">
         <value>승리</value>
     </data>
+    <data name="Action_Link_Support" xml:space="preserve">
+        <value>후원하기!</value>
+    </data>
+    <data name="Action_Link_Github" xml:space="preserve">
+        <value>소스 코드</value>
+    </data>
+    <data name="Action_Link_Discord" xml:space="preserve">
+        <value>문의하기!</value>
+    </data>
 </root>

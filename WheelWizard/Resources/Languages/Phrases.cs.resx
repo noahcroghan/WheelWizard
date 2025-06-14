@@ -51,9 +51,6 @@
     <data name="PupupText_DownloadingMb" xml:space="preserve">
         <value>Stahování {$1} MB</value>
     </data>
-    <data name="Sidebar_Link_Discord" xml:space="preserve">
-        <value>Mluvte s námi!</value>
-    </data>
     <data name="Text_MadeByString" xml:space="preserve">
         <value>Vytvořili: {$1} \n a {$2}</value>
     </data>

@@ -11,15 +11,6 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Sidebar_Link_Discord" xml:space="preserve">
-        <value>Kom gezellig praten!</value>
-    </data>
-    <data name="Sidebar_Link_Github" xml:space="preserve">
-        <value>Source code</value>
-    </data>
-    <data name="Sidebar_Link_Support" xml:space="preserve">
-        <value>Steun ons!</value>
-    </data>
     <data name="Text_MadeByString" xml:space="preserve">
         <value>Gemaakt door: {$1} \n en {$2}</value>
     </data>

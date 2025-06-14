@@ -228,4 +228,13 @@
     <data name="Attribute_Wins" xml:space="preserve">
         <value>Победы</value>
     </data>
+    <data name="Action_Link_Support" xml:space="preserve">
+        <value>Поддержать нас</value>
+    </data>
+    <data name="Action_Link_Github" xml:space="preserve">
+        <value>Исходный код</value>
+    </data>
+    <data name="Action_Link_Discord" xml:space="preserve">
+        <value>Наш Discord-сервер</value>
+    </data>
 </root>

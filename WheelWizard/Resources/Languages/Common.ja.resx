@@ -228,4 +228,13 @@
     <data name="Attribute_TimeOnline" xml:space="preserve">
         <value>オンライン時間</value>
     </data>
+    <data name="Action_Link_Support" xml:space="preserve">
+        <value>サポート</value>
+    </data>
+    <data name="Action_Link_Github" xml:space="preserve">
+        <value>ソースコード</value>
+    </data>
+    <data name="Action_Link_Discord" xml:space="preserve">
+        <value>お問い合わせ</value>
+    </data>
 </root>

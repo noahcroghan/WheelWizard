@@ -195,6 +195,33 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Talk to us!.
+        /// </summary>
+        public static string Action_Link_Discord {
+            get {
+                return ResourceManager.GetString("Action_Link_Discord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source code.
+        /// </summary>
+        public static string Action_Link_Github {
+            get {
+                return ResourceManager.GetString("Action_Link_Github", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Support us!.
+        /// </summary>
+        public static string Action_Link_Support {
+            get {
+                return ResourceManager.GetString("Action_Link_Support", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maybe Later.
         /// </summary>
         public static string Action_MaybeLater {

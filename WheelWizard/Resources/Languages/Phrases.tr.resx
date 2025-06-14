@@ -226,15 +226,6 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="PupupText_DownloadingMb" xml:space="preserve">
         <value>{$1} MB indiriliyor</value>
     </data>
-    <data name="Sidebar_Link_Discord" xml:space="preserve">
-        <value>Bizimle İletişime Geçin!</value>
-    </data>
-    <data name="Sidebar_Link_Github" xml:space="preserve">
-        <value>Kaynak Kodu</value>
-    </data>
-    <data name="Sidebar_Link_Support" xml:space="preserve">
-        <value>Bize Destek Olun!</value>
-    </data>
     <data name="Text_MadeByString" xml:space="preserve">
         <value>Yapımcı: {$1} \n Ve {$2}</value>
     </data>

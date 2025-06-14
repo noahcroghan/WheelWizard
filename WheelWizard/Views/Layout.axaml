@@ -146,7 +146,7 @@
         <Border Grid.Column="0" Grid.Row="5" Background="{StaticResource Neutral800}">
             <StackPanel VerticalAlignment="Center" Spacing="5">
                 <components:IconLabelButton IconData="{StaticResource DiscordIcon}"
-                                            Text="{x:Static lang:Phrases.Sidebar_Link_Discord}"
+                                            Text="{x:Static lang:Common.Action_Link_Discord}"
                                             Foreground="{StaticResource Neutral400}"
                                             HoverForeground="{StaticResource Primary300}"
                                             FontSize="13"
@@ -154,7 +154,7 @@
                                             Margin="10,0,0,0"
                                             IconSize="20" />
                 <components:IconLabelButton IconData="{StaticResource GithubIcon}"
-                                            Text="{x:Static lang:Phrases.Sidebar_Link_Github}"
+                                            Text="{x:Static lang:Common.Action_Link_Github}"
                                             Foreground="{StaticResource Neutral400}"
                                             HoverForeground="{StaticResource Primary300}"
                                             FontSize="13"
@@ -162,7 +162,7 @@
                                             Margin="10,0,0,0"
                                             IconSize="20" />
                 <components:IconLabelButton IconData="{StaticResource CoffeeIcon}"
-                                            Text="{x:Static lang:Phrases.Sidebar_Link_Support}"
+                                            Text="{x:Static lang:Common.Action_Link_Support}"
                                             Foreground="{StaticResource Neutral400}"
                                             HoverForeground="{StaticResource Primary300}"
                                             FontSize="13"

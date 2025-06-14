@@ -228,4 +228,13 @@
     <data name="ListTitle_Rooms" xml:space="preserve">
         <value>Räume</value>
     </data>
+    <data name="Action_Link_Discord" xml:space="preserve">
+        <value>Rede mit uns!</value>
+    </data>
+    <data name="Action_Link_Github" xml:space="preserve">
+        <value>Quellcode</value>
+    </data>
+    <data name="Action_Link_Support" xml:space="preserve">
+        <value>Unterstützt uns!</value>
+    </data>
 </root>

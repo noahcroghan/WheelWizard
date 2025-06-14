@@ -228,4 +228,13 @@
     <data name="Attribute_Wins" xml:space="preserve">
         <value>Galibiyetler</value>
     </data>
+    <data name="Action_Link_Discord" xml:space="preserve">
+        <value>Bizimle İletişime Geçin!</value>
+    </data>
+    <data name="Action_Link_Github" xml:space="preserve">
+        <value>Kaynak Kodu</value>
+    </data>
+    <data name="Action_Link_Support" xml:space="preserve">
+        <value>Bize Destek Olun!</value>
+    </data>
 </root>

@@ -225,15 +225,6 @@
     <data name="PupupText_DownloadingMb" xml:space="preserve">
         <value>Descargando {$1} MB</value>
     </data>
-    <data name="Sidebar_Link_Discord" xml:space="preserve">
-        <value>¡Habla con nosotros!</value>
-    </data>
-    <data name="Sidebar_Link_Github" xml:space="preserve">
-        <value>Codigo Fuente</value>
-    </data>
-    <data name="Sidebar_Link_Support" xml:space="preserve">
-        <value>¡Apoyanos!</value>
-    </data>
     <data name="Text_MadeByString" xml:space="preserve">
         <value>Hecho por: {$1} y {$2}</value>
     </data>

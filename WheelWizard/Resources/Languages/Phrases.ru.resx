@@ -225,15 +225,6 @@
     <data name="PupupText_DownloadingMb" xml:space="preserve">
         <value>Загружено {$1} МБ</value>
     </data>
-    <data name="Sidebar_Link_Discord" xml:space="preserve">
-        <value>Наш Discord-сервер</value>
-    </data>
-    <data name="Sidebar_Link_Github" xml:space="preserve">
-        <value>Исходный код</value>
-    </data>
-    <data name="Sidebar_Link_Support" xml:space="preserve">
-        <value>Поддержать нас</value>
-    </data>
     <data name="Text_MadeByString" xml:space="preserve">
         <value>Создатели: {$1}\nи {$2}</value>
     </data>

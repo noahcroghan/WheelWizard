@@ -231,4 +231,13 @@
     <data name="Attribute_Wins" xml:space="preserve">
         <value>Victorias</value>
     </data>
+    <data name="Action_Link_Support" xml:space="preserve">
+        <value>¡Apoyanos!</value>
+    </data>
+    <data name="Action_Link_Github" xml:space="preserve">
+        <value>Codigo Fuente</value>
+    </data>
+    <data name="Action_Link_Discord" xml:space="preserve">
+        <value>¡Habla con nosotros!</value>
+    </data>
 </root>

@@ -45,15 +45,6 @@
     <data name="Hover_RoomsOnline_x" xml:space="preserve">
         <value>Zurzeit gibt es {$1} aktive Räume</value>
     </data>
-    <data name="Sidebar_Link_Discord" xml:space="preserve">
-        <value>Rede mit uns!</value>
-    </data>
-    <data name="Sidebar_Link_Github" xml:space="preserve">
-        <value>Quellcode</value>
-    </data>
-    <data name="Sidebar_Link_Support" xml:space="preserve">
-        <value>Unterstützt uns!</value>
-    </data>
     <data name="Text_MadeByString" xml:space="preserve">
         <value>Erstellt von: {$1} \n und {$2}</value>
     </data>

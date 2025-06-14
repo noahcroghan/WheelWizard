@@ -252,4 +252,13 @@
     <data name="ListTitle_Miis" xml:space="preserve">
         <value>Mii's</value>
     </data>
+    <data name="Action_Link_Support" xml:space="preserve">
+        <value>Steun ons!</value>
+    </data>
+    <data name="Action_Link_Github" xml:space="preserve">
+        <value>Source code</value>
+    </data>
+    <data name="Action_Link_Discord" xml:space="preserve">
+        <value>Kom gezellig praten!</value>
+    </data>
 </root>
