@@ -51,25 +51,25 @@
     <data name="Text_ThanksTranslators" xml:space="preserve">
         <value>Merci à tous les traducteurs:</value>
     </data>
-    <data name="EmptyText_NoFriends" xml:space="preserve">
+    <data name="EmptyContent_NoFriends" xml:space="preserve">
         <value>Vous pouvez ajouter vos amis in-game</value>
     </data>
-    <data name="EmptyText_NoFriends_Title" xml:space="preserve">
+    <data name="EmptyContent_NoFriends_Title" xml:space="preserve">
         <value>Pas d'amis pour le moment !</value>
     </data>
-    <data name="EmptyText_NoMods" xml:space="preserve">
+    <data name="EmptyContent_NoMods" xml:space="preserve">
         <value>Les mods permettent de modifer comment le jeu va se comporter. Commencez à importer votre premier mod en cliquant sur le bouton en dessous.</value>
     </data>
-    <data name="EmptyText_NoMods_Title" xml:space="preserve">
+    <data name="EmptyContent_NoMods_Title" xml:space="preserve">
         <value>Pas de mods trouvés</value>
     </data>
-    <data name="EmptyText_NoProfiles" xml:space="preserve">
+    <data name="EmptyContent_NoProfiles" xml:space="preserve">
         <value>Vous devez avoir lancé le jeu au moins une fois pour voir votre profil listé ici </value>
     </data>
-    <data name="EmptyText_NoRooms" xml:space="preserve">
+    <data name="EmptyContent_NoRooms" xml:space="preserve">
         <value>Vous n'avez pas de connexion internet ou personne n'est en train de jouer.</value>
     </data>
-    <data name="EmptyText_NoRooms_Title" xml:space="preserve">
+    <data name="EmptyContent_NoRooms_Title" xml:space="preserve">
         <value>Aucune salles trouvées</value>
     </data>
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">

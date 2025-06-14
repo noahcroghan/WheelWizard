@@ -18,13 +18,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="EmptyText_NoFriends" xml:space="preserve">
+    <data name="EmptyContent_NoFriends" xml:space="preserve">
         <value>ゲーム内でフレンドを追加できます</value>
     </data>
-    <data name="EmptyText_NoFriends_Title" xml:space="preserve">
+    <data name="EmptyContent_NoFriends_Title" xml:space="preserve">
         <value>まだフレンドがいません！</value>
     </data>
-    <data name="EmptyText_NoProfiles" xml:space="preserve">
+    <data name="EmptyContent_NoProfiles" xml:space="preserve">
         <value>ここにプロフィールを載せるには一度プレイする必要があります</value>
     </data>
     <data name="Hover_FriendsOnline_0" xml:space="preserve">
@@ -63,16 +63,16 @@
     <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
         <value>Retro Rewindをインストール (初回)</value>
     </data>
-    <data name="EmptyText_NoMods" xml:space="preserve">
+    <data name="EmptyContent_NoMods" xml:space="preserve">
         <value>Modでゲームを改変 (キャラクターの見た目など) できます。下のボタンを押してModのインポートを開始してください。</value>
     </data>
-    <data name="EmptyText_NoMods_Title" xml:space="preserve">
+    <data name="EmptyContent_NoMods_Title" xml:space="preserve">
         <value>Modが見つかりませんでした</value>
     </data>
-    <data name="EmptyText_NoRooms" xml:space="preserve">
+    <data name="EmptyContent_NoRooms" xml:space="preserve">
         <value>インターネットに接続されていないか、誰もプレイしていない可能性があります。</value>
     </data>
-    <data name="EmptyText_NoRooms_Title" xml:space="preserve">
+    <data name="EmptyContent_NoRooms_Title" xml:space="preserve">
         <value>ルームが見つかりませんでした</value>
     </data>
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">

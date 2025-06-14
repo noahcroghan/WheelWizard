@@ -26,8 +26,8 @@
 
         <components:EmptyPageInfo Grid.Row="1" x:Name="VisibleWhenNoDb"
                                   HorizontalAlignment="Center" IsVisible="False"
-                                  Title="{x:Static lang:Phrases.EmptyText_NoMiis_Title}"
-                                  BodyText="{x:Static lang:Phrases.EmptyText_NoMiis}" />
+                                  Title="{x:Static lang:Phrases.EmptyContent_NoMiis_Title}"
+                                  BodyText="{x:Static lang:Phrases.EmptyContent_NoMiis}" />
 
         <Grid x:Name="VisibleWhenDb" Grid.Row="1" RowDefinitions="54,*">
             <Grid Grid.Row="0" Margin="10,0">

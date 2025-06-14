@@ -187,9 +187,10 @@
                                   ImageVariant="{x:Static miiVars:MiiImageVariants.FullBodyCarousel}"
                                   x:Name="CurrentUserCarousel" Height="280" />
 
+            <!-- repurposing the common state text -->
             <components:EmptyPageInfo x:Name="NoProfilesInfo"
-                                      HorizontalAlignment="Center" Title="{x:Static lang:Common.State_NoProfiles}"
-                                      BodyText="{x:Static lang:Phrases.EmptyText_NoProfiles}" />
+                                      HorizontalAlignment="Center" Title="{x:Static lang:Common.State_NoProfiles}" 
+                                      BodyText="{x:Static lang:Phrases.EmptyContent_NoProfiles}" />
         </Grid>
     </Grid>
 </UserControl>

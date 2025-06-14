@@ -44,22 +44,22 @@
     <data name="Hover_FriendsOnline_0" xml:space="preserve">
         <value>Er zijn momenteel geen vrienden online</value>
     </data>
-    <data name="EmptyText_NoProfiles" xml:space="preserve">
+    <data name="EmptyContent_NoProfiles" xml:space="preserve">
         <value>Je moet het spel minimaal één keer hebben gespeeld om hier je profielen te kunnen bekijken</value>
     </data>
-    <data name="EmptyText_NoFriends_Title" xml:space="preserve">
+    <data name="EmptyContent_NoFriends_Title" xml:space="preserve">
         <value>Je hebt nog geen vrienden!</value>
     </data>
-    <data name="EmptyText_NoFriends" xml:space="preserve">
+    <data name="EmptyContent_NoFriends" xml:space="preserve">
         <value>Je kan vrienden in het spel toevoegen</value>
     </data>
     <data name="Text_WhWzTranslationPercentage" xml:space="preserve">
         <value>Vertalingen voor deze taal zijn {$1}% compleet</value>
     </data>
-    <data name="EmptyText_NoMods_Title" xml:space="preserve">
+    <data name="EmptyContent_NoMods_Title" xml:space="preserve">
         <value>Je hebt nog geen mods</value>
     </data>
-    <data name="EmptyText_NoMods" xml:space="preserve">
+    <data name="EmptyContent_NoMods" xml:space="preserve">
         <value>Mods kunnen de game aanpassen. Start met het importeren van je eerste mod door op de importeerknop te drukken.</value>
     </data>
     <data name="Time_Days_1" xml:space="preserve">
@@ -90,10 +90,10 @@
         <value>Merk op dat deze pagina er niet voor kan zorgen om direct deel te nemen aan een kamer.
 Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf via de online servers doen.</value>
     </data>
-    <data name="EmptyText_NoRooms_Title" xml:space="preserve">
+    <data name="EmptyContent_NoRooms_Title" xml:space="preserve">
         <value>Geen kamers gevonden</value>
     </data>
-    <data name="EmptyText_NoRooms" xml:space="preserve">
+    <data name="EmptyContent_NoRooms" xml:space="preserve">
         <value>Het kan zijn dat je momenteel geen internetverbinding hebt of er is momenteel niemand aan het spelen.</value>
     </data>
     <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
@@ -246,10 +246,10 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="PopupText_RRNotDeterment" xml:space="preserve">
         <value>Je versie van Retro Rewind kon niet worden bepaald. Wil je Retro Rewind downloaden?</value>
     </data>
-    <data name="EmptyText_NoMiis_Title" xml:space="preserve">
+    <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
         <value>Je hebt nog geen Mii's</value>
     </data>
-    <data name="EmptyText_NoMiis" xml:space="preserve">
+    <data name="EmptyContent_NoMiis" xml:space="preserve">
         <value>We kunnen niet de Mii data van je systeem aflezen. Zorg dat je het spel minimaal 1 keer hebt opgestart</value>
     </data>
 </root>

@@ -39,8 +39,8 @@
         <!-- Empty Mods Message -->
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="PageWithoutMods"
                     IsVisible="{Binding HasMods, Converter={x:Static BoolConverters.Not}}">
-            <components:EmptyPageInfo Title="{x:Static lang:Phrases.EmptyText_NoMods_Title}"
-                                      BodyText="{x:Static lang:Phrases.EmptyText_NoMods}"
+            <components:EmptyPageInfo Title="{x:Static lang:Phrases.EmptyContent_NoMods_Title}"
+                                      BodyText="{x:Static lang:Phrases.EmptyContent_NoMods}"
                                       HorizontalAlignment="Center" />
             <UniformGrid Margin="0,12" Columns="2" Rows="1">
                 <components:Button Variant="Primary" Margin="3,0"

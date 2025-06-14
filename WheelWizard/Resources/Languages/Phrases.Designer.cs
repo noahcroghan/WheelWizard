@@ -62,81 +62,81 @@ namespace WheelWizard.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to You can add friends in-game.
         /// </summary>
-        public static string EmptyText_NoFriends {
+        public static string EmptyContent_NoFriends {
             get {
-                return ResourceManager.GetString("EmptyText_NoFriends", resourceCulture);
+                return ResourceManager.GetString("EmptyContent_NoFriends", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No friends yet!.
         /// </summary>
-        public static string EmptyText_NoFriends_Title {
+        public static string EmptyContent_NoFriends_Title {
             get {
-                return ResourceManager.GetString("EmptyText_NoFriends_Title", resourceCulture);
+                return ResourceManager.GetString("EmptyContent_NoFriends_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to We cant read the Mii data from your system. Make sure you started the game at least once.
         /// </summary>
-        public static string EmptyText_NoMiis {
+        public static string EmptyContent_NoMiis {
             get {
-                return ResourceManager.GetString("EmptyText_NoMiis", resourceCulture);
+                return ResourceManager.GetString("EmptyContent_NoMiis", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No Miis yet!.
         /// </summary>
-        public static string EmptyText_NoMiis_Title {
+        public static string EmptyContent_NoMiis_Title {
             get {
-                return ResourceManager.GetString("EmptyText_NoMiis_Title", resourceCulture);
+                return ResourceManager.GetString("EmptyContent_NoMiis_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Mods can alter how the game works. Start importing your first mod by clicking the button below..
         /// </summary>
-        public static string EmptyText_NoMods {
+        public static string EmptyContent_NoMods {
             get {
-                return ResourceManager.GetString("EmptyText_NoMods", resourceCulture);
+                return ResourceManager.GetString("EmptyContent_NoMods", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No mods found.
         /// </summary>
-        public static string EmptyText_NoMods_Title {
+        public static string EmptyContent_NoMods_Title {
             get {
-                return ResourceManager.GetString("EmptyText_NoMods_Title", resourceCulture);
+                return ResourceManager.GetString("EmptyContent_NoMods_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to You have to play the game at least once in order to see your profiles listed here.
         /// </summary>
-        public static string EmptyText_NoProfiles {
+        public static string EmptyContent_NoProfiles {
             get {
-                return ResourceManager.GetString("EmptyText_NoProfiles", resourceCulture);
+                return ResourceManager.GetString("EmptyContent_NoProfiles", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to You might not have internet connection, or no-one might be playing..
         /// </summary>
-        public static string EmptyText_NoRooms {
+        public static string EmptyContent_NoRooms {
             get {
-                return ResourceManager.GetString("EmptyText_NoRooms", resourceCulture);
+                return ResourceManager.GetString("EmptyContent_NoRooms", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No rooms found.
         /// </summary>
-        public static string EmptyText_NoRooms_Title {
+        public static string EmptyContent_NoRooms_Title {
             get {
-                return ResourceManager.GetString("EmptyText_NoRooms_Title", resourceCulture);
+                return ResourceManager.GetString("EmptyContent_NoRooms_Title", resourceCulture);
             }
         }
         

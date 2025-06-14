@@ -42,8 +42,8 @@
 
         <components:EmptyPageInfo Grid.Row="2" x:Name="EmptyRoomsView"
                                   HorizontalAlignment="Center" VerticalAlignment="Center"
-                                  Title="{x:Static lang:Phrases.EmptyText_NoRooms_Title}"
-                                  BodyText="{x:Static lang:Phrases.EmptyText_NoRooms}" />
+                                  Title="{x:Static lang:Phrases.EmptyContent_NoRooms_Title}"
+                                  BodyText="{x:Static lang:Phrases.EmptyContent_NoRooms}" />
 
 
         <Grid Grid.Row="2" RowDefinitions="*, 16*" Margin="10,0" x:Name="RoomsListViewContainer">

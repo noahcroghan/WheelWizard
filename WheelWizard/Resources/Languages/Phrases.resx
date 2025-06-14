@@ -51,22 +51,22 @@
     <data name="Hover_FriendsOnline_x" xml:space="preserve">
         <value>There are currently {$1} friends online</value>
     </data>
-    <data name="EmptyText_NoProfiles" xml:space="preserve">
+    <data name="EmptyContent_NoProfiles" xml:space="preserve">
         <value>You have to play the game at least once in order to see your profiles listed here</value>
     </data>
-    <data name="EmptyText_NoFriends_Title" xml:space="preserve">
+    <data name="EmptyContent_NoFriends_Title" xml:space="preserve">
         <value>No friends yet!</value>
     </data>
-    <data name="EmptyText_NoFriends" xml:space="preserve">
+    <data name="EmptyContent_NoFriends" xml:space="preserve">
         <value>You can add friends in-game</value>
     </data>
     <data name="Text_WhWzTranslationPercentage" xml:space="preserve">
         <value>Translations for this language are {$1}% complete</value>
     </data>
-    <data name="EmptyText_NoMods" xml:space="preserve">
+    <data name="EmptyContent_NoMods" xml:space="preserve">
         <value>Mods can alter how the game works. Start importing your first mod by clicking the button below.</value>
     </data>
-    <data name="EmptyText_NoMods_Title" xml:space="preserve">
+    <data name="EmptyContent_NoMods_Title" xml:space="preserve">
         <value>No mods found</value>
     </data>
     <data name="Time_Days_1" xml:space="preserve">
@@ -97,10 +97,10 @@
         <value>Please note that this page does not offer any functionality to join a room directly.
 To join a specific room, you'll need to either join through a friend, or hope to join it by joining the online servers.</value>
     </data>
-    <data name="EmptyText_NoRooms" xml:space="preserve">
+    <data name="EmptyContent_NoRooms" xml:space="preserve">
         <value>You might not have internet connection, or no-one might be playing.</value>
     </data>
-    <data name="EmptyText_NoRooms_Title" xml:space="preserve">
+    <data name="EmptyContent_NoRooms_Title" xml:space="preserve">
         <value>No rooms found</value>
     </data>
     <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
@@ -256,10 +256,10 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="PopupText_ReinstallQuestion" xml:space="preserve">
         <value>Are you sure you want to reinstall Retro Rewind?</value>
     </data>
-    <data name="EmptyText_NoMiis_Title" xml:space="preserve">
+    <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
         <value>No Miis yet!</value>
     </data>
-    <data name="EmptyText_NoMiis" xml:space="preserve">
+    <data name="EmptyContent_NoMiis" xml:space="preserve">
         <value>We cant read the Mii data from your system. Make sure you started the game at least once</value>
     </data>
 </root>

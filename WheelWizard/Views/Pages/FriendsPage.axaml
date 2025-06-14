@@ -85,7 +85,7 @@
 
         <components:EmptyPageInfo Grid.Row="1" x:Name="VisibleWhenNoFriends"
                                   HorizontalAlignment="Center"
-                                  Title="{x:Static lang:Phrases.EmptyText_NoFriends_Title}"
-                                  BodyText="{x:Static lang:Phrases.EmptyText_NoFriends}" />
+                                  Title="{x:Static lang:Phrases.EmptyContent_NoFriends_Title}"
+                                  BodyText="{x:Static lang:Phrases.EmptyContent_NoFriends}" />
     </Grid>
 </UserControl>
