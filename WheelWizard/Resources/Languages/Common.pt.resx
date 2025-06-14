@@ -60,7 +60,7 @@
     <data name="Action_No" xml:space="preserve">
         <value>Não</value>
     </data>
-    <data name="Action_OK" xml:space="preserve">
+    <data name="Action_Ok" xml:space="preserve">
         <value>Ok</value>
     </data>
     <data name="Action_OpenFolder" xml:space="preserve">

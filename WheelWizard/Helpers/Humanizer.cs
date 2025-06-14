@@ -73,7 +73,7 @@ public static class Humanizer
             4 => Online.Region_Taiwan,
             5 => Online.Region_SouthKorea,
             6 => Online.Region_China,
-            _ => Common.Term_Unknown,
+            _ => Common.State_Unknown,
         };
     }
 

@@ -47,7 +47,7 @@ public partial class ProgressWindow : PopupContent
         var elapsedSeconds = _stopwatch.Elapsed.TotalSeconds;
         var remainingSeconds = (100 - _progress) / (_progress / elapsedSeconds);
 
-        var remainingText = _progress <= 0 ? Common.Term_Unknown : Humanizer.HumanizeSeconds((int)remainingSeconds);
+        var remainingText = _progress <= 0 ? Common.State_Unknown : Humanizer.HumanizeSeconds((int)remainingSeconds);
 
         var bottomText = $"{Phrases.PopupText_EsimatedTimeRemaining} {remainingText}";
 

@@ -129,11 +129,8 @@
     <data name="PageTitle_RoomDetails" xml:space="preserve">
         <value>Détail de la salle</value>
     </data>
-    <data name="Term_Error" xml:space="preserve">
+    <data name="State_Error" xml:space="preserve">
         <value>Erreur</value>
-    </data>
-    <data name="Term_No" xml:space="preserve">
-        <value>Non</value>
     </data>
     <data name="Term_Offline" xml:space="preserve">
         <value>Hors-Ligne</value>
@@ -141,14 +138,11 @@
     <data name="Term_Speed" xml:space="preserve">
         <value>Vitesse</value>
     </data>
-    <data name="Term_Unknown" xml:space="preserve">
+    <data name="State_Unknown" xml:space="preserve">
         <value>Inconnu</value>
     </data>
-    <data name="Term_Warning" xml:space="preserve">
+    <data name="State_Warning" xml:space="preserve">
         <value>Avertisemment</value>
-    </data>
-    <data name="Term_Yes" xml:space="preserve">
-        <value>Oui</value>
     </data>
     <data name="Action_Yes" xml:space="preserve">
         <value>Oui</value>
@@ -159,7 +153,7 @@
     <data name="Action_MaybeLater" xml:space="preserve">
         <value>Peut être plus tard </value>
     </data>
-    <data name="Action_OK" xml:space="preserve">
+    <data name="Action_Ok" xml:space="preserve">
         <value>Ok</value>
     </data>
     <data name="Action_Revert" xml:space="preserve">
@@ -171,7 +165,7 @@
     <data name="State_Extracting" xml:space="preserve">
         <value>Extraction des fichers...</value>
     </data>
-    <data name="Term_Success" xml:space="preserve">
+    <data name="State_Success" xml:space="preserve">
         <value>Succès </value>
     </data>
     <data name="Action_Browse" xml:space="preserve">

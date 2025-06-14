@@ -111,7 +111,7 @@
     <data name="Term_Offline" xml:space="preserve">
         <value>Offline</value>
     </data>
-    <data name="Term_Unknown" xml:space="preserve">
+    <data name="State_Unknown" xml:space="preserve">
         <value>Unbekannt</value>
     </data>
     <data name="Action_CopyFriendCode" xml:space="preserve">
@@ -135,7 +135,7 @@
     <data name="PageTitle_RoomDetails" xml:space="preserve">
         <value>Raumdetails</value>
     </data>
-    <data name="Term_Error" xml:space="preserve">
+    <data name="State_Error" xml:space="preserve">
         <value>Fehler</value>
     </data>
     <data name="Action_No" xml:space="preserve">
@@ -144,22 +144,16 @@
     <data name="Term_Speed" xml:space="preserve">
         <value>Geschwindigkeit</value>
     </data>
-    <data name="Term_Warning" xml:space="preserve">
+    <data name="State_Warning" xml:space="preserve">
         <value>Warnung</value>
     </data>
     <data name="Action_Yes" xml:space="preserve">
         <value>Ja</value>
     </data>
-    <data name="Term_No" xml:space="preserve">
-        <value>Nein</value>
-    </data>
-    <data name="Term_Yes" xml:space="preserve">
-        <value>Ja</value>
-    </data>
     <data name="Action_MaybeLater" xml:space="preserve">
         <value>Vielleicht später</value>
     </data>
-    <data name="Action_OK" xml:space="preserve">
+    <data name="Action_Ok" xml:space="preserve">
         <value>Ok</value>
     </data>
     <data name="Action_Revert" xml:space="preserve">
@@ -171,7 +165,7 @@
     <data name="State_Extracting" xml:space="preserve">
         <value>Dateien werden extrahiert...</value>
     </data>
-    <data name="Term_Success" xml:space="preserve">
+    <data name="State_Success" xml:space="preserve">
         <value>Erfolgreich</value>
     </data>
     <data name="Action_Browse" xml:space="preserve">

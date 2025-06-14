@@ -60,7 +60,7 @@
     <data name="Action_No" xml:space="preserve">
         <value>No</value>
     </data>
-    <data name="Action_OK" xml:space="preserve">
+    <data name="Action_Ok" xml:space="preserve">
         <value>Ok</value>
     </data>
     <data name="Action_OpenFolder" xml:space="preserve">
@@ -144,14 +144,11 @@
     <data name="State_Updating" xml:space="preserve">
         <value>Aggiornando...</value>
     </data>
-    <data name="Term_Error" xml:space="preserve">
+    <data name="State_Error" xml:space="preserve">
         <value>Errore</value>
     </data>
     <data name="Term_General" xml:space="preserve">
         <value>Generale</value>
-    </data>
-    <data name="Term_No" xml:space="preserve">
-        <value>No</value>
     </data>
     <data name="Term_Offline" xml:space="preserve">
         <value>Offline</value>
@@ -165,17 +162,14 @@
     <data name="Term_Speed" xml:space="preserve">
         <value>Velocità</value>
     </data>
-    <data name="Term_Success" xml:space="preserve">
+    <data name="State_Success" xml:space="preserve">
         <value>Successo</value>
     </data>
-    <data name="Term_Unknown" xml:space="preserve">
+    <data name="State_Unknown" xml:space="preserve">
         <value>Sconosciuto</value>
     </data>
-    <data name="Term_Warning" xml:space="preserve">
+    <data name="State_Warning" xml:space="preserve">
         <value>Avviso</value>
-    </data>
-    <data name="Term_Yes" xml:space="preserve">
-        <value>Sì</value>
     </data>
     <data name="Action_ViewMod" xml:space="preserve">
         <value>Visualizza</value>

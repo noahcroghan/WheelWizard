@@ -60,7 +60,7 @@
     <data name="Action_No" xml:space="preserve">
         <value>아니오</value>
     </data>
-    <data name="Action_OK" xml:space="preserve">
+    <data name="Action_Ok" xml:space="preserve">
         <value>OK</value>
     </data>
     <data name="Action_OpenFolder" xml:space="preserve">
@@ -147,14 +147,11 @@
     <data name="State_Updating" xml:space="preserve">
         <value>업데이트 중...</value>
     </data>
-    <data name="Term_Error" xml:space="preserve">
+    <data name="State_Error" xml:space="preserve">
         <value>에러</value>
     </data>
     <data name="Term_General" xml:space="preserve">
         <value>일반</value>
-    </data>
-    <data name="Term_No" xml:space="preserve">
-        <value>아니요</value>
     </data>
     <data name="Term_Offline" xml:space="preserve">
         <value>오프라인</value>
@@ -168,16 +165,13 @@
     <data name="Term_Speed" xml:space="preserve">
         <value>속도</value>
     </data>
-    <data name="Term_Success" xml:space="preserve">
+    <data name="State_Success" xml:space="preserve">
         <value>성공</value>
     </data>
-    <data name="Term_Unknown" xml:space="preserve">
+    <data name="State_Unknown" xml:space="preserve">
         <value>불명</value>
     </data>
-    <data name="Term_Warning" xml:space="preserve">
+    <data name="State_Warning" xml:space="preserve">
         <value>경고</value>
-    </data>
-    <data name="Term_Yes" xml:space="preserve">
-        <value>네</value>
     </data>
 </root>

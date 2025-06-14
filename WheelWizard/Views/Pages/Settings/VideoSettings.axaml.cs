@@ -105,7 +105,7 @@ public partial class VideoSettings : UserControl
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Warning)
                 .SetTitleText("Unknown renderer selected")
-                .SetInfoText($"{Common.Term_Warning}: Unknown renderer selected: {selectedDisplayName}")
+                .SetInfoText($"{Common.State_Warning}: Unknown renderer selected: {selectedDisplayName}")
                 .ShowDialog();
         }
     }

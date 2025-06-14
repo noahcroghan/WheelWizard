@@ -96,7 +96,7 @@
     <data name="Attribute_Title" xml:space="preserve">
         <value>タイトル</value>
     </data>
-    <data name="Term_Unknown" xml:space="preserve">
+    <data name="State_Unknown" xml:space="preserve">
         <value>不明</value>
     </data>
     <data name="Term_Offline" xml:space="preserve">
@@ -132,7 +132,7 @@
     <data name="Action_No" xml:space="preserve">
         <value>いいえ</value>
     </data>
-    <data name="Action_OK" xml:space="preserve">
+    <data name="Action_Ok" xml:space="preserve">
         <value>OK</value>
     </data>
     <data name="Action_Revert" xml:space="preserve">
@@ -156,23 +156,17 @@
     <data name="State_Extracting" xml:space="preserve">
         <value>ファイル展開中...</value>
     </data>
-    <data name="Term_Error" xml:space="preserve">
+    <data name="State_Error" xml:space="preserve">
         <value>エラー</value>
-    </data>
-    <data name="Term_No" xml:space="preserve">
-        <value>いいえ</value>
     </data>
     <data name="Term_Speed" xml:space="preserve">
         <value>速度</value>
     </data>
-    <data name="Term_Success" xml:space="preserve">
+    <data name="State_Success" xml:space="preserve">
         <value>成功</value>
     </data>
-    <data name="Term_Warning" xml:space="preserve">
+    <data name="State_Warning" xml:space="preserve">
         <value>警告</value>
-    </data>
-    <data name="Term_Yes" xml:space="preserve">
-        <value>はい</value>
     </data>
     <data name="Action_Browse" xml:space="preserve">
         <value>探す</value>

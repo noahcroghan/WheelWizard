@@ -206,9 +206,9 @@ namespace WheelWizard.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string Action_OK {
+        public static string Action_Ok {
             get {
-                return ResourceManager.GetString("Action_OK", resourceCulture);
+                return ResourceManager.GetString("Action_Ok", resourceCulture);
             }
         }
         
@@ -447,6 +447,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string State_Error {
+            get {
+                return ResourceManager.GetString("State_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extracting files....
         /// </summary>
         public static string State_Extracting {
@@ -483,6 +492,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string State_Success {
+            get {
+                return ResourceManager.GetString("State_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string State_Unknown {
+            get {
+                return ResourceManager.GetString("State_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updating....
         /// </summary>
         public static string State_Updating {
@@ -492,11 +519,11 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Warning.
         /// </summary>
-        public static string Term_Error {
+        public static string State_Warning {
             get {
-                return ResourceManager.GetString("Term_Error", resourceCulture);
+                return ResourceManager.GetString("State_Warning", resourceCulture);
             }
         }
         
@@ -506,15 +533,6 @@ namespace WheelWizard.Resources.Languages {
         public static string Term_General {
             get {
                 return ResourceManager.GetString("Term_General", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No.
-        /// </summary>
-        public static string Term_No {
-            get {
-                return ResourceManager.GetString("Term_No", resourceCulture);
             }
         }
         
@@ -551,42 +569,6 @@ namespace WheelWizard.Resources.Languages {
         public static string Term_Speed {
             get {
                 return ResourceManager.GetString("Term_Speed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Success.
-        /// </summary>
-        public static string Term_Success {
-            get {
-                return ResourceManager.GetString("Term_Success", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown.
-        /// </summary>
-        public static string Term_Unknown {
-            get {
-                return ResourceManager.GetString("Term_Unknown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Warning.
-        /// </summary>
-        public static string Term_Warning {
-            get {
-                return ResourceManager.GetString("Term_Warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        public static string Term_Yes {
-            get {
-                return ResourceManager.GetString("Term_Yes", resourceCulture);
             }
         }
     }

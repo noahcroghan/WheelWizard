@@ -54,7 +54,7 @@
     <data name="Action_No" xml:space="preserve">
         <value>Hayır</value>
     </data>
-    <data name="Action_OK" xml:space="preserve">
+    <data name="Action_Ok" xml:space="preserve">
         <value>Tamam</value>
     </data>
     <data name="Action_Play" xml:space="preserve">
@@ -147,14 +147,11 @@
     <data name="State_Updating" xml:space="preserve">
         <value>Güncelleniyor...</value>
     </data>
-    <data name="Term_Error" xml:space="preserve">
+    <data name="State_Error" xml:space="preserve">
         <value>Hata</value>
     </data>
     <data name="Term_General" xml:space="preserve">
         <value>Genel</value>
-    </data>
-    <data name="Term_No" xml:space="preserve">
-        <value>Hayır</value>
     </data>
     <data name="Term_Offline" xml:space="preserve">
         <value>Çevrimdışı</value>
@@ -168,16 +165,13 @@
     <data name="Term_Speed" xml:space="preserve">
         <value>Hız</value>
     </data>
-    <data name="Term_Success" xml:space="preserve">
+    <data name="State_Success" xml:space="preserve">
         <value>Başarı</value>
     </data>
-    <data name="Term_Unknown" xml:space="preserve">
+    <data name="State_Unknown" xml:space="preserve">
         <value>Bilinmiyor</value>
     </data>
-    <data name="Term_Warning" xml:space="preserve">
+    <data name="State_Warning" xml:space="preserve">
         <value>Uyarı</value>
-    </data>
-    <data name="Term_Yes" xml:space="preserve">
-        <value>Evet</value>
     </data>
 </root>

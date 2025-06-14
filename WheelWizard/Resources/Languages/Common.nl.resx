@@ -72,7 +72,7 @@
     <data name="State_NoServer" xml:space="preserve">
         <value>Geen Server</value>
     </data>
-    <data name="Term_Unknown" xml:space="preserve">
+    <data name="State_Unknown" xml:space="preserve">
         <value>Onbekend</value>
     </data>
     <data name="Attribute_Enabled" xml:space="preserve">
@@ -114,7 +114,7 @@
     <data name="Action_Save" xml:space="preserve">
         <value>Opslaan</value>
     </data>
-    <data name="Term_Error" xml:space="preserve">
+    <data name="State_Error" xml:space="preserve">
         <value>Error</value>
     </data>
     <data name="Attribute_Id" xml:space="preserve">
@@ -132,7 +132,7 @@
     <data name="Action_Export" xml:space="preserve">
         <value>Exporteren</value>
     </data>
-    <data name="Term_Warning" xml:space="preserve">
+    <data name="State_Warning" xml:space="preserve">
         <value>Waarschuwing</value>
     </data>
     <data name="Action_Apply" xml:space="preserve">
@@ -150,13 +150,13 @@
     <data name="Action_Keep" xml:space="preserve">
         <value>Behouden</value>
     </data>
-    <data name="Action_OK" xml:space="preserve">
+    <data name="Action_Ok" xml:space="preserve">
         <value>Oké</value>
     </data>
     <data name="Attribute_ModName" xml:space="preserve">
         <value>Mod-Naam</value>
     </data>
-    <data name="Term_Success" xml:space="preserve">
+    <data name="State_Success" xml:space="preserve">
         <value>Succes</value>
     </data>
     <data name="Action_Revert" xml:space="preserve">
@@ -167,12 +167,6 @@
     </data>
     <data name="Action_MaybeLater" xml:space="preserve">
         <value>Misschien Later</value>
-    </data>
-    <data name="Term_No" xml:space="preserve">
-        <value>Nee</value>
-    </data>
-    <data name="Term_Yes" xml:space="preserve">
-        <value>Ja</value>
     </data>
     <data name="Action_Browse" xml:space="preserve">
         <value>Zoeken</value>

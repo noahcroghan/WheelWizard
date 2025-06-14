@@ -48,7 +48,7 @@
     <data name="Action_No" xml:space="preserve">
         <value>Ne</value>
     </data>
-    <data name="Action_OK" xml:space="preserve">
+    <data name="Action_Ok" xml:space="preserve">
         <value>OK</value>
     </data>
     <data name="Action_OpenFolder" xml:space="preserve">
@@ -123,14 +123,11 @@
     <data name="State_Updating" xml:space="preserve">
         <value>Aktualizování...</value>
     </data>
-    <data name="Term_Error" xml:space="preserve">
+    <data name="State_Error" xml:space="preserve">
         <value>Chyba</value>
     </data>
     <data name="Term_General" xml:space="preserve">
         <value>Obecný</value>
-    </data>
-    <data name="Term_No" xml:space="preserve">
-        <value>Ne</value>
     </data>
     <data name="Term_Offline" xml:space="preserve">
         <value>Offline</value>
@@ -141,10 +138,7 @@
     <data name="Term_Speed" xml:space="preserve">
         <value>Rychlost</value>
     </data>
-    <data name="Term_Warning" xml:space="preserve">
+    <data name="State_Warning" xml:space="preserve">
         <value>Varování</value>
-    </data>
-    <data name="Term_Yes" xml:space="preserve">
-        <value>Ano</value>
     </data>
 </root>
