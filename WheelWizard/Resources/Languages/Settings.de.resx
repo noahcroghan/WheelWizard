@@ -24,25 +24,25 @@
     <data name="Category_Video" xml:space="preserve">
         <value>Video</value>
     </data>
-    <data name="InfoText_30FPS" xml:space="preserve">
+    <data name="HelperText_30FPS" xml:space="preserve">
         <value>Diese Einstellung erzwingt, dass das Spiel mit 30 FPS läuft (Standard ist 60).</value>
     </data>
-    <data name="InfoText_EndWithExe" xml:space="preserve">
+    <data name="HelperText_EndWithExe" xml:space="preserve">
         <value>Dateipfad muss mit .exe enden</value>
     </data>
-    <data name="InfoText_ForceDisableWiimote" xml:space="preserve">
+    <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
         <value>Diese Einstellung deaktiviert die Wiimote im Spiel, aber nutzt sie für den Wii-Kanal</value>
     </data>
-    <data name="InfoText_LaunchWithDolphin" xml:space="preserve">
+    <data name="HelperText_LaunchWithDolphin" xml:space="preserve">
         <value>Wird Dolphins Hauptfenster mit dem Spiel starten</value>
     </data>
-    <data name="InfoText_Recommended" xml:space="preserve">
+    <data name="HelperText_Recommended" xml:space="preserve">
         <value>Diese Einstellung wird bestimmte Dolphin Einstellungen verändern, um Ruckeln und Lagspikes zu vermindern</value>
     </data>
-    <data name="InfoText_ResolutionScale" xml:space="preserve">
+    <data name="HelperText_ResolutionScale" xml:space="preserve">
         <value>1x ist die native Auflösung</value>
     </data>
-    <data name="InfoText_Topbar_LocationWarning" xml:space="preserve">
+    <data name="HelperText_Topbar_LocationWarning" xml:space="preserve">
         <value>Einstellungen sind deaktiviert, komplettiere erst den Dateispeicherort</value>
     </data>
     <data name="Option_DolphinEmulatorExe" xml:space="preserve">
@@ -132,7 +132,7 @@
     <data name="Option_MakePrimary" xml:space="preserve">
         <value>Hauptprofil</value>
     </data>
-    <data name="InfoText_EnableAnimations" xml:space="preserve">
+    <data name="HelperText_EnableAnimations" xml:space="preserve">
         <value>Dies aktiviert die Animationen in der Wheel Wizard App</value>
     </data>
     <data name="Option_EnableAnimations" xml:space="preserve">

@@ -36,19 +36,19 @@
     <data name="Section_Wii" xml:space="preserve">
         <value>Wii Settings</value>
     </data>
-    <data name="InfoText_Topbar_LocationWarning" xml:space="preserve">
+    <data name="HelperText_Topbar_LocationWarning" xml:space="preserve">
         <value>Settings are disabled, complete the location settings first</value>
     </data>
-    <data name="InfoText_LaunchWithDolphin" xml:space="preserve">
+    <data name="HelperText_LaunchWithDolphin" xml:space="preserve">
         <value>Will launch dolphins main window along with the game</value>
     </data>
-    <data name="InfoText_ForceDisableWiimote" xml:space="preserve">
+    <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
         <value>This setting disables Wiimote ingame, but enables it for the Wii channel</value>
     </data>
     <data name="Section_Resolution" xml:space="preserve">
         <value>Resolution</value>
     </data>
-    <data name="InfoText_ResolutionScale" xml:space="preserve">
+    <data name="HelperText_ResolutionScale" xml:space="preserve">
         <value>1x is the native resolution</value>
     </data>
     <data name="Section_Performance" xml:space="preserve">
@@ -69,10 +69,10 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>Renderer</value>
     </data>
-    <data name="InfoText_Recommended" xml:space="preserve">
+    <data name="HelperText_Recommended" xml:space="preserve">
         <value>This setting will change certain dolphin settings to reduce stuttering and lag spikes</value>
     </data>
-    <data name="InfoText_30FPS" xml:space="preserve">
+    <data name="HelperText_30FPS" xml:space="preserve">
         <value>This setting will force the game to run in 30 FPS (default is 60)</value>
     </data>
     <data name="Category_Video" xml:space="preserve">
@@ -99,7 +99,7 @@
     <data name="Option_DolphinEmulatorExe" xml:space="preserve">
         <value>Dolphin Emulator executable</value>
     </data>
-    <data name="InfoText_EndWithExe" xml:space="preserve">
+    <data name="HelperText_EndWithExe" xml:space="preserve">
         <value>Path must end with .exe</value>
     </data>
     <data name="Value_Language_France" xml:space="preserve">
@@ -174,7 +174,7 @@
     <data name="Option_EnableAnimations" xml:space="preserve">
         <value>Enable Animations</value>
     </data>
-    <data name="InfoText_EnableAnimations" xml:space="preserve">
+    <data name="HelperText_EnableAnimations" xml:space="preserve">
         <value>This enables the animations in the Wheel Wizard app</value>
     </data>
     <data name="Value_Language_Russian" xml:space="preserve">

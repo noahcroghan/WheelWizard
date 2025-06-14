@@ -57,7 +57,7 @@
                                 </Grid.RowDefinitions>
                                 <components1:FormFieldLabel
                                     Text="{x:Static lang:Settings.Option_DolphinEmulatorExe}"
-                                                           TipText="{x:Static lang:Settings.InfoText_EndWithExe}" />
+                                                           TipText="{x:Static lang:Settings.HelperText_EndWithExe}" />
     
                                 <TextBox  Classes="dark" Grid.Row="1" Grid.Column="0" Height="40"
                                           Watermark="{x:Static lang:Phrases.Placeholder_EnterPath}"

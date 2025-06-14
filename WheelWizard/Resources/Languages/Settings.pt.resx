@@ -21,28 +21,28 @@
     <data name="Category_Video" xml:space="preserve">
         <value>Video </value>
     </data>
-    <data name="InfoText_30FPS" xml:space="preserve">
+    <data name="HelperText_30FPS" xml:space="preserve">
         <value>Esta definição vai forçar o jogo a correr a 30 FPS (normalmente é 60)</value>
     </data>
-    <data name="InfoText_EnableAnimations" xml:space="preserve">
+    <data name="HelperText_EnableAnimations" xml:space="preserve">
         <value>Isto ativa as animações na app Wheel Wizard</value>
     </data>
-    <data name="InfoText_EndWithExe" xml:space="preserve">
+    <data name="HelperText_EndWithExe" xml:space="preserve">
         <value>O caminho deve acabar com .exe</value>
     </data>
-    <data name="InfoText_ForceDisableWiimote" xml:space="preserve">
+    <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
         <value>Esta definição desativa o Wiimote para o jogo, mas ativa-o para o canal Wii</value>
     </data>
-    <data name="InfoText_LaunchWithDolphin" xml:space="preserve">
+    <data name="HelperText_LaunchWithDolphin" xml:space="preserve">
         <value>Irá abrir a página principal do dolphin juntamento com o jogo</value>
     </data>
-    <data name="InfoText_Recommended" xml:space="preserve">
+    <data name="HelperText_Recommended" xml:space="preserve">
         <value>Esta definição vai alterar algumas definições do dolphin para reduzir stutters e picos de lag</value>
     </data>
-    <data name="InfoText_ResolutionScale" xml:space="preserve">
+    <data name="HelperText_ResolutionScale" xml:space="preserve">
         <value>1x a resolução nativa</value>
     </data>
-    <data name="InfoText_Topbar_LocationWarning" xml:space="preserve">
+    <data name="HelperText_Topbar_LocationWarning" xml:space="preserve">
         <value>As definições estão desativadas, completa as definições de localização primeiro</value>
     </data>
     <data name="Option_DolphinEmulatorExe" xml:space="preserve">

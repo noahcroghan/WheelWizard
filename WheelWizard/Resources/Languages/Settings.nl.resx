@@ -36,13 +36,13 @@
     <data name="Option_LaunchWithDolphin" xml:space="preserve">
         <value>Start Spel met Dolphin-Venster</value>
     </data>
-    <data name="InfoText_Topbar_LocationWarning" xml:space="preserve">
+    <data name="HelperText_Topbar_LocationWarning" xml:space="preserve">
         <value>Instellingen zijn uitgeschakeld, voltooi eerst de locatie-instellingen</value>
     </data>
     <data name="Section_Resolution" xml:space="preserve">
         <value>Resolutie</value>
     </data>
-    <data name="InfoText_ResolutionScale" xml:space="preserve">
+    <data name="HelperText_ResolutionScale" xml:space="preserve">
         <value>1x is de orginele resolutie</value>
     </data>
     <data name="Section_Performance" xml:space="preserve">
@@ -84,22 +84,22 @@
     <data name="Option_DolphinEmulatorExe" xml:space="preserve">
         <value>Dolphin Emulator-Executable</value>
     </data>
-    <data name="InfoText_EndWithExe" xml:space="preserve">
+    <data name="HelperText_EndWithExe" xml:space="preserve">
         <value>Locatie moet eindigen met ".exe"</value>
     </data>
     <data name="Option_WindowScale" xml:space="preserve">
         <value>Venstergrootte</value>
     </data>
-    <data name="InfoText_ForceDisableWiimote" xml:space="preserve">
+    <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
         <value>Deze instelling schakelt de Wii-afstandsbediening uit in het spel, maar niet in het Wii-menu</value>
     </data>
-    <data name="InfoText_LaunchWithDolphin" xml:space="preserve">
+    <data name="HelperText_LaunchWithDolphin" xml:space="preserve">
         <value>Opent het Dolphin-hoofdvenster met het spel erbij</value>
     </data>
-    <data name="InfoText_Recommended" xml:space="preserve">
+    <data name="HelperText_Recommended" xml:space="preserve">
         <value>Deze instelling verandert sommige Dolphin-instellingen voor een optimale ervaring</value>
     </data>
-    <data name="InfoText_30FPS" xml:space="preserve">
+    <data name="HelperText_30FPS" xml:space="preserve">
         <value>Met deze instelling wordt het spel gedwongen om te draaien op 30 FPS (standaard is 60)</value>
     </data>
     <data name="Value_Language_Dutch" xml:space="preserve">
@@ -138,7 +138,7 @@
     <data name="Option_EnableAnimations" xml:space="preserve">
         <value>Animaties Inschakelen</value>
     </data>
-    <data name="InfoText_EnableAnimations" xml:space="preserve">
+    <data name="HelperText_EnableAnimations" xml:space="preserve">
         <value>Dit schakelt de animaties in de Wheel Wizard app in</value>
     </data>
     <data name="Value_Language_Finnish" xml:space="preserve">

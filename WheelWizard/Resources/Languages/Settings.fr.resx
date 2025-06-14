@@ -24,25 +24,25 @@
     <data name="Category_Video" xml:space="preserve">
         <value>Vidéo</value>
     </data>
-    <data name="InfoText_30FPS" xml:space="preserve">
+    <data name="HelperText_30FPS" xml:space="preserve">
         <value>Ce paramètre va forcer le jeu à tourner en 30 FPS (60 est par défaut)</value>
     </data>
-    <data name="InfoText_EndWithExe" xml:space="preserve">
+    <data name="HelperText_EndWithExe" xml:space="preserve">
         <value>Le chemin doit se finir en .exe</value>
     </data>
-    <data name="InfoText_ForceDisableWiimote" xml:space="preserve">
+    <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
         <value>Ce paramètre ira désactiver les Wiimotes dans le jeu, mais les actives dans la chaîne Wii</value>
     </data>
-    <data name="InfoText_LaunchWithDolphin" xml:space="preserve">
+    <data name="HelperText_LaunchWithDolphin" xml:space="preserve">
         <value>Va lancer la fennêtre d'acceuil de Dolphin en plus du jeu</value>
     </data>
-    <data name="InfoText_Recommended" xml:space="preserve">
+    <data name="HelperText_Recommended" xml:space="preserve">
         <value>Ce paramètre va changer certain paramètre Dolphin pour réduire les saccades et lag spikes </value>
     </data>
-    <data name="InfoText_ResolutionScale" xml:space="preserve">
+    <data name="HelperText_ResolutionScale" xml:space="preserve">
         <value>1x est la résolution native</value>
     </data>
-    <data name="InfoText_Topbar_LocationWarning" xml:space="preserve">
+    <data name="HelperText_Topbar_LocationWarning" xml:space="preserve">
         <value>Les paramètres sont désactivés, complétez d'abord les paramètres de localisation</value>
     </data>
     <data name="Option_DolphinEmulatorExe" xml:space="preserve">
@@ -132,7 +132,7 @@
     <data name="Option_MakePrimary" xml:space="preserve">
         <value>Défini par défaut</value>
     </data>
-    <data name="InfoText_EnableAnimations" xml:space="preserve">
+    <data name="HelperText_EnableAnimations" xml:space="preserve">
         <value>Ceci active les animations dans l'application Wheel Wizard</value>
     </data>
     <data name="Option_EnableAnimations" xml:space="preserve">

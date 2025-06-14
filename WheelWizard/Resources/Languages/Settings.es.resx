@@ -27,25 +27,25 @@
     <data name="Category_Video" xml:space="preserve">
         <value>Video</value>
     </data>
-    <data name="InfoText_30FPS" xml:space="preserve">
+    <data name="HelperText_30FPS" xml:space="preserve">
         <value>Este ajuste forzará al juego a correr en 30 FPS (Lo normal es 60)</value>
     </data>
-    <data name="InfoText_EndWithExe" xml:space="preserve">
+    <data name="HelperText_EndWithExe" xml:space="preserve">
         <value>La ruta debe terminar en un .exe</value>
     </data>
-    <data name="InfoText_ForceDisableWiimote" xml:space="preserve">
+    <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
         <value>Este ajuste desactiva el Wiimote en juego, pero lo activa para el Canal Wii</value>
     </data>
-    <data name="InfoText_LaunchWithDolphin" xml:space="preserve">
+    <data name="HelperText_LaunchWithDolphin" xml:space="preserve">
         <value>Se lanzará la ventana principal de Dolphin junto con el juego</value>
     </data>
-    <data name="InfoText_Recommended" xml:space="preserve">
+    <data name="HelperText_Recommended" xml:space="preserve">
         <value>Este ajuste cambiará ciertas configuraciones de Dolphin para reducir problemas de lag</value>
     </data>
-    <data name="InfoText_ResolutionScale" xml:space="preserve">
+    <data name="HelperText_ResolutionScale" xml:space="preserve">
         <value>1x es la resolución nativa</value>
     </data>
-    <data name="InfoText_Topbar_LocationWarning" xml:space="preserve">
+    <data name="HelperText_Topbar_LocationWarning" xml:space="preserve">
         <value>Ajustes desactivados, complete la ubicación de los ajustes primero</value>
     </data>
     <data name="Option_DolphinEmulatorExe" xml:space="preserve">
@@ -129,7 +129,7 @@
     <data name="Value_Language_Japanese" xml:space="preserve">
         <value>Japonés</value>
     </data>
-    <data name="InfoText_EnableAnimations" xml:space="preserve">
+    <data name="HelperText_EnableAnimations" xml:space="preserve">
         <value>Esto activa las animaciones en la aplicación Wheel Wizard</value>
     </data>
     <data name="Option_EnableAnimations" xml:space="preserve">

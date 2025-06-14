@@ -98,72 +98,72 @@ namespace WheelWizard.Resources.Languages {
         /// <summary>
         ///   Looks up a localized string similar to This setting will force the game to run in 30 FPS (default is 60).
         /// </summary>
-        public static string InfoText_30FPS {
+        public static string HelperText_30FPS {
             get {
-                return ResourceManager.GetString("InfoText_30FPS", resourceCulture);
+                return ResourceManager.GetString("HelperText_30FPS", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to This enables the animations in the Wheel Wizard app.
         /// </summary>
-        public static string InfoText_EnableAnimations {
+        public static string HelperText_EnableAnimations {
             get {
-                return ResourceManager.GetString("InfoText_EnableAnimations", resourceCulture);
+                return ResourceManager.GetString("HelperText_EnableAnimations", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Path must end with .exe.
         /// </summary>
-        public static string InfoText_EndWithExe {
+        public static string HelperText_EndWithExe {
             get {
-                return ResourceManager.GetString("InfoText_EndWithExe", resourceCulture);
+                return ResourceManager.GetString("HelperText_EndWithExe", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to This setting disables Wiimote ingame, but enables it for the Wii channel.
         /// </summary>
-        public static string InfoText_ForceDisableWiimote {
+        public static string HelperText_ForceDisableWiimote {
             get {
-                return ResourceManager.GetString("InfoText_ForceDisableWiimote", resourceCulture);
+                return ResourceManager.GetString("HelperText_ForceDisableWiimote", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Will launch dolphins main window along with the game.
         /// </summary>
-        public static string InfoText_LaunchWithDolphin {
+        public static string HelperText_LaunchWithDolphin {
             get {
-                return ResourceManager.GetString("InfoText_LaunchWithDolphin", resourceCulture);
+                return ResourceManager.GetString("HelperText_LaunchWithDolphin", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to This setting will change certain dolphin settings to reduce stuttering and lag spikes.
         /// </summary>
-        public static string InfoText_Recommended {
+        public static string HelperText_Recommended {
             get {
-                return ResourceManager.GetString("InfoText_Recommended", resourceCulture);
+                return ResourceManager.GetString("HelperText_Recommended", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 1x is the native resolution.
         /// </summary>
-        public static string InfoText_ResolutionScale {
+        public static string HelperText_ResolutionScale {
             get {
-                return ResourceManager.GetString("InfoText_ResolutionScale", resourceCulture);
+                return ResourceManager.GetString("HelperText_ResolutionScale", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Settings are disabled, complete the location settings first.
         /// </summary>
-        public static string InfoText_Topbar_LocationWarning {
+        public static string HelperText_Topbar_LocationWarning {
             get {
-                return ResourceManager.GetString("InfoText_Topbar_LocationWarning", resourceCulture);
+                return ResourceManager.GetString("HelperText_Topbar_LocationWarning", resourceCulture);
             }
         }
         

@@ -21,25 +21,25 @@
     <data name="Category_Video" xml:space="preserve">
         <value>映像</value>
     </data>
-    <data name="InfoText_30FPS" xml:space="preserve">
+    <data name="HelperText_30FPS" xml:space="preserve">
         <value>ゲームが30FPSで動作するようになります(通常は60FPS)</value>
     </data>
-    <data name="InfoText_EndWithExe" xml:space="preserve">
+    <data name="HelperText_EndWithExe" xml:space="preserve">
         <value>パスの拡張子は必ず .exe にしてください</value>
     </data>
-    <data name="InfoText_ForceDisableWiimote" xml:space="preserve">
+    <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
         <value>ゲーム内ではWiiリモコンを無効にしますが、Wiiチャンネルでは有効にします</value>
     </data>
-    <data name="InfoText_LaunchWithDolphin" xml:space="preserve">
+    <data name="HelperText_LaunchWithDolphin" xml:space="preserve">
         <value>ゲームと一緒にDolphinのメインウィンドウを起動します</value>
     </data>
-    <data name="InfoText_Recommended" xml:space="preserve">
+    <data name="HelperText_Recommended" xml:space="preserve">
         <value>スタッタリングやラグスパイクなどを軽減するために、特定のDolphinの設定を変更します</value>
     </data>
-    <data name="InfoText_ResolutionScale" xml:space="preserve">
+    <data name="HelperText_ResolutionScale" xml:space="preserve">
         <value>デフォルト解像度は1xです</value>
     </data>
-    <data name="InfoText_Topbar_LocationWarning" xml:space="preserve">
+    <data name="HelperText_Topbar_LocationWarning" xml:space="preserve">
         <value>設定が無効になっています。最初にパス設定を完了させてください</value>
     </data>
     <data name="Option_DolphinEmulatorExe" xml:space="preserve">
@@ -132,7 +132,7 @@
     <data name="Value_Language_CompletePercentage" xml:space="preserve">
         <value>100</value>
     </data>
-    <data name="InfoText_EnableAnimations" xml:space="preserve">
+    <data name="HelperText_EnableAnimations" xml:space="preserve">
         <value>Wheel Wizard内のアニメーションを有効にします</value>
     </data>
     <data name="Option_EnableAnimations" xml:space="preserve">

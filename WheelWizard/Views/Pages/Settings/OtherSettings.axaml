@@ -15,7 +15,7 @@
                     HorizontalAlignment="Stretch" VerticalAlignment="Top"
                     Background="{StaticResource Warning600}">
                 <TextBlock HorizontalAlignment="Center" Classes="BodyText"
-                           FontWeight="SemiBold" Text="{x:Static lang:Settings.InfoText_Topbar_LocationWarning}"
+                           FontWeight="SemiBold" Text="{x:Static lang:Settings.HelperText_Topbar_LocationWarning}"
                            Foreground="{StaticResource BackgroundColor}" />
             </Border>
 
@@ -26,13 +26,13 @@
                               Classes="SwitchDark"
                               x:Name="DisableForce">
                         <components1:FormFieldLabel Text="{x:Static lang:Settings.Option_ForceDisableWiimote}"
-                                                   TipText="{x:Static lang:Settings.InfoText_ForceDisableWiimote}" />
+                                                   TipText="{x:Static lang:Settings.HelperText_ForceDisableWiimote}" />
                     </CheckBox>
                     <CheckBox Margin="0,2" IsChecked="False"
                               Classes="SwitchDark"
                               x:Name="LaunchWithDolphin">
                         <components1:FormFieldLabel Text="{x:Static lang:Settings.Option_LaunchWithDolphin}"
-                                                   TipText="{x:Static lang:Settings.InfoText_LaunchWithDolphin}" />
+                                                   TipText="{x:Static lang:Settings.HelperText_LaunchWithDolphin}" />
                     </CheckBox>
                 </StackPanel>
             </Border>
