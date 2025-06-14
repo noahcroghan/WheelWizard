@@ -113,8 +113,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             radioButton.IsEnabled = !noLicense;
             radioButton.Content = miiName switch
             {
-                SettingValues.NoName => Online.NoName,
-                SettingValues.NoLicense => Online.NoLicense,
+                SettingValues.NoName => Online.State_NoName,
+                SettingValues.NoLicense => Online.State_NoLicense,
                 _ => miiName,
             };
         }

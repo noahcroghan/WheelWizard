@@ -96,33 +96,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No license.
-        /// </summary>
-        public static string NoLicense {
-            get {
-                return ResourceManager.GetString("NoLicense", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No name.
-        /// </summary>
-        public static string NoName {
-            get {
-                return ResourceManager.GetString("NoName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No profiles.
-        /// </summary>
-        public static string NoProfiles {
-            get {
-                return ResourceManager.GetString("NoProfiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to America.
         /// </summary>
         public static string Region_America {
@@ -254,6 +227,33 @@ namespace WheelWizard.Resources.Languages {
         public static string Stat_Wins {
             get {
                 return ResourceManager.GetString("Stat_Wins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No license.
+        /// </summary>
+        public static string State_NoLicense {
+            get {
+                return ResourceManager.GetString("State_NoLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No name.
+        /// </summary>
+        public static string State_NoName {
+            get {
+                return ResourceManager.GetString("State_NoName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No profiles.
+        /// </summary>
+        public static string State_NoProfiles {
+            get {
+                return ResourceManager.GetString("State_NoProfiles", resourceCulture);
             }
         }
     }

@@ -18,7 +18,7 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="NoName" xml:space="preserve">
+    <data name="State_NoName" xml:space="preserve">
         <value>Kein Name</value>
     </data>
     <data name="ListTitle_Friends" xml:space="preserve">
@@ -27,10 +27,10 @@
     <data name="ListTitle_Players" xml:space="preserve">
         <value>Spieler</value>
     </data>
-    <data name="NoLicense" xml:space="preserve">
+    <data name="State_NoLicense" xml:space="preserve">
         <value>Keine Lizenz</value>
     </data>
-    <data name="NoProfiles" xml:space="preserve">
+    <data name="State_NoProfiles" xml:space="preserve">
         <value>Keine Profile</value>
     </data>
     <data name="Region_America" xml:space="preserve">

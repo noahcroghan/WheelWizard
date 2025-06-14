@@ -27,13 +27,13 @@
     <data name="ListTitle_Rooms" xml:space="preserve">
         <value>Odalar</value>
     </data>
-    <data name="NoLicense" xml:space="preserve">
+    <data name="State_NoLicense" xml:space="preserve">
         <value>Lisans yok</value>
     </data>
-    <data name="NoName" xml:space="preserve">
+    <data name="State_NoName" xml:space="preserve">
         <value>Ad yok</value>
     </data>
-    <data name="NoProfiles" xml:space="preserve">
+    <data name="State_NoProfiles" xml:space="preserve">
         <value>Profil yok</value>
     </data>
     <data name="Region_America" xml:space="preserve">
