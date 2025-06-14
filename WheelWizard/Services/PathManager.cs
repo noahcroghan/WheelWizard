@@ -136,7 +136,14 @@ public static class PathManager
 
     public static string LoadFolderPath
     {
-        get { return Path.Combine(UserFolderPath, "Load"); }
+        get
+        {
+            if (SettingsManager.LOAD_PATH.IsValid())
+            {
+                return (string)SettingsManager.LOAD_PATH.Get();
+            }
+            return Path.Combine(UserFolderPath, "Load");
+        }
     }
 
     public static string ConfigFolderPath
@@ -163,7 +170,14 @@ public static class PathManager
 
     public static string WiiFolderPath
     {
-        get { return Path.Combine(UserFolderPath, "Wii"); }
+        get
+        {
+            if (SettingsManager.NAND_ROOT_PATH.IsValid())
+            {
+                return (string)SettingsManager.NAND_ROOT_PATH.Get();
+            }
+            return Path.Combine(UserFolderPath, "Wii");
+        }
     }
 
     public static bool IsFlatpakDolphinFilePath(string filePath)
@@ -180,6 +194,9 @@ public static class PathManager
             $"{flatpakRunCommand} {dolphinAppId}",
             $"{flatpakRunCommand} --system {dolphinAppId}",
             $"{flatpakRunCommand} --user {dolphinAppId}",
+            $"{flatpakRunCommand} -p {dolphinAppId}",
+            $"{flatpakRunCommand} --system -p {dolphinAppId}",
+            $"{flatpakRunCommand} --user -p {dolphinAppId}",
         ];
         foreach (string possibleFlatpakDolphinCommand in possibleFlatpakDolphinCommands)
         {

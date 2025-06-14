@@ -124,8 +124,6 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
     {
         PrimaryCheckBox.IsChecked = FocussedUser == _currentUserIndex;
         CurrentUserProfile.Classes.Clear();
-        if (currentPlayer?.IsOnline == true)
-            CurrentUserProfile.Classes.Add("Online");
 
         currentPlayer = GameLicenseService.GetUserData(_currentUserIndex);
         ProfileAttribFriendCode.Text = currentPlayer.FriendCode;
@@ -134,6 +132,9 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         ProfileAttribVr.Text = currentPlayer.Vr.ToString();
         ProfileAttribBr.Text = currentPlayer.Br.ToString();
         CurrentMii = currentPlayer.Mii;
+        IsOnline = currentPlayer.IsOnline;
+        if (IsOnline)
+            CurrentUserProfile.Classes.Add("Online");
 
         ProfileAttribTotalRaces.Text = currentPlayer.TotalRaceCount.ToString();
         ProfileAttribTotalWins.Text = currentPlayer.TotalWinCount.ToString();
