@@ -246,7 +246,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             if (!CheckForMiiData(currentOffset + 0x1A))
                 continue;
 
-            byte[] rawMiiBytes = _rksysData.AsSpan(currentOffset + 0x1A, MiiSize).ToArray();
+            var rawMiiBytes = _rksysData.AsSpan(currentOffset + 0x1A, MiiSize).ToArray();
             var friendCode = FriendCodeGenerator.GetFriendCode(_rksysData, currentOffset + 4);
             var miiResult = MiiSerializer.Deserialize(rawMiiBytes);
             if (miiResult.IsFailure)
@@ -271,23 +271,23 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
     public OperationResult ChangeMii(int userIndex, Mii? newMii)
     {
         if (newMii is null)
-            return "Mii cannot be null.";
+            return Fail("Mii cannot be null.");
         if (userIndex is < 0 or >= MaxPlayerNum)
-            return "Invalid license index. Please select a valid license.";
+            return Fail("Invalid license index. Please select a valid license.");
 
         var serialised = MiiSerializer.Serialize(newMii);
         if (serialised.IsFailure)
-            return serialised.Error!.Message;
+            return serialised.Error;
 
         var existing = _miiService.GetByAvatarId(newMii.MiiId);
         if (existing.IsFailure)
-            return existing.Error!.Message;
+            return existing.Error;
 
         var licence = Licenses.Users[userIndex];
         licence.Mii = newMii;
 
         if (_rksysData is null || _rksysData.Length < RksysSize)
-            return "Invalid or unloaded rksys.dat data.";
+            return Fail("Invalid or unloaded rksys.dat data.");
 
         var rkpdOffset = 0x08 + userIndex * RkpdSize;
         BigEndianBinaryReader.WriteUInt32BigEndian(_rksysData, rkpdOffset + 0x28, newMii.MiiId); // Avatar ID
@@ -298,11 +298,11 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
 
         var nameWrite = WriteLicenseNameToSaveData(userIndex, newMii.Name.ToString());
         if (nameWrite.IsFailure)
-            return nameWrite.Error!.Message;
+            return nameWrite.Error;
 
         var saveResult = SaveRksysToFile();
         if (saveResult.IsFailure)
-            return saveResult.Error!.Message;
+            return saveResult.Error;
 
         return Ok();
     }
@@ -331,7 +331,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
         try
         {
             if (!_fileSystem.Directory.Exists(PathManager.SaveFolderPath))
-                return "Save folder not found";
+                return Fail<byte[]>("Save folder not found");
 
             var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
             if (currentRegion == MarioKartWiiEnums.Regions.None)
@@ -345,19 +345,19 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
                 }
                 else
                 {
-                    return "No valid regions found";
+                    return Fail<byte[]>("No valid regions found");
                 }
             }
 
             var saveFileFolder = _fileSystem.Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
             var saveFile = _fileSystem.Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
             if (saveFile.Length == 0)
-                return "rksys.dat not found";
+                return Fail<byte[]>("rksys.dat not found");
             return _fileSystem.File.ReadAllBytes(saveFile[0]);
         }
         catch
         {
-            return "Failed to load rksys.dat";
+            return Fail<byte[]>("Failed to load rksys.dat");
         }
     }
 
@@ -404,41 +404,41 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
     public OperationResult ChangeMiiName(int userIndex, string? newName)
     {
         if (string.IsNullOrWhiteSpace(newName))
-            return "Cannot set name to an empty name.";
+            return Fail("Cannot set name to an empty name.");
         if (userIndex is < 0 or >= MaxPlayerNum)
-            return "Invalid license index. Please select a valid license.";
+            return Fail("Invalid license index. Please select a valid license.");
 
         var user = Licenses.Users[userIndex];
         var miiIsEmptyOrNoName = IsNoNameOrEmptyMii(user);
 
         if (miiIsEmptyOrNoName)
-            return "This license has no Mii data or is incomplete.\n" + "Please use the Mii Channel to create a Mii first.";
+            return Fail("This license has no Mii data or is incomplete.\n" + "Please use the Mii Channel to create a Mii first.");
 
         if (user.Mii == null)
-            return "This license has no Mii data or is incomplete.\n" + "Please use the Mii Channel to create a Mii first.";
+            return Fail("This license has no Mii data or is incomplete.\n" + "Please use the Mii Channel to create a Mii first.");
 
         newName = Regex.Replace(newName, @"\s+", " ");
 
         // Basic checks
         if (newName.Length is > 10 or < 3)
-            return "Names must be between 3 and 10 characters long.";
+            return Fail("Names must be between 3 and 10 characters long.");
 
         if (newName.Length > 10)
             newName = newName.Substring(0, 10);
         var nameResult = MiiName.Create(newName);
         if (nameResult.IsFailure)
-            return nameResult.Error.Message;
+            return nameResult.Error;
 
         user.Mii.Name = nameResult.Value;
         var nameWrite = WriteLicenseNameToSaveData(userIndex, newName);
         if (nameWrite.IsFailure)
-            return nameWrite.Error.Message;
+            return nameWrite.Error;
         var updated = _miiService.UpdateName(user.Mii.MiiId, newName);
         if (updated.IsFailure)
-            return updated.Error.Message;
+            return updated.Error;
         var rksysSaveResult = SaveRksysToFile();
         if (rksysSaveResult.IsFailure)
-            return rksysSaveResult.Error.Message;
+            return rksysSaveResult.Error;
 
         return Ok();
     }
@@ -464,7 +464,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
     private OperationResult WriteLicenseNameToSaveData(int userIndex, string newName)
     {
         if (_rksysData == null || _rksysData.Length < RksysSize)
-            return "Invalid save data";
+            return Fail("Invalid save data");
         var rkpdOffset = 0x8 + userIndex * RkpdSize;
         var nameOffset = rkpdOffset + 0x14;
         var nameBytes = Encoding.BigEndianUnicode.GetBytes(newName);
@@ -488,7 +488,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
             _fileSystem.File.WriteAllBytes(path, _rksysData);
         });
         if (trySaveRksys.IsFailure)
-            return trySaveRksys.Error.Message;
+            return trySaveRksys.Error;
         return Ok();
     }
 

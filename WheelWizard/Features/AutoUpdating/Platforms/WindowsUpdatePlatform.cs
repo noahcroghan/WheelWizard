@@ -68,13 +68,13 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
     {
         var currentExecutablePath = Environment.ProcessPath;
         if (currentExecutablePath is null)
-            return Phrases.MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation;
+            return Fail(Phrases.MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation);
 
         var currentExecutableName = fileSystem.Path.GetFileNameWithoutExtension(currentExecutablePath);
         var currentFolder = fileSystem.Path.GetDirectoryName(currentExecutablePath);
 
         if (currentFolder is null)
-            return Phrases.MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation;
+            return Fail(Phrases.MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation);
 
         // Download new executable to a temporary file.
         var newFilePath = fileSystem.Path.Combine(currentFolder, currentExecutableName + "_new.exe");
@@ -106,7 +106,7 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
     {
         var currentFolder = fileSystem.Path.GetDirectoryName(currentFilePath);
         if (currentFolder is null)
-            return Phrases.MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation;
+            return Fail(Phrases.MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation);
 
         var scriptFilePath = fileSystem.Path.Combine(currentFolder, "update.ps1");
         var originalFileName = fileSystem.Path.GetFileName(currentFilePath);

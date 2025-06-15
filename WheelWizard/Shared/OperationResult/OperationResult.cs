@@ -160,8 +160,6 @@ public class OperationResult
 
     public static implicit operator OperationResult(OperationError error) => Fail(error);
 
-    public static implicit operator OperationResult(string errorMessage) => Fail(errorMessage);
-
     public static implicit operator OperationResult(Exception exception) => Fail(exception);
 
     #endregion

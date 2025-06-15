@@ -168,22 +168,6 @@ public class OperationResultTests
         Assert.Equal(value, operationResult.Value);
     }
 
-    [Fact(DisplayName = "Implicit result from string, should have failed state")]
-    public void ImplicitResultFromString_ShouldHaveFailedState()
-    {
-        // Arrange
-        const string errorMessage = "Error message";
-
-        // Act
-        OperationResult operationResult = errorMessage;
-
-        // Assert
-        Assert.NotNull(operationResult.Error);
-        Assert.True(operationResult.IsFailure);
-        Assert.False(operationResult.IsSuccess);
-        Assert.Equal(errorMessage, operationResult.Error?.Message);
-    }
-
     [Fact(DisplayName = "Implicit result from exception, should have failed state")]
     public void ImplicitResultFromException_ShouldHaveFailedState()
     {

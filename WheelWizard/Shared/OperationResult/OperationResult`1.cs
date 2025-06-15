@@ -39,8 +39,6 @@ public class OperationResult<T> : OperationResult
 
     public static implicit operator OperationResult<T>(OperationError error) => Fail<T>(error);
 
-    public static implicit operator OperationResult<T>(string errorMessage) => Fail<T>(errorMessage);
-
     public static implicit operator OperationResult<T>(Exception exception) => Fail<T>(exception);
 
     #endregion

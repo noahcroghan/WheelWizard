@@ -88,7 +88,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     public OperationResult SaveAllBlocks(List<byte[]> blocks)
     {
         if (!fileSystem.File.Exists(_miiDbFilePath))
-            return "RFL_DB.dat not found.";
+            return Fail("RFL_DB.dat not found.");
 
         var db = ReadDatabase();
         if (db.Length >= CrcOffset + 2)
@@ -145,7 +145,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     public OperationResult ForceCreateDatabase()
     {
         if (fileSystem.File.Exists(_miiDbFilePath))
-            return "Database already exists.";
+            return Fail("Database already exists.");
 
         var directory = Path.GetDirectoryName(_miiDbFilePath);
         if (!string.IsNullOrEmpty(directory) && !fileSystem.Directory.Exists(directory))
@@ -183,11 +183,11 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     public OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock)
     {
         if (clientId == 0)
-            return "Invalid ClientId.";
+            return Fail("Invalid ClientId.");
         if (newBlock.Length != MiiLength)
-            return "Mii block size invalid.";
+            return Fail("Mii block size invalid.");
         if (!fileSystem.File.Exists(_miiDbFilePath))
-            return "RFL_DB.dat not found.";
+            return Fail("RFL_DB.dat not found.");
 
         var allBlocks = LoadAllBlocks();
         var updated = false;
@@ -238,7 +238,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     public OperationResult AddMiiToBlocks(byte[]? rawMiiData)
     {
         if (rawMiiData is not { Length: MiiLength })
-            return "Invalid Mii block size.";
+            return Fail("Invalid Mii block size.");
 
         // Load all 100 blocks.
         var blocks = LoadAllBlocks();
@@ -255,6 +255,6 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
             break;
         }
 
-        return !inserted ? "No empty Mii slot available." : SaveAllBlocks(blocks);
+        return !inserted ? Fail("No empty Mii slot available.") : SaveAllBlocks(blocks);
     }
 }
