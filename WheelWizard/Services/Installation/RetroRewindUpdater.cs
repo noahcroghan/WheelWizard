@@ -38,8 +38,8 @@ public static class RetroRewindUpdater
             {
                 await new MessageBoxWindow()
                     .SetMessageType(MessageBoxWindow.MessageType.Message)
-                    .SetTitleText(Phrases.PopupText_RRUpToDate)
-                    .SetInfoText(Phrases.PopupText_RRUpToDate)
+                    .SetTitleText(Phrases.MessageSuccess_RRUpToDate_Title)
+                    .SetInfoText(Phrases.MessageSuccess_RRUpToDate_Title)
                     .ShowDialog();
                 return true;
             }

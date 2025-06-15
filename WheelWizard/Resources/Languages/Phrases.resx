@@ -106,7 +106,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Estimated time remaining:</value>
     </data>
-    <data name="PupupText_DownloadingMb" xml:space="preserve">
+    <data name="Progress_DownloadingMb" xml:space="preserve">
         <value>downloading {$1} MB</value>
     </data>
     <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
@@ -121,28 +121,28 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Progress_InstallingModsCount" xml:space="preserve">
         <value>Installing {$1} mods</value>
     </data>
-    <data name="PopupText_NotFindDolphin" xml:space="preserve">
+    <data name="MessageWarning_NotFindDolphin_Extra" xml:space="preserve">
         <value>Could not find Dolphin Emulator, please set the path in settings</value>
     </data>
-    <data name="PopupText_NotFindGame" xml:space="preserve">
+    <data name="MessageWarning_NotFindGame_Extra" xml:space="preserve">
         <value>Could not find the game, please set the path in settings</value>
     </data>
-    <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
+    <data name="MessageWarning_MultipleFilesSelected_Title" xml:space="preserve">
         <value>Multiple Files Selected</value>
     </data>
-    <data name="PopupText_ModNameExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>A mod with the name '{$1}' already exists.</value>
     </data>
     <data name="Question_EnterModName" xml:space="preserve">
         <value>Enter Mod Name:</value>
     </data>
-    <data name="PopupText_ModNameEmpty" xml:space="preserve">
-        <value>Mod name can't be empty</value>
+    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
+        <value>Mod name can't be empty.</value>
     </data>
     <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Are you sure you want to delete {$1}?</value>
     </data>
-    <data name="PopupText_NoModFolder" xml:space="preserve">
+    <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
         <value>Mod folder does not exist</value>
     </data>
     <data name="Question_EnterTitle" xml:space="preserve">
@@ -154,7 +154,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Please ensure all paths are correct and try again.</value>
     </data>
-    <data name="PopupText_SettingsSaved" xml:space="preserve">
+    <data name="MessageSuccess_SettingsSaved_Title" xml:space="preserve">
         <value>Settings saved successfully!</value>
     </data>
     <data name="Question_ApplyScale_Title" xml:space="preserve">
@@ -181,7 +181,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>Failed to apply an update. Aborting.</value>
     </data>
-    <data name="PopupText_RRUpToDate" xml:space="preserve">
+    <data name="MessageSuccess_RRUpToDate_Title" xml:space="preserve">
         <value>Retro Rewind is up to date.</value>
     </data>
     <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
@@ -196,10 +196,10 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>Sometimes an update requires admin rights, do you want to active them for this update?</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonNetwork" xml:space="preserve">
         <value>Unable to check if Wheel Wizard is up to date. \nYou might be experiencing network issues.</value>
     </data>
-    <data name="PopupText_RestartAdminFail" xml:space="preserve">
+    <data name="MessageError_RestartAdminFail_Extra" xml:space="preserve">
         <value>Failed to restart with administrator rights.</value>
     </data>
     <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
@@ -211,7 +211,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Updating Wheel Wizard</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation" xml:space="preserve">
         <value>Unable to update Wheel Wizard. Please ensure the application is located in a folder that can be written to.\n Could not find current folder.</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
@@ -225,9 +225,6 @@ To join a specific room, you'll need to either join through a friend, or hope to
     </data>
     <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
         <value>Could not connect to the server. Please try again later.</value>
-    </data>
-    <data name="PopupText_OldRRFound" xml:space="preserve">
-        <value>Old Retro Rewind found</value>
     </data>
     <data name="Question_OldRksysFound_Title" xml:space="preserve">
         <value>Old rksys.dat found</value>
@@ -276,5 +273,11 @@ To join a specific room, you'll need to either join through a friend, or hope to
     </data>
     <data name="MessageError_AbortRR_Extra_InvalidFilePath" xml:space="preserve">
         <value>Invalid file path detected. Please contact the developers.\n Server error:  {$1}</value>
+    </data>
+    <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
+        <value>Name not possible.</value>
+    </data>
+    <data name="Message_UnableUpdateWhWz_Title" xml:space="preserve">
+        <value>Unable to update Wheel Wizard.</value>
     </data>
 </root>

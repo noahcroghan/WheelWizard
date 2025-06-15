@@ -328,7 +328,7 @@ public class ModManager : INotifyPropertyChanged
         }
         else
         {
-            ErrorOccurred(Phrases.PopupText_NoModFolder);
+            ErrorOccurred(Phrases.MessageError_NoModFolder_Extra);
         }
     }
 
@@ -365,14 +365,14 @@ public class ModManager : INotifyPropertyChanged
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            ErrorOccurred(Phrases.PopupText_ModNameEmpty);
+            ErrorOccurred(Phrases.MessageWarning_InvalidName_Extra_ModNameEmpty);
             return false;
         }
 
         if (!ModInstallation.ModExists(Mods, name))
             return true;
 
-        ErrorOccurred(Humanizer.ReplaceDynamic(Phrases.PopupText_ModNameExists, name));
+        ErrorOccurred(Humanizer.ReplaceDynamic(Phrases.MessageWarning_InvalidName_Extra_ModNameExists, name));
         return false;
     }
 

@@ -99,7 +99,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Geschatte resterende tijd:</value>
     </data>
-    <data name="PupupText_DownloadingMb" xml:space="preserve">
+    <data name="Progress_DownloadingMb" xml:space="preserve">
         <value>downloaden van {$1} MB</value>
     </data>
     <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
@@ -114,28 +114,28 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Progress_InstallingModsCount" xml:space="preserve">
         <value>{$1} mods installeren</value>
     </data>
-    <data name="PopupText_NotFindDolphin" xml:space="preserve">
+    <data name="MessageWarning_NotFindDolphin_Extra" xml:space="preserve">
         <value>Kan Dolphin Emulator niet vinden, vul eerst de locatie in bij de instellingen</value>
     </data>
-    <data name="PopupText_NotFindGame" xml:space="preserve">
+    <data name="MessageWarning_NotFindGame_Extra" xml:space="preserve">
         <value>Kan het spelbestand niet vinden, vul eerst de locatie in bij de instellingen</value>
     </data>
-    <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
+    <data name="MessageWarning_MultipleFilesSelected_Title" xml:space="preserve">
         <value>Meerdere Bestanden Geselecteerd</value>
     </data>
-    <data name="PopupText_ModNameExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>Er bestaat al een mod met de naam '{$1}' .</value>
     </data>
     <data name="Question_EnterModName" xml:space="preserve">
         <value>Voer Mod-Naam In:</value>
     </data>
-    <data name="PopupText_ModNameEmpty" xml:space="preserve">
+    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
         <value>De naam van de mod mag niet leeg zijn</value>
     </data>
     <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Weet je zeker dat je {$1} wil verwijderen?</value>
     </data>
-    <data name="PopupText_NoModFolder" xml:space="preserve">
+    <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
         <value>Mod-map bestaat niet</value>
     </data>
     <data name="Question_EnterTitle" xml:space="preserve">
@@ -147,7 +147,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Controleer of alle locaties correct zijn en probeer het opnieuw.</value>
     </data>
-    <data name="PopupText_SettingsSaved" xml:space="preserve">
+    <data name="MessageSuccess_SettingsSaved_Title" xml:space="preserve">
         <value>Instellingen succesvol opgeslagen!</value>
     </data>
     <data name="Question_ApplyScale_Title" xml:space="preserve">
@@ -174,7 +174,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>Het is niet gelukt om te updaten. Proces word afgebroken.</value>
     </data>
-    <data name="PopupText_RRUpToDate" xml:space="preserve">
+    <data name="MessageSuccess_RRUpToDate_Title" xml:space="preserve">
         <value>Retro Rewind is up-to-date.</value>
     </data>
     <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
@@ -189,10 +189,10 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>Soms zijn er voor een update administratorrechten nodig, wil je deze activeren voor deze update?</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonNetwork" xml:space="preserve">
         <value>Kan niet controleren of Wheel Wizard up-to-date is. \nEr zijn mogelijk netwerkproblemen.</value>
     </data>
-    <data name="PopupText_RestartAdminFail" xml:space="preserve">
+    <data name="MessageError_RestartAdminFail_Extra" xml:space="preserve">
         <value>Het is niet gelukt om opnieuw op te starten met administratorrechten.</value>
     </data>
     <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
@@ -204,7 +204,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Updaten van Wheel Wizard</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation" xml:space="preserve">
         <value>Wheel Wizard kan niet worden geüpdate. Zorg ervoor dat de applicatie zich in een map bevindt waarnaar kan worden geschreven.\n Kan de huidige map niet vinden.</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
@@ -218,9 +218,6 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
         <value>Kon geen verbinding maken met de server. Probeer het later opnieuw.</value>
-    </data>
-    <data name="PopupText_OldRRFound" xml:space="preserve">
-        <value>Oude Retro Rewind gevonden</value>
     </data>
     <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Oude spelgegevens zijn gevonden. Wil je deze gebruiken? (aanbevolen)</value>
@@ -251,5 +248,11 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="MessageWarning_InvalidPaths_Title" xml:space="preserve">
         <value>Foute locaties.</value>
+    </data>
+    <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
+        <value>Naam niet toegestaan.</value>
+    </data>
+    <data name="Message_UnableUpdateWhWz_Title" xml:space="preserve">
+        <value>Wheel Wizard kan niet worden geüpdate.</value>
     </data>
 </root>

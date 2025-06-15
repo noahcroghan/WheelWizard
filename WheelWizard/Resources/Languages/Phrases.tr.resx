@@ -127,10 +127,10 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Github sürümlerinden en son Wheel Wizard alınıyor</value>
     </data>
-    <data name="PopupText_ModNameEmpty" xml:space="preserve">
+    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
         <value>Mod adı boş olamaz</value>
     </data>
-    <data name="PopupText_ModNameExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>{$1}' adıyla zaten bir mod mevcut.</value>
     </data>
     <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
@@ -139,19 +139,19 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>Mod olmadan oyunu başlatmak üzeresiniz. My-stuff klasörünüzü temizlemek ister misiniz?</value>
     </data>
-    <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
+    <data name="MessageWarning_MultipleFilesSelected_Title" xml:space="preserve">
         <value>Birden Fazla Dosya Seçildi</value>
     </data>
     <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>Wheel Wizard'ın {$1} sürümü mevcut (şu anda {$2}'de). Şimdi güncellemek ister misiniz?</value>
     </data>
-    <data name="PopupText_NoModFolder" xml:space="preserve">
+    <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
         <value>Mod klasörü mevcut değil</value>
     </data>
-    <data name="PopupText_NotFindDolphin" xml:space="preserve">
+    <data name="MessageWarning_NotFindDolphin_Extra" xml:space="preserve">
         <value>Dolphin Emulator bulunamadı, lütfen yolu ayarlarda belirleyin</value>
     </data>
-    <data name="PopupText_NotFindGame" xml:space="preserve">
+    <data name="MessageWarning_NotFindGame_Extra" xml:space="preserve">
         <value>Oyun bulunamadı, lütfen yolu ayarlarda belirleyin</value>
     </data>
     <data name="Question_OldRksysFound_Title" xml:space="preserve">
@@ -160,16 +160,13 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Eski kayıt verisi bulundu. Kullanmak ister misiniz? (önerilir)</value>
     </data>
-    <data name="PopupText_OldRRFound" xml:space="preserve">
-        <value>Eski Retro Rewind bulundu</value>
-    </data>
     <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>{$1} dosyasından {$2} işleniyor...</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Retro Rewind'ı yeniden yükle</value>
     </data>
-    <data name="PopupText_RestartAdminFail" xml:space="preserve">
+    <data name="MessageError_RestartAdminFail_Extra" xml:space="preserve">
         <value>Yöneticilik haklarıyla yeniden başlatılamadı.</value>
     </data>
     <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
@@ -178,19 +175,19 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Question_RRToOld_Extra" xml:space="preserve">
         <value>Retro Rewind sürümünüz güncellemeye çok eski. Retro Rewind'ı yeniden yüklemek ister misiniz?</value>
     </data>
-    <data name="PopupText_RRUpToDate" xml:space="preserve">
+    <data name="MessageSuccess_RRUpToDate_Title" xml:space="preserve">
         <value>Retro Rewind güncel.</value>
     </data>
-    <data name="PopupText_SettingsSaved" xml:space="preserve">
+    <data name="MessageSuccess_SettingsSaved_Title" xml:space="preserve">
         <value>Ayarlar başarıyla kaydedildi!</value>
     </data>
     <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>{$1}'i silmek istediğinizden emin misiniz?</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation" xml:space="preserve">
         <value>Wheel Wizard güncellenemedi. Uygulamanın yazılabilir bir klasörde bulunduğundan emin olun. \nGeçerli klasör bulunamadı.</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonNetwork" xml:space="preserve">
         <value>Wheel Wizard'ın güncel olup olmadığını kontrol edilemedi. \nAğ sorunları yaşıyor olabilirsiniz.</value>
     </data>
     <data name="Question_UpdateAdmin_Title" xml:space="preserve">
@@ -205,7 +202,7 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Wheel Wizard Güncellemesi Mevcut</value>
     </data>
-    <data name="PupupText_DownloadingMb" xml:space="preserve">
+    <data name="Progress_DownloadingMb" xml:space="preserve">
         <value>{$1} MB indiriliyor</value>
     </data>
     <data name="Text_MadeByString" xml:space="preserve">

@@ -91,13 +91,13 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>Du bist dabei, das Spiel ohne Mods zu starten. Möchtest du Deinen My Stuff ordner leeren?</value>
     </data>
-    <data name="PopupText_NotFindDolphin" xml:space="preserve">
+    <data name="MessageWarning_NotFindDolphin_Extra" xml:space="preserve">
         <value>Der Dolphin Emulator konnte nicht gefunden werden. Bitte lege den Pfad in den Einstellungen fest.</value>
     </data>
-    <data name="PopupText_NotFindGame" xml:space="preserve">
+    <data name="MessageWarning_NotFindGame_Extra" xml:space="preserve">
         <value>Das Spiel konnte nicht gefunden werden. Bitte lege den Pfad in den Einstellungen fest.</value>
     </data>
-    <data name="PupupText_DownloadingMb" xml:space="preserve">
+    <data name="Progress_DownloadingMb" xml:space="preserve">
         <value>Herunterladen mit {$1} MB</value>
     </data>
     <data name="Text_WhWzTranslationPercentage" xml:space="preserve">
@@ -175,19 +175,19 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Beziehe die neueste Wheel Wizard-Version vom Github</value>
     </data>
-    <data name="PopupText_ModNameEmpty" xml:space="preserve">
+    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
         <value>Mod Name darf nicht leer sein</value>
     </data>
-    <data name="PopupText_ModNameExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>Eine Mod mit dem Namen '{$1}' existiert schon</value>
     </data>
-    <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
+    <data name="MessageWarning_MultipleFilesSelected_Title" xml:space="preserve">
         <value>Mehrere Dateien ausgewählt</value>
     </data>
     <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>Version {$1} von Wheel Wizard ist verfügbar (derzeit für {$2}). Möchtest Du jetzt updaten?</value>
     </data>
-    <data name="PopupText_NoModFolder" xml:space="preserve">
+    <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
         <value>Mod Ordner existiert nicht</value>
     </data>
     <data name="Question_OldRksysFound_Title" xml:space="preserve">
@@ -196,16 +196,13 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Alte Speicherdaten wurden gefunden. Möchtest Du sie benutzen? (Empfohlen)</value>
     </data>
-    <data name="PopupText_OldRRFound" xml:space="preserve">
-        <value>Alte Retro Rewind Version gefunden</value>
-    </data>
     <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>{$1} von {$2} Dateien werden verarbeitet...</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Installiere Retro Rewind neu</value>
     </data>
-    <data name="PopupText_RestartAdminFail" xml:space="preserve">
+    <data name="MessageError_RestartAdminFail_Extra" xml:space="preserve">
         <value>Neustart mit Admin-Rechten fehlgeschlagen.</value>
     </data>
     <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
@@ -214,19 +211,19 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="Question_RRToOld_Extra" xml:space="preserve">
         <value>Deine Version von Retro Rewind ist zu alt zum Aktualisieren. Möchtest Du Retro Rewind neu installieren?</value>
     </data>
-    <data name="PopupText_RRUpToDate" xml:space="preserve">
+    <data name="MessageSuccess_RRUpToDate_Title" xml:space="preserve">
         <value>Retro Rewind ist auf dem neuesten Stand.</value>
     </data>
-    <data name="PopupText_SettingsSaved" xml:space="preserve">
+    <data name="MessageSuccess_SettingsSaved_Title" xml:space="preserve">
         <value>Einstellungen erfolgreich gespeichert!</value>
     </data>
     <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Bist Du sicher, dass du {$1} löschen möchtest?</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation" xml:space="preserve">
         <value>Wheel Wizard kann nicht aktualisiert werden. Bitte stelle sicher, dass sich die Anwendung in einem Ordner befindet, in den geschrieben werden kann.\n Der aktuelle Ordner konnte nicht gefunden werden.</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonNetwork" xml:space="preserve">
         <value>Es kann nicht überprüft werden, ob Wheel Wizard auf dem neuesten Stand ist. \nMöglicherweise treten derzeit Netzwerkprobleme auf.</value>
     </data>
     <data name="Question_UpdateAdmin_Title" xml:space="preserve">

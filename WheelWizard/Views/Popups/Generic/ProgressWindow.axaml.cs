@@ -77,7 +77,7 @@ public partial class ProgressWindow : PopupContent
     public ProgressWindow SetGoal(double megaBytes)
     {
         _totalMb = megaBytes;
-        GoalTextBlock.Text = Humanizer.ReplaceDynamic(Phrases.PupupText_DownloadingMb, $"{megaBytes:F2}");
+        GoalTextBlock.Text = Humanizer.ReplaceDynamic(Phrases.Progress_DownloadingMb, $"{megaBytes:F2}");
         return this;
     }
 

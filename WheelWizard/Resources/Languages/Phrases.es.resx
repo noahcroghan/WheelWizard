@@ -126,10 +126,10 @@
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Obteniendo la ultima versión de Wheel Wizard desde Github</value>
     </data>
-    <data name="PopupText_ModNameEmpty" xml:space="preserve">
+    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
         <value>No puede dejar el nombre del mod en blanco.</value>
     </data>
-    <data name="PopupText_ModNameExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>Un mod con el nombre '{$1}' ya existe.</value>
     </data>
     <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
@@ -138,19 +138,19 @@
     <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>Estas a punto de lanzar el juego sin ningún mod. ¿Quieres vaciar tu carpeta My-Stuff?</value>
     </data>
-    <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
+    <data name="MessageWarning_MultipleFilesSelected_Title" xml:space="preserve">
         <value>Múltiples archivos seleccionados</value>
     </data>
     <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>La version {$1} de WheelWizzard está disponible (Actualmente en {$2}). ¿Desea actualizar ahora?</value>
     </data>
-    <data name="PopupText_NoModFolder" xml:space="preserve">
+    <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
         <value>No existe una carpeta de mods</value>
     </data>
-    <data name="PopupText_NotFindDolphin" xml:space="preserve">
+    <data name="MessageWarning_NotFindDolphin_Extra" xml:space="preserve">
         <value>No se encontró el Emulador Dolphin. Seleccione la ruta en ajustes.</value>
     </data>
-    <data name="PopupText_NotFindGame" xml:space="preserve">
+    <data name="MessageWarning_NotFindGame_Extra" xml:space="preserve">
         <value>No se encontró el juego. Seleccione la ruta en ajustes.</value>
     </data>
     <data name="Question_OldRksysFound_Title" xml:space="preserve">
@@ -159,16 +159,13 @@
     <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Se encontró data guardada antigua. ¿Desea usarla?</value>
     </data>
-    <data name="PopupText_OldRRFound" xml:space="preserve">
-        <value>Version antigua de Retro Rewind encontrada.</value>
-    </data>
     <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>Procesando {$1} de {$2} archivos...</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Reinstalar Retro Rewind</value>
     </data>
-    <data name="PopupText_RestartAdminFail" xml:space="preserve">
+    <data name="MessageError_RestartAdminFail_Extra" xml:space="preserve">
         <value>Error al reinstalar con derechos de administrador.</value>
     </data>
     <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
@@ -177,19 +174,19 @@
     <data name="Question_RRToOld_Extra" xml:space="preserve">
         <value>Tu versión de Retro Rewind es muy antigua para actualizar. ¿Desea reinstalar Retro Rewind?</value>
     </data>
-    <data name="PopupText_RRUpToDate" xml:space="preserve">
+    <data name="MessageSuccess_RRUpToDate_Title" xml:space="preserve">
         <value>Su versión de Retro Rewind es la última lanzada.</value>
     </data>
-    <data name="PopupText_SettingsSaved" xml:space="preserve">
+    <data name="MessageSuccess_SettingsSaved_Title" xml:space="preserve">
         <value>Se guardaron correctamente los ajustes.</value>
     </data>
     <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>¿Estas seguro que deseas borrar {$1}?</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation" xml:space="preserve">
         <value>Incapaz de actualizar Wheel Wizard. Asegurate que la aplicación esta ubicada en una carpeta que se puede editar.\n No se encontró la carpeta actual.</value>
     </data>
-    <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonNetwork" xml:space="preserve">
         <value>Incapaz de confirmar la actualidad de su versión de Wheel Wizard.\n Podrías estar experimentando problemas de conexión.</value>
     </data>
     <data name="Question_UpdateAdmin_Title" xml:space="preserve">
@@ -204,7 +201,7 @@
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Actualización de Wheel Wizard disponible</value>
     </data>
-    <data name="PupupText_DownloadingMb" xml:space="preserve">
+    <data name="Progress_DownloadingMb" xml:space="preserve">
         <value>Descargando {$1} MB</value>
     </data>
     <data name="Text_MadeByString" xml:space="preserve">

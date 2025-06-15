@@ -268,8 +268,8 @@ public partial class WhWzSettings : UserControl
         {
             await new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Message)
-                .SetTitleText(Phrases.PopupText_SettingsSaved)
-                .SetInfoText(Phrases.PopupText_SettingsSaved)
+                .SetTitleText(Phrases.MessageSuccess_SettingsSaved_Title)
+                .SetInfoText(Phrases.MessageSuccess_SettingsSaved_Title)
                 .ShowDialog();
 
             // This is not really the best approach, but it works for now

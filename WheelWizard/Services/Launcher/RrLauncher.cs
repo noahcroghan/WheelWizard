@@ -30,7 +30,7 @@ public class RrLauncher : ILauncher
                     new MessageBoxWindow()
                         .SetMessageType(MessageBoxWindow.MessageType.Warning)
                         .SetTitleText("Invalid game path")
-                        .SetInfoText(Phrases.PopupText_NotFindGame)
+                        .SetInfoText(Phrases.MessageWarning_NotFindGame_Extra)
                         .Show();
                 });
                 return;
