@@ -102,10 +102,10 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="PupupText_DownloadingMb" xml:space="preserve">
         <value>downloaden van {$1} MB</value>
     </data>
-    <data name="PopupText_ModsFound" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
         <value>Mods gevonden</value>
     </data>
-    <data name="PopupText_ModsFoundQuestion" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>Je staat op het punt om het spel te starten zonder mods. Wil je de My Stuff-map leegmaken?</value>
     </data>
     <data name="PopupText_InstallingMods" xml:space="preserve">
@@ -120,28 +120,25 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="PopupText_NotFindGame" xml:space="preserve">
         <value>Kan het spelbestand niet vinden, vul eerst de locatie in bij de instellingen</value>
     </data>
-    <data name="PopupText_ModCombineQuestion" xml:space="preserve">
-        <value>Wil je alle bestanden combineren in 1 mod?</value>
-    </data>
     <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
         <value>Meerdere Bestanden Geselecteerd</value>
     </data>
     <data name="PopupText_ModNameExists" xml:space="preserve">
         <value>Er bestaat al een mod met de naam '{$1}' .</value>
     </data>
-    <data name="PopupText_EnterModName" xml:space="preserve">
+    <data name="Question_EnterModName" xml:space="preserve">
         <value>Voer Mod-Naam In:</value>
     </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
         <value>De naam van de mod mag niet leeg zijn</value>
     </data>
-    <data name="PopupText_SureDeleteQuestion" xml:space="preserve">
+    <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Weet je zeker dat je {$1} wil verwijderen?</value>
     </data>
     <data name="PopupText_NoModFolder" xml:space="preserve">
         <value>Mod-map bestaat niet</value>
     </data>
-    <data name="PopupText_EnterTitle" xml:space="preserve">
+    <data name="Question_EnterTitle" xml:space="preserve">
         <value>Voer Titel In:</value>
     </data>
     <data name="PopupText_ProcessingXofY" xml:space="preserve">
@@ -153,19 +150,19 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="PopupText_SettingsSaved" xml:space="preserve">
         <value>Instellingen succesvol opgeslagen!</value>
     </data>
-    <data name="PopupText_ApplyScale" xml:space="preserve">
+    <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>Wil je de nieuwe schaal toepassen?</value>
     </data>
     <data name="PopupText_DolphinNotFound" xml:space="preserve">
         <value>Dolphin Emulator-Map Niet Gevonden</value>
     </data>
-    <data name="PopupText_DolphinFound" xml:space="preserve">
+    <data name="Question_DolphinFound_Title" xml:space="preserve">
         <value>Dolphin Emulator-Map Gevonden</value>
     </data>
     <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
         <value>Dolphin Emulator-Map niet automatisch gevonden. Probeer de map handmatig te vinden. Klik op "help" voor meer informatie.</value>
     </data>
-    <data name="PopupText_DolphinFoundText" xml:space="preserve">
+    <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>Als je niet weet wat dit allemaal betekent, druk op ja :) \nDolphin Emulator-Map Gevonden. Wil je deze gebruiken?</value>
     </data>
     <data name="PopupText_FailedUpdateDelete" xml:space="preserve">
@@ -183,13 +180,13 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="PopupText_FailCheckUpdates" xml:space="preserve">
         <value>Zoeken naar updates mislukt</value>
     </data>
-    <data name="PopupText_WhWzUpdateAvailable" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Wheel Wizard Update Beschikbaar</value>
     </data>
-    <data name="PopupText_UpdateAdmin" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Title" xml:space="preserve">
         <value>Update met administrator</value>
     </data>
-    <data name="PopupText_UpdateAdminExplained" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>Soms zijn er voor een update administratorrechten nodig, wil je deze activeren voor deze update?</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
@@ -198,7 +195,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="PopupText_RestartAdminFail" xml:space="preserve">
         <value>Het is niet gelukt om opnieuw op te starten met administratorrechten.</value>
     </data>
-    <data name="PopupText_NewVersionWhWz" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>Versie {$1} van Wheel Wizard is beschikbaar (momenteel op {$2}). Wil je nu updaten?</value>
     </data>
     <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
@@ -210,7 +207,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
         <value>Wheel Wizard kan niet worden geüpdate. Zorg ervoor dat de applicatie zich in een map bevindt waarnaar kan worden geschreven.\n Kan de huidige map niet vinden.</value>
     </data>
-    <data name="PopupText_ReinstallRR" xml:space="preserve">
+    <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Retro Rewind Opnieuw Installeren</value>
     </data>
     <data name="PopupText_InstallingRR" xml:space="preserve">
@@ -219,31 +216,25 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
         <value>Retro Rewind voor de eerste keer aan het installeren</value>
     </data>
-    <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
-        <value>Er bestaan ​​al bestanden in je RetroRewind-map. Wil je deze installeren?</value>
-    </data>
     <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
         <value>Kon geen verbinding maken met de server. Probeer het later opnieuw.</value>
     </data>
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>Oude Retro Rewind gevonden</value>
     </data>
-    <data name="PopupText_OldRRFoundExplained" xml:space="preserve">
-        <value>Oude Retro Rewind-bestanden gevonden. Wil je deze verplaatsen naar de nieuwe locatie?</value>
-    </data>
-    <data name="PopupText_OldRksysFoundExplained" xml:space="preserve">
+    <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Oude spelgegevens zijn gevonden. Wil je deze gebruiken? (aanbevolen)</value>
     </data>
-    <data name="PopupText_OldRksysFound" xml:space="preserve">
+    <data name="Question_OldRksysFound_Title" xml:space="preserve">
         <value>Oude rksys.dat gevonden</value>
     </data>
-    <data name="PopupText_RRToOld" xml:space="preserve">
+    <data name="Question_RRToOld_Extra" xml:space="preserve">
         <value>Je versie van Retro Rewind is te oud om te updaten. Wil je Retro Rewind opnieuw installeren?</value>
     </data>
-    <data name="PopupText_DownloadRR" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Retro Rewind Downloaden</value>
     </data>
-    <data name="PopupText_RRNotDeterment" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
         <value>Je versie van Retro Rewind kon niet worden bepaald. Wil je Retro Rewind downloaden?</value>
     </data>
     <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
@@ -254,5 +245,8 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
         <value>Om vrienden toe te voegen moet je ze in het spel toevoegen.</value>
+    </data>
+    <data name="Question_RRToOld_Title" xml:space="preserve">
+        <value>Retro Rewind versie is te oud.</value>
     </data>
 </root>

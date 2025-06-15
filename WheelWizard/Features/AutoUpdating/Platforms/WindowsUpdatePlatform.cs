@@ -24,8 +24,8 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
 
         // Otherwise, ask if the user wants to restart as admin.
         var restartAsAdmin = await new YesNoWindow()
-            .SetMainText(Phrases.PopupText_UpdateAdmin)
-            .SetExtraText(Phrases.PopupText_UpdateAdminExplained)
+            .SetMainText(Phrases.Question_UpdateAdmin_Title)
+            .SetExtraText(Phrases.Question_UpdateAdmin_Extra)
             .AwaitAnswer();
 
         if (!restartAsAdmin)

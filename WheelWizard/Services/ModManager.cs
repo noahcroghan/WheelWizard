@@ -273,7 +273,7 @@ public class ModManager : INotifyPropertyChanged
     public async void DeleteMod(Mod selectedMod)
     {
         var areTheySure = await new YesNoWindow()
-            .SetMainText(Humanizer.ReplaceDynamic(Phrases.PopupText_SureDeleteQuestion, selectedMod.Title))
+            .SetMainText(Humanizer.ReplaceDynamic(Phrases.Question_SureDelete_Title, selectedMod.Title)!)
             .AwaitAnswer();
         if (!areTheySure)
             return;

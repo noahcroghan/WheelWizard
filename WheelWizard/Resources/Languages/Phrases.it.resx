@@ -70,20 +70,16 @@
         <value>Attenzione, questa pagina non offre alcuna funzionalità per unirsi ad una stanza direttamente.
 Per unirsi ad una specifica stanza, dovrai farlo tramite un amico oppure sperare di unirti tramite i server online.</value>
     </data>
-    <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
-        <value>Ci sono già dei file nella tua cartella RetroRewind.
-Vuoi installare?</value>
-    </data>
-    <data name="PopupText_ApplyScale" xml:space="preserve">
+    <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>Vuoi applicare le nuove dimensioni?</value>
     </data>
     <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
         <value>Impossibile connettersi al server. Riprova più tardi.</value>
     </data>
-    <data name="PopupText_DolphinFound" xml:space="preserve">
+    <data name="Question_DolphinFound_Title" xml:space="preserve">
         <value>Cartella dell'Emulatore Dolphin trovata</value>
     </data>
-    <data name="PopupText_DolphinFoundText" xml:space="preserve">
+    <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>Se non sai cosa ciò vuol dire, clicca su sì :) \nCartella dell'Emulatore Dolphin trovata. Vuoi usare questa cartella?</value>
     </data>
     <data name="PopupText_DolphinNotFound" xml:space="preserve">
@@ -92,16 +88,16 @@ Vuoi installare?</value>
     <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
         <value>Cartella dell'Emulatore Dolphin non trovata automaticamente. Prova a trovare la cartella manualmente, clicca "Aiuto" per ulteriori informazioni.</value>
     </data>
-    <data name="PopupText_DownloadRR" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Scarica Retro Rewind</value>
     </data>
     <data name="PopupText_EnsurePathsExists" xml:space="preserve">
         <value>Assicurati che tutti gli indirizzi siano corretti e riprova.</value>
     </data>
-    <data name="PopupText_EnterModName" xml:space="preserve">
+    <data name="Question_EnterModName" xml:space="preserve">
         <value>Inserisci il nome della mod:</value>
     </data>
-    <data name="PopupText_EnterTitle" xml:space="preserve">
+    <data name="Question_EnterTitle" xml:space="preserve">
         <value>Inserisci il titolo:</value>
     </data>
     <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
@@ -131,26 +127,23 @@ Vuoi installare?</value>
     <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
         <value>Ottenendo l'ultima versione di Wheel Wizard da GitHub</value>
     </data>
-    <data name="PopupText_ModCombineQuestion" xml:space="preserve">
-        <value>Vuoi unire tutti i file in un'unica mod?</value>
-    </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
         <value>Il nome della mod non può essere vuoto</value>
     </data>
     <data name="PopupText_ModNameExists" xml:space="preserve">
         <value>Una mod col nome '{$1}' esiste già.</value>
     </data>
-    <data name="PopupText_ModsFound" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
         <value>Mod trovate</value>
     </data>
-    <data name="PopupText_ModsFoundQuestion" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>Stai per avviare il gioco senza alcuna mod.
 Vuoi svuotare la tua cartella My-Stuff?</value>
     </data>
     <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
         <value>Più file selezionati</value>
     </data>
-    <data name="PopupText_NewVersionWhWz" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>La versione {$1} di Wheel Wizard è disponibile (al momento è {$2}). Vuoi aggiornare ora?</value>
     </data>
     <data name="PopupText_NoModFolder" xml:space="preserve">
@@ -162,31 +155,28 @@ Vuoi svuotare la tua cartella My-Stuff?</value>
     <data name="PopupText_NotFindGame" xml:space="preserve">
         <value>Non è stato possibile trovare il gioco, controlla l'indirizzo nelle impostazioni</value>
     </data>
-    <data name="PopupText_OldRksysFound" xml:space="preserve">
+    <data name="Question_OldRksysFound_Title" xml:space="preserve">
         <value>Un vecchio rksys.dat è stato trovato</value>
     </data>
-    <data name="PopupText_OldRksysFoundExplained" xml:space="preserve">
+    <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Dei vecchi dati di salvataggio sono stati trovati. Vuoi usarli? (Consigliato)</value>
     </data>
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>Una vecchia versione di Retro Rewind è stata trovata</value>
     </data>
-    <data name="PopupText_OldRRFoundExplained" xml:space="preserve">
-        <value>Dei vecchi file di Retro Rewind sono stati trovati. Vuoi muoverli nella nuova posizione?</value>
-    </data>
     <data name="PopupText_ProcessingXofY" xml:space="preserve">
         <value>Processando file {$1} di {$2}...</value>
     </data>
-    <data name="PopupText_ReinstallRR" xml:space="preserve">
+    <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Reinstalla Retro Rewind</value>
     </data>
     <data name="PopupText_RestartAdminFail" xml:space="preserve">
         <value>Errore riavviando con diritti di amministratore.</value>
     </data>
-    <data name="PopupText_RRNotDeterment" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
         <value>La tua versione di Retro Rewind non può essere determinata. Vuoi scaricare Retro Rewind?</value>
     </data>
-    <data name="PopupText_RRToOld" xml:space="preserve">
+    <data name="Question_RRToOld_Extra" xml:space="preserve">
         <value>La tua versione di Retro Rewind è troppo vecchia per essere aggiornata. Vuoi reinstallare Retro Rewind?</value>
     </data>
     <data name="PopupText_RRUpToDate" xml:space="preserve">
@@ -195,7 +185,7 @@ Vuoi svuotare la tua cartella My-Stuff?</value>
     <data name="PopupText_SettingsSaved" xml:space="preserve">
         <value>Impostazioni salvate con successo!</value>
     </data>
-    <data name="PopupText_SureDeleteQuestion" xml:space="preserve">
+    <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Sei sicuro di voler cancellare {$1}?</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
@@ -204,10 +194,10 @@ Vuoi svuotare la tua cartella My-Stuff?</value>
     <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
         <value>Impossibile controllare se Wheel Wizard è aggiornato. \nPotresti avere problemi di connessione.</value>
     </data>
-    <data name="PopupText_UpdateAdmin" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Title" xml:space="preserve">
         <value>Aggiorna usando l'Amministratore</value>
     </data>
-    <data name="PopupText_UpdateAdminExplained" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>A volte un aggiornamento può richiedere diritti di amministratore, vuoi attivarli per questo aggiornamento?</value>
     </data>
     <data name="PopupText_UpdateRR" xml:space="preserve">
@@ -216,7 +206,7 @@ Vuoi svuotare la tua cartella My-Stuff?</value>
     <data name="PopupText_UpdateWhWz" xml:space="preserve">
         <value>Aggiornando Wheel Wizard</value>
     </data>
-    <data name="PopupText_WhWzUpdateAvailable" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Aggiornamento di Wheel Wizard disponibile</value>
     </data>
     <data name="PupupText_DownloadingMb" xml:space="preserve">

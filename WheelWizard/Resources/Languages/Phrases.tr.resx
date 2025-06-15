@@ -70,19 +70,16 @@
         <value>Lütfen bu sayfanın doğrudan bir odaya katılma işlevi sunmadığını unutmayın.
 Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılmanız veya çevrimiçi sunuculara katılarak bu odaya girmeyi ummanız gerekecek.</value>
     </data>
-    <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
-        <value>RetroRewind Klasörünüzde zaten dosyalar var. Yüklemek ister misiniz?</value>
-    </data>
-    <data name="PopupText_ApplyScale" xml:space="preserve">
+    <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>Yeni ölçeği uygulamak istiyor musunuz?</value>
     </data>
     <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
         <value>Sunucuya bağlanılamadı. Lütfen daha sonra tekrar deneyin.</value>
     </data>
-    <data name="PopupText_DolphinFound" xml:space="preserve">
+    <data name="Question_DolphinFound_Title" xml:space="preserve">
         <value>Dolphin Emulator Klasörü Bulundu</value>
     </data>
-    <data name="PopupText_DolphinFoundText" xml:space="preserve">
+    <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>Eğer bunların ne anlama geldiğini bilmiyorsanız, evet diyebilirsiniz :) \nDolphin Emulator klasörü bulundu. Bu klasörü kullanmak ister misiniz?</value>
     </data>
     <data name="PopupText_DolphinNotFound" xml:space="preserve">
@@ -91,16 +88,16 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
         <value>Dolphin Emulator klasörü otomatik olarak bulunamadı. Lütfen klasörü manuel olarak bulmayı deneyin, daha fazla bilgi için 'yardım'ı tıklayın.</value>
     </data>
-    <data name="PopupText_DownloadRR" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Retro Rewind İndir</value>
     </data>
     <data name="PopupText_EnsurePathsExists" xml:space="preserve">
         <value>Lütfen tüm yolların doğru olduğundan emin olun ve tekrar deneyin.</value>
     </data>
-    <data name="PopupText_EnterModName" xml:space="preserve">
+    <data name="Question_EnterModName" xml:space="preserve">
         <value>Mod Adını Girin:</value>
     </data>
-    <data name="PopupText_EnterTitle" xml:space="preserve">
+    <data name="Question_EnterTitle" xml:space="preserve">
         <value>Başlık Girin:</value>
     </data>
     <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
@@ -130,25 +127,22 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
         <value>Github sürümlerinden en son Wheel Wizard alınıyor</value>
     </data>
-    <data name="PopupText_ModCombineQuestion" xml:space="preserve">
-        <value>Tüm dosyaları 1 modda birleştirmek ister misiniz?</value>
-    </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
         <value>Mod adı boş olamaz</value>
     </data>
     <data name="PopupText_ModNameExists" xml:space="preserve">
         <value>{$1}' adıyla zaten bir mod mevcut.</value>
     </data>
-    <data name="PopupText_ModsFound" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
         <value>Modlar bulundu</value>
     </data>
-    <data name="PopupText_ModsFoundQuestion" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>Mod olmadan oyunu başlatmak üzeresiniz. My-stuff klasörünüzü temizlemek ister misiniz?</value>
     </data>
     <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
         <value>Birden Fazla Dosya Seçildi</value>
     </data>
-    <data name="PopupText_NewVersionWhWz" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>Wheel Wizard'ın {$1} sürümü mevcut (şu anda {$2}'de). Şimdi güncellemek ister misiniz?</value>
     </data>
     <data name="PopupText_NoModFolder" xml:space="preserve">
@@ -160,31 +154,28 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="PopupText_NotFindGame" xml:space="preserve">
         <value>Oyun bulunamadı, lütfen yolu ayarlarda belirleyin</value>
     </data>
-    <data name="PopupText_OldRksysFound" xml:space="preserve">
+    <data name="Question_OldRksysFound_Title" xml:space="preserve">
         <value>Eski rksys.dat bulundu</value>
     </data>
-    <data name="PopupText_OldRksysFoundExplained" xml:space="preserve">
+    <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Eski kayıt verisi bulundu. Kullanmak ister misiniz? (önerilir)</value>
     </data>
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>Eski Retro Rewind bulundu</value>
     </data>
-    <data name="PopupText_OldRRFoundExplained" xml:space="preserve">
-        <value>Eski Retro Rewind dosyaları bulundu. Bunları yeni konuma taşımak ister misiniz?</value>
-    </data>
     <data name="PopupText_ProcessingXofY" xml:space="preserve">
         <value>{$1} dosyasından {$2} işleniyor...</value>
     </data>
-    <data name="PopupText_ReinstallRR" xml:space="preserve">
+    <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Retro Rewind'ı yeniden yükle</value>
     </data>
     <data name="PopupText_RestartAdminFail" xml:space="preserve">
         <value>Yöneticilik haklarıyla yeniden başlatılamadı.</value>
     </data>
-    <data name="PopupText_RRNotDeterment" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
         <value>Retro Rewind sürümünüz belirlenemedi. Retro Rewind'ı indirmek ister misiniz?</value>
     </data>
-    <data name="PopupText_RRToOld" xml:space="preserve">
+    <data name="Question_RRToOld_Extra" xml:space="preserve">
         <value>Retro Rewind sürümünüz güncellemeye çok eski. Retro Rewind'ı yeniden yüklemek ister misiniz?</value>
     </data>
     <data name="PopupText_RRUpToDate" xml:space="preserve">
@@ -193,7 +184,7 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="PopupText_SettingsSaved" xml:space="preserve">
         <value>Ayarlar başarıyla kaydedildi!</value>
     </data>
-    <data name="PopupText_SureDeleteQuestion" xml:space="preserve">
+    <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>{$1}'i silmek istediğinizden emin misiniz?</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
@@ -202,10 +193,10 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
         <value>Wheel Wizard'ın güncel olup olmadığını kontrol edilemedi. \nAğ sorunları yaşıyor olabilirsiniz.</value>
     </data>
-    <data name="PopupText_UpdateAdmin" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Title" xml:space="preserve">
         <value>Yönetici kullanarak güncelle</value>
     </data>
-    <data name="PopupText_UpdateAdminExplained" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>Bazen bir güncelleme yönetici hakları gerektirir, bu güncelleme için onları aktif etmek ister misiniz?</value>
     </data>
     <data name="PopupText_UpdateRR" xml:space="preserve">
@@ -214,7 +205,7 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="PopupText_UpdateWhWz" xml:space="preserve">
         <value>Wheel Wizard güncelleniyor</value>
     </data>
-    <data name="PopupText_WhWzUpdateAvailable" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Wheel Wizard Güncellemesi Mevcut</value>
     </data>
     <data name="PupupText_DownloadingMb" xml:space="preserve">

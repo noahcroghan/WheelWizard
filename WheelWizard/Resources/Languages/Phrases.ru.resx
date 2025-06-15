@@ -69,19 +69,16 @@
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
         <value>Вы не можете заходить в комнаты прямо через это меню. Чтобы зайти в определённую комнату, вам нужно либо зайти через друга, либо надеяться попасть в неё через онлайн сервера.</value>
     </data>
-    <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
-        <value>В папке RetroRewind уже есть файлы. Желаете продолжить?</value>
-    </data>
-    <data name="PopupText_ApplyScale" xml:space="preserve">
+    <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>Хотите применить новый масштаб?</value>
     </data>
     <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
         <value>Не удалось подключиться к серверу. Попробуйте чуть позже.</value>
     </data>
-    <data name="PopupText_DolphinFound" xml:space="preserve">
+    <data name="Question_DolphinFound_Title" xml:space="preserve">
         <value>Папка эмулятора Dolphin найдена</value>
     </data>
-    <data name="PopupText_DolphinFoundText" xml:space="preserve">
+    <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>Если ты понятия не имеешь что это значит, просто нажми да :D \nПапка эмулятора Dolphin найдена. Хотите её использовать?</value>
     </data>
     <data name="PopupText_DolphinNotFound" xml:space="preserve">
@@ -90,16 +87,16 @@
     <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
         <value>Папка эмулятора Dolphin не была найдена автоматически. Пожалуйста, попробуйте найти её самостоятельно. Для подробностей, нажмите на "Помощь"</value>
     </data>
-    <data name="PopupText_DownloadRR" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Скачать Retro Rewind</value>
     </data>
     <data name="PopupText_EnsurePathsExists" xml:space="preserve">
         <value>Убедитесь, что все пути правильны и попробуйте ещё раз.</value>
     </data>
-    <data name="PopupText_EnterModName" xml:space="preserve">
+    <data name="Question_EnterModName" xml:space="preserve">
         <value>Укажите название мода:</value>
     </data>
-    <data name="PopupText_EnterTitle" xml:space="preserve">
+    <data name="Question_EnterTitle" xml:space="preserve">
         <value>Укажите заголовок:</value>
     </data>
     <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
@@ -129,25 +126,22 @@
     <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
         <value>Получаем последнюю версию Wheel Wizard из GitHub</value>
     </data>
-    <data name="PopupText_ModCombineQuestion" xml:space="preserve">
-        <value>Хотите соеденить все файлы в один мод?</value>
-    </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
         <value>Название мода не может быть пустым.</value>
     </data>
     <data name="PopupText_ModNameExists" xml:space="preserve">
         <value>Мод с названием {$1} уже существует.</value>
     </data>
-    <data name="PopupText_ModsFound" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
         <value>Моды найдены</value>
     </data>
-    <data name="PopupText_ModsFoundQuestion" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>Прямо сейчас вы запускаете игру без модов. Желаете очистить папку my-stuff?</value>
     </data>
     <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
         <value>Выбрано несколько файлов</value>
     </data>
-    <data name="PopupText_NewVersionWhWz" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>Версия {$1} Wheel Wizard'а доступна (прямо сейчас. вы на {$2}). Хотите произвести обновление?</value>
     </data>
     <data name="PopupText_NoModFolder" xml:space="preserve">
@@ -159,31 +153,28 @@
     <data name="PopupText_NotFindGame" xml:space="preserve">
         <value>Не удалось найти игру, пожалуйста, установить путь в настройках.</value>
     </data>
-    <data name="PopupText_OldRksysFound" xml:space="preserve">
+    <data name="Question_OldRksysFound_Title" xml:space="preserve">
         <value>Старый rksys.dat был найден</value>
     </data>
-    <data name="PopupText_OldRksysFoundExplained" xml:space="preserve">
+    <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Старые данные сохранения были найдена. Желаете их исполльзовать? (рекоммендовано)</value>
     </data>
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>Старый Retro Rewind был найден.</value>
     </data>
-    <data name="PopupText_OldRRFoundExplained" xml:space="preserve">
-        <value>Старые файлы Retro Rewind были найдены. Хотите переместить их в новую директорию?</value>
-    </data>
     <data name="PopupText_ProcessingXofY" xml:space="preserve">
         <value>Обработка {$1} из {$2} файлов...</value>
     </data>
-    <data name="PopupText_ReinstallRR" xml:space="preserve">
+    <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Переустановить Retro Rewind</value>
     </data>
     <data name="PopupText_RestartAdminFail" xml:space="preserve">
         <value>Не удалось перезапуститься с правами администратора.</value>
     </data>
-    <data name="PopupText_RRNotDeterment" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
         <value>Не удалос определить вашу версию Retro Rewind. Хотите установить Retro Rewind?</value>
     </data>
-    <data name="PopupText_RRToOld" xml:space="preserve">
+    <data name="Question_RRToOld_Extra" xml:space="preserve">
         <value>Ваша версия Retro Rewind слишком доисторическая. чтобы обновиться. Хотите переустановить Retro Rewind?</value>
     </data>
     <data name="PopupText_RRUpToDate" xml:space="preserve">
@@ -192,7 +183,7 @@
     <data name="PopupText_SettingsSaved" xml:space="preserve">
         <value>Настройки успешно сохранены!</value>
     </data>
-    <data name="PopupText_SureDeleteQuestion" xml:space="preserve">
+    <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Вы уверены что хотите удалить {$1}?</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
@@ -201,10 +192,10 @@
     <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
         <value>Не удалось проверить, обновлён ли Wheel Wizard до последней версии? \nВы возможно испытываете проблемы с подключеним.</value>
     </data>
-    <data name="PopupText_UpdateAdmin" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Title" xml:space="preserve">
         <value>Обновитесь через права администратора.</value>
     </data>
-    <data name="PopupText_UpdateAdminExplained" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>Иногда, для обновления нужны права администратора. Хотите ли вы их активировать ради этого обновления?</value>
     </data>
     <data name="PopupText_UpdateRR" xml:space="preserve">
@@ -213,7 +204,7 @@
     <data name="PopupText_UpdateWhWz" xml:space="preserve">
         <value>Обновляем Wheel Wizard</value>
     </data>
-    <data name="PopupText_WhWzUpdateAvailable" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Доступно обновление Wheel Wizard</value>
     </data>
     <data name="PupupText_DownloadingMb" xml:space="preserve">

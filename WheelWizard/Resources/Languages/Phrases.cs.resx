@@ -24,10 +24,10 @@
     <data name="EmptyContent_NoFriends_Title" xml:space="preserve">
         <value>Zatím žádní kamarádi!</value>
     </data>
-    <data name="PopupText_DownloadRR" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Stáhnout Retro Rewind</value>
     </data>
-    <data name="PopupText_EnterTitle" xml:space="preserve">
+    <data name="Question_EnterTitle" xml:space="preserve">
         <value>Zadej Název:</value>
     </data>
     <data name="PopupText_InstallingRR" xml:space="preserve">
@@ -36,7 +36,7 @@
     <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
         <value>Instalování Retro Rewind poprvé</value>
     </data>
-    <data name="PopupText_ReinstallRR" xml:space="preserve">
+    <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Přeinstalovat Retro Rewind</value>
     </data>
     <data name="PopupText_RRUpToDate" xml:space="preserve">

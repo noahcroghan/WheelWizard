@@ -50,7 +50,7 @@ public static class MessageHelper
             Message.Error_StanderdError => ("Standard Error", "Something went wrong!"),
 
             #endregion
-            
+
             _ => ("Message", $"Unknown translation for: {msg.ToString()}"),
         };
     }

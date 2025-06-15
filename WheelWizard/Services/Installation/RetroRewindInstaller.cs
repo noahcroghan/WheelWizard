@@ -29,8 +29,8 @@ public static class RetroRewindInstaller
     public static async Task<bool> HandleNotInstalled()
     {
         var result = await new YesNoWindow()
-            .SetMainText(Phrases.PopupText_RRNotDeterment)
-            .SetExtraText(Phrases.PopupText_DownloadRR)
+            .SetMainText(Phrases.Question_RRNotDeterment_Title)
+            .SetExtraText(Phrases.Question_RRNotDeterment_Extra)
             .AwaitAnswer();
 
         if (!result)
@@ -43,8 +43,8 @@ public static class RetroRewindInstaller
     public static async Task<bool> HandleOldVersion()
     {
         var result = await new YesNoWindow()
-            .SetMainText(Phrases.PopupText_RRToOld)
-            .SetExtraText(Phrases.PopupText_ReinstallRR)
+            .SetMainText(Phrases.Question_RRToOld_Title)
+            .SetExtraText(Phrases.Question_RRToOld_Extra)
             .AwaitAnswer();
 
         if (!result)
@@ -62,8 +62,8 @@ public static class RetroRewindInstaller
         if (HasOldRksys())
         {
             var rksysQuestion = new YesNoWindow()
-                .SetMainText(Phrases.PopupText_OldRksysFound)
-                .SetExtraText(Phrases.PopupText_OldRksysFoundExplained);
+                .SetMainText(Phrases.Question_OldRksysFound_Title)
+                .SetExtraText(Phrases.Question_OldRksysFound_Extra);
             if (await rksysQuestion.AwaitAnswer())
                 await BackupOldrksys();
         }
@@ -84,8 +84,8 @@ public static class RetroRewindInstaller
     public static async Task ReinstallRR()
     {
         var result = await new YesNoWindow()
-            .SetMainText(Phrases.PopupText_ReinstallRR)
-            .SetExtraText(Phrases.PopupText_ReinstallQuestion)
+            .SetMainText(Phrases.Question_ReinstallRR_Title)
+            .SetExtraText(Phrases.Question_ReinstallRR_Extra)
             .AwaitAnswer();
 
         if (!result)

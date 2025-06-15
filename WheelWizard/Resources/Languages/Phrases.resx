@@ -109,10 +109,10 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="PupupText_DownloadingMb" xml:space="preserve">
         <value>downloading {$1} MB</value>
     </data>
-    <data name="PopupText_ModsFound" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
         <value>Mods found</value>
     </data>
-    <data name="PopupText_ModsFoundQuestion" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>You are about to launch the game without any mods. Do you want to clear your my-stuff folder?</value>
     </data>
     <data name="PopupText_InstallingMods" xml:space="preserve">
@@ -127,28 +127,25 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="PopupText_NotFindGame" xml:space="preserve">
         <value>Could not find the game, please set the path in settings</value>
     </data>
-    <data name="PopupText_ModCombineQuestion" xml:space="preserve">
-        <value>Do you want to combine all files into 1 mod?</value>
-    </data>
     <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
         <value>Multiple Files Selected</value>
     </data>
     <data name="PopupText_ModNameExists" xml:space="preserve">
         <value>A mod with the name '{$1}' already exists.</value>
     </data>
-    <data name="PopupText_EnterModName" xml:space="preserve">
+    <data name="Question_EnterModName" xml:space="preserve">
         <value>Enter Mod Name:</value>
     </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
         <value>Mod name can't be empty</value>
     </data>
-    <data name="PopupText_SureDeleteQuestion" xml:space="preserve">
+    <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Are you sure you want to delete {$1}?</value>
     </data>
     <data name="PopupText_NoModFolder" xml:space="preserve">
         <value>Mod folder does not exist</value>
     </data>
-    <data name="PopupText_EnterTitle" xml:space="preserve">
+    <data name="Question_EnterTitle" xml:space="preserve">
         <value>Enter Title:</value>
     </data>
     <data name="PopupText_ProcessingXofY" xml:space="preserve">
@@ -160,16 +157,16 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="PopupText_SettingsSaved" xml:space="preserve">
         <value>Settings saved successfully!</value>
     </data>
-    <data name="PopupText_ApplyScale" xml:space="preserve">
+    <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>Do you want to apply the new scale?</value>
     </data>
-    <data name="PopupText_DolphinFound" xml:space="preserve">
+    <data name="Question_DolphinFound_Title" xml:space="preserve">
         <value>Dolphin Emulator Folder Found</value>
     </data>
     <data name="PopupText_DolphinNotFound" xml:space="preserve">
         <value>Dolphin Emulator Folder Not Found</value>
     </data>
-    <data name="PopupText_DolphinFoundText" xml:space="preserve">
+    <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>If you dont know what all of this means, just click yes :) \nDolphin Emulator folder found. Would you like to use this folder?</value>
     </data>
     <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
@@ -190,13 +187,13 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="PopupText_FailCheckUpdates" xml:space="preserve">
         <value>Failed to check for updates</value>
     </data>
-    <data name="PopupText_WhWzUpdateAvailable" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Wheel Wizard Update Available</value>
     </data>
-    <data name="PopupText_UpdateAdmin" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Title" xml:space="preserve">
         <value>Update using admin</value>
     </data>
-    <data name="PopupText_UpdateAdminExplained" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>Sometimes an update requires admin rights, do you want to active them for this update?</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
@@ -205,7 +202,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="PopupText_RestartAdminFail" xml:space="preserve">
         <value>Failed to restart with administrator rights.</value>
     </data>
-    <data name="PopupText_NewVersionWhWz" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>Version {$1} of Wheel Wizard is available (currently on {$2}). Do you want to update now?</value>
     </data>
     <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
@@ -217,7 +214,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
         <value>Unable to update Wheel Wizard. Please ensure the application is located in a folder that can be written to.\n Could not find current folder.</value>
     </data>
-    <data name="PopupText_ReinstallRR" xml:space="preserve">
+    <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Reinstall Retro Rewind</value>
     </data>
     <data name="PopupText_InstallingRR" xml:space="preserve">
@@ -226,34 +223,28 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
         <value>Installing Retro Rewind for the first time</value>
     </data>
-    <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
-        <value>There are already files in your RetroRewind Folder. Would you like to install?</value>
-    </data>
     <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
         <value>Could not connect to the server. Please try again later.</value>
     </data>
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>Old Retro Rewind found</value>
     </data>
-    <data name="PopupText_OldRRFoundExplained" xml:space="preserve">
-        <value>Old Retro Rewind files were found. Would you like to move them to the new location?</value>
-    </data>
-    <data name="PopupText_OldRksysFound" xml:space="preserve">
+    <data name="Question_OldRksysFound_Title" xml:space="preserve">
         <value>Old rksys.dat found</value>
     </data>
-    <data name="PopupText_OldRksysFoundExplained" xml:space="preserve">
+    <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Old save data was found. Would you like to use it? (recommended)</value>
     </data>
-    <data name="PopupText_RRToOld" xml:space="preserve">
+    <data name="Question_RRToOld_Extra" xml:space="preserve">
         <value>Your version of Retro Rewind is too old to update. Would you like to reinstall Retro Rewind?</value>
     </data>
-    <data name="PopupText_DownloadRR" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Download Retro Rewind</value>
     </data>
-    <data name="PopupText_RRNotDeterment" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
         <value>Your version of Retro Rewind could not be determined. Would you like to download Retro Rewind?</value>
     </data>
-    <data name="PopupText_ReinstallQuestion" xml:space="preserve">
+    <data name="Question_ReinstallRR_Extra" xml:space="preserve">
         <value>Are you sure you want to reinstall Retro Rewind?</value>
     </data>
     <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
@@ -264,5 +255,11 @@ To join a specific room, you'll need to either join through a friend, or hope to
     </data>
     <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
         <value>To add friends you need to add them in-game.</value>
+    </data>
+    <data name="Question_ApplyScale_Extra" xml:space="preserve">
+        <value>This change will revert in {$1} unless you decide to keep the change.</value>
+    </data>
+    <data name="Question_RRToOld_Title" xml:space="preserve">
+        <value>Retro Rewind version to old.</value>
     </data>
 </root>

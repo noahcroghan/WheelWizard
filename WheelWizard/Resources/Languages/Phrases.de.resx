@@ -85,10 +85,10 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="PopupText_InstallingModsCount" xml:space="preserve">
         <value>Installiere {$1} Mods</value>
     </data>
-    <data name="PopupText_ModsFound" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
         <value>Mods gefunden</value>
     </data>
-    <data name="PopupText_ModsFoundQuestion" xml:space="preserve">
+    <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>Du bist dabei, das Spiel ohne Mods zu starten. Möchtest du Deinen My Stuff ordner leeren?</value>
     </data>
     <data name="PopupText_NotFindDolphin" xml:space="preserve">
@@ -127,19 +127,16 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="Time_Seconds_x" xml:space="preserve">
         <value>{$1} Sekunden</value>
     </data>
-    <data name="PopupText_AlreadyFilesRR" xml:space="preserve">
-        <value>In Deinem RetroRewind-Ordner befinden sich bereits Dateien. Möchtest Du trotzdem installieren?</value>
-    </data>
-    <data name="PopupText_ApplyScale" xml:space="preserve">
+    <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>Möchtest Du die neue Skala anwenden?</value>
     </data>
     <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
         <value>Es konnte keine Verbindung zum Server hergestellt werden. Bitte versuche es später noch einmal.</value>
     </data>
-    <data name="PopupText_DolphinFound" xml:space="preserve">
+    <data name="Question_DolphinFound_Title" xml:space="preserve">
         <value>Dolphin Emulator Ordner gefunden</value>
     </data>
-    <data name="PopupText_DolphinFoundText" xml:space="preserve">
+    <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>Wenn Du nicht weißt, was das alles bedeutet, klick einfach auf „Ja“ :) \nDolphin Emulator-Ordner gefunden. Möchtest Du diesen Ordner verwenden?</value>
     </data>
     <data name="PopupText_DolphinNotFound" xml:space="preserve">
@@ -148,16 +145,16 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
         <value>Der Ordner „Dolphin Emulator“ wurde nicht automatisch gefunden. Versuche bitte, den Ordner manuell zu finden. Für weitere Informationen einfach auf „Hilfe“ klicken.</value>
     </data>
-    <data name="PopupText_DownloadRR" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Installiere Retro Rewind</value>
     </data>
     <data name="PopupText_EnsurePathsExists" xml:space="preserve">
         <value>Bitte stell es sicher, dass alle Pfade korrekt sind, und versuche es erneut.</value>
     </data>
-    <data name="PopupText_EnterModName" xml:space="preserve">
+    <data name="Question_EnterModName" xml:space="preserve">
         <value>Gib den Mod-Namen ein:</value>
     </data>
-    <data name="PopupText_EnterTitle" xml:space="preserve">
+    <data name="Question_EnterTitle" xml:space="preserve">
         <value>Titel eingeben:</value>
     </data>
     <data name="PopupText_FailCheckUpdates" xml:space="preserve">
@@ -178,9 +175,6 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
         <value>Beziehe die neueste Wheel Wizard-Version vom Github</value>
     </data>
-    <data name="PopupText_ModCombineQuestion" xml:space="preserve">
-        <value>Möchtest Du alle Dateien in einem Mod zusammenfassen?</value>
-    </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
         <value>Mod Name darf nicht leer sein</value>
     </data>
@@ -190,37 +184,34 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="PopupText_MultipleFilesSelected" xml:space="preserve">
         <value>Mehrere Dateien ausgewählt</value>
     </data>
-    <data name="PopupText_NewVersionWhWz" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>Version {$1} von Wheel Wizard ist verfügbar (derzeit für {$2}). Möchtest Du jetzt updaten?</value>
     </data>
     <data name="PopupText_NoModFolder" xml:space="preserve">
         <value>Mod Ordner existiert nicht</value>
     </data>
-    <data name="PopupText_OldRksysFound" xml:space="preserve">
+    <data name="Question_OldRksysFound_Title" xml:space="preserve">
         <value>Alte rksys.dat gefunden</value>
     </data>
-    <data name="PopupText_OldRksysFoundExplained" xml:space="preserve">
+    <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Alte Speicherdaten wurden gefunden. Möchtest Du sie benutzen? (Empfohlen)</value>
     </data>
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>Alte Retro Rewind Version gefunden</value>
     </data>
-    <data name="PopupText_OldRRFoundExplained" xml:space="preserve">
-        <value>Es wurden alte Retro Rewind-Dateien gefunden. Möchtest Du sie an einem neuen Ort speichern?</value>
-    </data>
     <data name="PopupText_ProcessingXofY" xml:space="preserve">
         <value>{$1} von {$2} Dateien werden verarbeitet...</value>
     </data>
-    <data name="PopupText_ReinstallRR" xml:space="preserve">
+    <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Installiere Retro Rewind neu</value>
     </data>
     <data name="PopupText_RestartAdminFail" xml:space="preserve">
         <value>Neustart mit Admin-Rechten fehlgeschlagen.</value>
     </data>
-    <data name="PopupText_RRNotDeterment" xml:space="preserve">
+    <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
         <value>Deine Version von Retro Rewind konnte nicht ermittelt werden. Möchtest Du Retro Rewind herunterladen?</value>
     </data>
-    <data name="PopupText_RRToOld" xml:space="preserve">
+    <data name="Question_RRToOld_Extra" xml:space="preserve">
         <value>Deine Version von Retro Rewind ist zu alt zum Aktualisieren. Möchtest Du Retro Rewind neu installieren?</value>
     </data>
     <data name="PopupText_RRUpToDate" xml:space="preserve">
@@ -229,7 +220,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="PopupText_SettingsSaved" xml:space="preserve">
         <value>Einstellungen erfolgreich gespeichert!</value>
     </data>
-    <data name="PopupText_SureDeleteQuestion" xml:space="preserve">
+    <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Bist Du sicher, dass du {$1} löschen möchtest?</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
@@ -238,10 +229,10 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="PopupText_UnableUpdateWhWz_ReasonNetwork" xml:space="preserve">
         <value>Es kann nicht überprüft werden, ob Wheel Wizard auf dem neuesten Stand ist. \nMöglicherweise treten derzeit Netzwerkprobleme auf.</value>
     </data>
-    <data name="PopupText_UpdateAdmin" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Title" xml:space="preserve">
         <value>Update mit Admin</value>
     </data>
-    <data name="PopupText_UpdateAdminExplained" xml:space="preserve">
+    <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>Manchmal erfordert ein Update Adminrechte. Möchtest Du sie für dieses Update aktivieren?</value>
     </data>
     <data name="PopupText_UpdateRR" xml:space="preserve">
@@ -250,7 +241,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="PopupText_UpdateWhWz" xml:space="preserve">
         <value>Wheel Wizard wird aktualisiert</value>
     </data>
-    <data name="PopupText_WhWzUpdateAvailable" xml:space="preserve">
+    <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Wheel Wizard Update verfügbar</value>
     </data>
 </root>

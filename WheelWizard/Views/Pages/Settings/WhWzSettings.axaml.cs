@@ -136,8 +136,8 @@ public partial class WhWzSettings : UserControl
             if (!string.IsNullOrEmpty(dolphinAppPath))
             {
                 var result = await new YesNoWindow()
-                    .SetMainText("Dolphin Emulator found.")
-                    .SetExtraText($"{Phrases.PopupText_DolphinFoundText}\n{dolphinAppPath}")
+                    .SetMainText(Phrases.Question_DolphinFound_Title)
+                    .SetExtraText($"{Phrases.Question_DolphinFound_Extra}\n{dolphinAppPath}")
                     .AwaitAnswer();
 
                 if (result)
@@ -204,8 +204,8 @@ public partial class WhWzSettings : UserControl
         {
             // Ask the user if they want to use the automatically found folder
             var result = await new YesNoWindow()
-                .SetMainText($"{Phrases.PopupText_DolphinFoundText}\n{folderPath}")
-                .SetExtraText(Phrases.PopupText_DolphinFound)
+                .SetMainText(Phrases.Question_DolphinFound_Title)
+                .SetExtraText($"{Phrases.Question_DolphinFound_Extra}\n{folderPath}")
                 .AwaitAnswer();
 
             if (result)
@@ -336,25 +336,26 @@ public partial class WhWzSettings : UserControl
             return;
 
         _editingScale = true;
-        var selectedLanguage = WindowScaleDropdown.SelectedItem.ToString();
-        var scale = double.Parse(selectedLanguage!.Split(" ").Last().Replace("%", "")) / 100;
+        var selectedScale = WindowScaleDropdown.SelectedItem?.ToString() ?? "1";
+        var scale = double.Parse(selectedScale.Split(" ").Last().Replace("%", "")) / 100;
 
         SettingsManager.WINDOW_SCALE.Set(scale);
         var seconds = 10;
-        string ExtraText() =>
-            $"This change will revert in {Humanizer.HumanizeSeconds(seconds)} " + $"unless you decide to keep the change.";
+        string ExtraScaleText() =>
+            Humanizer.ReplaceDynamic(Phrases.Question_ApplyScale_Extra, Humanizer.HumanizeSeconds(seconds))
+            ?? $"This will apply the new scale in {Humanizer.HumanizeSeconds(seconds)} seconds. You can cancel this by clicking Revert.";
 
         var yesNoWindow = new YesNoWindow()
             .SetButtonText(Common.Action_Apply, Common.Action_Revert)
-            .SetMainText(Phrases.PopupText_ApplyScale)
-            .SetExtraText(ExtraText());
+            .SetMainText(Phrases.Question_ApplyScale_Title)
+            .SetExtraText(ExtraScaleText());
         // we want to now set up a timer every second to update the text, and at the last second close the window
         var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
 
         timer.Tick += (_, args) =>
         {
             seconds--;
-            yesNoWindow.SetExtraText(ExtraText());
+            yesNoWindow.SetExtraText(ExtraScaleText());
             if (seconds != 0)
                 return;
             yesNoWindow.Close();

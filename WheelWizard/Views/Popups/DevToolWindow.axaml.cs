@@ -17,7 +17,8 @@ namespace WheelWizard.Views.Popups;
 
 public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
 {
-    [Inject] private IMemoryCache Cache { get; set; } = null!;
+    [Inject]
+    private IMemoryCache Cache { get; set; } = null!;
 
     public DevToolWindow()
         : base(true, true, true, "Dev Tool")
