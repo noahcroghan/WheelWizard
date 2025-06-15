@@ -2,7 +2,7 @@ using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Helpers;
 
-public enum Message
+public enum MessageTranslation
 {
     #region Successes
 
@@ -23,31 +23,31 @@ public enum Message
     #endregion
 }
 
-public static class MessageHelper
+public static class MessageTranslationHelper
 {
     /// <summary>
     /// Returns the translation related to this message enum
     /// </summary>
     /// <returns>(Title, additional information)</returns>
-    public static (string, string) GetTranslationText(Message msg)
+    public static (string, string) GetTranslationText(MessageTranslation msg)
     {
         return msg switch
         {
             #region Successes
 
-            Message.Success_StanderdSuccess => ("Success", "Completed successfully!"),
+            MessageTranslation.Success_StanderdSuccess => ("Success", "Completed successfully!"),
 
             #endregion
 
             #region Warnings
 
-            Message.Warning_StanderdWarning => ("Warning", "Something went wrong!"),
+            MessageTranslation.Warning_StanderdWarning => ("Warning", "Something went wrong!"),
 
             #endregion
 
             #region Errors
 
-            Message.Error_StanderdError => ("Standard Error", "Something went wrong!"),
+            MessageTranslation.Error_StanderdError => ("Standard Error", "Something went wrong!"),
 
             #endregion
 
@@ -60,18 +60,22 @@ public static class MessageHelper
     /// <summary>
     ///  Shows a message box with the given message enum.
     /// </summary>
-    public static Task ShowMessageBox(Message msg, object[]? titleReplacements = null, object[]? extraReplacements = null, bool asDialog = false)
+    public static Task ShowMessageBox(
+        MessageTranslation msg,
+        object[]? titleReplacements = null,
+        object[]? extraReplacements = null,
+        bool asDialog = false
+    )
     {
         var (title, extraText) = GetTranslationText(msg);
         var type =
             (int)msg < 2000 ? MessageBoxWindow.MessageType.Message
             : (int)msg < 3000 ? MessageBoxWindow.MessageType.Warning
             : MessageBoxWindow.MessageType.Error;
-        var box = new MessageBoxWindow().SetMessageType(type).SetTitleText(
-            Humanizer.ReplaceDynamic(title, titleReplacements ?? []) ?? title
-            ).SetInfoText(
-            Humanizer.ReplaceDynamic(extraText, extraReplacements ?? []) ?? extraText
-            );
+        var box = new MessageBoxWindow()
+            .SetMessageType(type)
+            .SetTitleText(Humanizer.ReplaceDynamic(title, titleReplacements ?? []) ?? title)
+            .SetInfoText(Humanizer.ReplaceDynamic(extraText, extraReplacements ?? []) ?? extraText);
         if (type != MessageBoxWindow.MessageType.Message)
             box.SetTag($"{(int)msg}");
 

@@ -107,7 +107,7 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
             )
             .Show();
 
-        MessageHelper.ShowMessageBox(Message.Error_StanderdError);
+        MessageTranslationHelper.ShowMessageBox(MessageTranslation.Error_StanderdError);
     }
 
     private async void YesNoPopup_OnClick(object sender, RoutedEventArgs e)
