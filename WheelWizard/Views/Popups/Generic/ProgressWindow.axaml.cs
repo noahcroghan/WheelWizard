@@ -49,7 +49,7 @@ public partial class ProgressWindow : PopupContent
 
         var remainingText = _progress <= 0 ? Common.State_Unknown : Humanizer.HumanizeSeconds((int)remainingSeconds);
 
-        var bottomText = $"{Phrases.PopupText_EsimatedTimeRemaining} {remainingText}";
+        var bottomText = $"{Phrases.Progress_EstimatedTimeRemaining} {remainingText}";
 
         if (_totalMb != null)
         {

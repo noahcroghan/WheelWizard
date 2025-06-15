@@ -73,7 +73,7 @@
     <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>새로운 해상도를 적용하시겠습니까?</value>
     </data>
-    <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
+    <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
         <value>서버에 연결할 수 없습니다. 잠시 후 다시 시도해 주십시오.</value>
     </data>
     <data name="Question_DolphinFound_Title" xml:space="preserve">
@@ -82,16 +82,16 @@
     <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>돌핀 에뮬레이터 폴더를 찾았습니다. 해당 폴더를 사용하시겠습니까? \n뭔 소린지 모르겠다면 그냥 "네"를 누르세요 ^_^</value>
     </data>
-    <data name="PopupText_DolphinNotFound" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Title" xml:space="preserve">
         <value>돌핀 에뮬레이터 폴더를 찾지 못했습니다</value>
     </data>
-    <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Extra" xml:space="preserve">
         <value>돌핀 에뮬레이터 폴더를 자동으로 찾지 못했습니다. 폴더를 수동으로 찾아야 합니다. "help"를 클릭해 자세한 설명을 보십시오.</value>
     </data>
     <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>레트로 리와인드 다운로드</value>
     </data>
-    <data name="PopupText_EnsurePathsExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>모든 경로가 정확한지 확인한 후 다시 시도해 주십시오.</value>
     </data>
     <data name="Question_EnterModName" xml:space="preserve">
@@ -100,31 +100,31 @@
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>제목 입력:</value>
     </data>
-    <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
+    <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>추정된 남은 시간:</value>
     </data>
-    <data name="PopupText_FailCheckUpdates" xml:space="preserve">
+    <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
         <value>업데이트 확인 실패</value>
     </data>
-    <data name="PopupText_FailedUpdateApply" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>업데이트 적용 실패, 중단합니다.</value>
     </data>
-    <data name="PopupText_FailedUpdateDelete" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateDelete" xml:space="preserve">
         <value>업데이트 파일 삭제 실패, 중단합니다.</value>
     </data>
-    <data name="PopupText_InstallingMods" xml:space="preserve">
+    <data name="Progress_InstallingMods" xml:space="preserve">
         <value>모드 설치</value>
     </data>
-    <data name="PopupText_InstallingModsCount" xml:space="preserve">
+    <data name="Progress_InstallingModsCount" xml:space="preserve">
         <value>{$1}개의 모드를 설치</value>
     </data>
-    <data name="PopupText_InstallingRR" xml:space="preserve">
+    <data name="Progress_InstallingRR" xml:space="preserve">
         <value>레트로 리와인드 설치</value>
     </data>
-    <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
+    <data name="Progress_InstallingRRFirstTime" xml:space="preserve">
         <value>레트로 리와인드를 처음으로 설치</value>
     </data>
-    <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
+    <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>최신 휠 위저드를 Github에서 받기</value>
     </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
@@ -163,7 +163,7 @@
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>레트로 리와인드 구버전 발견</value>
     </data>
-    <data name="PopupText_ProcessingXofY" xml:space="preserve">
+    <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>{$2}개 중 {$1} 개의 파일 진행중...</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
@@ -199,10 +199,7 @@
     <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>가끔, 업데이트에는 관리자 권한이 필요합니다. 이 업데이트를 위해 활성화 하시겠습니까?</value>
     </data>
-    <data name="PopupText_UpdateRR" xml:space="preserve">
-        <value>레트로 리와인드 업데이트</value>
-    </data>
-    <data name="PopupText_UpdateWhWz" xml:space="preserve">
+    <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>휠 위저드를 업데이트 중</value>
     </data>
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">

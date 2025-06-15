@@ -30,10 +30,10 @@
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Zadej Název:</value>
     </data>
-    <data name="PopupText_InstallingRR" xml:space="preserve">
+    <data name="Progress_InstallingRR" xml:space="preserve">
         <value>Instalování Retro Rewind</value>
     </data>
-    <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
+    <data name="Progress_InstallingRRFirstTime" xml:space="preserve">
         <value>Instalování Retro Rewind poprvé</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
@@ -42,10 +42,10 @@
     <data name="PopupText_RRUpToDate" xml:space="preserve">
         <value>Retro Rewind je aktuální.</value>
     </data>
-    <data name="PopupText_UpdateRR" xml:space="preserve">
+    <data name="Progress_UpdateRR" xml:space="preserve">
         <value>Aktualizovat Retro Rewind</value>
     </data>
-    <data name="PopupText_UpdateWhWz" xml:space="preserve">
+    <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Aktualizovat Wheel Wizard</value>
     </data>
     <data name="PupupText_DownloadingMb" xml:space="preserve">

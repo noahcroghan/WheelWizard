@@ -103,7 +103,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="EmptyContent_NoRooms_Title" xml:space="preserve">
         <value>No rooms found</value>
     </data>
-    <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
+    <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Estimated time remaining:</value>
     </data>
     <data name="PupupText_DownloadingMb" xml:space="preserve">
@@ -115,10 +115,10 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>You are about to launch the game without any mods. Do you want to clear your my-stuff folder?</value>
     </data>
-    <data name="PopupText_InstallingMods" xml:space="preserve">
+    <data name="Progress_InstallingMods" xml:space="preserve">
         <value>Installing mods</value>
     </data>
-    <data name="PopupText_InstallingModsCount" xml:space="preserve">
+    <data name="Progress_InstallingModsCount" xml:space="preserve">
         <value>Installing {$1} mods</value>
     </data>
     <data name="PopupText_NotFindDolphin" xml:space="preserve">
@@ -148,10 +148,10 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Enter Title:</value>
     </data>
-    <data name="PopupText_ProcessingXofY" xml:space="preserve">
+    <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>Processing {$1} of {$2} files...</value>
     </data>
-    <data name="PopupText_EnsurePathsExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Please ensure all paths are correct and try again.</value>
     </data>
     <data name="PopupText_SettingsSaved" xml:space="preserve">
@@ -163,28 +163,28 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Question_DolphinFound_Title" xml:space="preserve">
         <value>Dolphin Emulator Folder Found</value>
     </data>
-    <data name="PopupText_DolphinNotFound" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Title" xml:space="preserve">
         <value>Dolphin Emulator Folder Not Found</value>
     </data>
     <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>If you dont know what all of this means, just click yes :) \nDolphin Emulator folder found. Would you like to use this folder?</value>
     </data>
-    <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Extra" xml:space="preserve">
         <value>Dolphin Emulator folder not automatically found. Please try and find the folder manually, click 'help' for more information.</value>
     </data>
-    <data name="PopupText_FailedUpdateDelete" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateDelete" xml:space="preserve">
         <value>Failed to delete files for the update. Aborting.</value>
     </data>
-    <data name="PopupText_UpdateRR" xml:space="preserve">
-        <value>Update Retro Rewind</value>
+    <data name="Progress_UpdateRR" xml:space="preserve">
+        <value>Updating Retro Rewind</value>
     </data>
-    <data name="PopupText_FailedUpdateApply" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>Failed to apply an update. Aborting.</value>
     </data>
     <data name="PopupText_RRUpToDate" xml:space="preserve">
         <value>Retro Rewind is up to date.</value>
     </data>
-    <data name="PopupText_FailCheckUpdates" xml:space="preserve">
+    <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
         <value>Failed to check for updates</value>
     </data>
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
@@ -205,10 +205,10 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>Version {$1} of Wheel Wizard is available (currently on {$2}). Do you want to update now?</value>
     </data>
-    <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
+    <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Getting the latest Wheel Wizard from github releases</value>
     </data>
-    <data name="PopupText_UpdateWhWz" xml:space="preserve">
+    <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Updating Wheel Wizard</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
@@ -217,13 +217,13 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Reinstall Retro Rewind</value>
     </data>
-    <data name="PopupText_InstallingRR" xml:space="preserve">
+    <data name="Progress_InstallingRR" xml:space="preserve">
         <value>Installing Retro Rewind</value>
     </data>
-    <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
+    <data name="Progress_InstallingRRFirstTime" xml:space="preserve">
         <value>Installing Retro Rewind for the first time</value>
     </data>
-    <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
+    <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
         <value>Could not connect to the server. Please try again later.</value>
     </data>
     <data name="PopupText_OldRRFound" xml:space="preserve">
@@ -261,5 +261,20 @@ To join a specific room, you'll need to either join through a friend, or hope to
     </data>
     <data name="Question_RRToOld_Title" xml:space="preserve">
         <value>Retro Rewind version to old.</value>
+    </data>
+    <data name="MessageWarning_NoConnectServer_Title" xml:space="preserve">
+        <value>Could not connect to the server</value>
+    </data>
+    <data name="MessageWarning_InvalidPaths_Title" xml:space="preserve">
+        <value>Invalid Paths.</value>
+    </data>
+    <data name="MessageWarning_FailCheckUpdates_Extra" xml:space="preserve">
+        <value>Can't check for updates right now. You might not be connected to the internet or the server might be down.</value>
+    </data>
+    <data name="MessageError_AbortRR_Title" xml:space="preserve">
+        <value>Aborting RR Update</value>
+    </data>
+    <data name="MessageError_AbortRR_Extra_InvalidFilePath" xml:space="preserve">
+        <value>Invalid file path detected. Please contact the developers.\n Server error:  {$1}</value>
     </data>
 </root>

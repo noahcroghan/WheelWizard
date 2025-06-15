@@ -84,8 +84,8 @@ public class WindowsUpdatePlatform(IFileSystem fileSystem) : IUpdatePlatform
         await DownloadHelper.DownloadToLocationAsync(
             downloadUrl,
             newFilePath,
-            Phrases.PopupText_UpdateWhWz,
-            Phrases.PopupText_LatestWhWzGithub,
+            Phrases.Progress_UpdateWhWz,
+            Phrases.Progress_LatestWhWzGithub,
             ForceGivenFilePath: true
         );
 

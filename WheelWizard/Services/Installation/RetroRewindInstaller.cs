@@ -72,8 +72,8 @@ public static class RetroRewindInstaller
         {
             await new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText("Could not connect to the server")
-                .SetInfoText(Phrases.PopupText_CouldNotConnectServer)
+                .SetTitleText(Phrases.MessageWarning_NoConnectServer_Title)
+                .SetInfoText(Phrases.MessageWarning_NoConnectServer_Extra)
                 .ShowDialog();
             return;
         }
@@ -97,8 +97,8 @@ public static class RetroRewindInstaller
 
     private static async Task DownloadAndExtractRetroRewind(string tempZipPath)
     {
-        var progressWindow = new ProgressWindow(Phrases.PopupText_InstallingRR);
-        progressWindow.SetExtraText(Phrases.PopupText_InstallingRRFirstTime);
+        var progressWindow = new ProgressWindow(Phrases.Progress_InstallingRR);
+        progressWindow.SetExtraText(Phrases.Progress_InstallingRRFirstTime);
         progressWindow.Show();
 
         try

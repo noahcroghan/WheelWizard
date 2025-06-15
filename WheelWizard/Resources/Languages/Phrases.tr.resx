@@ -73,7 +73,7 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>Yeni ölçeği uygulamak istiyor musunuz?</value>
     </data>
-    <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
+    <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
         <value>Sunucuya bağlanılamadı. Lütfen daha sonra tekrar deneyin.</value>
     </data>
     <data name="Question_DolphinFound_Title" xml:space="preserve">
@@ -82,16 +82,16 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>Eğer bunların ne anlama geldiğini bilmiyorsanız, evet diyebilirsiniz :) \nDolphin Emulator klasörü bulundu. Bu klasörü kullanmak ister misiniz?</value>
     </data>
-    <data name="PopupText_DolphinNotFound" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Title" xml:space="preserve">
         <value>Dolphin Emulator Klasörü Bulunamadı</value>
     </data>
-    <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Extra" xml:space="preserve">
         <value>Dolphin Emulator klasörü otomatik olarak bulunamadı. Lütfen klasörü manuel olarak bulmayı deneyin, daha fazla bilgi için 'yardım'ı tıklayın.</value>
     </data>
     <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Retro Rewind İndir</value>
     </data>
-    <data name="PopupText_EnsurePathsExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Lütfen tüm yolların doğru olduğundan emin olun ve tekrar deneyin.</value>
     </data>
     <data name="Question_EnterModName" xml:space="preserve">
@@ -100,31 +100,31 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Başlık Girin:</value>
     </data>
-    <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
+    <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Kalan Tahmini Süre:</value>
     </data>
-    <data name="PopupText_FailCheckUpdates" xml:space="preserve">
+    <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
         <value>Güncellemeleri kontrol etme başarısız oldu</value>
     </data>
-    <data name="PopupText_FailedUpdateApply" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>Güncellemeyi uygulamak başarısız oldu. İşlem iptal ediliyor.</value>
     </data>
-    <data name="PopupText_FailedUpdateDelete" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateDelete" xml:space="preserve">
         <value>Güncelleme dosyalarını silmek başarısız oldu. İşlem iptal ediliyor.</value>
     </data>
-    <data name="PopupText_InstallingMods" xml:space="preserve">
+    <data name="Progress_InstallingMods" xml:space="preserve">
         <value>Modlar Yükleniyor</value>
     </data>
-    <data name="PopupText_InstallingModsCount" xml:space="preserve">
+    <data name="Progress_InstallingModsCount" xml:space="preserve">
         <value>{$1} modları yükleniyor</value>
     </data>
-    <data name="PopupText_InstallingRR" xml:space="preserve">
+    <data name="Progress_InstallingRR" xml:space="preserve">
         <value>Retro Rewind Yükleniyor</value>
     </data>
-    <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
+    <data name="Progress_InstallingRRFirstTime" xml:space="preserve">
         <value>Retro Rewind ilk kez yükleniyor</value>
     </data>
-    <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
+    <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Github sürümlerinden en son Wheel Wizard alınıyor</value>
     </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
@@ -163,7 +163,7 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>Eski Retro Rewind bulundu</value>
     </data>
-    <data name="PopupText_ProcessingXofY" xml:space="preserve">
+    <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>{$1} dosyasından {$2} işleniyor...</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
@@ -199,10 +199,7 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>Bazen bir güncelleme yönetici hakları gerektirir, bu güncelleme için onları aktif etmek ister misiniz?</value>
     </data>
-    <data name="PopupText_UpdateRR" xml:space="preserve">
-        <value>Retro Rewind'ı güncelle</value>
-    </data>
-    <data name="PopupText_UpdateWhWz" xml:space="preserve">
+    <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Wheel Wizard güncelleniyor</value>
     </data>
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">

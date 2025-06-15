@@ -241,119 +241,110 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not connect to the server. Please try again later..
-        /// </summary>
-        public static string PopupText_CouldNotConnectServer {
-            get {
-                return ResourceManager.GetString("PopupText_CouldNotConnectServer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dolphin Emulator Folder Not Found.
-        /// </summary>
-        public static string PopupText_DolphinNotFound {
-            get {
-                return ResourceManager.GetString("PopupText_DolphinNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Dolphin Emulator folder not automatically found. Please try and find the folder manually, click &apos;help&apos; for more information..
-        /// </summary>
-        public static string PopupText_DolphinNotFoundText {
-            get {
-                return ResourceManager.GetString("PopupText_DolphinNotFoundText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please ensure all paths are correct and try again..
-        /// </summary>
-        public static string PopupText_EnsurePathsExists {
-            get {
-                return ResourceManager.GetString("PopupText_EnsurePathsExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Estimated time remaining:.
-        /// </summary>
-        public static string PopupText_EsimatedTimeRemaining {
-            get {
-                return ResourceManager.GetString("PopupText_EsimatedTimeRemaining", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to check for updates.
-        /// </summary>
-        public static string PopupText_FailCheckUpdates {
-            get {
-                return ResourceManager.GetString("PopupText_FailCheckUpdates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Failed to apply an update. Aborting..
         /// </summary>
-        public static string PopupText_FailedUpdateApply {
+        public static string MessageError_AbortRR_Extra_FailedUpdateApply {
             get {
-                return ResourceManager.GetString("PopupText_FailedUpdateApply", resourceCulture);
+                return ResourceManager.GetString("MessageError_AbortRR_Extra_FailedUpdateApply", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Failed to delete files for the update. Aborting..
         /// </summary>
-        public static string PopupText_FailedUpdateDelete {
+        public static string MessageError_AbortRR_Extra_FailedUpdateDelete {
             get {
-                return ResourceManager.GetString("PopupText_FailedUpdateDelete", resourceCulture);
+                return ResourceManager.GetString("MessageError_AbortRR_Extra_FailedUpdateDelete", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installing mods.
+        ///   Looks up a localized string similar to Invalid file path detected. Please contact the developers.\n Server error:  {$1}.
         /// </summary>
-        public static string PopupText_InstallingMods {
+        public static string MessageError_AbortRR_Extra_InvalidFilePath {
             get {
-                return ResourceManager.GetString("PopupText_InstallingMods", resourceCulture);
+                return ResourceManager.GetString("MessageError_AbortRR_Extra_InvalidFilePath", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installing {$1} mods.
+        ///   Looks up a localized string similar to Aborting RR Update.
         /// </summary>
-        public static string PopupText_InstallingModsCount {
+        public static string MessageError_AbortRR_Title {
             get {
-                return ResourceManager.GetString("PopupText_InstallingModsCount", resourceCulture);
+                return ResourceManager.GetString("MessageError_AbortRR_Title", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installing Retro Rewind.
+        ///   Looks up a localized string similar to Dolphin Emulator folder not automatically found. Please try and find the folder manually, click &apos;help&apos; for more information..
         /// </summary>
-        public static string PopupText_InstallingRR {
+        public static string MessageWarning_DolphinNotFound_Extra {
             get {
-                return ResourceManager.GetString("PopupText_InstallingRR", resourceCulture);
+                return ResourceManager.GetString("MessageWarning_DolphinNotFound_Extra", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installing Retro Rewind for the first time.
+        ///   Looks up a localized string similar to Dolphin Emulator Folder Not Found.
         /// </summary>
-        public static string PopupText_InstallingRRFirstTime {
+        public static string MessageWarning_DolphinNotFound_Title {
             get {
-                return ResourceManager.GetString("PopupText_InstallingRRFirstTime", resourceCulture);
+                return ResourceManager.GetString("MessageWarning_DolphinNotFound_Title", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Getting the latest Wheel Wizard from github releases.
+        ///   Looks up a localized string similar to Can&apos;t check for updates right now. You might not be connected to the internet or the server might be down..
         /// </summary>
-        public static string PopupText_LatestWhWzGithub {
+        public static string MessageWarning_FailCheckUpdates_Extra {
             get {
-                return ResourceManager.GetString("PopupText_LatestWhWzGithub", resourceCulture);
+                return ResourceManager.GetString("MessageWarning_FailCheckUpdates_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to check for updates.
+        /// </summary>
+        public static string MessageWarning_FailCheckUpdates_Title {
+            get {
+                return ResourceManager.GetString("MessageWarning_FailCheckUpdates_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please ensure all paths are correct and try again..
+        /// </summary>
+        public static string MessageWarning_InvalidPaths_Extra {
+            get {
+                return ResourceManager.GetString("MessageWarning_InvalidPaths_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Paths..
+        /// </summary>
+        public static string MessageWarning_InvalidPaths_Title {
+            get {
+                return ResourceManager.GetString("MessageWarning_InvalidPaths_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not connect to the server. Please try again later..
+        /// </summary>
+        public static string MessageWarning_NoConnectServer_Extra {
+            get {
+                return ResourceManager.GetString("MessageWarning_NoConnectServer_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not connect to the server.
+        /// </summary>
+        public static string MessageWarning_NoConnectServer_Title {
+            get {
+                return ResourceManager.GetString("MessageWarning_NoConnectServer_Title", resourceCulture);
             }
         }
         
@@ -421,15 +412,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Processing {$1} of {$2} files....
-        /// </summary>
-        public static string PopupText_ProcessingXofY {
-            get {
-                return ResourceManager.GetString("PopupText_ProcessingXofY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Failed to restart with administrator rights..
         /// </summary>
         public static string PopupText_RestartAdminFail {
@@ -475,20 +457,83 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Retro Rewind.
+        ///   Looks up a localized string similar to Estimated time remaining:.
         /// </summary>
-        public static string PopupText_UpdateRR {
+        public static string Progress_EstimatedTimeRemaining {
             get {
-                return ResourceManager.GetString("PopupText_UpdateRR", resourceCulture);
+                return ResourceManager.GetString("Progress_EstimatedTimeRemaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installing mods.
+        /// </summary>
+        public static string Progress_InstallingMods {
+            get {
+                return ResourceManager.GetString("Progress_InstallingMods", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installing {$1} mods.
+        /// </summary>
+        public static string Progress_InstallingModsCount {
+            get {
+                return ResourceManager.GetString("Progress_InstallingModsCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installing Retro Rewind.
+        /// </summary>
+        public static string Progress_InstallingRR {
+            get {
+                return ResourceManager.GetString("Progress_InstallingRR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installing Retro Rewind for the first time.
+        /// </summary>
+        public static string Progress_InstallingRRFirstTime {
+            get {
+                return ResourceManager.GetString("Progress_InstallingRRFirstTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting the latest Wheel Wizard from github releases.
+        /// </summary>
+        public static string Progress_LatestWhWzGithub {
+            get {
+                return ResourceManager.GetString("Progress_LatestWhWzGithub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processing {$1} of {$2} files....
+        /// </summary>
+        public static string Progress_ProcessingXofY {
+            get {
+                return ResourceManager.GetString("Progress_ProcessingXofY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating Retro Rewind.
+        /// </summary>
+        public static string Progress_UpdateRR {
+            get {
+                return ResourceManager.GetString("Progress_UpdateRR", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Updating Wheel Wizard.
         /// </summary>
-        public static string PopupText_UpdateWhWz {
+        public static string Progress_UpdateWhWz {
             get {
-                return ResourceManager.GetString("PopupText_UpdateWhWz", resourceCulture);
+                return ResourceManager.GetString("Progress_UpdateWhWz", resourceCulture);
             }
         }
         

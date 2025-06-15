@@ -150,8 +150,8 @@ public partial class WhWzSettings : UserControl
             {
                 await new MessageBoxWindow()
                     .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                    .SetTitleText("Dolphin App not found in system/user application folders.")
-                    .SetInfoText(Phrases.PopupText_DolphinNotFoundText)
+                    .SetTitleText(Phrases.MessageWarning_DolphinNotFound_Title)
+                    .SetInfoText(Phrases.MessageWarning_DolphinNotFound_Extra)
                     .ShowDialog();
             }
             // Fallback to manual selection
@@ -218,8 +218,8 @@ public partial class WhWzSettings : UserControl
         {
             await new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText("Dolphin Emulator folder not found.")
-                .SetInfoText(Phrases.PopupText_DolphinNotFoundText)
+                .SetTitleText(Phrases.MessageWarning_DolphinNotFound_Title)
+                .SetInfoText(Phrases.MessageWarning_DolphinNotFound_Extra)
                 .ShowDialog();
         }
 
@@ -260,8 +260,8 @@ public partial class WhWzSettings : UserControl
         {
             await new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText("Invalid configuration.")
-                .SetInfoText(Phrases.PopupText_EnsurePathsExists)
+                .SetTitleText(Phrases.MessageWarning_InvalidPaths_Title)
+                .SetInfoText(Phrases.MessageWarning_InvalidPaths_Extra)
                 .ShowDialog();
         }
         else

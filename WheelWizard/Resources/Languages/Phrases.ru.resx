@@ -72,7 +72,7 @@
     <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>Хотите применить новый масштаб?</value>
     </data>
-    <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
+    <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
         <value>Не удалось подключиться к серверу. Попробуйте чуть позже.</value>
     </data>
     <data name="Question_DolphinFound_Title" xml:space="preserve">
@@ -81,16 +81,16 @@
     <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>Если ты понятия не имеешь что это значит, просто нажми да :D \nПапка эмулятора Dolphin найдена. Хотите её использовать?</value>
     </data>
-    <data name="PopupText_DolphinNotFound" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Title" xml:space="preserve">
         <value>Папка эмулятора Dolphin не найдена</value>
     </data>
-    <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Extra" xml:space="preserve">
         <value>Папка эмулятора Dolphin не была найдена автоматически. Пожалуйста, попробуйте найти её самостоятельно. Для подробностей, нажмите на "Помощь"</value>
     </data>
     <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Скачать Retro Rewind</value>
     </data>
-    <data name="PopupText_EnsurePathsExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Убедитесь, что все пути правильны и попробуйте ещё раз.</value>
     </data>
     <data name="Question_EnterModName" xml:space="preserve">
@@ -99,31 +99,31 @@
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Укажите заголовок:</value>
     </data>
-    <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
+    <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Осталось примерно:</value>
     </data>
-    <data name="PopupText_FailCheckUpdates" xml:space="preserve">
+    <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
         <value>Не удалось проверить обновления</value>
     </data>
-    <data name="PopupText_FailedUpdateApply" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>Не удалось применить обновление. Отменяем.</value>
     </data>
-    <data name="PopupText_FailedUpdateDelete" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateDelete" xml:space="preserve">
         <value>Не удалось удалить файлы для обновления. Отменяем</value>
     </data>
-    <data name="PopupText_InstallingMods" xml:space="preserve">
+    <data name="Progress_InstallingMods" xml:space="preserve">
         <value>Устанавливаем моды</value>
     </data>
-    <data name="PopupText_InstallingModsCount" xml:space="preserve">
+    <data name="Progress_InstallingModsCount" xml:space="preserve">
         <value>Устанавливаем {$!} модов</value>
     </data>
-    <data name="PopupText_InstallingRR" xml:space="preserve">
+    <data name="Progress_InstallingRR" xml:space="preserve">
         <value>Устанавливаем Retro Rewind</value>
     </data>
-    <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
+    <data name="Progress_InstallingRRFirstTime" xml:space="preserve">
         <value>Устанавливаем Retro Rewind в первый раз</value>
     </data>
-    <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
+    <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Получаем последнюю версию Wheel Wizard из GitHub</value>
     </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
@@ -162,7 +162,7 @@
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>Старый Retro Rewind был найден.</value>
     </data>
-    <data name="PopupText_ProcessingXofY" xml:space="preserve">
+    <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>Обработка {$1} из {$2} файлов...</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
@@ -198,10 +198,7 @@
     <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>Иногда, для обновления нужны права администратора. Хотите ли вы их активировать ради этого обновления?</value>
     </data>
-    <data name="PopupText_UpdateRR" xml:space="preserve">
-        <value>Обновить Retro Rewind</value>
-    </data>
-    <data name="PopupText_UpdateWhWz" xml:space="preserve">
+    <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Обновляем Wheel Wizard</value>
     </data>
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">

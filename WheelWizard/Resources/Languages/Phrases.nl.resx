@@ -96,7 +96,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="EmptyContent_NoRooms" xml:space="preserve">
         <value>Het kan zijn dat je momenteel geen internetverbinding hebt of er is momenteel niemand aan het spelen.</value>
     </data>
-    <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
+    <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Geschatte resterende tijd:</value>
     </data>
     <data name="PupupText_DownloadingMb" xml:space="preserve">
@@ -108,10 +108,10 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
         <value>Je staat op het punt om het spel te starten zonder mods. Wil je de My Stuff-map leegmaken?</value>
     </data>
-    <data name="PopupText_InstallingMods" xml:space="preserve">
+    <data name="Progress_InstallingMods" xml:space="preserve">
         <value>Mods Installeren</value>
     </data>
-    <data name="PopupText_InstallingModsCount" xml:space="preserve">
+    <data name="Progress_InstallingModsCount" xml:space="preserve">
         <value>{$1} mods installeren</value>
     </data>
     <data name="PopupText_NotFindDolphin" xml:space="preserve">
@@ -141,10 +141,10 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Voer Titel In:</value>
     </data>
-    <data name="PopupText_ProcessingXofY" xml:space="preserve">
+    <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>Verwerken van {$1} uit {$2} bestanden...</value>
     </data>
-    <data name="PopupText_EnsurePathsExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Controleer of alle locaties correct zijn en probeer het opnieuw.</value>
     </data>
     <data name="PopupText_SettingsSaved" xml:space="preserve">
@@ -153,31 +153,31 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>Wil je de nieuwe schaal toepassen?</value>
     </data>
-    <data name="PopupText_DolphinNotFound" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Title" xml:space="preserve">
         <value>Dolphin Emulator-Map Niet Gevonden</value>
     </data>
     <data name="Question_DolphinFound_Title" xml:space="preserve">
         <value>Dolphin Emulator-Map Gevonden</value>
     </data>
-    <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Extra" xml:space="preserve">
         <value>Dolphin Emulator-Map niet automatisch gevonden. Probeer de map handmatig te vinden. Klik op "help" voor meer informatie.</value>
     </data>
     <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>Als je niet weet wat dit allemaal betekent, druk op ja :) \nDolphin Emulator-Map Gevonden. Wil je deze gebruiken?</value>
     </data>
-    <data name="PopupText_FailedUpdateDelete" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateDelete" xml:space="preserve">
         <value>Het is niet gelukt om bestanden te verwijderen voor de update. Proces word afgebroken.</value>
     </data>
-    <data name="PopupText_UpdateRR" xml:space="preserve">
-        <value>Retro Rewind Updaten</value>
+    <data name="Progress_UpdateRR" xml:space="preserve">
+        <value>Updaten van Retro Rewind </value>
     </data>
-    <data name="PopupText_FailedUpdateApply" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>Het is niet gelukt om te updaten. Proces word afgebroken.</value>
     </data>
     <data name="PopupText_RRUpToDate" xml:space="preserve">
         <value>Retro Rewind is up-to-date.</value>
     </data>
-    <data name="PopupText_FailCheckUpdates" xml:space="preserve">
+    <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
         <value>Zoeken naar updates mislukt</value>
     </data>
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
@@ -198,10 +198,10 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
         <value>Versie {$1} van Wheel Wizard is beschikbaar (momenteel op {$2}). Wil je nu updaten?</value>
     </data>
-    <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
+    <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Ophalen van de nieuwste Wheel Wizard van GitHub-releases</value>
     </data>
-    <data name="PopupText_UpdateWhWz" xml:space="preserve">
+    <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Updaten van Wheel Wizard</value>
     </data>
     <data name="PopupText_UnableUpdateWhWz_ReasonLocation" xml:space="preserve">
@@ -210,13 +210,13 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
         <value>Retro Rewind Opnieuw Installeren</value>
     </data>
-    <data name="PopupText_InstallingRR" xml:space="preserve">
+    <data name="Progress_InstallingRR" xml:space="preserve">
         <value>Retro Rewind Installeren</value>
     </data>
-    <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
+    <data name="Progress_InstallingRRFirstTime" xml:space="preserve">
         <value>Retro Rewind voor de eerste keer aan het installeren</value>
     </data>
-    <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
+    <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
         <value>Kon geen verbinding maken met de server. Probeer het later opnieuw.</value>
     </data>
     <data name="PopupText_OldRRFound" xml:space="preserve">
@@ -248,5 +248,8 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="Question_RRToOld_Title" xml:space="preserve">
         <value>Retro Rewind versie is te oud.</value>
+    </data>
+    <data name="MessageWarning_InvalidPaths_Title" xml:space="preserve">
+        <value>Foute locaties.</value>
     </data>
 </root>

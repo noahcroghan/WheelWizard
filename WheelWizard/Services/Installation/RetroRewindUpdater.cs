@@ -18,7 +18,11 @@ public static class RetroRewindUpdater
         var response = await HttpClientHelper.GetAsync<string>(Endpoints.RRVersionUrl);
         if (response.Succeeded && response.Content != null)
             return response.Content.Split('\n').Last().Split(' ')[0];
-        new YesNoWindow().SetMainText(Phrases.PopupText_FailCheckUpdates).AwaitAnswer();
+        await new MessageBoxWindow()
+            .SetMessageType(MessageBoxWindow.MessageType.Warning)
+            .SetTitleText(Phrases.MessageWarning_FailCheckUpdates_Title)
+            .SetInfoText(Phrases.MessageWarning_FailCheckUpdates_Extra)
+            .ShowDialog();
         return "Failed to check for updates";
     }
 
@@ -57,7 +61,7 @@ public static class RetroRewindUpdater
         var allVersions = await GetAllVersionData();
         var updatesToApply = GetUpdatesToApply(currentVersion, allVersions);
 
-        var progressWindow = new ProgressWindow(Phrases.PopupText_UpdateRR);
+        var progressWindow = new ProgressWindow(Phrases.Progress_UpdateRR);
         progressWindow.Show();
 
         // Step 1: Get the version we are updating to
@@ -67,7 +71,7 @@ public static class RetroRewindUpdater
         var deleteSuccess = await ApplyFileDeletionsBetweenVersions(currentVersion, targetVersion);
         if (!deleteSuccess)
         {
-            AbortingUpdate(Phrases.PopupText_FailedUpdateDelete);
+            AbortingUpdate(Phrases.MessageError_AbortRR_Extra_FailedUpdateDelete);
             progressWindow.Close();
             return false;
         }
@@ -81,7 +85,7 @@ public static class RetroRewindUpdater
             if (!success)
             {
                 progressWindow.Close();
-                AbortingUpdate(Phrases.PopupText_FailedUpdateApply);
+                AbortingUpdate(Phrases.MessageError_AbortRR_Extra_FailedUpdateApply);
                 return false;
             }
 
@@ -113,7 +117,7 @@ public static class RetroRewindUpdater
                     || file.Path.Contains("..")
                 )
                 {
-                    AbortingUpdate("Invalid file path detected. Please contact the developers.\n Server error: " + resolvedPath);
+                    AbortingUpdate(Humanizer.ReplaceDynamic(Phrases.MessageError_AbortRR_Extra_InvalidFilePath, resolvedPath) ?? "");
                     return false;
                 }
 
@@ -303,7 +307,7 @@ public static class RetroRewindUpdater
     {
         new MessageBoxWindow()
             .SetMessageType(MessageBoxWindow.MessageType.Error)
-            .SetTitleText("Aborting RR Update")
+            .SetTitleText(Phrases.MessageError_AbortRR_Title)
             .SetInfoText(reason)
             .Show();
     }

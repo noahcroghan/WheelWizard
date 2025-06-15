@@ -60,7 +60,7 @@
     <data name="Text_ThanksTranslators" xml:space="preserve">
         <value>すべての翻訳者さんに感謝します:</value>
     </data>
-    <data name="PopupText_InstallingRRFirstTime" xml:space="preserve">
+    <data name="Progress_InstallingRRFirstTime" xml:space="preserve">
         <value>Retro Rewindをインストール (初回)</value>
     </data>
     <data name="EmptyContent_NoMods" xml:space="preserve">
@@ -82,7 +82,7 @@
     <data name="Question_ApplyScale_Title" xml:space="preserve">
         <value>新しいウィンドウサイズを適用しますか？</value>
     </data>
-    <data name="PopupText_CouldNotConnectServer" xml:space="preserve">
+    <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
         <value>サーバーに接続できませんでした。後でもう一度試してください。</value>
     </data>
     <data name="Question_DolphinFound_Title" xml:space="preserve">
@@ -91,17 +91,17 @@
     <data name="Question_DolphinFound_Extra" xml:space="preserve">
         <value>意味がよく分からなければ、「はい」をクリックしてください。\nDolphinエミュレーターのフォルダーが見つかりました。このフォルダーを使用しますか？</value>
     </data>
-    <data name="PopupText_DolphinNotFound" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Title" xml:space="preserve">
         <value>Dolphinエミュレーターのフォルダーが見つかりませんでした</value>
     </data>
-    <data name="PopupText_DolphinNotFoundText" xml:space="preserve">
+    <data name="MessageWarning_DolphinNotFound_Extra" xml:space="preserve">
         <value>Dolphinエミュレーターのフォルダーが自動では見つかりませんでした。
 フォルダーを手動で見つけてください。詳細については「help」をクリックしてください。</value>
     </data>
     <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Retro Rewindをダウンロードする</value>
     </data>
-    <data name="PopupText_EnsurePathsExists" xml:space="preserve">
+    <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>すべてのパスが正しいことを確認して、もう一度お試しください。</value>
     </data>
     <data name="Question_EnterModName" xml:space="preserve">
@@ -110,28 +110,28 @@
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>タイトルを入力:</value>
     </data>
-    <data name="PopupText_EsimatedTimeRemaining" xml:space="preserve">
+    <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>おおよその残り時間:</value>
     </data>
-    <data name="PopupText_FailCheckUpdates" xml:space="preserve">
+    <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
         <value>アップデートの確認に失敗しました</value>
     </data>
-    <data name="PopupText_FailedUpdateApply" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>アップデートの適用に失敗しました。中止しています。</value>
     </data>
-    <data name="PopupText_FailedUpdateDelete" xml:space="preserve">
+    <data name="MessageError_AbortRR_Extra_FailedUpdateDelete" xml:space="preserve">
         <value>アップデートファイルの削除に失敗しました。中止しています。</value>
     </data>
-    <data name="PopupText_InstallingMods" xml:space="preserve">
+    <data name="Progress_InstallingMods" xml:space="preserve">
         <value>Modをインストール</value>
     </data>
-    <data name="PopupText_InstallingModsCount" xml:space="preserve">
+    <data name="Progress_InstallingModsCount" xml:space="preserve">
         <value>{$1}個のModをインストール</value>
     </data>
-    <data name="PopupText_InstallingRR" xml:space="preserve">
+    <data name="Progress_InstallingRR" xml:space="preserve">
         <value>Retro Rewindをインストール</value>
     </data>
-    <data name="PopupText_LatestWhWzGithub" xml:space="preserve">
+    <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>githubから最新のWheel Wizardを入手</value>
     </data>
     <data name="PopupText_ModNameEmpty" xml:space="preserve">
@@ -171,7 +171,7 @@ My Stuffフォルダーをクリアしますか？</value>
     <data name="PopupText_OldRRFound" xml:space="preserve">
         <value>古いRetro Rewindが見つかりました</value>
     </data>
-    <data name="PopupText_ProcessingXofY" xml:space="preserve">
+    <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>{$2}個中{$1} 個のファイルを処理しています...</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
@@ -207,10 +207,10 @@ My Stuffフォルダーをクリアしますか？</value>
     <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
         <value>アップデートには管理者権限が必要な場合があります。今回のアップデートで管理者権限を有効にしますか?</value>
     </data>
-    <data name="PopupText_UpdateRR" xml:space="preserve">
+    <data name="Progress_UpdateRR" xml:space="preserve">
         <value>Retro Rewindをアップデート</value>
     </data>
-    <data name="PopupText_UpdateWhWz" xml:space="preserve">
+    <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Wheel Wizardをアップデート</value>
     </data>
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">

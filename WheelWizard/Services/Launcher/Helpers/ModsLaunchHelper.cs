@@ -67,8 +67,8 @@ public static class ModsLaunchHelper
         }
 
         var totalFiles = finalFiles.Count;
-        var progressWindow = new ProgressWindow(Phrases.PopupText_InstallingMods).SetGoal(
-            Humanizer.ReplaceDynamic(Phrases.PopupText_InstallingModsCount, totalFiles)!
+        var progressWindow = new ProgressWindow(Phrases.Progress_InstallingMods).SetGoal(
+            Humanizer.ReplaceDynamic(Phrases.Progress_InstallingModsCount, totalFiles)!
         );
         progressWindow.Show();
 
