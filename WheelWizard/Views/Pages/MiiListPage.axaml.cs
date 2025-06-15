@@ -365,7 +365,7 @@ public partial class MiiListPage : UserControlBase
         if (miis.Length == 1)
         {
             mainText = Humanizer.ReplaceDynamic(Phrases.Question_SureDelete_Title, miis[0].Name) ?? $"Delete {miis[0].Name}?";
-            successMessage = Humanizer.ReplaceDynamic(Phrases.SnackbarSuccess_Deleted_Miis, miis[0].Name) ?? $"Deleted {miis[0].Name}";
+            successMessage = Humanizer.ReplaceDynamic(Phrases.SnackbarSuccess_Deleted, miis[0].Name) ?? $"Deleted {miis[0].Name}";
         }
 
         var result = await new YesNoWindow().SetMainText(mainText).SetExtraText(Phrases.Question_SureDelete_Extra).AwaitAnswer();

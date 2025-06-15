@@ -501,11 +501,29 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Priority.
+        /// </summary>
+        public static string Attribute_Priority {
+            get {
+                return ResourceManager.GetString("Attribute_Priority", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Races played.
         /// </summary>
         public static string Attribute_RacesPlayed {
             get {
                 return ResourceManager.GetString("Attribute_RacesPlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by.
+        /// </summary>
+        public static string Attribute_SortBy {
+            get {
+                return ResourceManager.GetString("Attribute_SortBy", resourceCulture);
             }
         }
         
@@ -560,6 +578,24 @@ namespace WheelWizard.Resources.Languages {
         public static string Attribute_Title {
             get {
                 return ResourceManager.GetString("Attribute_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total games played.
+        /// </summary>
+        public static string Attribute_TotalGamesPlayed {
+            get {
+                return ResourceManager.GetString("Attribute_TotalGamesPlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total games won.
+        /// </summary>
+        public static string Attribute_TotalGamesWon {
+            get {
+                return ResourceManager.GetString("Attribute_TotalGamesWon", resourceCulture);
             }
         }
         

@@ -272,4 +272,37 @@
     <data name="Attribute_AverageRoomVr" xml:space="preserve">
         <value>Gemiddelde Vr</value>
     </data>
+    <data name="Action_LaunchDolphin" xml:space="preserve">
+        <value>Dolphin opstarten</value>
+    </data>
+    <data name="Action_Randomize" xml:space="preserve">
+        <value>Randomiseren</value>
+    </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Geslacht</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Vrouw</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Man</value>
+    </data>
+    <data name="Attribute_IsOnline" xml:space="preserve">
+        <value>Is Online</value>
+    </data>
+    <data name="Attribute_Status" xml:space="preserve">
+        <value>Status</value>
+    </data>
+    <data name="Attribute_Priority" xml:space="preserve">
+        <value>Prioriteit</value>
+    </data>
+    <data name="Attribute_SortBy" xml:space="preserve">
+        <value>Sorteren op</value>
+    </data>
+    <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
+        <value>Totaal gespeelde games</value>
+    </data>
+    <data name="Attribute_TotalGamesWon" xml:space="preserve">
+        <value>Totaal gewonne games</value>
+    </data>
 </root>

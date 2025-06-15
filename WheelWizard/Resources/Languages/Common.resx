@@ -293,4 +293,16 @@
     <data name="Attribute_Status" xml:space="preserve">
         <value>Status</value>
     </data>
+    <data name="Attribute_Priority" xml:space="preserve">
+        <value>Priority</value>
+    </data>
+    <data name="Attribute_SortBy" xml:space="preserve">
+        <value>Sort by</value>
+    </data>
+    <data name="Attribute_TotalGamesWon" xml:space="preserve">
+        <value>Total games won</value>
+    </data>
+    <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
+        <value>Total games played</value>
+    </data>
 </root>

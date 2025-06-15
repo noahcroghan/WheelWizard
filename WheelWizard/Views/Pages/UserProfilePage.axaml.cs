@@ -10,6 +10,7 @@ using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
 using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Shared.MessageTranslations;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiManagement;
@@ -174,7 +175,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         //now we refresh the sidebar friend amount
         ViewUtils.GetLayout().UpdateFriendCount();
-        ViewUtils.ShowSnackbar("Set profile as primary");
+        ViewUtils.ShowSnackbar(Phrases.SnackbarSuccess_ProfileSetPrimary);
     }
 
     private void RegionDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -220,11 +221,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         var availableMiis = MiiDbService.GetAllMiis();
         if (!availableMiis.Any())
         {
-            new MessageBoxWindow()
-                .SetTitleText("No Miis Found")
-                .SetInfoText("There are no other Miis available to select.")
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .Show();
+            MessageTranslationHelper.ShowMessage(MessageTranslation.Warning_NoMiisFound);
             return;
         }
 
@@ -238,7 +235,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         if (result.IsFailure)
         {
             new MessageBoxWindow()
-                .SetTitleText("Failed to Change Mii")
+                .SetTitleText(Phrases.MessageError_FailedChangeMii_Title)
                 .SetInfoText(result.Error!.Message)
                 .SetMessageType(MessageBoxWindow.MessageType.Error)
                 .Show();
@@ -248,7 +245,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         CurrentMii = selectedMii;
         GameLicenseService.LoadLicense();
         UpdatePage();
-        ViewUtils.ShowSnackbar("Mii changed successfully");
+        ViewUtils.ShowSnackbar(Phrases.MessageSuccess_MiiChanged);
     }
 
     private void ViewRoom_OnClick(object? sender, RoutedEventArgs e)
@@ -262,11 +259,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             return;
         }
 
-        new MessageBoxWindow()
-            .SetTitleText("Couldn't find the room")
-            .SetInfoText("Whoops, could not find the room that this player is supposedly playing in")
-            .SetMessageType(MessageBoxWindow.MessageType.Warning)
-            .Show();
+        MessageTranslationHelper.ShowMessage(MessageTranslation.Warning_CouldNotFindRoom);
     }
 
     private void CopyFriendCode_OnClick(object? sender, EventArgs e)
@@ -275,7 +268,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             return;
 
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(currentPlayer.FriendCode);
-        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
+        ViewUtils.ShowSnackbar(Phrases.SnackbarSuccess_CopiedFC);
     }
 
     // This is intentionally a separate validation method besides the true name validation. That name validation allows less than 3.
@@ -283,7 +276,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
     private OperationResult ValidateMiiName(string? oldName, string newName)
     {
         if (newName.Length is > 10 or < 3)
-            return Fail("Names must be between 3 and 10 characters long.");
+            return Fail(Phrases.HelperNote_NameMustBetween);
 
         return Ok();
     }
@@ -306,7 +299,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         if (changeNameResult.IsFailure)
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Failed to change name")
+                .SetTitleText(Phrases.MessageError_FailedChangeName_Title)
                 .SetInfoText(changeNameResult.Error.Message)
                 .Show();
         else

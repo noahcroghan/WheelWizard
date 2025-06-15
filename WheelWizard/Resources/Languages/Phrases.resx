@@ -282,7 +282,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
         <value>Name not possible.</value>
     </data>
-    <data name="Message_UnableUpdateWhWz_Title" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Title" xml:space="preserve">
         <value>Unable to update Wheel Wizard.</value>
     </data>
     <data name="MessageError_GenericError_Title" xml:space="preserve">
@@ -350,5 +350,44 @@ To join a specific room, you'll need to either join through a friend, or hope to
     </data>
     <data name="SnackbarSuccess_CreatedDuplicatesMiis" xml:space="preserve">
         <value>Created {$1} duplicate Miis</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Title" xml:space="preserve">
+        <value>Cannot view this mod.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_SomethingElse" xml:space="preserve">
+        <value>Something went wrong when trying to open the selected mod.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_NotFromBrowser" xml:space="preserve">
+        <value>Cannot view mod that was not installed through the mod browser.</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
+        <value>Cannot delete favorite Mii(s)</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Extra" xml:space="preserve">
+        <value>One or more of the selected Mii(s) is a favorite. Miis can only be deleted if they are not favorites to prevent accidental deletions.</value>
+    </data>
+    <data name="Hover_RegionUserSelection" xml:space="preserve">
+        <value>This only shows regions YOU have played on</value>
+    </data>
+    <data name="Hover_PrimaryProfile" xml:space="preserve">
+        <value>The primary profile is used as reference in the wheel wizard client</value>
+    </data>
+    <data name="MessageSuccess_MiiChanged" xml:space="preserve">
+        <value>Mii changed successfully</value>
+    </data>
+    <data name="SnackbarSuccess_ProfileSetPrimary" xml:space="preserve">
+        <value>Set profile as primary</value>
+    </data>
+    <data name="HelperNote_NameMustBetween" xml:space="preserve">
+        <value>Names must be between 3 and 10 characters long.</value>
+    </data>
+    <data name="HelperNote_CreatorNameLess10" xml:space="preserve">
+        <value>Creator name must be less than 10 characters long.</value>
+    </data>
+    <data name="MessageError_FailedChangeName_Title" xml:space="preserve">
+        <value>Failed to change name</value>
+    </data>
+    <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
+        <value>Failed to Change Mii</value>
     </data>
 </root>

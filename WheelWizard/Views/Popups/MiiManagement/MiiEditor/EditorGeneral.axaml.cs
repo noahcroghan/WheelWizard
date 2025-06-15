@@ -3,6 +3,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
+using WheelWizard.Resources.Languages;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.WiiManagement.Domain;
 using WheelWizard.WiiManagement.Domain.Mii;
@@ -81,7 +82,7 @@ public partial class EditorGeneral : MiiEditorBaseControl
     private OperationResult ValidateMiiName(string? _, string newName)
     {
         if (newName.Length is > 10 or < 3)
-            return Fail("Name must be between 3 and 10 characters long.");
+            return Fail(Phrases.HelperNote_NameMustBetween);
 
         return Ok();
     }
@@ -89,7 +90,7 @@ public partial class EditorGeneral : MiiEditorBaseControl
     private OperationResult ValidateCreatorName(string newName)
     {
         if (newName.Length > 10)
-            return Fail("Creator name must be less than 10 characters long.");
+            return Fail(Phrases.HelperNote_CreatorNameLess10);
 
         return Ok();
     }

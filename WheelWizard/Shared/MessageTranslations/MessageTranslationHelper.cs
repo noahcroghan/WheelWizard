@@ -5,8 +5,9 @@ using WheelWizard.Views.Popups.Generic;
 namespace WheelWizard.Shared.MessageTranslations;
 
 // MAKE SURE EVERY ENUM VALUE HAS A VALUE
-// 1xxx = Successes
-// 2xxx = Warnings
+// 0xxx = Successes
+// 1xxx = Warnings (without tag)
+// 2xxx = Warnings (with tag)
 // 3xxx = Errors
 // ANY OTHER VALUE BELOW 1000 OR ABOVE 3999 is not valid
 
@@ -21,18 +22,23 @@ public enum MessageTranslation
 {
     #region Successes
 
-    Success_StanderdSuccess = 1000,
-    Success_PathSettingsSaved = 1001,
+    Success_StanderdSuccess = 0000,
+    Success_PathSettingsSaved = 0001,
 
     #endregion
 
     #region Warnings
 
+    // Warning starting with 1 have NO error code displayed, once starting with 2 DO HAVE an error code displayed, like the tag
+    // If warning makes sense on its own what the user did wrong, then no tag is needed (1xxx)
     Warning_StanderdWarning = 2000,
-    Warning_InvalidPathSettings = 2001,
+    Warning_InvalidPathSettings = 1001,
     Warning_UnkownRendererSelected = 2002,
     Warning_CouldNotFindRoom = 2003,
-    Warning_CantDeleteFavMii = 2004,
+    Warning_CantDeleteFavMii = 1004,
+    Warning_CantViewMod_NotFromBrowser = 1005,
+    Warning_CantViewMod_SomethingWrong = 2006,
+    Warning_NoMiisFound = 1007,
 
     #endregion
 
@@ -96,10 +102,20 @@ public static class MessageTranslationHelper
                 "Whoops, could not find the room that this player is supposedly playing in"
             ),
             MessageTranslation.Warning_CantDeleteFavMii => (
-                "Cannot delete favorite Mii(s)",
-                "One or more of the selected Mii(s) is a favorite. Miis can only be deleted if they are not favorites to prevent accidental deletions."
+                Phrases.MessageWarning_CannotDeleteFavMii_Title,
+                Phrases.MessageWarning_CannotDeleteFavMii_Extra
             ),
 
+            MessageTranslation.Warning_CantViewMod_SomethingWrong => (
+                Phrases.MessageWarning_CantViewMod_Title,
+                Phrases.MessageWarning_CantViewMod_Extra_SomethingElse
+            ),
+            MessageTranslation.Warning_CantViewMod_NotFromBrowser => (
+                Phrases.MessageWarning_CantViewMod_Title,
+                Phrases.MessageWarning_CantViewMod_Extra_NotFromBrowser
+            ),
+            MessageTranslation.Warning_NoMiisFound => ("No Miis Found", "There are no other Miis available to select."),
+            
             #endregion
 
             #region Errors
@@ -152,7 +168,7 @@ public static class MessageTranslationHelper
     {
         var (title, extraText) = GetTranslationText(msg);
         var type =
-            (int)msg < 2000 ? MessageBoxWindow.MessageType.Message
+            (int)msg < 1000 ? MessageBoxWindow.MessageType.Message
             : (int)msg < 3000 ? MessageBoxWindow.MessageType.Warning
             : MessageBoxWindow.MessageType.Error;
         var box = new MessageBoxWindow()
@@ -163,7 +179,7 @@ public static class MessageTranslationHelper
         else
             box.SetInfoText(Humanizer.ReplaceDynamic(extraText, extraReplacements ?? []) ?? extraText);
 
-        if (type != MessageBoxWindow.MessageType.Message)
+        if ((int)msg >= 2000)
             box.SetTag($"{(int)msg}");
 
         return box;

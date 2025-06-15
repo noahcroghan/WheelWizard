@@ -6,10 +6,14 @@
         <value>1.3</value>
     </resheader>
     <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral,
+            PublicKeyToken=b77a5c561934e089
+        </value>
     </resheader>
     <data name="Text_MadeByString" xml:space="preserve">
         <value>Gemaakt door: {$1} \n en {$2}</value>
@@ -252,7 +256,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
         <value>Naam niet toegestaan.</value>
     </data>
-    <data name="Message_UnableUpdateWhWz_Title" xml:space="preserve">
+    <data name="MessageWarning_UnableUpdateWhWz_Title" xml:space="preserve">
         <value>Wheel Wizard kan niet worden geüpdate.</value>
     </data>
     <data name="MessageError_AbortRR_Extra_InvalidFilePath" xml:space="preserve">
@@ -306,5 +310,62 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="SnackbarError_MiiFailureUpdate" xml:space="preserve">
         <value>Updaten van Mii '{$1}' mislukt.</value>
+    </data>
+    <data name="SnackbarSuccess_CopiedFC" xml:space="preserve">
+        <value>Vriendcode gekopieerd naar klembord.</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicatesMiis" xml:space="preserve">
+        <value>Kopie gemaakt van {$1} Miis</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted" xml:space="preserve">
+        <value>'{$1}' verwijderd.</value>
+    </data>
+    <data name="SnackbarSuccess_MiiAdded" xml:space="preserve">
+        <value>Mii is toegevoegd aan Mijn Miis.</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted_Miis" xml:space="preserve">
+        <value>{$1} Miis verwijderd.</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicate" xml:space="preserve">
+        <value>Kopie gemaakt van '{$1}'</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
+        <value>Er zijn geen Miis om te exporteren.</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiDelete" xml:space="preserve">
+        <value>Er zijn geen Miis om te verwijderen.</value>
+    </data>
+    <data name="SnackbarWarning_CantSaveMii" xml:space="preserve">
+        <value>Kan Mii niet opslaan.</value>
+    </data>
+    <data name="SnackbarSuccess_SavedMii" xml:space="preserve">
+        <value>Mii '{$1}' is opgeslagen in het bestand '{$2}'</value>
+    </data>
+    <data name="SnackbarSuccess_NameChange" xml:space="preserve">
+        <value>Naam succesvol gewijzigd naar '{$1}'.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_NotFromBrowser" xml:space="preserve">
+        <value>Mod kan niet worden weergegeven omdat deze niet via de modbrowser is geïnstalleerd.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_SomethingElse" xml:space="preserve">
+        <value>Er is iets misgegaan bij het openen van de geselecteerde mod.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Title" xml:space="preserve">
+        <value>Kan deze mod niet weergegeven.</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
+        <value>Kan favoriete Miis niet verwijderen.</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Extra" xml:space="preserve">
+        <value>Een of meer van de geselecteerde Miis is een favoriet. Miis kunnen alleen worden verwijderd als ze geen favoriet zijn, om per ongeluk verwijderen te voorkomen.</value>
+    </data>
+    <data name="Hover_PrimaryProfile" xml:space="preserve">
+        <value>Het hoofdprofiel wordt gebruikt als referentie in Wheel Wizard.</value>
+    </data>
+    <data name="Hover_RegionUserSelection" xml:space="preserve">
+        <value>Dit toont alleen regio’s waarop JIJ hebt gespeeld.</value>
+    </data>
+    <data name="SnackbarSuccess_ProfileSetPrimary" xml:space="preserve">
+        <value>Profiel als hoofdprofiel gezet.</value>
     </data>
 </root>

@@ -50,7 +50,7 @@
 
         <StackPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Orientation="Horizontal">
             <Border VerticalAlignment="Center" HorizontalAlignment="Center" Width="18" Height="18" Margin="10"
-                    ToolTip.Tip="This only shows regions YOU have played on" ToolTip.Placement="Top"
+                    ToolTip.Tip="{x:Static lang:Phrases.Hover_RegionUserSelection}" ToolTip.Placement="Top"
                     ToolTip.ShowDelay="20">
                 <PathIcon Foreground="{StaticResource TitleIconColor}" Margin="15,2,5,0"
                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Data="{StaticResource InfoTip}" />
@@ -133,11 +133,11 @@
                     <RadioButton Grid.Column="0" Grid.Row="1" Margin="5,6,0,0" x:Name="PrimaryCheckBox"
                                  VerticalAlignment="Top" Checked="CheckBox_SetPrimaryUser" Classes="CheckBox">
                         <components:FormFieldLabel Text="{x:Static lang:Settings.Option_MakePrimary}"
-                                                   TipText="The primary profile is used as reference in the wheel wizard client" />
+                                                   TipText="{x:Static lang:Phrases.Hover_PrimaryProfile}" />
                     </RadioButton>
 
                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,7,0,0">
-                        <components:FormFieldLabel Text="Status" />
+                        <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_Status}" />
                         <SelectableTextBlock IsVisible="{Binding IsOnline}" Text="{x:Static lang:Common.Attribute_Status_Online}"
                                              FontSize="16" Foreground="{StaticResource Primary400}" />
                         <SelectableTextBlock Classes="BodyText" Text="{x:Static lang:Common.Attribute_Status_Offline}"
@@ -168,11 +168,11 @@
                     <!-- SECOND INFORMATION LAYER -->
 
                     <StackPanel Grid.Column="0" Grid.Row="2" Margin="5,8,0,0">
-                        <components:FormFieldLabel Text="Total games won" />
+                        <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_TotalGamesWon}" />
                         <SelectableTextBlock Classes="BodyText" x:Name="ProfileAttribTotalWins" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" Grid.Row="2" Margin="0,8,0,0">
-                        <components:FormFieldLabel Text="Total games played" />
+                        <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_TotalGamesPlayed}" />
                         <SelectableTextBlock Classes="BodyText" x:Name="ProfileAttribTotalRaces" />
                     </StackPanel>
                 </Grid>

@@ -141,6 +141,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creator name must be less than 10 characters long..
+        /// </summary>
+        public static string HelperNote_CreatorNameLess10 {
+            get {
+                return ResourceManager.GetString("HelperNote_CreatorNameLess10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Names must be between 3 and 10 characters long..
+        /// </summary>
+        public static string HelperNote_NameMustBetween {
+            get {
+                return ResourceManager.GetString("HelperNote_NameMustBetween", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are currently no friends online.
         /// </summary>
         public static string Hover_FriendsOnline_0 {
@@ -204,6 +222,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The primary profile is used as reference in the wheel wizard client.
+        /// </summary>
+        public static string Hover_PrimaryProfile {
+            get {
+                return ResourceManager.GetString("Hover_PrimaryProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This only shows regions YOU have played on.
+        /// </summary>
+        public static string Hover_RegionUserSelection {
+            get {
+                return ResourceManager.GetString("Hover_RegionUserSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are currently no active rooms.
         /// </summary>
         public static string Hover_RoomsOnline_0 {
@@ -237,15 +273,6 @@ namespace WheelWizard.Resources.Languages {
         public static string Hover_RoomsPageDisclaimer {
             get {
                 return ResourceManager.GetString("Hover_RoomsPageDisclaimer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to update Wheel Wizard..
-        /// </summary>
-        public static string Message_UnableUpdateWhWz_Title {
-            get {
-                return ResourceManager.GetString("Message_UnableUpdateWhWz_Title", resourceCulture);
             }
         }
         
@@ -286,6 +313,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to Change Mii.
+        /// </summary>
+        public static string MessageError_FailedChangeMii_Title {
+            get {
+                return ResourceManager.GetString("MessageError_FailedChangeMii_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to change name.
+        /// </summary>
+        public static string MessageError_FailedChangeName_Title {
+            get {
+                return ResourceManager.GetString("MessageError_FailedChangeName_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to create Mii database.
         /// </summary>
         public static string MessageError_FailedCreateMiiDb_Title {
@@ -322,6 +367,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mii changed successfully.
+        /// </summary>
+        public static string MessageSuccess_MiiChanged {
+            get {
+                return ResourceManager.GetString("MessageSuccess_MiiChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retro Rewind is up to date..
         /// </summary>
         public static string MessageSuccess_RRUpToDate_Title {
@@ -336,6 +390,51 @@ namespace WheelWizard.Resources.Languages {
         public static string MessageSuccess_SettingsSaved_Title {
             get {
                 return ResourceManager.GetString("MessageSuccess_SettingsSaved_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One or more of the selected Mii(s) is a favorite. Miis can only be deleted if they are not favorites to prevent accidental deletions..
+        /// </summary>
+        public static string MessageWarning_CannotDeleteFavMii_Extra {
+            get {
+                return ResourceManager.GetString("MessageWarning_CannotDeleteFavMii_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot delete favorite Mii(s).
+        /// </summary>
+        public static string MessageWarning_CannotDeleteFavMii_Title {
+            get {
+                return ResourceManager.GetString("MessageWarning_CannotDeleteFavMii_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot view mod that was not installed through the mod browser..
+        /// </summary>
+        public static string MessageWarning_CantViewMod_Extra_NotFromBrowser {
+            get {
+                return ResourceManager.GetString("MessageWarning_CantViewMod_Extra_NotFromBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong when trying to open the selected mod..
+        /// </summary>
+        public static string MessageWarning_CantViewMod_Extra_SomethingElse {
+            get {
+                return ResourceManager.GetString("MessageWarning_CantViewMod_Extra_SomethingElse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot view this mod..
+        /// </summary>
+        public static string MessageWarning_CantViewMod_Title {
+            get {
+                return ResourceManager.GetString("MessageWarning_CantViewMod_Title", resourceCulture);
             }
         }
         
@@ -480,6 +579,15 @@ namespace WheelWizard.Resources.Languages {
         public static string MessageWarning_UnableUpdateWhWz_Extra_ReasonNetwork {
             get {
                 return ResourceManager.GetString("MessageWarning_UnableUpdateWhWz_Extra_ReasonNetwork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to update Wheel Wizard..
+        /// </summary>
+        public static string MessageWarning_UnableUpdateWhWz_Title {
+            get {
+                return ResourceManager.GetString("MessageWarning_UnableUpdateWhWz_Title", resourceCulture);
             }
         }
         
@@ -903,6 +1011,15 @@ namespace WheelWizard.Resources.Languages {
         public static string SnackbarSuccess_NameChange {
             get {
                 return ResourceManager.GetString("SnackbarSuccess_NameChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set profile as primary.
+        /// </summary>
+        public static string SnackbarSuccess_ProfileSetPrimary {
+            get {
+                return ResourceManager.GetString("SnackbarSuccess_ProfileSetPrimary", resourceCulture);
             }
         }
         

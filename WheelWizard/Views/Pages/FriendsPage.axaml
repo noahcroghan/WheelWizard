@@ -32,14 +32,16 @@
         </StackPanel>
 
         <behaviorComponent:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
-                                       HorizontalAlignment="Right" VerticalAlignment="Top" />
+                                              HorizontalAlignment="Right" VerticalAlignment="Top" />
 
 
         <Grid Grid.Row="1" x:Name="VisibleWhenFriends" RowDefinitions="*, 12*">
             <Grid Grid.Row="0" Margin="10,0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,6"
                             HorizontalAlignment="Right">
-                    <components:FormFieldLabel Text="Sort by:" VerticalAlignment="Center" />
+                    <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_SortBy}"
+                                               VerticalAlignment="Center" />
+                    <components:FormFieldLabel Text=":" VerticalAlignment="Center" />
                     <ComboBox x:Name="SortByDropdown"
                               SelectionChanged="SortByDropdown_OnSelectionChanged" MinWidth="160"
                               VerticalAlignment="Top" />
