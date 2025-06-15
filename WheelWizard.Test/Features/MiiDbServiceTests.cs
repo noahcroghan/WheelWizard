@@ -425,7 +425,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal("Mii block not found or invalid.", result.Error.Message); // Error from GetByClientId
+            Assert.Equal("Mii block not found", result.Error.Message); // Error from GetByClientId
             _repositoryService.Received(1).GetRawBlockByAvatarId(targetId);
             _repositoryService.DidNotReceive().UpdateBlockByClientId(Arg.Any<uint>(), Arg.Any<byte[]>());
         }
