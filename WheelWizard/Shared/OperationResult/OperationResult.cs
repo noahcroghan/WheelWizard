@@ -56,10 +56,16 @@ public class OperationResult
     /// </summary>
     /// <param name="error">The error that occurred during the operation.</param>
     /// <param name="translation">The translation for this specific error.</param>
+    /// <param name="titleReplacements">The objects to replace the keys in the translation title</param>
+    /// <param name="extraReplacements">The objects to replace the keys in the translation extra info</param>
     /// <returns>A new instance of the <see cref="OperationResult"/> class.</returns>
-    public static OperationResult Fail(OperationError error, MessageTranslation? translation)
+    public static OperationResult Fail(OperationError error, MessageTranslation? translation, 
+    object[]? titleReplacements = null,
+    object[]? extraReplacements = null)
     {
         error.MessageTranslation = translation;
+        error.TitleReplacements = titleReplacements;
+        error.ExtraReplacements = extraReplacements;
         return new(error);
     }
 
@@ -82,11 +88,18 @@ public class OperationResult
     /// </summary>
     /// <param name="error">The error that occurred during the operation.</param>
     /// <param name="translation">The translation for this specific error.</param>
+    /// <param name="titleReplacements">The objects to replace the keys in the translation title</param>
+    /// <param name="extraReplacements">The objects to replace the keys in the translation extra info</param>
     /// <typeparam name="T">The type of the value.</typeparam>
     /// <returns>A new instance of the <see cref="OperationResult"/> class.</returns>
-    public static OperationResult<T> Fail<T>(OperationError error, MessageTranslation? translation)
+    public static OperationResult<T> Fail<T>(OperationError error, 
+        MessageTranslation? translation,       
+        object[]? titleReplacements = null,
+        object[]? extraReplacements = null)
     {
         error.MessageTranslation = translation;
+        error.TitleReplacements = titleReplacements;
+        error.ExtraReplacements = extraReplacements;
         return new(error);
     }
 
@@ -122,6 +135,8 @@ public class OperationResult
                     Message = errorMessage ?? ex.Message,
                     Exception = ex,
                     MessageTranslation = translation,
+                    TitleReplacements = [ex.Message],
+                    ExtraReplacements = [ex.Message],
                 }
             );
         }
@@ -155,6 +170,8 @@ public class OperationResult
                     Message = errorMessage ?? ex.Message,
                     Exception = ex,
                     MessageTranslation = translation,
+                    TitleReplacements = [ex.Message],
+                    ExtraReplacements = [ex.Message],
                 }
             );
         }
@@ -183,6 +200,8 @@ public class OperationResult
                     Message = errorMessage ?? ex.Message,
                     Exception = ex,
                     MessageTranslation = translation,
+                    TitleReplacements = [ex.Message],
+                    ExtraReplacements = [ex.Message],
                 }
             );
         }
@@ -215,6 +234,8 @@ public class OperationResult
                     Message = errorMessage ?? ex.Message,
                     Exception = ex,
                     MessageTranslation = translation,
+                    TitleReplacements = [ex.Message],
+                    ExtraReplacements = [ex.Message],
                 }
             );
         }

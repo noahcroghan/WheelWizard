@@ -280,4 +280,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Message_UnableUpdateWhWz_Title" xml:space="preserve">
         <value>Unable to update Wheel Wizard.</value>
     </data>
+    <data name="MessageError_GenericError_Title" xml:space="preserve">
+        <value>An error occurred.</value>
+    </data>
 </root>

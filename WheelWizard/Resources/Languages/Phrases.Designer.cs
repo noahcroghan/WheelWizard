@@ -286,6 +286,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred..
+        /// </summary>
+        public static string MessageError_GenericError_Title {
+            get {
+                return ResourceManager.GetString("MessageError_GenericError_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mod folder does not exist.
         /// </summary>
         public static string MessageError_NoModFolder_Extra {

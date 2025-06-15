@@ -1,3 +1,4 @@
+using WheelWizard.Resources.Languages;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Helpers;
@@ -78,6 +79,23 @@ public static class MessageTranslationHelper
             .SetInfoText(Humanizer.ReplaceDynamic(extraText, extraReplacements ?? []) ?? extraText);
         if (type != MessageBoxWindow.MessageType.Message)
             box.SetTag($"{(int)msg}");
+
+        if (asDialog)
+            return box.ShowDialog();
+
+        box.Show();
+        return Task.CompletedTask;
+    }
+
+    public static Task ShowMessageBox(OperationError error, bool asDialog = false)
+    {
+        if (error.MessageTranslation != null)
+            return ShowMessageBox((MessageTranslation)error.MessageTranslation, error.TitleReplacements, error.ExtraReplacements, asDialog);
+        
+        var box = new MessageBoxWindow()
+            .SetMessageType(MessageBoxWindow.MessageType.Error).SetTag("Unk")
+            .SetTitleText(Phrases.MessageError_GenericError_Title)
+            .SetInfoText(error.Message);
 
         if (asDialog)
             return box.ShowDialog();

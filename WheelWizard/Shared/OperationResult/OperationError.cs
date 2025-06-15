@@ -21,6 +21,15 @@ public class OperationError
     /// The translation applied to this error result for better visualization in the UI.
     /// </summary>
     public MessageTranslation? MessageTranslation { get; set; }
+    
+    /// <summary>
+    /// The objects to replace the keys in the translation title
+    /// </summary>
+    public object[]? TitleReplacements { get; set; }
+    /// <summary>
+    /// The objects to replace the keys in the translation extra information
+    /// </summary>
+    public object[]? ExtraReplacements { get; set; }
 
     // Note that the MessageTranslation can NOT be used to retrieve the message.
     // This is because the translation fo the MessageTranslation is localized, while the actual Message MUST be in English.
