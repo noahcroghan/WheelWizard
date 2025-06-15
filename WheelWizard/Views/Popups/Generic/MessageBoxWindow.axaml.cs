@@ -45,6 +45,13 @@ public partial class MessageBoxWindow : PopupContent
         return this;
     }
 
+    public MessageBoxWindow SetTag(string extraText)
+    {
+        MessageTag.Text = extraText;
+        MessageTagBlock.IsVisible = true;
+        return this;
+    }
+
     protected override void BeforeOpen() => PlaySound(messageType);
 
     private static void PlaySound(MessageType messageType)

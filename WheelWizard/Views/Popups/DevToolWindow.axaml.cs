@@ -17,8 +17,7 @@ namespace WheelWizard.Views.Popups;
 
 public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
 {
-    [Inject]
-    private IMemoryCache Cache { get; set; } = null!;
+    [Inject] private IMemoryCache Cache { get; set; } = null!;
 
     public DevToolWindow()
         : base(true, true, true, "Dev Tool")
@@ -95,7 +94,8 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
         new MessageBoxWindow()
             // .SetMessageType(MessageBoxWindow.MessageType.Message) // Default, so you dont have to type this
             .SetTitleText("Saved Successfully!")
-            .SetInfoText("The name you entered has sucessfully saved in the system")
+            .SetTag("Tag")
+            .SetInfoText("The name you entered has successfully saved in the system")
             .Show();
 
         new MessageBoxWindow()
@@ -106,11 +106,7 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
             )
             .Show();
 
-        new MessageBoxWindow()
-            .SetMessageType(MessageBoxWindow.MessageType.Error)
-            .SetTitleText("Update error.")
-            .SetInfoText("An error occurred when trying to update Retro Rewind.")
-            .Show();
+        MessageHelper.ShowMessageBox(Message.Error_StanderdError);
     }
 
     private async void YesNoPopup_OnClick(object sender, RoutedEventArgs e)
