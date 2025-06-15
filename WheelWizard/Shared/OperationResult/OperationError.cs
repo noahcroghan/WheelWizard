@@ -1,4 +1,5 @@
 ﻿using WheelWizard.Helpers;
+using WheelWizard.Shared.MessageTranslations;
 
 namespace WheelWizard.Shared;
 
@@ -21,11 +22,12 @@ public class OperationError
     /// The translation applied to this error result for better visualization in the UI.
     /// </summary>
     public MessageTranslation? MessageTranslation { get; set; }
-    
+
     /// <summary>
     /// The objects to replace the keys in the translation title
     /// </summary>
     public object[]? TitleReplacements { get; set; }
+
     /// <summary>
     /// The objects to replace the keys in the translation extra information
     /// </summary>

@@ -195,6 +195,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Launch Dolphin.
+        /// </summary>
+        public static string Action_LaunchDolphin {
+            get {
+                return ResourceManager.GetString("Action_LaunchDolphin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Talk to us!.
         /// </summary>
         public static string Action_Link_Discord {
@@ -272,6 +281,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Action_PlayOffline {
             get {
                 return ResourceManager.GetString("Action_PlayOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Randomize.
+        /// </summary>
+        public static string Action_Randomize {
+            get {
+                return ResourceManager.GetString("Action_Randomize", resourceCulture);
             }
         }
         
@@ -393,11 +411,47 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gender.
+        /// </summary>
+        public static string Attribute_Gender {
+            get {
+                return ResourceManager.GetString("Attribute_Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string Attribute_Gender_Female {
+            get {
+                return ResourceManager.GetString("Attribute_Gender_Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string Attribute_Gender_Male {
+            get {
+                return ResourceManager.GetString("Attribute_Gender_Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string Attribute_Id {
             get {
                 return ResourceManager.GetString("Attribute_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is Online.
+        /// </summary>
+        public static string Attribute_IsOnline {
+            get {
+                return ResourceManager.GetString("Attribute_IsOnline", resourceCulture);
             }
         }
         
@@ -438,24 +492,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Offline.
-        /// </summary>
-        public static string Attribute_Offline {
-            get {
-                return ResourceManager.GetString("Attribute_Offline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Online.
-        /// </summary>
-        public static string Attribute_Online {
-            get {
-                return ResourceManager.GetString("Attribute_Online", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Players.
         /// </summary>
         public static string Attribute_PlayerCount {
@@ -479,6 +515,33 @@ namespace WheelWizard.Resources.Languages {
         public static string Attribute_Speed {
             get {
                 return ResourceManager.GetString("Attribute_Speed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Attribute_Status {
+            get {
+                return ResourceManager.GetString("Attribute_Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline.
+        /// </summary>
+        public static string Attribute_Status_Offline {
+            get {
+                return ResourceManager.GetString("Attribute_Status_Offline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online.
+        /// </summary>
+        public static string Attribute_Status_Online {
+            get {
+                return ResourceManager.GetString("Attribute_Status_Online", resourceCulture);
             }
         }
         

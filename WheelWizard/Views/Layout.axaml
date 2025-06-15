@@ -126,7 +126,8 @@
             <components:SidebarRadioButton IconData="{StaticResource Shirt}"
                                            PageType="{x:Type pages:MiiListPage}"
                                            Text="{x:Static lang:Common.PageTitle_MyMiis}" />
-            <TextBlock Text="{x:Static lang:Common.Attribute_Online}" Classes="SidebarSectionText" /> <!-- Repurposing this translation from attributes -->
+            <TextBlock Text="{x:Static lang:Common.Attribute_Status_Online}" Classes="SidebarSectionText" />
+            <!-- Repurposing this translation from values -->
             <components:SidebarRadioButton IconData="{StaticResource RoomUsers}"
                                            PageType="{x:Type pages:RoomsPage}"
                                            Text="{x:Static lang:Common.PageTitle_Rooms}" x:Name="RoomsButton" />
@@ -135,7 +136,8 @@
                                            PageType="{x:Type pages:FriendsPage}"
                                            BoxText="0/0" />
 
-            <TextBlock Text="{x:Static lang:Settings.Category_Other}" Classes="SidebarSectionText" />  <!-- Repurposing this translation from settings -->
+            <TextBlock Text="{x:Static lang:Settings.Category_Other}" Classes="SidebarSectionText" />
+            <!-- Repurposing this translation from settings -->
             <components:SidebarRadioButton IconData="{StaticResource Settings}"
                                            PageType="{x:Type settings:SettingsPage}"
                                            Text="{x:Static lang:Common.PageTitle_Settings}" x:Name="SettingsButton" />

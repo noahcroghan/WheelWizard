@@ -108,6 +108,7 @@ public partial class OtherSettings : UserControl
         if (key == null || key == currentLanguage)
             return;
 
+        // TODO: translate this popup, but support multiple languages. So it should display both NL and FR when you try to switch from NL to FR
         var yesNoWindow = await new YesNoWindow()
             .SetMainText("Do you want to apply the new language settings?")
             .SetExtraText("This will close the current window and open a new one with the new language settings.")

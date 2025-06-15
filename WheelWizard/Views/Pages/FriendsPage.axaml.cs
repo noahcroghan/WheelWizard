@@ -3,8 +3,10 @@ using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.GameData;
+using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Shared.MessageTranslations;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiManagement;
@@ -106,10 +108,10 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
                 // TODO: Should be replaced with actual translations
                 ListOrderCondition.VR => "Vr",
                 ListOrderCondition.BR => "Br",
-                ListOrderCondition.NAME => "Name",
-                ListOrderCondition.WINS => "Total Wins",
-                ListOrderCondition.TOTAL_RACES => "Total Races",
-                ListOrderCondition.IS_ONLINE => "Is Online",
+                ListOrderCondition.NAME => Common.Attribute_Name,
+                ListOrderCondition.WINS => Common.Attribute_Wins,
+                ListOrderCondition.TOTAL_RACES => Common.Attribute_RacesPlayed,
+                ListOrderCondition.IS_ONLINE => Common.Attribute_IsOnline,
             };
 
             SortByDropdown.Items.Add(name);
@@ -139,7 +141,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
         if (FriendsListView.SelectedItem is not FriendProfile selectedPlayer)
             return;
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(selectedPlayer.FriendCode);
-        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
+        ViewUtils.ShowSnackbar(Phrases.SnackbarSuccess_CopiedFC);
     }
 
     private void OpenCarousel_OnClick(object sender, RoutedEventArgs e)
@@ -162,18 +164,14 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
             return;
         }
 
-        new MessageBoxWindow()
-            .SetTitleText("Couldn't find the room")
-            .SetInfoText("Whoops, could not find the room that this player is supposedly playing in")
-            .SetMessageType(MessageBoxWindow.MessageType.Warning)
-            .Show();
+        MessageTranslationHelper.ShowMessage(MessageTranslation.Warning_CouldNotFindRoom);
     }
 
     private void SaveMii_OnClick(object sender, RoutedEventArgs e)
     {
         if (!MiiDbService.Exists())
         {
-            ViewUtils.ShowSnackbar("Cant save Mii", ViewUtils.SnackbarType.Warning);
+            ViewUtils.ShowSnackbar(Phrases.SnackbarWarning_CantSaveMii, ViewUtils.SnackbarType.Warning);
             return;
         }
 
@@ -191,15 +189,11 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
         var databaseResult = MiiDbService.AddToDatabase(desiredMii, macAddress);
         if (databaseResult.IsFailure)
         {
-            new MessageBoxWindow()
-                .SetTitleText("Failed to Copy Mii")
-                .SetInfoText(databaseResult.Error!.Message)
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .Show();
+            MessageTranslationHelper.ShowMessage(MessageTranslation.Error_FailedCopyMii, null, [databaseResult.Error!.Message]);
             return;
         }
 
-        ViewUtils.ShowSnackbar("Mii has been added to your Miis");
+        ViewUtils.ShowSnackbar(Phrases.SnackbarSuccess_MiiAdded);
     }
 
     #region PropertyChanged

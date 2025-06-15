@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using WheelWizard.Helpers;
+using WheelWizard.Shared.MessageTranslations;
 
 namespace WheelWizard.Shared;
 
@@ -59,9 +60,12 @@ public class OperationResult
     /// <param name="titleReplacements">The objects to replace the keys in the translation title</param>
     /// <param name="extraReplacements">The objects to replace the keys in the translation extra info</param>
     /// <returns>A new instance of the <see cref="OperationResult"/> class.</returns>
-    public static OperationResult Fail(OperationError error, MessageTranslation? translation, 
-    object[]? titleReplacements = null,
-    object[]? extraReplacements = null)
+    public static OperationResult Fail(
+        OperationError error,
+        MessageTranslation? translation,
+        object[]? titleReplacements = null,
+        object[]? extraReplacements = null
+    )
     {
         error.MessageTranslation = translation;
         error.TitleReplacements = titleReplacements;
@@ -92,10 +96,12 @@ public class OperationResult
     /// <param name="extraReplacements">The objects to replace the keys in the translation extra info</param>
     /// <typeparam name="T">The type of the value.</typeparam>
     /// <returns>A new instance of the <see cref="OperationResult"/> class.</returns>
-    public static OperationResult<T> Fail<T>(OperationError error, 
-        MessageTranslation? translation,       
+    public static OperationResult<T> Fail<T>(
+        OperationError error,
+        MessageTranslation? translation,
         object[]? titleReplacements = null,
-        object[]? extraReplacements = null)
+        object[]? extraReplacements = null
+    )
     {
         error.MessageTranslation = translation;
         error.TitleReplacements = titleReplacements;

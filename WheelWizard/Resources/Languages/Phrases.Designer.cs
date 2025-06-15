@@ -286,6 +286,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to create Mii database.
+        /// </summary>
+        public static string MessageError_FailedCreateMiiDb_Title {
+            get {
+                return ResourceManager.GetString("MessageError_FailedCreateMiiDb_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred..
         /// </summary>
         public static string MessageError_GenericError_Title {
@@ -727,11 +736,29 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting is permanent and cannot be undone..
+        /// </summary>
+        public static string Question_SureDelete_Extra {
+            get {
+                return ResourceManager.GetString("Question_SureDelete_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete {$1}?.
         /// </summary>
         public static string Question_SureDelete_Title {
             get {
                 return ResourceManager.GetString("Question_SureDelete_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete {$1} Miis?.
+        /// </summary>
+        public static string Question_SureDelete_Title_Miis {
+            get {
+                return ResourceManager.GetString("Question_SureDelete_Title_Miis", resourceCulture);
             }
         }
         
@@ -750,6 +777,168 @@ namespace WheelWizard.Resources.Languages {
         public static string Question_UpdateAdmin_Title {
             get {
                 return ResourceManager.GetString("Question_UpdateAdmin_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to create Mii &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarError_MiiFailureCreate {
+            get {
+                return ResourceManager.GetString("SnackbarError_MiiFailureCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to deserialize Mii &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarError_MiiFailureDeserialize {
+            get {
+                return ResourceManager.GetString("SnackbarError_MiiFailureDeserialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to duplicate Mii(s) &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarError_MiiFailureDuplicate {
+            get {
+                return ResourceManager.GetString("SnackbarError_MiiFailureDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to get Mii &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarError_MiiFailureGet {
+            get {
+                return ResourceManager.GetString("SnackbarError_MiiFailureGet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save Mii &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarError_MiiFailureSave {
+            get {
+                return ResourceManager.GetString("SnackbarError_MiiFailureSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to serialize Mii &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarError_MiiFailureSerialize {
+            get {
+                return ResourceManager.GetString("SnackbarError_MiiFailureSerialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to update Mii &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarError_MiiFailureUpdate {
+            get {
+                return ResourceManager.GetString("SnackbarError_MiiFailureUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copied friend code to clipboard.
+        /// </summary>
+        public static string SnackbarSuccess_CopiedFC {
+            get {
+                return ResourceManager.GetString("SnackbarSuccess_CopiedFC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created duplicate of &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarSuccess_CreatedDuplicate {
+            get {
+                return ResourceManager.GetString("SnackbarSuccess_CreatedDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created {$1} duplicate Miis.
+        /// </summary>
+        public static string SnackbarSuccess_CreatedDuplicatesMiis {
+            get {
+                return ResourceManager.GetString("SnackbarSuccess_CreatedDuplicatesMiis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarSuccess_Deleted {
+            get {
+                return ResourceManager.GetString("SnackbarSuccess_Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted {$1} Miis.
+        /// </summary>
+        public static string SnackbarSuccess_Deleted_Miis {
+            get {
+                return ResourceManager.GetString("SnackbarSuccess_Deleted_Miis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mii has been added to your Miis.
+        /// </summary>
+        public static string SnackbarSuccess_MiiAdded {
+            get {
+                return ResourceManager.GetString("SnackbarSuccess_MiiAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully changed name to &apos;{$1}&apos;.
+        /// </summary>
+        public static string SnackbarSuccess_NameChange {
+            get {
+                return ResourceManager.GetString("SnackbarSuccess_NameChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved Mii &apos;{$1}&apos; to file &apos;{$2}&apos;.
+        /// </summary>
+        public static string SnackbarSuccess_SavedMii {
+            get {
+                return ResourceManager.GetString("SnackbarSuccess_SavedMii", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t Save Mii.
+        /// </summary>
+        public static string SnackbarWarning_CantSaveMii {
+            get {
+                return ResourceManager.GetString("SnackbarWarning_CantSaveMii", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It seems there where no Miis to delete.
+        /// </summary>
+        public static string SnackbarWarning_NoMiiDelete {
+            get {
+                return ResourceManager.GetString("SnackbarWarning_NoMiiDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It seems there where no Miis to export.
+        /// </summary>
+        public static string SnackbarWarning_NoMiiExport {
+            get {
+                return ResourceManager.GetString("SnackbarWarning_NoMiiExport", resourceCulture);
             }
         }
         

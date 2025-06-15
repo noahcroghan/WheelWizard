@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using WheelWizard.Helpers;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.GameData;
 using WheelWizard.Models.Settings;
@@ -147,6 +148,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             badge.Width = 30;
             BadgeContainer.Children.Add(badge);
         }
+
         ResetMiiTopBar();
     }
 
@@ -242,6 +244,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
                 .Show();
             return;
         }
+
         CurrentMii = selectedMii;
         GameLicenseService.LoadLicense();
         UpdatePage();
@@ -307,7 +310,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
                 .SetInfoText(changeNameResult.Error.Message)
                 .Show();
         else
-            ViewUtils.ShowSnackbar($"Successfully changed name to {newName}");
+            ViewUtils.ShowSnackbar(Humanizer.ReplaceDynamic(Phrases.SnackbarSuccess_NameChange, newName) ?? "Name changed successfully");
 
         //reload game data, since multiple licenses can use the same mii
         GameLicenseService.LoadLicense();

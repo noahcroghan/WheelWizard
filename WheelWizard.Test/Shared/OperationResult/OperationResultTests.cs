@@ -1,5 +1,6 @@
 ﻿using WheelWizard.Helpers;
 using WheelWizard.Shared;
+using WheelWizard.Shared.MessageTranslations;
 
 namespace WheelWizard.Test.Shared.OperationResultTests;
 

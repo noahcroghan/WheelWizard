@@ -1,4 +1,5 @@
 ﻿using Testably.Abstractions;
+using WheelWizard.Shared.MessageTranslations;
 using WheelWizard.WiiManagement.Domain.Mii;
 
 namespace WheelWizard.WiiManagement;
@@ -76,8 +77,10 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
     public OperationResult<Mii> GetByAvatarId(uint avatarId)
     {
         var raw = repository.GetRawBlockByAvatarId(avatarId);
-        if (raw == null || raw.Length != MiiSerializer.MiiBlockSize)
-            return Fail<Mii>("Mii block not found or invalid.");
+        if (raw == null)
+            return Fail<Mii>("Mii block not found", MessageTranslation.Error_UpdateMiiDb_NoBlockFound);
+        if (raw.Length != MiiSerializer.MiiBlockSize)
+            return Fail<Mii>("Mii block size invalid.", MessageTranslation.Error_UpdateMiiDb_BlockSizeInvalid);
 
         return MiiSerializer.Deserialize(raw);
     }
@@ -110,11 +113,11 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
     public OperationResult AddToDatabase(Mii? newMii, string macAddress)
     {
         if (newMii == null)
-            return Fail("Mii cannot be null or have an invalid ID.");
+            return Fail("Mii cannot be null", MessageTranslation.Error_MiiSerializer_MiiNotNull);
 
         var macParts = macAddress.Split(':');
         if (macParts.Length != 6)
-            return Fail("Invalid MAC address format.");
+            return Fail("Invalid MAC address format.", MessageTranslation.Error_UpdateMiiDb_InvalidMac);
         newMii.IsInvalid = false;
 
         var getMacAddress = TryCatch(() =>
@@ -178,6 +181,7 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
                 _lastCounter = baseCounter;
                 _sequenceOffset = 0;
             }
+
             actualCounter = baseCounter + _sequenceOffset;
         }
 
@@ -192,7 +196,7 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
     public OperationResult Remove(uint clientId)
     {
         if (clientId == 0)
-            return Fail("Invalid client ID.");
+            return Fail("Invalid Client ID.", MessageTranslation.Error_UpdateMiiDb_InvalidClId);
         var emptyBlock = new byte[74];
         return repository.UpdateBlockByClientId(clientId, emptyBlock);
     }

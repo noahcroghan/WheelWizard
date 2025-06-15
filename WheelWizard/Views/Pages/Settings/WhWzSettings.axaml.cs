@@ -9,6 +9,7 @@ using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services;
 using WheelWizard.Services.Settings;
+using WheelWizard.Shared.MessageTranslations;
 using WheelWizard.Views.Popups.Generic;
 using Button = WheelWizard.Views.Components.Button;
 
@@ -154,6 +155,7 @@ public partial class WhWzSettings : UserControl
                     .SetInfoText(Phrases.MessageWarning_DolphinNotFound_Extra)
                     .ShowDialog();
             }
+
             // Fallback to manual selection
             Console.WriteLine("Selecting folder on macOS");
             var folders = await FilePickerHelper.SelectFolderAsync("Select Dolphin.app");
@@ -162,6 +164,7 @@ public partial class WhWzSettings : UserControl
                 var executablePath = Path.Combine(folders[0].Path.LocalPath, "Contents", "MacOS", "Dolphin");
                 AssignWrappedDolphinExeInput(executablePath);
             }
+
             return; // do not do normal selection for MacOS
         }
 
@@ -257,20 +260,10 @@ public partial class WhWzSettings : UserControl
         // These 3 lines is only saving the settings
         TogglePathSettings(false);
         if (!(SettingsHelper.PathsSetupCorrectly() && path1 && path2 && path3))
-        {
-            await new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText(Phrases.MessageWarning_InvalidPaths_Title)
-                .SetInfoText(Phrases.MessageWarning_InvalidPaths_Extra)
-                .ShowDialog();
-        }
+            await MessageTranslationHelper.AwaitMessageAsync(MessageTranslation.Warning_InvalidPathSettings);
         else
         {
-            await new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Message)
-                .SetTitleText(Phrases.MessageSuccess_SettingsSaved_Title)
-                .SetInfoText(Phrases.MessageSuccess_SettingsSaved_Title)
-                .ShowDialog();
+            await MessageTranslationHelper.AwaitMessageAsync(MessageTranslation.Success_PathSettingsSaved);
 
             // This is not really the best approach, but it works for now
             if (oldPath1 + oldPath2 + oldPath3 != DolphinExeInput.Text + MarioKartInput.Text + DolphinUserPathInput.Text)
@@ -341,6 +334,7 @@ public partial class WhWzSettings : UserControl
 
         SettingsManager.WINDOW_SCALE.Set(scale);
         var seconds = 10;
+
         string ExtraScaleText() =>
             Humanizer.ReplaceDynamic(Phrases.Question_ApplyScale_Extra, Humanizer.HumanizeSeconds(seconds))
             ?? $"This will apply the new scale in {Humanizer.HumanizeSeconds(seconds)} seconds. You can cancel this by clicking Revert.";

@@ -7,6 +7,7 @@ using WheelWizard.Helpers;
 using WheelWizard.Services.Launcher.Helpers;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Shared.MessageTranslations;
 using WheelWizard.Utilities;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Components;
@@ -107,7 +108,7 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
             )
             .Show();
 
-        MessageTranslationHelper.ShowMessageBox(MessageTranslation.Error_StanderdError);
+        MessageTranslationHelper.ShowMessage(MessageTranslation.Error_StanderdError);
     }
 
     private async void YesNoPopup_OnClick(object sender, RoutedEventArgs e)
