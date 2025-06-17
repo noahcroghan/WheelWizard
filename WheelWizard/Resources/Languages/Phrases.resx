@@ -139,7 +139,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
         <value>A mod with the name '{$1}' already exists.</value>
     </data>
     <data name="Question_EnterModName" xml:space="preserve">
-        <value>Enter Mod Name:</value>
+        <value>Enter mod name...</value>
     </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
         <value>Mod name can't be empty.</value>
@@ -262,7 +262,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
         <value>This change will revert in {$1} unless you decide to keep the change.</value>
     </data>
     <data name="Question_RRToOld_Title" xml:space="preserve">
-        <value>Retro Rewind version to old.</value>
+        <value>The Retro Rewind version is too old.</value>
     </data>
     <data name="MessageWarning_NoConnectServer_Title" xml:space="preserve">
         <value>Could not connect to the server</value>
@@ -389,5 +389,65 @@ To join a specific room, you'll need to either join through a friend, or hope to
     </data>
     <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
         <value>Failed to Change Mii</value>
+    </data>
+    <data name="Progress_InstallingDolphin" xml:space="preserve">
+        <value>Installing Dolphin Emulator</value>
+    </data>
+    <data name="Progress_ThisMayTakeAWhile" xml:space="preserve">
+        <value>This may take a while depending on your internet connection.</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Title" xml:space="preserve">
+        <value>Dolphin Flatpak Installation</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Extra" xml:space="preserve">
+        <value>The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Title" xml:space="preserve">
+        <value>Failed to install Dolphin</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Extra" xml:space="preserve">
+        <value>The installation of Dolphin Emulator failed. Please try manually installing flatpak dolphin.</value>
+    </data>
+    <data name="Text_PoweredGamebanana" xml:space="preserve">
+        <value>Powered By Gamebababa</value>
+    </data>
+    <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
+        <value>No mod selected</value>
+    </data>
+    <data name="EmptyContent_NoModSelected" xml:space="preserve">
+        <value>Select a mod in the list to view its details</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Search for mods...</value>
+    </data>
+    <data name="Question_InstallMod_Title" xml:space="preserve">
+        <value>Do you want to donwload and install the mod: {$1}?</value>
+    </data>
+    <data name="MessageError_FailedRetrieveMod_Title" xml:space="preserve">
+        <value>Failed to retrieve mod info</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Title" xml:space="preserve">
+        <value>Mod download failed.</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Extra" xml:space="preserve">
+        <value>An error occurred during download: {$1}</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Title" xml:space="preserve">
+        <value>Mod name Invalid.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Extra" xml:space="preserve">
+        <value>Mod name contains invalid characters.</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>Mod name can't be empty.</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Extra" xml:space="preserve">
+        <value>Please provide a mod name.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Title" xml:space="preserve">
+        <value>Unable to download the mod</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
+        <value>files could not be found.</value>
     </data>
 </root>

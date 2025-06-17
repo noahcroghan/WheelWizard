@@ -94,9 +94,6 @@
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>모든 경로가 정확한지 확인한 후 다시 시도해 주십시오.</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>모드 이름을 입력:</value>
-    </data>
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>제목 입력:</value>
     </data>

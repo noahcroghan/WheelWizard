@@ -93,9 +93,6 @@
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Asegurese de que todas las rutas sean correctas y vuelvalo a intentar.</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>Ingrese nombre del mod:</value>
-    </data>
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Ingrese título:</value>
     </data>
@@ -236,5 +233,152 @@
     </data>
     <data name="Time_Seconds_x" xml:space="preserve">
         <value>{$1} segundos</value>
+    </data>
+    <data name="EmptyContent_NoMiis" xml:space="preserve">
+        <value>No podemos leer la información de Miis de tu sistema. Asegurate que hayas lanzado el juego al menos una vez.</value>
+    </data>
+    <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
+        <value>No hay Miis todavía!</value>
+    </data>
+    <data name="HelperNote_CreatorNameLess10" xml:space="preserve">
+        <value>El nombre del creador tiene que tener menos de 10 caracteres.</value>
+    </data>
+    <data name="HelperNote_NameMustBetween" xml:space="preserve">
+        <value>Los nombres tienen que tener entre 3 y 10 caracteres.</value>
+    </data>
+    <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
+        <value>Para añadir a amigos necesitas añadirlos en el juego.</value>
+    </data>
+    <data name="Hover_PrimaryProfile" xml:space="preserve">
+        <value>El perfil principal es usado como referencia en Wheel Wizard.</value>
+    </data>
+    <data name="Hover_RegionUserSelection" xml:space="preserve">
+        <value>Esto solo muestra las regiones en las que TÚ has jugado.</value>
+    </data>
+    <data name="MessageError_AbortRR_Extra_InvalidFilePath" xml:space="preserve">
+        <value>Se detectó una ruta de archivo no válida. Contacte a los desarrolladores.\n Error del servidor: {$1}</value>
+    </data>
+    <data name="MessageError_AbortRR_Title" xml:space="preserve">
+        <value>Abortando actualización de RR</value>
+    </data>
+    <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
+        <value>No se pudo cambiar el Mii</value>
+    </data>
+    <data name="MessageError_FailedChangeName_Title" xml:space="preserve">
+        <value>No se pudo cambiar el nombre</value>
+    </data>
+    <data name="MessageError_FailedCreateMiiDb_Title" xml:space="preserve">
+        <value>No se pudo crear la base de datos de Miis</value>
+    </data>
+    <data name="MessageError_GenericError_Title" xml:space="preserve">
+        <value>Se produjo un error.</value>
+    </data>
+    <data name="MessageSuccess_MiiChanged" xml:space="preserve">
+        <value>Mii cambiado con éxito</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Extra" xml:space="preserve">
+        <value>Uno o más de los Miis está en favoritos. Los Miis solo pueden ser borrados si no está en favoritos para prevenir borrar Miis accidentalmente.</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
+        <value>No se pueden borrar Miis en favoritos</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_NotFromBrowser" xml:space="preserve">
+        <value>No se puede ver mod que no fue instalado por el navegador de mods.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_SomethingElse" xml:space="preserve">
+        <value>Se produjo un error al abrir el mod seleccionado.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Title" xml:space="preserve">
+        <value>No se puede ver este mod.</value>
+    </data>
+    <data name="MessageWarning_FailCheckUpdates_Extra" xml:space="preserve">
+        <value>No se pueden buscar actualizaciones en este momento. Es posible que no tengas conexión a internet o que el servidor esté inactivo.</value>
+    </data>
+    <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
+        <value>Nombre no permitidio.</value>
+    </data>
+    <data name="MessageWarning_InvalidPaths_Title" xml:space="preserve">
+        <value>Rutas inválidas.</value>
+    </data>
+    <data name="MessageWarning_NoConnectServer_Title" xml:space="preserve">
+        <value>No se pudo conectar al servidor.</value>
+    </data>
+    <data name="MessageWarning_UnableUpdateWhWz_Title" xml:space="preserve">
+        <value>No se pudo actualizar Wheel Wizard.</value>
+    </data>
+    <data name="Progress_UpdateRR" xml:space="preserve">
+        <value>Actualizando Retro Rewind</value>
+    </data>
+    <data name="Question_ApplyScale_Extra" xml:space="preserve">
+        <value>Este cambio se revertira en {$1} a menos de que decidas de quedarte con este cambio.</value>
+    </data>
+    <data name="Question_ReinstallRR_Extra" xml:space="preserve">
+        <value>¿Estas seguro que quieres reinstalar Retro Rewind?</value>
+    </data>
+    <data name="Question_RRToOld_Title" xml:space="preserve">
+        <value>La version de Retro Rewind es muy antigua.</value>
+    </data>
+    <data name="Question_SureDelete_Extra" xml:space="preserve">
+        <value>Borrar es permanente y no se puede revertir.</value>
+    </data>
+    <data name="Question_SureDelete_Title_Miis" xml:space="preserve">
+        <value>¿Estas seguro que deseas borrar {$1} Miis?</value>
+    </data>
+    <data name="SnackbarError_MiiFailureCreate" xml:space="preserve">
+        <value>Se produjo un error al producir Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDeserialize" xml:space="preserve">
+        <value>Se produjo un error al deserializar Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDuplicate" xml:space="preserve">
+        <value>Se produjo un error al duplicar Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureGet" xml:space="preserve">
+        <value>Se produjo un error al duplicar Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSave" xml:space="preserve">
+        <value>Se produjo un error al guardar Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSerialize" xml:space="preserve">
+        <value>Se produjo un error al serializar Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureUpdate" xml:space="preserve">
+        <value>Se produjo un error al actualizar Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarSuccess_CopiedFC" xml:space="preserve">
+        <value>Codigo de amigo copiado al portapapeles</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicate" xml:space="preserve">
+        <value>Se creó una duplica de '{$1}'</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicatesMiis" xml:space="preserve">
+        <value>Se creó {$1} duplicas de Miis.</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted" xml:space="preserve">
+        <value>Se borró '{$1}'</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted_Miis" xml:space="preserve">
+        <value>Se borraron {$1} Miis</value>
+    </data>
+    <data name="SnackbarSuccess_MiiAdded" xml:space="preserve">
+        <value>Mii ha sido añadido a tus Miis</value>
+    </data>
+    <data name="SnackbarSuccess_NameChange" xml:space="preserve">
+        <value>Se cambió el nombre a '{$1}' con éxito</value>
+    </data>
+    <data name="SnackbarSuccess_ProfileSetPrimary" xml:space="preserve">
+        <value>Establecer perfil como principal</value>
+    </data>
+    <data name="SnackbarSuccess_SavedMii" xml:space="preserve">
+        <value>Se guardó Mii '{$1}' a archivo '{$2}'</value>
+    </data>
+    <data name="SnackbarWarning_CantSaveMii" xml:space="preserve">
+        <value>No se pudo guardar el Mii</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiDelete" xml:space="preserve">
+        <value>Parace que no hay Miis para borrar</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
+        <value>Parece que no hay Miis para exportar</value>
     </data>
 </root>

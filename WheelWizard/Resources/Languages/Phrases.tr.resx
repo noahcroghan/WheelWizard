@@ -94,9 +94,6 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Lütfen tüm yolların doğru olduğundan emin olun ve tekrar deneyin.</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>Mod Adını Girin:</value>
-    </data>
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Başlık Girin:</value>
     </data>
@@ -237,5 +234,152 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     </data>
     <data name="Time_Seconds_x" xml:space="preserve">
         <value>{$1} saniye</value>
+    </data>
+    <data name="EmptyContent_NoMiis" xml:space="preserve">
+        <value>Sisteminizden Mii bilgisini okuyamıyoruz. Oyunu en az bir kez başlattığınıza emin olun.</value>
+    </data>
+    <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
+        <value>Şimdilik Mii yok!</value>
+    </data>
+    <data name="HelperNote_CreatorNameLess10" xml:space="preserve">
+        <value>Yapımcı adı 10 karakterden kısa olması gerekiyor.</value>
+    </data>
+    <data name="HelperNote_NameMustBetween" xml:space="preserve">
+        <value>Adın 3 ile 10 karakter arasında olması gerekiyor.</value>
+    </data>
+    <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
+        <value>Arkadaş eklemek için onları oyunun içinde eklemeniz gerekiyor.</value>
+    </data>
+    <data name="Hover_PrimaryProfile" xml:space="preserve">
+        <value>Ana profil, Wheel Wizard için referans olarak kullanılır.</value>
+    </data>
+    <data name="Hover_RegionUserSelection" xml:space="preserve">
+        <value>Bu sadece SİZİN oynadığıınız bölgeleri gösterir.</value>
+    </data>
+    <data name="MessageError_AbortRR_Extra_InvalidFilePath" xml:space="preserve">
+        <value>Yanlış dosya yolu tespit edildi. Lütfen geliştiricilere bildirin.\n Sunucu hatası: {$1}</value>
+    </data>
+    <data name="MessageError_AbortRR_Title" xml:space="preserve">
+        <value>Retro Rewind güncellemesi iptal ediliyor</value>
+    </data>
+    <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
+        <value>Mii değiştirme başarısız</value>
+    </data>
+    <data name="MessageError_FailedChangeName_Title" xml:space="preserve">
+        <value>Ad değiştirme başarısız</value>
+    </data>
+    <data name="MessageError_FailedCreateMiiDb_Title" xml:space="preserve">
+        <value>Mii Veritabanı oluşturulamadı</value>
+    </data>
+    <data name="MessageError_GenericError_Title" xml:space="preserve">
+        <value>Bir hata oluştu</value>
+    </data>
+    <data name="MessageSuccess_MiiChanged" xml:space="preserve">
+        <value>Mii başarıyla değiştirildi</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Extra" xml:space="preserve">
+        <value>Seçilen bir ya da daha fazla Mii favori olarak ayarlanmış. Mii'ler favori iken yanlışlıkla silmeyi engellemek için silinemezler</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
+        <value>Favori Mii silinemiyor</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_NotFromBrowser" xml:space="preserve">
+        <value>Mod tarayıcısından indirilmemiş modlar görüntülenemez.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_SomethingElse" xml:space="preserve">
+        <value>Seçilen modu açmaya çalışırken bir hata oluştu</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Title" xml:space="preserve">
+        <value>Bu mod görüntülenemiyor</value>
+    </data>
+    <data name="MessageWarning_FailCheckUpdates_Extra" xml:space="preserve">
+        <value>Şu an güncellemeler kontrol edilemiyor. İnternete bağlı olmayabilirsiniz veya sunucular çalışmıyor olabilir.</value>
+    </data>
+    <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
+        <value>Ada izin verilmiyor.</value>
+    </data>
+    <data name="MessageWarning_InvalidPaths_Title" xml:space="preserve">
+        <value>Geçersiz yol.</value>
+    </data>
+    <data name="MessageWarning_NoConnectServer_Title" xml:space="preserve">
+        <value>Sunucuya bağlanılamıyor.</value>
+    </data>
+    <data name="MessageWarning_UnableUpdateWhWz_Title" xml:space="preserve">
+        <value>Wheel Wizard güncellenemedi.</value>
+    </data>
+    <data name="Progress_UpdateRR" xml:space="preserve">
+        <value>Retro Rewind Güncelleniyor</value>
+    </data>
+    <data name="Question_ApplyScale_Extra" xml:space="preserve">
+        <value>Bu değişiklik onaylamadığınız takdirde {$1} içinde eski haline dönecek.</value>
+    </data>
+    <data name="Question_ReinstallRR_Extra" xml:space="preserve">
+        <value>Retro Rewind'ı tekrar yüklemek istediğinize emin misiniz?</value>
+    </data>
+    <data name="Question_RRToOld_Title" xml:space="preserve">
+        <value>Retro Rewind sürümü çok eski.</value>
+    </data>
+    <data name="Question_SureDelete_Extra" xml:space="preserve">
+        <value>Silmek kalıcıdır ve geri alınamaz.</value>
+    </data>
+    <data name="Question_SureDelete_Title_Miis" xml:space="preserve">
+        <value>{$1} tane Mii'yi silmek istediğinize emin misiniz?</value>
+    </data>
+    <data name="SnackbarError_MiiFailureCreate" xml:space="preserve">
+        <value>Mii '{$1}' oluşturulamadı.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDeserialize" xml:space="preserve">
+        <value>Mii '{$1}' işlenemedi.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDuplicate" xml:space="preserve">
+        <value>Mii '{$1}' çoğaltılamadı.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureGet" xml:space="preserve">
+        <value>Mii '{$1}' alınamadı.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSave" xml:space="preserve">
+        <value>Mii '{$1}' kaydedilemedi.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSerialize" xml:space="preserve">
+        <value>Mii '{$1}' işlenemedi.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureUpdate" xml:space="preserve">
+        <value>Mii '{$1}' güncellenemedi.</value>
+    </data>
+    <data name="SnackbarSuccess_CopiedFC" xml:space="preserve">
+        <value>Arkadaş kodu panoya kopyalandı.</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicate" xml:space="preserve">
+        <value>{$1}' nin kopyası oluşturuldu.</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicatesMiis" xml:space="preserve">
+        <value>{$1}' Mii kopyası oluşturuldu.</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted" xml:space="preserve">
+        <value>{$1}' silindi.</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted_Miis" xml:space="preserve">
+        <value>{$1}' Mii silindi</value>
+    </data>
+    <data name="SnackbarSuccess_MiiAdded" xml:space="preserve">
+        <value>Mii, Mii'lerinize eklendi.</value>
+    </data>
+    <data name="SnackbarSuccess_NameChange" xml:space="preserve">
+        <value>Ad, başarıyla yeni ada değiştirildi. '{$1}'</value>
+    </data>
+    <data name="SnackbarSuccess_ProfileSetPrimary" xml:space="preserve">
+        <value>Profil birincil olarak ayarlandı.</value>
+    </data>
+    <data name="SnackbarSuccess_SavedMii" xml:space="preserve">
+        <value>Mii '{$1}' '{$2}' dosyasına kaydedildi.</value>
+    </data>
+    <data name="SnackbarWarning_CantSaveMii" xml:space="preserve">
+        <value>Mii kaydedilemiyor.</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiDelete" xml:space="preserve">
+        <value>Silinecek Mii bulunamadı.</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
+        <value>Aktarılıcak Mii bulunamadı</value>
     </data>
 </root>

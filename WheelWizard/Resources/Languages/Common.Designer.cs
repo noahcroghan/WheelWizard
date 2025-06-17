@@ -123,6 +123,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do manually.
+        /// </summary>
+        public static string Action_DoManually {
+            get {
+                return ResourceManager.GetString("Action_DoManually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download and Install.
+        /// </summary>
+        public static string Action_DownloadAndInstall {
+            get {
+                return ResourceManager.GetString("Action_DownloadAndInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duplicate.
         /// </summary>
         public static string Action_Duplicate {
@@ -164,6 +182,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Action_Favorite {
             get {
                 return ResourceManager.GetString("Action_Favorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gamebanana page.
+        /// </summary>
+        public static string Action_GamebananaPage {
+            get {
+                return ResourceManager.GetString("Action_GamebananaPage", resourceCulture);
             }
         }
         
@@ -303,6 +330,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report.
+        /// </summary>
+        public static string Action_Report {
+            get {
+                return ResourceManager.GetString("Action_Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Revert.
         /// </summary>
         public static string Action_Revert {
@@ -335,6 +371,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Action_Unfavorite {
             get {
                 return ResourceManager.GetString("Action_Unfavorite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Un Install.
+        /// </summary>
+        public static string Action_UnInstall {
+            get {
+                return ResourceManager.GetString("Action_UnInstall", resourceCulture);
             }
         }
         
@@ -384,11 +429,47 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Avarage VR.
+        ///   Looks up a localized string similar to Average VR.
         /// </summary>
         public static string Attribute_AverageRoomVr {
             get {
                 return ResourceManager.GetString("Attribute_AverageRoomVr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BR.
+        /// </summary>
+        public static string Attribute_BrAbbreviation {
+            get {
+                return ResourceManager.GetString("Attribute_BrAbbreviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Battle Rating.
+        /// </summary>
+        public static string Attribute_BrFull {
+            get {
+                return ResourceManager.GetString("Attribute_BrFull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Attribute_Description {
+            get {
+                return ResourceManager.GetString("Attribute_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloads.
+        /// </summary>
+        public static string Attribute_Downloads {
+            get {
+                return ResourceManager.GetString("Attribute_Downloads", resourceCulture);
             }
         }
         
@@ -447,11 +528,29 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Images.
+        /// </summary>
+        public static string Attribute_Images {
+            get {
+                return ResourceManager.GetString("Attribute_Images", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is Online.
         /// </summary>
         public static string Attribute_IsOnline {
             get {
                 return ResourceManager.GetString("Attribute_IsOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Likes.
+        /// </summary>
+        public static string Attribute_Likes {
+            get {
+                return ResourceManager.GetString("Attribute_Likes", resourceCulture);
             }
         }
         
@@ -605,6 +704,33 @@ namespace WheelWizard.Resources.Languages {
         public static string Attribute_Type {
             get {
                 return ResourceManager.GetString("Attribute_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Views.
+        /// </summary>
+        public static string Attribute_Views {
+            get {
+                return ResourceManager.GetString("Attribute_Views", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VR.
+        /// </summary>
+        public static string Attribute_VrAbbreviation {
+            get {
+                return ResourceManager.GetString("Attribute_VrAbbreviation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Versus Rating.
+        /// </summary>
+        public static string Attribute_VrFull {
+            get {
+                return ResourceManager.GetString("Attribute_VrFull", resourceCulture);
             }
         }
         
@@ -798,6 +924,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom.
+        /// </summary>
+        public static string State_Custom {
+            get {
+                return ResourceManager.GetString("State_Custom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string State_Error {
@@ -812,6 +947,15 @@ namespace WheelWizard.Resources.Languages {
         public static string State_Extracting {
             get {
                 return ResourceManager.GetString("State_Extracting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installed.
+        /// </summary>
+        public static string State_Installed {
+            get {
+                return ResourceManager.GetString("State_Installed", resourceCulture);
             }
         }
         

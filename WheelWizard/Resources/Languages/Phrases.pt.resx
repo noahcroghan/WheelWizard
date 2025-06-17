@@ -93,9 +93,6 @@
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Por favor verifica que todos os percursos estão corretos e tenta outra vez-</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>Introduza o Nome do Mod:</value>
-    </data>
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Introduza o Título:</value>
     </data>

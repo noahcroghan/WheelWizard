@@ -111,11 +111,13 @@
 
                         <Grid Grid.Column="1" Margin="15,0,0,5" ColumnDefinitions="3*,4*" VerticalAlignment="Bottom">
                             <StackPanel Grid.Column="0">
-                                <components:FormFieldLabel Text="VR" />
+                                <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_VrAbbreviation}"
+                                                           TipText="{x:Static lang:Common.Attribute_VrFull}" />
                                 <SelectableTextBlock Classes="BodyText" Text="{TemplateBinding Vr}" />
                             </StackPanel>
                             <StackPanel Grid.Column="1">
-                                <components:FormFieldLabel Text="BR" />
+                                <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_BrAbbreviation}"
+                                                           TipText="{x:Static lang:Common.Attribute_BrFull}" />
                                 <SelectableTextBlock Classes="BodyText" Text="{TemplateBinding Br}" />
                             </StackPanel>
                         </Grid>

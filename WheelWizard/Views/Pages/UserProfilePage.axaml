@@ -138,7 +138,8 @@
 
                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,7,0,0">
                         <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_Status}" />
-                        <SelectableTextBlock IsVisible="{Binding IsOnline}" Text="{x:Static lang:Common.Attribute_Status_Online}"
+                        <SelectableTextBlock IsVisible="{Binding IsOnline}"
+                                             Text="{x:Static lang:Common.Attribute_Status_Online}"
                                              FontSize="16" Foreground="{StaticResource Primary400}" />
                         <SelectableTextBlock Classes="BodyText" Text="{x:Static lang:Common.Attribute_Status_Offline}"
                                              IsVisible="{Binding IsOnline, Converter={x:Static BoolConverters.Not}}" />
@@ -147,12 +148,14 @@
                     <Grid Grid.Column="0" Grid.Row="1" ColumnDefinitions="3*,4*"
                           Margin="5,0,0,10" VerticalAlignment="Bottom">
                         <StackPanel Grid.Column="0">
-                            <components:FormFieldLabel Text="VR" />
+                            <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_VrAbbreviation}"
+                                                       TipText="{x:Static lang:Common.Attribute_VrFull}" />
                             <SelectableTextBlock Classes="BodyText" x:Name="ProfileAttribVr" />
                         </StackPanel>
 
                         <StackPanel Grid.Column="1">
-                            <components:FormFieldLabel Text="BR" />
+                            <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_BrAbbreviation}"
+                                                       TipText="{x:Static lang:Common.Attribute_BrFull}" />
                             <SelectableTextBlock Classes="BodyText" x:Name="ProfileAttribBr" />
                         </StackPanel>
                     </Grid>

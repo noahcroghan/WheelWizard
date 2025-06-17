@@ -4,6 +4,7 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Platform.Storage;
 using Avalonia.Threading;
+using HarfBuzzSharp;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
@@ -27,6 +28,8 @@ public partial class WhWzSettings : UserControl
         TogglePathSettings(false);
         LoadSettings();
         _pageLoaded = true;
+
+        MKGameFieldLabel.TipText = WheelWizard.Resources.Languages.Settings.HelperText_EndWithX + "Path can end with: .wbfs/.iso/.rvz";
     }
 
     private void LoadSettings()
@@ -57,7 +60,7 @@ public partial class WhWzSettings : UserControl
         if (SettingValues.WindowScales.Contains(scale))
             return percentageString;
 
-        return "Custom: " + percentageString;
+        return Common.State_Custom + ": " + percentageString;
     }
 
     private void AutoFillPaths()
@@ -99,17 +102,15 @@ public partial class WhWzSettings : UserControl
             if (!EnvHelper.IsFlatpakSandboxed() && !IsFlatpakDolphinInstalled())
             {
                 var wantsAutomaticInstall = await new YesNoWindow()
-                    .SetMainText("Dolphin Flatpak Installation")
-                    .SetExtraText(
-                        "The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?"
-                    )
-                    .SetButtonText("Install", "Manual")
+                    .SetMainText(Phrases.Question_DolphinFlatpack_Title)
+                    .SetExtraText(Phrases.Question_DolphinFlatpack_Extra)
+                    .SetButtonText(Common.Action_Install, Common.Action_DoManually)
                     .AwaitAnswer();
                 if (wantsAutomaticInstall)
                 {
                     var progressWindow = new ProgressWindow()
-                        .SetGoal("Installing Dolphin Emulator")
-                        .SetExtraText("This may take a while depending on your internet connection.");
+                        .SetGoal(Phrases.Progress_InstallingDolphin)
+                        .SetExtraText(Phrases.Progress_ThisMayTakeAWhile);
                     TogglePathSettings(true);
                     progressWindow.Show();
                     var progress = new Progress<int>(progressWindow.UpdateProgress);
@@ -117,11 +118,7 @@ public partial class WhWzSettings : UserControl
                     progressWindow.Close();
                     if (!success)
                     {
-                        await new MessageBoxWindow()
-                            .SetMessageType(MessageBoxWindow.MessageType.Error)
-                            .SetTitleText("Failed to install Dolphin")
-                            .SetInfoText("The installation of Dolphin Emulator failed. Please try manually installing flatpak dolphin.")
-                            .ShowDialog();
+                        await MessageTranslationHelper.AwaitMessageAsync(MessageTranslation.Error_FailedInstallDolphin);
                         return;
                     }
 
@@ -149,15 +146,10 @@ public partial class WhWzSettings : UserControl
             }
             else
             {
-                await new MessageBoxWindow()
-                    .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                    .SetTitleText(Phrases.MessageWarning_DolphinNotFound_Title)
-                    .SetInfoText(Phrases.MessageWarning_DolphinNotFound_Extra)
-                    .ShowDialog();
+                await MessageTranslationHelper.AwaitMessageAsync(MessageTranslation.Warning_DolphinNotFound);
             }
 
             // Fallback to manual selection
-            Console.WriteLine("Selecting folder on macOS");
             var folders = await FilePickerHelper.SelectFolderAsync("Select Dolphin.app");
             if (folders.Count >= 1)
             {
@@ -219,11 +211,7 @@ public partial class WhWzSettings : UserControl
         }
         else
         {
-            await new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .SetTitleText(Phrases.MessageWarning_DolphinNotFound_Title)
-                .SetInfoText(Phrases.MessageWarning_DolphinNotFound_Extra)
-                .ShowDialog();
+            await MessageTranslationHelper.AwaitMessageAsync(MessageTranslation.Warning_DolphinNotFound);
         }
 
         var currentFolder = (string)SettingsManager.USER_FOLDER_PATH.Get();

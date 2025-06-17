@@ -270,7 +270,7 @@
         <value>Bericht</value>
     </data>
     <data name="Attribute_AverageRoomVr" xml:space="preserve">
-        <value>Gemiddelde Vr</value>
+        <value>Gemiddelde VS</value>
     </data>
     <data name="Action_LaunchDolphin" xml:space="preserve">
         <value>Dolphin opstarten</value>
@@ -304,5 +304,53 @@
     </data>
     <data name="Attribute_TotalGamesWon" xml:space="preserve">
         <value>Totaal gewonne games</value>
+    </data>
+    <data name="Attribute_VrAbbreviation" xml:space="preserve">
+        <value>VS</value>
+    </data>
+    <data name="Attribute_VrFull" xml:space="preserve">
+        <value>Versus-score</value>
+    </data>
+    <data name="Attribute_BrAbbreviation" xml:space="preserve">
+        <value>GS</value>
+    </data>
+    <data name="Attribute_BrFull" xml:space="preserve">
+        <value>Gevechts-score</value>
+    </data>
+    <data name="State_Custom" xml:space="preserve">
+        <value>Aangepast</value>
+    </data>
+    <data name="Action_DoManually" xml:space="preserve">
+        <value>Handmatig doen</value>
+    </data>
+    <data name="Attribute_Description" xml:space="preserve">
+        <value>Omschrijving</value>
+    </data>
+    <data name="Attribute_Downloads" xml:space="preserve">
+        <value>Downloads</value>
+    </data>
+    <data name="Attribute_Images" xml:space="preserve">
+        <value>Afbeeldingen</value>
+    </data>
+    <data name="Attribute_Views" xml:space="preserve">
+        <value>Weergaven</value>
+    </data>
+    <data name="Attribute_Likes" xml:space="preserve">
+        <value>Vind-ik-leuks</value>
+    </data>
+    <data name="Action_UnInstall" xml:space="preserve">
+        <value>Verwijderen</value>
+    </data>
+    <data name="Action_Report" xml:space="preserve">
+        <value>Melden!</value>
+    </data>
+    <data name="Action_GamebananaPage" xml:space="preserve">
+        <value>Gamebanana pagina</value>
+    </data>
+    <data name="State_Installed" xml:space="preserve">
+        <value>Geïnstalleerd</value>
+    </data>
+    <data name="Action_DownloadAndInstall" xml:space="preserve">
+        <value>Download en Installeren</value>
     </data>
 </root>

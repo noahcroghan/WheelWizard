@@ -242,4 +242,67 @@
     <data name="Action_Link_Discord" xml:space="preserve">
         <value>Parla con noi!</value>
     </data>
+    <data name="Action_Back" xml:space="preserve">
+        <value>Ritorna</value>
+    </data>
+    <data name="Action_Duplicate" xml:space="preserve">
+        <value>Duplica</value>
+    </data>
+    <data name="Action_Favorite" xml:space="preserve">
+        <value>Favorito</value>
+    </data>
+    <data name="Action_LaunchDolphin" xml:space="preserve">
+        <value>Lancia Dolphin</value>
+    </data>
+    <data name="Action_Randomize" xml:space="preserve">
+        <value>Casuale</value>
+    </data>
+    <data name="Action_SaveExternalMii" xml:space="preserve">
+        <value>Aggiungi Mii a "I Miei Mii"</value>
+    </data>
+    <data name="Action_Unfavorite" xml:space="preserve">
+        <value>Rimuovi dai Favoriti</value>
+    </data>
+    <data name="Action_ViewMii" xml:space="preserve">
+        <value>Vedi Mii</value>
+    </data>
+    <data name="Attribute_AverageRoomVr" xml:space="preserve">
+        <value>Media dei Punti Corsa</value>
+    </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Genere</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Femmina</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Maschio</value>
+    </data>
+    <data name="Attribute_IsOnline" xml:space="preserve">
+        <value>È Online</value>
+    </data>
+    <data name="Attribute_Message" xml:space="preserve">
+        <value>Messaggio</value>
+    </data>
+    <data name="Attribute_Priority" xml:space="preserve">
+        <value>Priorità</value>
+    </data>
+    <data name="Attribute_SortBy" xml:space="preserve">
+        <value>Ordina per</value>
+    </data>
+    <data name="Attribute_Status" xml:space="preserve">
+        <value>Stato</value>
+    </data>
+    <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
+        <value>Numero di partite giocate</value>
+    </data>
+    <data name="Attribute_TotalGamesWon" xml:space="preserve">
+        <value>Numero di partite vinte</value>
+    </data>
+    <data name="ListTitle_Miis" xml:space="preserve">
+        <value>Mii</value>
+    </data>
+    <data name="PageTitle_MyMiis" xml:space="preserve">
+        <value>I miei Mii</value>
+    </data>
 </root>

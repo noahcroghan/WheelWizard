@@ -106,8 +106,8 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
             var name = type switch
             {
                 // TODO: Should be replaced with actual translations
-                ListOrderCondition.VR => "Vr",
-                ListOrderCondition.BR => "Br",
+                ListOrderCondition.VR => Common.Attribute_VrFull,
+                ListOrderCondition.BR => Common.Attribute_BrFull,
                 ListOrderCondition.NAME => Common.Attribute_Name,
                 ListOrderCondition.WINS => Common.Attribute_Wins,
                 ListOrderCondition.TOTAL_RACES => Common.Attribute_RacesPlayed,

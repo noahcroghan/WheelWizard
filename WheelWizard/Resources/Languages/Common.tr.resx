@@ -99,7 +99,7 @@
         <value>Etkin</value>
     </data>
     <data name="Attribute_Id" xml:space="preserve">
-        <value>Kimlik</value>
+        <value>ID</value>
     </data>
     <data name="Attribute_ModName" xml:space="preserve">
         <value>Modların Adı</value>
@@ -241,5 +241,53 @@
     </data>
     <data name="Action_Link_Support" xml:space="preserve">
         <value>Bize Destek Olun!</value>
+    </data>
+    <data name="Action_Back" xml:space="preserve">
+        <value>Geri</value>
+    </data>
+    <data name="Action_Duplicate" xml:space="preserve">
+        <value>Çoğalt</value>
+    </data>
+    <data name="Action_Favorite" xml:space="preserve">
+        <value>Favorile</value>
+    </data>
+    <data name="Action_LaunchDolphin" xml:space="preserve">
+        <value>Dolphin'i başlat</value>
+    </data>
+    <data name="Action_SaveExternalMii" xml:space="preserve">
+        <value>Mii'yi "Benim Mii'lerim"'e ekle</value>
+    </data>
+    <data name="Action_Unfavorite" xml:space="preserve">
+        <value>Favoriyi kaldır</value>
+    </data>
+    <data name="Action_ViewMii" xml:space="preserve">
+        <value>Mii'yi Görüntüle</value>
+    </data>
+    <data name="Attribute_AverageRoomVr" xml:space="preserve">
+        <value>Ortalama KP</value>
+    </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Cinsiyet</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Kadın</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Erkek</value>
+    </data>
+    <data name="Attribute_IsOnline" xml:space="preserve">
+        <value>Online</value>
+    </data>
+    <data name="Attribute_Message" xml:space="preserve">
+        <value>Mesaj</value>
+    </data>
+    <data name="Attribute_Priority" xml:space="preserve">
+        <value>Öncelik</value>
+    </data>
+    <data name="Attribute_Status" xml:space="preserve">
+        <value>Durum</value>
+    </data>
+    <data name="ListTitle_Miis" xml:space="preserve">
+        <value>Mii'ler</value>
     </data>
 </root>

@@ -177,4 +177,19 @@
     <data name="Placeholder_SearchForPlayers" xml:space="preserve">
         <value>プレイヤーを検索します...</value>
     </data>
+    <data name="Category_About" xml:space="preserve">
+        <value>情報</value>
+    </data>
+    <data name="Option_OpenGameFolder" xml:space="preserve">
+        <value>ゲームフォルダーを開く</value>
+    </data>
+    <data name="Option_OpenSaveFolder" xml:space="preserve">
+        <value>セーブフォルダーを開く</value>
+    </data>
+    <data name="Option_Reinstall" xml:space="preserve">
+        <value>Retro Rewindの再インストール</value>
+    </data>
+    <data name="Section_Installation" xml:space="preserve">
+        <value>インストール</value>
+    </data>
 </root>

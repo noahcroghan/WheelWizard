@@ -123,6 +123,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Path can end with:.
+        /// </summary>
+        public static string HelperText_EndWithX {
+            get {
+                return ResourceManager.GetString("HelperText_EndWithX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This setting disables Wiimote ingame, but enables it for the Wii channel.
         /// </summary>
         public static string HelperText_ForceDisableWiimote {

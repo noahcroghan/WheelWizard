@@ -39,16 +39,24 @@ public enum MessageTranslation
     Warning_CantViewMod_NotFromBrowser = 1005,
     Warning_CantViewMod_SomethingWrong = 2006,
     Warning_NoMiisFound = 1007,
+    Warning_DolphinNotFound = 2008,
+    Warning_ModNameCantEmpty = 1009,
+    Warning_ModNameInvalid = 1010,
+    Warning_UnableToDownloadMod_Files = 1011,
 
     #endregion
 
     #region Errors
 
-    Error_StanderdError = 3000,
-
+    // 30xx = random errors
     // 31xx = Mii (related) Errors
     // - 310x = Mii Repository/DB Error
     // - 311x = Mii Serializer Error
+    // 32xx = External program Errors
+    // - 320x = Dolphin related Errors
+    Error_StanderdError = 3000,
+    Error_ModDownloadFailed = 3001,
+
     Error_MiiDBAlreadyExists = 3100,
     Error_UpdateMiiDb_InvalidClId = 3101,
     Error_UpdateMiiDb_BlockSizeInvalid = 3102,
@@ -65,6 +73,7 @@ public enum MessageTranslation
     Error_MiiSerializer_InvalidMiiData = 3114,
 
     Error_FailedCopyMii = 3120,
+    Error_FailedInstallDolphin = 3200,
 
     #endregion
 }
@@ -115,12 +124,20 @@ public static class MessageTranslationHelper
                 Phrases.MessageWarning_CantViewMod_Extra_NotFromBrowser
             ),
             MessageTranslation.Warning_NoMiisFound => ("No Miis Found", "There are no other Miis available to select."),
-            
+            MessageTranslation.Warning_DolphinNotFound => (
+                Phrases.MessageWarning_DolphinNotFound_Title,
+                Phrases.MessageWarning_DolphinNotFound_Extra
+            ),
+            MessageTranslation.Warning_ModNameCantEmpty => (Phrases.MessageWarning_ModNameEmpty_Title, Phrases.MessageWarning_ModNameEmpty_Extra),
+            MessageTranslation.Warning_ModNameInvalid => (Phrases.MessageWarning_ModNameInvalid_Title, Phrases.MessageWarning_ModNameInvalid_Extra),
+            MessageTranslation.Warning_UnableToDownloadMod_Files => (Phrases.MessageWarning_UnableDownloadMod_Title, Phrases.MessageWarning_UnableDownloadMod_Extra),
+
             #endregion
 
             #region Errors
 
             MessageTranslation.Error_StanderdError => ("Standard Error", "Something went wrong!"),
+            MessageTranslation.Error_ModDownloadFailed => (Phrases.MessageError_ModDownloadFail_Title, Phrases.MessageError_ModDownloadFail_Extra),
             MessageTranslation.Error_FailedCopyMii => ("Failed to copy Mii", "{$1}"),
             MessageTranslation.Error_MiiDBAlreadyExists => (Phrases.MessageError_FailedCreateMiiDb_Title, "Database already exists."),
             MessageTranslation.Error_UpdateMiiDb_InvalidClId => ("Invalid Client ID.", "The client ID attached to this Mii is invalid."),
@@ -138,6 +155,11 @@ public static class MessageTranslationHelper
             MessageTranslation.Error_MiiSerializer_MiiDataLength => ("Invalid Mii data length.", null),
             MessageTranslation.Error_MiiSerializer_MiiDataEmpty => ("Mii data is empty.", null),
             MessageTranslation.Error_MiiSerializer_InvalidMiiData => ("Invalid Mii data", "The Mii '{$1}' is invalid."),
+
+            MessageTranslation.Error_FailedInstallDolphin => (
+                Phrases.MessageError_FailedInstallDolphin_Title,
+                Phrases.MessageError_FailedInstallDolphin_Extra
+            ),
 
             #endregion
 

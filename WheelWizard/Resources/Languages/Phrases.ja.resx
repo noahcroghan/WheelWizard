@@ -104,9 +104,6 @@
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>すべてのパスが正しいことを確認して、もう一度お試しください。</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>Modの名前を入力:</value>
-    </data>
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>タイトルを入力:</value>
     </data>
@@ -242,5 +239,149 @@ My Stuffフォルダーをクリアしますか？</value>
     </data>
     <data name="Time_Seconds_x" xml:space="preserve">
         <value>{$1}秒</value>
+    </data>
+    <data name="EmptyContent_NoMiis" xml:space="preserve">
+        <value>Miiのデータを読み込めません。必ず一度はゲームを起動してください。</value>
+    </data>
+    <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
+        <value>まだMiiがありません！</value>
+    </data>
+    <data name="HelperNote_CreatorNameLess10" xml:space="preserve">
+        <value>作成者の名前の長さは10文字以下にしてください</value>
+    </data>
+    <data name="HelperNote_NameMustBetween" xml:space="preserve">
+        <value>名前の長さは3文字から10文字にしてください</value>
+    </data>
+    <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
+        <value>フレンドを追加するためにはゲーム内で追加する必要があります</value>
+    </data>
+    <data name="Hover_PrimaryProfile" xml:space="preserve">
+        <value>メインのプロファイルはWheel Wizardクライアントで参照されます</value>
+    </data>
+    <data name="Hover_RegionUserSelection" xml:space="preserve">
+        <value>これはあなたがプレイした地域のみを表示します</value>
+    </data>
+    <data name="MessageError_AbortRR_Extra_InvalidFilePath" xml:space="preserve">
+        <value>無効なファイルパスが検知されました。開発者に連絡してください。\n サーバーエラー:  {$1}</value>
+    </data>
+    <data name="MessageError_AbortRR_Title" xml:space="preserve">
+        <value>Retro Rewindのアップデートを中止</value>
+    </data>
+    <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
+        <value>Miiの変更に失敗しました</value>
+    </data>
+    <data name="MessageError_FailedChangeName_Title" xml:space="preserve">
+        <value>名前の変更に失敗しました</value>
+    </data>
+    <data name="MessageError_FailedCreateMiiDb_Title" xml:space="preserve">
+        <value>Miiの情報の作成に失敗しました</value>
+    </data>
+    <data name="MessageError_GenericError_Title" xml:space="preserve">
+        <value>エラーが発生しました</value>
+    </data>
+    <data name="MessageSuccess_MiiChanged" xml:space="preserve">
+        <value>Miiが正しく変更されました</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Extra" xml:space="preserve">
+        <value>選択したMiiのうち1体以上がお気に入りに設定されています。誤って削除してしまうのを防ぐため、お気に入りに設定されていないMiiのみ削除できます</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
+        <value>お気に入りのMiiは削除できません</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_NotFromBrowser" xml:space="preserve">
+        <value>ModブラウザーでインストールしていないModは閲覧できません</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_SomethingElse" xml:space="preserve">
+        <value>選択されたModを開こうとした際に問題が発生しました</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Title" xml:space="preserve">
+        <value>このModは閲覧できません</value>
+    </data>
+    <data name="MessageWarning_FailCheckUpdates_Extra" xml:space="preserve">
+        <value>現在アップデートを確認できません。インターネットに接続されていないか、サーバーがダウンしている可能性があります</value>
+    </data>
+    <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
+        <value>その名前にはできません</value>
+    </data>
+    <data name="MessageWarning_InvalidPaths_Title" xml:space="preserve">
+        <value>無効なパスです</value>
+    </data>
+    <data name="MessageWarning_NoConnectServer_Title" xml:space="preserve">
+        <value>サーバーに接続できませんでした</value>
+    </data>
+    <data name="MessageWarning_UnableUpdateWhWz_Title" xml:space="preserve">
+        <value>Wheel Wizardのアップデートを無効にする</value>
+    </data>
+    <data name="Question_ApplyScale_Extra" xml:space="preserve">
+        <value>変更の保存を選択しないと、この変更は{$1}で変更前に戻ります</value>
+    </data>
+    <data name="Question_ReinstallRR_Extra" xml:space="preserve">
+        <value>Retro Rewindを再インストールしてもよろしいですか？</value>
+    </data>
+    <data name="Question_RRToOld_Title" xml:space="preserve">
+        <value>Retro Rewindのバージョンが古すぎます</value>
+    </data>
+    <data name="Question_SureDelete_Extra" xml:space="preserve">
+        <value>削除は永久的であり、元に戻すことはできません</value>
+    </data>
+    <data name="Question_SureDelete_Title_Miis" xml:space="preserve">
+        <value>{$1}Miiを削除してもよろしいですか？</value>
+    </data>
+    <data name="SnackbarError_MiiFailureCreate" xml:space="preserve">
+        <value>Mii '{$1}'の作成に失敗しました</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDeserialize" xml:space="preserve">
+        <value>Mii '{$1}'の復元に失敗しました</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDuplicate" xml:space="preserve">
+        <value>Mii '{$1}'のコピーに失敗しました</value>
+    </data>
+    <data name="SnackbarError_MiiFailureGet" xml:space="preserve">
+        <value>Mii '{$1}'の取得に失敗しました</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSave" xml:space="preserve">
+        <value>Mii '{$1}'の保存に失敗しました</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSerialize" xml:space="preserve">
+        <value>Mii '{$1}'の変換に失敗しました</value>
+    </data>
+    <data name="SnackbarError_MiiFailureUpdate" xml:space="preserve">
+        <value>Mii '{$1}'のアップデートに失敗しました</value>
+    </data>
+    <data name="SnackbarSuccess_CopiedFC" xml:space="preserve">
+        <value>クリップボードにフレンドコードをコピーしました</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicate" xml:space="preserve">
+        <value>{$1}'のコピーを作成しました</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicatesMiis" xml:space="preserve">
+        <value>{$1}Miiのコピーを作成しました</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted" xml:space="preserve">
+        <value>{$1}'を削除しました</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted_Miis" xml:space="preserve">
+        <value>{$1}Miiを削除しました</value>
+    </data>
+    <data name="SnackbarSuccess_MiiAdded" xml:space="preserve">
+        <value>MiiはあなたのMiiに追加されました</value>
+    </data>
+    <data name="SnackbarSuccess_NameChange" xml:space="preserve">
+        <value>名前を'{$1}'に変更しました</value>
+    </data>
+    <data name="SnackbarSuccess_ProfileSetPrimary" xml:space="preserve">
+        <value>プロファイルをメインに設定する</value>
+    </data>
+    <data name="SnackbarSuccess_SavedMii" xml:space="preserve">
+        <value>Mii '{$1}'をファイル '{$2}'に保存しました</value>
+    </data>
+    <data name="SnackbarWarning_CantSaveMii" xml:space="preserve">
+        <value>Miiを保存できません</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiDelete" xml:space="preserve">
+        <value>削除するMiiが存在しないようです</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
+        <value>エクスポートできるMiiがなかったようです</value>
     </data>
 </root>

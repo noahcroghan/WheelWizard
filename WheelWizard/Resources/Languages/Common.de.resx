@@ -242,4 +242,73 @@
     <data name="Action_Link_Support" xml:space="preserve">
         <value>Unterstützt uns!</value>
     </data>
+    <data name="Action_Back" xml:space="preserve">
+        <value>Zurück</value>
+    </data>
+    <data name="Action_Duplicate" xml:space="preserve">
+        <value>Duplizieren</value>
+    </data>
+    <data name="Action_Favorite" xml:space="preserve">
+        <value>Favorisieren</value>
+    </data>
+    <data name="Action_LaunchDolphin" xml:space="preserve">
+        <value>Dolphin starten</value>
+    </data>
+    <data name="Action_Randomize" xml:space="preserve">
+        <value>Zufällig</value>
+    </data>
+    <data name="Action_SaveExternalMii" xml:space="preserve">
+        <value>Mii zu "Meine Miis" hinzufügen</value>
+    </data>
+    <data name="Action_Unfavorite" xml:space="preserve">
+        <value>Entfavorisieren</value>
+    </data>
+    <data name="Action_ViewMii" xml:space="preserve">
+        <value>Mii ansehen</value>
+    </data>
+    <data name="Attribute_AverageRoomVr" xml:space="preserve">
+        <value>Durchschnittliche R-Punkte</value>
+    </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Geschlecht</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Männlich</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Weiblich</value>
+    </data>
+    <data name="Attribute_IsOnline" xml:space="preserve">
+        <value>Ist Online</value>
+    </data>
+    <data name="Attribute_Message" xml:space="preserve">
+        <value>Nachricht</value>
+    </data>
+    <data name="Attribute_Priority" xml:space="preserve">
+        <value>Priorität</value>
+    </data>
+    <data name="Attribute_SortBy" xml:space="preserve">
+        <value>Sortieren nach</value>
+    </data>
+    <data name="Attribute_Status" xml:space="preserve">
+        <value>Status</value>
+    </data>
+    <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
+        <value>Gesamte gewonnene Rennen</value>
+    </data>
+    <data name="Attribute_TotalGamesWon" xml:space="preserve">
+        <value>Gesamte verlorene Rennen</value>
+    </data>
+    <data name="ListTitle_Miis" xml:space="preserve">
+        <value>Miis</value>
+    </data>
+    <data name="PageTitle_MyMiis" xml:space="preserve">
+        <value>Meine Miis</value>
+    </data>
+    <data name="Attribute_VrAbbreviation" xml:space="preserve">
+        <value>RP</value>
+    </data>
+    <data name="Attribute_VrFull" xml:space="preserve">
+        <value>R-Punkte</value>
+    </data>
 </root>

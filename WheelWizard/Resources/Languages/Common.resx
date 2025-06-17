@@ -198,7 +198,7 @@
         <value>View Room</value>
     </data>
     <data name="Attribute_AverageRoomVr" xml:space="preserve">
-        <value>Avarage VR</value>
+        <value>Average VR</value>
     </data>
     <data name="State_NoName" xml:space="preserve">
         <value>No name</value>
@@ -304,5 +304,53 @@
     </data>
     <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
         <value>Total games played</value>
+    </data>
+    <data name="Attribute_VrAbbreviation" xml:space="preserve">
+        <value>VR</value>
+    </data>
+    <data name="Attribute_BrAbbreviation" xml:space="preserve">
+        <value>BR</value>
+    </data>
+    <data name="Attribute_BrFull" xml:space="preserve">
+        <value>Battle Rating</value>
+    </data>
+    <data name="Attribute_VrFull" xml:space="preserve">
+        <value>Versus Rating</value>
+    </data>
+    <data name="State_Custom" xml:space="preserve">
+        <value>Custom</value>
+    </data>
+    <data name="Action_DoManually" xml:space="preserve">
+        <value>Do manually</value>
+    </data>
+    <data name="Action_GamebananaPage" xml:space="preserve">
+        <value>Gamebanana page</value>
+    </data>
+    <data name="Action_Report" xml:space="preserve">
+        <value>Report</value>
+    </data>
+    <data name="Attribute_Description" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="Attribute_Images" xml:space="preserve">
+        <value>Images</value>
+    </data>
+    <data name="Attribute_Likes" xml:space="preserve">
+        <value>Likes</value>
+    </data>
+    <data name="Attribute_Views" xml:space="preserve">
+        <value>Views</value>
+    </data>
+    <data name="Attribute_Downloads" xml:space="preserve">
+        <value>Downloads</value>
+    </data>
+    <data name="Action_UnInstall" xml:space="preserve">
+        <value>Un Install</value>
+    </data>
+    <data name="State_Installed" xml:space="preserve">
+        <value>Installed</value>
+    </data>
+    <data name="Action_DownloadAndInstall" xml:space="preserve">
+        <value>Download and Install</value>
     </data>
 </root>

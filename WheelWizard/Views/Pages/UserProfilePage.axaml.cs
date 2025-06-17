@@ -79,9 +79,17 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             if (region == MarioKartWiiEnums.Regions.None)
                 continue;
 
+            var name = region switch
+            {
+                MarioKartWiiEnums.Regions.Europe => Common.Region_Europe,
+                MarioKartWiiEnums.Regions.America => Common.Region_America,
+                MarioKartWiiEnums.Regions.Korea => Common.Region_SouthKorea,
+                MarioKartWiiEnums.Regions.Japan => Common.Region_Japan,
+                _ => Common.State_Unknown,
+            };
             var itemForRegionDropdown = new ComboBoxItem
             {
-                Content = region.ToString(),
+                Content = name,
                 Tag = region,
                 IsEnabled = validRegions.Contains(region),
             };

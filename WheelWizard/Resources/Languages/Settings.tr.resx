@@ -177,4 +177,19 @@
     <data name="Placeholder_SearchForPlayers" xml:space="preserve">
         <value>Oyuncuları Ara...</value>
     </data>
+    <data name="Category_About" xml:space="preserve">
+        <value>Hakkında</value>
+    </data>
+    <data name="Option_OpenGameFolder" xml:space="preserve">
+        <value>Oyun Klasörünü Aç</value>
+    </data>
+    <data name="Option_OpenSaveFolder" xml:space="preserve">
+        <value>Kayıt Klasörünü Aç</value>
+    </data>
+    <data name="Option_Reinstall" xml:space="preserve">
+        <value>Retro Rewind'ı Tekrar Kur</value>
+    </data>
+    <data name="Section_Installation" xml:space="preserve">
+        <value>Kurulum</value>
+    </data>
 </root>

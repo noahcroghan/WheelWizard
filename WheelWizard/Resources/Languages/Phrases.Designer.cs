@@ -114,6 +114,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a mod in the list to view its details.
+        /// </summary>
+        public static string EmptyContent_NoModSelected {
+            get {
+                return ResourceManager.GetString("EmptyContent_NoModSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No mod selected.
+        /// </summary>
+        public static string EmptyContent_NoModSelected_Title {
+            get {
+                return ResourceManager.GetString("EmptyContent_NoModSelected_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have to play the game at least once in order to see your profiles listed here.
         /// </summary>
         public static string EmptyContent_NoProfiles {
@@ -340,11 +358,56 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The installation of Dolphin Emulator failed. Please try manually installing flatpak dolphin..
+        /// </summary>
+        public static string MessageError_FailedInstallDolphin_Extra {
+            get {
+                return ResourceManager.GetString("MessageError_FailedInstallDolphin_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to install Dolphin.
+        /// </summary>
+        public static string MessageError_FailedInstallDolphin_Title {
+            get {
+                return ResourceManager.GetString("MessageError_FailedInstallDolphin_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to retrieve mod info.
+        /// </summary>
+        public static string MessageError_FailedRetrieveMod_Title {
+            get {
+                return ResourceManager.GetString("MessageError_FailedRetrieveMod_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred..
         /// </summary>
         public static string MessageError_GenericError_Title {
             get {
                 return ResourceManager.GetString("MessageError_GenericError_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred during download: {$1}.
+        /// </summary>
+        public static string MessageError_ModDownloadFail_Extra {
+            get {
+                return ResourceManager.GetString("MessageError_ModDownloadFail_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod download failed..
+        /// </summary>
+        public static string MessageError_ModDownloadFail_Title {
+            get {
+                return ResourceManager.GetString("MessageError_ModDownloadFail_Title", resourceCulture);
             }
         }
         
@@ -520,6 +583,42 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please provide a mod name..
+        /// </summary>
+        public static string MessageWarning_ModNameEmpty_Extra {
+            get {
+                return ResourceManager.GetString("MessageWarning_ModNameEmpty_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod name can&apos;t be empty..
+        /// </summary>
+        public static string MessageWarning_ModNameEmpty_Title {
+            get {
+                return ResourceManager.GetString("MessageWarning_ModNameEmpty_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod name contains invalid characters..
+        /// </summary>
+        public static string MessageWarning_ModNameInvalid_Extra {
+            get {
+                return ResourceManager.GetString("MessageWarning_ModNameInvalid_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod name Invalid..
+        /// </summary>
+        public static string MessageWarning_ModNameInvalid_Title {
+            get {
+                return ResourceManager.GetString("MessageWarning_ModNameInvalid_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Multiple Files Selected.
         /// </summary>
         public static string MessageWarning_MultipleFilesSelected_Title {
@@ -565,6 +664,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to files could not be found..
+        /// </summary>
+        public static string MessageWarning_UnableDownloadMod_Extra {
+            get {
+                return ResourceManager.GetString("MessageWarning_UnableDownloadMod_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to download the mod.
+        /// </summary>
+        public static string MessageWarning_UnableDownloadMod_Title {
+            get {
+                return ResourceManager.GetString("MessageWarning_UnableDownloadMod_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to update Wheel Wizard. Please ensure the application is located in a folder that can be written to.\n Could not find current folder..
         /// </summary>
         public static string MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation {
@@ -606,6 +723,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Progress_EstimatedTimeRemaining {
             get {
                 return ResourceManager.GetString("Progress_EstimatedTimeRemaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installing Dolphin Emulator.
+        /// </summary>
+        public static string Progress_InstallingDolphin {
+            get {
+                return ResourceManager.GetString("Progress_InstallingDolphin", resourceCulture);
             }
         }
         
@@ -664,6 +790,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This may take a while depending on your internet connection..
+        /// </summary>
+        public static string Progress_ThisMayTakeAWhile {
+            get {
+                return ResourceManager.GetString("Progress_ThisMayTakeAWhile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Updating Retro Rewind.
         /// </summary>
         public static string Progress_UpdateRR {
@@ -700,6 +835,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?.
+        /// </summary>
+        public static string Question_DolphinFlatpack_Extra {
+            get {
+                return ResourceManager.GetString("Question_DolphinFlatpack_Extra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dolphin Flatpak Installation.
+        /// </summary>
+        public static string Question_DolphinFlatpack_Title {
+            get {
+                return ResourceManager.GetString("Question_DolphinFlatpack_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you dont know what all of this means, just click yes :) \nDolphin Emulator folder found. Would you like to use this folder?.
         /// </summary>
         public static string Question_DolphinFound_Extra {
@@ -718,7 +871,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter Mod Name:.
+        ///   Looks up a localized string similar to Enter mod name....
         /// </summary>
         public static string Question_EnterModName {
             get {
@@ -732,6 +885,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Question_EnterTitle {
             get {
                 return ResourceManager.GetString("Question_EnterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to donwload and install the mod: {$1}?.
+        /// </summary>
+        public static string Question_InstallMod_Title {
+            get {
+                return ResourceManager.GetString("Question_InstallMod_Title", resourceCulture);
             }
         }
         
@@ -835,11 +997,20 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Retro Rewind version to old..
+        ///   Looks up a localized string similar to The Retro Rewind version is too old..
         /// </summary>
         public static string Question_RRToOld_Title {
             get {
                 return ResourceManager.GetString("Question_RRToOld_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for mods....
+        /// </summary>
+        public static string Question_SearchMod {
+            get {
+                return ResourceManager.GetString("Question_SearchMod", resourceCulture);
             }
         }
         
@@ -1065,6 +1236,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Text_MadeByString {
             get {
                 return ResourceManager.GetString("Text_MadeByString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powered By Gamebababa.
+        /// </summary>
+        public static string Text_PoweredGamebanana {
+            get {
+                return ResourceManager.GetString("Text_PoweredGamebanana", resourceCulture);
             }
         }
         

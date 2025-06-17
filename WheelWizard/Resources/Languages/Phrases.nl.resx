@@ -130,9 +130,6 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>Er bestaat al een mod met de naam '{$1}' .</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>Voer Mod-Naam In:</value>
-    </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
         <value>De naam van de mod mag niet leeg zijn</value>
     </data>
@@ -318,7 +315,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Kopie gemaakt van {$1} Miis</value>
     </data>
     <data name="SnackbarSuccess_Deleted" xml:space="preserve">
-        <value>'{$1}' verwijderd.</value>
+        <value>{$1}' verwijderd.</value>
     </data>
     <data name="SnackbarSuccess_MiiAdded" xml:space="preserve">
         <value>Mii is toegevoegd aan Mijn Miis.</value>
@@ -367,5 +364,41 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="SnackbarSuccess_ProfileSetPrimary" xml:space="preserve">
         <value>Profiel als hoofdprofiel gezet.</value>
+    </data>
+    <data name="HelperNote_CreatorNameLess10" xml:space="preserve">
+        <value>Naam moet korter dan 10 tekens zijn.</value>
+    </data>
+    <data name="HelperNote_NameMustBetween" xml:space="preserve">
+        <value>Naam moet tussen de 3 en 10 tekens lang zijn.</value>
+    </data>
+    <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
+        <value>Veranderen van Mii mislukt.</value>
+    </data>
+    <data name="MessageError_FailedChangeName_Title" xml:space="preserve">
+        <value>Veranderen van naam mislukt.</value>
+    </data>
+    <data name="MessageSuccess_MiiChanged" xml:space="preserve">
+        <value>Mii successvol veranderd</value>
+    </data>
+    <data name="EmptyContent_NoModSelected" xml:space="preserve">
+        <value>Klik op een mod in de lijst om de details hier te zien..</value>
+    </data>
+    <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
+        <value>Geen mod geselecteerd</value>
+    </data>
+    <data name="Text_PoweredGamebanana" xml:space="preserve">
+        <value>Mogelijk gemaakt door Gamebanana</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Mod zoeken...</value>
+    </data>
+    <data name="Question_InstallMod_Title" xml:space="preserve">
+        <value>Wil je de mod '{$1}' installeren?</value>
+    </data>
+    <data name="Question_EnterModName" xml:space="preserve">
+        <value>Mod naam....</value>
+    </data>
+    <data name="Progress_InstallingDolphin" xml:space="preserve">
+        <value>Dolphin aan het installeren</value>
     </data>
 </root>

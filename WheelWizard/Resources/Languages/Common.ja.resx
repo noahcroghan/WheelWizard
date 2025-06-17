@@ -171,7 +171,7 @@
         <value>探す</value>
     </data>
     <data name="Action_ViewMod" xml:space="preserve">
-        <value>Modを閲覧</value>
+        <value>Modを見る</value>
     </data>
     <data name="Action_ViewRoom" xml:space="preserve">
         <value>ルームを見る</value>
@@ -241,5 +241,71 @@
     </data>
     <data name="Action_Link_Discord" xml:space="preserve">
         <value>お問い合わせ</value>
+    </data>
+    <data name="Action_Back" xml:space="preserve">
+        <value>戻る</value>
+    </data>
+    <data name="Action_Duplicate" xml:space="preserve">
+        <value>コピー</value>
+    </data>
+    <data name="Action_Favorite" xml:space="preserve">
+        <value>お気に入り</value>
+    </data>
+    <data name="Action_LaunchDolphin" xml:space="preserve">
+        <value>Dolphinを起動する</value>
+    </data>
+    <data name="Action_Randomize" xml:space="preserve">
+        <value>ランダム</value>
+    </data>
+    <data name="Action_SaveExternalMii" xml:space="preserve">
+        <value>Miiを"自分のMii"に追加する</value>
+    </data>
+    <data name="Action_Unfavorite" xml:space="preserve">
+        <value>お気に入り解除</value>
+    </data>
+    <data name="Action_ViewMii" xml:space="preserve">
+        <value>Miiを見る</value>
+    </data>
+    <data name="Attribute_AverageRoomVr" xml:space="preserve">
+        <value>平均VR</value>
+    </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>性別</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>女</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>男</value>
+    </data>
+    <data name="Attribute_IsOnline" xml:space="preserve">
+        <value>オンラインかどうか</value>
+    </data>
+    <data name="Attribute_Message" xml:space="preserve">
+        <value>メッセージ</value>
+    </data>
+    <data name="Attribute_Priority" xml:space="preserve">
+        <value>優先度</value>
+    </data>
+    <data name="Attribute_SortBy" xml:space="preserve">
+        <value>並び替え</value>
+    </data>
+    <data name="Attribute_Status" xml:space="preserve">
+        <value>状態</value>
+    </data>
+    <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
+        <value>プレイした総回数</value>
+    </data>
+    <data name="Attribute_TotalGamesWon" xml:space="preserve">
+        <value>勝利した総回数</value>
+    </data>
+    <data name="ListTitle_Miis" xml:space="preserve">
+        <value>Mii</value>
+    </data>
+    <data name="PageTitle_MyMiis" xml:space="preserve">
+        <value>自分のMii</value>
+    </data>
+    <data name="Action_DoManually" xml:space="preserve">
+        <value>Do manually</value>
     </data>
 </root>

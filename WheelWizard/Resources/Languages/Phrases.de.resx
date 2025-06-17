@@ -61,20 +61,20 @@
         <value>Du musst das Spiel mindestens ein Mal gespielt haben, um deine Profile hier aufgelistet zu sehen.</value>
     </data>
     <data name="EmptyContent_NoMods" xml:space="preserve">
-        <value>Mods können die Funktionsweise des Spiels verändern. Beginne mit dem Importieren deines ersten Mods, indem Du auf die Schaltfläche unten klickst.</value>
+        <value>Mods können die Funktionsweise des Spiels verändern. Beginne mit dem Importieren deines ersten Mods, indem du auf die Schaltfläche unten klickst.</value>
     </data>
     <data name="EmptyContent_NoMods_Title" xml:space="preserve">
         <value>Keine Mods gefunden</value>
     </data>
     <data name="EmptyContent_NoRooms" xml:space="preserve">
-        <value>Möglicherweise hast Du keine Internetverbindung oder es spielt niemand.</value>
+        <value>Möglicherweise hast du keine Internetverbindung oder es spielt niemand.</value>
     </data>
     <data name="EmptyContent_NoRooms_Title" xml:space="preserve">
         <value>Keine Räume gefunden</value>
     </data>
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
-        <value>Bitte beachte, dass diese Seite keine Funktion bietet, um Dich mit einem Raum direkt zu verbinden.
-Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treffen oder hoffen, ihm beizutreten, indem Du in den Online-Servern beitrittst.</value>
+        <value>Bitte beachte, dass diese Seite keine Funktion bietet, um dich mit einem Raum direkt zu verbinden.
+Um einem bestimmten Raum beizutreten, musst du entweder über einen Freund treffen oder hoffen, ihm beizutreten, indem du in den Online-Servern beitrittst.</value>
     </data>
     <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Geschätzte verbleibende Zeit:</value>
@@ -89,7 +89,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Mods gefunden</value>
     </data>
     <data name="Question_LaunchClearModsFound_Extra" xml:space="preserve">
-        <value>Du bist dabei, das Spiel ohne Mods zu starten. Möchtest du Deinen My Stuff ordner leeren?</value>
+        <value>Du bist dabei, das Spiel ohne Mods zu starten. Möchtest du deinen My Stuff ordner leeren?</value>
     </data>
     <data name="MessageWarning_NotFindDolphin_Extra" xml:space="preserve">
         <value>Der Dolphin Emulator konnte nicht gefunden werden. Bitte lege den Pfad in den Einstellungen fest.</value>
@@ -128,7 +128,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>{$1} Sekunden</value>
     </data>
     <data name="Question_ApplyScale_Title" xml:space="preserve">
-        <value>Möchtest Du die neue Skala anwenden?</value>
+        <value>Möchtest du die neue Skala anwenden?</value>
     </data>
     <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
         <value>Es konnte keine Verbindung zum Server hergestellt werden. Bitte versuche es später noch einmal.</value>
@@ -137,10 +137,10 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Dolphin Emulator Ordner gefunden</value>
     </data>
     <data name="Question_DolphinFound_Extra" xml:space="preserve">
-        <value>Wenn Du nicht weißt, was das alles bedeutet, klick einfach auf „Ja“ :) \nDolphin Emulator-Ordner gefunden. Möchtest Du diesen Ordner verwenden?</value>
+        <value>Wenn du nicht weißt, was das alles bedeutet, klick einfach auf „Ja“ :) \nDolphin Emulator-Ordner gefunden. Möchtest du diesen Ordner verwenden?</value>
     </data>
     <data name="MessageWarning_DolphinNotFound_Title" xml:space="preserve">
-        <value>Dolphin Emulator Ordner nicht gefunden</value>
+        <value>Dolphin Emulator-Ordner nicht gefunden.</value>
     </data>
     <data name="MessageWarning_DolphinNotFound_Extra" xml:space="preserve">
         <value>Der Ordner „Dolphin Emulator“ wurde nicht automatisch gefunden. Versuche bitte, den Ordner manuell zu finden. Für weitere Informationen einfach auf „Hilfe“ klicken.</value>
@@ -151,14 +151,11 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Bitte stell es sicher, dass alle Pfade korrekt sind, und versuche es erneut.</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>Gib den Mod-Namen ein:</value>
-    </data>
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Titel eingeben:</value>
     </data>
     <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
-        <value>Die Suche nach Updates ist fehlgeschlagen</value>
+        <value>Die Suche nach Updates ist fehlgeschlagen.</value>
     </data>
     <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>Das Update konnte nicht installiert werden. Abbruch.</value>
@@ -176,19 +173,19 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Beziehe die neueste Wheel Wizard-Version vom Github</value>
     </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
-        <value>Mod Name darf nicht leer sein</value>
+        <value>Mod-Name darf nicht leer sein.</value>
     </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
-        <value>Eine Mod mit dem Namen '{$1}' existiert schon</value>
+        <value>Eine Mod mit dem Namen '{$1}' existiert bereits.</value>
     </data>
     <data name="MessageWarning_MultipleFilesSelected_Title" xml:space="preserve">
         <value>Mehrere Dateien ausgewählt</value>
     </data>
     <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
-        <value>Version {$1} von Wheel Wizard ist verfügbar (derzeit für {$2}). Möchtest Du jetzt updaten?</value>
+        <value>Version {$1} von Wheel Wizard ist verfügbar (derzeit für {$2}). Möchtest du jetzt updaten?</value>
     </data>
     <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
-        <value>Mod Ordner existiert nicht</value>
+        <value>Mod-Ordner existiert nicht.</value>
     </data>
     <data name="Question_OldRksysFound_Title" xml:space="preserve">
         <value>Alte rksys.dat gefunden</value>
@@ -206,10 +203,10 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Neustart mit Admin-Rechten fehlgeschlagen.</value>
     </data>
     <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
-        <value>Deine Version von Retro Rewind konnte nicht ermittelt werden. Möchtest Du Retro Rewind herunterladen?</value>
+        <value>Deine Version von Retro Rewind konnte nicht ermittelt werden. Möchtest du Retro Rewind herunterladen?</value>
     </data>
     <data name="Question_RRToOld_Extra" xml:space="preserve">
-        <value>Deine Version von Retro Rewind ist zu alt zum Aktualisieren. Möchtest Du Retro Rewind neu installieren?</value>
+        <value>Deine Version von Retro Rewind ist zu alt zum Aktualisieren. Möchtest du Retro Rewind neu installieren?</value>
     </data>
     <data name="MessageSuccess_RRUpToDate_Title" xml:space="preserve">
         <value>Retro Rewind ist auf dem neuesten Stand.</value>
@@ -218,7 +215,7 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Einstellungen erfolgreich gespeichert!</value>
     </data>
     <data name="Question_SureDelete_Title" xml:space="preserve">
-        <value>Bist Du sicher, dass du {$1} löschen möchtest?</value>
+        <value>Bist du sicher, dass du {$1} löschen möchtest?</value>
     </data>
     <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation" xml:space="preserve">
         <value>Wheel Wizard kann nicht aktualisiert werden. Bitte stelle sicher, dass sich die Anwendung in einem Ordner befindet, in den geschrieben werden kann.\n Der aktuelle Ordner konnte nicht gefunden werden.</value>
@@ -230,12 +227,159 @@ Um einem bestimmten Raum beizutreten, musst Du entweder über einen Freund treff
         <value>Update mit Admin</value>
     </data>
     <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
-        <value>Manchmal erfordert ein Update Adminrechte. Möchtest Du sie für dieses Update aktivieren?</value>
+        <value>Manchmal erfordert ein Update Adminrechte. Möchtest du sie für dieses Update aktivieren?</value>
     </data>
     <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Wheel Wizard wird aktualisiert</value>
     </data>
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Wheel Wizard Update verfügbar</value>
+    </data>
+    <data name="EmptyContent_NoMiis" xml:space="preserve">
+        <value>Die Mii-Daten können nicht von deinem System aus geladen werden. Stelle sicher dass du dein Spiel mind. 1 Mal neu startest.</value>
+    </data>
+    <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
+        <value>Noch keine Miis erstellt!</value>
+    </data>
+    <data name="HelperNote_CreatorNameLess10" xml:space="preserve">
+        <value>Name des Ersteller muss weniger als 10 Zeichen lang sein.</value>
+    </data>
+    <data name="HelperNote_NameMustBetween" xml:space="preserve">
+        <value>Namen müssen zwischen 3 und 10 Zeichen lang sein.</value>
+    </data>
+    <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
+        <value>Um Freunde hinzuzufügen musst du sie innerhalb des Spiels registrieren</value>
+    </data>
+    <data name="Hover_PrimaryProfile" xml:space="preserve">
+        <value>Dein Hauptprofil wird als Vergleich im Wheel Wizard Client verwendet.</value>
+    </data>
+    <data name="Hover_RegionUserSelection" xml:space="preserve">
+        <value>Dies zeigt dir Regionen, in denen DU gespielt hast.</value>
+    </data>
+    <data name="MessageError_AbortRR_Extra_InvalidFilePath" xml:space="preserve">
+        <value>Ungültiger Dateipfad wurde erkannt. Bitte kontaktiere die Entwickler. \n Server-Fehler: {$1}</value>
+    </data>
+    <data name="MessageError_AbortRR_Title" xml:space="preserve">
+        <value>Über das RR Update</value>
+    </data>
+    <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
+        <value>Fehler beim Ändern des Miis.</value>
+    </data>
+    <data name="MessageError_FailedChangeName_Title" xml:space="preserve">
+        <value>Fehler beim Ändern des Namens.</value>
+    </data>
+    <data name="MessageError_FailedCreateMiiDb_Title" xml:space="preserve">
+        <value>Fehler beim Erstellen der Mii-Datenbank.</value>
+    </data>
+    <data name="MessageError_GenericError_Title" xml:space="preserve">
+        <value>Ein Fehler ist aufgetreten.</value>
+    </data>
+    <data name="MessageSuccess_MiiChanged" xml:space="preserve">
+        <value>Mii erfolgreich geändert.</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Extra" xml:space="preserve">
+        <value>Ein oder mehrere der ausgewählten Mii(s) ist ein Favorit. Miis die als Favorit makiert wurden können nur gelöscht werden wenn sie nicht mehr Favorit sind um zu verhindern dass aus Versehen Löschungen geschehen.</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
+        <value>Mii(s) die als Favorit markiert sind, sind nicht löschbar.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_NotFromBrowser" xml:space="preserve">
+        <value>Die Mod die über den Mod Browser heruntergeladen wurde kann nicht angesehen werden.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_SomethingElse" xml:space="preserve">
+        <value>Etwas ist schief gelaufen beim Ansehen dieser Mod.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Title" xml:space="preserve">
+        <value>Du kannst diese Mod nicht ansehen.</value>
+    </data>
+    <data name="MessageWarning_FailCheckUpdates_Extra" xml:space="preserve">
+        <value>Es ist nicht möglich gerade nach Updates zu suchen. Du bist vielleicht nicht mit dem Internet verbunden oder der Server hat gerade Schwierigkeiten.</value>
+    </data>
+    <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
+        <value>Name nicht möglich.</value>
+    </data>
+    <data name="MessageWarning_InvalidPaths_Title" xml:space="preserve">
+        <value>Ungültige Pfade</value>
+    </data>
+    <data name="MessageWarning_NoConnectServer_Title" xml:space="preserve">
+        <value>Die Verbindung zum Server konnte nicht hergestellt werden,</value>
+    </data>
+    <data name="MessageWarning_UnableUpdateWhWz_Title" xml:space="preserve">
+        <value>Wheel Wizard konnte nicht aktualisiert werden.</value>
+    </data>
+    <data name="Progress_UpdateRR" xml:space="preserve">
+        <value>Retro Rewind wird aktualisiert</value>
+    </data>
+    <data name="Question_ApplyScale_Extra" xml:space="preserve">
+        <value>Diese Änderung wird in {$1} zurückgesetzt, außer du wendest die Änderung an.</value>
+    </data>
+    <data name="Question_ReinstallRR_Extra" xml:space="preserve">
+        <value>Bist du dir sicher, dass du Retro Rewind neu installieren möchtest?</value>
+    </data>
+    <data name="Question_RRToOld_Title" xml:space="preserve">
+        <value>Retro Rewind-Version ist zu alt.</value>
+    </data>
+    <data name="Question_SureDelete_Extra" xml:space="preserve">
+        <value>Löschen ist permanent und kann nicht rückgängig gemacht werden</value>
+    </data>
+    <data name="Question_SureDelete_Title_Miis" xml:space="preserve">
+        <value>Bist du sicher, dass du {$1} Miis löschen möchtest?</value>
+    </data>
+    <data name="SnackbarError_MiiFailureCreate" xml:space="preserve">
+        <value>Mii '{$1}' konnte nicht erstellt werden.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDeserialize" xml:space="preserve">
+        <value>Daten von Mii '{$1}' konnten nicht verarbeitet werden.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDuplicate" xml:space="preserve">
+        <value>Mii '{$1}' konnte nicht dupliziert werden.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureGet" xml:space="preserve">
+        <value>Mii '{$1}' konnte nicht abgerufen werden.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSave" xml:space="preserve">
+        <value>Mii '{$1}' konnte nicht gespeichert werden.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSerialize" xml:space="preserve">
+        <value>Daten von Mii '{$1}' konnten nicht verarbeitet werden.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureUpdate" xml:space="preserve">
+        <value>Mii '{$1}' konnte nicht aktualisiert werden.</value>
+    </data>
+    <data name="SnackbarSuccess_CopiedFC" xml:space="preserve">
+        <value>Freundescode wurde in die Zwischenablage kopiert</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicate" xml:space="preserve">
+        <value>{$1} wurde dupliziert</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicatesMiis" xml:space="preserve">
+        <value>{$1} duplizierte Miis erstellt</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted" xml:space="preserve">
+        <value>{$1}' wurde gelöscht</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted_Miis" xml:space="preserve">
+        <value>{$1} Miis wurden gelöscht</value>
+    </data>
+    <data name="SnackbarSuccess_MiiAdded" xml:space="preserve">
+        <value>Mii zu deinen Miis hinzugefügt</value>
+    </data>
+    <data name="SnackbarSuccess_NameChange" xml:space="preserve">
+        <value>Name erfolgreich zu '{$1}' geändert</value>
+    </data>
+    <data name="SnackbarSuccess_ProfileSetPrimary" xml:space="preserve">
+        <value>Profil als Hauptprofil festlegen</value>
+    </data>
+    <data name="SnackbarSuccess_SavedMii" xml:space="preserve">
+        <value>Mii '{$1}' wurde als Datei '{$2}' gespeichert</value>
+    </data>
+    <data name="SnackbarWarning_CantSaveMii" xml:space="preserve">
+        <value>Mii konnte nicht gespeichert werden</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiDelete" xml:space="preserve">
+        <value>Es gab keine Miis zum Löschen.</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
+        <value>Es gab keine Miis zum Exportieren.</value>
     </data>
 </root>

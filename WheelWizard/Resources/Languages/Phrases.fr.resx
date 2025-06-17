@@ -152,9 +152,6 @@ Voulez vous supprimer votre dossier My-Stuff ? </value>
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Vérifiez bien si tous les chemins sont corrects et essayez à nouveau.</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>Rentrez un nom pour le mod:</value>
-    </data>
     <data name="Question_EnterTitle" xml:space="preserve">
         <value>Rentrez un titre:</value>
     </data>
@@ -186,7 +183,7 @@ Voulez vous supprimer votre dossier My-Stuff ? </value>
         <value>Plusieurs fichers sélectionnés</value>
     </data>
     <data name="Question_NewVersionWhWz_Extra" xml:space="preserve">
-        <value>La version {$1} de Wheel Wizard est disponible (actuellement en {$2}. Voulez-vous mettre à jour maintenant ? </value>
+        <value>La version {$1} de Wheel Wizard est disponible (Version actuelle: {$2}). Voulez-vous mettre à jour maintenant ? </value>
     </data>
     <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
         <value>Le dossier du mod n'existe pas</value>
@@ -221,7 +218,7 @@ Voulez-vous réinstaller Retro Rewind ? </value>
         <value>Paramètre sauvegarder avec succès !</value>
     </data>
     <data name="Question_SureDelete_Title" xml:space="preserve">
-        <value>Êtes-vous sur de vouloir supprimer {$1}?</value>
+        <value>Êtes-vous sûr de vouloir supprimer {$1} ?</value>
     </data>
     <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation" xml:space="preserve">
         <value>Impossible de mettre à jour Wheel Wizard. Veuillez bien vérifier que l'application se trouve dans un dossier qui peut être écrit. \n N'a pas pu trouver le dossier actuel.</value>
@@ -236,9 +233,156 @@ Voulez-vous réinstaller Retro Rewind ? </value>
         <value>Des fois, une mise à jour demande les droits d'admin. Voulez-vous les activés pour cette mise à jour ? </value>
     </data>
     <data name="Progress_UpdateWhWz" xml:space="preserve">
-        <value>Mise à jour de Wheel Wizard en cours </value>
+        <value>Mise à jour de Wheel Wizard en cours...</value>
     </data>
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
         <value>Mise à jour Wheel Wizard disponible !</value>
+    </data>
+    <data name="EmptyContent_NoMiis" xml:space="preserve">
+        <value>Nous ne pouvons pas lire les données du Mii de votre système. Veuillez vérifier que vous avez lancé le jeu au moins une fois</value>
+    </data>
+    <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
+        <value>Aucun Mii!</value>
+    </data>
+    <data name="HelperNote_CreatorNameLess10" xml:space="preserve">
+        <value>Le nom de l'auteur doit faire moins de 10 caractères.</value>
+    </data>
+    <data name="HelperNote_NameMustBetween" xml:space="preserve">
+        <value>Les noms doivent être composés de 3 à 10 caractères.</value>
+    </data>
+    <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
+        <value>Ajouter des amis que vous voulez dans le jeu.</value>
+    </data>
+    <data name="Hover_PrimaryProfile" xml:space="preserve">
+        <value>Le profil principal est utilisé en tant que référence dans Wheel Wizard</value>
+    </data>
+    <data name="Hover_RegionUserSelection" xml:space="preserve">
+        <value>Ceci montre les régions que VOUS avez jouez</value>
+    </data>
+    <data name="MessageError_AbortRR_Extra_InvalidFilePath" xml:space="preserve">
+        <value>Chemin vers un fichier incorrect. Veuillez contacter les développeurs de Wheel Wizard.\n Erreur Serveur:  {$1}</value>
+    </data>
+    <data name="MessageError_AbortRR_Title" xml:space="preserve">
+        <value>Anuller la mise à jour de RR</value>
+    </data>
+    <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
+        <value>Échec du changement de Mii </value>
+    </data>
+    <data name="MessageError_FailedChangeName_Title" xml:space="preserve">
+        <value>Échec du changement de nom</value>
+    </data>
+    <data name="MessageError_FailedCreateMiiDb_Title" xml:space="preserve">
+        <value>Échec de la création de la base de donnée des Miis</value>
+    </data>
+    <data name="MessageError_GenericError_Title" xml:space="preserve">
+        <value>Une erreur s'est produite</value>
+    </data>
+    <data name="MessageSuccess_MiiChanged" xml:space="preserve">
+        <value>Changement du Mii avec succès</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Extra" xml:space="preserve">
+        <value>Un ou plusieurs des Miis choisis sont en favoris. Les Miis peuvent être supprimés seulement s'ils ne sont pas en favoris pour éviter une suppression involontaire.</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
+        <value>Impossibilité de supprimer des Mii en favoris.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_NotFromBrowser" xml:space="preserve">
+        <value>Impossibilité de voir un mod qui n'a pas été installé depuis GameBanana</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Extra_SomethingElse" xml:space="preserve">
+        <value>Quelque chose a échoué en essayant d'ouvrir le mod choisi.</value>
+    </data>
+    <data name="MessageWarning_CantViewMod_Title" xml:space="preserve">
+        <value>Impossibilité de voir ce mod.</value>
+    </data>
+    <data name="MessageWarning_FailCheckUpdates_Extra" xml:space="preserve">
+        <value>Impossibilité de vérifier les mises à jour actuellement. Vous n'êtes probablement pas connecté à internet ou le serveur est en maintenance</value>
+    </data>
+    <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
+        <value>Nom impossible.</value>
+    </data>
+    <data name="MessageWarning_InvalidPaths_Title" xml:space="preserve">
+        <value>Chemin invalide</value>
+    </data>
+    <data name="MessageWarning_NoConnectServer_Title" xml:space="preserve">
+        <value>N'a pas pu se connecter au serveur</value>
+    </data>
+    <data name="MessageWarning_UnableUpdateWhWz_Title" xml:space="preserve">
+        <value>Impossible de mettre à jour Wheel Wizard.   </value>
+    </data>
+    <data name="Progress_UpdateRR" xml:space="preserve">
+        <value>Mise à jour de Retro Rewind en cours...</value>
+    </data>
+    <data name="Question_ApplyScale_Extra" xml:space="preserve">
+        <value>Cette modification va être rétablie dans {$1} sauf si vous choisissez de garder cette modification.</value>
+    </data>
+    <data name="Question_ReinstallRR_Extra" xml:space="preserve">
+        <value>Êtes-vous sûr de vouloir réinstaller Retro Rewind ?</value>
+    </data>
+    <data name="Question_RRToOld_Title" xml:space="preserve">
+        <value>Votre version de Retro Rewind est veille. </value>
+    </data>
+    <data name="Question_SureDelete_Extra" xml:space="preserve">
+        <value>La suppresion est permanente et ne peut pas être inversée.</value>
+    </data>
+    <data name="Question_SureDelete_Title_Miis" xml:space="preserve">
+        <value>Êtes-vous sûr de vouloir supprimer {$1} Miis ?</value>
+    </data>
+    <data name="SnackbarError_MiiFailureCreate" xml:space="preserve">
+        <value>Échec de la création du Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDeserialize" xml:space="preserve">
+        <value>Échec de la désérialisation du Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDuplicate" xml:space="preserve">
+        <value>Échec du clonage des Miis '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureGet" xml:space="preserve">
+        <value>Échec d'obtention du Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSave" xml:space="preserve">
+        <value>Échec de savegarde du Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSerialize" xml:space="preserve">
+        <value>Échec de la sérialisation du Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureUpdate" xml:space="preserve">
+        <value>Échec de mise à jour du Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarSuccess_CopiedFC" xml:space="preserve">
+        <value>Code Ami copié dans le presse-papier</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicate" xml:space="preserve">
+        <value>Clonage de '{$1}'</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicatesMiis" xml:space="preserve">
+        <value>Clonage de {$1} Miis</value>
+    </data>
+    <data name="SnackbarSuccess_Deleted" xml:space="preserve">
+        <value>Suppression de '{$1}' </value>
+    </data>
+    <data name="SnackbarSuccess_Deleted_Miis" xml:space="preserve">
+        <value>Suppression de {$1} Miis</value>
+    </data>
+    <data name="SnackbarSuccess_MiiAdded" xml:space="preserve">
+        <value>Le Mii a été ajouté a vos Miis </value>
+    </data>
+    <data name="SnackbarSuccess_NameChange" xml:space="preserve">
+        <value>Changement du nom en '{$1}' avec succès</value>
+    </data>
+    <data name="SnackbarSuccess_ProfileSetPrimary" xml:space="preserve">
+        <value>Choisir ce profil en profil principal</value>
+    </data>
+    <data name="SnackbarSuccess_SavedMii" xml:space="preserve">
+        <value>Mii '{$1}' sauvegardé au chemin suivant '{$2}'</value>
+    </data>
+    <data name="SnackbarWarning_CantSaveMii" xml:space="preserve">
+        <value>Impossible de savegarder le Mii</value>
+    </data>
+    <data name="SnackbarWarning_NoMiiDelete" xml:space="preserve">
+        <value>Il semblerait qu'aucun Miis peuvent être supprimer </value>
+    </data>
+    <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
+        <value>Il semblerait qu'aucun Miis peuvent être exporter</value>
     </data>
 </root>

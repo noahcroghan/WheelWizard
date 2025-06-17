@@ -58,7 +58,7 @@
         <value>Attiva le animazioni</value>
     </data>
     <data name="Option_ForceDisableWiimote" xml:space="preserve">
-        <value>Forza la disattivazione dei Wiimote</value>
+        <value>Disattiva forzatamente i Wiimote</value>
     </data>
     <data name="Option_LaunchWithDolphin" xml:space="preserve">
         <value>Apri il gioco con la finestra di Dolphin</value>
@@ -176,5 +176,20 @@
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Inserisci qui l'indirizzo desiderato...</value>
+    </data>
+    <data name="Category_About" xml:space="preserve">
+        <value>A riguardo</value>
+    </data>
+    <data name="Option_OpenGameFolder" xml:space="preserve">
+        <value>Apri la cartella del gioco</value>
+    </data>
+    <data name="Option_OpenSaveFolder" xml:space="preserve">
+        <value>Apri la cartella del salvataggio</value>
+    </data>
+    <data name="Option_Reinstall" xml:space="preserve">
+        <value>Reinstalla Retro Rewind</value>
+    </data>
+    <data name="Section_Installation" xml:space="preserve">
+        <value>Installazione</value>
     </data>
 </root>

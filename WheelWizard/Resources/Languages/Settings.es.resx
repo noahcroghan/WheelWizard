@@ -177,4 +177,19 @@
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Ingrese la ruta deseada...</value>
     </data>
+    <data name="Category_About" xml:space="preserve">
+        <value>Acerca de</value>
+    </data>
+    <data name="Option_OpenGameFolder" xml:space="preserve">
+        <value>Abrir carpeta de juegos</value>
+    </data>
+    <data name="Option_OpenSaveFolder" xml:space="preserve">
+        <value>Abrir carpeta de archivos de juego guardados</value>
+    </data>
+    <data name="Option_Reinstall" xml:space="preserve">
+        <value>Reinstalar RR</value>
+    </data>
+    <data name="Section_Installation" xml:space="preserve">
+        <value>Instalación</value>
+    </data>
 </root>
