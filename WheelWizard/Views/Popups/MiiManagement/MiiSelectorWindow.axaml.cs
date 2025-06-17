@@ -15,7 +15,7 @@ public partial class MiiSelectorWindow : PopupContent
     private TaskCompletionSource<Mii?> _tcs;
 
     public MiiSelectorWindow()
-        : base(true, false, false, "Mii Selector")
+        : base(true, false, false, Common.PopupTitle_MiiSelector)
     {
         InitializeComponent();
         SaveButton.Text = Common.Action_Save;

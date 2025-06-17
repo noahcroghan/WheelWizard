@@ -852,6 +852,51 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mii Carousel.
+        /// </summary>
+        public static string PopupTitle_MiiCarousel {
+            get {
+                return ResourceManager.GetString("PopupTitle_MiiCarousel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mii Editor.
+        /// </summary>
+        public static string PopupTitle_MiiEditor {
+            get {
+                return ResourceManager.GetString("PopupTitle_MiiEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mii Selector.
+        /// </summary>
+        public static string PopupTitle_MiiSelector {
+            get {
+                return ResourceManager.GetString("PopupTitle_MiiSelector", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod Browser.
+        /// </summary>
+        public static string PopupTitle_ModBrowser {
+            get {
+                return ResourceManager.GetString("PopupTitle_ModBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mod Details.
+        /// </summary>
+        public static string PopupTitle_ModDetails {
+            get {
+                return ResourceManager.GetString("PopupTitle_ModDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to America.
         /// </summary>
         public static string Region_America {

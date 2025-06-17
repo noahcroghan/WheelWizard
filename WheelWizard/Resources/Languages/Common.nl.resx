@@ -353,4 +353,16 @@
     <data name="Action_DownloadAndInstall" xml:space="preserve">
         <value>Download en Installeren</value>
     </data>
+    <data name="PopupTitle_ModDetails" xml:space="preserve">
+        <value>Mod details</value>
+    </data>
+    <data name="PopupTitle_ModBrowser" xml:space="preserve">
+        <value>Mod browser</value>
+    </data>
+    <data name="PopupTitle_MiiSelector" xml:space="preserve">
+        <value>Mi Selecteren</value>
+    </data>
+    <data name="PopupTitle_MiiEditor" xml:space="preserve">
+        <value>Mii Bewerken</value>
+    </data>
 </root>
