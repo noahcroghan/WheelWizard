@@ -3,7 +3,7 @@ using Avalonia.Media.Imaging;
 using Microsoft.Extensions.Caching.Memory;
 using WheelWizard.MiiImages.Domain;
 using WheelWizard.Shared.Services;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 namespace WheelWizard.MiiImages;
 

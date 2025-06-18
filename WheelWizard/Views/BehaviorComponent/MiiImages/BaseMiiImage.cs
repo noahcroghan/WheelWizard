@@ -5,7 +5,7 @@ using Avalonia.Media.Imaging;
 using WheelWizard.MiiImages;
 using WheelWizard.MiiImages.Domain;
 using WheelWizard.Shared.DependencyInjection;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.BehaviorComponent;
 

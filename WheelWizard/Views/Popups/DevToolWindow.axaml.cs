@@ -1,6 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Interactivity;
-using Avalonia.Media;
+﻿using Avalonia.Interactivity;
 using Avalonia.Threading;
 using Microsoft.Extensions.Caching.Memory;
 using WheelWizard.Helpers;

@@ -4,7 +4,6 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Popups.Base;
-using Button = WheelWizard.Views.Components.Button;
 
 namespace WheelWizard.Views.Popups.Generic;
 

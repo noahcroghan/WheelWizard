@@ -2,13 +2,15 @@
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using WheelWizard.Models.GameData;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.GameLicense;
+using WheelWizard.WiiManagement.GameLicense.Domain;
+using WheelWizard.WiiManagement.MiiManagement;
 
 namespace WheelWizard.Views.Pages;
 
