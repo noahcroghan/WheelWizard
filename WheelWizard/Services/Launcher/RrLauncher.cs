@@ -1,4 +1,5 @@
 ﻿using Avalonia.Threading;
+using WheelWizard.CustomDistributions;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Enums;
 using WheelWizard.Resources.Languages;
@@ -6,6 +7,8 @@ using WheelWizard.Services.Installation;
 using WheelWizard.Services.Launcher.Helpers;
 using WheelWizard.Services.Settings;
 using WheelWizard.Services.WiiManagement;
+using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Views;
 using WheelWizard.Views.Popups.Generic;
 
 namespace WheelWizard.Services.Launcher;
@@ -14,6 +17,10 @@ public class RrLauncher : ILauncher
 {
     public string GameTitle { get; } = "Retro Rewind";
     private static string RrLaunchJsonFilePath => PathManager.RrLaunchJsonFilePath;
+
+    [Inject]
+    private ICustomDistributionSingletonService CustomDistributionSingletonService { get; set; } =
+        App.Services.GetRequiredService<ICustomDistributionSingletonService>();
 
     public async Task Launch()
     {
@@ -55,25 +62,31 @@ public class RrLauncher : ILauncher
         }
     }
 
-    public Task Install() => RetroRewindInstaller.InstallRetroRewind();
+    public async Task Install()
+    {
+        var progressWindow = new ProgressWindow();
+        progressWindow.Show();
+        await CustomDistributionSingletonService.RetroRewind.InstallAsync(progressWindow);
+        progressWindow.Close();
+    }
 
-    public Task Update() => RetroRewindUpdater.UpdateRR();
+    public async Task Update()
+    {
+        var progressWindow = new ProgressWindow();
+        progressWindow.Show();
+        await CustomDistributionSingletonService.RetroRewind.UpdateAsync(progressWindow);
+        progressWindow.Close();
+    }
 
     public async Task<WheelWizardStatus> GetCurrentStatus()
     {
-        if (!SettingsHelper.PathsSetupCorrectly())
-            return WheelWizardStatus.ConfigNotFinished;
-
-        var serverEnabled = await HttpClientHelper.GetAsync<string>(Endpoints.RRUrl);
-        var rrInstalled = RetroRewindInstaller.IsRetroRewindInstalled();
-
-        if (!serverEnabled.Succeeded)
-            return rrInstalled ? WheelWizardStatus.NoServerButInstalled : WheelWizardStatus.NoServer;
-
-        if (!rrInstalled)
+        if (CustomDistributionSingletonService == null)
+        {
             return WheelWizardStatus.NotInstalled;
-
-        var retroRewindUpToDate = await RetroRewindUpdater.IsRRUpToDate(RetroRewindInstaller.CurrentRRVersion());
-        return !retroRewindUpToDate ? WheelWizardStatus.OutOfDate : WheelWizardStatus.Ready;
+        }
+        var statusResult = await CustomDistributionSingletonService.RetroRewind.GetCurrentStatusAsync();
+        if (statusResult.IsFailure)
+            return WheelWizardStatus.NotInstalled;
+        return statusResult.Value;
     }
 }
