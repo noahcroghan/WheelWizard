@@ -242,4 +242,64 @@
     <data name="Action_Link_Discord" xml:space="preserve">
         <value>문의하기!</value>
     </data>
+    <data name="Action_Back" xml:space="preserve">
+        <value>뒤로 가기</value>
+    </data>
+    <data name="Action_Duplicate" xml:space="preserve">
+        <value>복사</value>
+    </data>
+    <data name="Action_Favorite" xml:space="preserve">
+        <value>즐겨찾기</value>
+    </data>
+    <data name="Action_LaunchDolphin" xml:space="preserve">
+        <value>Dolphin 실행</value>
+    </data>
+    <data name="Action_Randomize" xml:space="preserve">
+        <value>랜덤</value>
+    </data>
+    <data name="Action_SaveExternalMii" xml:space="preserve">
+        <value>"나만의 Mii"에 Mii 추가하기</value>
+    </data>
+    <data name="Action_Unfavorite" xml:space="preserve">
+        <value>즐겨찾기 해제</value>
+    </data>
+    <data name="Action_ViewMii" xml:space="preserve">
+        <value>Mii 보기</value>
+    </data>
+    <data name="Attribute_AverageRoomVr" xml:space="preserve">
+        <value>평균 VR</value>
+    </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>성별</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>여성</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>남성</value>
+    </data>
+    <data name="Attribute_IsOnline" xml:space="preserve">
+        <value>온라인 상태</value>
+    </data>
+    <data name="Attribute_Message" xml:space="preserve">
+        <value>메세지</value>
+    </data>
+    <data name="Attribute_Priority" xml:space="preserve">
+        <value>우선도</value>
+    </data>
+    <data name="Attribute_SortBy" xml:space="preserve">
+        <value>정렬</value>
+    </data>
+    <data name="Attribute_Status" xml:space="preserve">
+        <value>상태</value>
+    </data>
+    <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
+        <value>총 플레이 횟수</value>
+    </data>
+    <data name="Attribute_TotalGamesWon" xml:space="preserve">
+        <value>총 승리 횟수</value>
+    </data>
+    <data name="ListTitle_Miis" xml:space="preserve">
+        <value>Mii</value>
+    </data>
 </root>
