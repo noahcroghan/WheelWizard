@@ -1,9 +1,8 @@
 using Avalonia.Interactivity;
 using Testably.Abstractions;
 using WheelWizard.Shared.DependencyInjection;
-using WheelWizard.Utilities.Mockers;
 using WheelWizard.Views.Components;
-using MiiFactory = WheelWizard.WiiManagement.MiiFactory;
+using MiiFactory = WheelWizard.WiiManagement.MiiManagement.MiiFactory;
 
 namespace WheelWizard.Views.Popups.MiiManagement.MiiEditor;
 

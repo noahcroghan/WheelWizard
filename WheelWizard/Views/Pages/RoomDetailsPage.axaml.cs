@@ -10,6 +10,8 @@ using WheelWizard.Utilities.Mockers;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WiiManagement;
+using WheelWizard.WiiManagement.GameLicense;
+using WheelWizard.WiiManagement.MiiManagement;
 
 namespace WheelWizard.Views.Pages;
 

@@ -3,7 +3,6 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Helpers;
 using WheelWizard.Models.Enums;
-using WheelWizard.Models.GameData;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
@@ -16,7 +15,10 @@ using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiManagement;
 using WheelWizard.WheelWizardData;
 using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.GameLicense;
+using WheelWizard.WiiManagement.GameLicense.Domain;
+using WheelWizard.WiiManagement.MiiManagement;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Pages;
 
@@ -146,8 +148,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         if (IsOnline)
             CurrentUserProfile.Classes.Add("Online");
 
-        ProfileAttribTotalRaces.Text = currentPlayer.TotalRaceCount.ToString();
-        ProfileAttribTotalWins.Text = currentPlayer.TotalWinCount.ToString();
+        ProfileAttribTotalRaces.Text = currentPlayer.Statistics.RaceTotals.OnlineRacesCount.ToString();
+        ProfileAttribTotalWins.Text = currentPlayer.Statistics.RaceTotals.WinsVsLosses.OnlineVs.Wins.ToString();
 
         BadgeContainer.Children.Clear();
         var badges = BadgeService.GetBadges(currentPlayer.FriendCode).Select(variant => new Badge { Variant = variant });

@@ -5,7 +5,8 @@ using WheelWizard.Resources.Languages;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Popups.Base;
 using WheelWizard.WiiManagement;
-using WheelWizard.WiiManagement.Domain.Mii;
+using WheelWizard.WiiManagement.MiiManagement;
+using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
 namespace WheelWizard.Views.Popups.MiiManagement;
 
