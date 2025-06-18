@@ -1,7 +1,6 @@
 using NSubstitute.ExceptionExtensions;
 using Testably.Abstractions;
 using WheelWizard.Shared;
-using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.MiiManagement;
 using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 

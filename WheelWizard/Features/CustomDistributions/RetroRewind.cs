@@ -42,15 +42,15 @@ public class RetroRewind : IDistribution
         if (HasOldRksys())
         {
             var rksysQuestion = new YesNoWindow()
-                .SetMainText(Phrases.PopupText_OldRksysFound)
-                .SetExtraText(Phrases.PopupText_OldRksysFoundExplained);
+                .SetMainText(Phrases.Question_OldRksysFound_Title)
+                .SetExtraText(Phrases.Question_OldRksysFound_Extra);
             if (await rksysQuestion.AwaitAnswer())
                 await BackupOldrksys();
         }
         var serverResponse = await _api.CallApiAsync(api => api.Ping()); // actual response doesnt matter
         if (serverResponse.IsFailure)
         {
-            return "Could not connect to the server";
+            return Fail("Could not connect to the server");
         }
         var downloadResult = await DownloadAndExtractRetroRewind(progressWindow);
         if (downloadResult.IsFailure)
@@ -63,7 +63,7 @@ public class RetroRewind : IDistribution
 
     private async Task<OperationResult> DownloadAndExtractRetroRewind(ProgressWindow progressWindow)
     {
-        progressWindow.SetExtraText(Phrases.PopupText_InstallingRRFirstTime);
+        progressWindow.SetExtraText(Phrases.Progress_InstallingRRFirstTime);
         // path to the downloaded .zip
         var tempZipPath = PathManager.RetroRewindTempFile;
         // where we'll do the extraction
@@ -173,7 +173,7 @@ public class RetroRewind : IDistribution
     {
         var latestVersionResult = await LatestServerVersion();
         if (latestVersionResult.IsFailure)
-            return "Failed to check for updates";
+            return Fail<bool>("Failed to check for updates");
         var latestVersion = latestVersionResult.Value;
         var isUpToDate = currentVersion.ComparePrecedenceTo(latestVersion) >= 0;
         return isUpToDate;
@@ -183,7 +183,7 @@ public class RetroRewind : IDistribution
     {
         var response = await _api.CallApiAsync(api => api.GetVersionFile());
         if (!response.IsSuccess || String.IsNullOrWhiteSpace(response.Value))
-            return "Failed to check for updates";
+            return Fail<SemVersion>("Failed to check for updates");
 
         var result = response.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries).Last().Split(' ')[0];
         return SemVersion.Parse(result);
@@ -231,7 +231,7 @@ public class RetroRewind : IDistribution
         var deleteSuccess = await ApplyFileDeletionsBetweenVersions(currentVersion, targetVersion);
         if (deleteSuccess.IsFailure)
         {
-            return (Phrases.PopupText_FailedUpdateDelete);
+            return Fail(Phrases.MessageError_AbortRR_Extra_FailedUpdateDelete);
         }
 
         // Step 3: Download and apply the updates (if any)
@@ -242,7 +242,7 @@ public class RetroRewind : IDistribution
             var success = await DownloadAndApplyUpdate(update, updatesToApply.Count, i + 1, progressWindow);
             if (success.IsFailure)
             {
-                return (Phrases.PopupText_FailedUpdateApply);
+                return Fail(Phrases.MessageError_AbortRR_Extra_FailedUpdateApply);
             }
 
             // Update the version file after each successful update
@@ -276,7 +276,7 @@ public class RetroRewind : IDistribution
             _fileSystem.Directory.CreateDirectory(destinationDirectoryPath);
 
             if (finalFile == null)
-                return "Failed to download update file";
+                return Fail("Failed to download update file");
             var extractResult = ExtractZipFile(finalFile, destinationDirectoryPath, popupWindow);
             if (extractResult.IsFailure)
                 return extractResult;
@@ -320,7 +320,7 @@ public class RetroRewind : IDistribution
 
             // Directory traversal check
             if (!destinationPath.StartsWith(absoluteDestinationPath, StringComparison.Ordinal))
-                return ("The file path is outside the destination directory. Please contact the developers.");
+                return Fail("The file path is outside the destination directory. Please contact the developers.");
 
             // If it’s a directory, create it
             if (entry.FullName.EndsWith(Path.AltDirectorySeparatorChar))
@@ -356,7 +356,7 @@ public class RetroRewind : IDistribution
             var deleteListResult = await GetFileDeletionList();
             if (deleteListResult.IsFailure)
             {
-                return "Failed to get file deletion list";
+                return Fail("Failed to get file deletion list");
             }
             var deleteList = deleteListResult.Value;
             var deletionsToApply = GetDeletionsToApply(currentVersion, targetVersion, deleteList);
@@ -376,7 +376,7 @@ public class RetroRewind : IDistribution
                     || file.Path.Contains("..")
                 )
                 {
-                    return "Invalid file path detected. Please contact the developers.\n Server error: " + resolvedPath;
+                    return Fail("Invalid file path detected. Please contact the developers.\n Server error: " + resolvedPath);
                 }
 
                 if (_fileSystem.File.Exists(filePath))
@@ -389,7 +389,7 @@ public class RetroRewind : IDistribution
         }
         catch (Exception e)
         {
-            return ($"Failed to delete files: {e.Message}");
+            return Fail($"Failed to delete files: {e.Message}");
         }
     }
 
@@ -405,7 +405,7 @@ public class RetroRewind : IDistribution
 
         var deleteListOperation = await _api.CallApiAsync(api => api.GetDeletionFile());
         if (deleteListOperation.IsFailure)
-            return "Failed to get file deletion list";
+            return Fail<List<DeletionData>>("Failed to get file deletion list");
         var lines = deleteListOperation.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var line in lines)
@@ -418,7 +418,7 @@ public class RetroRewind : IDistribution
             if (string.IsNullOrWhiteSpace(deletionVersion) || string.IsNullOrWhiteSpace(path))
                 continue;
             if (!SemVersion.TryParse(deletionVersion, out var parsedVersion))
-                return "Failed to parse version";
+                return Fail<List<DeletionData>>("Failed to parse version");
             var deletionData = new DeletionData { Version = parsedVersion, Path = path };
             deleteList.Add(deletionData);
         }
@@ -538,7 +538,7 @@ public class RetroRewind : IDistribution
             return WheelWizardStatus.NotInstalled;
         var retroRewindUpToDateResult = await IsRRUpToDate(currentVersion);
         if (retroRewindUpToDateResult.IsFailure)
-            return "Failed to check for updates";
+            return Fail<WheelWizardStatus>("Failed to check for updates");
         var retroRewindUpToDate = retroRewindUpToDateResult.Value;
         return !retroRewindUpToDate ? WheelWizardStatus.OutOfDate : WheelWizardStatus.Ready;
     }
