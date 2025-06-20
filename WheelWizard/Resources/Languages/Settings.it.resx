@@ -81,9 +81,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>Renderizzatore</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Lingua di Retro Rewind</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>Mostra gli FPS</value>
     </data>
@@ -191,5 +188,8 @@
     </data>
     <data name="Section_Installation" xml:space="preserve">
         <value>Installazione</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>Ismy, Sep</value>
     </data>
 </root>

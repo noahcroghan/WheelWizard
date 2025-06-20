@@ -30,9 +30,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>Renderování</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Jazyk Retro Rewind</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>Zobrazit FPS</value>
     </data>
@@ -104,5 +101,8 @@
     </data>
     <data name="Category_General" xml:space="preserve">
         <value>Obecný</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>Pattyrix</value>
     </data>
 </root>

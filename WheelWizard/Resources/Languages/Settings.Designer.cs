@@ -177,6 +177,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This only changes the language for Wheel Wizard. To change the in-game language, you’ll need to do that within the game settings..
+        /// </summary>
+        public static string HelperText_WhWzLanguage {
+            get {
+                return ResourceManager.GetString("HelperText_WhWzLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dolphin Emulator executable.
         /// </summary>
         public static string Option_DolphinEmulatorExe {
@@ -299,15 +308,6 @@ namespace WheelWizard.Resources.Languages {
         public static string Option_Renderer {
             get {
                 return ResourceManager.GetString("Option_Renderer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Retro Rewind Language.
-        /// </summary>
-        public static string Option_RRLanguage {
-            get {
-                return ResourceManager.GetString("Option_RRLanguage", resourceCulture);
             }
         }
         
@@ -731,6 +731,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Value_Language_TurkishOg {
             get {
                 return ResourceManager.GetString("Value_Language_TurkishOg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -.
+        /// </summary>
+        public static string Value_Language_zTranslators {
+            get {
+                return ResourceManager.GetString("Value_Language_zTranslators", resourceCulture);
             }
         }
     }

@@ -401,4 +401,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Progress_InstallingDolphin" xml:space="preserve">
         <value>Dolphin aan het installeren</value>
     </data>
+    <data name="Text_LanguageTranslatedBy" xml:space="preserve">
+        <value>Taal vertaald door: {$1}</value>
+    </data>
 </root>

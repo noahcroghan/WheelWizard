@@ -81,9 +81,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>렌더링</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>레트로 리와인드(Retro Rewind) 언어</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>FPS 표시</value>
     </data>
@@ -179,5 +176,8 @@
     </data>
     <data name="Category_About" xml:space="preserve">
         <value>정보</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>StationAlpha, Sinseiga, 주녕</value>
     </data>
 </root>

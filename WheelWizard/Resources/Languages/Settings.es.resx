@@ -75,9 +75,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>Renderizar</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Idioma de Retro Rewind</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>Mostrar FPS</value>
     </data>
@@ -191,5 +188,8 @@
     </data>
     <data name="Section_Installation" xml:space="preserve">
         <value>Instalación</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>Frix, JGavidia</value>
     </data>
 </root>

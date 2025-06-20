@@ -30,14 +30,33 @@ public partial class WhWzSettings : UserControl
         _pageLoaded = true;
 
         MKGameFieldLabel.TipText = WheelWizard.Resources.Languages.Settings.HelperText_EndWithX + "Path can end with: .wbfs/.iso/.rvz";
+        WhWzLanguageDropdown.SelectionChanged += WhWzLanguageDropdown_OnSelectionChanged;
     }
 
     private void LoadSettings()
     {
         // -----------------
-        // Loading all the Window Scale settings
+        // Wheel Wizard Language Dropdown
         // -----------------
+        WhWzLanguageDropdown.Items.Clear(); // Clear existing items
+        foreach (var lang in SettingValues.WhWzLanguages.Values)
+        {
+            WhWzLanguageDropdown.Items.Add(lang());
+        }
 
+        var currentWhWzLanguage = (string)SettingsManager.WW_LANGUAGE.Get();
+        var whWzLanguageDisplayName = SettingValues.WhWzLanguages[currentWhWzLanguage];
+        WhWzLanguageDropdown.SelectedItem = whWzLanguageDisplayName();
+
+        TranslationsPercentageText.Text = Humanizer.ReplaceDynamic(
+            Phrases.Text_LanguageTranslatedBy,
+            WheelWizard.Resources.Languages.Settings.Value_Language_zTranslators
+        );
+        TranslationsPercentageText.IsVisible = WheelWizard.Resources.Languages.Settings.Value_Language_zTranslators != "-";
+
+        // -----------------
+        // Window Scale settings
+        // -----------------
         // IMPORTANT: Make sure that the number and percentage is always the last word in the string,
         // If you don't want this, you should change the code below that parses the string back to an actual value
 
@@ -355,6 +374,37 @@ public partial class WhWzSettings : UserControl
         }
 
         _editingScale = false;
+    }
+
+    private async void WhWzLanguageDropdown_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (WhWzLanguageDropdown.SelectedItem == null)
+            return;
+
+        var selectedLanguage = WhWzLanguageDropdown.SelectedItem.ToString();
+        var key = SettingValues.WhWzLanguages.FirstOrDefault(x => x.Value() == selectedLanguage).Key;
+
+        var currentLanguage = (string)SettingsManager.WW_LANGUAGE.Get();
+        if (key == null || key == currentLanguage)
+            return;
+
+        // TODO: translate this popup, but support multiple languages. So it should display both NL and FR when you try to switch from NL to FR
+        var yesNoWindow = await new YesNoWindow()
+            .SetMainText("Do you want to apply the new language settings?")
+            .SetExtraText("This will close the current window and open a new one with the new language settings.")
+            .SetButtonText(Common.Action_Apply, Common.Action_Cancel)
+            .AwaitAnswer();
+
+        if (!yesNoWindow)
+        {
+            var currentWhWzLanguage = (string)SettingsManager.WW_LANGUAGE.Get();
+            var whWzLanguageDisplayName = SettingValues.WhWzLanguages[currentWhWzLanguage];
+            WhWzLanguageDropdown.SelectedItem = whWzLanguageDisplayName;
+            return; // We only want to change the setting if we really apply this change
+        }
+
+        SettingsManager.WW_LANGUAGE.Set(key);
+        ViewUtils.RefreshWindow();
     }
 
     //private void EnableAnimations_OnClick(object sender, RoutedEventArgs e) => SettingsManager.ENABLE_ANIMATIONS.Set(EnableAnimations.IsChecked == true);

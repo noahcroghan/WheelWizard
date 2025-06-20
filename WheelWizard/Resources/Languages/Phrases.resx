@@ -450,4 +450,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
         <value>files could not be found.</value>
     </data>
+    <data name="Text_LanguageTranslatedBy" xml:space="preserve">
+        <value>This language is translated by: {$1}</value>
+    </data>
 </root>

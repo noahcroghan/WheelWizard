@@ -26,9 +26,6 @@
     <data name="Option_WhWzLanguage" xml:space="preserve">
         <value>Wheel Wizard Taal</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Retro Rewind-Taal</value>
-    </data>
     <data name="Section_Language" xml:space="preserve">
         <value>Taal</value>
     </data>
@@ -135,7 +132,7 @@
         <value>Maak Hoofdprofiel</value>
     </data>
     <data name="Value_Language_CompletePercentage" xml:space="preserve">
-        <value>100</value>
+        <value>90</value>
     </data>
     <data name="Option_RemoveBlur" xml:space="preserve">
         <value>Verwijder Waas</value>
@@ -199,5 +196,11 @@
     </data>
     <data name="HelperText_EndWithX" xml:space="preserve">
         <value>Locatie kan eindigen met:</value>
+    </data>
+    <data name="HelperText_WhWzLanguage" xml:space="preserve">
+        <value>Dit verandert alleen de taal van Wheel Wizard. Om de taal in het spel zelf te wijzigen, moet je dit doen via de instellingen van het spel.</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>WantToBeeMe, Noel, Krummers</value>
     </data>
 </root>

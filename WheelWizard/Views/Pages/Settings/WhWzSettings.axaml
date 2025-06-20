@@ -173,6 +173,13 @@
                     HorizontalAlignment="Stretch"
                     Margin="0,0,0,5"
                     VerticalAlignment="Top" />
+                
+                <components1:FormFieldLabel Text="{x:Static lang:Settings.Option_WhWzLanguage}" TipText="{x:Static lang:Settings.HelperText_WhWzLanguage}" />
+                <ComboBox x:Name="WhWzLanguageDropdown"
+                          HorizontalAlignment="Stretch"
+                          Margin="0,0,0,5"
+                          VerticalAlignment="Top" ZIndex="2"/>
+                <TextBlock Classes="TinyText" x:Name="TranslationsPercentageText" />
             </StackPanel>
         </Border>
     </StackPanel>

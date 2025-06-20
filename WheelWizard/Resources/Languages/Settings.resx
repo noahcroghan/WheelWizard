@@ -26,9 +26,6 @@
     <data name="Option_WhWzLanguage" xml:space="preserve">
         <value>Wheel Wizard Language</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Retro Rewind Language</value>
-    </data>
     <data name="Option_ForceDisableWiimote" xml:space="preserve">
         <value>Force Disable Wiimote</value>
     </data>
@@ -247,5 +244,11 @@
     </data>
     <data name="HelperText_EndWithX" xml:space="preserve">
         <value>Path can end with:</value>
+    </data>
+    <data name="HelperText_WhWzLanguage" xml:space="preserve">
+        <value>This only changes the language for Wheel Wizard. To change the in-game language, you’ll need to do that within the game settings.</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>-</value>
     </data>
 </root>

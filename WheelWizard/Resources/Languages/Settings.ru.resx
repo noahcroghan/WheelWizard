@@ -81,9 +81,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>Движок рендера</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Язык Retro Rewind</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>Показывать FPS</value>
     </data>
@@ -176,5 +173,8 @@
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Вставьте сюда путь к файлу...</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>CaXaP,  StHydrated, OrangeCake</value>
     </data>
 </root>

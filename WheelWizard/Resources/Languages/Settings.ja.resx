@@ -69,9 +69,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>レンダラー</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Retro Rewindの言語</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>FPSの表示</value>
     </data>
@@ -191,5 +188,8 @@
     </data>
     <data name="Section_Installation" xml:space="preserve">
         <value>インストール</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>Haru00007,  Mosgis,  Mossan</value>
     </data>
 </root>

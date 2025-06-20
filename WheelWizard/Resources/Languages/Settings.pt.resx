@@ -78,9 +78,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>Renderizar</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Idioma do Retro Rewind</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>Mostrar FPS</value>
     </data>
@@ -101,5 +98,8 @@
     </data>
     <data name="Placeholder_SearchForPlayers" xml:space="preserve">
         <value>Procura Por Jogadores...</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>JMM,  Gui_C__Tuga</value>
     </data>
 </root>

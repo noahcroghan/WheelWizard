@@ -69,9 +69,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>Renderer</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Retro Rewind Sprache</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>FPS anzeigen</value>
     </data>
@@ -191,5 +188,8 @@
     </data>
     <data name="Section_Installation" xml:space="preserve">
         <value>Installation</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>Weebo, kytronix, Gab, ToadetteHackFan</value>
     </data>
 </root>

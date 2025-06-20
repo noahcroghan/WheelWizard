@@ -81,9 +81,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>Render</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Retro Rewind Dili</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>FPS Göster</value>
     </data>
@@ -191,5 +188,8 @@
     </data>
     <data name="Section_Installation" xml:space="preserve">
         <value>Kurulum</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>wrkus, Weebo</value>
     </data>
 </root>

@@ -1231,6 +1231,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This language is translated by: {$1}.
+        /// </summary>
+        public static string Text_LanguageTranslatedBy {
+            get {
+                return ResourceManager.GetString("Text_LanguageTranslatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Made by: {$1} \n And {$2}.
         /// </summary>
         public static string Text_MadeByString {

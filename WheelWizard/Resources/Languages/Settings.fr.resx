@@ -69,9 +69,6 @@
     <data name="Option_Renderer" xml:space="preserve">
         <value>Rendu</value>
     </data>
-    <data name="Option_RRLanguage" xml:space="preserve">
-        <value>Langue de Retro Rewind</value>
-    </data>
     <data name="Option_ShowFPS" xml:space="preserve">
         <value>Montrer les FPS</value>
     </data>
@@ -191,5 +188,8 @@
     </data>
     <data name="Section_Installation" xml:space="preserve">
         <value>Installation</value>
+    </data>
+    <data name="Value_Language_zTranslators" xml:space="preserve">
+        <value>Eppe, Yawshi</value>
     </data>
 </root>
