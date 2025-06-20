@@ -476,4 +476,7 @@
     <data name="PopupTitle_MiiCarousel" xml:space="preserve">
         <value>Mii Carousel</value>
     </data>
+    <data name="Attribute_Mii_DefaultName" xml:space="preserve">
+        <value>Nieuwe Mii</value>
+    </data>
 </root>

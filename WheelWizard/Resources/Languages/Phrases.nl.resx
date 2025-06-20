@@ -389,13 +389,13 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Text_PoweredGamebanana" xml:space="preserve">
         <value>Mogelijk gemaakt door Gamebanana</value>
     </data>
-    <data name="Question_SearchMod" xml:space="preserve">
+    <data name="Placeholder_SearchMod" xml:space="preserve">
         <value>Mod zoeken...</value>
     </data>
     <data name="Question_InstallMod_Title" xml:space="preserve">
         <value>Wil je de mod '{$1}' installeren?</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
+    <data name="Placeholder_EnterModName" xml:space="preserve">
         <value>Mod naam....</value>
     </data>
     <data name="Progress_InstallingDolphin" xml:space="preserve">
@@ -403,5 +403,8 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="Text_LanguageTranslatedBy" xml:space="preserve">
         <value>Taal vertaald door: {$1}</value>
+    </data>
+    <data name="Placeholder_EnterMiiName" xml:space="preserve">
+        <value>Mii naam...</value>
     </data>
 </root>

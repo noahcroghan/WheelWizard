@@ -271,7 +271,7 @@
     <data name="MessageError_FailedCreateMiiDb_Title" xml:space="preserve">
         <value>Mii 데이터베이스 작성에 실패했습니다.</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
+    <data name="Placeholder_EnterModName" xml:space="preserve">
         <value>모드 이름을 입력:</value>
     </data>
 </root>

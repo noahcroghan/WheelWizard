@@ -476,4 +476,7 @@
     <data name="Attribute_Mii_BeardType" xml:space="preserve">
         <value>Beard Type</value>
     </data>
+    <data name="Attribute_Mii_DefaultName" xml:space="preserve">
+        <value>New Mii</value>
+    </data>
 </root>

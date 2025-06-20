@@ -564,6 +564,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Mii.
+        /// </summary>
+        public static string Attribute_Mii_DefaultName {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Eyebrow Type.
         /// </summary>
         public static string Attribute_Mii_EyebrowType {

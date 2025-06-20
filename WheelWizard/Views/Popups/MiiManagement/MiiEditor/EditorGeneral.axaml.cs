@@ -150,12 +150,12 @@ public partial class EditorGeneral : MiiEditorBaseControl
     private async void ComplexName_OnClick(object? sender, RoutedEventArgs e)
     {
         var textPopup = new TextInputWindow()
-            .SetMainText($"Edit Mii name")
+            .SetMainText(Common.Attribute_Mii_Name)
             .SetExtraText($"Changing name from: {MiiName.Text}")
             .SetAllowCustomChars(true, true)
             .SetValidation(ValidateMiiName)
             .SetInitialText(MiiName.Text)
-            .SetPlaceholderText("Enter Mii name");
+            .SetPlaceholderText(Phrases.Placeholder_EnterMiiName);
         var newName = await textPopup.ShowDialog();
 
         if (string.IsNullOrWhiteSpace(newName))

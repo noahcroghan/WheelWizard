@@ -138,7 +138,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>A mod with the name '{$1}' already exists.</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
+    <data name="Placeholder_EnterModName" xml:space="preserve">
         <value>Enter mod name...</value>
     </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
@@ -417,7 +417,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="EmptyContent_NoModSelected" xml:space="preserve">
         <value>Select a mod in the list to view its details</value>
     </data>
-    <data name="Question_SearchMod" xml:space="preserve">
+    <data name="Placeholder_SearchMod" xml:space="preserve">
         <value>Search for mods...</value>
     </data>
     <data name="Question_InstallMod_Title" xml:space="preserve">

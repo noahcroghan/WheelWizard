@@ -225,7 +225,7 @@ public partial class ModContent : UserControlBase
                 .SetMainText(Common.Attribute_Name)
                 .SetInitialText(CurrentMod.Name)
                 .SetValidation(ModManager.Instance.ValidateModName)
-                .SetPlaceholderText(Phrases.Question_EnterModName);
+                .SetPlaceholderText(Phrases.Placeholder_EnterModName);
             var modName = await popup.ShowDialog();
             if (modName == null)
                 return;

@@ -718,6 +718,24 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter mod name....
+        /// </summary>
+        public static string Placeholder_EnterModName {
+            get {
+                return ResourceManager.GetString("Placeholder_EnterModName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for mods....
+        /// </summary>
+        public static string Placeholder_SearchMod {
+            get {
+                return ResourceManager.GetString("Placeholder_SearchMod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to downloading {$1} MB.
         /// </summary>
         public static string Progress_DownloadingMb {
@@ -880,15 +898,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter mod name....
-        /// </summary>
-        public static string Question_EnterModName {
-            get {
-                return ResourceManager.GetString("Question_EnterModName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enter Title:.
         /// </summary>
         public static string Question_EnterTitle {
@@ -1011,15 +1020,6 @@ namespace WheelWizard.Resources.Languages {
         public static string Question_RRToOld_Title {
             get {
                 return ResourceManager.GetString("Question_RRToOld_Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search for mods....
-        /// </summary>
-        public static string Question_SearchMod {
-            get {
-                return ResourceManager.GetString("Question_SearchMod", resourceCulture);
             }
         }
         
