@@ -281,13 +281,13 @@
     <data name="Action_Randomize" xml:space="preserve">
         <value>Randomize</value>
     </data>
-    <data name="Attribute_Gender_Male" xml:space="preserve">
+    <data name="Attribute_Mii_Gender_Male" xml:space="preserve">
         <value>Male</value>
     </data>
-    <data name="Attribute_Gender" xml:space="preserve">
+    <data name="Attribute_Mii_Gender" xml:space="preserve">
         <value>Gender</value>
     </data>
-    <data name="Attribute_Gender_Female" xml:space="preserve">
+    <data name="Attribute_Mii_Gender_Female" xml:space="preserve">
         <value>Female</value>
     </data>
     <data name="Attribute_Status" xml:space="preserve">
@@ -367,5 +367,113 @@
     </data>
     <data name="PopupTitle_MiiCarousel" xml:space="preserve">
         <value>Mii Carousel</value>
+    </data>
+    <data name="Attribute_MiiSection_General" xml:space="preserve">
+        <value>General</value>
+    </data>
+    <data name="Attribute_MiiSection_Face" xml:space="preserve">
+        <value>Face</value>
+    </data>
+    <data name="Attribute_MiiSection_Hair" xml:space="preserve">
+        <value>Hair</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyebrows" xml:space="preserve">
+        <value>Eyebrows</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyes" xml:space="preserve">
+        <value>Eyes</value>
+    </data>
+    <data name="Attribute_MiiSection_Nose" xml:space="preserve">
+        <value>Nose</value>
+    </data>
+    <data name="Attribute_MiiSection_Lips" xml:space="preserve">
+        <value>Lips</value>
+    </data>
+    <data name="Attribute_MiiSection_Glasses" xml:space="preserve">
+        <value>Glasses</value>
+    </data>
+    <data name="Attribute_MiiSection_FacialHair" xml:space="preserve">
+        <value>Facial Hair</value>
+    </data>
+    <data name="Attribute_MiiSection_Mole" xml:space="preserve">
+        <value>Mole</value>
+    </data>
+    <data name="Attribute_Mii_VerticalPosition" xml:space="preserve">
+        <value>Vertical Position (Up/Down)</value>
+    </data>
+    <data name="Attribute_Mii_Size" xml:space="preserve">
+        <value>Size</value>
+    </data>
+    <data name="Attribute_Mii_NoseType" xml:space="preserve">
+        <value>Nose Type</value>
+    </data>
+    <data name="Attribute_Mii_HorizontalPosition" xml:space="preserve">
+        <value>Horizontal Position (Left/Right)</value>
+    </data>
+    <data name="Attribute_Mii_MouthType" xml:space="preserve">
+        <value>Mouth Type</value>
+    </data>
+    <data name="Attribute_Mii_HairColor" xml:space="preserve">
+        <value>Hair Color</value>
+    </data>
+    <data name="Attribute_Mii_HairType" xml:space="preserve">
+        <value>Hair Type</value>
+    </data>
+    <data name="Attribute_Mii_MirrorHair" xml:space="preserve">
+        <value>Mirror Hair</value>
+    </data>
+    <data name="Attribute_Mii_GlassesType" xml:space="preserve">
+        <value>Glasses Type</value>
+    </data>
+    <data name="Attribute_Mii_GlassesColor" xml:space="preserve">
+        <value>Glasses Color</value>
+    </data>
+    <data name="Attribute_Mii_Name" xml:space="preserve">
+        <value>Mii Name</value>
+    </data>
+    <data name="Attribute_Mii_CreatorName" xml:space="preserve">
+        <value>Creator Name</value>
+    </data>
+    <data name="Attribute_Mii_Height" xml:space="preserve">
+        <value>Height</value>
+    </data>
+    <data name="Attribute_Mii_Width" xml:space="preserve">
+        <value>Width</value>
+    </data>
+    <data name="Attribute_Mii_FavColor" xml:space="preserve">
+        <value>Favorite Color</value>
+    </data>
+    <data name="Attribute_Mii_SkinColor" xml:space="preserve">
+        <value>Skin Color</value>
+    </data>
+    <data name="Attribute_Mii_HeadShape" xml:space="preserve">
+        <value>Head Shape</value>
+    </data>
+    <data name="Attribute_Mii_FacialFeature" xml:space="preserve">
+        <value>Facial Feature</value>
+    </data>
+    <data name="Attribute_Mii_IrishColor" xml:space="preserve">
+        <value>Irish Color</value>
+    </data>
+    <data name="Attribute_Mii_SpaceBetween" xml:space="preserve">
+        <value>Spacing in between</value>
+    </data>
+    <data name="Attribute_Mii_Rotation" xml:space="preserve">
+        <value>Rotation (Rotate Left/Right)</value>
+    </data>
+    <data name="Attribute_Mii_EyebrowType" xml:space="preserve">
+        <value>Eyebrow Type</value>
+    </data>
+    <data name="Attribute_Mii_MustacheType" xml:space="preserve">
+        <value>Mustache Type</value>
+    </data>
+    <data name="Attribute_Mii_MustacheVerticalPosition" xml:space="preserve">
+        <value>Mustache Vertical Position (Up/Down)</value>
+    </data>
+    <data name="Attribute_Mii_MustacheSize" xml:space="preserve">
+        <value>Mustache Size</value>
+    </data>
+    <data name="Attribute_Mii_BeardType" xml:space="preserve">
+        <value>Beard Type</value>
     </data>
 </root>

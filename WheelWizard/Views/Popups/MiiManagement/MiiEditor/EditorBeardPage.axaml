@@ -9,7 +9,7 @@
     <!-- FOR EVERY EDITOR PAGE -->
     <Grid RowDefinitions="40,*">
         <!-- Updated Title -->
-        <TextBlock Classes="BodyText" Margin="10" Text="Facial Hair" HorizontalAlignment="Right" />
+        <TextBlock Classes="BodyText" Margin="10" Text="{x:Static lang:Common.Attribute_MiiSection_FacialHair}" HorizontalAlignment="Right" />
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}"
                 HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="1"/>
         <components:IconLabelButton Grid.Row="0" Text="{x:Static lang:Common.Action_Back}" IconData="{StaticResource ArrowLeft}"
@@ -24,7 +24,7 @@
                 <!-- The list of elements you want to edit in this page -->
 
                 <StackPanel> <!-- Hair Color -->
-                    <components:FormFieldLabel Text="Hair Color:"/>
+                    <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_Mii_HairColor}"/>
                     <UniformGrid Columns="5" x:Name="HairColorGrid">
                         <!-- Generated elements -->
                     </UniformGrid>
@@ -32,7 +32,7 @@
 
 
                 <StackPanel> <!-- Mustache Type -->
-                    <components:FormFieldLabel Text="Mustache Type:"/>
+                    <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_Mii_MustacheType}"/>
                     <UniformGrid Columns="5" x:Name="MustacheTypesGrid">
                         <!-- Generated elements -->
                     </UniformGrid>
@@ -41,7 +41,7 @@
                 <StackPanel x:Name="MustacheTransformOptions">
                      <!-- Vertical Position (Up/Down) -->
                     <StackPanel>
-                        <components:FormFieldLabel Text="Mustache Vertical Position (Up/Down):"/>
+                        <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_Mii_MustacheVerticalPosition}"/>
                         <Border Background="{StaticResource Neutral950}" CornerRadius="6" Padding="2" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
                                 <components:Button x:Name="VerticalDecreaseButton" IconData="{StaticResource ArrowUp}" IconSize="14" Padding="4" Click="VerticalDecrease_Click" />
@@ -53,7 +53,7 @@
 
                     <!-- Size (Zoom In/Out) -->
                     <StackPanel>
-                        <components:FormFieldLabel Text="Mustache Size (Zoom In/Out):"/>
+                        <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_Mii_MustacheSize}"/>
                         <Border Background="{StaticResource Neutral950}" CornerRadius="6" Padding="2" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
                                 <components:Button x:Name="SizeDecreaseButton" IconData="{StaticResource MinMark}" IconSize="14" Padding="4" Click="SizeDecrease_Click"/>
@@ -65,7 +65,7 @@
                 </StackPanel>
                 
                 <StackPanel> <!-- Beard Type -->
-                    <components:FormFieldLabel Text="Beard Type:"/>
+                    <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_Mii_BeardType}"/>
                     <UniformGrid Columns="5" x:Name="BeardTypesGrid">
                         <!-- Generated elements -->
                     </UniformGrid>

@@ -407,8 +407,8 @@ public partial class MiiListPage : UserControlBase
         Mii? mii = null;
         await new OptionsWindow()
             .AddOption("Dice", Common.Action_Randomize, () => mii = MiiFactory.CreateRandomMii(Random.Random.Shared))
-            .AddOption("PersonMale", Common.Attribute_Gender_Male, () => mii = MiiFactory.CreateDefaultMale())
-            .AddOption("PersonFemale", Common.Attribute_Gender_Female, () => mii = MiiFactory.CreateDefaultFemale())
+            .AddOption("PersonMale", Common.Attribute_Mii_Gender_Male, () => mii = MiiFactory.CreateDefaultMale())
+            .AddOption("PersonFemale", Common.Attribute_Mii_Gender_Female, () => mii = MiiFactory.CreateDefaultFemale())
             .AwaitAnswer();
         if (mii == null)
             return;

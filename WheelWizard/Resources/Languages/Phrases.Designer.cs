@@ -709,6 +709,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter Mii name....
+        /// </summary>
+        public static string Placeholder_EnterMiiName {
+            get {
+                return ResourceManager.GetString("Placeholder_EnterMiiName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to downloading {$1} MB.
         /// </summary>
         public static string Progress_DownloadingMb {

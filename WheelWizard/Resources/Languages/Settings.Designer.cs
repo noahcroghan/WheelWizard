@@ -150,6 +150,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Optional.
+        /// </summary>
+        public static string HelperText_Optional {
+            get {
+                return ResourceManager.GetString("HelperText_Optional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This setting will change certain dolphin settings to reduce stuttering and lag spikes.
         /// </summary>
         public static string HelperText_Recommended {

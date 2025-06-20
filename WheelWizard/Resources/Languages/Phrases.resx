@@ -453,4 +453,7 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Text_LanguageTranslatedBy" xml:space="preserve">
         <value>This language is translated by: {$1}</value>
     </data>
+    <data name="Placeholder_EnterMiiName" xml:space="preserve">
+        <value>Enter Mii name...</value>
+    </data>
 </root>

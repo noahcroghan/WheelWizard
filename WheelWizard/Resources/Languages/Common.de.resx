@@ -269,13 +269,13 @@
     <data name="Attribute_AverageRoomVr" xml:space="preserve">
         <value>Durchschnittliche R-Punkte</value>
     </data>
-    <data name="Attribute_Gender" xml:space="preserve">
+    <data name="Attribute_Mii_Gender" xml:space="preserve">
         <value>Geschlecht</value>
     </data>
-    <data name="Attribute_Gender_Female" xml:space="preserve">
+    <data name="Attribute_Mii_Gender_Female" xml:space="preserve">
         <value>Männlich</value>
     </data>
-    <data name="Attribute_Gender_Male" xml:space="preserve">
+    <data name="Attribute_Mii_Gender_Male" xml:space="preserve">
         <value>Weiblich</value>
     </data>
     <data name="Attribute_IsOnline" xml:space="preserve">

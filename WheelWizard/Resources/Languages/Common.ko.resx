@@ -269,13 +269,13 @@
     <data name="Attribute_AverageRoomVr" xml:space="preserve">
         <value>평균 VR</value>
     </data>
-    <data name="Attribute_Gender" xml:space="preserve">
+    <data name="Attribute_Mii_Gender" xml:space="preserve">
         <value>성별</value>
     </data>
-    <data name="Attribute_Gender_Female" xml:space="preserve">
+    <data name="Attribute_Mii_Gender_Female" xml:space="preserve">
         <value>여성</value>
     </data>
-    <data name="Attribute_Gender_Male" xml:space="preserve">
+    <data name="Attribute_Mii_Gender_Male" xml:space="preserve">
         <value>남성</value>
     </data>
     <data name="Attribute_IsOnline" xml:space="preserve">

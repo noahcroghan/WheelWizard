@@ -278,13 +278,13 @@
     <data name="Action_Randomize" xml:space="preserve">
         <value>Randomiseren</value>
     </data>
-    <data name="Attribute_Gender" xml:space="preserve">
+    <data name="Attribute_Mii_Gender" xml:space="preserve">
         <value>Geslacht</value>
     </data>
-    <data name="Attribute_Gender_Female" xml:space="preserve">
+    <data name="Attribute_Mii_Gender_Female" xml:space="preserve">
         <value>Vrouw</value>
     </data>
-    <data name="Attribute_Gender_Male" xml:space="preserve">
+    <data name="Attribute_Mii_Gender_Male" xml:space="preserve">
         <value>Man</value>
     </data>
     <data name="Attribute_IsOnline" xml:space="preserve">
@@ -364,5 +364,116 @@
     </data>
     <data name="PopupTitle_MiiEditor" xml:space="preserve">
         <value>Mii Bewerken</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyes" xml:space="preserve">
+        <value>Ogen</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyebrows" xml:space="preserve">
+        <value>Wenkbrauwen</value>
+    </data>
+    <data name="Attribute_MiiSection_Face" xml:space="preserve">
+        <value>Gezicht</value>
+    </data>
+    <data name="Attribute_MiiSection_FacialHair" xml:space="preserve">
+        <value>Gezichts Haar</value>
+    </data>
+    <data name="Attribute_MiiSection_General" xml:space="preserve">
+        <value>Algemeen</value>
+    </data>
+    <data name="Attribute_MiiSection_Glasses" xml:space="preserve">
+        <value>Bril</value>
+    </data>
+    <data name="Attribute_MiiSection_Hair" xml:space="preserve">
+        <value>Haar</value>
+    </data>
+    <data name="Attribute_MiiSection_Lips" xml:space="preserve">
+        <value>Lippen</value>
+    </data>
+    <data name="Attribute_MiiSection_Mole" xml:space="preserve">
+        <value>Moedervlek</value>
+    </data>
+    <data name="Attribute_MiiSection_Nose" xml:space="preserve">
+        <value>Neus</value>
+    </data>
+    <data name="Attribute_Mii_BeardType" xml:space="preserve">
+        <value>Baard</value>
+    </data>
+    <data name="Attribute_Mii_CreatorName" xml:space="preserve">
+        <value>Gemaakt door</value>
+    </data>
+    <data name="Attribute_Mii_EyebrowType" xml:space="preserve">
+        <value>Wenkbrauw</value>
+    </data>
+    <data name="Attribute_Mii_FacialFeature" xml:space="preserve">
+        <value>Gezichts eigenschap</value>
+    </data>
+    <data name="Attribute_Mii_FavColor" xml:space="preserve">
+        <value>Lievelingskleur</value>
+    </data>
+    <data name="Attribute_Mii_GlassesColor" xml:space="preserve">
+        <value>Bril kleur</value>
+    </data>
+    <data name="Attribute_Mii_GlassesType" xml:space="preserve">
+        <value>Bril vorm</value>
+    </data>
+    <data name="Attribute_Mii_HairColor" xml:space="preserve">
+        <value>Haarkleur</value>
+    </data>
+    <data name="Attribute_Mii_HairType" xml:space="preserve">
+        <value>Haar type</value>
+    </data>
+    <data name="Attribute_Mii_HeadShape" xml:space="preserve">
+        <value>Hoofdvorm</value>
+    </data>
+    <data name="Attribute_Mii_Height" xml:space="preserve">
+        <value>Lengte</value>
+    </data>
+    <data name="Attribute_Mii_HorizontalPosition" xml:space="preserve">
+        <value>Horizontale positie</value>
+    </data>
+    <data name="Attribute_Mii_IrishColor" xml:space="preserve">
+        <value>Oogkleur</value>
+    </data>
+    <data name="Attribute_Mii_MirrorHair" xml:space="preserve">
+        <value>Haar spiegelen</value>
+    </data>
+    <data name="Attribute_Mii_MouthType" xml:space="preserve">
+        <value>Mond</value>
+    </data>
+    <data name="Attribute_Mii_MustacheSize" xml:space="preserve">
+        <value>Snor grootte</value>
+    </data>
+    <data name="Attribute_Mii_MustacheType" xml:space="preserve">
+        <value>Snor</value>
+    </data>
+    <data name="Attribute_Mii_MustacheVerticalPosition" xml:space="preserve">
+        <value>Verticale positie van de snor</value>
+    </data>
+    <data name="Attribute_Mii_Name" xml:space="preserve">
+        <value>Mii naam</value>
+    </data>
+    <data name="Attribute_Mii_NoseType" xml:space="preserve">
+        <value>Neus vorm</value>
+    </data>
+    <data name="Attribute_Mii_Rotation" xml:space="preserve">
+        <value>Rotatie</value>
+    </data>
+    <data name="Attribute_Mii_Size" xml:space="preserve">
+        <value>Grootte</value>
+    </data>
+    <data name="Attribute_Mii_SkinColor" xml:space="preserve">
+        <value>Huidskleur</value>
+    </data>
+    <data name="Attribute_Mii_SpaceBetween" xml:space="preserve">
+        <value>Tussenruimte</value>
+    </data>
+    <data name="Attribute_Mii_VerticalPosition" xml:space="preserve">
+        <value>Verticale positie</value>
+    </data>
+    <data name="Attribute_Mii_Width" xml:space="preserve">
+        <value>Breedte</value>
+    </data>
+    <data name="PopupTitle_MiiCarousel" xml:space="preserve">
+        <value>Mii Carousel</value>
     </data>
 </root>

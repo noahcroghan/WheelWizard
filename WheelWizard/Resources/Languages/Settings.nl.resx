@@ -201,6 +201,9 @@
         <value>Dit verandert alleen de taal van Wheel Wizard. Om de taal in het spel zelf te wijzigen, moet je dit doen via de instellingen van het spel.</value>
     </data>
     <data name="Value_Language_zTranslators" xml:space="preserve">
-        <value>WantToBeeMe, Noel, Krummers</value>
+        <value>WantToBeeMe, Noël, Krummers</value>
+    </data>
+    <data name="HelperText_Optional" xml:space="preserve">
+        <value>Optioneel</value>
     </data>
 </root>

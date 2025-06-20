@@ -492,33 +492,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gender.
-        /// </summary>
-        public static string Attribute_Gender {
-            get {
-                return ResourceManager.GetString("Attribute_Gender", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Female.
-        /// </summary>
-        public static string Attribute_Gender_Female {
-            get {
-                return ResourceManager.GetString("Attribute_Gender_Female", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Male.
-        /// </summary>
-        public static string Attribute_Gender_Male {
-            get {
-                return ResourceManager.GetString("Attribute_Gender_Male", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string Attribute_Id {
@@ -569,6 +542,357 @@ namespace WheelWizard.Resources.Languages {
         public static string Attribute_Message {
             get {
                 return ResourceManager.GetString("Attribute_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Beard Type.
+        /// </summary>
+        public static string Attribute_Mii_BeardType {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_BeardType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator Name.
+        /// </summary>
+        public static string Attribute_Mii_CreatorName {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_CreatorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eyebrow Type.
+        /// </summary>
+        public static string Attribute_Mii_EyebrowType {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_EyebrowType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Facial Feature.
+        /// </summary>
+        public static string Attribute_Mii_FacialFeature {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_FacialFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Favorite Color.
+        /// </summary>
+        public static string Attribute_Mii_FavColor {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_FavColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gender.
+        /// </summary>
+        public static string Attribute_Mii_Gender {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string Attribute_Mii_Gender_Female {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_Gender_Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string Attribute_Mii_Gender_Male {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_Gender_Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glasses Color.
+        /// </summary>
+        public static string Attribute_Mii_GlassesColor {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_GlassesColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glasses Type.
+        /// </summary>
+        public static string Attribute_Mii_GlassesType {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_GlassesType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hair Color.
+        /// </summary>
+        public static string Attribute_Mii_HairColor {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_HairColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hair Type.
+        /// </summary>
+        public static string Attribute_Mii_HairType {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_HairType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Head Shape.
+        /// </summary>
+        public static string Attribute_Mii_HeadShape {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_HeadShape", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string Attribute_Mii_Height {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_Height", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Horizontal Position (Left/Right).
+        /// </summary>
+        public static string Attribute_Mii_HorizontalPosition {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_HorizontalPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Irish Color.
+        /// </summary>
+        public static string Attribute_Mii_IrishColor {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_IrishColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mirror Hair.
+        /// </summary>
+        public static string Attribute_Mii_MirrorHair {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_MirrorHair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mouth Type.
+        /// </summary>
+        public static string Attribute_Mii_MouthType {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_MouthType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mustache Size.
+        /// </summary>
+        public static string Attribute_Mii_MustacheSize {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_MustacheSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mustache Type.
+        /// </summary>
+        public static string Attribute_Mii_MustacheType {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_MustacheType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mustache Vertical Position (Up/Down).
+        /// </summary>
+        public static string Attribute_Mii_MustacheVerticalPosition {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_MustacheVerticalPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mii Name.
+        /// </summary>
+        public static string Attribute_Mii_Name {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nose Type.
+        /// </summary>
+        public static string Attribute_Mii_NoseType {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_NoseType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotation (Rotate Left/Right).
+        /// </summary>
+        public static string Attribute_Mii_Rotation {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_Rotation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size.
+        /// </summary>
+        public static string Attribute_Mii_Size {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skin Color.
+        /// </summary>
+        public static string Attribute_Mii_SkinColor {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_SkinColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spacing in between.
+        /// </summary>
+        public static string Attribute_Mii_SpaceBetween {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_SpaceBetween", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vertical Position (Up/Down).
+        /// </summary>
+        public static string Attribute_Mii_VerticalPosition {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_VerticalPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string Attribute_Mii_Width {
+            get {
+                return ResourceManager.GetString("Attribute_Mii_Width", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eyebrows.
+        /// </summary>
+        public static string Attribute_MiiSection_Eyebrows {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_Eyebrows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eyes.
+        /// </summary>
+        public static string Attribute_MiiSection_Eyes {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_Eyes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Face.
+        /// </summary>
+        public static string Attribute_MiiSection_Face {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_Face", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Facial Hair.
+        /// </summary>
+        public static string Attribute_MiiSection_FacialHair {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_FacialHair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string Attribute_MiiSection_General {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glasses.
+        /// </summary>
+        public static string Attribute_MiiSection_Glasses {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_Glasses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hair.
+        /// </summary>
+        public static string Attribute_MiiSection_Hair {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_Hair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lips.
+        /// </summary>
+        public static string Attribute_MiiSection_Lips {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_Lips", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mole.
+        /// </summary>
+        public static string Attribute_MiiSection_Mole {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_Mole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nose.
+        /// </summary>
+        public static string Attribute_MiiSection_Nose {
+            get {
+                return ResourceManager.GetString("Attribute_MiiSection_Nose", resourceCulture);
             }
         }
         
