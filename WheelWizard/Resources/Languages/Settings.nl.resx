@@ -200,4 +200,7 @@
     <data name="HelperText_Optional" xml:space="preserve">
         <value>Optioneel</value>
     </data>
+    <data name="HelperText_MustSetPaths" xml:space="preserve">
+        <value>Je moet deze 3 locaties instellen voordat je Retro Rewind kunt spelen.</value>
+    </data>
 </root>

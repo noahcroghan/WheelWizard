@@ -147,9 +147,6 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
         <value>Mod folder does not exist</value>
     </data>
-    <data name="Question_EnterTitle" xml:space="preserve">
-        <value>Enter Title:</value>
-    </data>
     <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>Processing {$1} of {$2} files...</value>
     </data>
@@ -453,9 +450,6 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Placeholder_EnterMiiName" xml:space="preserve">
         <value>Enter Mii name...</value>
     </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>Enter mod name...</value>
-    </data>
     <data name="Question_SearchMod" xml:space="preserve">
         <value>Search for mods...</value>
     </data>
@@ -467,5 +461,11 @@ To join a specific room, you'll need to either join through a friend, or hope to
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Enter desired path here...</value>
+    </data>
+    <data name="Question_EnterNewName_Title" xml:space="preserve">
+        <value>Enter new name</value>
+    </data>
+    <data name="Question_EnterNewName_Extra" xml:space="preserve">
+        <value>Changing name from: {$1}</value>
     </data>
 </root>

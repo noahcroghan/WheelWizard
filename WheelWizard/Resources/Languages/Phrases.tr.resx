@@ -94,9 +94,6 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Lütfen tüm yolların doğru olduğundan emin olun ve tekrar deneyin.</value>
     </data>
-    <data name="Question_EnterTitle" xml:space="preserve">
-        <value>Başlık Girin:</value>
-    </data>
     <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Kalan Tahmini Süre:</value>
     </data>

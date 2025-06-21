@@ -248,4 +248,7 @@
     <data name="HelperText_Optional" xml:space="preserve">
         <value>Optional</value>
     </data>
+    <data name="HelperText_MustSetPaths" xml:space="preserve">
+        <value>You must set these 3 paths before you can start playing retro rewind</value>
+    </data>
 </root>

@@ -27,9 +27,6 @@
     <data name="Question_RRNotDeterment_Title" xml:space="preserve">
         <value>Stáhnout Retro Rewind</value>
     </data>
-    <data name="Question_EnterTitle" xml:space="preserve">
-        <value>Zadej Název:</value>
-    </data>
     <data name="Progress_InstallingRR" xml:space="preserve">
         <value>Instalování Retro Rewind</value>
     </data>

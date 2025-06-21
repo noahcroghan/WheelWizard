@@ -93,9 +93,6 @@
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Убедитесь, что все пути правильны и попробуйте ещё раз.</value>
     </data>
-    <data name="Question_EnterTitle" xml:space="preserve">
-        <value>Укажите заголовок:</value>
-    </data>
     <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Осталось примерно:</value>
     </data>

@@ -13,7 +13,7 @@
             <StackPanel Orientation="Horizontal">
                 <components1:FormFieldLabel Text="{x:Static lang:Settings.Section_LocationPaths}" />
                 <Border x:Name="LocationWarningIcon"
-                        ToolTip.Tip="You must set these 3 values before you can start playing retro rewind"
+                        ToolTip.Tip="{x:Static lang:Settings.HelperText_MustSetPaths}"
                         ToolTip.Placement="Top" ToolTip.ShowDelay="50">
                     <PathIcon x:Name="WarningIcon" Foreground="{StaticResource Warning600}"
                               Data="{StaticResource WarningTriangle}"

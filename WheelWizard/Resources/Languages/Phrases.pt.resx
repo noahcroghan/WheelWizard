@@ -93,9 +93,6 @@
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Por favor verifica que todos os percursos estão corretos e tenta outra vez-</value>
     </data>
-    <data name="Question_EnterTitle" xml:space="preserve">
-        <value>Introduza o Título:</value>
-    </data>
     <data name="Progress_EstimatedTimeRemaining" xml:space="preserve">
         <value>Tempo restante estimado:</value>
     </data>

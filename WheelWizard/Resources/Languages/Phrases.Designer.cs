@@ -916,20 +916,20 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter mod name....
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string Question_EnterModName {
+        public static string Question_EnterNewName_Extra {
             get {
-                return ResourceManager.GetString("Question_EnterModName", resourceCulture);
+                return ResourceManager.GetString("Question_EnterNewName_Extra", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter Title:.
+        ///   Looks up a localized string similar to Enter new name.
         /// </summary>
-        public static string Question_EnterTitle {
+        public static string Question_EnterNewName_Title {
             get {
-                return ResourceManager.GetString("Question_EnterTitle", resourceCulture);
+                return ResourceManager.GetString("Question_EnterNewName_Title", resourceCulture);
             }
         }
         

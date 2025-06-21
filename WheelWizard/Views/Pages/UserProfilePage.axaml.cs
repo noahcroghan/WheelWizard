@@ -295,8 +295,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
     {
         var oldName = CurrentMii?.Name.ToString();
         var renamePopup = new TextInputWindow()
-            .SetMainText($"Enter new name")
-            .SetExtraText($"Changing name from: {oldName}")
+            .SetMainText(Phrases.Question_EnterNewName_Title)
+            .SetExtraText(Humanizer.ReplaceDynamic(Phrases.Question_EnterNewName_Extra, oldName))
             .SetAllowCustomChars(true)
             .SetValidation(ValidateMiiName)
             .SetInitialText(oldName ?? "")

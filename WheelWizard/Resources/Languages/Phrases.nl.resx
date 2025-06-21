@@ -136,9 +136,6 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
         <value>Mod-map bestaat niet.</value>
     </data>
-    <data name="Question_EnterTitle" xml:space="preserve">
-        <value>Voer titel In:</value>
-    </data>
     <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>Verwerken van {$1} uit {$2} bestanden...</value>
     </data>
@@ -444,9 +441,6 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="Question_DolphinFlatpack_Title" xml:space="preserve">
         <value>Dolphin-Flatpak installeren</value>
-    </data>
-    <data name="Question_EnterModName" xml:space="preserve">
-        <value>Voer mod-naam in...</value>
     </data>
     <data name="Question_SearchMod" xml:space="preserve">
         <value>Zoeken naar mods...</value>

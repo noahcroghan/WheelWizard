@@ -152,9 +152,6 @@ Voulez vous supprimer votre dossier My-Stuff ? </value>
     <data name="MessageWarning_InvalidPaths_Extra" xml:space="preserve">
         <value>Vérifiez bien si tous les chemins sont corrects et essayez à nouveau.</value>
     </data>
-    <data name="Question_EnterTitle" xml:space="preserve">
-        <value>Rentrez un titre:</value>
-    </data>
     <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
         <value>Échec de la vérification des mises à jour</value>
     </data>
