@@ -492,6 +492,33 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gender.
+        /// </summary>
+        public static string Attribute_Gender {
+            get {
+                return ResourceManager.GetString("Attribute_Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string Attribute_Gender_Female {
+            get {
+                return ResourceManager.GetString("Attribute_Gender_Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string Attribute_Gender_Male {
+            get {
+                return ResourceManager.GetString("Attribute_Gender_Male", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID.
         /// </summary>
         public static string Attribute_Id {

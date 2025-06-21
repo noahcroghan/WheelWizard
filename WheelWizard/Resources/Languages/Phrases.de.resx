@@ -379,4 +379,7 @@ Um einem bestimmten Raum beizutreten, musst du entweder über einen Freund treff
     <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
         <value>Es gab keine Miis zum Exportieren.</value>
     </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>Mod-Name darf nicht leer sein.</value>
+    </data>
 </root>

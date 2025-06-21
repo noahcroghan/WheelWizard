@@ -16,55 +16,55 @@
         </value>
     </resheader>
     <data name="Text_MadeByString" xml:space="preserve">
-        <value>Gemaakt door: {$1} \n en {$2}</value>
+        <value>Gemaakt door {$1} \n en {$2}</value>
     </data>
     <data name="Text_ThanksTranslators" xml:space="preserve">
         <value>Hartelijk dank aan alle vertalers:</value>
     </data>
     <data name="Hover_PlayersOnline_0" xml:space="preserve">
-        <value>Er zijn momenteel geen spelers online</value>
+        <value>Er zijn momenteel geen spelers online.</value>
     </data>
     <data name="Hover_PlayersOnline_1" xml:space="preserve">
-        <value>Er is momenteel 1 speler online</value>
+        <value>Er is momenteel 1 speler online.</value>
     </data>
     <data name="Hover_PlayersOnline_x" xml:space="preserve">
-        <value>Er zijn momenteel {$1} spelers online</value>
+        <value>Er zijn momenteel {$1} spelers online.</value>
     </data>
     <data name="Hover_RoomsOnline_0" xml:space="preserve">
-        <value>Er zijn momenteel geen kamers</value>
+        <value>Er zijn momenteel geen kamers actief.</value>
     </data>
     <data name="Hover_RoomsOnline_1" xml:space="preserve">
-        <value>Er is momenteel 1 kamer</value>
+        <value>Er is momenteel 1 kamer actief.</value>
     </data>
     <data name="Hover_RoomsOnline_x" xml:space="preserve">
-        <value>Er zijn momenteel {$1} kamers actief</value>
+        <value>Er zijn momenteel {$1} kamers actief.</value>
     </data>
     <data name="Hover_FriendsOnline_x" xml:space="preserve">
-        <value>Er zijn momenteel {$1} vrienden online</value>
+        <value>Er zijn momenteel {$1} vrienden online.</value>
     </data>
     <data name="Hover_FriendsOnline_1" xml:space="preserve">
-        <value>Er is momenteel 1 vriend online</value>
+        <value>Er is momenteel 1 vriend online.</value>
     </data>
     <data name="Hover_FriendsOnline_0" xml:space="preserve">
-        <value>Er zijn momenteel geen vrienden online</value>
+        <value>Er zijn momenteel geen vrienden online.</value>
     </data>
     <data name="EmptyContent_NoProfiles" xml:space="preserve">
-        <value>Je moet het spel minimaal één keer hebben gespeeld om hier je profielen te kunnen bekijken</value>
+        <value>Je moet het spel minimaal één keer hebben gespeeld om hier jouw profielen te kunnen bekijken.</value>
     </data>
     <data name="EmptyContent_NoFriends_Title" xml:space="preserve">
-        <value>Je hebt nog geen vrienden! LOL</value>
+        <value>Je hebt nog geen vrienden!</value>
     </data>
     <data name="EmptyContent_NoFriends" xml:space="preserve">
-        <value>Je kan vrienden in het spel toevoegen</value>
+        <value>Je kan vrienden in het spel toevoegen.</value>
     </data>
     <data name="Text_WhWzTranslationPercentage" xml:space="preserve">
-        <value>Vertalingen voor deze taal zijn {$1}% compleet</value>
+        <value>Vertalingen voor deze taal zijn {$1}% voltooid.</value>
     </data>
     <data name="EmptyContent_NoMods_Title" xml:space="preserve">
-        <value>Je hebt nog geen mods</value>
+        <value>Geen mods gevonden</value>
     </data>
     <data name="EmptyContent_NoMods" xml:space="preserve">
-        <value>Mods kunnen de game aanpassen. Start met het importeren van je eerste mod door op de importeerknop te drukken.</value>
+        <value>Mods kunnen de game aanpassen. Start met het importeren van jouw eerste mod door op de importeerknop te drukken.</value>
     </data>
     <data name="Time_Days_1" xml:space="preserve">
         <value>1 dag</value>
@@ -76,7 +76,7 @@
         <value>1 uur</value>
     </data>
     <data name="Time_Hours_x" xml:space="preserve">
-        <value>{$1} uur</value>
+        <value>{$1} uren</value>
     </data>
     <data name="Time_Minutes_1" xml:space="preserve">
         <value>1 minuut</value>
@@ -104,7 +104,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Geschatte resterende tijd:</value>
     </data>
     <data name="Progress_DownloadingMb" xml:space="preserve">
-        <value>downloaden van {$1} MB</value>
+        <value>Downloaden van {$1} MB.</value>
     </data>
     <data name="Question_LaunchClearModsFound_Title" xml:space="preserve">
         <value>Mods gevonden</value>
@@ -113,31 +113,31 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Je staat op het punt om het spel te starten zonder mods. Wil je de My Stuff-map leegmaken?</value>
     </data>
     <data name="Progress_InstallingMods" xml:space="preserve">
-        <value>Mods Installeren</value>
+        <value>Mods installeren</value>
     </data>
     <data name="Progress_InstallingModsCount" xml:space="preserve">
         <value>{$1} mods installeren</value>
     </data>
     <data name="MessageWarning_NotFindDolphin_Extra" xml:space="preserve">
-        <value>Kan Dolphin Emulator niet vinden, vul eerst de locatie in bij de instellingen</value>
+        <value>Kan Dolphin-emulator niet vinden. Geef eerst de locatie op bij de instellingen.</value>
     </data>
     <data name="MessageWarning_NotFindGame_Extra" xml:space="preserve">
-        <value>Kan het spelbestand niet vinden, vul eerst de locatie in bij de instellingen</value>
+        <value>Kan het spelbestand niet vinden. Geef eerst de locatie op bij de instellingen.</value>
     </data>
     <data name="MessageWarning_MultipleFilesSelected_Title" xml:space="preserve">
-        <value>Meerdere Bestanden Geselecteerd</value>
+        <value>Meerdere bestanden geselecteerd.</value>
     </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
-        <value>Er bestaat al een mod met de naam '{$1}' .</value>
+        <value>Er bestaat al een mod met de naam "{$1}".</value>
     </data>
     <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Weet je zeker dat je {$1} wil verwijderen?</value>
     </data>
     <data name="MessageError_NoModFolder_Extra" xml:space="preserve">
-        <value>Mod-map bestaat niet</value>
+        <value>Mod-map bestaat niet.</value>
     </data>
     <data name="Question_EnterTitle" xml:space="preserve">
-        <value>Voer Titel In:</value>
+        <value>Voer titel In:</value>
     </data>
     <data name="Progress_ProcessingXofY" xml:space="preserve">
         <value>Verwerken van {$1} uit {$2} bestanden...</value>
@@ -152,22 +152,22 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Wil je de nieuwe schaal toepassen?</value>
     </data>
     <data name="MessageWarning_DolphinNotFound_Title" xml:space="preserve">
-        <value>Dolphin Emulator-Map Niet Gevonden</value>
+        <value>Dolphin-emulator-map niet gevonden.</value>
     </data>
     <data name="Question_DolphinFound_Title" xml:space="preserve">
-        <value>Dolphin Emulator-Map Gevonden</value>
+        <value>Dolphin-emulator-map gevonden</value>
     </data>
     <data name="MessageWarning_DolphinNotFound_Extra" xml:space="preserve">
-        <value>Dolphin Emulator-Map niet automatisch gevonden. Probeer de map handmatig te vinden. Klik op "help" voor meer informatie.</value>
+        <value>De Dolphin-emulator-map is niet automatisch gevonden. Probeer de map handmatig te vinden. Klik op "hulp" voor meer informatie.</value>
     </data>
     <data name="Question_DolphinFound_Extra" xml:space="preserve">
-        <value>Als je niet weet wat dit allemaal betekent, druk op ja :) \nDolphin Emulator-Map Gevonden. Wil je deze gebruiken?</value>
+        <value>Als je niet weet wat dit allemaal betekent, druk op ja :) \nDolphin-emulator-map gevonden. Wil je deze gebruiken?</value>
     </data>
     <data name="MessageError_AbortRR_Extra_FailedUpdateDelete" xml:space="preserve">
         <value>Het is niet gelukt om bestanden te verwijderen voor de update. Proces word afgebroken.</value>
     </data>
     <data name="Progress_UpdateRR" xml:space="preserve">
-        <value>Updaten van Retro Rewind </value>
+        <value>Retro Rewind updaten</value>
     </data>
     <data name="MessageError_AbortRR_Extra_FailedUpdateApply" xml:space="preserve">
         <value>Het is niet gelukt om te updaten. Proces word afgebroken.</value>
@@ -176,16 +176,16 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Retro Rewind is up-to-date.</value>
     </data>
     <data name="MessageWarning_FailCheckUpdates_Title" xml:space="preserve">
-        <value>Zoeken naar updates mislukt</value>
+        <value>Zoeken naar updates mislukt.</value>
     </data>
     <data name="Question_NewVersionWhWz_Title" xml:space="preserve">
-        <value>Wheel Wizard Update Beschikbaar</value>
+        <value>Wheel Wizard-update beschikbaar</value>
     </data>
     <data name="Question_UpdateAdmin_Title" xml:space="preserve">
         <value>Update met administrator</value>
     </data>
     <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
-        <value>Soms zijn er voor een update administratorrechten nodig, wil je deze activeren voor deze update?</value>
+        <value>Soms zijn er voor een update administratorrechten nodig. Wil je deze activeren voor deze update?</value>
     </data>
     <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonNetwork" xml:space="preserve">
         <value>Kan niet controleren of Wheel Wizard up-to-date is. \nEr zijn mogelijk netwerkproblemen.</value>
@@ -197,25 +197,25 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Versie {$1} van Wheel Wizard is beschikbaar (momenteel op {$2}). Wil je nu updaten?</value>
     </data>
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
-        <value>Ophalen van de nieuwste Wheel Wizard van GitHub-releases</value>
+        <value>Ophalen van de nieuwste Wheel Wizard van GitHub-releases.</value>
     </data>
     <data name="Progress_UpdateWhWz" xml:space="preserve">
-        <value>Updaten van Wheel Wizard</value>
+        <value>Wheel Wizard updaten</value>
     </data>
     <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation" xml:space="preserve">
-        <value>Wheel Wizard kan niet worden geüpdate. Zorg ervoor dat de applicatie zich in een map bevindt waarnaar kan worden geschreven.\n Kan de huidige map niet vinden.</value>
+        <value>Wheel Wizard kan niet worden geüpdatet. Zorg ervoor dat de applicatie zich in een map bevindt waarnaar kan worden geschreven.\n Kan de huidige map niet vinden.</value>
     </data>
     <data name="Question_ReinstallRR_Title" xml:space="preserve">
-        <value>Retro Rewind Opnieuw Installeren</value>
+        <value>Retro Rewind herinstalleren</value>
     </data>
     <data name="Progress_InstallingRR" xml:space="preserve">
-        <value>Retro Rewind Installeren</value>
+        <value>Retro Rewind installeren</value>
     </data>
     <data name="Progress_InstallingRRFirstTime" xml:space="preserve">
-        <value>Retro Rewind voor de eerste keer aan het installeren</value>
+        <value>Retro Rewind voor de eerste keer installeren.</value>
     </data>
     <data name="MessageWarning_NoConnectServer_Extra" xml:space="preserve">
-        <value>Kon geen verbinding maken met de server. Probeer het later opnieuw.</value>
+        <value>Kan geen verbinding maken met de server. Probeer het later opnieuw.</value>
     </data>
     <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Oude spelgegevens zijn gevonden. Wil je deze gebruiken? (aanbevolen)</value>
@@ -227,16 +227,16 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Je versie van Retro Rewind is te oud om te updaten. Wil je Retro Rewind opnieuw installeren?</value>
     </data>
     <data name="Question_RRNotDeterment_Title" xml:space="preserve">
-        <value>Retro Rewind Downloaden</value>
+        <value>Retro Rewind downloaden</value>
     </data>
     <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
         <value>Je versie van Retro Rewind kon niet worden bepaald. Wil je Retro Rewind downloaden?</value>
     </data>
     <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
-        <value>Je hebt nog geen Mii's</value>
+        <value>Je hebt nog geen Mii's!</value>
     </data>
     <data name="EmptyContent_NoMiis" xml:space="preserve">
-        <value>We kunnen niet de Mii data van je systeem aflezen. Zorg dat je het spel minimaal 1 keer hebt opgestart</value>
+        <value>We kunnen de Mii-data van jouw systeem niet aflezen. Zorg ervoor dat je het spel minimaal één keer hebt gespeeld.</value>
     </data>
     <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
         <value>Om vrienden toe te voegen moet je ze in het spel toevoegen.</value>
@@ -245,32 +245,31 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Retro Rewind versie is te oud.</value>
     </data>
     <data name="MessageWarning_InvalidPaths_Title" xml:space="preserve">
-        <value>Foute locaties.</value>
+        <value>Ongeldige locaties.</value>
     </data>
     <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
         <value>Naam niet toegestaan.</value>
     </data>
     <data name="MessageWarning_UnableUpdateWhWz_Title" xml:space="preserve">
-        <value>Wheel Wizard kan niet worden geüpdate.</value>
+        <value>Wheel Wizard kan niet worden geüpdatet.</value>
     </data>
     <data name="MessageError_AbortRR_Extra_InvalidFilePath" xml:space="preserve">
-        <value>Ongeldig bestandspad gedetecteerd. Neem contact op met de ontwikkelaars. \n
- error: {$1}</value>
+        <value>Ongeldige bestandslocatie gedetecteerd. Neem contact op met de ontwikkelaars.\n Serverfout: {$1}</value>
     </data>
     <data name="MessageError_AbortRR_Title" xml:space="preserve">
-        <value>RR-update afgebrroken.</value>
+        <value>RR-update afgebroken.</value>
     </data>
     <data name="MessageError_FailedCreateMiiDb_Title" xml:space="preserve">
-        <value>Maken van Mii database mislukt.</value>
+        <value>Creëren van Mii-database mislukt.</value>
     </data>
     <data name="MessageError_GenericError_Title" xml:space="preserve">
         <value>Er is een fout opgetreden.</value>
     </data>
     <data name="MessageWarning_FailCheckUpdates_Extra" xml:space="preserve">
-        <value>Kan momenteel niet op updates controleren. Mogelijk heb je geen internetverbinding of is de server offline</value>
+        <value>Kan momenteel niet op updates controleren. Mogelijk heb je geen internetverbinding of de server is offline.</value>
     </data>
     <data name="MessageWarning_NoConnectServer_Title" xml:space="preserve">
-        <value>Kan geen connectie leggen tot de server.</value>
+        <value>Kan geen verbinding maken met de server.</value>
     </data>
     <data name="Question_ApplyScale_Extra" xml:space="preserve">
         <value>Deze wijziging wordt over {$1} teruggedraaid, tenzij je ervoor kiest om de wijziging te behouden.</value>
@@ -282,64 +281,64 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Verwijderen is permanent en kan niet ongedaan worden gemaakt.</value>
     </data>
     <data name="Question_SureDelete_Title_Miis" xml:space="preserve">
-        <value>Weet je zeker dat je {$1} Mii's wilt verwijderen?</value>
+        <value>Weet je zeker dat je {$1} Mii's wil verwijderen?</value>
     </data>
     <data name="SnackbarError_MiiFailureCreate" xml:space="preserve">
-        <value>Maken van Mii '{$1}' mislukt.</value>
+        <value>Creëren van Mii "{$1}" mislukt.</value>
     </data>
     <data name="SnackbarError_MiiFailureDeserialize" xml:space="preserve">
-        <value>Verwerken van Mii '{$1}' mislukt.</value>
+        <value>Verwerken van Mii "{$1}" mislukt.</value>
     </data>
     <data name="SnackbarError_MiiFailureDuplicate" xml:space="preserve">
-        <value>Copieren van Mii '{$1}' mislukt.</value>
+        <value>Kopiëren van Mii "{$1}" mislukt.</value>
     </data>
     <data name="SnackbarError_MiiFailureGet" xml:space="preserve">
-        <value>Verkrijgen van Mii '{$1}' mislukt.</value>
+        <value>Verkrijgen van Mii "{$1}" mislukt.</value>
     </data>
     <data name="SnackbarError_MiiFailureSave" xml:space="preserve">
-        <value>Opslaan van Mii '{$1}' mislukt.</value>
+        <value>Opslaan van Mii "{$1}" mislukt.</value>
     </data>
     <data name="SnackbarError_MiiFailureSerialize" xml:space="preserve">
-        <value>Omzetten van Mii '{$1}' mislukt.</value>
+        <value>Omzetten van Mii "{$1}" mislukt.</value>
     </data>
     <data name="SnackbarError_MiiFailureUpdate" xml:space="preserve">
-        <value>Updaten van Mii '{$1}' mislukt.</value>
+        <value>Updaten van Mii "{$1}" mislukt.</value>
     </data>
     <data name="SnackbarSuccess_CopiedFC" xml:space="preserve">
         <value>Vriendcode gekopieerd naar klembord.</value>
     </data>
     <data name="SnackbarSuccess_CreatedDuplicatesMiis" xml:space="preserve">
-        <value>Kopie gemaakt van {$1} Miis</value>
+        <value>{$1} kopieën gemaakt van Mii.</value>
     </data>
     <data name="SnackbarSuccess_Deleted" xml:space="preserve">
-        <value>{$1}' verwijderd.</value>
+        <value>"{$1}" verwijderd.</value>
     </data>
     <data name="SnackbarSuccess_MiiAdded" xml:space="preserve">
-        <value>Mii is toegevoegd aan Mijn Miis.</value>
+        <value>Mii is toegevoegd aan "Mijn Mii's".</value>
     </data>
     <data name="SnackbarSuccess_Deleted_Miis" xml:space="preserve">
-        <value>{$1} Miis verwijderd.</value>
+        <value>{$1} Mii's verwijderd.</value>
     </data>
     <data name="SnackbarSuccess_CreatedDuplicate" xml:space="preserve">
-        <value>Kopie gemaakt van '{$1}'</value>
+        <value>Kopie gemaakt van "{$1}".</value>
     </data>
     <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
-        <value>Er zijn geen Miis om te exporteren.</value>
+        <value>Er zijn geen Mii's om te exporteren.</value>
     </data>
     <data name="SnackbarWarning_NoMiiDelete" xml:space="preserve">
-        <value>Er zijn geen Miis om te verwijderen.</value>
+        <value>Er zijn geen Mii's om te verwijderen.</value>
     </data>
     <data name="SnackbarWarning_CantSaveMii" xml:space="preserve">
         <value>Kan Mii niet opslaan.</value>
     </data>
     <data name="SnackbarSuccess_SavedMii" xml:space="preserve">
-        <value>Mii '{$1}' is opgeslagen in het bestand '{$2}'</value>
+        <value>Mii "{$1}" is opgeslagen in het bestand "{$2}".</value>
     </data>
     <data name="SnackbarSuccess_NameChange" xml:space="preserve">
-        <value>Naam succesvol gewijzigd naar '{$1}'.</value>
+        <value>Naam succesvol gewijzigd naar "{$1}".</value>
     </data>
     <data name="MessageWarning_CantViewMod_Extra_NotFromBrowser" xml:space="preserve">
-        <value>Mod kan niet worden weergegeven omdat deze niet via de modbrowser is geïnstalleerd.</value>
+        <value>Kan mod, die niet is geïnstalleerd via de mod-browser, niet weergeven.</value>
     </data>
     <data name="MessageWarning_CantViewMod_Extra_SomethingElse" xml:space="preserve">
         <value>Er is iets misgegaan bij het openen van de geselecteerde mod.</value>
@@ -348,19 +347,19 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Kan deze mod niet weergegeven.</value>
     </data>
     <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
-        <value>Kan favoriete Miis niet verwijderen.</value>
+        <value>Kan favoriete Mii('s) niet verwijderen.</value>
     </data>
     <data name="MessageWarning_CannotDeleteFavMii_Extra" xml:space="preserve">
-        <value>Een of meer van de geselecteerde Miis is een favoriet. Miis kunnen alleen worden verwijderd als ze geen favoriet zijn, om per ongeluk verwijderen te voorkomen.</value>
+        <value>Eén of meer van de geselecteerde Mii's is een favoriet. Mii's kunnen alleen worden verwijderd als ze geen favoriet zijn, om onbedoelde verwijderingen te voorkomen.</value>
     </data>
     <data name="Hover_PrimaryProfile" xml:space="preserve">
         <value>Het hoofdprofiel wordt gebruikt als referentie in Wheel Wizard.</value>
     </data>
     <data name="Hover_RegionUserSelection" xml:space="preserve">
-        <value>Dit toont alleen regio’s waarop JIJ hebt gespeeld.</value>
+        <value>Dit toont alleen regio's waarop JIJ hebt gespeeld.</value>
     </data>
     <data name="SnackbarSuccess_ProfileSetPrimary" xml:space="preserve">
-        <value>Profiel als hoofdprofiel gezet.</value>
+        <value>Profiel als hoofdprofiel geselecteerd.</value>
     </data>
     <data name="HelperNote_CreatorNameLess10" xml:space="preserve">
         <value>Naam moet korter dan 10 tekens zijn.</value>
@@ -375,33 +374,81 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Veranderen van naam mislukt.</value>
     </data>
     <data name="MessageSuccess_MiiChanged" xml:space="preserve">
-        <value>Mii successvol veranderd</value>
+        <value>Mii succesvol veranderd.</value>
     </data>
     <data name="EmptyContent_NoModSelected" xml:space="preserve">
-        <value>Klik op een mod in de lijst om de details hier te zien..</value>
+        <value>Mod-naam</value>
     </data>
     <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
         <value>Geen mod geselecteerd</value>
     </data>
     <data name="Text_PoweredGamebanana" xml:space="preserve">
-        <value>Mogelijk gemaakt door Gamebanana</value>
+        <value>Mogelijk gemaakt door GameBanana.</value>
     </data>
     <data name="Placeholder_SearchMod" xml:space="preserve">
         <value>Mod zoeken...</value>
     </data>
     <data name="Question_InstallMod_Title" xml:space="preserve">
-        <value>Wil je de mod '{$1}' installeren?</value>
+        <value>Wil je de mod "{$1}" downloaden en installeren?</value>
     </data>
     <data name="Placeholder_EnterModName" xml:space="preserve">
         <value>Mod naam....</value>
     </data>
     <data name="Progress_InstallingDolphin" xml:space="preserve">
-        <value>Dolphin aan het installeren</value>
+        <value>Dolphin-emulator installeren</value>
     </data>
     <data name="Text_LanguageTranslatedBy" xml:space="preserve">
         <value>Taal vertaald door: {$1}</value>
     </data>
     <data name="Placeholder_EnterMiiName" xml:space="preserve">
         <value>Mii naam...</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Extra" xml:space="preserve">
+        <value>De installatie van de Dolphin-emulator is mislukt. Probeer handmatig Flatpak Dolphin te installeren.</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Title" xml:space="preserve">
+        <value>Installeren van Dolphin mislukt.</value>
+    </data>
+    <data name="MessageError_FailedRetrieveMod_Title" xml:space="preserve">
+        <value>Ophalen van mod-informatie mislukt.</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Extra" xml:space="preserve">
+        <value>Er is een fout opgetreden tijdens het downloaden van {$1}.</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Title" xml:space="preserve">
+        <value>Downloaded van mod mislukt.</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Extra" xml:space="preserve">
+        <value>Geef een mod-naam op.</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>Mod-naam mag niet leeg zijn.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Extra" xml:space="preserve">
+        <value>Mod-naam bevat ongeldige tekens.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Title" xml:space="preserve">
+        <value>Mod-naam ongeldig.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
+        <value>Bestanden konden niet worden gevonden.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Title" xml:space="preserve">
+        <value>Downloaden van mod mislukt.</value>
+    </data>
+    <data name="Progress_ThisMayTakeAWhile" xml:space="preserve">
+        <value>Dit kan mogelijk lang duren afhankelijk van jouw internetverbinding.</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Extra" xml:space="preserve">
+        <value>De Flatpak-versie van de Dolphin-emulator is niet geïnstalleerd. Installeer dit voor het hele systeem?</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Title" xml:space="preserve">
+        <value>Dolphin-Flatpak installeren</value>
+    </data>
+    <data name="Question_EnterModName" xml:space="preserve">
+        <value>Voer mod-naam in...</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Zoeken naar mods...</value>
     </data>
 </root>

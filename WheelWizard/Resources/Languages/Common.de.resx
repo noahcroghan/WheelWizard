@@ -311,4 +311,13 @@
     <data name="Attribute_VrFull" xml:space="preserve">
         <value>R-Punkte</value>
     </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Geschlecht</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Männlich</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Weiblich</value>
+    </data>
 </root>

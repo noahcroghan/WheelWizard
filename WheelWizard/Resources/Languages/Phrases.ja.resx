@@ -381,4 +381,67 @@ My Stuffフォルダーをクリアしますか？</value>
     <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
         <value>エクスポートできるMiiがなかったようです</value>
     </data>
+    <data name="EmptyContent_NoModSelected" xml:space="preserve">
+        <value>リスト内のModを選択して詳細を表示します</value>
+    </data>
+    <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
+        <value>Modが選択されていません</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Extra" xml:space="preserve">
+        <value>Dolphinエミュレーターのインストールに失敗しました。Dolphinのflatpakバージョンのインストールを手動で行ってみてください。</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Title" xml:space="preserve">
+        <value>Dolphinのインストールに失敗</value>
+    </data>
+    <data name="MessageError_FailedRetrieveMod_Title" xml:space="preserve">
+        <value>Modの情報取得に失敗</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Extra" xml:space="preserve">
+        <value>ダウンロード中にエラーが発生しました: {$1}</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Title" xml:space="preserve">
+        <value>Modのダウンロードに失敗しました</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Extra" xml:space="preserve">
+        <value>Modの名前を入力してください</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>Modの名前は空にできません</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Extra" xml:space="preserve">
+        <value>Modの名前に無効な文字が含まれています</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Title" xml:space="preserve">
+        <value>Modの名前が無効です</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
+        <value>ファイルが見つかりませんでした</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Title" xml:space="preserve">
+        <value>Modをダウンロードできません</value>
+    </data>
+    <data name="Progress_InstallingDolphin" xml:space="preserve">
+        <value>Dolphinエミュレーターをインストール</value>
+    </data>
+    <data name="Progress_ThisMayTakeAWhile" xml:space="preserve">
+        <value>インターネットの状況によっては時間がかかる場合があります</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Extra" xml:space="preserve">
+        <value>Dolphinエミュレーターのflatpakバージョンがインストールされていないようです。システム全体にインストールしますか？</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Title" xml:space="preserve">
+        <value>Dolphin flatpakバージョンのインストール</value>
+    </data>
+    <data name="Question_EnterModName" xml:space="preserve">
+        <value>Modの名前を入力してください...</value>
+    </data>
+    <data name="Question_InstallMod_Title" xml:space="preserve">
+        <value>Modのダウンロードとインストールを行いますか: {$1}？</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Modを検索しています...</value>
+    </data>
+    <data name="Text_PoweredGamebanana" xml:space="preserve">
+        <value>Gamebananaによって提供されています</value>
+    </data>
 </root>

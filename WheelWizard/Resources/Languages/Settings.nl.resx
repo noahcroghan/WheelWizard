@@ -24,7 +24,7 @@
         </value>
     </resheader>
     <data name="Option_WhWzLanguage" xml:space="preserve">
-        <value>Wheel Wizard Taal</value>
+        <value>Wheel Wizard-taal</value>
     </data>
     <data name="Section_Language" xml:space="preserve">
         <value>Taal</value>
@@ -33,34 +33,34 @@
         <value>Wii-Instellingen</value>
     </data>
     <data name="Option_ForceDisableWiimote" xml:space="preserve">
-        <value>Forceer Uitschakelen Wii-Afstandsbediening</value>
+        <value>Forceer uitschakelen Wii-afstandsbediening</value>
     </data>
     <data name="Option_LaunchWithDolphin" xml:space="preserve">
-        <value>Start Spel met Dolphin-Venster</value>
+        <value>Start spel met Dolphin-venster</value>
     </data>
     <data name="HelperText_Topbar_LocationWarning" xml:space="preserve">
-        <value>Instellingen zijn uitgeschakeld, voltooi eerst de locatie-instellingen</value>
+        <value>Instellingen zijn uitgeschakeld, voltooi eerst de locatie-instellingen.</value>
     </data>
     <data name="Section_Resolution" xml:space="preserve">
         <value>Resolutie</value>
     </data>
     <data name="HelperText_ResolutionScale" xml:space="preserve">
-        <value>1x is de orginele resolutie</value>
+        <value>1× is de orginele resolutie.</value>
     </data>
     <data name="Section_Performance" xml:space="preserve">
-        <value>Prestatie Instellingen</value>
+        <value>Prestatie-instellingen</value>
     </data>
     <data name="Section_Renderer" xml:space="preserve">
-        <value>Renderer Instellingen</value>
+        <value>Renderer-instellingen</value>
     </data>
     <data name="Option_VSync" xml:space="preserve">
         <value>VSync</value>
     </data>
     <data name="Option_Recommended" xml:space="preserve">
-        <value>Aanbevolen Instellingen</value>
+        <value>Aanbevolen instellingen</value>
     </data>
     <data name="Option_ShowFPS" xml:space="preserve">
-        <value>FPS Weergeven</value>
+        <value>FPS weergeven</value>
     </data>
     <data name="Option_Renderer" xml:space="preserve">
         <value>Renderer</value>
@@ -69,40 +69,40 @@
         <value>Video</value>
     </data>
     <data name="Section_LocationPaths" xml:space="preserve">
-        <value>Locatie Instellingen</value>
+        <value>Locatie-instellingen</value>
     </data>
     <data name="Section_WhWzAppearance" xml:space="preserve">
-        <value>Wheel Wizard Weergave</value>
+        <value>Wheel Wizard-weergave</value>
     </data>
     <data name="Option_OpenConfig" xml:space="preserve">
-        <value>Open Config-Map</value>
+        <value>Open config-map</value>
     </data>
     <data name="Option_DolphinUserPath" xml:space="preserve">
-        <value>Dolphin User-Map</value>
+        <value>Dolphin-gebruiker-map</value>
     </data>
     <data name="Option_MarioKartGame" xml:space="preserve">
-        <value>Mario Kart Wii-Spelbestand</value>
+        <value>Mario Kart Wii-spelbestand</value>
     </data>
     <data name="Option_DolphinEmulatorExe" xml:space="preserve">
-        <value>Dolphin Emulator-Executable</value>
+        <value>Dolphin-emulator-executable</value>
     </data>
     <data name="HelperText_EndWithExe" xml:space="preserve">
-        <value>Locatie moet eindigen met ".exe"</value>
+        <value>Locatie moet eindigen met ".exe".</value>
     </data>
     <data name="Option_WindowScale" xml:space="preserve">
         <value>Venstergrootte</value>
     </data>
     <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
-        <value>Deze instelling schakelt de Wii-afstandsbediening uit in het spel, maar niet in het Wii-menu</value>
+        <value>Deze instelling schakelt de Wii-afstandsbediening uit in het spel, maar niet in het Wii-menu.</value>
     </data>
     <data name="HelperText_LaunchWithDolphin" xml:space="preserve">
-        <value>Opent het Dolphin-hoofdvenster met het spel erbij</value>
+        <value>Opent het Dolphin-hoofdvenster met het spel erbij.</value>
     </data>
     <data name="HelperText_Recommended" xml:space="preserve">
-        <value>Deze instelling verandert sommige Dolphin-instellingen voor een optimale ervaring</value>
+        <value>Deze instelling verandert sommige Dolphin-instellingen voor een optimale ervaring.</value>
     </data>
     <data name="HelperText_30FPS" xml:space="preserve">
-        <value>Met deze instelling wordt het spel gedwongen om te draaien op 30 FPS (standaard is 60)</value>
+        <value>Met deze instelling wordt het spel gedwongen om te draaien op 30 FPS (standaard is 60).</value>
     </data>
     <data name="Value_Language_Dutch" xml:space="preserve">
         <value>Nederlands</value>
@@ -129,19 +129,19 @@
         <value>Turks</value>
     </data>
     <data name="Option_MakePrimary" xml:space="preserve">
-        <value>Maak Hoofdprofiel</value>
+        <value>Maak hoofdprofiel</value>
     </data>
     <data name="Value_Language_CompletePercentage" xml:space="preserve">
         <value>90</value>
     </data>
     <data name="Option_RemoveBlur" xml:space="preserve">
-        <value>Verwijder Waas</value>
+        <value>Verwijder waas</value>
     </data>
     <data name="Option_EnableAnimations" xml:space="preserve">
-        <value>Animaties Inschakelen</value>
+        <value>Animaties inschakelen</value>
     </data>
     <data name="HelperText_EnableAnimations" xml:space="preserve">
-        <value>Dit schakelt de animaties in de Wheel Wizard app in</value>
+        <value>Dit schakelt de animaties in de Wheel Wizard-app in.</value>
     </data>
     <data name="Value_Language_Finnish" xml:space="preserve">
         <value>Fins</value>
@@ -153,13 +153,13 @@
         <value>Russisch</value>
     </data>
     <data name="Option_OpenGameFolder" xml:space="preserve">
-        <value>Open spel map</value>
+        <value>Open spelmap</value>
     </data>
     <data name="Option_OpenSaveFolder" xml:space="preserve">
-        <value>Open opslag map</value>
+        <value>Open opslagmap</value>
     </data>
     <data name="Category_About" xml:space="preserve">
-        <value>Info</value>
+        <value>Over</value>
     </data>
     <data name="Value_Language_Arabic" xml:space="preserve">
         <value>Arabisch</value>
@@ -183,13 +183,13 @@
         <value>Algemeen</value>
     </data>
     <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Zoek Voor Spelers...</value>
+        <value>Zoek voor spelers...</value>
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Vul bestandslocatie in...</value>
     </data>
     <data name="Option_Reinstall" xml:space="preserve">
-        <value>Her-installeer RR</value>
+        <value>Herinstalleer RR</value>
     </data>
     <data name="Section_Installation" xml:space="preserve">
         <value>Installatie</value>

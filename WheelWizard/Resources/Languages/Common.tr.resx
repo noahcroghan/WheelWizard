@@ -290,4 +290,13 @@
     <data name="ListTitle_Miis" xml:space="preserve">
         <value>Mii'ler</value>
     </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Cinsiyet</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Kadın</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Erkek</value>
+    </data>
 </root>

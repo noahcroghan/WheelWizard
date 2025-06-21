@@ -305,4 +305,13 @@
     <data name="PageTitle_MyMiis" xml:space="preserve">
         <value>I miei Mii</value>
     </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Genere</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Femmina</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Maschio</value>
+    </data>
 </root>

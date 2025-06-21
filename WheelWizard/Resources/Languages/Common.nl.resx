@@ -60,16 +60,16 @@
         <value>Speel</value>
     </data>
     <data name="Action_PlayOffline" xml:space="preserve">
-        <value>Speel Offline</value>
+        <value>Speel offline</value>
     </data>
     <data name="Action_Update" xml:space="preserve">
         <value>Updaten...</value>
     </data>
     <data name="State_ConfigNotFinished" xml:space="preserve">
-        <value>Instellingen Niet Compleet</value>
+        <value>Config niet voltooid</value>
     </data>
     <data name="State_NoServer" xml:space="preserve">
-        <value>Geen Server</value>
+        <value>Geen server</value>
     </data>
     <data name="State_Unknown" xml:space="preserve">
         <value>Onbekend</value>
@@ -81,10 +81,10 @@
         <value>Titel</value>
     </data>
     <data name="Action_DisableAll" xml:space="preserve">
-        <value>Alles Uitschakelen</value>
+        <value>Alles uitschakelen</value>
     </data>
     <data name="Action_EnableAll" xml:space="preserve">
-        <value>Alles Inschakelen</value>
+        <value>Alles inschakelen</value>
     </data>
     <data name="Action_Import" xml:space="preserve">
         <value>Importeren</value>
@@ -93,7 +93,7 @@
         <value>Verwijderen</value>
     </data>
     <data name="Action_OpenFolder" xml:space="preserve">
-        <value>Open Map</value>
+        <value>Open map</value>
     </data>
     <data name="Action_Rename" xml:space="preserve">
         <value>Hernoemen</value>
@@ -114,7 +114,7 @@
         <value>Opslaan</value>
     </data>
     <data name="State_Error" xml:space="preserve">
-        <value>Error</value>
+        <value>Fout</value>
     </data>
     <data name="Attribute_Id" xml:space="preserve">
         <value>ID</value>
@@ -123,7 +123,7 @@
         <value>Type</value>
     </data>
     <data name="Action_CopyFriendCode" xml:space="preserve">
-        <value>Vriendcode Kopiëren</value>
+        <value>Vriendcode kopiëren</value>
     </data>
     <data name="PageTitle_RoomDetails" xml:space="preserve">
         <value>Kamerinformatie</value>
@@ -153,25 +153,25 @@
         <value>Oké</value>
     </data>
     <data name="Attribute_ModName" xml:space="preserve">
-        <value>Mod-Naam</value>
+        <value>Modnaam</value>
     </data>
     <data name="State_Success" xml:space="preserve">
         <value>Succes</value>
     </data>
     <data name="Action_Revert" xml:space="preserve">
-        <value>Ongedaan Maken</value>
+        <value>Ongedaan maken</value>
     </data>
     <data name="State_Extracting" xml:space="preserve">
         <value>Bestanden uitpakken...</value>
     </data>
     <data name="Action_MaybeLater" xml:space="preserve">
-        <value>Misschien Later</value>
+        <value>Misschien later</value>
     </data>
     <data name="Action_Browse" xml:space="preserve">
         <value>Zoeken</value>
     </data>
     <data name="Action_ViewMod" xml:space="preserve">
-        <value>Bekijk Mod</value>
+        <value>Bekijk mod</value>
     </data>
     <data name="PageTitle_MyMiis" xml:space="preserve">
         <value>Mijn Mii's</value>
@@ -189,19 +189,19 @@
         <value>Terug</value>
     </data>
     <data name="Action_Favorite" xml:space="preserve">
-        <value>Voeg toe aan Favorieten</value>
+        <value>Voeg toe aan favorieten</value>
     </data>
     <data name="Action_Unfavorite" xml:space="preserve">
-        <value>Haal uit favorieten</value>
+        <value>Verwijder uit favorieten</value>
     </data>
     <data name="Action_ViewRoom" xml:space="preserve">
-        <value>Bekijk Kamer</value>
+        <value>Bekijk kamer</value>
     </data>
     <data name="State_NoName" xml:space="preserve">
         <value>Geen naam</value>
     </data>
     <data name="Attribute_Wins" xml:space="preserve">
-        <value>Gewonnen</value>
+        <value>Overwinningen</value>
     </data>
     <data name="Attribute_Losses" xml:space="preserve">
         <value>Verloren</value>
@@ -210,7 +210,7 @@
         <value>Races gespeeld</value>
     </data>
     <data name="State_NoLicense" xml:space="preserve">
-        <value>Geen licentie</value>
+        <value>Geen rijbewijs</value>
     </data>
     <data name="State_NoProfiles" xml:space="preserve">
         <value>Geen profielen</value>
@@ -249,7 +249,7 @@
         <value>Spelers</value>
     </data>
     <data name="Attribute_TimeOnline" xml:space="preserve">
-        <value>Tijd Online</value>
+        <value>Tijd online</value>
     </data>
     <data name="ListTitle_Rooms" xml:space="preserve">
         <value>Kamers</value>
@@ -270,13 +270,13 @@
         <value>Bericht</value>
     </data>
     <data name="Attribute_AverageRoomVr" xml:space="preserve">
-        <value>Gemiddelde VS</value>
+        <value>Gemiddelde rp.</value>
     </data>
     <data name="Action_LaunchDolphin" xml:space="preserve">
         <value>Dolphin opstarten</value>
     </data>
     <data name="Action_Randomize" xml:space="preserve">
-        <value>Randomiseren</value>
+        <value>Willekeurig</value>
     </data>
     <data name="Attribute_Mii_Gender" xml:space="preserve">
         <value>Geslacht</value>
@@ -288,7 +288,7 @@
         <value>Man</value>
     </data>
     <data name="Attribute_IsOnline" xml:space="preserve">
-        <value>Is Online</value>
+        <value>Is online</value>
     </data>
     <data name="Attribute_Status" xml:space="preserve">
         <value>Status</value>
@@ -300,22 +300,22 @@
         <value>Sorteren op</value>
     </data>
     <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
-        <value>Totaal gespeelde games</value>
+        <value>Totaal gespeelde wedstrijden</value>
     </data>
     <data name="Attribute_TotalGamesWon" xml:space="preserve">
-        <value>Totaal gewonne games</value>
+        <value>Totaal gewonnen wedstrijden</value>
     </data>
     <data name="Attribute_VrAbbreviation" xml:space="preserve">
-        <value>VS</value>
+        <value>rp.</value>
     </data>
     <data name="Attribute_VrFull" xml:space="preserve">
-        <value>Versus-score</value>
+        <value>Racepunten</value>
     </data>
     <data name="Attribute_BrAbbreviation" xml:space="preserve">
-        <value>GS</value>
+        <value>gp.</value>
     </data>
     <data name="Attribute_BrFull" xml:space="preserve">
-        <value>Gevechts-score</value>
+        <value>Gevechtspunten</value>
     </data>
     <data name="State_Custom" xml:space="preserve">
         <value>Aangepast</value>
@@ -339,31 +339,31 @@
         <value>Vind-ik-leuks</value>
     </data>
     <data name="Action_UnInstall" xml:space="preserve">
-        <value>Verwijderen</value>
+        <value>Deïnstalleren</value>
     </data>
     <data name="Action_Report" xml:space="preserve">
-        <value>Melden!</value>
+        <value>Melden</value>
     </data>
     <data name="Action_GamebananaPage" xml:space="preserve">
-        <value>Gamebanana pagina</value>
+        <value>GameBanana-pagina</value>
     </data>
     <data name="State_Installed" xml:space="preserve">
         <value>Geïnstalleerd</value>
     </data>
     <data name="Action_DownloadAndInstall" xml:space="preserve">
-        <value>Download en Installeren</value>
+        <value>Download en installeren</value>
     </data>
     <data name="PopupTitle_ModDetails" xml:space="preserve">
-        <value>Mod details</value>
+        <value>Mod-details</value>
     </data>
     <data name="PopupTitle_ModBrowser" xml:space="preserve">
-        <value>Mod browser</value>
+        <value>Mod-browser</value>
     </data>
     <data name="PopupTitle_MiiSelector" xml:space="preserve">
-        <value>Mi Selecteren</value>
+        <value>Mii-selector</value>
     </data>
     <data name="PopupTitle_MiiEditor" xml:space="preserve">
-        <value>Mii Bewerken</value>
+        <value>Mii-editor</value>
     </data>
     <data name="Attribute_MiiSection_Eyes" xml:space="preserve">
         <value>Ogen</value>
@@ -474,9 +474,18 @@
         <value>Breedte</value>
     </data>
     <data name="PopupTitle_MiiCarousel" xml:space="preserve">
-        <value>Mii Carousel</value>
+        <value>Mii-carrousel</value>
     </data>
     <data name="Attribute_Mii_DefaultName" xml:space="preserve">
         <value>Nieuwe Mii</value>
+    </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Geslacht</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Vrouw</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Man</value>
     </data>
 </root>

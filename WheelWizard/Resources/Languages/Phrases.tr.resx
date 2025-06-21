@@ -379,4 +379,7 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
         <value>Aktarılıcak Mii bulunamadı</value>
     </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>Mod adı boş olamaz</value>
+    </data>
 </root>

@@ -380,4 +380,7 @@ Vuoi svuotare la tua cartella My-Stuff?</value>
     <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
         <value>Sembrano non esserci Mii da esportare</value>
     </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>Il nome della mod non può essere vuoto</value>
+    </data>
 </root>

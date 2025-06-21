@@ -231,4 +231,7 @@
     <data name="Time_Seconds_x" xml:space="preserve">
         <value>{$1} сек</value>
     </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>Название мода не может быть пустым.</value>
+    </data>
 </root>

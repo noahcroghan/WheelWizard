@@ -201,4 +201,7 @@
     <data name="Progress_DownloadingMb" xml:space="preserve">
         <value>A transferir {$1} MB</value>
     </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>Nome do mod não pode estar em branco</value>
+    </data>
 </root>

@@ -302,4 +302,13 @@
     <data name="ListTitle_Miis" xml:space="preserve">
         <value>Mii</value>
     </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>성별</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>여성</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>남성</value>
+    </data>
 </root>

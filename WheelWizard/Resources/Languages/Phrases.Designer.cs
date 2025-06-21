@@ -358,7 +358,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The installation of Dolphin Emulator failed. Please try manually installing flatpak dolphin..
+        ///   Looks up a localized string similar to The installation of Dolphin Emulator failed. Please try manually installing Flatpak Dolphin..
         /// </summary>
         public static string MessageError_FailedInstallDolphin_Extra {
             get {
@@ -853,7 +853,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?.
+        ///   Looks up a localized string similar to The Flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?.
         /// </summary>
         public static string Question_DolphinFlatpack_Extra {
             get {
@@ -885,6 +885,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Question_DolphinFound_Title {
             get {
                 return ResourceManager.GetString("Question_DolphinFound_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter mod name....
+        /// </summary>
+        public static string Question_EnterModName {
+            get {
+                return ResourceManager.GetString("Question_EnterModName", resourceCulture);
             }
         }
         
@@ -1011,6 +1020,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Question_RRToOld_Title {
             get {
                 return ResourceManager.GetString("Question_RRToOld_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for mods....
+        /// </summary>
+        public static string Question_SearchMod {
+            get {
+                return ResourceManager.GetString("Question_SearchMod", resourceCulture);
             }
         }
         
@@ -1249,7 +1267,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powered By Gamebababa.
+        ///   Looks up a localized string similar to Powered By Gamebanana.
         /// </summary>
         public static string Text_PoweredGamebanana {
             get {

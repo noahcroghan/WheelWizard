@@ -397,16 +397,16 @@ To join a specific room, you'll need to either join through a friend, or hope to
         <value>Dolphin Flatpak Installation</value>
     </data>
     <data name="Question_DolphinFlatpack_Extra" xml:space="preserve">
-        <value>The flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?</value>
+        <value>The Flatpak version of Dolphin Emulator does not appear to be installed. Would you like us to install it (system-wide)?</value>
     </data>
     <data name="MessageError_FailedInstallDolphin_Title" xml:space="preserve">
         <value>Failed to install Dolphin</value>
     </data>
     <data name="MessageError_FailedInstallDolphin_Extra" xml:space="preserve">
-        <value>The installation of Dolphin Emulator failed. Please try manually installing flatpak dolphin.</value>
+        <value>The installation of Dolphin Emulator failed. Please try manually installing Flatpak Dolphin.</value>
     </data>
     <data name="Text_PoweredGamebanana" xml:space="preserve">
-        <value>Powered By Gamebababa</value>
+        <value>Powered By Gamebanana</value>
     </data>
     <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
         <value>No mod selected</value>
@@ -452,5 +452,11 @@ To join a specific room, you'll need to either join through a friend, or hope to
     </data>
     <data name="Placeholder_EnterMiiName" xml:space="preserve">
         <value>Enter Mii name...</value>
+    </data>
+    <data name="Question_EnterModName" xml:space="preserve">
+        <value>Enter mod name...</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Search for mods...</value>
     </data>
 </root>

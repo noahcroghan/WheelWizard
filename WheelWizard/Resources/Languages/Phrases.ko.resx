@@ -271,4 +271,7 @@
     <data name="Placeholder_EnterModName" xml:space="preserve">
         <value>모드 이름을 입력:</value>
     </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>모드의 이름을 공란으로 할 수 없습니다</value>
+    </data>
 </root>

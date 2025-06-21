@@ -382,4 +382,7 @@ Voulez-vous réinstaller Retro Rewind ? </value>
     <data name="SnackbarWarning_NoMiiExport" xml:space="preserve">
         <value>Il semblerait qu'aucun Miis peuvent être exporter</value>
     </data>
+    <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
+        <value>Le nom du mod ne peut pas être vide</value>
+    </data>
 </root>

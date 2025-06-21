@@ -306,6 +306,75 @@
         <value>自分のMii</value>
     </data>
     <data name="Action_DoManually" xml:space="preserve">
-        <value>Do manually</value>
+        <value>手動で行う</value>
+    </data>
+    <data name="Action_DownloadAndInstall" xml:space="preserve">
+        <value>ダウンロードとインストール</value>
+    </data>
+    <data name="Action_GamebananaPage" xml:space="preserve">
+        <value>Gamebananaのページ</value>
+    </data>
+    <data name="Action_Report" xml:space="preserve">
+        <value>報告する</value>
+    </data>
+    <data name="Action_UnInstall" xml:space="preserve">
+        <value>アンインストール</value>
+    </data>
+    <data name="Attribute_BrAbbreviation" xml:space="preserve">
+        <value>BR</value>
+    </data>
+    <data name="Attribute_BrFull" xml:space="preserve">
+        <value>バトルレーティング</value>
+    </data>
+    <data name="Attribute_Description" xml:space="preserve">
+        <value>説明</value>
+    </data>
+    <data name="Attribute_Downloads" xml:space="preserve">
+        <value>ダウンロード</value>
+    </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>性別</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>女</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>男</value>
+    </data>
+    <data name="Attribute_Images" xml:space="preserve">
+        <value>画像</value>
+    </data>
+    <data name="Attribute_Likes" xml:space="preserve">
+        <value>いいね</value>
+    </data>
+    <data name="Attribute_Views" xml:space="preserve">
+        <value>閲覧</value>
+    </data>
+    <data name="Attribute_VrAbbreviation" xml:space="preserve">
+        <value>VR</value>
+    </data>
+    <data name="Attribute_VrFull" xml:space="preserve">
+        <value>バーサスレーティング</value>
+    </data>
+    <data name="PopupTitle_MiiCarousel" xml:space="preserve">
+        <value>Miiスライダー</value>
+    </data>
+    <data name="PopupTitle_MiiEditor" xml:space="preserve">
+        <value>Miiエディター</value>
+    </data>
+    <data name="PopupTitle_MiiSelector" xml:space="preserve">
+        <value>Miiセレクター</value>
+    </data>
+    <data name="PopupTitle_ModBrowser" xml:space="preserve">
+        <value>Modブラウザー</value>
+    </data>
+    <data name="PopupTitle_ModDetails" xml:space="preserve">
+        <value>Modの詳細</value>
+    </data>
+    <data name="State_Custom" xml:space="preserve">
+        <value>カスタム</value>
+    </data>
+    <data name="State_Installed" xml:space="preserve">
+        <value>インストール済み</value>
     </data>
 </root>

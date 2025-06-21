@@ -479,4 +479,13 @@
     <data name="Attribute_Mii_DefaultName" xml:space="preserve">
         <value>New Mii</value>
     </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Gender</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Female</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Male</value>
+    </data>
 </root>

@@ -192,4 +192,7 @@
     <data name="Value_Language_zTranslators" xml:space="preserve">
         <value>Haru00007,  Mosgis,  Mossan</value>
     </data>
+    <data name="HelperText_EndWithX" xml:space="preserve">
+        <value>パスは次のもので終わります:</value>
+    </data>
 </root>
