@@ -182,12 +182,6 @@
     <data name="Category_General" xml:space="preserve">
         <value>Algemeen</value>
     </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Zoek voor spelers...</value>
-    </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Vul bestandslocatie in...</value>
-    </data>
     <data name="Option_Reinstall" xml:space="preserve">
         <value>Herinstalleer RR</value>
     </data>

@@ -488,4 +488,10 @@
     <data name="Attribute_Gender_Male" xml:space="preserve">
         <value>Male</value>
     </data>
+    <data name="Action_ViewCustomChars" xml:space="preserve">
+        <value>View Custom Characters</value>
+    </data>
+    <data name="Action_Submit" xml:space="preserve">
+        <value>Submit</value>
+    </data>
 </root>

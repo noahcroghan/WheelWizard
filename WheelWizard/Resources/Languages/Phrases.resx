@@ -459,4 +459,13 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Question_SearchMod" xml:space="preserve">
         <value>Search for mods...</value>
     </data>
+    <data name="Placeholder_EnterTextHere" xml:space="preserve">
+        <value>Enter text here...</value>
+    </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>Search For Players...</value>
+    </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>Enter desired path here...</value>
+    </data>
 </root>

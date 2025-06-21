@@ -383,4 +383,10 @@ Vuoi svuotare la tua cartella My-Stuff?</value>
     <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
         <value>Il nome della mod non può essere vuoto</value>
     </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>Cerca giocatori...</value>
+    </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>Inserisci qui l'indirizzo desiderato...</value>
+    </data>
 </root>

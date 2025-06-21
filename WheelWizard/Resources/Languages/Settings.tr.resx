@@ -168,12 +168,6 @@
     <data name="Category_Other" xml:space="preserve">
         <value>Diğer</value>
     </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>İstenen yolu buraya girin...</value>
-    </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Oyuncuları Ara...</value>
-    </data>
     <data name="Category_About" xml:space="preserve">
         <value>Hakkında</value>
     </data>

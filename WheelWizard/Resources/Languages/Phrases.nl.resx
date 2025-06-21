@@ -451,4 +451,10 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     <data name="Question_SearchMod" xml:space="preserve">
         <value>Zoeken naar mods...</value>
     </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>Zoek voor spelers...</value>
+    </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>Vul bestandslocatie in...</value>
+    </data>
 </root>

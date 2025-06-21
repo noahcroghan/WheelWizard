@@ -168,12 +168,6 @@
     <data name="Category_General" xml:space="preserve">
         <value>Основное</value>
     </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Искать игроков...</value>
-    </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Вставьте сюда путь к файлу...</value>
-    </data>
     <data name="Value_Language_zTranslators" xml:space="preserve">
         <value>CaXaP,  StHydrated, OrangeCake</value>
     </data>

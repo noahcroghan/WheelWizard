@@ -168,12 +168,6 @@
     <data name="Category_General" xml:space="preserve">
         <value>General</value>
     </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Buscando jugadores...</value>
-    </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>Ingrese la ruta deseada...</value>
-    </data>
     <data name="Category_About" xml:space="preserve">
         <value>Acerca de</value>
     </data>

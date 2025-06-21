@@ -718,6 +718,33 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter desired path here....
+        /// </summary>
+        public static string Placeholder_EnterPath {
+            get {
+                return ResourceManager.GetString("Placeholder_EnterPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter text here....
+        /// </summary>
+        public static string Placeholder_EnterTextHere {
+            get {
+                return ResourceManager.GetString("Placeholder_EnterTextHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search For Players....
+        /// </summary>
+        public static string Placeholder_SearchForPlayers {
+            get {
+                return ResourceManager.GetString("Placeholder_SearchForPlayers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search for mods....
         /// </summary>
         public static string Placeholder_SearchMod {

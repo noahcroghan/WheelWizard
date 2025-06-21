@@ -168,12 +168,6 @@
     <data name="Category_General" xml:space="preserve">
         <value>일반</value>
     </data>
-    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>플레이어 찾는 중...</value>
-    </data>
-    <data name="Placeholder_EnterPath" xml:space="preserve">
-        <value>원하는 경로를 입력하세요</value>
-    </data>
     <data name="Category_About" xml:space="preserve">
         <value>정보</value>
     </data>

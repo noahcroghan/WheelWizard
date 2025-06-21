@@ -381,4 +381,10 @@
     <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
         <value>No puede dejar el nombre del mod en blanco.</value>
     </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>Buscando jugadores...</value>
+    </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>Ingrese la ruta deseada...</value>
+    </data>
 </root>

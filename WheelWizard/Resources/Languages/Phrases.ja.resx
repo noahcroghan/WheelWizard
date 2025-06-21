@@ -444,4 +444,10 @@ My Stuffフォルダーをクリアしますか？</value>
     <data name="Text_PoweredGamebanana" xml:space="preserve">
         <value>Gamebananaによって提供されています</value>
     </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>プレイヤーを検索します...</value>
+    </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>希望のパスを入力してください...</value>
+    </data>
 </root>

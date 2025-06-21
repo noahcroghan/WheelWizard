@@ -33,7 +33,7 @@
         </StackPanel>
 
         <TextBox Grid.Row="0" Width="200"
-                 Watermark="{x:Static lang:Settings.Placeholder_SearchForPlayers}"
+                 Watermark="{x:Static lang:Phrases.Placeholder_SearchForPlayers}"
                  VerticalAlignment="Bottom"
                  TextChanged="PlayerSearchField_OnTextChanged"
                  HorizontalAlignment="Right"

@@ -488,4 +488,10 @@
     <data name="Attribute_Gender_Male" xml:space="preserve">
         <value>Man</value>
     </data>
+    <data name="Action_ViewCustomChars" xml:space="preserve">
+        <value>Speciale tekens tonen</value>
+    </data>
+    <data name="Action_Submit" xml:space="preserve">
+        <value>Bevestigen</value>
+    </data>
 </root>

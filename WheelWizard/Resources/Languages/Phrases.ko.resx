@@ -274,4 +274,10 @@
     <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
         <value>모드의 이름을 공란으로 할 수 없습니다</value>
     </data>
+    <data name="Placeholder_SearchForPlayers" xml:space="preserve">
+        <value>플레이어 찾는 중...</value>
+    </data>
+    <data name="Placeholder_EnterPath" xml:space="preserve">
+        <value>원하는 경로를 입력하세요</value>
+    </data>
 </root>

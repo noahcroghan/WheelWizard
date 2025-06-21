@@ -366,6 +366,15 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string Action_Submit {
+            get {
+                return ResourceManager.GetString("Action_Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unfavorite.
         /// </summary>
         public static string Action_Unfavorite {
@@ -389,6 +398,15 @@ namespace WheelWizard.Resources.Languages {
         public static string Action_Update {
             get {
                 return ResourceManager.GetString("Action_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View Custom Characters.
+        /// </summary>
+        public static string Action_ViewCustomChars {
+            get {
+                return ResourceManager.GetString("Action_ViewCustomChars", resourceCulture);
             }
         }
         

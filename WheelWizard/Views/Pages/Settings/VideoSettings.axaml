@@ -32,7 +32,7 @@
                         </RadioButton>
                         <RadioButton Margin="0,2" GroupName="ResolutionGroup"
                                       Tag="5">
-                            <components1:FormFieldLabel Text="5x (3200x2640)"/>
+                            5x (3200x2640)
                         </RadioButton>
                         <RadioButton Margin="0,2" GroupName="ResolutionGroup"
                                      IsChecked="False" Tag="2">
