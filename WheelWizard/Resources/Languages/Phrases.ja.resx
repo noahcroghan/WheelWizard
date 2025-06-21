@@ -131,9 +131,6 @@
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>githubから最新のWheel Wizardを入手</value>
     </data>
-    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
-        <value>Modの名前は空にできません</value>
-    </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>「{$1}」というModは既に存在しています。</value>
     </data>

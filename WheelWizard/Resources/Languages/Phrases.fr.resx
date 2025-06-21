@@ -173,9 +173,6 @@ Voulez vous supprimer votre dossier My-Stuff ? </value>
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Obtenez la dernière version de Wheel Wizard depuis Github</value>
     </data>
-    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
-        <value>Le nom du mod ne peut pas être vide</value>
-    </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>Un mod avec le nom "{$1}" existe déjà</value>
     </data>

@@ -124,9 +124,6 @@
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>최신 휠 위저드를 Github에서 받기</value>
     </data>
-    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
-        <value>모드의 이름을 공란으로 할 수 없습니다</value>
-    </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>"{$1}" 이란 이름의 모드가 이미 존재합니다.</value>
     </data>

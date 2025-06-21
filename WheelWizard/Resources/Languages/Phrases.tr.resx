@@ -124,9 +124,6 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Github sürümlerinden en son Wheel Wizard alınıyor</value>
     </data>
-    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
-        <value>Mod adı boş olamaz</value>
-    </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>{$1}' adıyla zaten bir mod mevcut.</value>
     </data>

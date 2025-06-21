@@ -538,15 +538,6 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mod name can&apos;t be empty..
-        /// </summary>
-        public static string MessageWarning_InvalidName_Extra_ModNameEmpty {
-            get {
-                return ResourceManager.GetString("MessageWarning_InvalidName_Extra_ModNameEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A mod with the name &apos;{$1}&apos; already exists..
         /// </summary>
         public static string MessageWarning_InvalidName_Extra_ModNameExists {

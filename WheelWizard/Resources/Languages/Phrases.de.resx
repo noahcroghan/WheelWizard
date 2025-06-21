@@ -172,9 +172,6 @@ Um einem bestimmten Raum beizutreten, musst du entweder über einen Freund treff
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Beziehe die neueste Wheel Wizard-Version vom Github</value>
     </data>
-    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
-        <value>Mod-Name darf nicht leer sein.</value>
-    </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>Eine Mod mit dem Namen '{$1}' existiert bereits.</value>
     </data>

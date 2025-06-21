@@ -123,9 +123,6 @@
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Obteniendo la ultima versión de Wheel Wizard desde Github</value>
     </data>
-    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
-        <value>No puede dejar el nombre del mod en blanco.</value>
-    </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>Un mod con el nombre '{$1}' ya existe.</value>
     </data>

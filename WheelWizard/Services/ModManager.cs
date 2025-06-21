@@ -365,7 +365,7 @@ public class ModManager : INotifyPropertyChanged
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            ErrorOccurred(Phrases.MessageWarning_InvalidName_Extra_ModNameEmpty);
+            ErrorOccurred(Phrases.MessageWarning_ModNameEmpty_Title);
             return false;
         }
 

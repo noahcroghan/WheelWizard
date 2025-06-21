@@ -124,9 +124,6 @@ Per unirsi ad una specifica stanza, dovrai farlo tramite un amico oppure sperare
     <data name="Progress_LatestWhWzGithub" xml:space="preserve">
         <value>Ottenendo l'ultima versione di Wheel Wizard da GitHub</value>
     </data>
-    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
-        <value>Il nome della mod non può essere vuoto</value>
-    </data>
     <data name="MessageWarning_InvalidName_Extra_ModNameExists" xml:space="preserve">
         <value>Una mod col nome '{$1}' esiste già.</value>
     </data>

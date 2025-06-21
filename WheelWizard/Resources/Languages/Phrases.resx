@@ -141,9 +141,6 @@ To join a specific room, you'll need to either join through a friend, or hope to
     <data name="Placeholder_EnterModName" xml:space="preserve">
         <value>Enter mod name...</value>
     </data>
-    <data name="MessageWarning_InvalidName_Extra_ModNameEmpty" xml:space="preserve">
-        <value>Mod name can't be empty.</value>
-    </data>
     <data name="Question_SureDelete_Title" xml:space="preserve">
         <value>Are you sure you want to delete {$1}?</value>
     </data>
