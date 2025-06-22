@@ -186,4 +186,16 @@
     <data name="Value_Language_zTranslators" xml:space="preserve">
         <value>Eppe, Yawshi</value>
     </data>
+    <data name="HelperText_EndWithX" xml:space="preserve">
+        <value>Le chemin doit se finir avec:</value>
+    </data>
+    <data name="HelperText_MustSetPaths" xml:space="preserve">
+        <value>Vous devez impérativement définir ces 3 chemins afin de jouer à Retro Rewind</value>
+    </data>
+    <data name="HelperText_Optional" xml:space="preserve">
+        <value>Optionnel</value>
+    </data>
+    <data name="HelperText_WhWzLanguage" xml:space="preserve">
+        <value>Ceci change uniquement la langue dans Wheel Wizard. Pour changer la langue dans le jeu. Veuillez le faire depuis les paramètres de Retro Rewind.</value>
+    </data>
 </root>

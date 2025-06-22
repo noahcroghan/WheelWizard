@@ -345,7 +345,7 @@
         <value>Downloads</value>
     </data>
     <data name="Action_UnInstall" xml:space="preserve">
-        <value>Un Install</value>
+        <value>Uninstall</value>
     </data>
     <data name="State_Installed" xml:space="preserve">
         <value>Installed</value>
@@ -453,7 +453,7 @@
         <value>Facial Feature</value>
     </data>
     <data name="Attribute_Mii_IrishColor" xml:space="preserve">
-        <value>Irish Color</value>
+        <value>Eye Color</value>
     </data>
     <data name="Attribute_Mii_SpaceBetween" xml:space="preserve">
         <value>Spacing in between</value>

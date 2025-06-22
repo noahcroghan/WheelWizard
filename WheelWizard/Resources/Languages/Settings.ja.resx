@@ -189,4 +189,13 @@
     <data name="HelperText_EndWithX" xml:space="preserve">
         <value>パスは次のもので終わります:</value>
     </data>
+    <data name="HelperText_MustSetPaths" xml:space="preserve">
+        <value>Retro Rewindをプレイする前に、これらの3つのパスを設定する必要があります</value>
+    </data>
+    <data name="HelperText_Optional" xml:space="preserve">
+        <value>任意</value>
+    </data>
+    <data name="HelperText_WhWzLanguage" xml:space="preserve">
+        <value>これはWheel Wizardの言語のみ変更します。ゲーム内の言語を変更したい場合、ゲーム設定内で変更する必要があります</value>
+    </data>
 </root>

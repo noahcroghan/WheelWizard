@@ -384,7 +384,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Un Install.
+        ///   Looks up a localized string similar to Uninstall.
         /// </summary>
         public static string Action_UnInstall {
             get {
@@ -735,7 +735,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Irish Color.
+        ///   Looks up a localized string similar to Eye Color.
         /// </summary>
         public static string Attribute_Mii_IrishColor {
             get {

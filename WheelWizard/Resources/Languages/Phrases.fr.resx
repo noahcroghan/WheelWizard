@@ -269,7 +269,7 @@ Voulez-vous réinstaller Retro Rewind ? </value>
         <value>Échec de la création de la base de donnée des Miis</value>
     </data>
     <data name="MessageError_GenericError_Title" xml:space="preserve">
-        <value>Une erreur s'est produite</value>
+        <value>Une erreur s'est produite.</value>
     </data>
     <data name="MessageSuccess_MiiChanged" xml:space="preserve">
         <value>Changement du Mii avec succès</value>
@@ -387,5 +387,83 @@ Voulez-vous réinstaller Retro Rewind ? </value>
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Choisissez le chemin désiré ici...</value>
+    </data>
+    <data name="EmptyContent_NoModSelected" xml:space="preserve">
+        <value>Sélectionner un mod dans la liste pour voir ces détails</value>
+    </data>
+    <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
+        <value>Aucun mod sélectionné</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Extra" xml:space="preserve">
+        <value>L'installation de Dolphin Emulator a échoué. Veuillez essayer d'installer Flatpak Dolphin.</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Title" xml:space="preserve">
+        <value>Échec de l'installation de Dolphin</value>
+    </data>
+    <data name="MessageError_FailedRetrieveMod_Title" xml:space="preserve">
+        <value>Échec d'obtention des informations du mod</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Extra" xml:space="preserve">
+        <value>Une erreur s'est produite pendant le téléchargement du mod suivant: {$1}</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Title" xml:space="preserve">
+        <value>Échec du téléchargement du mod.</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Extra" xml:space="preserve">
+        <value>Veuillez écrire un nom pour le mod.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Extra" xml:space="preserve">
+        <value>Le nom du mod contient des caractères invalides.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Title" xml:space="preserve">
+        <value>Nom du mod invalide.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
+        <value>Les fichiers n'ont pas été trouvés.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Title" xml:space="preserve">
+        <value>Impossibilité de télécharger le mod</value>
+    </data>
+    <data name="Placeholder_EnterMiiName" xml:space="preserve">
+        <value>Entrez le nom du mii...</value>
+    </data>
+    <data name="Placeholder_EnterModName" xml:space="preserve">
+        <value>Entrez le nom du mod...</value>
+    </data>
+    <data name="Placeholder_EnterTextHere" xml:space="preserve">
+        <value>Entrez un texte ici...</value>
+    </data>
+    <data name="Placeholder_SearchMod" xml:space="preserve">
+        <value>Recherche de mods...</value>
+    </data>
+    <data name="Progress_InstallingDolphin" xml:space="preserve">
+        <value>Installation de Dolphin Emulator</value>
+    </data>
+    <data name="Progress_ThisMayTakeAWhile" xml:space="preserve">
+        <value>Cela peut prendre plus de temps en fonction de votre connexion internet.</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Extra" xml:space="preserve">
+        <value>La version Flatpak de Dolphin Emulator ne semble pas être installée. Veuillez-vous qu'on vous l'installe ?</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Title" xml:space="preserve">
+        <value>Installation de Dolphin Flatpak...</value>
+    </data>
+    <data name="Question_EnterNewName_Extra" xml:space="preserve">
+        <value>Changer le nom actuel à: {$1}</value>
+    </data>
+    <data name="Question_EnterNewName_Title" xml:space="preserve">
+        <value>Entrez un nouveau nom</value>
+    </data>
+    <data name="Question_InstallMod_Title" xml:space="preserve">
+        <value>Voulez-vous télécharger et installer le mod suivant: {$1} ?</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Recherche de mods...</value>
+    </data>
+    <data name="Text_LanguageTranslatedBy" xml:space="preserve">
+        <value>Cette langue a été traduite par: {$1}</value>
+    </data>
+    <data name="Text_PoweredGamebanana" xml:space="preserve">
+        <value>Contribué par GameBanana</value>
     </data>
 </root>

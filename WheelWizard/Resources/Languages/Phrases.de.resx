@@ -64,13 +64,13 @@
         <value>Mods können die Funktionsweise des Spiels verändern. Beginne mit dem Importieren deines ersten Mods, indem du auf die Schaltfläche unten klickst.</value>
     </data>
     <data name="EmptyContent_NoMods_Title" xml:space="preserve">
-        <value>Keine Mods gefunden</value>
+        <value>Keine Mods gefunden.</value>
     </data>
     <data name="EmptyContent_NoRooms" xml:space="preserve">
         <value>Möglicherweise hast du keine Internetverbindung oder es spielt niemand.</value>
     </data>
     <data name="EmptyContent_NoRooms_Title" xml:space="preserve">
-        <value>Keine Räume gefunden</value>
+        <value>Keine Räume gefunden.</value>
     </data>
     <data name="Hover_RoomsPageDisclaimer" xml:space="preserve">
         <value>Bitte beachte, dass diese Seite keine Funktion bietet, um dich mit einem Raum direkt zu verbinden.
@@ -384,5 +384,83 @@ Um einem bestimmten Raum beizutreten, musst du entweder über einen Freund treff
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Gewünschten Pfad hier eingeben...</value>
+    </data>
+    <data name="EmptyContent_NoModSelected" xml:space="preserve">
+        <value>Wähle eine Mod aus der Liste um mehr Details zu sehen.</value>
+    </data>
+    <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
+        <value>Keine Mod ausgewähltt.</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Extra" xml:space="preserve">
+        <value>Die Installation von Dolphin ist schiefgelaufen. Versuche manuell eine Flatpak Dolphin Version herunterzuladen.</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Title" xml:space="preserve">
+        <value>Die Installation von Dolphin ist schiefgelaufen.</value>
+    </data>
+    <data name="MessageError_FailedRetrieveMod_Title" xml:space="preserve">
+        <value>Es ist ein Fehler beim abrufen der Mod-Informationen aufgetreten.</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Extra" xml:space="preserve">
+        <value>Ein Fehler ist während dem Dowload aufgetreten.</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Title" xml:space="preserve">
+        <value>Mod Download ist schiefgelaufen.</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Extra" xml:space="preserve">
+        <value>Bitte gib einen Namn für die Mod ein.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Extra" xml:space="preserve">
+        <value>Mod Name kann keine ungültigen Zeichen beinhalten.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Title" xml:space="preserve">
+        <value>Mod Name nicht gültig.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
+        <value>Dateien konnten nicht gefunden werden.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Title" xml:space="preserve">
+        <value>Konnte die Mod nicht herunterladen.</value>
+    </data>
+    <data name="Placeholder_EnterMiiName" xml:space="preserve">
+        <value>Gib Mii Namen ein...</value>
+    </data>
+    <data name="Placeholder_EnterModName" xml:space="preserve">
+        <value>Gib Mod Namen ein...</value>
+    </data>
+    <data name="Placeholder_EnterTextHere" xml:space="preserve">
+        <value>Gib Text ein...</value>
+    </data>
+    <data name="Placeholder_SearchMod" xml:space="preserve">
+        <value>Suche nach Mods...</value>
+    </data>
+    <data name="Progress_InstallingDolphin" xml:space="preserve">
+        <value>Installiere Dolphin Emulator</value>
+    </data>
+    <data name="Progress_ThisMayTakeAWhile" xml:space="preserve">
+        <value>Dies könnte eine Weile dauern je nach dem wie schnell dein Internet ist.</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Extra" xml:space="preserve">
+        <value>Die Flatpak Dolphin Version scheint nicht installiert zu sein. Möchtest du sie von uns installieren lassen (ganzes System)?</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Title" xml:space="preserve">
+        <value>Dolphin Flatpak Installation</value>
+    </data>
+    <data name="Question_EnterNewName_Extra" xml:space="preserve">
+        <value>Name von {$1} ändern</value>
+    </data>
+    <data name="Question_EnterNewName_Title" xml:space="preserve">
+        <value>Einen neuen Namen eingeben</value>
+    </data>
+    <data name="Question_InstallMod_Title" xml:space="preserve">
+        <value>Du bist dabei das Spiel ohne Mods zu starten. Möchtest du deinen My-Stuff Ordner leeren?</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Nach Mods suchen...</value>
+    </data>
+    <data name="Text_LanguageTranslatedBy" xml:space="preserve">
+        <value>Diese Sprache wurde übersetzt von: {$1}</value>
+    </data>
+    <data name="Text_PoweredGamebanana" xml:space="preserve">
+        <value>Von GameBanana unterstützt</value>
     </data>
 </root>

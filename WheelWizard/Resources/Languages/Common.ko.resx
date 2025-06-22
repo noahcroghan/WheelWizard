@@ -311,4 +311,139 @@
     <data name="Attribute_Gender_Male" xml:space="preserve">
         <value>남성</value>
     </data>
+    <data name="Action_DoManually" xml:space="preserve">
+        <value>직접 하기</value>
+    </data>
+    <data name="Action_DownloadAndInstall" xml:space="preserve">
+        <value>다운로드 및 설치</value>
+    </data>
+    <data name="Action_GamebananaPage" xml:space="preserve">
+        <value>게임바나나 페이지</value>
+    </data>
+    <data name="Action_Report" xml:space="preserve">
+        <value>신고</value>
+    </data>
+    <data name="Action_Submit" xml:space="preserve">
+        <value>보내기</value>
+    </data>
+    <data name="Action_UnInstall" xml:space="preserve">
+        <value>삭제</value>
+    </data>
+    <data name="Action_ViewCustomChars" xml:space="preserve">
+        <value>커스텀 캐릭터 보기</value>
+    </data>
+    <data name="Attribute_BrAbbreviation" xml:space="preserve">
+        <value>BR</value>
+    </data>
+    <data name="Attribute_BrFull" xml:space="preserve">
+        <value>배틀 레이팅</value>
+    </data>
+    <data name="Attribute_Description" xml:space="preserve">
+        <value>설명</value>
+    </data>
+    <data name="Attribute_Downloads" xml:space="preserve">
+        <value>다운로드수</value>
+    </data>
+    <data name="Attribute_Images" xml:space="preserve">
+        <value>이미지</value>
+    </data>
+    <data name="Attribute_Likes" xml:space="preserve">
+        <value>좋아요 수</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyebrows" xml:space="preserve">
+        <value>눈썹</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyes" xml:space="preserve">
+        <value>눈</value>
+    </data>
+    <data name="Attribute_MiiSection_Face" xml:space="preserve">
+        <value>얼굴</value>
+    </data>
+    <data name="Attribute_MiiSection_FacialHair" xml:space="preserve">
+        <value>얼굴 털</value>
+    </data>
+    <data name="Attribute_MiiSection_General" xml:space="preserve">
+        <value>정보</value>
+    </data>
+    <data name="Attribute_MiiSection_Glasses" xml:space="preserve">
+        <value>안경</value>
+    </data>
+    <data name="Attribute_MiiSection_Hair" xml:space="preserve">
+        <value>머리카락</value>
+    </data>
+    <data name="Attribute_MiiSection_Lips" xml:space="preserve">
+        <value>입술</value>
+    </data>
+    <data name="Attribute_MiiSection_Mole" xml:space="preserve">
+        <value>뾰루지</value>
+    </data>
+    <data name="Attribute_MiiSection_Nose" xml:space="preserve">
+        <value>코</value>
+    </data>
+    <data name="Attribute_Mii_BeardType" xml:space="preserve">
+        <value>수염 종류</value>
+    </data>
+    <data name="Attribute_Mii_CreatorName" xml:space="preserve">
+        <value>제작자 이름</value>
+    </data>
+    <data name="Attribute_Mii_DefaultName" xml:space="preserve">
+        <value>새 Mii</value>
+    </data>
+    <data name="Attribute_Mii_EyebrowType" xml:space="preserve">
+        <value>눈썹 종류</value>
+    </data>
+    <data name="Attribute_Mii_FacialFeature" xml:space="preserve">
+        <value>얼굴 특징</value>
+    </data>
+    <data name="Attribute_Mii_FavColor" xml:space="preserve">
+        <value>좋아하는 색상</value>
+    </data>
+    <data name="Attribute_Mii_GlassesColor" xml:space="preserve">
+        <value>안경 색상</value>
+    </data>
+    <data name="Attribute_Mii_GlassesType" xml:space="preserve">
+        <value>안경 종류</value>
+    </data>
+    <data name="Attribute_Mii_HairColor" xml:space="preserve">
+        <value>머리카락 색상</value>
+    </data>
+    <data name="Attribute_Mii_HairType" xml:space="preserve">
+        <value>머리카락 종류</value>
+    </data>
+    <data name="Attribute_Mii_HeadShape" xml:space="preserve">
+        <value>얼굴형</value>
+    </data>
+    <data name="Attribute_Mii_Height" xml:space="preserve">
+        <value>키</value>
+    </data>
+    <data name="Attribute_Mii_HorizontalPosition" xml:space="preserve">
+        <value>수평 위치(왼쪽/오른쪽)</value>
+    </data>
+    <data name="Attribute_Mii_IrishColor" xml:space="preserve">
+        <value>눈 색상</value>
+    </data>
+    <data name="Attribute_Mii_MirrorHair" xml:space="preserve">
+        <value>머리카락 반전</value>
+    </data>
+    <data name="Attribute_Mii_MouthType" xml:space="preserve">
+        <value>입 종류</value>
+    </data>
+    <data name="Attribute_Mii_MustacheSize" xml:space="preserve">
+        <value>콧수염 크기</value>
+    </data>
+    <data name="Attribute_Mii_MustacheType" xml:space="preserve">
+        <value>콧수염 종류</value>
+    </data>
+    <data name="Attribute_Mii_MustacheVerticalPosition" xml:space="preserve">
+        <value>콧수염 수직 위치(위/아래)</value>
+    </data>
+    <data name="Attribute_Mii_Name" xml:space="preserve">
+        <value>Mii 이름</value>
+    </data>
+    <data name="Attribute_Mii_NoseType" xml:space="preserve">
+        <value>코 종류</value>
+    </data>
+    <data name="Attribute_Mii_Rotation" xml:space="preserve">
+        <value>회전(반시계/시계 방향)</value>
+    </data>
 </root>

@@ -150,7 +150,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You must set these 3 paths before you can start playing retro rewind.
+        ///   Looks up a localized string similar to You must set these 3 paths before you can start playing Retro Rewind.
         /// </summary>
         public static string HelperText_MustSetPaths {
             get {

@@ -655,7 +655,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to files could not be found..
+        ///   Looks up a localized string similar to Files could not be found..
         /// </summary>
         public static string MessageWarning_UnableDownloadMod_Extra {
             get {
@@ -916,7 +916,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Changing name from: {$1}.
         /// </summary>
         public static string Question_EnterNewName_Extra {
             get {
@@ -1294,7 +1294,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powered By Gamebanana.
+        ///   Looks up a localized string similar to Powered By GameBanana.
         /// </summary>
         public static string Text_PoweredGamebanana {
             get {

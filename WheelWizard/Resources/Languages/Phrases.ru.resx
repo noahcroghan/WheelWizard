@@ -145,7 +145,7 @@
         <value>Не удалось найти игру, пожалуйста, установить путь в настройках.</value>
     </data>
     <data name="Question_OldRksysFound_Title" xml:space="preserve">
-        <value>Старый rksys.dat был найден</value>
+        <value>Обнаружен старый rksys.dat</value>
     </data>
     <data name="Question_OldRksysFound_Extra" xml:space="preserve">
         <value>Старые данные сохранения были найдена. Желаете их исполльзовать? (рекоммендовано)</value>
@@ -160,10 +160,10 @@
         <value>Не удалось перезапуститься с правами администратора.</value>
     </data>
     <data name="Question_RRNotDeterment_Extra" xml:space="preserve">
-        <value>Не удалос определить вашу версию Retro Rewind. Хотите установить Retro Rewind?</value>
+        <value>Не удалось определить вашу версию Retro Rewind. Хотите установить Retro Rewind?</value>
     </data>
     <data name="Question_RRToOld_Extra" xml:space="preserve">
-        <value>Ваша версия Retro Rewind слишком доисторическая. чтобы обновиться. Хотите переустановить Retro Rewind?</value>
+        <value>Ваша версия Retro Rewind слишком устарела для обновлений. Хотите переустановить Retro Rewind?</value>
     </data>
     <data name="MessageSuccess_RRUpToDate_Title" xml:space="preserve">
         <value>Retro Rewind на последней версии.</value>
@@ -236,5 +236,26 @@
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Вставьте сюда путь к файлу...</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Title" xml:space="preserve">
+        <value>Не удалось загрузить мод</value>
+    </data>
+    <data name="MessageWarning_UnableUpdateWhWz_Title" xml:space="preserve">
+        <value>Не удалось обновить Wheel Wizard.</value>
+    </data>
+    <data name="Question_EnterNewName_Title" xml:space="preserve">
+        <value>Введите новое название</value>
+    </data>
+    <data name="Question_InstallMod_Title" xml:space="preserve">
+        <value>Хотите установить этот мод: {$1}?</value>
+    </data>
+    <data name="Question_ReinstallRR_Extra" xml:space="preserve">
+        <value>Вы уверены, что хотите переустановить Retro Rewind?</value>
+    </data>
+    <data name="Question_SureDelete_Title_Miis" xml:space="preserve">
+        <value>Вы уверены, что хотите удалить {$1} Mii?</value>
+    </data>
+    <data name="Text_LanguageTranslatedBy" xml:space="preserve">
+        <value>Авторы перевода: {$1}</value>
     </data>
 </root>

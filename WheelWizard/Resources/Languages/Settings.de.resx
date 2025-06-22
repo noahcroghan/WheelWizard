@@ -28,7 +28,7 @@
         <value>Diese Einstellung erzwingt, dass das Spiel mit 30 FPS läuft (Standard ist 60).</value>
     </data>
     <data name="HelperText_EndWithExe" xml:space="preserve">
-        <value>Dateipfad muss mit .exe enden</value>
+        <value>Dateipfad muss mit .exe enden.</value>
     </data>
     <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
         <value>Diese Einstellung deaktiviert die Wiimote im Spiel, aber nutzt sie für den Wii-Kanal</value>
@@ -130,7 +130,7 @@
         <value>Hauptprofil</value>
     </data>
     <data name="HelperText_EnableAnimations" xml:space="preserve">
-        <value>Dies aktiviert die Animationen in der Wheel Wizard App</value>
+        <value>Dies aktiviert die Animationen in der Wheel Wizard App.</value>
     </data>
     <data name="Option_EnableAnimations" xml:space="preserve">
         <value>Aktiviere Animationen</value>
@@ -185,5 +185,17 @@
     </data>
     <data name="Value_Language_zTranslators" xml:space="preserve">
         <value>Weebo, kytronix, Gab, ToadetteHackFan</value>
+    </data>
+    <data name="HelperText_EndWithX" xml:space="preserve">
+        <value>Pfad kann enden mit:</value>
+    </data>
+    <data name="HelperText_MustSetPaths" xml:space="preserve">
+        <value>Du musst erst diese 3 Dateipfade bestimmen um Retro Rewind spielen zu können.</value>
+    </data>
+    <data name="HelperText_Optional" xml:space="preserve">
+        <value>Optional</value>
+    </data>
+    <data name="HelperText_WhWzLanguage" xml:space="preserve">
+        <value>Dies ändert nur die Sprache innerhalb von Wheel Wizard. Um die Sprache innerhalb des Spiels zu ändern musst du das in den Spieleinstellungen vornehmen</value>
     </data>
 </root>

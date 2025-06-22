@@ -186,4 +186,16 @@
     <data name="Value_Language_zTranslators" xml:space="preserve">
         <value>wrkus, Weebo</value>
     </data>
+    <data name="HelperText_EndWithX" xml:space="preserve">
+        <value>Yol, bunlar ile bitebilir:</value>
+    </data>
+    <data name="HelperText_MustSetPaths" xml:space="preserve">
+        <value>Retro Rewind'ı oynayabilmek için önce bu üç yolu ayarlamanız gerekiyor</value>
+    </data>
+    <data name="HelperText_Optional" xml:space="preserve">
+        <value>Opsiyonel</value>
+    </data>
+    <data name="HelperText_WhWzLanguage" xml:space="preserve">
+        <value>Bu sadece Wheel Wizard'ın dilini değiştirir. Oyun içi dili değiştirmek için oyundaki ayarları kullanın.</value>
+    </data>
 </root>

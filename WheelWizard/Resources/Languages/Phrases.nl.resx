@@ -383,13 +383,13 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Mogelijk gemaakt door GameBanana.</value>
     </data>
     <data name="Placeholder_SearchMod" xml:space="preserve">
-        <value>Mod zoeken...</value>
+        <value>Zoek voor mods...</value>
     </data>
     <data name="Question_InstallMod_Title" xml:space="preserve">
         <value>Wil je de mod "{$1}" downloaden en installeren?</value>
     </data>
     <data name="Placeholder_EnterModName" xml:space="preserve">
-        <value>Mod naam....</value>
+        <value>Vul mod-naam in...</value>
     </data>
     <data name="Progress_InstallingDolphin" xml:space="preserve">
         <value>Dolphin-emulator installeren</value>
@@ -398,7 +398,7 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
         <value>Taal vertaald door: {$1}</value>
     </data>
     <data name="Placeholder_EnterMiiName" xml:space="preserve">
-        <value>Mii naam...</value>
+        <value>Vul Mii-naam in...</value>
     </data>
     <data name="MessageError_FailedInstallDolphin_Extra" xml:space="preserve">
         <value>De installatie van de Dolphin-emulator is mislukt. Probeer handmatig Flatpak Dolphin te installeren.</value>
@@ -450,5 +450,14 @@ Om aan een specifieke kamer deel te nemen, moet je dit óf via een vriend óf vi
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Vul bestandslocatie in...</value>
+    </data>
+    <data name="Placeholder_EnterTextHere" xml:space="preserve">
+        <value>Vul tekst in...</value>
+    </data>
+    <data name="Question_EnterNewName_Extra" xml:space="preserve">
+        <value>Naam aan het veranderen van "{$1}".</value>
+    </data>
+    <data name="Question_EnterNewName_Title" xml:space="preserve">
+        <value>Vul een nieuwe naam in</value>
     </data>
 </root>

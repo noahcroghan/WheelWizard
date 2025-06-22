@@ -375,7 +375,7 @@
         <value>Gezicht</value>
     </data>
     <data name="Attribute_MiiSection_FacialHair" xml:space="preserve">
-        <value>Gezichts Haar</value>
+        <value>Gezichtshaar</value>
     </data>
     <data name="Attribute_MiiSection_General" xml:space="preserve">
         <value>Algemeen</value>
@@ -405,22 +405,22 @@
         <value>Wenkbrauw</value>
     </data>
     <data name="Attribute_Mii_FacialFeature" xml:space="preserve">
-        <value>Gezichts eigenschap</value>
+        <value>Gezichtseigenschap</value>
     </data>
     <data name="Attribute_Mii_FavColor" xml:space="preserve">
         <value>Lievelingskleur</value>
     </data>
     <data name="Attribute_Mii_GlassesColor" xml:space="preserve">
-        <value>Bril kleur</value>
+        <value>Brilkleur</value>
     </data>
     <data name="Attribute_Mii_GlassesType" xml:space="preserve">
-        <value>Bril vorm</value>
+        <value>Brilvorm</value>
     </data>
     <data name="Attribute_Mii_HairColor" xml:space="preserve">
         <value>Haarkleur</value>
     </data>
     <data name="Attribute_Mii_HairType" xml:space="preserve">
-        <value>Haar type</value>
+        <value>Haartype</value>
     </data>
     <data name="Attribute_Mii_HeadShape" xml:space="preserve">
         <value>Hoofdvorm</value>
@@ -429,7 +429,7 @@
         <value>Lengte</value>
     </data>
     <data name="Attribute_Mii_HorizontalPosition" xml:space="preserve">
-        <value>Horizontale positie</value>
+        <value>Horizontale positie (links/rechts)</value>
     </data>
     <data name="Attribute_Mii_IrishColor" xml:space="preserve">
         <value>Oogkleur</value>
@@ -441,22 +441,22 @@
         <value>Mond</value>
     </data>
     <data name="Attribute_Mii_MustacheSize" xml:space="preserve">
-        <value>Snor grootte</value>
+        <value>Snorgrootte</value>
     </data>
     <data name="Attribute_Mii_MustacheType" xml:space="preserve">
         <value>Snor</value>
     </data>
     <data name="Attribute_Mii_MustacheVerticalPosition" xml:space="preserve">
-        <value>Verticale positie van de snor</value>
+        <value>Verticale snorpositie (omhoog/omlaag)</value>
     </data>
     <data name="Attribute_Mii_Name" xml:space="preserve">
-        <value>Mii naam</value>
+        <value>Mii-naam</value>
     </data>
     <data name="Attribute_Mii_NoseType" xml:space="preserve">
-        <value>Neus vorm</value>
+        <value>Neusvorm</value>
     </data>
     <data name="Attribute_Mii_Rotation" xml:space="preserve">
-        <value>Rotatie</value>
+        <value>Rotatie (links/rechts)</value>
     </data>
     <data name="Attribute_Mii_Size" xml:space="preserve">
         <value>Grootte</value>
@@ -468,7 +468,7 @@
         <value>Tussenruimte</value>
     </data>
     <data name="Attribute_Mii_VerticalPosition" xml:space="preserve">
-        <value>Verticale positie</value>
+        <value>Verticale positie (omhoog/omlaag)</value>
     </data>
     <data name="Attribute_Mii_Width" xml:space="preserve">
         <value>Breedte</value>

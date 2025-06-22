@@ -385,4 +385,82 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>İstenen yolu buraya girin...</value>
     </data>
+    <data name="EmptyContent_NoModSelected" xml:space="preserve">
+        <value>Detaylarını görmek için listeden bir mod seçin</value>
+    </data>
+    <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
+        <value>Hiçbir mod seçilmedi</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Extra" xml:space="preserve">
+        <value>Dolphin Emulator yüklemesi başarısız oldu. Lütfen manuel bir şekilde Flatpak Dolphin'i yüklemeyi deneyin.</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Title" xml:space="preserve">
+        <value>Dolphin yüklemesi başarısız oldu.</value>
+    </data>
+    <data name="MessageError_FailedRetrieveMod_Title" xml:space="preserve">
+        <value>Mod bilgisi alınamadı.</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Extra" xml:space="preserve">
+        <value>İndirme sırasında bir hata oluştu: {$1}</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Title" xml:space="preserve">
+        <value>Mod indirmesi başarısız oldu.</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Extra" xml:space="preserve">
+        <value>Lütfen bir mod adı girin.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Extra" xml:space="preserve">
+        <value>Mod adında geçersiz karakter bulunuyor.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Title" xml:space="preserve">
+        <value>Mod adı geçersiz.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
+        <value>Dosyalar bulunamadı.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Title" xml:space="preserve">
+        <value>Mod indirilemedi.</value>
+    </data>
+    <data name="Placeholder_EnterMiiName" xml:space="preserve">
+        <value>Mii adı girin...</value>
+    </data>
+    <data name="Placeholder_EnterModName" xml:space="preserve">
+        <value>Mod adı girin...</value>
+    </data>
+    <data name="Placeholder_EnterTextHere" xml:space="preserve">
+        <value>Metni buraya girin...</value>
+    </data>
+    <data name="Placeholder_SearchMod" xml:space="preserve">
+        <value>Mod arayın...</value>
+    </data>
+    <data name="Progress_InstallingDolphin" xml:space="preserve">
+        <value>Dolphin Emulator yükleniyor</value>
+    </data>
+    <data name="Progress_ThisMayTakeAWhile" xml:space="preserve">
+        <value>Bu, internetinize bağlı biraz uzun sürebilir.</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Extra" xml:space="preserve">
+        <value>Bilgisayarınızda Dolphin Emulator'ın Flatpak sürümü bulunamadı. Yüklememizi ister misiniz? (tüm kullanıcılar için)</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Title" xml:space="preserve">
+        <value>Dolphin Flatpak Yüklemesi</value>
+    </data>
+    <data name="Question_EnterNewName_Extra" xml:space="preserve">
+        <value>Ad değiştiriliyor. (Eski ad: {$1})</value>
+    </data>
+    <data name="Question_EnterNewName_Title" xml:space="preserve">
+        <value>Yeni adı girin:</value>
+    </data>
+    <data name="Question_InstallMod_Title" xml:space="preserve">
+        <value>Modu indirip kurmak ister misiniz: {$1}?</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Modları ara...</value>
+    </data>
+    <data name="Text_LanguageTranslatedBy" xml:space="preserve">
+        <value>Bu dili çevirenler: {$1}</value>
+    </data>
+    <data name="Text_PoweredGamebanana" xml:space="preserve">
+        <value>GameBanana tarafından</value>
+    </data>
 </root>

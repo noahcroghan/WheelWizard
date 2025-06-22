@@ -171,4 +171,13 @@
     <data name="Value_Language_zTranslators" xml:space="preserve">
         <value>CaXaP,  StHydrated, OrangeCake</value>
     </data>
+    <data name="Option_OpenGameFolder" xml:space="preserve">
+        <value>Открыть папку с игрой</value>
+    </data>
+    <data name="Option_OpenSaveFolder" xml:space="preserve">
+        <value>Открыть папку сохранения</value>
+    </data>
+    <data name="Section_Installation" xml:space="preserve">
+        <value>Установка</value>
+    </data>
 </root>

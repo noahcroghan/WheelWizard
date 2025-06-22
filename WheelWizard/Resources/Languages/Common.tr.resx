@@ -299,4 +299,199 @@
     <data name="Attribute_Gender_Male" xml:space="preserve">
         <value>Erkek</value>
     </data>
+    <data name="Action_DoManually" xml:space="preserve">
+        <value>El ile yap</value>
+    </data>
+    <data name="Action_DownloadAndInstall" xml:space="preserve">
+        <value>İndir ve Yükle</value>
+    </data>
+    <data name="Action_GamebananaPage" xml:space="preserve">
+        <value>Gamebanana Sayfası</value>
+    </data>
+    <data name="Action_Randomize" xml:space="preserve">
+        <value>Rastgele Seç</value>
+    </data>
+    <data name="Action_Report" xml:space="preserve">
+        <value>Raporla</value>
+    </data>
+    <data name="Action_Submit" xml:space="preserve">
+        <value>Gönder</value>
+    </data>
+    <data name="Action_UnInstall" xml:space="preserve">
+        <value>Yüklemeye Kaldır</value>
+    </data>
+    <data name="Action_ViewCustomChars" xml:space="preserve">
+        <value>Özel Karakterleri Görüntüle</value>
+    </data>
+    <data name="Attribute_BrAbbreviation" xml:space="preserve">
+        <value>SP</value>
+    </data>
+    <data name="Attribute_BrFull" xml:space="preserve">
+        <value>Savaş Puanı</value>
+    </data>
+    <data name="Attribute_Description" xml:space="preserve">
+        <value>Açıklama</value>
+    </data>
+    <data name="Attribute_Downloads" xml:space="preserve">
+        <value>İndirilenler</value>
+    </data>
+    <data name="Attribute_Images" xml:space="preserve">
+        <value>Resimler</value>
+    </data>
+    <data name="Attribute_Likes" xml:space="preserve">
+        <value>Beğeniler</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyebrows" xml:space="preserve">
+        <value>Kaşlar</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyes" xml:space="preserve">
+        <value>Gözler</value>
+    </data>
+    <data name="Attribute_MiiSection_Face" xml:space="preserve">
+        <value>Yüz</value>
+    </data>
+    <data name="Attribute_MiiSection_FacialHair" xml:space="preserve">
+        <value>Sakal Bıyık</value>
+    </data>
+    <data name="Attribute_MiiSection_General" xml:space="preserve">
+        <value>Genel</value>
+    </data>
+    <data name="Attribute_MiiSection_Glasses" xml:space="preserve">
+        <value>Gözlük</value>
+    </data>
+    <data name="Attribute_MiiSection_Hair" xml:space="preserve">
+        <value>Saç</value>
+    </data>
+    <data name="Attribute_MiiSection_Lips" xml:space="preserve">
+        <value>Dudaklar</value>
+    </data>
+    <data name="Attribute_MiiSection_Mole" xml:space="preserve">
+        <value>Ben</value>
+    </data>
+    <data name="Attribute_MiiSection_Nose" xml:space="preserve">
+        <value>Burun</value>
+    </data>
+    <data name="Attribute_Mii_BeardType" xml:space="preserve">
+        <value>Sakal Tipi</value>
+    </data>
+    <data name="Attribute_Mii_CreatorName" xml:space="preserve">
+        <value>Yapımcı Adı</value>
+    </data>
+    <data name="Attribute_Mii_DefaultName" xml:space="preserve">
+        <value>Yeni Mii</value>
+    </data>
+    <data name="Attribute_Mii_EyebrowType" xml:space="preserve">
+        <value>Kaş Tipi</value>
+    </data>
+    <data name="Attribute_Mii_FacialFeature" xml:space="preserve">
+        <value>Yüz Özelliği</value>
+    </data>
+    <data name="Attribute_Mii_FavColor" xml:space="preserve">
+        <value>En Sevdiği Renk</value>
+    </data>
+    <data name="Attribute_Mii_GlassesColor" xml:space="preserve">
+        <value>Gözlük Rengi</value>
+    </data>
+    <data name="Attribute_Mii_GlassesType" xml:space="preserve">
+        <value>Gözlük Tipi</value>
+    </data>
+    <data name="Attribute_Mii_HairColor" xml:space="preserve">
+        <value>Saç Rengi</value>
+    </data>
+    <data name="Attribute_Mii_HairType" xml:space="preserve">
+        <value>Saç Tipi</value>
+    </data>
+    <data name="Attribute_Mii_HeadShape" xml:space="preserve">
+        <value>Kafa Şekli</value>
+    </data>
+    <data name="Attribute_Mii_Height" xml:space="preserve">
+        <value>Boy</value>
+    </data>
+    <data name="Attribute_Mii_HorizontalPosition" xml:space="preserve">
+        <value>Yatay Konum (Sağ/Sol)</value>
+    </data>
+    <data name="Attribute_Mii_IrishColor" xml:space="preserve">
+        <value>Göz Rengi</value>
+    </data>
+    <data name="Attribute_Mii_MirrorHair" xml:space="preserve">
+        <value>Saç Yönünü Değiştir</value>
+    </data>
+    <data name="Attribute_Mii_MouthType" xml:space="preserve">
+        <value>Ağız Tipi</value>
+    </data>
+    <data name="Attribute_Mii_MustacheSize" xml:space="preserve">
+        <value>Bıyık Büyüklüğü</value>
+    </data>
+    <data name="Attribute_Mii_MustacheType" xml:space="preserve">
+        <value>Bıyık Tipi</value>
+    </data>
+    <data name="Attribute_Mii_MustacheVerticalPosition" xml:space="preserve">
+        <value>Bıyık Dikey Konumu (Yukarı/Aşağı)</value>
+    </data>
+    <data name="Attribute_Mii_Name" xml:space="preserve">
+        <value>Mii Adı</value>
+    </data>
+    <data name="Attribute_Mii_NoseType" xml:space="preserve">
+        <value>Burun Tipi</value>
+    </data>
+    <data name="Attribute_Mii_Rotation" xml:space="preserve">
+        <value>Çevir (Sağa/Sola Çevir)</value>
+    </data>
+    <data name="Attribute_Mii_Size" xml:space="preserve">
+        <value>Boyut</value>
+    </data>
+    <data name="Attribute_Mii_SkinColor" xml:space="preserve">
+        <value>Ten Rengi</value>
+    </data>
+    <data name="Attribute_Mii_SpaceBetween" xml:space="preserve">
+        <value>Arası Boşluk</value>
+    </data>
+    <data name="Attribute_Mii_VerticalPosition" xml:space="preserve">
+        <value>Dikey Konum (Yukarı/Aşağı)</value>
+    </data>
+    <data name="Attribute_Mii_Width" xml:space="preserve">
+        <value>Genişlik</value>
+    </data>
+    <data name="Attribute_SortBy" xml:space="preserve">
+        <value>Sıralama Tipi</value>
+    </data>
+    <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
+        <value>Toplam oynanan oyun</value>
+    </data>
+    <data name="Attribute_TotalGamesWon" xml:space="preserve">
+        <value>Toplam kazanılan oyun</value>
+    </data>
+    <data name="Attribute_Views" xml:space="preserve">
+        <value>Görüntülenme</value>
+    </data>
+    <data name="Attribute_VrAbbreviation" xml:space="preserve">
+        <value>KP</value>
+    </data>
+    <data name="Attribute_VrFull" xml:space="preserve">
+        <value>Karşılaşma Puanı</value>
+    </data>
+    <data name="PageTitle_MyMiis" xml:space="preserve">
+        <value>Benim Mii'lerim</value>
+    </data>
+    <data name="PopupTitle_MiiCarousel" xml:space="preserve">
+        <value>Mii Görüntüleyicisi</value>
+    </data>
+    <data name="PopupTitle_MiiEditor" xml:space="preserve">
+        <value>Mii Düzenleyicisi</value>
+    </data>
+    <data name="PopupTitle_MiiSelector" xml:space="preserve">
+        <value>Mii Seçici</value>
+    </data>
+    <data name="PopupTitle_ModBrowser" xml:space="preserve">
+        <value>Mod Gezgini</value>
+    </data>
+    <data name="PopupTitle_ModDetails" xml:space="preserve">
+        <value>Mod Detayları</value>
+    </data>
+    <data name="State_Custom" xml:space="preserve">
+        <value>Özel</value>
+    </data>
+    <data name="State_Installed" xml:space="preserve">
+        <value>Yüklendi</value>
+    </data>
 </root>

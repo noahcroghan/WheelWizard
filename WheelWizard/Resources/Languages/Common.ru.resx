@@ -141,7 +141,7 @@
         <value>Распаковываем файлы...</value>
     </data>
     <data name="State_Installing" xml:space="preserve">
-        <value>Устанавливаем...</value>
+        <value>Установка...</value>
     </data>
     <data name="State_Loading" xml:space="preserve">
         <value>Загрузка...</value>
@@ -241,5 +241,38 @@
     </data>
     <data name="Action_Link_Discord" xml:space="preserve">
         <value>Наш Discord-сервер</value>
+    </data>
+    <data name="Action_Back" xml:space="preserve">
+        <value>Назад</value>
+    </data>
+    <data name="Action_DoManually" xml:space="preserve">
+        <value>Сделать вручную</value>
+    </data>
+    <data name="Action_DownloadAndInstall" xml:space="preserve">
+        <value>Загрузить и установить</value>
+    </data>
+    <data name="Action_Duplicate" xml:space="preserve">
+        <value>Дублировать</value>
+    </data>
+    <data name="Action_Favorite" xml:space="preserve">
+        <value>Избранное</value>
+    </data>
+    <data name="Action_GamebananaPage" xml:space="preserve">
+        <value>Страница на GameBanana</value>
+    </data>
+    <data name="Action_LaunchDolphin" xml:space="preserve">
+        <value>Запустить Dolphin</value>
+    </data>
+    <data name="Action_Randomize" xml:space="preserve">
+        <value>Случайный</value>
+    </data>
+    <data name="Action_Report" xml:space="preserve">
+        <value>Пожаловаться</value>
+    </data>
+    <data name="Action_SaveExternalMii" xml:space="preserve">
+        <value>Добавить Mii в раздел "Мои Mii"</value>
+    </data>
+    <data name="State_Installed" xml:space="preserve">
+        <value>Установлено</value>
     </data>
 </root>

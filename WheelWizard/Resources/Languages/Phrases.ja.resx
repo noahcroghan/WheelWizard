@@ -436,12 +436,33 @@ My Stuffフォルダーをクリアしますか？</value>
         <value>Modを検索しています...</value>
     </data>
     <data name="Text_PoweredGamebanana" xml:space="preserve">
-        <value>Gamebananaによって提供されています</value>
+        <value>GameBananaによって提供されています</value>
     </data>
     <data name="Placeholder_SearchForPlayers" xml:space="preserve">
         <value>プレイヤーを検索します...</value>
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>希望のパスを入力してください...</value>
+    </data>
+    <data name="Placeholder_EnterMiiName" xml:space="preserve">
+        <value>Miiの名前を入力してください...</value>
+    </data>
+    <data name="Placeholder_EnterModName" xml:space="preserve">
+        <value>Modの名前を入力してください...</value>
+    </data>
+    <data name="Placeholder_EnterTextHere" xml:space="preserve">
+        <value>ここにテキストを入力してください...</value>
+    </data>
+    <data name="Placeholder_SearchMod" xml:space="preserve">
+        <value>Modを検索します...</value>
+    </data>
+    <data name="Question_EnterNewName_Extra" xml:space="preserve">
+        <value>名前をこれから変更します: {$1}</value>
+    </data>
+    <data name="Question_EnterNewName_Title" xml:space="preserve">
+        <value>新しい名前を入力してください</value>
+    </data>
+    <data name="Text_LanguageTranslatedBy" xml:space="preserve">
+        <value>この言語はこれらの方が翻訳しました: {$1}</value>
     </data>
 </root>
