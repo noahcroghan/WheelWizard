@@ -378,12 +378,90 @@ Vuoi svuotare la tua cartella My-Stuff?</value>
         <value>Sembrano non esserci Mii da esportare</value>
     </data>
     <data name="MessageWarning_ModNameEmpty_Title" xml:space="preserve">
-        <value>Il nome della mod non può essere vuoto</value>
+        <value>Il nome della mod non può essere vuoto.</value>
     </data>
     <data name="Placeholder_SearchForPlayers" xml:space="preserve">
         <value>Cerca giocatori...</value>
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Inserisci qui l'indirizzo desiderato...</value>
+    </data>
+    <data name="EmptyContent_NoModSelected" xml:space="preserve">
+        <value>Seleziona una mod nella lista per vedere i suoi dettagli</value>
+    </data>
+    <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
+        <value>Nessuna mod selezionata</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Extra" xml:space="preserve">
+        <value>L'installazione dell'emulatore Dolphin è fallita. Riprova manualmente installando Dolphin usando Flatpak.</value>
+    </data>
+    <data name="MessageError_FailedInstallDolphin_Title" xml:space="preserve">
+        <value>Installazione di Dolphin fallita</value>
+    </data>
+    <data name="MessageError_FailedRetrieveMod_Title" xml:space="preserve">
+        <value>Recupero delle informazioni della mod fallito</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Extra" xml:space="preserve">
+        <value>È successo un errore durante il download: {$1}</value>
+    </data>
+    <data name="MessageError_ModDownloadFail_Title" xml:space="preserve">
+        <value>Download della mod fallito.</value>
+    </data>
+    <data name="MessageWarning_ModNameEmpty_Extra" xml:space="preserve">
+        <value>Dai un nome alla mod.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Extra" xml:space="preserve">
+        <value>Il nome della mod contiene caratteri non validi.</value>
+    </data>
+    <data name="MessageWarning_ModNameInvalid_Title" xml:space="preserve">
+        <value>Il nome della mod non è valido.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
+        <value>I file non sono stati trovati.</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Title" xml:space="preserve">
+        <value>Impossibile scaricare la mod.</value>
+    </data>
+    <data name="Placeholder_EnterMiiName" xml:space="preserve">
+        <value>Inserisci il nome del Mii...</value>
+    </data>
+    <data name="Placeholder_EnterModName" xml:space="preserve">
+        <value>Inserisci il nome della mod...</value>
+    </data>
+    <data name="Placeholder_EnterTextHere" xml:space="preserve">
+        <value>Inserisci qui del testo...</value>
+    </data>
+    <data name="Placeholder_SearchMod" xml:space="preserve">
+        <value>Cerca delle mod...</value>
+    </data>
+    <data name="Progress_InstallingDolphin" xml:space="preserve">
+        <value>Installando l'emulatore Dolphin</value>
+    </data>
+    <data name="Progress_ThisMayTakeAWhile" xml:space="preserve">
+        <value>Ciò potrebbe richiedere un po' di tempo a seconda della tua connessione ad internet.</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Extra" xml:space="preserve">
+        <value>La versione Flatpak dell'emulatore Dolphin non sembra essere installata. Vuoi che venga installata nel tuo sistema?</value>
+    </data>
+    <data name="Question_DolphinFlatpack_Title" xml:space="preserve">
+        <value>Installazione di Dolphin tramite Flatpak</value>
+    </data>
+    <data name="Question_EnterNewName_Extra" xml:space="preserve">
+        <value>Cambiando nome da: {$1}</value>
+    </data>
+    <data name="Question_EnterNewName_Title" xml:space="preserve">
+        <value>Inserisci il nuovo nome</value>
+    </data>
+    <data name="Question_InstallMod_Title" xml:space="preserve">
+        <value>Vuoi scaricare ed installare la mod: {$1}?</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Cercando delle mod...</value>
+    </data>
+    <data name="Text_LanguageTranslatedBy" xml:space="preserve">
+        <value>Questa lingua è stata tradotta da: {$1}</value>
+    </data>
+    <data name="Text_PoweredGamebanana" xml:space="preserve">
+        <value>Offerto da GameBanana</value>
     </data>
 </root>

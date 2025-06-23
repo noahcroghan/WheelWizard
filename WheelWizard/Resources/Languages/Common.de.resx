@@ -485,4 +485,7 @@
     <data name="State_Installed" xml:space="preserve">
         <value>Installiert </value>
     </data>
+    <data name="Attribute_MiiSection_General" xml:space="preserve">
+        <value>Allgemein</value>
+    </data>
 </root>

@@ -390,7 +390,7 @@
         <value>Nom de l'auteur.rice</value>
     </data>
     <data name="Attribute_Mii_DefaultName" xml:space="preserve">
-        <value>Mii </value>
+        <value>John Doe</value>
     </data>
     <data name="Attribute_Mii_EyebrowType" xml:space="preserve">
         <value>Type de cils</value>

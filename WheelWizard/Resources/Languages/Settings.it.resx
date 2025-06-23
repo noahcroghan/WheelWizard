@@ -145,7 +145,7 @@
         <value>Russo</value>
     </data>
     <data name="Value_Language_Turkish" xml:space="preserve">
-        <value>Turko </value>
+        <value>Turco</value>
     </data>
     <data name="Value_Language_Arabic" xml:space="preserve">
         <value>Arabo</value>
@@ -185,5 +185,17 @@
     </data>
     <data name="Value_Language_zTranslators" xml:space="preserve">
         <value>Ismy, Sep</value>
+    </data>
+    <data name="HelperText_EndWithX" xml:space="preserve">
+        <value>L'indirizzo può terminare con:</value>
+    </data>
+    <data name="HelperText_MustSetPaths" xml:space="preserve">
+        <value>Devi impostare questi 3 indirizzi prima di poter iniziare a giocare a Retro Rewind</value>
+    </data>
+    <data name="HelperText_Optional" xml:space="preserve">
+        <value>Opzionale</value>
+    </data>
+    <data name="HelperText_WhWzLanguage" xml:space="preserve">
+        <value>Questo cambia soltanto la lingua di Wheel Wizard. Per cambiare la lingua all'interno del gioco, dovrai farlo dalle impostazioni del gioco stesso.</value>
     </data>
 </root>

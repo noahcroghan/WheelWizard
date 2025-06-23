@@ -314,4 +314,184 @@
     <data name="Attribute_Gender_Male" xml:space="preserve">
         <value>Maschio</value>
     </data>
+    <data name="Action_DoManually" xml:space="preserve">
+        <value>Fai manualmente</value>
+    </data>
+    <data name="Action_DownloadAndInstall" xml:space="preserve">
+        <value>Scarica ed installa</value>
+    </data>
+    <data name="Action_GamebananaPage" xml:space="preserve">
+        <value>Pagina di GameBanana</value>
+    </data>
+    <data name="Action_Report" xml:space="preserve">
+        <value>Segnala</value>
+    </data>
+    <data name="Action_Submit" xml:space="preserve">
+        <value>Invia</value>
+    </data>
+    <data name="Action_UnInstall" xml:space="preserve">
+        <value>Disinstalla</value>
+    </data>
+    <data name="Action_ViewCustomChars" xml:space="preserve">
+        <value>Vedi personaggi personalizzati</value>
+    </data>
+    <data name="Attribute_BrAbbreviation" xml:space="preserve">
+        <value>PB</value>
+    </data>
+    <data name="Attribute_BrFull" xml:space="preserve">
+        <value>Punti Battaglia</value>
+    </data>
+    <data name="Attribute_Description" xml:space="preserve">
+        <value>Descrizione</value>
+    </data>
+    <data name="Attribute_Downloads" xml:space="preserve">
+        <value>Download</value>
+    </data>
+    <data name="Attribute_Images" xml:space="preserve">
+        <value>Immagini</value>
+    </data>
+    <data name="Attribute_Likes" xml:space="preserve">
+        <value>Mi Piace</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyebrows" xml:space="preserve">
+        <value>Ciglia</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyes" xml:space="preserve">
+        <value>Occhi</value>
+    </data>
+    <data name="Attribute_MiiSection_Face" xml:space="preserve">
+        <value>Faccia</value>
+    </data>
+    <data name="Attribute_MiiSection_FacialHair" xml:space="preserve">
+        <value>Peli facciali</value>
+    </data>
+    <data name="Attribute_MiiSection_General" xml:space="preserve">
+        <value>Generale</value>
+    </data>
+    <data name="Attribute_MiiSection_Glasses" xml:space="preserve">
+        <value>Occhiali</value>
+    </data>
+    <data name="Attribute_MiiSection_Hair" xml:space="preserve">
+        <value>Capelli</value>
+    </data>
+    <data name="Attribute_MiiSection_Lips" xml:space="preserve">
+        <value>Labbra</value>
+    </data>
+    <data name="Attribute_MiiSection_Mole" xml:space="preserve">
+        <value>Neo</value>
+    </data>
+    <data name="Attribute_MiiSection_Nose" xml:space="preserve">
+        <value>Naso</value>
+    </data>
+    <data name="Attribute_Mii_BeardType" xml:space="preserve">
+        <value>Tipo di barba</value>
+    </data>
+    <data name="Attribute_Mii_CreatorName" xml:space="preserve">
+        <value>Nome dell'autore</value>
+    </data>
+    <data name="Attribute_Mii_DefaultName" xml:space="preserve">
+        <value>Nuovo Mii</value>
+    </data>
+    <data name="Attribute_Mii_EyebrowType" xml:space="preserve">
+        <value>Tipo di ciglia</value>
+    </data>
+    <data name="Attribute_Mii_FacialFeature" xml:space="preserve">
+        <value>Caratteristiche facciali</value>
+    </data>
+    <data name="Attribute_Mii_FavColor" xml:space="preserve">
+        <value>Colore preferito</value>
+    </data>
+    <data name="Attribute_Mii_GlassesColor" xml:space="preserve">
+        <value>Colore degli occhiali</value>
+    </data>
+    <data name="Attribute_Mii_GlassesType" xml:space="preserve">
+        <value>Tipo di occhiali</value>
+    </data>
+    <data name="Attribute_Mii_HairColor" xml:space="preserve">
+        <value>Colore dei capelli</value>
+    </data>
+    <data name="Attribute_Mii_HairType" xml:space="preserve">
+        <value>Tipo di capelli</value>
+    </data>
+    <data name="Attribute_Mii_HeadShape" xml:space="preserve">
+        <value>Forma del viso</value>
+    </data>
+    <data name="Attribute_Mii_Height" xml:space="preserve">
+        <value>Altezza</value>
+    </data>
+    <data name="Attribute_Mii_HorizontalPosition" xml:space="preserve">
+        <value>Posizione orizzontale (Sinistra/Destra)</value>
+    </data>
+    <data name="Attribute_Mii_IrishColor" xml:space="preserve">
+        <value>Colore degli occhi</value>
+    </data>
+    <data name="Attribute_Mii_MirrorHair" xml:space="preserve">
+        <value>Capelli riflessi</value>
+    </data>
+    <data name="Attribute_Mii_MouthType" xml:space="preserve">
+        <value>Tipo di bocca</value>
+    </data>
+    <data name="Attribute_Mii_MustacheSize" xml:space="preserve">
+        <value>Grandezza dei baffi</value>
+    </data>
+    <data name="Attribute_Mii_MustacheType" xml:space="preserve">
+        <value>Tipo di baffi</value>
+    </data>
+    <data name="Attribute_Mii_MustacheVerticalPosition" xml:space="preserve">
+        <value>Posizione verticale dei baffi (Su/Giù)</value>
+    </data>
+    <data name="Attribute_Mii_Name" xml:space="preserve">
+        <value>Nome del Mii</value>
+    </data>
+    <data name="Attribute_Mii_NoseType" xml:space="preserve">
+        <value>Tipo di naso</value>
+    </data>
+    <data name="Attribute_Mii_Rotation" xml:space="preserve">
+        <value>Rotazione (Ruota a Sinistra/Destra)</value>
+    </data>
+    <data name="Attribute_Mii_Size" xml:space="preserve">
+        <value>Dimensione</value>
+    </data>
+    <data name="Attribute_Mii_SkinColor" xml:space="preserve">
+        <value>Colore della pelle</value>
+    </data>
+    <data name="Attribute_Mii_SpaceBetween" xml:space="preserve">
+        <value>Spaziatura nel mezzo</value>
+    </data>
+    <data name="Attribute_Mii_VerticalPosition" xml:space="preserve">
+        <value>Posizione verticale (Su/Giù)</value>
+    </data>
+    <data name="Attribute_Mii_Width" xml:space="preserve">
+        <value>Larghezza</value>
+    </data>
+    <data name="Attribute_Views" xml:space="preserve">
+        <value>Visualizzazioni</value>
+    </data>
+    <data name="Attribute_VrAbbreviation" xml:space="preserve">
+        <value>PC</value>
+    </data>
+    <data name="Attribute_VrFull" xml:space="preserve">
+        <value>Punti Corsa</value>
+    </data>
+    <data name="PopupTitle_MiiCarousel" xml:space="preserve">
+        <value>Visualizzatore Mii</value>
+    </data>
+    <data name="PopupTitle_MiiEditor" xml:space="preserve">
+        <value>Creatore Mii</value>
+    </data>
+    <data name="PopupTitle_MiiSelector" xml:space="preserve">
+        <value>Selettore Mi</value>
+    </data>
+    <data name="PopupTitle_ModBrowser" xml:space="preserve">
+        <value>Ricercatore delle mod</value>
+    </data>
+    <data name="PopupTitle_ModDetails" xml:space="preserve">
+        <value>Dettagli della mod</value>
+    </data>
+    <data name="State_Custom" xml:space="preserve">
+        <value>Personalizzato</value>
+    </data>
+    <data name="State_Installed" xml:space="preserve">
+        <value>Installato</value>
+    </data>
 </root>
