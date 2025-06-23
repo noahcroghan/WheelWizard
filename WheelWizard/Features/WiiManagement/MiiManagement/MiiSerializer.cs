@@ -12,9 +12,9 @@ public static class MiiSerializer
     public static OperationResult<byte[]> Serialize(Mii? mii)
     {
         if (mii == null)
-            return Fail<byte[]>("Mii cannot be null.", MessageTranslation.Error_MiiSerializer_MiiNotNull);
+            return Fail("Mii cannot be null.", MessageTranslation.Error_MiiSerializer_MiiNotNull);
         if (mii.MiiId == 0)
-            return Fail<byte[]>("Mii ID cannot be 0.", MessageTranslation.Error_MiiSerializer_MiiId0);
+            return Fail("Mii ID cannot be 0.", MessageTranslation.Error_MiiSerializer_MiiId0);
 
         var data = new byte[MiiBlockSize];
 
@@ -148,11 +148,11 @@ public static class MiiSerializer
     public static OperationResult<Mii> Deserialize(byte[]? data)
     {
         if (data == null || data.Length != 74)
-            return Fail<Mii>("Invalid Mii data length.", MessageTranslation.Error_MiiSerializer_MiiDataLength);
+            return Fail("Invalid Mii data length.", MessageTranslation.Error_MiiSerializer_MiiDataLength);
 
         //if the data only contains 0xFF or 0x00, return null
         if (data.All(b => b == 0xFF) || data.All(b => b == 0x00))
-            return Fail<Mii>("Mii data is empty.", MessageTranslation.Error_MiiSerializer_MiiDataEmpty);
+            return Fail("Mii data is empty.", MessageTranslation.Error_MiiSerializer_MiiDataEmpty);
 
         var mii = new Mii();
 
@@ -340,6 +340,6 @@ public static class MiiSerializer
 
     private static OperationResult<Mii> InvalidDataExc(string data)
     {
-        return Fail<Mii>(new InvalidDataException($"Invalid {data}"), MessageTranslation.Error_MiiSerializer_InvalidMiiData, null, [data]);
+        return Fail(new InvalidDataException($"Invalid {data}"), MessageTranslation.Error_MiiSerializer_InvalidMiiData, null, [data]);
     }
 }

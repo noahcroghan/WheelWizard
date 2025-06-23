@@ -337,7 +337,7 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
         try
         {
             if (!_fileSystem.Directory.Exists(PathManager.SaveFolderPath))
-                return Fail<byte[]>("Save folder not found");
+                return Fail("Save folder not found");
 
             var currentRegion = (MarioKartWiiEnums.Regions)SettingsManager.RR_REGION.Get();
             if (currentRegion == MarioKartWiiEnums.Regions.None)
@@ -351,19 +351,19 @@ public class GameLicenseSingletonService : RepeatedTaskManager, IGameLicenseSing
                 }
                 else
                 {
-                    return Fail<byte[]>("No valid regions found");
+                    return Fail("No valid regions found");
                 }
             }
 
             var saveFileFolder = _fileSystem.Path.Combine(PathManager.SaveFolderPath, RRRegionManager.ConvertRegionToGameId(currentRegion));
             var saveFile = _fileSystem.Directory.GetFiles(saveFileFolder, "rksys.dat", SearchOption.TopDirectoryOnly);
             if (saveFile.Length == 0)
-                return Fail<byte[]>("rksys.dat not found");
+                return Fail("rksys.dat not found");
             return _fileSystem.File.ReadAllBytes(saveFile[0]);
         }
         catch
         {
-            return Fail<byte[]>("Failed to load rksys.dat");
+            return Fail("Failed to load rksys.dat");
         }
     }
 

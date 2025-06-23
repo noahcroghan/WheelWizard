@@ -41,7 +41,7 @@ public class WhWzDataTests
         // Arrange
         var expectedError = new OperationError { Message = "API call failed" };
 
-        _apiCaller.CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<WhWzStatus>>>>()).Returns(Fail<WhWzStatus>(expectedError));
+        _apiCaller.CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<WhWzStatus>>>>()).Returns(expectedError);
 
         // Act
         var result = await _service.GetStatusAsync();
@@ -77,9 +77,7 @@ public class WhWzDataTests
         // Arrange
         var expectedError = new OperationError { Message = "API call failed" };
 
-        _apiCaller
-            .CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>())
-            .Returns(Fail<Dictionary<string, BadgeVariant[]>>(expectedError));
+        _apiCaller.CallApiAsync(Arg.Any<Expression<Func<IWhWzDataApi, Task<Dictionary<string, BadgeVariant[]>>>>>()).Returns(expectedError);
 
         // Act
         var result = await _service.LoadBadgesAsync();

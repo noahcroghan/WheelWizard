@@ -54,7 +54,7 @@ public class OperationResultTests
         var error = new OperationError { Message = "Error message" };
 
         // Act
-        var operationResult = Fail(error);
+        OperationResult operationResult = error;
 
         // Assert
         Assert.Equal(error, operationResult.Error);
@@ -70,7 +70,7 @@ public class OperationResultTests
         const MessageTranslation errorTranslation = MessageTranslation.Error_StanderdError;
 
         // Act
-        var operationResult = Fail(errorMessage, errorTranslation);
+        OperationResult operationResult = Fail(errorMessage, errorTranslation);
 
         // Assert
         Assert.True(operationResult.IsFailure);
@@ -148,7 +148,7 @@ public class OperationResultTests
         var error = new OperationError { Message = "Error message" };
 
         // Act
-        var operationResult = Fail(error);
+        OperationResult operationResult = error;
 
         // Assert
         Assert.Equal(error, operationResult.Error);

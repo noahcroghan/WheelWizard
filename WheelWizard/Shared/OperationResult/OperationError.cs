@@ -1,5 +1,4 @@
-﻿using WheelWizard.Helpers;
-using WheelWizard.Shared.MessageTranslations;
+﻿using WheelWizard.Shared.MessageTranslations;
 
 namespace WheelWizard.Shared;
 
@@ -35,6 +34,38 @@ public class OperationError
 
     // Note that the MessageTranslation can NOT be used to retrieve the message.
     // This is because the translation fo the MessageTranslation is localized, while the actual Message MUST be in English.
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="OperationResult"/> class that indicates success.
+    /// </summary>
+    /// <param name="error">The error that occurred during the operation.</param>
+    /// <typeparam name="T">The type of the value.</typeparam>
+    /// <returns>A new instance of the <see cref="OperationResult{T}"/> class.</returns>
+    public static OperationError Fail(string error) => error;
+
+    public static OperationError Fail(Exception error) => error;
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="OperationResult"/> class that indicates success.
+    /// </summary>
+    /// <param name="error">The error that occurred during the operation.</param>
+    /// <param name="translation">The translation for this specific error.</param>
+    /// <param name="titleReplacements">The objects to replace the keys in the translation title</param>
+    /// <param name="extraReplacements">The objects to replace the keys in the translation extra info</param>
+    /// <typeparam name="T">The type of the value.</typeparam>
+    /// <returns>A new instance of the <see cref="OperationResult"/> class.</returns>
+    public static OperationError Fail(
+        OperationError error,
+        MessageTranslation? translation,
+        object[]? titleReplacements = null,
+        object[]? extraReplacements = null
+    )
+    {
+        error.MessageTranslation = translation;
+        error.TitleReplacements = titleReplacements;
+        error.ExtraReplacements = extraReplacements;
+        return error;
+    }
 
     #region Implicit Operators
 

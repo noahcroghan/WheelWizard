@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using WheelWizard.Helpers;
 using WheelWizard.Shared.MessageTranslations;
 
 namespace WheelWizard.Shared;
@@ -46,68 +45,10 @@ public class OperationResult
     #region Creation Methods
 
     /// <summary>
-    /// Creates a new instance of the <see cref="OperationResult"/> class with the specified error.
-    /// </summary>
-    /// <param name="error">The error that occurred during the operation.</param>
-    /// <returns>A new instance of the <see cref="OperationResult"/> class.</returns>
-    public static OperationResult Fail(OperationError error) => new(error);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="OperationResult"/> class with the specified error and translation.
-    /// </summary>
-    /// <param name="error">The error that occurred during the operation.</param>
-    /// <param name="translation">The translation for this specific error.</param>
-    /// <param name="titleReplacements">The objects to replace the keys in the translation title</param>
-    /// <param name="extraReplacements">The objects to replace the keys in the translation extra info</param>
-    /// <returns>A new instance of the <see cref="OperationResult"/> class.</returns>
-    public static OperationResult Fail(
-        OperationError error,
-        MessageTranslation? translation,
-        object[]? titleReplacements = null,
-        object[]? extraReplacements = null
-    )
-    {
-        error.MessageTranslation = translation;
-        error.TitleReplacements = titleReplacements;
-        error.ExtraReplacements = extraReplacements;
-        return new(error);
-    }
-
-    /// <summary>
     /// Creates a new instance of the <see cref="OperationResult"/> class that indicates success.
     /// </summary>
     /// <returns>A new instance of the <see cref="OperationResult"/> class.</returns>
     public static OperationResult Ok() => new();
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="OperationResult"/> class that indicates success.
-    /// </summary>
-    /// <param name="error">The error that occurred during the operation.</param>
-    /// <typeparam name="T">The type of the value.</typeparam>
-    /// <returns>A new instance of the <see cref="OperationResult{T}"/> class.</returns>
-    public static OperationResult<T> Fail<T>(OperationError error) => new(error);
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="OperationResult"/> class that indicates success.
-    /// </summary>
-    /// <param name="error">The error that occurred during the operation.</param>
-    /// <param name="translation">The translation for this specific error.</param>
-    /// <param name="titleReplacements">The objects to replace the keys in the translation title</param>
-    /// <param name="extraReplacements">The objects to replace the keys in the translation extra info</param>
-    /// <typeparam name="T">The type of the value.</typeparam>
-    /// <returns>A new instance of the <see cref="OperationResult"/> class.</returns>
-    public static OperationResult<T> Fail<T>(
-        OperationError error,
-        MessageTranslation? translation,
-        object[]? titleReplacements = null,
-        object[]? extraReplacements = null
-    )
-    {
-        error.MessageTranslation = translation;
-        error.TitleReplacements = titleReplacements;
-        error.ExtraReplacements = extraReplacements;
-        return new(error);
-    }
 
     /// <summary>
     /// Creates a new instance of the <see cref="OperationResult{T}"/> class that indicates success.
@@ -135,16 +76,14 @@ public class OperationResult
         }
         catch (Exception ex)
         {
-            return Fail<T>(
-                new()
-                {
-                    Message = errorMessage ?? ex.Message,
-                    Exception = ex,
-                    MessageTranslation = translation,
-                    TitleReplacements = [ex.Message],
-                    ExtraReplacements = [ex.Message],
-                }
-            );
+            return new OperationError()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex,
+                MessageTranslation = translation,
+                TitleReplacements = [ex.Message],
+                ExtraReplacements = [ex.Message],
+            };
         }
     }
 
@@ -170,16 +109,14 @@ public class OperationResult
         }
         catch (Exception ex)
         {
-            return Fail<T>(
-                new()
-                {
-                    Message = errorMessage ?? ex.Message,
-                    Exception = ex,
-                    MessageTranslation = translation,
-                    TitleReplacements = [ex.Message],
-                    ExtraReplacements = [ex.Message],
-                }
-            );
+            return new OperationError()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex,
+                MessageTranslation = translation,
+                TitleReplacements = [ex.Message],
+                ExtraReplacements = [ex.Message],
+            };
         }
     }
 
@@ -200,16 +137,14 @@ public class OperationResult
         }
         catch (Exception ex)
         {
-            return Fail(
-                new()
-                {
-                    Message = errorMessage ?? ex.Message,
-                    Exception = ex,
-                    MessageTranslation = translation,
-                    TitleReplacements = [ex.Message],
-                    ExtraReplacements = [ex.Message],
-                }
-            );
+            return new OperationError()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex,
+                MessageTranslation = translation,
+                TitleReplacements = [ex.Message],
+                ExtraReplacements = [ex.Message],
+            };
         }
     }
 
@@ -234,16 +169,14 @@ public class OperationResult
         }
         catch (Exception ex)
         {
-            return Fail(
-                new()
-                {
-                    Message = errorMessage ?? ex.Message,
-                    Exception = ex,
-                    MessageTranslation = translation,
-                    TitleReplacements = [ex.Message],
-                    ExtraReplacements = [ex.Message],
-                }
-            );
+            return new OperationError()
+            {
+                Message = errorMessage ?? ex.Message,
+                Exception = ex,
+                MessageTranslation = translation,
+                TitleReplacements = [ex.Message],
+                ExtraReplacements = [ex.Message],
+            };
         }
     }
 
@@ -251,7 +184,7 @@ public class OperationResult
 
     #region Implicit Operators
 
-    public static implicit operator OperationResult(OperationError error) => Fail(error);
+    public static implicit operator OperationResult(OperationError error) => new(error);
 
     public static implicit operator OperationResult(Exception exception) => Fail(exception);
 

@@ -57,9 +57,7 @@ namespace WheelWizard.Test.Features
                 creatorName,
             };
             if (EveryResult.Any(r => r.IsFailure))
-            {
-                return Fail<Mii>(EveryResult.First(r => r.IsFailure).Error);
-            }
+                return EveryResult.First(r => r.IsFailure).Error!;
 
             return Ok(
                 new Mii
@@ -347,7 +345,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(repoError.Error, result.Error); // Propagate the exact error
+            Assert.Equal(repoError, result.Error); // Propagate the exact error
             _repositoryService.Received(1).UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes)));
         }
 
@@ -493,7 +491,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(repoError.Error, result.Error); // Error from the repository update propagated
+            Assert.Equal(repoError, result.Error); // Error from the repository update propagated
             _repositoryService.Received(1).GetRawBlockByAvatarId(targetId);
             _repositoryService.Received(1).UpdateBlockByClientId(targetId, Arg.Any<byte[]>());
         }

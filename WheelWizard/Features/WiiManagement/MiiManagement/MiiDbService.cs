@@ -78,9 +78,9 @@ public class MiiDbService(IMiiRepositoryService repository, IRandomSystem random
     {
         var raw = repository.GetRawBlockByAvatarId(avatarId);
         if (raw == null)
-            return Fail<Mii>("Mii block not found", MessageTranslation.Error_UpdateMiiDb_NoBlockFound);
+            return Fail("Mii block not found", MessageTranslation.Error_UpdateMiiDb_NoBlockFound);
         if (raw.Length != MiiSerializer.MiiBlockSize)
-            return Fail<Mii>("Mii block size invalid.", MessageTranslation.Error_UpdateMiiDb_BlockSizeInvalid);
+            return Fail("Mii block size invalid.", MessageTranslation.Error_UpdateMiiDb_BlockSizeInvalid);
 
         return MiiSerializer.Deserialize(raw);
     }

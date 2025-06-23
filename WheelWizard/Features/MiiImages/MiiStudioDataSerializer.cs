@@ -17,7 +17,7 @@ public class MiiStudioDataSerializer
     public static OperationResult<string> Serialize(Mii? mii)
     {
         if (mii == null)
-            return Fail<string>("Mii cannot be null.");
+            return Fail("Mii cannot be null.");
 
         // First we create a clone of the Mii that only contains features that are visual
         // This means no name, date or other non-visual features.

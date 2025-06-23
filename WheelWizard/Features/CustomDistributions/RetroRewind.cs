@@ -173,7 +173,7 @@ public class RetroRewind : IDistribution
     {
         var latestVersionResult = await LatestServerVersion();
         if (latestVersionResult.IsFailure)
-            return Fail<bool>("Failed to check for updates");
+            return Fail("Failed to check for updates");
         var latestVersion = latestVersionResult.Value;
         var isUpToDate = currentVersion.ComparePrecedenceTo(latestVersion) >= 0;
         return isUpToDate;
@@ -183,7 +183,7 @@ public class RetroRewind : IDistribution
     {
         var response = await _api.CallApiAsync(api => api.GetVersionFile());
         if (!response.IsSuccess || String.IsNullOrWhiteSpace(response.Value))
-            return Fail<SemVersion>("Failed to check for updates");
+            return Fail("Failed to check for updates");
 
         var result = response.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries).Last().Split(' ')[0];
         return SemVersion.Parse(result);
@@ -405,7 +405,7 @@ public class RetroRewind : IDistribution
 
         var deleteListOperation = await _api.CallApiAsync(api => api.GetDeletionFile());
         if (deleteListOperation.IsFailure)
-            return Fail<List<DeletionData>>("Failed to get file deletion list");
+            return Fail("Failed to get file deletion list");
         var lines = deleteListOperation.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var line in lines)
@@ -418,7 +418,7 @@ public class RetroRewind : IDistribution
             if (string.IsNullOrWhiteSpace(deletionVersion) || string.IsNullOrWhiteSpace(path))
                 continue;
             if (!SemVersion.TryParse(deletionVersion, out var parsedVersion))
-                return Fail<List<DeletionData>>("Failed to parse version");
+                return Fail("Failed to parse version");
             var deletionData = new DeletionData { Version = parsedVersion, Path = path };
             deleteList.Add(deletionData);
         }
@@ -538,7 +538,7 @@ public class RetroRewind : IDistribution
             return WheelWizardStatus.NotInstalled;
         var retroRewindUpToDateResult = await IsRRUpToDate(currentVersion);
         if (retroRewindUpToDateResult.IsFailure)
-            return Fail<WheelWizardStatus>("Failed to check for updates");
+            return Fail("Failed to check for updates");
         var retroRewindUpToDate = retroRewindUpToDateResult.Value;
         return !retroRewindUpToDate ? WheelWizardStatus.OutOfDate : WheelWizardStatus.Ready;
     }
