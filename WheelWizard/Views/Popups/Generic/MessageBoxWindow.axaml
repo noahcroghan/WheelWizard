@@ -11,10 +11,19 @@
 
         <!-- Message Title -->
         <Border Grid.Row="0" Margin="-10" x:Name="TitleBorder">
-            <SelectableTextBlock Margin="10" x:Name="MessageTitleBlock"
-                                 Classes="TitleText" FontSize="18"
-                                 HorizontalAlignment="Left" VerticalAlignment="Center"
-                                 Foreground="{StaticResource Primary50}" />
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <Border CornerRadius="4" Padding="5" VerticalAlignment="Center" Margin="0,0,10,0"
+                        IsVisible="False" x:Name="MessageTagBlock">
+                    <SelectableTextBlock x:Name="MessageTag" Classes="TitleText" FontSize="12"
+                                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                                         Foreground="{StaticResource Primary50}" />
+                </Border>
+
+                <SelectableTextBlock x:Name="MessageTitleBlock"
+                                     Classes="TitleText" FontSize="18"
+                                     HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     Foreground="{StaticResource Primary50}" />
+            </StackPanel>
         </Border>
 
         <!-- Message Text -->
@@ -32,20 +41,29 @@
                            VerticalAlignment="Bottom"
                            IconData="{StaticResource CheckMark}"
                            Margin="0,0,10,0"
-                           Click="OkButton_Click"/>
-        
+                           Click="OkButton_Click" />
+
         <Grid.Styles>
             <Style Selector="Border#TitleBorder.Message">
                 <Setter Property="Background" Value="Transparent" />
             </Style>
             <Style Selector="Border#TitleBorder.Message">
                 <Setter Property="Background" Value="{StaticResource Primary500}" />
+                <Style Selector="^ Border#MessageTagBlock">
+                    <Setter Property="Background" Value="{StaticResource Primary800}" />
+                </Style>
             </Style>
             <Style Selector="Border#TitleBorder.Warning">
                 <Setter Property="Background" Value="{StaticResource Warning700}" />
+                <Style Selector="^ Border#MessageTagBlock">
+                    <Setter Property="Background" Value="{StaticResource Warning900}" />
+                </Style>
             </Style>
             <Style Selector="Border#TitleBorder.Error">
                 <Setter Property="Background" Value="{StaticResource Danger700}" />
+                <Style Selector="^ Border#MessageTagBlock">
+                    <Setter Property="Background" Value="{StaticResource Danger900}" />
+                </Style>
             </Style>
         </Grid.Styles>
     </Grid>

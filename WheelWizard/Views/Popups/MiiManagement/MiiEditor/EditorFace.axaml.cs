@@ -120,7 +120,7 @@ public partial class EditorFace : MiiEditorBaseControl
 
         if (result.IsFailure)
         {
-            ViewUtils.ShowSnackbar($"Error updating Facial Feature: {result.Error.Message}");
+            ViewUtils.ShowSnackbar($"Error updating Facial Feature: {result.Error.Message}", ViewUtils.SnackbarType.Danger);
             return;
         }
 

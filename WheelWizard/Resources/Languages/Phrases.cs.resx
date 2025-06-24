@@ -18,4 +18,67 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
+    <data name="EmptyContent_NoFriends" xml:space="preserve">
+        <value>Můžeš přidat kamarádi ve hře</value>
+    </data>
+    <data name="EmptyContent_NoFriends_Title" xml:space="preserve">
+        <value>Zatím žádní kamarádi!</value>
+    </data>
+    <data name="Question_RRNotDeterment_Title" xml:space="preserve">
+        <value>Stáhnout Retro Rewind</value>
+    </data>
+    <data name="Progress_InstallingRR" xml:space="preserve">
+        <value>Instalování Retro Rewind</value>
+    </data>
+    <data name="Progress_InstallingRRFirstTime" xml:space="preserve">
+        <value>Instalování Retro Rewind poprvé</value>
+    </data>
+    <data name="Question_ReinstallRR_Title" xml:space="preserve">
+        <value>Přeinstalovat Retro Rewind</value>
+    </data>
+    <data name="MessageSuccess_RRUpToDate_Title" xml:space="preserve">
+        <value>Retro Rewind je aktuální.</value>
+    </data>
+    <data name="Progress_UpdateRR" xml:space="preserve">
+        <value>Aktualizovat Retro Rewind</value>
+    </data>
+    <data name="Progress_UpdateWhWz" xml:space="preserve">
+        <value>Aktualizovat Wheel Wizard</value>
+    </data>
+    <data name="Progress_DownloadingMb" xml:space="preserve">
+        <value>Stahování {$1} MB</value>
+    </data>
+    <data name="Text_MadeByString" xml:space="preserve">
+        <value>Vytvořili: {$1} \n a {$2}</value>
+    </data>
+    <data name="Text_ThanksTranslators" xml:space="preserve">
+        <value>Díky moc všem překladatelům:</value>
+    </data>
+    <data name="Text_WhWzTranslationPercentage" xml:space="preserve">
+        <value>Překlady pro tento jazyk jsou z {$1}% kompletní</value>
+    </data>
+    <data name="Time_Days_1" xml:space="preserve">
+        <value>1 den</value>
+    </data>
+    <data name="Time_Days_x" xml:space="preserve">
+        <value>($1) dny</value>
+    </data>
+    <data name="Time_Hours_1" xml:space="preserve">
+        <value>1 hodina</value>
+    </data>
+    <data name="Time_Hours_x" xml:space="preserve">
+        <value>($1) hodiny</value>
+    </data>
+    <data name="Time_Minutes_1" xml:space="preserve">
+        <value>1 minuta</value>
+    </data>
+    <data name="Time_Minutes_x" xml:space="preserve">
+        <value>($1) minuty</value>
+    </data>
+    <data name="Time_Seconds_1" xml:space="preserve">
+        <value>1 sekunda</value>
+    </data>
+    <data name="Time_Seconds_x" xml:space="preserve">
+        <value>($1) sekundy</value>
+    </data>
 </root>

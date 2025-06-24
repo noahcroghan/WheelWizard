@@ -5,6 +5,7 @@ using WheelWizard.Helpers;
 using WheelWizard.Services.Launcher.Helpers;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Shared.MessageTranslations;
 using WheelWizard.Utilities;
 using WheelWizard.Utilities.RepeatedTasks;
 using WheelWizard.Views.Components;
@@ -93,7 +94,8 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
         new MessageBoxWindow()
             // .SetMessageType(MessageBoxWindow.MessageType.Message) // Default, so you dont have to type this
             .SetTitleText("Saved Successfully!")
-            .SetInfoText("The name you entered has sucessfully saved in the system")
+            .SetTag("Tag")
+            .SetInfoText("The name you entered has successfully saved in the system")
             .Show();
 
         new MessageBoxWindow()
@@ -104,11 +106,7 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
             )
             .Show();
 
-        new MessageBoxWindow()
-            .SetMessageType(MessageBoxWindow.MessageType.Error)
-            .SetTitleText("Update error.")
-            .SetInfoText("An error occurred when trying to update Retro Rewind.")
-            .Show();
+        MessageTranslationHelper.ShowMessage(MessageTranslation.Error_StanderdError);
     }
 
     private async void YesNoPopup_OnClick(object sender, RoutedEventArgs e)

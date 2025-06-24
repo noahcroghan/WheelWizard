@@ -273,7 +273,7 @@ public class ModManager : INotifyPropertyChanged
     public async void DeleteMod(Mod selectedMod)
     {
         var areTheySure = await new YesNoWindow()
-            .SetMainText(Humanizer.ReplaceDynamic(Phrases.PopupText_SureDeleteQuestion, selectedMod.Title))
+            .SetMainText(Humanizer.ReplaceDynamic(Phrases.Question_SureDelete_Title, selectedMod.Title)!)
             .AwaitAnswer();
         if (!areTheySure)
             return;
@@ -328,7 +328,7 @@ public class ModManager : INotifyPropertyChanged
         }
         else
         {
-            ErrorOccurred(Phrases.PopupText_NoModFolder);
+            ErrorOccurred(Phrases.MessageError_NoModFolder_Extra);
         }
     }
 
@@ -365,14 +365,14 @@ public class ModManager : INotifyPropertyChanged
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            ErrorOccurred(Phrases.PopupText_ModNameEmpty);
+            ErrorOccurred(Phrases.MessageWarning_ModNameEmpty_Title);
             return false;
         }
 
         if (!ModInstallation.ModExists(Mods, name))
             return true;
 
-        ErrorOccurred(Humanizer.ReplaceDynamic(Phrases.PopupText_ModNameExists, name));
+        ErrorOccurred(Humanizer.ReplaceDynamic(Phrases.MessageWarning_InvalidName_Extra_ModNameExists, name));
         return false;
     }
 

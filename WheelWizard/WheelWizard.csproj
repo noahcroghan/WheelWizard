@@ -71,11 +71,6 @@
         <EmbeddedResource Update="Resources\Languages\Common.*.resx">
             <DependentUpon>Common.resx</DependentUpon>
         </EmbeddedResource>
-
-        <EmbeddedResource Update="Resources\Languages\Online.resx">
-            <Generator>PublicResXFileCodeGenerator</Generator>
-            <LastGenOutput>Online.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
         <EmbeddedResource Update="Resources\Languages\Online.*.resx">
             <DependentUpon>Online.resx</DependentUpon>
         </EmbeddedResource>
@@ -111,11 +106,6 @@
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>Settings.resx</DependentUpon>
-        </Compile>
-        <Compile Update="Resources\Languages\Online.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Online.resx</DependentUpon>
         </Compile>
         <Compile Update="Views\Components\StandardLibrary\PopupListButton.axaml.cs">
           <DependentUpon>PopupListButton.axaml</DependentUpon>

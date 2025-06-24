@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using WheelWizard.Helpers;
 using WheelWizard.Models.Enums;
 using WheelWizard.Models.Settings;
 using WheelWizard.Resources.Languages;
@@ -8,6 +9,7 @@ using WheelWizard.Services.LiveData;
 using WheelWizard.Services.Other;
 using WheelWizard.Services.Settings;
 using WheelWizard.Shared.DependencyInjection;
+using WheelWizard.Shared.MessageTranslations;
 using WheelWizard.Views.Components;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiManagement;
@@ -79,9 +81,17 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             if (region == MarioKartWiiEnums.Regions.None)
                 continue;
 
+            var name = region switch
+            {
+                MarioKartWiiEnums.Regions.Europe => Common.Region_Europe,
+                MarioKartWiiEnums.Regions.America => Common.Region_America,
+                MarioKartWiiEnums.Regions.Korea => Common.Region_SouthKorea,
+                MarioKartWiiEnums.Regions.Japan => Common.Region_Japan,
+                _ => Common.State_Unknown,
+            };
             var itemForRegionDropdown = new ComboBoxItem
             {
-                Content = region.ToString(),
+                Content = name,
                 Tag = region,
                 IsEnabled = validRegions.Contains(region),
             };
@@ -115,8 +125,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             radioButton.IsEnabled = !noLicense;
             radioButton.Content = miiName switch
             {
-                SettingValues.NoName => Online.NoName,
-                SettingValues.NoLicense => Online.NoLicense,
+                SettingValues.NoName => Common.State_NoName,
+                SettingValues.NoLicense => Common.State_NoLicense,
                 _ => miiName,
             };
         }
@@ -149,6 +159,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             badge.Width = 30;
             BadgeContainer.Children.Add(badge);
         }
+
         ResetMiiTopBar();
     }
 
@@ -174,7 +185,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
 
         //now we refresh the sidebar friend amount
         ViewUtils.GetLayout().UpdateFriendCount();
-        ViewUtils.ShowSnackbar("Set profile as primary");
+        ViewUtils.ShowSnackbar(Phrases.SnackbarSuccess_ProfileSetPrimary);
     }
 
     private void RegionDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -220,11 +231,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         var availableMiis = MiiDbService.GetAllMiis();
         if (!availableMiis.Any())
         {
-            new MessageBoxWindow()
-                .SetTitleText("No Miis Found")
-                .SetInfoText("There are no other Miis available to select.")
-                .SetMessageType(MessageBoxWindow.MessageType.Warning)
-                .Show();
+            MessageTranslationHelper.ShowMessage(MessageTranslation.Warning_NoMiisFound);
             return;
         }
 
@@ -238,16 +245,17 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         if (result.IsFailure)
         {
             new MessageBoxWindow()
-                .SetTitleText("Failed to Change Mii")
+                .SetTitleText(Phrases.MessageError_FailedChangeMii_Title)
                 .SetInfoText(result.Error!.Message)
                 .SetMessageType(MessageBoxWindow.MessageType.Error)
                 .Show();
             return;
         }
+
         CurrentMii = selectedMii;
         GameLicenseService.LoadLicense();
         UpdatePage();
-        ViewUtils.ShowSnackbar("Mii changed successfully");
+        ViewUtils.ShowSnackbar(Phrases.MessageSuccess_MiiChanged);
     }
 
     private void ViewRoom_OnClick(object? sender, RoutedEventArgs e)
@@ -261,11 +269,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             return;
         }
 
-        new MessageBoxWindow()
-            .SetTitleText("Couldn't find the room")
-            .SetInfoText("Whoops, could not find the room that this player is supposedly playing in")
-            .SetMessageType(MessageBoxWindow.MessageType.Warning)
-            .Show();
+        MessageTranslationHelper.ShowMessage(MessageTranslation.Warning_CouldNotFindRoom);
     }
 
     private void CopyFriendCode_OnClick(object? sender, EventArgs e)
@@ -274,7 +278,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
             return;
 
         TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(currentPlayer.FriendCode);
-        ViewUtils.ShowSnackbar("Copied friend code to clipboard");
+        ViewUtils.ShowSnackbar(Phrases.SnackbarSuccess_CopiedFC);
     }
 
     // This is intentionally a separate validation method besides the true name validation. That name validation allows less than 3.
@@ -282,7 +286,7 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
     private OperationResult ValidateMiiName(string? oldName, string newName)
     {
         if (newName.Length is > 10 or < 3)
-            return Fail("Names must be between 3 and 10 characters long.");
+            return Fail(Phrases.HelperNote_NameMustBetween);
 
         return Ok();
     }
@@ -291,8 +295,8 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
     {
         var oldName = CurrentMii?.Name.ToString();
         var renamePopup = new TextInputWindow()
-            .SetMainText($"Enter new name")
-            .SetExtraText($"Changing name from: {oldName}")
+            .SetMainText(Phrases.Question_EnterNewName_Title)
+            .SetExtraText(Humanizer.ReplaceDynamic(Phrases.Question_EnterNewName_Extra, oldName))
             .SetAllowCustomChars(true)
             .SetValidation(ValidateMiiName)
             .SetInitialText(oldName ?? "")
@@ -305,11 +309,11 @@ public partial class UserProfilePage : UserControlBase, INotifyPropertyChanged
         if (changeNameResult.IsFailure)
             new MessageBoxWindow()
                 .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Failed to change name")
+                .SetTitleText(Phrases.MessageError_FailedChangeName_Title)
                 .SetInfoText(changeNameResult.Error.Message)
                 .Show();
         else
-            ViewUtils.ShowSnackbar($"Successfully changed name to {newName}");
+            ViewUtils.ShowSnackbar(Humanizer.ReplaceDynamic(Phrases.SnackbarSuccess_NameChange, newName) ?? "Name changed successfully");
 
         //reload game data, since multiple licenses can use the same mii
         GameLicenseService.LoadLicense();

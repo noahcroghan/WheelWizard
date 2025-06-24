@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using WheelWizard.Resources.Languages;
+using WheelWizard.Shared.MessageTranslations;
 using WheelWizard.Views.Popups.Base;
 using WheelWizard.Views.Popups.Generic;
 using WheelWizard.Views.Popups.MiiManagement.MiiEditor;
@@ -33,7 +35,7 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     private VisualizationType selectedVisualization = VisualizationType.Face;
 
     public MiiEditorWindow()
-        : base(true, false, false, "Mii Editor")
+        : base(true, false, false, Common.PopupTitle_MiiEditor)
     {
         InitializeComponent();
         DataContext = this;
@@ -48,21 +50,17 @@ public partial class MiiEditorWindow : PopupContent, INotifyPropertyChanged
     public void SetEditorPage(Type pageType)
     {
         EditorPresenter.Content = Activator.CreateInstance(pageType, this)!;
-        Window.WindowTitle = $"Mii Editor - {Mii.Name}";
+        Window.WindowTitle = $"{Common.PopupTitle_MiiEditor} - {Mii.Name}";
     }
 
     public MiiEditorWindow SetMii(Mii miiToEdit)
     {
-        Window.WindowTitle = $"Mii Editor - {miiToEdit.Name}";
+        Window.WindowTitle = $"{Common.PopupTitle_MiiEditor} - {miiToEdit.Name}";
         var miiResult = miiToEdit.Clone();
         if (miiResult.IsFailure)
         {
             DisableOpen(true);
-            new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText("Cant open Mii Editor")
-                .SetInfoText(miiResult.Error.Message)
-                .Show();
+            MessageTranslationHelper.ShowMessage(MessageTranslation.Error_MiiEditor_CantOpenEditor, null, [miiResult.Error.Message]);
             return this;
         }
 

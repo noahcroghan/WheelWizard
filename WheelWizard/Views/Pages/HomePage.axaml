@@ -8,7 +8,7 @@
              mc:Ignorable="d" d:DesignWidth="656" d:DesignHeight="876"
              ClipToBounds="False"
              x:Class="WheelWizard.Views.Pages.HomePage">
-    <Grid  x:Name="CompleteGrid">
+    <Grid x:Name="CompleteGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="{StaticResource TopRowSize}" />
             <!-- This is the total height as the (Title + infoSection) - (padding) -->
@@ -16,29 +16,31 @@
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}" Height="1" HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom" />
-        <TextBlock Grid.Row="0" Text="{x:Static lang:Common.PageTitle_Home}" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+        <TextBlock Grid.Row="0" Text="{x:Static lang:Common.PageTitle_Home}" HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"
                    Classes="PageTitleText" />
         <Border Grid.Row="1" Background="{StaticResource BackgroundLineColor}" Height="1" HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom" />
-        
-        <behaviorComponent:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
-                                      HorizontalAlignment="Right" VerticalAlignment="Top"/>
 
-        <StackPanel Grid.Row="1"  Orientation="Horizontal" VerticalAlignment="Top" Margin="0,6" HorizontalAlignment="Right"
+        <behaviorComponent:CurrentUserProfile Grid.Row="0" x:Name="CurrentUserProfile" Margin="10,0"
+                                              HorizontalAlignment="Right" VerticalAlignment="Top" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,6"
+                    HorizontalAlignment="Right"
                     x:Name="GameModeOption">
             <components:FormFieldLabel Text="Game mode:" VerticalAlignment="Center" />
             <ComboBox x:Name="GameModeDropdown"
                       SelectionChanged="GameModeDropdown_OnSelectionChanged" MinWidth="160"
-                      VerticalAlignment="Top"/>
+                      VerticalAlignment="Top" />
         </StackPanel>
-        
+
         <Border Grid.Row="1" Height="630" Width="250" CornerRadius="125,125,0,0" VerticalAlignment="Bottom"
                 Background="{StaticResource FrameColor}" Margin="{StaticResource NegativeEdgeGap}">
             <PathIcon HorizontalAlignment="Center" VerticalAlignment="Top"
-                      Data="{StaticResource WheelIcon}" 
+                      Data="{StaticResource WheelIcon}"
                       x:Name="WheelIcon"
                       Foreground="{StaticResource Neutral600}"
-                      Width="200" Height="200" Margin="0,25"/>
+                      Width="200" Height="200" Margin="0,25" />
             <!-- 
                 Note that this icon should have the same margin on each side. Decide a padding/border, enter that number in the margin at tb.
                 Then, double this number, take the width of the parent container, and subtract the doubled margin. 
@@ -48,27 +50,27 @@
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="180" Margin="0,220">
 
-            <TextBlock HorizontalAlignment="Center" Classes="TitleText" x:Name="GameTitle"/>
+            <TextBlock HorizontalAlignment="Center" Classes="TitleText" x:Name="GameTitle" />
             <components:Button x:Name="PlayButton"
-                          IsEnabled="True" 
-                          Variant="Primary"
-                          Text="Play"
-                          IconData="{StaticResource Play}"
-                          Click="PlayButton_Click"
-                          Margin="0,20,0,0" />
+                               IsEnabled="True"
+                               Variant="Primary"
+                               Text="Play"
+                               IconData="{StaticResource Play}"
+                               Click="PlayButton_Click"
+                               Margin="0,20,0,0" />
 
             <!-- Normally we should not change the iconSize and/or Height since default is already correct
              But because the dolphin icon looks goofy that small, we can increase the size, and then change the size to be the default size again  -->
             <components:Button x:Name="DolphinButton"
-                          IsEnabled="True"
-                          IconData="{StaticResource DolphinIcon}"
-                          IconSize="30"
-                          ToolTip.Tip="Launch Dolphin"
-                          ToolTip.Placement="Bottom"
-                          ToolTip.ShowDelay="50"
-                          Height="40" 
-                          Click="DolphinButton_OnClick"
-                          Width="100" Margin="0,6,0,0" />
+                               IsEnabled="True"
+                               IconData="{StaticResource DolphinIcon}"
+                               IconSize="30"
+                               ToolTip.Tip="{x:Static lang:Common.Action_LaunchDolphin}"
+                               ToolTip.Placement="Bottom"
+                               ToolTip.ShowDelay="50"
+                               Height="40"
+                               Click="DolphinButton_OnClick"
+                               Width="100" Margin="0,6,0,0" />
         </StackPanel>
     </Grid>
 </UserControl>

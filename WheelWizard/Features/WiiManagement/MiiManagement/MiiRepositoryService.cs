@@ -1,6 +1,7 @@
 ﻿using System.IO.Abstractions;
 using WheelWizard.Helpers;
 using WheelWizard.Services;
+using WheelWizard.Shared.MessageTranslations;
 
 namespace WheelWizard.WiiManagement.MiiManagement;
 
@@ -88,7 +89,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     public OperationResult SaveAllBlocks(List<byte[]> blocks)
     {
         if (!fileSystem.File.Exists(_miiDbFilePath))
-            return "RFL_DB.dat not found.";
+            return Fail("RFL_DB.dat not found.", MessageTranslation.Error_UpdateMiiDb_RFLdbNotFound);
 
         var db = ReadDatabase();
         if (db.Length >= CrcOffset + 2)
@@ -98,7 +99,16 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
             var calcCrc = CalculateCrc16(db, 0, CrcOffset);
 
             if (existingCrc != calcCrc)
-                return Fail($"Corrupt Mii database (bad CRC 0x{existingCrc:X4}, expected 0x{calcCrc:X4}).");
+            {
+                var item1 = $"{existingCrc:X4}";
+                var item2 = $"{calcCrc:X4}";
+                return Fail(
+                    $"Corrupt Mii database (bad CRC 0x{item1}, expected 0x{item2}).",
+                    MessageTranslation.Error_UpdateMiiDb_CorruptDb,
+                    null,
+                    [item1, item2]
+                );
+            }
         }
 
         using var ms = new MemoryStream(db);
@@ -145,7 +155,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     public OperationResult ForceCreateDatabase()
     {
         if (fileSystem.File.Exists(_miiDbFilePath))
-            return "Database already exists.";
+            return Fail("Database already exists.", MessageTranslation.Error_MiiDBAlreadyExists);
 
         var directory = Path.GetDirectoryName(_miiDbFilePath);
         if (!string.IsNullOrEmpty(directory) && !fileSystem.Directory.Exists(directory))
@@ -183,11 +193,11 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
     public OperationResult UpdateBlockByClientId(uint clientId, byte[] newBlock)
     {
         if (clientId == 0)
-            return "Invalid ClientId.";
+            return Fail("Invalid Client ID.", MessageTranslation.Error_UpdateMiiDb_InvalidClId);
         if (newBlock.Length != MiiLength)
-            return "Mii block size invalid.";
+            return Fail("Mii block size invalid.", MessageTranslation.Error_UpdateMiiDb_BlockSizeInvalid);
         if (!fileSystem.File.Exists(_miiDbFilePath))
-            return "RFL_DB.dat not found.";
+            return Fail("RFL_DB.dat not found.", MessageTranslation.Error_UpdateMiiDb_RFLdbNotFound);
 
         var allBlocks = LoadAllBlocks();
         var updated = false;
@@ -207,7 +217,7 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
             break;
         }
 
-        return !updated ? Fail("Mii not found.") : SaveAllBlocks(allBlocks);
+        return !updated ? Fail("Mii not found.", MessageTranslation.Error_UpdateMiiDb_MiiNotFound) : SaveAllBlocks(allBlocks);
     }
 
     private byte[] ReadDatabase()
@@ -232,13 +242,14 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
             for (var b = 0; b < 8; b++)
                 crc = (crc & 0x8000) != 0 ? (ushort)((crc << 1) ^ poly) : (ushort)(crc << 1);
         }
+
         return crc;
     }
 
     public OperationResult AddMiiToBlocks(byte[]? rawMiiData)
     {
         if (rawMiiData is not { Length: MiiLength })
-            return "Invalid Mii block size.";
+            return Fail("Invalid Mii block size.");
 
         // Load all 100 blocks.
         var blocks = LoadAllBlocks();
@@ -255,6 +266,6 @@ public class MiiRepositoryServiceService(IFileSystem fileSystem) : IMiiRepositor
             break;
         }
 
-        return !inserted ? "No empty Mii slot available." : SaveAllBlocks(blocks);
+        return !inserted ? Fail("No empty Mii slot available.") : SaveAllBlocks(blocks);
     }
 }

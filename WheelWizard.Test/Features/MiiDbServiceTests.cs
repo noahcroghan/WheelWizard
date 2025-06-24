@@ -1,7 +1,6 @@
 using NSubstitute.ExceptionExtensions;
 using Testably.Abstractions;
 using WheelWizard.Shared;
-using WheelWizard.WiiManagement;
 using WheelWizard.WiiManagement.MiiManagement;
 using WheelWizard.WiiManagement.MiiManagement.Domain.Mii;
 
@@ -58,9 +57,7 @@ namespace WheelWizard.Test.Features
                 creatorName,
             };
             if (EveryResult.Any(r => r.IsFailure))
-            {
-                return Fail<Mii>(EveryResult.First(r => r.IsFailure).Error);
-            }
+                return EveryResult.First(r => r.IsFailure).Error!;
 
             return Ok(
                 new Mii
@@ -348,7 +345,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(repoError.Error, result.Error); // Propagate the exact error
+            Assert.Equal(repoError, result.Error); // Propagate the exact error
             _repositoryService.Received(1).UpdateBlockByClientId(miiToUpdate.MiiId, Arg.Is<byte[]>(b => b.SequenceEqual(expectedBytes)));
         }
 
@@ -426,7 +423,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal("Mii block not found or invalid.", result.Error.Message); // Error from GetByClientId
+            Assert.Equal("Mii block not found", result.Error.Message); // Error from GetByClientId
             _repositoryService.Received(1).GetRawBlockByAvatarId(targetId);
             _repositoryService.DidNotReceive().UpdateBlockByClientId(Arg.Any<uint>(), Arg.Any<byte[]>());
         }
@@ -494,7 +491,7 @@ namespace WheelWizard.Test.Features
 
             // Assert
             Assert.True(result.IsFailure);
-            Assert.Equal(repoError.Error, result.Error); // Error from the repository update propagated
+            Assert.Equal(repoError, result.Error); // Error from the repository update propagated
             _repositoryService.Received(1).GetRawBlockByAvatarId(targetId);
             _repositoryService.Received(1).UpdateBlockByClientId(targetId, Arg.Any<byte[]>());
         }
