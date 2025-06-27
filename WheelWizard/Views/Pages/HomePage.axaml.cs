@@ -3,11 +3,13 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
+using Testably.Abstractions;
 using WheelWizard.Models.Enums;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.Launcher;
 using WheelWizard.Services.Launcher.Helpers;
 using WheelWizard.Services.Settings;
+using WheelWizard.Views.Components;
 using WheelWizard.Views.Pages.Settings;
 using Button = WheelWizard.Views.Components.Button;
 
@@ -17,6 +19,7 @@ public partial class HomePage : UserControlBase
 {
     private static ILauncher currentLauncher => _launcherTypes[_launcherIndex];
     private static int _launcherIndex = 0; // Make sure this index never goes over the list index
+    private WheelTrail[] _trails = [];
 
     private static List<ILauncher> _launcherTypes =
     [
@@ -50,6 +53,11 @@ public partial class HomePage : UserControlBase
         InitializeComponent();
         PopulateGameModeDropdown();
         UpdatePage();
+
+        _trails = [HomeTrail1, HomeTrail2, HomeTrail3, HomeTrail4, HomeTrail5];
+        App.Services.GetService<IRandomSystem>()?.Random.Shared.Shuffle(_trails);
+        // We have to do it like `App.Service.GetService`. We cant make use of `private IRandomSystem Random { get; set; } = null!;` here
+        // This is because this HomePage is always loaded first
     }
 
     private void UpdatePage()
@@ -140,6 +148,20 @@ public partial class HomePage : UserControlBase
         if (Application.Current != null && Application.Current.FindResource(state.IconName) is Geometry geometry)
             PlayButton.IconData = geometry;
         DolphinButton.IsEnabled = state.SubButtonsEnabled && SettingsHelper.PathsSetupCorrectly();
+
+        UpdateWheelTrails();
+    }
+
+    private async void UpdateWheelTrails()
+    {
+        if (_status == WheelWizardStatus.Ready && (bool)SettingsManager.ENABLE_ANIMATIONS.Get())
+        {
+            foreach (var t in _trails)
+            {
+                t.Classes.Add("EntranceTrail");
+                await Task.Delay(80);
+            }
+        }
     }
 
     public class MainButtonState
