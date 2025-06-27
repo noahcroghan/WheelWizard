@@ -30,6 +30,16 @@ namespace WheelWizard.Views.Components
             set => SetValue(YProperty, value);
         }
 
+        public static readonly StyledProperty<double> ExtendedHeightProperty = AvaloniaProperty.Register<WheelTrail, double>(
+            nameof(ExtendedHeight)
+        );
+
+        public double ExtendedHeight
+        {
+            get => GetValue(ExtendedHeightProperty);
+            set => SetValue(ExtendedHeightProperty, value);
+        }
+
         private readonly RotateTransform _rotateTransform = new RotateTransform { CenterX = 0.5, CenterY = 0.5 };
         private readonly TranslateTransform _translateTransform = new TranslateTransform { X = 0, Y = 0 };
 
