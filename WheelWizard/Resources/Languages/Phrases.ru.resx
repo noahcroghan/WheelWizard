@@ -258,4 +258,31 @@
     <data name="Text_LanguageTranslatedBy" xml:space="preserve">
         <value>Авторы перевода: {$1}</value>
     </data>
+    <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
+        <value>У вас еще нет Mii!</value>
+    </data>
+    <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
+        <value>Моды не выбраны</value>
+    </data>
+    <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
+        <value>Не удалось изменить Mii.</value>
+    </data>
+    <data name="MessageError_FailedChangeName_Title" xml:space="preserve">
+        <value>Не удалось изменить имя.</value>
+    </data>
+    <data name="MessageError_FailedCreateMiiDb_Title" xml:space="preserve">
+        <value>Не удалось создать базу Mii.</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
+        <value>Не удалось удалить избранного(-ых) Mii</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
+        <value>Не удалось найти файлы.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureCreate" xml:space="preserve">
+        <value>Не удалось создать Mii '{$1}'</value>
+    </data>
+    <data name="Text_PoweredGamebanana" xml:space="preserve">
+        <value>Из GameBanana</value>
+    </data>
 </root>

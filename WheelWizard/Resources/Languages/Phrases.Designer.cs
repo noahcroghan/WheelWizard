@@ -78,7 +78,7 @@ namespace WheelWizard.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We cant read the Mii data from your system. Make sure you started the game at least once.
+        ///   Looks up a localized string similar to We can&apos;t read the Mii data from your system. Make sure you started the game at least once.
         /// </summary>
         public static string EmptyContent_NoMiis {
             get {

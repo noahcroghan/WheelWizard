@@ -31,10 +31,10 @@
         <value>Le chemin doit se finir en .exe</value>
     </data>
     <data name="HelperText_ForceDisableWiimote" xml:space="preserve">
-        <value>Ce paramètre ira désactiver les Wiimotes dans le jeu, mais les actives dans la chaîne Wii</value>
+        <value>Ce paramètre ira désactiver les Wiimotes dans le jeu, mais les activés dans le menu Wii</value>
     </data>
     <data name="HelperText_LaunchWithDolphin" xml:space="preserve">
-        <value>Va lancer la fennêtre d'acceuil de Dolphin en plus du jeu</value>
+        <value>Ira lancer la fenêtre d'accueil de Dolphin en plus du jeu</value>
     </data>
     <data name="HelperText_Recommended" xml:space="preserve">
         <value>Ce paramètre va changer certain paramètre Dolphin pour réduire les saccades et lag spikes </value>

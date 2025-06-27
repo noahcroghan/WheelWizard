@@ -275,4 +275,196 @@
     <data name="State_Installed" xml:space="preserve">
         <value>Установлено</value>
     </data>
+    <data name="Action_Submit" xml:space="preserve">
+        <value>Подтведрить</value>
+    </data>
+    <data name="Action_UnInstall" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="Action_ViewMii" xml:space="preserve">
+        <value>Показать Mii</value>
+    </data>
+    <data name="Attribute_AverageRoomVr" xml:space="preserve">
+        <value>Средний ГР</value>
+    </data>
+    <data name="Attribute_BrAbbreviation" xml:space="preserve">
+        <value>БР</value>
+    </data>
+    <data name="Attribute_BrFull" xml:space="preserve">
+        <value>Боевой рейтинг</value>
+    </data>
+    <data name="Attribute_Description" xml:space="preserve">
+        <value>Описание</value>
+    </data>
+    <data name="Attribute_Downloads" xml:space="preserve">
+        <value>Загрузки</value>
+    </data>
+    <data name="Attribute_Gender" xml:space="preserve">
+        <value>Пол</value>
+    </data>
+    <data name="Attribute_Gender_Female" xml:space="preserve">
+        <value>Мужской</value>
+    </data>
+    <data name="Attribute_Gender_Male" xml:space="preserve">
+        <value>Женский</value>
+    </data>
+    <data name="Attribute_Images" xml:space="preserve">
+        <value>Изображения</value>
+    </data>
+    <data name="Attribute_IsOnline" xml:space="preserve">
+        <value>В сети</value>
+    </data>
+    <data name="Attribute_Likes" xml:space="preserve">
+        <value>Лайки</value>
+    </data>
+    <data name="Attribute_Message" xml:space="preserve">
+        <value>Сообщение</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyebrows" xml:space="preserve">
+        <value>Брови</value>
+    </data>
+    <data name="Attribute_MiiSection_Eyes" xml:space="preserve">
+        <value>Глаза</value>
+    </data>
+    <data name="Attribute_MiiSection_Face" xml:space="preserve">
+        <value>Лицо</value>
+    </data>
+    <data name="Attribute_MiiSection_FacialHair" xml:space="preserve">
+        <value>Усы и борода</value>
+    </data>
+    <data name="Attribute_MiiSection_General" xml:space="preserve">
+        <value>Основное</value>
+    </data>
+    <data name="Attribute_MiiSection_Glasses" xml:space="preserve">
+        <value>Очки</value>
+    </data>
+    <data name="Attribute_MiiSection_Hair" xml:space="preserve">
+        <value>Волосы</value>
+    </data>
+    <data name="Attribute_MiiSection_Lips" xml:space="preserve">
+        <value>Губы</value>
+    </data>
+    <data name="Attribute_MiiSection_Mole" xml:space="preserve">
+        <value>Родинка</value>
+    </data>
+    <data name="Attribute_MiiSection_Nose" xml:space="preserve">
+        <value>Нос</value>
+    </data>
+    <data name="Attribute_Mii_BeardType" xml:space="preserve">
+        <value>Тип бороды</value>
+    </data>
+    <data name="Attribute_Mii_CreatorName" xml:space="preserve">
+        <value>Имя автора</value>
+    </data>
+    <data name="Attribute_Mii_DefaultName" xml:space="preserve">
+        <value>Новый Mii</value>
+    </data>
+    <data name="Attribute_Mii_EyebrowType" xml:space="preserve">
+        <value>Тип бровей</value>
+    </data>
+    <data name="Attribute_Mii_FacialFeature" xml:space="preserve">
+        <value>Детали лица</value>
+    </data>
+    <data name="Attribute_Mii_FavColor" xml:space="preserve">
+        <value>Любимый цвет</value>
+    </data>
+    <data name="Attribute_Mii_Gender" xml:space="preserve">
+        <value>Пол</value>
+    </data>
+    <data name="Attribute_Mii_Gender_Female" xml:space="preserve">
+        <value>Женский</value>
+    </data>
+    <data name="Attribute_Mii_Gender_Male" xml:space="preserve">
+        <value>Мужской</value>
+    </data>
+    <data name="Attribute_Mii_GlassesColor" xml:space="preserve">
+        <value>Цвет очков</value>
+    </data>
+    <data name="Attribute_Mii_GlassesType" xml:space="preserve">
+        <value>Тип очков</value>
+    </data>
+    <data name="Attribute_Mii_HairColor" xml:space="preserve">
+        <value>Цвет волос</value>
+    </data>
+    <data name="Attribute_Mii_HairType" xml:space="preserve">
+        <value>Тип волос</value>
+    </data>
+    <data name="Attribute_Mii_HeadShape" xml:space="preserve">
+        <value>Форма лица</value>
+    </data>
+    <data name="Attribute_Mii_Height" xml:space="preserve">
+        <value>Высота</value>
+    </data>
+    <data name="Attribute_Mii_HorizontalPosition" xml:space="preserve">
+        <value>По горизонтали (влево/вправо)</value>
+    </data>
+    <data name="Attribute_Mii_IrishColor" xml:space="preserve">
+        <value>Цвет глаз</value>
+    </data>
+    <data name="Attribute_Mii_MirrorHair" xml:space="preserve">
+        <value>Отразить волосы</value>
+    </data>
+    <data name="Attribute_Mii_MouthType" xml:space="preserve">
+        <value>Тип рта</value>
+    </data>
+    <data name="Attribute_Mii_MustacheSize" xml:space="preserve">
+        <value>Размер усов</value>
+    </data>
+    <data name="Attribute_Mii_MustacheType" xml:space="preserve">
+        <value>Тип усов</value>
+    </data>
+    <data name="Attribute_Mii_MustacheVerticalPosition" xml:space="preserve">
+        <value>Усы по вертикали (вверх/вниз)</value>
+    </data>
+    <data name="Attribute_Mii_Name" xml:space="preserve">
+        <value>Имя Mii</value>
+    </data>
+    <data name="Attribute_Mii_NoseType" xml:space="preserve">
+        <value>Тип носа</value>
+    </data>
+    <data name="Attribute_Mii_Rotation" xml:space="preserve">
+        <value>Поворот (влево/вправо)</value>
+    </data>
+    <data name="Attribute_Mii_Size" xml:space="preserve">
+        <value>Размер</value>
+    </data>
+    <data name="Attribute_Mii_SkinColor" xml:space="preserve">
+        <value>Цвет кожи</value>
+    </data>
+    <data name="Attribute_Mii_SpaceBetween" xml:space="preserve">
+        <value>Пространство между глазами</value>
+    </data>
+    <data name="Attribute_Mii_VerticalPosition" xml:space="preserve">
+        <value>По вертикали (вверх/вниз)</value>
+    </data>
+    <data name="Attribute_Mii_Width" xml:space="preserve">
+        <value>Ширина</value>
+    </data>
+    <data name="Attribute_Priority" xml:space="preserve">
+        <value>Приоритет</value>
+    </data>
+    <data name="Attribute_SortBy" xml:space="preserve">
+        <value>Отсортировать</value>
+    </data>
+    <data name="Attribute_Status" xml:space="preserve">
+        <value>Статус</value>
+    </data>
+    <data name="Attribute_TotalGamesPlayed" xml:space="preserve">
+        <value>Всего сыграно игр</value>
+    </data>
+    <data name="Attribute_TotalGamesWon" xml:space="preserve">
+        <value>Всего выиграно игр</value>
+    </data>
+    <data name="Attribute_Views" xml:space="preserve">
+        <value>Просмотры</value>
+    </data>
+    <data name="Attribute_VrAbbreviation" xml:space="preserve">
+        <value>ГР</value>
+    </data>
+    <data name="Attribute_VrFull" xml:space="preserve">
+        <value>Гоночный рейтинг</value>
+    </data>
+    <data name="ListTitle_Miis" xml:space="preserve">
+        <value>Mii</value>
+    </data>
 </root>
