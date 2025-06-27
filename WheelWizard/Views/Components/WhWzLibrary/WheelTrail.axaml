@@ -1,0 +1,35 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:WheelWizard.Views.Components">
+    <Design.PreviewWith>
+        <StackPanel Background="{StaticResource Black}" Spacing="10" Orientation="Horizontal" Height="150"
+                    VerticalAlignment="Center">
+            <!-- Now you can set the Angle on each instance -->
+            <controls:WheelTrail Width="31" Background="Green" Foreground="DarkGreen"/>
+            <controls:WheelTrail Width="11" Background="Red" Foreground="DarkRed" Angle="10" />
+            <controls:WheelTrail Width="61" Background="Cyan" Foreground="DarkCyan" Angle="-20" X="10" Y="50"/>
+        </StackPanel>
+    </Design.PreviewWith>
+
+    <Style Selector="controls|WheelTrail" x:DataType="controls:WheelTrail">
+        <Setter Property="ClipToBounds" Value="False"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Height" Value="{Binding Width, RelativeSource={RelativeSource Self}}" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{TemplateBinding Background}" Width="{TemplateBinding Width}"
+                        CornerRadius="100000,100000,0,0" Height="10000" VerticalAlignment="Top">
+                    <Grid RowDefinitions="1*,10*,1*" ColumnDefinitions="1*,10*,1*"
+                          Width="{TemplateBinding Width}" Height="{TemplateBinding Width}"
+                          VerticalAlignment="Top" HorizontalAlignment="Center">
+
+                        <Path Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                              Fill="{TemplateBinding Foreground}" Data="{StaticResource WheelIcon}"
+                              Stretch="Uniform" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

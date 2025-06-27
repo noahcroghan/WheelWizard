@@ -33,7 +33,17 @@
                       SelectionChanged="GameModeDropdown_OnSelectionChanged" MinWidth="160"
                       VerticalAlignment="Top" />
         </StackPanel>
-
+        
+        <components:WheelTrail Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"
+                               Width="137" Angle="45" Y="-60" X="-20"
+                               Background="{StaticResource Primary400}" Foreground="{StaticResource Primary700}" />
+        <components:WheelTrail Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"
+                               Width="137" Angle="45" Y="-40" X="170"
+                               Background="{StaticResource Primary600}" Foreground="{StaticResource Primary800}" />
+        <components:WheelTrail Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top"
+                               Width="137" Angle="45" Y="150" X="190"
+                               Background="{StaticResource Primary200}" Foreground="{StaticResource Primary600}" />
+        
         <Border Grid.Row="1" Height="630" Width="250" CornerRadius="125,125,0,0" VerticalAlignment="Bottom"
                 Background="{StaticResource FrameColor}" Margin="{StaticResource NegativeEdgeGap}">
             <PathIcon HorizontalAlignment="Center" VerticalAlignment="Top"
@@ -47,7 +57,13 @@
                 This will give you the width & height of the icon.
             -->
         </Border>
-
+        <components:WheelTrail Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                               Width="137" Angle="-35" X="-160"
+                               Background="{StaticResource Primary400}" Foreground="{StaticResource Primary700}"/>
+        <components:WheelTrail Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                               Width="137" Angle="-35" X="40" Y="30"
+                               Background="{StaticResource Primary600}" Foreground="{StaticResource Primary800}" />
+        
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="180" Margin="0,220">
 
             <TextBlock HorizontalAlignment="Center" Classes="TitleText" x:Name="GameTitle" />
