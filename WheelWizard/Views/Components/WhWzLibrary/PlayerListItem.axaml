@@ -62,7 +62,6 @@
 
                         <StackPanel Grid.Column="2" VerticalAlignment="Center">
                             <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_VrAbbreviation}"
-                                                       TipText="{x:Static lang:Common.Attribute_VrFull}"
                                                        Margin="10,0,0,0" />
                             <TextBlock Text="{TemplateBinding Vr}" FontSize="14"
                                        Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -71,7 +70,6 @@
 
                         <StackPanel Grid.Column="3" VerticalAlignment="Center">
                             <components:FormFieldLabel Text="{x:Static lang:Common.Attribute_BrAbbreviation}"
-                                                       TipText="{x:Static lang:Common.Attribute_BrFull}"
                                                        Margin="10,0,0,0" />
                             <TextBlock Text="{TemplateBinding Br}" FontSize="14"
                                        Classes="TinyText" HorizontalAlignment="Left" VerticalAlignment="Center"
