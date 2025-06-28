@@ -154,12 +154,6 @@
                 This will give you the width & height of the icon.
             -->
         </Border>
-        <components:WheelTrail Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="HomeTrail4"
-                               Width="137" Angle="-35" X="-160" ExtendedHeight="1000" IsVisible="False"
-                               Background="{StaticResource Primary400}" Foreground="{StaticResource Primary700}" />
-        <components:WheelTrail Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="HomeTrail5"
-                               Width="137" Angle="-35" X="40" Y="30" ExtendedHeight="1000" IsVisible="False"
-                               Background="{StaticResource Primary600}" Foreground="{StaticResource Primary800}" />
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="180" Margin="0,220">
 
@@ -186,5 +180,12 @@
                                Click="DolphinButton_OnClick"
                                Width="100" Margin="0,6,0,0" />
         </StackPanel>
+        
+        <components:WheelTrail Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="HomeTrail4"
+                               Width="137" Angle="-35" X="-160" ExtendedHeight="1000" IsVisible="False"
+                               Background="{StaticResource Primary400}" Foreground="{StaticResource Primary700}" />
+        <components:WheelTrail Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="HomeTrail5"
+                               Width="137" Angle="-35" X="40" Y="30" ExtendedHeight="1000" IsVisible="False"
+                               Background="{StaticResource Primary600}" Foreground="{StaticResource Primary800}" />
     </Grid>
 </UserControl>
