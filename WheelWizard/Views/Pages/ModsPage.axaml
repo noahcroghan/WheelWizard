@@ -23,17 +23,17 @@
                    HorizontalAlignment="Left" VerticalAlignment="Bottom"
                    Classes="PageTitleText" />
 
-        <StackPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12"
+        <StackPanel Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,12"
                     Orientation="Horizontal" x:Name="TopBarButtons" IsVisible="{Binding HasMods}">
-            <UniformGrid Columns="2" Rows="1">
-                <components:Button Variant="Primary" Margin="3,0"
-                                   Text="Browse" IconData="{StaticResource Search}"
+             <StackPanel Orientation="Horizontal" Spacing="8">
+                <components:Button Variant="Primary" 
+                                   Text="{x:Static lang:Common.Action_Browse}" IconData="{StaticResource Search}"
                                    Click="BrowseMod_Click" HorizontalAlignment="Center" />
-                <components:Button Variant="Default" Margin="3,0"
+                <components:Button Variant="Default"
                                    Text="{x:Static lang:Common.Action_Import}"
                                    IconData="{StaticResource FileImport}"
                                    Click="ImportMod_Click" HorizontalAlignment="Center" />
-            </UniformGrid>
+            </StackPanel>
         </StackPanel>
 
         <!-- Empty Mods Message -->
@@ -45,11 +45,11 @@
             <UniformGrid Margin="0,12" Columns="2" Rows="1">
                 <components:Button Variant="Primary" Margin="3,0"
                                    Text="{x:Static lang:Common.Action_Browse}" IconData="{StaticResource Search}"
-                                   Click="BrowseMod_Click" HorizontalAlignment="Center" />
+                                   Click="BrowseMod_Click" HorizontalAlignment="Stretch" />
                 <components:Button Variant="Default" Margin="3,0"
                                    Text="{x:Static lang:Common.Action_Import}"
                                    IconData="{StaticResource FileImport}"
-                                   Click="ImportMod_Click" HorizontalAlignment="Center" />
+                                   Click="ImportMod_Click" HorizontalAlignment="Stretch" />
             </UniformGrid>
         </StackPanel>
 

@@ -488,4 +488,10 @@
     <data name="Attribute_MiiSection_General" xml:space="preserve">
         <value>Allgemein</value>
     </data>
+    <data name="Attribute_BrAbbreviation" xml:space="preserve">
+        <value>W-Punkte</value>
+    </data>
+    <data name="Attribute_BrFull" xml:space="preserve">
+        <value>Wettkampf-Rang</value>
+    </data>
 </root>

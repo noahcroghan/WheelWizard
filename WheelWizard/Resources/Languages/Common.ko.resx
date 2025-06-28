@@ -446,4 +446,13 @@
     <data name="Attribute_Mii_Rotation" xml:space="preserve">
         <value>회전(반시계/시계 방향)</value>
     </data>
+    <data name="Attribute_Views" xml:space="preserve">
+        <value>보기</value>
+    </data>
+    <data name="Attribute_VrAbbreviation" xml:space="preserve">
+        <value>VR</value>
+    </data>
+    <data name="Attribute_VrFull" xml:space="preserve">
+        <value>VS레이팅</value>
+    </data>
 </root>

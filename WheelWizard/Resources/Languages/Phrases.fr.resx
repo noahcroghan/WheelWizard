@@ -64,7 +64,7 @@
         <value>Pas de mods trouvés</value>
     </data>
     <data name="EmptyContent_NoProfiles" xml:space="preserve">
-        <value>Vous devez avoir lancé le jeu au moins une fois pour voir votre profil listé ici </value>
+        <value>Vous devez avoir lancé le jeu au moins une fois pour voir vos profils listé ici</value>
     </data>
     <data name="EmptyContent_NoRooms" xml:space="preserve">
         <value>Vous n'avez pas de connexion internet ou personne n'est en train de jouer.</value>
@@ -224,7 +224,7 @@ Voulez-vous réinstaller Retro Rewind ? </value>
         <value>Mettre à jour en Administrateur</value>
     </data>
     <data name="Question_UpdateAdmin_Extra" xml:space="preserve">
-        <value>Des fois, une mise à jour demande les droits d'admin. Voulez-vous les activés pour cette mise à jour ? </value>
+        <value>Des fois, une mise à jour demande les droits d'admin. Voulez-vous les activer pour cette mise à jour ? </value>
     </data>
     <data name="Progress_UpdateWhWz" xml:space="preserve">
         <value>Mise à jour de Wheel Wizard en cours...</value>
@@ -290,7 +290,7 @@ Voulez-vous réinstaller Retro Rewind ? </value>
         <value>Impossibilité de voir ce mod.</value>
     </data>
     <data name="MessageWarning_FailCheckUpdates_Extra" xml:space="preserve">
-        <value>Impossibilité de vérifier les mises à jour actuellement. Vous n'êtes probablement pas connecté à internet ou le serveur est en maintenance</value>
+        <value>Impossibilité de vérifier les mises à jour actuellement. Vous n'êtes probablement pas connecté à internet ou le serveur est probablement en maintenance</value>
     </data>
     <data name="MessageWarning_InvalidName_Title" xml:space="preserve">
         <value>Nom impossible.</value>
@@ -314,7 +314,7 @@ Voulez-vous réinstaller Retro Rewind ? </value>
         <value>Êtes-vous sûr de vouloir réinstaller Retro Rewind ?</value>
     </data>
     <data name="Question_RRToOld_Title" xml:space="preserve">
-        <value>Votre version de Retro Rewind est veille. </value>
+        <value>Votre version de Retro Rewind est trop vieille.</value>
     </data>
     <data name="Question_SureDelete_Extra" xml:space="preserve">
         <value>La suppresion est permanente et ne peut pas être inversée.</value>

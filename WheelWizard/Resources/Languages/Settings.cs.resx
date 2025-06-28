@@ -105,4 +105,16 @@
     <data name="Value_Language_zTranslators" xml:space="preserve">
         <value>Pattyrix</value>
     </data>
+    <data name="Option_MarioKartGame" xml:space="preserve">
+        <value>Soubor Hry Mario Kart Wii</value>
+    </data>
+    <data name="Section_Installation" xml:space="preserve">
+        <value>Instalace</value>
+    </data>
+    <data name="Value_Language_Turkish" xml:space="preserve">
+        <value>Turečtina</value>
+    </data>
+    <data name="Value_Language_CompletePercentage" xml:space="preserve">
+        <value>57</value>
+    </data>
 </root>

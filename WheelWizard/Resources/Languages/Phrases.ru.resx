@@ -232,7 +232,7 @@
         <value>Название мода не может быть пустым.</value>
     </data>
     <data name="Placeholder_SearchForPlayers" xml:space="preserve">
-        <value>Искать игроков...</value>
+        <value>Поиск игроков...</value>
     </data>
     <data name="Placeholder_EnterPath" xml:space="preserve">
         <value>Вставьте сюда путь к файлу...</value>
@@ -257,5 +257,95 @@
     </data>
     <data name="Text_LanguageTranslatedBy" xml:space="preserve">
         <value>Авторы перевода: {$1}</value>
+    </data>
+    <data name="EmptyContent_NoMiis_Title" xml:space="preserve">
+        <value>У вас еще нет Mii!</value>
+    </data>
+    <data name="EmptyContent_NoModSelected_Title" xml:space="preserve">
+        <value>Моды не выбраны</value>
+    </data>
+    <data name="MessageError_FailedChangeMii_Title" xml:space="preserve">
+        <value>Не удалось изменить Mii.</value>
+    </data>
+    <data name="MessageError_FailedChangeName_Title" xml:space="preserve">
+        <value>Не удалось изменить имя.</value>
+    </data>
+    <data name="MessageError_FailedCreateMiiDb_Title" xml:space="preserve">
+        <value>Не удалось создать базу Mii.</value>
+    </data>
+    <data name="MessageWarning_CannotDeleteFavMii_Title" xml:space="preserve">
+        <value>Не удалось удалить избранного(-ых) Mii</value>
+    </data>
+    <data name="MessageWarning_UnableDownloadMod_Extra" xml:space="preserve">
+        <value>Не удалось найти файлы.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureCreate" xml:space="preserve">
+        <value>Не удалось создать Mii '{$1}'</value>
+    </data>
+    <data name="Text_PoweredGamebanana" xml:space="preserve">
+        <value>Моды из GameBanana</value>
+    </data>
+    <data name="EmptyContent_NoModSelected" xml:space="preserve">
+        <value>Выберите мод из списка, чтобы узнать подробности.</value>
+    </data>
+    <data name="HelperNote_CreatorNameLess10" xml:space="preserve">
+        <value>Имя создателя должно быть длиной в меньше 10 символов.</value>
+    </data>
+    <data name="HelperNote_NameMustBetween" xml:space="preserve">
+        <value>Имена должны быть длиной от 3 до 10 символов.</value>
+    </data>
+    <data name="Hover_FriendsPageDisclaimer" xml:space="preserve">
+        <value>Чтобы добавить друга нужно сначала подружить</value>
+    </data>
+    <data name="Placeholder_EnterMiiName" xml:space="preserve">
+        <value>Введите имя Mii...</value>
+    </data>
+    <data name="Placeholder_EnterModName" xml:space="preserve">
+        <value>Введите название мода...</value>
+    </data>
+    <data name="Placeholder_EnterTextHere" xml:space="preserve">
+        <value>Введите текст...</value>
+    </data>
+    <data name="Placeholder_SearchMod" xml:space="preserve">
+        <value>Поиск модов...</value>
+    </data>
+    <data name="Progress_InstallingDolphin" xml:space="preserve">
+        <value>Установка эмулятора Dolphin</value>
+    </data>
+    <data name="Progress_UpdateRR" xml:space="preserve">
+        <value>Обновляем Retro Rewind</value>
+    </data>
+    <data name="Question_RRToOld_Title" xml:space="preserve">
+        <value>Версия Retro Rewind слишком стара</value>
+    </data>
+    <data name="Question_SearchMod" xml:space="preserve">
+        <value>Поиск модов...</value>
+    </data>
+    <data name="Question_SureDelete_Extra" xml:space="preserve">
+        <value>Удаление является необратимым и не может быть отменено.</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDeserialize" xml:space="preserve">
+        <value>Не удалось импортировать Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureDuplicate" xml:space="preserve">
+        <value>Не удалось дублировать Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureGet" xml:space="preserve">
+        <value>Не удалось получить Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSave" xml:space="preserve">
+        <value>Не удалось сохранить Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureSerialize" xml:space="preserve">
+        <value>Не удалось экспортировать Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarError_MiiFailureUpdate" xml:space="preserve">
+        <value>Не удалось обновить Mii '{$1}'</value>
+    </data>
+    <data name="SnackbarSuccess_CopiedFC" xml:space="preserve">
+        <value>Код друга сохранён в буфер обмена</value>
+    </data>
+    <data name="SnackbarSuccess_CreatedDuplicate" xml:space="preserve">
+        <value>Создан дубликат '{$1}'</value>
     </data>
 </root>
