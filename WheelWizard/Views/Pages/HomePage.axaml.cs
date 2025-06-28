@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -161,7 +162,33 @@ public partial class HomePage : UserControlBase
                 t.Classes.Add("EntranceTrail");
                 await Task.Delay(80);
             }
+
+            await Task.Delay(500);
+            foreach (var t in _trails)
+            {
+                t.Classes.Remove("EntranceTrail");
+                t.Classes.Add("StaticTrail");
+                await Task.Delay(80);
+            }
         }
+    }
+
+    private void HomeTrail_OnGotFocus(object? sender, GotFocusEventArgs e)
+    {
+        if (sender is not WheelTrail trail)
+            return;
+
+        if (trail.Classes.Contains("ExcitedTrail"))
+            return;
+        trail.Classes.Add("ExcitedTrail");
+    }
+
+    private void HomeTrail_OnLostFocus(object? sender, RoutedEventArgs e)
+    {
+        if (sender is not WheelTrail trail)
+            return;
+
+        trail.Classes.Remove("ExcitedTrail");
     }
 
     public class MainButtonState
@@ -174,5 +201,23 @@ public partial class HomePage : UserControlBase
         public string IconName { get; set; }
         public Action? OnClick { get; set; }
         public bool SubButtonsEnabled { get; set; }
+    }
+
+    private async void PlayButton_OnPointerEntered(object? sender, PointerEventArgs e)
+    {
+        foreach (var t in _trails)
+        {
+            if (!t.Classes.Contains("ExcitedTrail"))
+                t.Classes.Add("ExcitedTrail");
+            await Task.Delay(180);
+        }
+    }
+
+    private void PlayButton_OnPointerExit(object? sender, PointerEventArgs e)
+    {
+        foreach (var t in _trails)
+        {
+            t.Classes.Remove("ExcitedTrail");
+        }
     }
 }
