@@ -150,38 +150,31 @@ public partial class HomePage : UserControlBase
             PlayButton.IconData = geometry;
         DolphinButton.IsEnabled = state.SubButtonsEnabled && SettingsHelper.PathsSetupCorrectly();
 
-        UpdateWheelTrails();
+        if (_status == WheelWizardStatus.Ready)
+            PlayEntranceAnimation();
     }
 
-    private async void UpdateWheelTrails()
+    #region WheelTrail Animations
+    private async void PlayEntranceAnimation()
     {
-        if (_status == WheelWizardStatus.Ready && (bool)SettingsManager.ENABLE_ANIMATIONS.Get())
+        // If the animations are disabled, it will never play the entrance animation
+        // The entrance animation is also the only one that makes the wheels visible, meaning hat if this one does not play
+        // all the other animations are all also impossible to play
+        if (!(bool)SettingsManager.ENABLE_ANIMATIONS.Get())
+            return;
+
+        foreach (var t in _trails)
         {
-            foreach (var t in _trails)
-            {
-                t.Classes.Add("EntranceTrail");
-                await Task.Delay(80);
-            }
-
-            await Task.Delay(600);
-            foreach (var t in _trails)
-            {
-                t.Classes.Remove("EntranceTrail");
-                await Task.Delay(40);
-            }
+            t.Classes.Add("EntranceTrail");
+            await Task.Delay(80);
         }
-    }
 
-    public class MainButtonState
-    {
-        public MainButtonState(string text, Button.ButtonsVariantType type, string iconName, Action? onClick, bool subButtonsEnables) =>
-            (Text, Type, IconName, OnClick, SubButtonsEnabled) = (text, type, iconName, onClick, subButtonsEnables);
-
-        public string Text { get; set; }
-        public Button.ButtonsVariantType Type { get; set; }
-        public string IconName { get; set; }
-        public Action? OnClick { get; set; }
-        public bool SubButtonsEnabled { get; set; }
+        await Task.Delay(600);
+        foreach (var t in _trails)
+        {
+            t.Classes.Remove("EntranceTrail");
+            await Task.Delay(40);
+        }
     }
 
     private bool currentlyHovering = false;
@@ -215,5 +208,19 @@ public partial class HomePage : UserControlBase
             t.Classes.Remove("HoverEnterTrail");
             t.Classes.Add("HoverExitTrail");
         }
+    }
+
+    #endregion
+
+    public class MainButtonState
+    {
+        public MainButtonState(string text, Button.ButtonsVariantType type, string iconName, Action? onClick, bool subButtonsEnables) =>
+            (Text, Type, IconName, OnClick, SubButtonsEnabled) = (text, type, iconName, onClick, subButtonsEnables);
+
+        public string Text { get; set; }
+        public Button.ButtonsVariantType Type { get; set; }
+        public string IconName { get; set; }
+        public Action? OnClick { get; set; }
+        public bool SubButtonsEnabled { get; set; }
     }
 }
