@@ -49,11 +49,29 @@
                 </Animation>
             </Style.Animations>
         </Style>
+
+        <Style Selector="components|WheelTrail.ActivateTrail">
+            <Style.Animations>
+                <Animation Duration="0:0:0.6"
+                           FillMode="Forward" Easing="CubicEaseIn">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="ExtendedHeight" Value="-50" />
+                        <Setter Property="WheelRotation" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="ExtendedHeight" Value="-1200" />
+                        <Setter Property="WheelRotation" Value="360" />
+                        <Setter Property="IsVisible" Value="False" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        
         
         <Style Selector="components|WheelTrail.EntranceTrail">
             <Style.Animations>
                 <Animation Duration="0:0:0.6" Delay="0:0:0.3"
-                           FillMode="Forward" Easing="0,0.5,0.1,1">
+                           FillMode="Forward" Easing="CubicEaseOut">
                     <KeyFrame Cue="0%">
                         <Setter Property="ExtendedHeight" Value="250" />
                         <Setter Property="WheelRotation" Value="-200" />
@@ -66,22 +84,8 @@
                 </Animation>
             </Style.Animations>
         </Style>
+
         
-        <Style Selector="components|WheelTrail.PlayButtonTrail">
-            <Style.Animations>
-                <Animation Duration="0:0:0.6" Delay="0:0:0.3"
-                           FillMode="Forward" Easing="0,0.5,0.1,1">
-                    <KeyFrame Cue="0%">
-                        <Setter Property="ExtendedHeight" Value="250" />
-                        <Setter Property="WheelRotation" Value="-200" />
-                    </KeyFrame>
-                    <KeyFrame Cue="100%">
-                        <Setter Property="ExtendedHeight" Value="0" />
-                        <Setter Property="WheelRotation" Value="360" />
-                    </KeyFrame>
-                </Animation>
-            </Style.Animations>
-        </Style>
     </UserControl.Styles>
     <Grid x:Name="CompleteGrid">
         <Grid.RowDefinitions>
@@ -115,7 +119,7 @@
                                Width="137" Angle="45" Y="-60" X="-20" ExtendedHeight="1000" IsVisible="False"
                                Background="{StaticResource Primary400}" Foreground="{StaticResource Primary700}" />
         <components:WheelTrail Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="HomeTrail2"
-                               Width="137" Angle="45" Y="-40" X="170" ExtendedHeight="1000"  IsVisible="False"
+                               Width="137" Angle="45" Y="-40" X="170" ExtendedHeight="1000" IsVisible="False"
                                Background="{StaticResource Primary600}" Foreground="{StaticResource Primary800}" />
         <components:WheelTrail Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="HomeTrail3"
                                Width="137" Angle="45" Y="150" X="190" ExtendedHeight="1000" IsVisible="False"
@@ -135,7 +139,7 @@
             -->
         </Border>
         <components:WheelTrail Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="HomeTrail4"
-                               Width="137" Angle="-35" X="-160" ExtendedHeight="1000"  IsVisible="False"
+                               Width="137" Angle="-35" X="-160" ExtendedHeight="1000" IsVisible="False"
                                Background="{StaticResource Primary400}" Foreground="{StaticResource Primary700}" />
         <components:WheelTrail Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="HomeTrail5"
                                Width="137" Angle="-35" X="40" Y="30" ExtendedHeight="1000" IsVisible="False"
@@ -147,7 +151,8 @@
             <components:Button x:Name="PlayButton"
                                IsEnabled="True"
                                Variant="Primary"
-                               Text="Play" PointerEntered="PlayButton_OnPointerEntered" PointerExited="PlayButton_OnPointerExit"
+                               Text="Play" PointerEntered="PlayButton_OnPointerEntered"
+                               PointerExited="PlayButton_OnPointerExit"
                                IconData="{StaticResource Play}"
                                Click="PlayButton_Click"
                                Margin="0,20,0,0" />

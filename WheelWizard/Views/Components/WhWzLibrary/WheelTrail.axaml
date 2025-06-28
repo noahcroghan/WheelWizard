@@ -14,7 +14,7 @@
             <controls:WheelTrail Background="Red" Foreground="DarkRed" Width="11" RelativeLength="10"
                                  Angle="110" X="-50" Y="20" ExtendedHeight="-7" />
 
-            <controls:WheelTrail Background="Orange" Foreground="DarkOrange" Width="41" RelativeLength="1"
+            <controls:WheelTrail Background="Orange" Foreground="DarkOrange" Width="41" RelativeLength="1.5"
                                  Angle="210" X="10" Y="30" ExtendedHeight="-7">
                 <controls:WheelTrail.Styles>
                     <Style Selector="controls|WheelTrail">
@@ -78,8 +78,7 @@
 
         <Setter Property="Template">
             <ControlTemplate>
-                <StackPanel>
-                    <Border Background="{TemplateBinding Background}" Width="{TemplateBinding Width}"
+                    <Border Width="{TemplateBinding Width}"
                             CornerRadius="100000,100000,0,0" VerticalAlignment="Top"
                             Margin="{TemplateBinding ExtendedHeight, Converter={x:Static  conv:DoubleToThicknessConverters.DoubleToTop}}">
                         <Border.Height>
@@ -104,8 +103,6 @@
                                 </Path.RenderTransform>
                             </Path>
                         </Grid>
-                    </Border>
-                    <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Width}">
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
                                 <GradientStop
@@ -116,16 +113,17 @@
                                 <GradientStop
                                     Color="{Binding Background,
                                  RelativeSource={RelativeSource TemplatedParent},
+                                 Converter={x:Static conv:BrushColorConverters.BrushToColor}}"
+                                    Offset="0.75" />
+                                <GradientStop
+                                    Color="{Binding Background,
+                                 RelativeSource={RelativeSource TemplatedParent},
                                  Converter={x:Static conv:BrushColorConverters.TransparentColor}}"
                                     Offset="1.0" />
                             </LinearGradientBrush>
                         </Border.Background>
-                        <Border.RenderTransform>
-                            <TranslateTransform Y="-0.2"></TranslateTransform>
-                        </Border.RenderTransform>
                     </Border>
-                </StackPanel>
-
+            
             </ControlTemplate>
         </Setter>
     </Style>

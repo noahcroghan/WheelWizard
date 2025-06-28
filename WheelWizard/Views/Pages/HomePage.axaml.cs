@@ -20,7 +20,20 @@ public partial class HomePage : UserControlBase
 {
     private static ILauncher currentLauncher => _launcherTypes[_launcherIndex];
     private static int _launcherIndex = 0; // Make sure this index never goes over the list index
-    private WheelTrail[] _trails = [];
+
+    private WheelTrail[] _trails; // also used as a lock
+
+    private WheelTrailState _currentTrailState2 = WheelTrailState.Static_None;
+
+    private WheelTrailState _currentTrailState
+    {
+        get => _currentTrailState2;
+        set
+        {
+            _currentTrailState2 = value;
+            Console.WriteLine($"STATUS: {_currentTrailState2}");
+        }
+    }
 
     private static List<ILauncher> _launcherTypes =
     [
@@ -95,8 +108,8 @@ public partial class HomePage : UserControlBase
 
     private void PlayButton_Click(object? sender, RoutedEventArgs e)
     {
-        currentButtonState?.OnClick?.Invoke();
-
+        // currentButtonState?.OnClick?.Invoke();
+        PlayActivateAnimation();
         UpdateActionButton();
         DisableAllButtonsTemporarily();
     }
@@ -155,12 +168,29 @@ public partial class HomePage : UserControlBase
     }
 
     #region WheelTrail Animations
+    // --------------------------
+    // IMPORTANT
+    // --------------------------
+    // When you are changing the animation, note that you are working with locks
+    // Note that the enum _currentTrailState is used to determine the state of the wheel trails, and that should only  be read and changed under the influence of lock(_trails)
+    // Also note that for NO REASON WHATSOEVER you are permitted to put other logic in these animation code other than the animation itself.
+    // If for whatever reason the lock gets in to a deadlock, only the animation will freeze, the rest will continue to work.
+
     private async void PlayEntranceAnimation()
     {
         // If the animations are disabled, it will never play the entrance animation
         // The entrance animation is also the only one that makes the wheels visible, meaning hat if this one does not play
         // all the other animations are all also impossible to play
         if (!(bool)SettingsManager.ENABLE_ANIMATIONS.Get())
+            return;
+
+        Console.WriteLine("try to play entrance");
+        var allowedToRun = WaitForWheelTrailState(
+            WheelTrailState.Playing_Entrance,
+            c => c is WheelTrailState.Static_None
+        // even if there are 3 waiting, only 1 will go through, since there is an default check that it cant be the same
+        );
+        if (!await allowedToRun)
             return;
 
         foreach (var t in _trails)
@@ -173,41 +203,155 @@ public partial class HomePage : UserControlBase
         foreach (var t in _trails)
         {
             t.Classes.Remove("EntranceTrail");
-            await Task.Delay(40);
+        }
+
+        lock (_trails)
+        {
+            _currentTrailState = WheelTrailState.Static_Visible;
         }
     }
 
-    private bool currentlyHovering = false;
+    private async void PlayActivateAnimation()
+    {
+        if (!(bool)SettingsManager.ENABLE_ANIMATIONS.Get())
+            return;
+
+        var allowedToRun = WaitForWheelTrailState(
+            WheelTrailState.Playing_Activate,
+            c => c is WheelTrailState.Static_Hover or WheelTrailState.Static_Visible,
+            c => c is WheelTrailState.Static_None or WheelTrailState.Playing_Activate
+        );
+        if (!await allowedToRun)
+            return;
+
+        foreach (var t in _trails)
+        {
+            t.Classes.Clear();
+            t.Classes.Add("ActivateTrail");
+            await Task.Delay(80);
+        }
+
+        await Task.Delay(1000);
+        foreach (var t in _trails)
+        {
+            t.Classes.Remove("ActivateTrail");
+            await Task.Delay(40);
+        }
+
+        lock (_trails)
+        {
+            _currentTrailState = WheelTrailState.Static_None;
+        }
+    }
 
     private async void PlayButton_OnPointerEntered(object? sender, PointerEventArgs e)
     {
-        currentlyHovering = true;
+        var allowedToRun = WaitForWheelTrailState(
+            WheelTrailState.Playing_HoverEnter,
+            c => c is WheelTrailState.Static_Visible or WheelTrailState.Playing_HoverExit,
+            c => c is WheelTrailState.Playing_HoverExit
+        );
+        if (!await allowedToRun)
+            return;
+
         foreach (var t in _trails)
         {
-            while (t.Classes.Contains("EntranceTrail"))
+            // Making sure that if after these seconds the state changed ,that it will not apply the class anymore
+            lock (_trails)
             {
-                await Task.Delay(20);
-                if (!currentlyHovering)
+                if (_currentTrailState is not WheelTrailState.Playing_HoverEnter)
                     return;
             }
 
-            if (!currentlyHovering)
-                return;
             t.Classes.Remove("HoverExitTrail");
             if (!t.Classes.Contains("HoverEnterTrail"))
                 t.Classes.Add("HoverEnterTrail");
             await Task.Delay(20);
         }
+
+        await Task.Delay(300);
+        lock (_trails)
+        {
+            if (_currentTrailState is WheelTrailState.Playing_HoverEnter)
+                _currentTrailState = WheelTrailState.Static_Hover;
+        }
     }
 
-    private void PlayButton_OnPointerExit(object? sender, PointerEventArgs e)
+    private async void PlayButton_OnPointerExit(object? sender, PointerEventArgs e)
     {
-        currentlyHovering = false;
+        var allowedToRun = WaitForWheelTrailState(
+            WheelTrailState.Playing_HoverExit,
+            c => c is WheelTrailState.Static_Hover or WheelTrailState.Playing_HoverEnter,
+            c => c is not WheelTrailState.Static_Hover and not WheelTrailState.Playing_HoverEnter
+        );
+        if (!await allowedToRun)
+            return;
+
         foreach (var t in _trails)
         {
+            lock (_trails)
+            {
+                if (_currentTrailState is not WheelTrailState.Playing_HoverExit)
+                    return;
+            }
             t.Classes.Remove("HoverEnterTrail");
             t.Classes.Add("HoverExitTrail");
         }
+
+        await Task.Delay(350);
+        lock (_trails)
+        {
+            if (_currentTrailState is WheelTrailState.Playing_HoverExit)
+                _currentTrailState = WheelTrailState.Static_Visible;
+        }
+    }
+
+    private async Task<bool> WaitForWheelTrailState(
+        WheelTrailState changeStateTo,
+        Func<WheelTrailState, bool> acceptWhen,
+        Func<WheelTrailState, bool>? abortWhen = null
+    )
+    {
+        bool accepted;
+        lock (_trails)
+        {
+            accepted = acceptWhen(_currentTrailState);
+            if (accepted)
+                _currentTrailState = changeStateTo;
+        }
+
+        while (!accepted)
+        {
+            await Task.Delay(20);
+            bool abort;
+            lock (_trails)
+            {
+                abort = (abortWhen?.Invoke(_currentTrailState) ?? false) || _currentTrailState == changeStateTo;
+            }
+            if (abort)
+                return false;
+
+            lock (_trails)
+            {
+                accepted = acceptWhen(_currentTrailState);
+                if (accepted)
+                    _currentTrailState = changeStateTo;
+            }
+        }
+
+        return true;
+    }
+
+    enum WheelTrailState
+    {
+        Static_None, // It is not in view
+        Static_Visible, // It is just doing nothing
+        Static_Hover, // It is just doing nothing while it is being hovered
+
+        Playing_Entrance, // Animation for entrance is playing              NOTHING is allowed to interrupt Playing_Entrance
+        Playing_Activate, // Animation for activation is playing            NOTHING is allowed to interrupt Playing_Entrance
+        Playing_HoverEnter, // Hover Enter animation is playing             can be interrupted
+        Playing_HoverExit, // Hover Exit animation is exiting               can be interrupted
     }
 
     #endregion
