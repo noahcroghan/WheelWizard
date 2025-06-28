@@ -16,9 +16,11 @@
                            FillMode="Forward" Easing="0,0.5,0.1,1">
                     <KeyFrame Cue="0%">
                         <Setter Property="ExtendedHeight" Value="700" />
+                        <Setter Property="WheelRotation" Value="0" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="ExtendedHeight" Value="0"/>
+                        <Setter Property="WheelRotation" Value="560"/>
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
