@@ -114,4 +114,7 @@
     <data name="Value_Language_Turkish" xml:space="preserve">
         <value>Turečtina</value>
     </data>
+    <data name="Value_Language_CompletePercentage" xml:space="preserve">
+        <value>57</value>
+    </data>
 </root>
