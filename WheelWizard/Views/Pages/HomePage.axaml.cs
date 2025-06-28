@@ -22,18 +22,7 @@ public partial class HomePage : UserControlBase
     private static int _launcherIndex = 0; // Make sure this index never goes over the list index
 
     private WheelTrail[] _trails; // also used as a lock
-
-    private WheelTrailState _currentTrailState2 = WheelTrailState.Static_None;
-
-    private WheelTrailState _currentTrailState
-    {
-        get => _currentTrailState2;
-        set
-        {
-            _currentTrailState2 = value;
-            Console.WriteLine($"STATUS: {_currentTrailState2}");
-        }
-    }
+    private WheelTrailState _currentTrailState = WheelTrailState.Static_None;
 
     private static List<ILauncher> _launcherTypes =
     [
@@ -108,7 +97,7 @@ public partial class HomePage : UserControlBase
 
     private void PlayButton_Click(object? sender, RoutedEventArgs e)
     {
-        // currentButtonState?.OnClick?.Invoke();
+        currentButtonState?.OnClick?.Invoke();
         PlayActivateAnimation();
         UpdateActionButton();
         DisableAllButtonsTemporarily();
@@ -150,7 +139,11 @@ public partial class HomePage : UserControlBase
         Task.Delay(2000)
             .ContinueWith(_ =>
             {
-                Dispatcher.UIThread.InvokeAsync(() => CompleteGrid.IsEnabled = true);
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    SetButtonState(currentButtonState);
+                    return CompleteGrid.IsEnabled = true;
+                });
             });
     }
 
@@ -184,13 +177,12 @@ public partial class HomePage : UserControlBase
         if (!(bool)SettingsManager.ENABLE_ANIMATIONS.Get())
             return;
 
-        Console.WriteLine("try to play entrance");
         var allowedToRun = WaitForWheelTrailState(
             WheelTrailState.Playing_Entrance,
             c => c is WheelTrailState.Static_None
         // even if there are 3 waiting, only 1 will go through, since there is an default check that it cant be the same
         );
-        if (!await allowedToRun)
+        if (await allowedToRun == null)
             return;
 
         foreach (var t in _trails)
@@ -218,23 +210,33 @@ public partial class HomePage : UserControlBase
 
         var allowedToRun = WaitForWheelTrailState(
             WheelTrailState.Playing_Activate,
-            c => c is WheelTrailState.Static_Hover or WheelTrailState.Static_Visible,
+            c =>
+                c
+                    is WheelTrailState.Static_Hover
+                        or WheelTrailState.Static_Visible
+                        or WheelTrailState.Playing_HoverEnter
+                        or WheelTrailState.Playing_HoverExit,
             c => c is WheelTrailState.Static_None or WheelTrailState.Playing_Activate
         );
-        if (!await allowedToRun)
+        var oldState = await allowedToRun;
+        if (oldState == null)
             return;
 
         foreach (var t in _trails)
         {
             t.Classes.Clear();
-            t.Classes.Add("ActivateTrail");
+            if (oldState == WheelTrailState.Static_Hover)
+                t.Classes.Add("ActivateTrailFromHover");
+            else
+                t.Classes.Add("ActivateTrailFromIdle");
             await Task.Delay(80);
         }
 
         await Task.Delay(1000);
         foreach (var t in _trails)
         {
-            t.Classes.Remove("ActivateTrail");
+            t.Classes.Remove("ActivateTrailFromIdle");
+            t.Classes.Remove("ActivateTrailFromHover");
             await Task.Delay(40);
         }
 
@@ -251,7 +253,7 @@ public partial class HomePage : UserControlBase
             c => c is WheelTrailState.Static_Visible or WheelTrailState.Playing_HoverExit,
             c => c is WheelTrailState.Playing_HoverExit
         );
-        if (!await allowedToRun)
+        if (await allowedToRun == null)
             return;
 
         foreach (var t in _trails)
@@ -284,7 +286,7 @@ public partial class HomePage : UserControlBase
             c => c is WheelTrailState.Static_Hover or WheelTrailState.Playing_HoverEnter,
             c => c is not WheelTrailState.Static_Hover and not WheelTrailState.Playing_HoverEnter
         );
-        if (!await allowedToRun)
+        if (await allowedToRun == null)
             return;
 
         foreach (var t in _trails)
@@ -306,18 +308,29 @@ public partial class HomePage : UserControlBase
         }
     }
 
-    private async Task<bool> WaitForWheelTrailState(
+    /// <summary>
+    /// Easier way to wait for a specific animation state
+    /// </summary>
+    /// <param name="changeStateTo">the state that you are trying to set it to</param>
+    /// <param name="acceptWhen">the states when it is allowed to override the state and continue the code</param>
+    /// <param name="abortWhen">the statues when it should abort trying to set the state. it then also should not continue</param>
+    /// <returns>null = aborted,  WheelTrailState = the old state that it was before the swap. This means success</returns>
+    private async Task<WheelTrailState?> WaitForWheelTrailState(
         WheelTrailState changeStateTo,
         Func<WheelTrailState, bool> acceptWhen,
         Func<WheelTrailState, bool>? abortWhen = null
     )
     {
         bool accepted;
+        WheelTrailState? oldState = null;
         lock (_trails)
         {
             accepted = acceptWhen(_currentTrailState);
             if (accepted)
+            {
+                oldState = _currentTrailState;
                 _currentTrailState = changeStateTo;
+            }
         }
 
         while (!accepted)
@@ -329,17 +342,20 @@ public partial class HomePage : UserControlBase
                 abort = (abortWhen?.Invoke(_currentTrailState) ?? false) || _currentTrailState == changeStateTo;
             }
             if (abort)
-                return false;
+                return null;
 
             lock (_trails)
             {
                 accepted = acceptWhen(_currentTrailState);
                 if (accepted)
+                {
+                    oldState = _currentTrailState;
                     _currentTrailState = changeStateTo;
+                }
             }
         }
 
-        return true;
+        return oldState;
     }
 
     enum WheelTrailState

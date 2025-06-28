@@ -50,7 +50,7 @@
             </Style.Animations>
         </Style>
 
-        <Style Selector="components|WheelTrail.ActivateTrail">
+        <Style Selector="components|WheelTrail.ActivateTrailFromHover">
             <Style.Animations>
                 <Animation Duration="0:0:0.6"
                            FillMode="Forward" Easing="CubicEaseIn">
@@ -67,6 +67,22 @@
             </Style.Animations>
         </Style>
         
+        <Style Selector="components|WheelTrail.ActivateTrailFromIdle">
+            <Style.Animations>
+                <Animation Duration="0:0:0.6"
+                           FillMode="Forward" Easing="CubicEaseIn">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="ExtendedHeight" Value="0" />
+                        <Setter Property="WheelRotation" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="ExtendedHeight" Value="-1200" />
+                        <Setter Property="WheelRotation" Value="360" />
+                        <Setter Property="IsVisible" Value="False" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
         
         <Style Selector="components|WheelTrail.EntranceTrail">
             <Style.Animations>
