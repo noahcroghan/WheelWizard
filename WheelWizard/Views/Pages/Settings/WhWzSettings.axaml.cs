@@ -70,7 +70,7 @@ public partial class WhWzSettings : UserControl
             WindowScaleDropdown.Items.Add(selectedItemText);
         WindowScaleDropdown.SelectedItem = selectedItemText;
 
-        // EnableAnimations.IsChecked = (bool)SettingsManager.ENABLE_ANIMATIONS.Get();
+        EnableAnimations.IsChecked = (bool)SettingsManager.ENABLE_ANIMATIONS.Get();
     }
 
     private static string ScaleToString(double scale)
@@ -407,5 +407,6 @@ public partial class WhWzSettings : UserControl
         ViewUtils.RefreshWindow();
     }
 
-    //private void EnableAnimations_OnClick(object sender, RoutedEventArgs e) => SettingsManager.ENABLE_ANIMATIONS.Set(EnableAnimations.IsChecked == true);
+    private void EnableAnimations_OnClick(object sender, RoutedEventArgs e) =>
+        SettingsManager.ENABLE_ANIMATIONS.Set(EnableAnimations.IsChecked == true);
 }
