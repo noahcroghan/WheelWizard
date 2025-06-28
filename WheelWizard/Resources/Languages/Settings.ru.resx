@@ -183,4 +183,10 @@
     <data name="Category_About" xml:space="preserve">
         <value>О нас</value>
     </data>
+    <data name="HelperText_EndWithX" xml:space="preserve">
+        <value>Путь может заканчиваться на:</value>
+    </data>
+    <data name="Option_Reinstall" xml:space="preserve">
+        <value>Переустановить Retro Rewind</value>
+    </data>
 </root>

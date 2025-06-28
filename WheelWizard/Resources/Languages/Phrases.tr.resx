@@ -176,7 +176,7 @@ Belirli bir odaya katılmak için bir arkadaşınız aracılığıyla katılman�
         <value>{$1}'i silmek istediğinizden emin misiniz?</value>
     </data>
     <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonLocation" xml:space="preserve">
-        <value>Wheel Wizard güncellenemedi. Uygulamanın yazılabilir bir klasörde bulunduğundan emin olun. \nGeçerli klasör bulunamadı.</value>
+        <value>Wheel Wizard güncellenemedi. Uygulamanın erişilebilir bir klasörde bulunduğundan emin olun. \n İstenilen klasör bulunamadı.</value>
     </data>
     <data name="MessageWarning_UnableUpdateWhWz_Extra_ReasonNetwork" xml:space="preserve">
         <value>Wheel Wizard'ın güncel olup olmadığını kontrol edilemedi. \nAğ sorunları yaşıyor olabilirsiniz.</value>
