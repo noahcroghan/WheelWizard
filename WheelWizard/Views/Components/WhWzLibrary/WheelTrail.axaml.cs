@@ -14,6 +14,26 @@ namespace WheelWizard.Views.Components
             set => SetValue(AngleProperty, value);
         }
 
+        public static readonly StyledProperty<double> WheelRotationProperty = AvaloniaProperty.Register<WheelTrail, double>(
+            nameof(WheelRotation)
+        );
+
+        public double WheelRotation
+        {
+            get => GetValue(WheelRotationProperty);
+            set => SetValue(WheelRotationProperty, value);
+        }
+
+        public static readonly StyledProperty<double> RelativeLengthProperty = AvaloniaProperty.Register<WheelTrail, double>(
+            nameof(RelativeLength),
+            6.0
+        );
+        public double RelativeLength
+        {
+            get => GetValue(RelativeLengthProperty);
+            set => SetValue(RelativeLengthProperty, value);
+        }
+
         public static readonly StyledProperty<double> XProperty = AvaloniaProperty.Register<WheelTrail, double>(nameof(X));
 
         public double X

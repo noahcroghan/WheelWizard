@@ -2,14 +2,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:conv="clr-namespace:WheelWizard.Views.Converters"
         xmlns:controls="using:WheelWizard.Views.Components">
+    <!-- 
+    <Styles.Resources>
+        <x:Double x:Key="HeightMultiplier">5.0</x:Double>
+    </Styles.Resources> -->
     <Design.PreviewWith>
-        <StackPanel Background="{StaticResource Black}" Spacing="10" Orientation="Horizontal" Height="150"
-                    VerticalAlignment="Center">
+        <Grid Background="{StaticResource Black}" Height="200" Width="200">
             <!-- Now you can set the Angle on each instance -->
-            <controls:WheelTrail Width="31" Background="Green" Foreground="DarkGreen"/>
-            <controls:WheelTrail Width="11" Background="Red" Foreground="DarkRed" Angle="10" ExtendedHeight="-5"/>
-            <controls:WheelTrail Width="61" Background="Cyan" Foreground="DarkCyan" Angle="-20" X="10" Y="50"/>
-        </StackPanel>
+            <controls:WheelTrail Background="Green" Foreground="DarkGreen" Width="31" RelativeLength="4"
+                                 X="-70" Y="50" WheelRotation="25" Angle="3"
+                                 />
+            <controls:WheelTrail Background="Red" Foreground="DarkRed" Width="11" RelativeLength="10"
+                                 Angle="110" X="-50" Y="20" ExtendedHeight="-5"/>
+            <controls:WheelTrail Background="Cyan" Foreground="DarkCyan" Width="61" 
+                                 Angle="-20" X="10" Y="70"/>
+        </Grid>
     </Design.PreviewWith>
 
     <Style Selector="controls|WheelTrail" x:DataType="controls:WheelTrail">
@@ -20,15 +27,28 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Border Background="{TemplateBinding Background}" Width="{TemplateBinding Width}"
-                        CornerRadius="100000,100000,0,0" Height="10000" VerticalAlignment="Top" 
+                        CornerRadius="100000,100000,0,0" VerticalAlignment="Top" 
                         Margin="{TemplateBinding ExtendedHeight, Converter={x:Static  conv:DoubleToThicknessConverters.DoubleToTop}}">
+                    <Border.Height>
+                        <MultiBinding Converter="{x:Static conv:NumberConverters.MultiplyDouble}">
+                            <Binding Path="Width" RelativeSource="{RelativeSource Self}" />  
+                            <Binding Path="RelativeLength" RelativeSource="{RelativeSource TemplatedParent}" />  
+                            <!-- 
+                            If you want to do a constant, you can do it like this. And then add the constant to a resource like i did above
+                            <Binding Source="{StaticResource HeightMultiplier}" /> -->
+                        </MultiBinding>
+                    </Border.Height>
                     <Grid RowDefinitions="1*,10*,1*" ColumnDefinitions="1*,10*,1*"
                           Width="{TemplateBinding Width}" Height="{TemplateBinding Width}"
                           VerticalAlignment="Top" HorizontalAlignment="Center">
 
                         <Path Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center"
                               Fill="{TemplateBinding Foreground}" Data="{StaticResource WheelIcon}"
-                              Stretch="Uniform" />
+                              Stretch="Uniform"> 
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="{Binding WheelRotation, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Path.RenderTransform>
+                        </Path>
                     </Grid>
                 </Border>
             </ControlTemplate>
