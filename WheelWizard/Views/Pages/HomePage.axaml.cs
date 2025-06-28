@@ -163,32 +163,13 @@ public partial class HomePage : UserControlBase
                 await Task.Delay(80);
             }
 
-            await Task.Delay(500);
+            await Task.Delay(600);
             foreach (var t in _trails)
             {
                 t.Classes.Remove("EntranceTrail");
-                t.Classes.Add("StaticTrail");
-                await Task.Delay(80);
+                await Task.Delay(40);
             }
         }
-    }
-
-    private void HomeTrail_OnGotFocus(object? sender, GotFocusEventArgs e)
-    {
-        if (sender is not WheelTrail trail)
-            return;
-
-        if (trail.Classes.Contains("ExcitedTrail"))
-            return;
-        trail.Classes.Add("ExcitedTrail");
-    }
-
-    private void HomeTrail_OnLostFocus(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not WheelTrail trail)
-            return;
-
-        trail.Classes.Remove("ExcitedTrail");
     }
 
     public class MainButtonState
@@ -203,21 +184,36 @@ public partial class HomePage : UserControlBase
         public bool SubButtonsEnabled { get; set; }
     }
 
+    private bool currentlyHovering = false;
+
     private async void PlayButton_OnPointerEntered(object? sender, PointerEventArgs e)
     {
+        currentlyHovering = true;
         foreach (var t in _trails)
         {
-            if (!t.Classes.Contains("ExcitedTrail"))
-                t.Classes.Add("ExcitedTrail");
-            await Task.Delay(180);
+            while (t.Classes.Contains("EntranceTrail"))
+            {
+                await Task.Delay(20);
+                if (!currentlyHovering)
+                    return;
+            }
+
+            if (!currentlyHovering)
+                return;
+            t.Classes.Remove("HoverExitTrail");
+            if (!t.Classes.Contains("HoverEnterTrail"))
+                t.Classes.Add("HoverEnterTrail");
+            await Task.Delay(20);
         }
     }
 
     private void PlayButton_OnPointerExit(object? sender, PointerEventArgs e)
     {
+        currentlyHovering = false;
         foreach (var t in _trails)
         {
-            t.Classes.Remove("ExcitedTrail");
+            t.Classes.Remove("HoverEnterTrail");
+            t.Classes.Add("HoverExitTrail");
         }
     }
 }

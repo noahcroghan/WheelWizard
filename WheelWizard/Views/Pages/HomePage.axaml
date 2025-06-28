@@ -9,24 +9,17 @@
              ClipToBounds="False"
              x:Class="WheelWizard.Views.Pages.HomePage">
     <UserControl.Styles>
-        <Style Selector="components|WheelTrail.EntranceTrail">
+        <Style Selector="components|WheelTrail.HoverEnterTrail">
             <Style.Animations>
-                <Animation Duration="0:0:0.6" Delay="0:0:0.3"
-                           FillMode="Forward" Easing="0,0.5,0.1,1">
+                <Animation Duration="0:0:0.3" FillMode="Forward" Easing="BackEaseOut">
                     <KeyFrame Cue="0%">
-                        <Setter Property="ExtendedHeight" Value="700" />
-                        <Setter Property="WheelRotation" Value="0" />
+                        <Setter Property="ExtendedHeight" Value="0" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
-                        <Setter Property="ExtendedHeight" Value="0" />
-                        <Setter Property="WheelRotation" Value="560" />
+                        <Setter Property="ExtendedHeight" Value="-50" />
                     </KeyFrame>
                 </Animation>
-            </Style.Animations>
-        </Style>
-        <Style Selector="components|WheelTrail.StaticTrail:pointerover, components|WheelTrail.ExcitedTrail">
-            <Style.Animations>
-                <Animation Duration="0:0:2" IterationCount="INFINITE">
+                <Animation Duration="0:0:3" IterationCount="INFINITE">
                     <KeyFrame Cue="0%">
                         <Setter Property="WheelRotation" Value="0" />
                     </KeyFrame>
@@ -34,13 +27,40 @@
                         <Setter Property="WheelRotation" Value="360" />
                     </KeyFrame>
                 </Animation>
-                <Animation Duration="0:0:1" IterationCount="INFINITE" FillMode="Backward"
-                           PlaybackDirection="Alternate" Easing="BackEaseInOut">
+            </Style.Animations>
+        </Style>
+        <Style Selector="components|WheelTrail.HoverExitTrail">
+            <Style.Animations>
+                <Animation Duration="0:0:0.8" FillMode="Forward" Easing="BounceEaseOut">
                     <KeyFrame Cue="0%">
-                        <Setter Property="ExtendedHeight" Value="0" />
+                        <Setter Property="ExtendedHeight" Value="-50" />
                     </KeyFrame>
                     <KeyFrame Cue="100%">
-                        <Setter Property="ExtendedHeight" Value="-6" />
+                        <Setter Property="ExtendedHeight" Value="0" />
+                    </KeyFrame>
+                </Animation>
+                <Animation Duration="0:0:0.8" FillMode="Forward" Easing="BounceEaseOut">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="WheelRotation" Value="0" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="WheelRotation" Value="100" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+        
+        <Style Selector="components|WheelTrail.EntranceTrail">
+            <Style.Animations>
+                <Animation Duration="0:0:0.6" Delay="0:0:0.3"
+                           FillMode="Forward" Easing="0,0.5,0.1,1">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="ExtendedHeight" Value="250" />
+                        <Setter Property="WheelRotation" Value="-200" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="ExtendedHeight" Value="0" />
+                        <Setter Property="WheelRotation" Value="360" />
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
@@ -75,7 +95,6 @@
         <components:WheelTrail Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="HomeTrail1"
                                Width="137" Angle="45" Y="-60" X="-20" ExtendedHeight="1000"
                                Background="{StaticResource Primary400}" Foreground="{StaticResource Primary700}" />
-
         <components:WheelTrail Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="HomeTrail2"
                                Width="137" Angle="45" Y="-40" X="170" ExtendedHeight="1000"
                                Background="{StaticResource Primary600}" Foreground="{StaticResource Primary800}" />
