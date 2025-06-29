@@ -70,7 +70,7 @@ public class RetroRewind : IDistribution
         var tempExtractionPath = PathManager.TempModsFolderPath;
         // where the final RR folder should live
         var finalDestination = _fileSystem.Path.Combine(PathManager.RiivolutionWhWzFolderPath, FolderName);
-
+        Exception? exception = null;
         try
         {
             // 1) Download
@@ -113,6 +113,10 @@ public class RetroRewind : IDistribution
 
             _fileSystem.Directory.Move(sourceFolder, finalDestination);
         }
+        catch (Exception e)
+        {
+            exception = e;
+        }
         finally
         {
             if (_fileSystem.File.Exists(tempZipPath))
@@ -121,7 +125,7 @@ public class RetroRewind : IDistribution
             if (_fileSystem.Directory.Exists(tempExtractionPath))
                 _fileSystem.Directory.Delete(tempExtractionPath, recursive: true);
         }
-        return Ok();
+        return exception is null ? Ok() : Fail(exception);
     }
 
     private async Task BackupOldrksys()
