@@ -29,6 +29,8 @@ public class RetroRewind : IDistribution
 
     // Keep in mind, whenever we download update files from the server, they are actually 1 folder higher, so it contains this folder.
     public string FolderName => "RetroRewind6";
+    public string XMLFolderName => "riivolution";
+    public string XMLFileName => "RetroRewind6";
 
     public async Task<OperationResult> InstallAsync(ProgressWindow progressWindow)
     {
@@ -68,8 +70,16 @@ public class RetroRewind : IDistribution
         var tempZipPath = PathManager.RetroRewindTempFile;
         // where we'll do the extraction
         var tempExtractionPath = PathManager.TempModsFolderPath;
-        // where the final RR folder should live
-        var finalDestination = _fileSystem.Path.Combine(PathManager.RiivolutionWhWzFolderPath, FolderName);
+
+        //where all distributions are stored
+        var destinationParentDir = _fileSystem.DirectoryInfo.New(PathManager.RiivolutionWhWzFolderPath);
+
+        //where the RR distribution lives
+        var distributionDataDestination = _fileSystem.Path.Combine(destinationParentDir.FullName, FolderName);
+        //where the RR wiiDisc xml file lives
+        var riivolutionFolderDestination = PathManager.RiivolutionXmlFolderPath;
+        var riivolutionDiscXMLFile = _fileSystem.Path.Combine(riivolutionFolderDestination, $"{XMLFileName}.xml");
+
         Exception? exception = null;
         try
         {
@@ -101,17 +111,34 @@ public class RetroRewind : IDistribution
             }
 
             // 4) Replace existing install, if any
-            if (_fileSystem.Directory.Exists(finalDestination))
-                _fileSystem.Directory.Delete(finalDestination, recursive: true);
+            if (_fileSystem.Directory.Exists(distributionDataDestination))
+                _fileSystem.Directory.Delete(distributionDataDestination, recursive: true);
+            if (_fileSystem.File.Exists(riivolutionDiscXMLFile))
+                _fileSystem.File.Delete(riivolutionDiscXMLFile);
 
-            // 5) Move into place
-            // Make sure the parent directory of 'finalDestination' exists
-            var parentDirectory = _fileSystem.DirectoryInfo.New(finalDestination).Parent;
+            // 5) Make sure the target directory exists
+            var parentDirectory = _fileSystem.DirectoryInfo.New(distributionDataDestination).Parent;
             parentDirectory?.Create();
             if ((!parentDirectory?.Exists) ?? true)
                 throw new DirectoryNotFoundException($"Could not find destination `{parentDirectory?.FullName}`");
 
-            _fileSystem.Directory.Move(sourceFolder, finalDestination);
+            // 5) Move over distribution data
+            _fileSystem.Directory.Move(sourceFolder, distributionDataDestination);
+
+            // 6) Move over 'riivolution/' folder. skip existing files
+            var xmlFolderSource = _fileSystem.Path.Combine(tempExtractionPath, XMLFolderName);
+            foreach (var file in _fileSystem.Directory.EnumerateFiles(xmlFolderSource, "*", SearchOption.AllDirectories))
+            {
+                var destinationPath = _fileSystem.Path.Combine(riivolutionFolderDestination, _fileSystem.Path.GetRelativePath(xmlFolderSource, file));
+                var destinationDirectoryName = _fileSystem.Path.GetDirectoryName(destinationPath);
+                if (destinationDirectoryName != null)
+                {
+                    var directory = _fileSystem.DirectoryInfo.New(destinationDirectoryName);
+                    if (!directory?.Exists ?? false)
+                        directory?.Create();
+                }
+                _fileSystem.File.Move(file, destinationPath, false);
+            }
         }
         catch (Exception e)
         {
