@@ -105,6 +105,12 @@ public class RetroRewind : IDistribution
                 _fileSystem.Directory.Delete(finalDestination, recursive: true);
 
             // 5) Move into place
+            // Make sure the parent directory of 'finalDestination' exists
+            var parentDirectory = _fileSystem.DirectoryInfo.New(finalDestination).Parent;
+            parentDirectory?.Create();
+            if ((!parentDirectory?.Exists) ?? true)
+                throw new DirectoryNotFoundException($"Could not find destination `{parentDirectory?.FullName}`");
+
             _fileSystem.Directory.Move(sourceFolder, finalDestination);
         }
         finally
