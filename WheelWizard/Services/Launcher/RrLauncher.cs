@@ -66,8 +66,16 @@ public class RrLauncher : ILauncher
     {
         var progressWindow = new ProgressWindow();
         progressWindow.Show();
-        await CustomDistributionSingletonService.RetroRewind.InstallAsync(progressWindow);
+        var installResult = await CustomDistributionSingletonService.RetroRewind.InstallAsync(progressWindow);
         progressWindow.Close();
+        if (installResult.IsFailure)
+        {
+            await new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText("Unable to install RetroRewind")
+                .SetInfoText(installResult.Error.Message)
+                .ShowDialog();
+        }
     }
 
     public async Task Update()
