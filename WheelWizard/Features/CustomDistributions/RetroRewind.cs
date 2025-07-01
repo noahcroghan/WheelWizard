@@ -362,6 +362,8 @@ public class RetroRewind : IDistribution
                 if (!string.IsNullOrEmpty(dir))
                     _fileSystem.Directory.CreateDirectory(dir);
 
+                // Ensure read permission is set
+                entry.ExternalAttributes |= Convert.ToInt32("644", 8) << 16;
                 // Extract the file
                 entry.ExtractToFile(destinationPath, overwrite: true);
             }
