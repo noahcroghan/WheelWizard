@@ -202,6 +202,7 @@ public class RetroRewind : IDistribution
         var latestVersionResult = await LatestServerVersion();
         if (latestVersionResult.IsFailure)
             return Fail("Failed to check for updates");
+
         var latestVersion = latestVersionResult.Value;
         var isUpToDate = currentVersion.ComparePrecedenceTo(latestVersion) >= 0;
         return isUpToDate;
@@ -230,9 +231,7 @@ public class RetroRewind : IDistribution
                 return isRRUpToDate;
 
             if (isRRUpToDate.Value)
-            {
                 return Ok();
-            }
 
             //if current version is below 3.2.6 we need to do a full reinstall
             if (currentVersion.ComparePrecedenceTo(new SemVersion(3, 2, 6)) < 0)
@@ -258,9 +257,7 @@ public class RetroRewind : IDistribution
         // Step 2: Apply file deletions for versions between current and targetVersion
         var deleteSuccess = await ApplyFileDeletionsBetweenVersions(currentVersion, targetVersion);
         if (deleteSuccess.IsFailure)
-        {
             return Fail(Phrases.MessageError_AbortRR_Extra_FailedUpdateDelete);
-        }
 
         // Step 3: Download and apply the updates (if any)
         for (var i = 0; i < updatesToApply.Count; i++)
@@ -269,9 +266,7 @@ public class RetroRewind : IDistribution
 
             var success = await DownloadAndApplyUpdate(update, updatesToApply.Count, i + 1, progressWindow);
             if (success.IsFailure)
-            {
                 return Fail(Phrases.MessageError_AbortRR_Extra_FailedUpdateApply);
-            }
 
             // Update the version file after each successful update
             UpdateVersionFile(update.Version);
@@ -385,9 +380,8 @@ public class RetroRewind : IDistribution
         {
             var deleteListResult = await GetFileDeletionList();
             if (deleteListResult.IsFailure)
-            {
                 return Fail("Failed to get file deletion list");
-            }
+
             var deleteList = deleteListResult.Value;
             var deletionsToApply = GetDeletionsToApply(currentVersion, targetVersion, deleteList);
 
@@ -436,6 +430,7 @@ public class RetroRewind : IDistribution
         var deleteListOperation = await _api.CallApiAsync(api => api.GetDeletionFile());
         if (deleteListOperation.IsFailure)
             return Fail("Failed to get file deletion list");
+
         var lines = deleteListOperation.Value.Split('\n', StringSplitOptions.RemoveEmptyEntries);
 
         foreach (var line in lines)
@@ -449,6 +444,7 @@ public class RetroRewind : IDistribution
                 continue;
             if (!SemVersion.TryParse(deletionVersion, out var parsedVersion))
                 return Fail("Failed to parse version");
+
             var deletionData = new DeletionData { Version = parsedVersion, Path = path };
             deleteList.Add(deletionData);
         }
@@ -504,9 +500,7 @@ public class RetroRewind : IDistribution
         foreach (var update in allVersions)
         {
             if (update.Version.ComparePrecedenceTo(currentVersion) > 0)
-            {
                 updatesToApply.Add(update);
-            }
         }
         return updatesToApply;
     }
@@ -524,9 +518,7 @@ public class RetroRewind : IDistribution
         foreach (var deletion in allDeletions)
         {
             if (deletion.Version.ComparePrecedenceTo(currentVersion) > 0 && deletion.Version.ComparePrecedenceTo(targetVersion) <= 0)
-            {
                 deletionsToApply.Add(deletion);
-            }
         }
 
         deletionsToApply.Reverse();
@@ -554,6 +546,7 @@ public class RetroRewind : IDistribution
         var removeResult = await RemoveAsync(progressWindow);
         if (removeResult.IsFailure)
             return removeResult;
+
         return await InstallAsync(progressWindow);
     }
 
@@ -570,12 +563,15 @@ public class RetroRewind : IDistribution
 
         if (!rrInstalled)
             return WheelWizardStatus.NotInstalled;
+
         var currentVersion = GetCurrentVersion();
         if (currentVersion == null)
             return WheelWizardStatus.NotInstalled;
+
         var retroRewindUpToDateResult = await IsRRUpToDate(currentVersion);
         if (retroRewindUpToDateResult.IsFailure)
             return Fail("Failed to check for updates");
+
         var retroRewindUpToDate = retroRewindUpToDateResult.Value;
         return !retroRewindUpToDate ? WheelWizardStatus.OutOfDate : WheelWizardStatus.Ready;
     }
