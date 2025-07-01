@@ -2,6 +2,7 @@ using System.IO.Abstractions;
 using System.IO.Compression;
 using System.Text.RegularExpressions;
 using Avalonia.Threading;
+using Microsoft.Extensions.Logging;
 using Semver;
 using WheelWizard.CustomDistributions.Domain;
 using WheelWizard.Helpers;
@@ -18,11 +19,13 @@ public class RetroRewind : IDistribution
 {
     private readonly IFileSystem _fileSystem;
     private readonly IApiCaller<IRetroRewindApi> _api;
-
-    public RetroRewind(IFileSystem fileSystem, IApiCaller<IRetroRewindApi> api)
+    private readonly ILogger<RetroRewind> _logger;
+    
+    public RetroRewind(IFileSystem fileSystem, IApiCaller<IRetroRewindApi> api, ILogger<RetroRewind> logger)
     {
         _api = api;
         _fileSystem = fileSystem;
+        _logger = logger;
     }
 
     public string Title => "Retro Rewind";
@@ -51,15 +54,16 @@ public class RetroRewind : IDistribution
         }
         var serverResponse = await _api.CallApiAsync(api => api.Ping()); // actual response doesnt matter
         if (serverResponse.IsFailure)
-        {
             return Fail("Could not connect to the server");
-        }
+        
         var downloadResult = await DownloadAndExtractRetroRewind(progressWindow);
         if (downloadResult.IsFailure)
             return downloadResult;
+        
         var updateResult = await UpdateAsync(progressWindow);
         if (updateResult.IsFailure)
             return updateResult;
+        
         return Ok();
     }
 
@@ -92,7 +96,10 @@ public class RetroRewind : IDistribution
             var extractResult = await Task.Run(() => ExtractZipFile(tempZipPath, tempExtractionPath, progressWindow));
 
             if (extractResult.IsFailure)
-                return extractResult;
+            {
+                result = extractResult;
+                throw extractResult.Error.Exception ?? new Exception(extractResult.Error.Message);
+            }
 
             // 3) Locate the extracted sub-folder
             var sourceFolder = _fileSystem.Path.Combine(tempExtractionPath, FolderName);
@@ -110,7 +117,7 @@ public class RetroRewind : IDistribution
             if (removeResult.IsFailure)
             {
                 result = removeResult;
-                throw new Exception(removeResult.Error.Message);
+                throw removeResult.Error.Exception ?? new Exception(removeResult.Error.Message);
             }
 
             // 5) Move over RetroRewind
@@ -134,6 +141,7 @@ public class RetroRewind : IDistribution
         catch (Exception e)
         {
             exception = e;
+            _logger.LogError(exception, exception.Message);
         }
         finally
         {
