@@ -19,9 +19,9 @@ public class RetroRewind : IDistribution
 {
     private readonly IFileSystem _fileSystem;
     private readonly IApiCaller<IRetroRewindApi> _api;
-    private readonly ILogger<RetroRewind> _logger;
-    
-    public RetroRewind(IFileSystem fileSystem, IApiCaller<IRetroRewindApi> api, ILogger<RetroRewind> logger)
+    private readonly ILogger<IDistribution> _logger;
+
+    public RetroRewind(IFileSystem fileSystem, IApiCaller<IRetroRewindApi> api, ILogger<IDistribution> logger)
     {
         _api = api;
         _fileSystem = fileSystem;
@@ -55,15 +55,15 @@ public class RetroRewind : IDistribution
         var serverResponse = await _api.CallApiAsync(api => api.Ping()); // actual response doesnt matter
         if (serverResponse.IsFailure)
             return Fail("Could not connect to the server");
-        
+
         var downloadResult = await DownloadAndExtractRetroRewind(progressWindow);
         if (downloadResult.IsFailure)
             return downloadResult;
-        
+
         var updateResult = await UpdateAsync(progressWindow);
         if (updateResult.IsFailure)
             return updateResult;
-        
+
         return Ok();
     }
 
@@ -77,8 +77,7 @@ public class RetroRewind : IDistribution
 
         //where all distributions are stored
         var destinationParentDir = _fileSystem.DirectoryInfo.New(PathManager.RiivolutionWhWzFolderPath);
-
-        Exception? exception = null;
+        
         OperationResult? result = null;
         try
         {
@@ -104,13 +103,7 @@ public class RetroRewind : IDistribution
             // 3) Locate the extracted sub-folder
             var sourceFolder = _fileSystem.Path.Combine(tempExtractionPath, FolderName);
             if (!_fileSystem.Directory.Exists(sourceFolder))
-            {
-                var directories = _fileSystem.Directory.GetDirectories(tempExtractionPath);
-                if (directories.Length == 1)
-                    sourceFolder = directories[0];
-                else
-                    return new DirectoryNotFoundException($"Could not find a '{FolderName}' folder inside {tempExtractionPath}");
-            }
+                throw new DirectoryNotFoundException($"Could not find a '{FolderName}' folder inside {tempExtractionPath}");
 
             // 4) Remove existing install, if any
             var removeResult = await RemoveAsync(progressWindow);
@@ -123,11 +116,13 @@ public class RetroRewind : IDistribution
             // 5) Move over RetroRewind
             var xmlFolderSource = _fileSystem.Path.Combine(tempExtractionPath, XMLFolderName);
             var riivolutionFiles = _fileSystem.Directory.EnumerateFiles(xmlFolderSource, "*", SearchOption.AllDirectories);
-            var folderSource = _fileSystem.Path.Combine(tempExtractionPath, FolderName);
-            var retroRewindFiles = _fileSystem.Directory.EnumerateFiles(folderSource, "*", SearchOption.AllDirectories);
+            var retroRewindFiles = _fileSystem.Directory.EnumerateFiles(sourceFolder, "*", SearchOption.AllDirectories);
             foreach (var file in riivolutionFiles.Concat(retroRewindFiles))
             {
-                var destinationPath = _fileSystem.Path.Combine(destinationParentDir.FullName, _fileSystem.Path.GetRelativePath(tempExtractionPath, file));
+                var destinationPath = _fileSystem.Path.Combine(
+                    destinationParentDir.FullName,
+                    _fileSystem.Path.GetRelativePath(tempExtractionPath, file)
+                );
                 var destinationDirectoryName = _fileSystem.Path.GetDirectoryName(destinationPath);
                 if (destinationDirectoryName != null)
                 {
@@ -140,8 +135,8 @@ public class RetroRewind : IDistribution
         }
         catch (Exception e)
         {
-            exception = e;
-            _logger.LogError(exception, exception.Message);
+            result ??= Fail(e);
+            _logger.LogError(e, e.Message);
         }
         finally
         {
@@ -151,7 +146,7 @@ public class RetroRewind : IDistribution
             if (_fileSystem.Directory.Exists(tempExtractionPath))
                 _fileSystem.Directory.Delete(tempExtractionPath, recursive: true);
         }
-        return result ?? (exception is not null ? Fail(exception) : Ok());
+        return result ?? Ok();
     }
 
     private async Task BackupOldrksys()
