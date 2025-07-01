@@ -74,13 +74,8 @@ public class RetroRewind : IDistribution
         //where all distributions are stored
         var destinationParentDir = _fileSystem.DirectoryInfo.New(PathManager.RiivolutionWhWzFolderPath);
 
-        //where the RR distribution lives
-        var distributionDataDestination = _fileSystem.Path.Combine(destinationParentDir.FullName, FolderName);
-        //where the RR wiiDisc xml file lives
-        var riivolutionFolderDestination = PathManager.RiivolutionXmlFolderPath;
-        var riivolutionDiscXMLFile = _fileSystem.Path.Combine(riivolutionFolderDestination, $"{XMLFileName}.xml");
-
         Exception? exception = null;
+        OperationResult? result = null;
         try
         {
             // 1) Download
@@ -110,26 +105,22 @@ public class RetroRewind : IDistribution
                     return new DirectoryNotFoundException($"Could not find a '{FolderName}' folder inside {tempExtractionPath}");
             }
 
-            // 4) Replace existing install, if any
-            if (_fileSystem.Directory.Exists(distributionDataDestination))
-                _fileSystem.Directory.Delete(distributionDataDestination, recursive: true);
-            if (_fileSystem.File.Exists(riivolutionDiscXMLFile))
-                _fileSystem.File.Delete(riivolutionDiscXMLFile);
-
-            // 5) Make sure the target directory exists
-            var parentDirectory = _fileSystem.DirectoryInfo.New(distributionDataDestination).Parent;
-            parentDirectory?.Create();
-            if ((!parentDirectory?.Exists) ?? true)
-                throw new DirectoryNotFoundException($"Could not find destination `{parentDirectory?.FullName}`");
-
-            // 5) Move over distribution data
-            _fileSystem.Directory.Move(sourceFolder, distributionDataDestination);
-
-            // 6) Move over 'riivolution/' folder. skip existing files
-            var xmlFolderSource = _fileSystem.Path.Combine(tempExtractionPath, XMLFolderName);
-            foreach (var file in _fileSystem.Directory.EnumerateFiles(xmlFolderSource, "*", SearchOption.AllDirectories))
+            // 4) Remove existing install, if any
+            var removeResult = await RemoveAsync(progressWindow);
+            if (removeResult.IsFailure)
             {
-                var destinationPath = _fileSystem.Path.Combine(riivolutionFolderDestination, _fileSystem.Path.GetRelativePath(xmlFolderSource, file));
+                result = removeResult;
+                throw new Exception(removeResult.Error.Message);
+            }
+
+            // 5) Move over RetroRewind
+            var xmlFolderSource = _fileSystem.Path.Combine(tempExtractionPath, XMLFolderName);
+            var riivolutionFiles = _fileSystem.Directory.EnumerateFiles(xmlFolderSource, "*", SearchOption.AllDirectories);
+            var folderSource = _fileSystem.Path.Combine(tempExtractionPath, FolderName);
+            var retroRewindFiles = _fileSystem.Directory.EnumerateFiles(folderSource, "*", SearchOption.AllDirectories);
+            foreach (var file in riivolutionFiles.Concat(retroRewindFiles))
+            {
+                var destinationPath = _fileSystem.Path.Combine(destinationParentDir.FullName, _fileSystem.Path.GetRelativePath(tempExtractionPath, file));
                 var destinationDirectoryName = _fileSystem.Path.GetDirectoryName(destinationPath);
                 if (destinationDirectoryName != null)
                 {
@@ -137,7 +128,7 @@ public class RetroRewind : IDistribution
                     if (!directory?.Exists ?? false)
                         directory?.Create();
                 }
-                _fileSystem.File.Move(file, destinationPath, false);
+                _fileSystem.File.Move(file, destinationPath, false); //skip existing files for safety
             }
         }
         catch (Exception e)
@@ -152,7 +143,7 @@ public class RetroRewind : IDistribution
             if (_fileSystem.Directory.Exists(tempExtractionPath))
                 _fileSystem.Directory.Delete(tempExtractionPath, recursive: true);
         }
-        return exception is null ? Ok() : Fail(exception);
+        return result ?? (exception is not null ? Fail(exception) : Ok());
     }
 
     private async Task BackupOldrksys()
@@ -371,6 +362,8 @@ public class RetroRewind : IDistribution
                 if (!string.IsNullOrEmpty(dir))
                     _fileSystem.Directory.CreateDirectory(dir);
 
+                // Ensure read permission is set
+                entry.ExternalAttributes |= Convert.ToInt32("644", 8) << 16;
                 // Extract the file
                 entry.ExtractToFile(destinationPath, overwrite: true);
             }
@@ -542,9 +535,16 @@ public class RetroRewind : IDistribution
 
     public Task<OperationResult> RemoveAsync(ProgressWindow progressWindow)
     {
-        var retroRewindPath = _fileSystem.Path.Combine(PathManager.RiivolutionWhWzFolderPath, FolderName);
-        if (_fileSystem.Directory.Exists(retroRewindPath))
-            _fileSystem.Directory.Delete(retroRewindPath, true);
+        //where the RR distribution lives
+        var distributionDataDestination = _fileSystem.Path.Combine(PathManager.RiivolutionWhWzFolderPath, FolderName);
+        //where the RR wiiDisc xml file lives
+        var riivolutionDiscXMLFile = _fileSystem.Path.Combine(PathManager.RiivolutionWhWzFolderPath, XMLFolderName, $"{XMLFileName}.xml");
+
+        if (_fileSystem.Directory.Exists(distributionDataDestination))
+            _fileSystem.Directory.Delete(distributionDataDestination, recursive: true);
+        if (_fileSystem.File.Exists(riivolutionDiscXMLFile))
+            _fileSystem.File.Delete(riivolutionDiscXMLFile);
+
         return Task.FromResult(Ok());
     }
 
