@@ -161,6 +161,7 @@ public partial class HomePage : UserControlBase
     }
 
     #region WheelTrail Animations
+
     // --------------------------
     // IMPORTANT
     // --------------------------
@@ -187,6 +188,9 @@ public partial class HomePage : UserControlBase
 
         foreach (var t in _trails)
         {
+            if (!PageTitle.Classes.Contains("TitleUp"))
+                PageTitle.Classes.Remove("TitleUp");
+            PageTitle.Classes.Add("TitleUp");
             t.Classes.Add("EntranceTrail");
             await Task.Delay(80);
         }
@@ -296,6 +300,7 @@ public partial class HomePage : UserControlBase
                 if (_currentTrailState is not WheelTrailState.Playing_HoverExit)
                     return;
             }
+
             t.Classes.Remove("HoverEnterTrail");
             t.Classes.Add("HoverExitTrail");
         }
@@ -341,6 +346,7 @@ public partial class HomePage : UserControlBase
             {
                 abort = (abortWhen?.Invoke(_currentTrailState) ?? false) || _currentTrailState == changeStateTo;
             }
+
             if (abort)
                 return null;
 

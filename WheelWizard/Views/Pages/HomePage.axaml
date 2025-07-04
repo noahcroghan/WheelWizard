@@ -66,7 +66,7 @@
                 </Animation>
             </Style.Animations>
         </Style>
-        
+
         <Style Selector="components|WheelTrail.ActivateTrailFromIdle">
             <Style.Animations>
                 <Animation Duration="0:0:0.6"
@@ -83,7 +83,7 @@
                 </Animation>
             </Style.Animations>
         </Style>
-        
+
         <Style Selector="components|WheelTrail.EntranceTrail">
             <Style.Animations>
                 <Animation Duration="0:0:0.6" Delay="0:0:0.3"
@@ -101,7 +101,21 @@
             </Style.Animations>
         </Style>
 
-        
+        <Style Selector="TextBlock#PageTitle.TitleUp">
+            <Style.Animations>
+                <Animation Duration="0:0:0.6" Delay="0:0:0.5"
+                           FillMode="Forward" Easing="CubicEaseOut">
+                    <KeyFrame Cue="0%">
+                        <Setter Property="Margin" Value="3,12" />
+                    </KeyFrame>
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Margin" Value="3,0,3,60" />
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+        </Style>
+
+
     </UserControl.Styles>
     <Grid x:Name="CompleteGrid">
         <Grid.RowDefinitions>
@@ -112,8 +126,7 @@
         <Border Grid.Row="0" Background="{StaticResource BackgroundLineColor}" Height="1" HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom" />
         <TextBlock Grid.Row="0" Text="{x:Static lang:Common.PageTitle_Home}" HorizontalAlignment="Left"
-                   VerticalAlignment="Bottom"
-                   Classes="PageTitleText" />
+                   VerticalAlignment="Bottom" Classes="PageTitleText" x:Name="PageTitle" />
         <Border Grid.Row="1" Background="{StaticResource BackgroundLineColor}" Height="1" HorizontalAlignment="Stretch"
                 VerticalAlignment="Bottom" />
 
@@ -180,7 +193,7 @@
                                Click="DolphinButton_OnClick"
                                Width="100" Margin="0,6,0,0" />
         </StackPanel>
-        
+
         <components:WheelTrail Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" x:Name="HomeTrail4"
                                Width="137" Angle="-35" X="-160" ExtendedHeight="1000" IsVisible="False"
                                Background="{StaticResource Primary400}" Foreground="{StaticResource Primary700}" />
