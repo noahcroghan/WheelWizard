@@ -41,7 +41,7 @@
     <Style Selector="components|PlayerListItem">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border Classes="BoxItemBackground">
+                <Border Classes="BoxItemBackground" Cursor="Hand">
                     <Grid ColumnDefinitions="Auto,130,80,70,*">
                         <Border Grid.Column="0" CornerRadius="999999" ClipToBounds="True"
                                 Background="{StaticResource Neutral950}" Width="50" Height="50" Margin="0,3">

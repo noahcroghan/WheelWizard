@@ -66,7 +66,7 @@
                      SelectionChanged="RoomsView_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Classes="BoxItemBackground">
+                        <Border Classes="BoxItemBackground" Cursor="Hand">
                             <Grid ColumnDefinitions="Auto,110,*">
                                 <PathIcon Data="{StaticResource Road}" Width="50" Height="50" Classes="RoadIcon"
                                           Margin="0,3" IsVisible="{Binding IsPublic }"
