@@ -19,6 +19,7 @@
         <!-- Set Defaults -->
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="CornerRadius" Value="{DynamicResource GlobalCornerRadius}" />
         <Setter Property="Padding" Value="16,10" />
         <Setter Property="IconData" Value="{StaticResource Banana}"/>

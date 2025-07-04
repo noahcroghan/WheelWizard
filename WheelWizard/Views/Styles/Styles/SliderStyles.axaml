@@ -28,6 +28,7 @@
     </Design.PreviewWith>
 
     <Style Selector="Slider">
+        <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Background" Value="{StaticResource Neutral600}" />
         <Setter Property="Foreground" Value="{StaticResource Primary400}" />
         <Style Selector="^ /template/ Grid#HorizontalTemplate">
