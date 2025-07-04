@@ -8,6 +8,7 @@ public class Badge : TemplatedControl
 {
     public static readonly Dictionary<BadgeVariant, string> BadgeToolTip = new()
     {
+        // These phrases don't have to be translated
         { BadgeVariant.None, "This is not a badge" },
         { BadgeVariant.WhWzDev, "Wheel Wizard Developer (hiii!)" },
         { BadgeVariant.RrDev, "Retro Rewind Developer" },

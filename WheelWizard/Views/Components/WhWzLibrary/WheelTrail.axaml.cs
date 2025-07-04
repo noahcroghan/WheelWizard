@@ -76,18 +76,12 @@ namespace WheelWizard.Views.Components
             base.OnPropertyChanged(change);
 
             if (change.Property == AngleProperty)
-            {
                 _rotateTransform.Angle = (double)(change.NewValue ?? 0.0);
-            }
 
             if (change.Property == XProperty)
-            {
                 _translateTransform.X = (double)(change.NewValue ?? 0.0);
-            }
             if (change.Property == YProperty)
-            {
                 _translateTransform.Y = (double)(change.NewValue ?? 0.0);
-            }
         }
     }
 }
