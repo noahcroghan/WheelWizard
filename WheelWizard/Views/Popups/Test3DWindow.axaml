@@ -5,9 +5,9 @@
              xmlns:popup="clr-namespace:WheelWizard.Views.Popups"
              mc:Ignorable="d"
              x:Class="WheelWizard.Views.Popups.Test3DWindow"
-             Width="600" Height="400"
+             Width="800" Height="600"
              x:DataType="popup:Test3DWindow">
 
-    <!-- Just a single OpenGL surface that stretches with the window -->
-    <popup:MyOpenGlControl x:Name="OpenGlControl" />
+    <!-- The OpenGL control will be set programmatically -->
+    <TextBlock Text="Loading 3D Scene..." HorizontalAlignment="Center" VerticalAlignment="Center" />
 </UserControl>
