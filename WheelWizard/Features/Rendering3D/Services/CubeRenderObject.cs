@@ -68,7 +68,7 @@ public class CubeRenderObject : IRenderObject
     ];
 
     // Cube indices
-    private static readonly uint[] Indices =
+    private static readonly ushort[] Indices =
     [
         // Front face
         0,
@@ -229,7 +229,7 @@ public class CubeRenderObject : IRenderObject
         {
             gl.BufferData(
                 GlConsts.GL_ELEMENT_ARRAY_BUFFER,
-                Indices.Length * sizeof(uint),
+                Indices.Length * sizeof(ushort),
                 indexHandle.AddrOfPinnedObject(),
                 GlConsts.GL_STATIC_DRAW
             );
@@ -257,51 +257,30 @@ public class CubeRenderObject : IRenderObject
     {
         if (!_initialized)
             return;
-
-        if (_shader != null)
+        if (_shader == null)
         {
-            // Use shader-based rendering
-            _shader.Use(gl);
-
-            // Bind buffers
-            gl.BindBuffer(GlConsts.GL_ARRAY_BUFFER, (int)_vbo);
-            gl.BindBuffer(GlConsts.GL_ELEMENT_ARRAY_BUFFER, (int)_ebo);
-
-            // Set up vertex attributes for OpenGL ES 3.0
-            gl.VertexAttribPointer(0, 3, GlConsts.GL_FLOAT, 0, 6 * sizeof(float), IntPtr.Zero);
-            gl.EnableVertexAttribArray(0);
-            gl.VertexAttribPointer(1, 3, GlConsts.GL_FLOAT, 0, 6 * sizeof(float), new IntPtr(3 * sizeof(float)));
-            gl.EnableVertexAttribArray(1);
-
-            // Draw the cube
-            gl.DrawElements(GlConsts.GL_TRIANGLES, Indices.Length, GlConsts.GL_UNSIGNED_INT, IntPtr.Zero);
-
-            // Clean up
-            gl.BindBuffer(GlConsts.GL_ARRAY_BUFFER, 0);
-            gl.BindBuffer(GlConsts.GL_ELEMENT_ARRAY_BUFFER, 0);
+            return;
         }
-        else
-        {
-            // Fallback: simple immediate mode rendering without shaders
-            // Console.WriteLine("Using fallback rendering mode"); // Reduced logging
 
-            // Bind buffers
-            gl.BindBuffer(GlConsts.GL_ARRAY_BUFFER, (int)_vbo);
-            gl.BindBuffer(GlConsts.GL_ELEMENT_ARRAY_BUFFER, (int)_ebo);
+        // Use shader-based rendering
+        _shader.Use(gl);
 
-            // Set up vertex attributes manually
-            gl.VertexAttribPointer(0, 3, GlConsts.GL_FLOAT, 0, 6 * sizeof(float), IntPtr.Zero);
-            gl.EnableVertexAttribArray(0);
-            gl.VertexAttribPointer(1, 3, GlConsts.GL_FLOAT, 0, 6 * sizeof(float), new IntPtr(3 * sizeof(float)));
-            gl.EnableVertexAttribArray(1);
+        // Bind buffers
+        gl.BindBuffer(GlConsts.GL_ARRAY_BUFFER, (int)_vbo);
+        gl.BindBuffer(GlConsts.GL_ELEMENT_ARRAY_BUFFER, (int)_ebo);
 
-            // Draw the cube
-            gl.DrawElements(GlConsts.GL_TRIANGLES, Indices.Length, GlConsts.GL_UNSIGNED_INT, IntPtr.Zero);
+        // Set up vertex attributes for OpenGL ES 3.0
+        gl.VertexAttribPointer(0, 3, GlConsts.GL_FLOAT, 0, 6 * sizeof(float), IntPtr.Zero);
+        gl.EnableVertexAttribArray(0);
+        gl.VertexAttribPointer(1, 3, GlConsts.GL_FLOAT, 0, 6 * sizeof(float), new IntPtr(3 * sizeof(float)));
+        gl.EnableVertexAttribArray(1);
 
-            // Clean up
-            gl.BindBuffer(GlConsts.GL_ARRAY_BUFFER, 0);
-            gl.BindBuffer(GlConsts.GL_ELEMENT_ARRAY_BUFFER, 0);
-        }
+        // Draw the cube
+        gl.DrawElements(GlConsts.GL_TRIANGLES, Indices.Length, GlConsts.GL_UNSIGNED_SHORT, IntPtr.Zero);
+
+        // Clean up
+        gl.BindBuffer(GlConsts.GL_ARRAY_BUFFER, 0);
+        gl.BindBuffer(GlConsts.GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
     public void Dispose()
