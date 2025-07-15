@@ -79,6 +79,7 @@
                     <ContextMenu>
                         <MenuItem Header="{x:Static lang:Common.Action_CopyFriendCode}" Click="CopyFriendCode_OnClick" />
                         <MenuItem Header="{x:Static lang:Common.Action_ViewMii}" Click="OpenCarousel_OnClick" />
+                        <MenuItem Header="Test 3D" Click="OpenTest3D_OnClick" />
                         <!-- <MenuItem Header="{x:Static lang:Common.Action_SaveExternalMii}" Click="SaveMii_OnClick" /> -->
                     </ContextMenu>
                 </ListBox.ContextMenu>
