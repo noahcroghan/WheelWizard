@@ -106,51 +106,51 @@ public class Game3DRenderer : Game
         new(new Vector3(-1, 1, -1), Microsoft.Xna.Framework.Color.Orange),
     ];
 
-    // Cube indices
+    // Cube indices - corrected winding order for proper backface culling
     private readonly short[] _indices =
     [
-        // Front face
+        // Front face (Z = 1)
         0,
-        1,
         2,
-        2,
+        1, // Triangle 1
+        0,
         3,
-        0,
-        // Back face
-        4,
+        2, // Triangle 2
+        // Back face (Z = -1)
+        5,
+        7,
+        4, // Triangle 1
         5,
         6,
-        6,
-        7,
+        7, // Triangle 2
+        // Left face (X = -1)
         4,
-        // Left face
-        7,
         3,
-        0,
-        0,
+        0, // Triangle 1
         4,
         7,
-        // Right face
+        3, // Triangle 2
+        // Right face (X = 1)
         1,
-        5,
         6,
-        6,
+        5, // Triangle 1
+        1,
         2,
-        1,
-        // Top face
+        6, // Triangle 2
+        // Top face (Y = 1)
         3,
-        2,
         6,
-        6,
+        2, // Triangle 1
+        3,
         7,
-        3,
-        // Bottom face
-        0,
+        6, // Triangle 2
+        // Bottom face (Y = -1)
+        4,
         1,
-        5,
-        5,
+        5, // Triangle 1
         4,
         0,
+        1, // Triangle 2
     ];
 
     public Game3DRenderer()
@@ -175,6 +175,10 @@ public class Game3DRenderer : Game
         // Create basic effect for rendering
         _basicEffect = new BasicEffect(GraphicsDevice);
         _basicEffect.VertexColorEnabled = true;
+
+        // Configure depth testing and backface culling
+        GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+        GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 
         // Create vertex buffer
         _vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), _vertices.Length, BufferUsage.WriteOnly);
@@ -211,8 +215,12 @@ public class Game3DRenderer : Game
         if (_basicEffect == null || _vertexBuffer == null || _indexBuffer == null)
             return;
 
-        // Clear the screen
+        // Clear the screen and depth buffer
         GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
+
+        // Ensure proper render states
+        GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+        GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 
         // Set up the effect matrices
         _basicEffect.World = _world;
