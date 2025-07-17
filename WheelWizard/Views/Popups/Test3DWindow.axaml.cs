@@ -2,17 +2,19 @@ using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using WheelWizard.Rendering3D.Domain;
 using WheelWizard.Views.Popups.Base;
 
 namespace WheelWizard.Views.Popups;
 
 public partial class Test3DWindow : PopupContent
 {
-    private MonoGame3DControl? _monoGameControl;
+    private readonly IMonoGameRenderer _monoGameRenderer;
 
-    public Test3DWindow()
+    public Test3DWindow(IMonoGameRenderer monoGameRenderer)
         : base(allowClose: true, allowParentInteraction: true, isTopMost: true, title: "3D Test Window")
     {
+        _monoGameRenderer = monoGameRenderer ?? throw new ArgumentNullException(nameof(monoGameRenderer));
         InitializeComponent();
     }
 
@@ -25,26 +27,34 @@ public partial class Test3DWindow : PopupContent
     protected override void BeforeClose()
     {
         base.BeforeClose();
+
+        // Stop and dispose the MonoGame renderer
+        _monoGameRenderer.Stop();
+        _monoGameRenderer.Dispose();
+
         Console.WriteLine("Test3DWindow closing");
     }
 
     private void SetupMonoGameControl()
     {
-        Console.WriteLine("Setting up MonoGame 3D control...");
+        Console.WriteLine("Setting up MonoGame 3D renderer...");
 
-        // Create the MonoGame 3D control
-        _monoGameControl = new MonoGame3DControl();
+        // Initialize the MonoGame renderer with specified dimensions
+        _monoGameRenderer.Initialize(800, 600);
+
+        // Get the MonoGame control from the renderer
+        var monoGameControl = _monoGameRenderer.GetControl();
 
         // Set explicit dimensions for the MonoGame control
-        _monoGameControl.Width = 800;
-        _monoGameControl.Height = 600;
-        _monoGameControl.MinWidth = 400;
-        _monoGameControl.MinHeight = 300;
+        monoGameControl.Width = 800;
+        monoGameControl.Height = 600;
+        monoGameControl.MinWidth = 400;
+        monoGameControl.MinHeight = 300;
 
-        Console.WriteLine($"MonoGame control created with size: {_monoGameControl.Width}x{_monoGameControl.Height}");
+        Console.WriteLine($"MonoGame control created with size: {monoGameControl.Width}x{monoGameControl.Height}");
 
         // Set the MonoGame control as the content of the PopupWindow
-        Window.PopupContent.Content = _monoGameControl;
+        Window.PopupContent.Content = monoGameControl;
         Console.WriteLine("MonoGame control set as PopupWindow content");
 
         // Force the window to update its size
@@ -53,8 +63,11 @@ public partial class Test3DWindow : PopupContent
         Window.Height = 600;
         Console.WriteLine($"Window size set to: {Window.Width}x{Window.Height}");
 
+        // Start the renderer
+        _monoGameRenderer.Start();
+
         // Ensure the control is properly attached and initialized
-        _monoGameControl.AttachedToVisualTree += (sender, e) =>
+        monoGameControl.AttachedToVisualTree += (sender, e) =>
         {
             Console.WriteLine("MonoGame control attached to visual tree");
         };

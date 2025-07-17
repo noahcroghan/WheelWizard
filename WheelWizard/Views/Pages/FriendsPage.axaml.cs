@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using WheelWizard.Rendering3D.Domain;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Shared.DependencyInjection;
@@ -29,6 +30,9 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     [Inject]
     private IMiiDbService MiiDbService { get; set; } = null!;
+
+    [Inject]
+    private IMonoGameRenderer MonoGameRenderer { get; set; } = null!;
 
     public ObservableCollection<FriendProfile> FriendList
     {
@@ -156,7 +160,7 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     private void OpenTest3D_OnClick(object sender, RoutedEventArgs e)
     {
-        new Test3DWindow().Show();
+        new Test3DWindow(MonoGameRenderer).Show();
     }
 
     private void ViewRoom_OnClick(string friendCode)

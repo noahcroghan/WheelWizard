@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.RRInfo;
+using WheelWizard.Rendering3D.Domain;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Shared.DependencyInjection;
@@ -23,6 +24,9 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
 
     [Inject]
     private IMiiDbService MiiDbService { get; set; } = null!;
+
+    [Inject]
+    private IMonoGameRenderer MonoGameRenderer { get; set; } = null!;
 
     private RrRoom _room = null!;
 
@@ -111,7 +115,7 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
 
     private void OpenTest3D_OnClick(object sender, RoutedEventArgs e)
     {
-        new Test3DWindow().Show();
+        new Test3DWindow(MonoGameRenderer).Show();
     }
 
     private void RoomsDetailPage_Unloaded(object sender, RoutedEventArgs e)

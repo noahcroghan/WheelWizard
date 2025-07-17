@@ -3,29 +3,80 @@ using Avalonia.Controls;
 using AvaloniaInside.MonoGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WheelWizard.Rendering3D.Domain;
 using XnaMatrix = Microsoft.Xna.Framework.Matrix;
 
-namespace WheelWizard.Views.Popups;
+namespace WheelWizard.Rendering3D.Services;
 
-public class MonoGame3DControl : UserControl
+public class MonoGameRenderer : IMonoGameRenderer, IDisposable
 {
     private MonoGameControl? _monoGameControl;
     private Game3DRenderer? _game3DRenderer;
+    private bool _isDisposed;
+    private Vector2 _dimensions;
 
-    public MonoGame3DControl()
-    {
-        InitializeMonoGame();
-    }
+    public bool IsRunning => _game3DRenderer?.IsActive == true;
+    public Vector2 Dimensions => _dimensions;
 
-    private void InitializeMonoGame()
+    public void Initialize(int width, int height)
     {
+        if (_isDisposed)
+            throw new ObjectDisposedException(nameof(MonoGameRenderer));
+
+        _dimensions = new Vector2(width, height);
+
         _game3DRenderer = new Game3DRenderer();
         _monoGameControl = new MonoGameControl();
         _monoGameControl.Game = _game3DRenderer;
 
-        Content = _monoGameControl;
+        Console.WriteLine($"MonoGame renderer initialized with dimensions: {width}x{height}");
+    }
 
-        Console.WriteLine("MonoGame 3D Control initialized successfully");
+    public MonoGameControl GetControl()
+    {
+        if (_isDisposed)
+            throw new ObjectDisposedException(nameof(MonoGameRenderer));
+
+        if (_monoGameControl == null)
+            throw new InvalidOperationException("Renderer not initialized. Call Initialize() first.");
+
+        return _monoGameControl;
+    }
+
+    public void Start()
+    {
+        if (_isDisposed)
+            throw new ObjectDisposedException(nameof(MonoGameRenderer));
+
+        if (_game3DRenderer == null)
+            throw new InvalidOperationException("Renderer not initialized. Call Initialize() first.");
+
+        _game3DRenderer.RunOneFrame();
+        Console.WriteLine("MonoGame renderer started");
+    }
+
+    public void Stop()
+    {
+        if (_game3DRenderer != null)
+        {
+            _game3DRenderer.Exit();
+            Console.WriteLine("MonoGame renderer stopped");
+        }
+    }
+
+    public void Dispose()
+    {
+        if (_isDisposed)
+            return;
+
+        Stop();
+
+        _game3DRenderer?.Dispose();
+        _monoGameControl = null;
+        _game3DRenderer = null;
+
+        _isDisposed = true;
+        Console.WriteLine("MonoGame renderer disposed");
     }
 }
 
