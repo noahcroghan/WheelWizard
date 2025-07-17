@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Microsoft.Extensions.Logging;
 using WheelWizard.Rendering3D.Domain;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
@@ -160,7 +161,8 @@ public partial class FriendsPage : UserControlBase, INotifyPropertyChanged, IRep
 
     private void OpenTest3D_OnClick(object sender, RoutedEventArgs e)
     {
-        new Test3DWindow(MonoGameRenderer).Show();
+        var logger = App.Services.GetRequiredService<ILogger<Test3DWindow>>();
+        new Test3DWindow(MonoGameRenderer, logger).Show();
     }
 
     private void ViewRoom_OnClick(string friendCode)

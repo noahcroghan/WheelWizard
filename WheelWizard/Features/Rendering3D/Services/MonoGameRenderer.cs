@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using AvaloniaInside.MonoGame;
+using Microsoft.Extensions.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WheelWizard.Rendering3D.Domain;
@@ -14,9 +15,15 @@ public class MonoGameRenderer : IMonoGameRenderer, IDisposable
     private Game3DRenderer? _game3DRenderer;
     private bool _isDisposed;
     private Vector2 _dimensions;
+    private readonly ILogger<MonoGameRenderer> _logger;
 
     public bool IsRunning => _game3DRenderer?.IsActive == true;
     public Vector2 Dimensions => _dimensions;
+
+    public MonoGameRenderer(ILogger<MonoGameRenderer> logger)
+    {
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
 
     public void Initialize(int width, int height)
     {
@@ -25,11 +32,11 @@ public class MonoGameRenderer : IMonoGameRenderer, IDisposable
 
         _dimensions = new Vector2(width, height);
 
-        _game3DRenderer = new Game3DRenderer();
+        _game3DRenderer = new Game3DRenderer(_logger);
         _monoGameControl = new MonoGameControl();
         _monoGameControl.Game = _game3DRenderer;
 
-        Console.WriteLine($"MonoGame renderer initialized with dimensions: {width}x{height}");
+        _logger.LogInformation("MonoGame renderer initialized with dimensions: {Width}x{Height}", width, height);
     }
 
     public MonoGameControl GetControl()
@@ -52,7 +59,7 @@ public class MonoGameRenderer : IMonoGameRenderer, IDisposable
             throw new InvalidOperationException("Renderer not initialized. Call Initialize() first.");
 
         _game3DRenderer.RunOneFrame();
-        Console.WriteLine("MonoGame renderer started");
+        _logger.LogInformation("MonoGame renderer started");
     }
 
     public void Stop()
@@ -60,7 +67,7 @@ public class MonoGameRenderer : IMonoGameRenderer, IDisposable
         if (_game3DRenderer != null)
         {
             _game3DRenderer.Exit();
-            Console.WriteLine("MonoGame renderer stopped");
+            _logger.LogInformation("MonoGame renderer stopped");
         }
     }
 
@@ -76,7 +83,7 @@ public class MonoGameRenderer : IMonoGameRenderer, IDisposable
         _game3DRenderer = null;
 
         _isDisposed = true;
-        Console.WriteLine("MonoGame renderer disposed");
+        _logger.LogInformation("MonoGame renderer disposed");
     }
 }
 
@@ -90,6 +97,7 @@ public class Game3DRenderer : Game
     private XnaMatrix _view;
     private XnaMatrix _projection;
     private float _rotation;
+    private readonly ILogger<MonoGameRenderer> _logger;
 
     // Cube vertices with colors
     private readonly VertexPositionColor[] _vertices =
@@ -153,8 +161,9 @@ public class Game3DRenderer : Game
         1, // Triangle 2
     ];
 
-    public Game3DRenderer()
+    public Game3DRenderer(ILogger<MonoGameRenderer> logger)
     {
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
     }
@@ -167,7 +176,7 @@ public class Game3DRenderer : Game
         _view = XnaMatrix.CreateLookAt(new Vector3(0, 0, 5), Vector3.Zero, Vector3.Up);
         UpdateProjection();
 
-        Console.WriteLine("Game3DRenderer initialized successfully");
+        _logger.LogInformation("Game3DRenderer initialized successfully");
     }
 
     protected override void LoadContent()
@@ -188,7 +197,7 @@ public class Game3DRenderer : Game
         _indexBuffer = new IndexBuffer(GraphicsDevice, IndexElementSize.SixteenBits, _indices.Length, BufferUsage.WriteOnly);
         _indexBuffer.SetData(_indices);
 
-        Console.WriteLine("Game3DRenderer content loaded successfully");
+        _logger.LogInformation("Game3DRenderer content loaded successfully");
     }
 
     private void UpdateProjection()

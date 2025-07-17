@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Microsoft.Extensions.Logging;
 using WheelWizard.Models.RRInfo;
 using WheelWizard.Rendering3D.Domain;
 using WheelWizard.Resources.Languages;
@@ -115,7 +116,8 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
 
     private void OpenTest3D_OnClick(object sender, RoutedEventArgs e)
     {
-        new Test3DWindow(MonoGameRenderer).Show();
+        var logger = App.Services.GetRequiredService<ILogger<Test3DWindow>>();
+        new Test3DWindow(MonoGameRenderer, logger).Show();
     }
 
     private void RoomsDetailPage_Unloaded(object sender, RoutedEventArgs e)
