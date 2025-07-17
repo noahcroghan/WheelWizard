@@ -3,7 +3,6 @@ using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WheelWizard.Models.RRInfo;
-using WheelWizard.Rendering3D;
 using WheelWizard.Resources.Languages;
 using WheelWizard.Services.LiveData;
 using WheelWizard.Shared.DependencyInjection;
@@ -112,8 +111,7 @@ public partial class RoomDetailsPage : UserControlBase, INotifyPropertyChanged, 
 
     private void OpenTest3D_OnClick(object sender, RoutedEventArgs e)
     {
-        var rendering3DService = App.Services.GetRequiredService<IRendering3DSingletonService>();
-        new Test3DWindow(rendering3DService).Show();
+        new Test3DWindow().Show();
     }
 
     private void RoomsDetailPage_Unloaded(object sender, RoutedEventArgs e)

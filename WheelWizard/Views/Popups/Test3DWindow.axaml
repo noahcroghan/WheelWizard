@@ -8,6 +8,5 @@
              Width="800" Height="600"
              x:DataType="popup:Test3DWindow">
 
-    <!-- The OpenGL control will be set programmatically -->
-    <TextBlock Text="Loading 3D Scene..." HorizontalAlignment="Center" VerticalAlignment="Center" />
+    <!-- The MonoGame control will be set programmatically -->
 </UserControl>

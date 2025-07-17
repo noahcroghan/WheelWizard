@@ -9,7 +9,6 @@ using WheelWizard.CustomDistributions;
 using WheelWizard.GameBanana;
 using WheelWizard.GitHub;
 using WheelWizard.MiiImages;
-using WheelWizard.Rendering3D;
 using WheelWizard.RrRooms;
 using WheelWizard.Shared.Services;
 using WheelWizard.WheelWizardData;
@@ -35,7 +34,6 @@ public static class SetupExtensions
         services.AddWiiManagement();
         services.AddGameBanana();
         services.AddMiiImages();
-        services.AddRendering3D();
         services.AddCustomDistributionService();
 
         // IO Abstractions
