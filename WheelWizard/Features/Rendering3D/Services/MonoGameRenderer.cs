@@ -166,6 +166,10 @@ public class Game3DRenderer : Game
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
+
+        // Configure graphics device for transparency support
+        _graphics.PreferredBackBufferFormat = SurfaceFormat.Color;
+        _graphics.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
     }
 
     protected override void Initialize()
@@ -188,6 +192,9 @@ public class Game3DRenderer : Game
         // Configure depth testing and backface culling
         GraphicsDevice.DepthStencilState = DepthStencilState.Default;
         GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+
+        // Configure alpha blending for transparency
+        GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
         // Create vertex buffer
         _vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), _vertices.Length, BufferUsage.WriteOnly);
@@ -224,12 +231,13 @@ public class Game3DRenderer : Game
         if (_basicEffect == null || _vertexBuffer == null || _indexBuffer == null)
             return;
 
-        // Clear the screen and depth buffer
-        GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
+        // Clear the screen and depth buffer with transparent background
+        GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Transparent);
 
         // Ensure proper render states
         GraphicsDevice.DepthStencilState = DepthStencilState.Default;
         GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+        GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
         // Set up the effect matrices
         _basicEffect.World = _world;

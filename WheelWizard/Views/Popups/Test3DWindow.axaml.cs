@@ -66,6 +66,9 @@ public partial class Test3DWindow : PopupContent
         Window.Height = 600;
         _logger.LogInformation("Window size set to: {Width}x{Height}", Window.Width, Window.Height);
 
+        // Ensure the window supports transparency
+        Window.TransparencyLevelHint = new[] { WindowTransparencyLevel.Transparent };
+
         // Start the renderer
         _monoGameRenderer.Start();
 
