@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WheelWizard.Rendering3D.Domain;
+using WheelWizard.Rendering3D.Services;
 using XnaMatrix = Microsoft.Xna.Framework.Matrix;
 
 namespace WheelWizard.Rendering3D.Services;
@@ -20,6 +21,32 @@ public class MonoGameRenderer : IMonoGameRenderer, IDisposable
     public bool IsRunning => _game3DRenderer?.IsActive == true;
     public Vector2 Dimensions => _dimensions;
 
+    /// <summary>
+    /// Gets the 3D scene for easy object manipulation
+    /// </summary>
+    public I3DScene? Scene => _game3DRenderer?.Scene;
+
+    /// <summary>
+    /// Event fired during the update loop for custom animations
+    /// </summary>
+    public event Action<GameTime>? UpdateAnimation;
+
+    /// <summary>
+    /// Internal method to fire the update animation event
+    /// </summary>
+    /// <param name="gameTime">Current game time</param>
+    internal void FireUpdateAnimation(GameTime gameTime)
+    {
+        try
+        {
+            UpdateAnimation?.Invoke(gameTime);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error in FireUpdateAnimation");
+        }
+    }
+
     public MonoGameRenderer(ILogger<MonoGameRenderer> logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -30,13 +57,21 @@ public class MonoGameRenderer : IMonoGameRenderer, IDisposable
         if (_isDisposed)
             throw new ObjectDisposedException(nameof(MonoGameRenderer));
 
-        _dimensions = new Vector2(width, height);
+        try
+        {
+            _dimensions = new Vector2(width, height);
 
-        _game3DRenderer = new Game3DRenderer(_logger);
-        _monoGameControl = new MonoGameControl();
-        _monoGameControl.Game = _game3DRenderer;
+            _game3DRenderer = new Game3DRenderer(_logger, this);
+            _monoGameControl = new MonoGameControl();
+            _monoGameControl.Game = _game3DRenderer;
 
-        _logger.LogInformation("MonoGame renderer initialized with dimensions: {Width}x{Height}", width, height);
+            _logger.LogInformation("MonoGame renderer initialized with dimensions: {Width}x{Height}", width, height);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error initializing MonoGame renderer");
+            throw;
+        }
     }
 
     public MonoGameControl GetControl()
@@ -58,7 +93,8 @@ public class MonoGameRenderer : IMonoGameRenderer, IDisposable
         if (_game3DRenderer == null)
             throw new InvalidOperationException("Renderer not initialized. Call Initialize() first.");
 
-        _game3DRenderer.RunOneFrame();
+        // Let the MonoGame control handle its own initialization
+        // The control will automatically call Initialize() and LoadContent() when needed
         _logger.LogInformation("MonoGame renderer started");
     }
 
@@ -91,79 +127,19 @@ public class Game3DRenderer : Game
 {
     private GraphicsDeviceManager? _graphics;
     private BasicEffect? _basicEffect;
-    private VertexBuffer? _vertexBuffer;
-    private IndexBuffer? _indexBuffer;
-    private XnaMatrix _world;
-    private XnaMatrix _view;
-    private XnaMatrix _projection;
-    private float _rotation;
+    private I3DScene? _scene;
     private readonly ILogger<MonoGameRenderer> _logger;
+    private readonly MonoGameRenderer _parentRenderer;
 
-    // Cube vertices with colors
-    private readonly VertexPositionColor[] _vertices =
-    [
-        // Front face
-        new(new Vector3(-1, -1, 1), Microsoft.Xna.Framework.Color.Red),
-        new(new Vector3(1, -1, 1), Microsoft.Xna.Framework.Color.Green),
-        new(new Vector3(1, 1, 1), Microsoft.Xna.Framework.Color.Blue),
-        new(new Vector3(-1, 1, 1), Microsoft.Xna.Framework.Color.Yellow),
-        // Back face
-        new(new Vector3(-1, -1, -1), Microsoft.Xna.Framework.Color.Magenta),
-        new(new Vector3(1, -1, -1), Microsoft.Xna.Framework.Color.Cyan),
-        new(new Vector3(1, 1, -1), Microsoft.Xna.Framework.Color.Gray),
-        new(new Vector3(-1, 1, -1), Microsoft.Xna.Framework.Color.Orange),
-    ];
+    /// <summary>
+    /// Gets the 3D scene for easy object manipulation
+    /// </summary>
+    public I3DScene? Scene => _scene;
 
-    // Cube indices - corrected winding order for proper backface culling
-    private readonly short[] _indices =
-    [
-        // Front face (Z = 1)
-        0,
-        2,
-        1, // Triangle 1
-        0,
-        3,
-        2, // Triangle 2
-        // Back face (Z = -1)
-        5,
-        7,
-        4, // Triangle 1
-        5,
-        6,
-        7, // Triangle 2
-        // Left face (X = -1)
-        4,
-        3,
-        0, // Triangle 1
-        4,
-        7,
-        3, // Triangle 2
-        // Right face (X = 1)
-        1,
-        6,
-        5, // Triangle 1
-        1,
-        2,
-        6, // Triangle 2
-        // Top face (Y = 1)
-        3,
-        6,
-        2, // Triangle 1
-        3,
-        7,
-        6, // Triangle 2
-        // Bottom face (Y = -1)
-        4,
-        1,
-        5, // Triangle 1
-        4,
-        0,
-        1, // Triangle 2
-    ];
-
-    public Game3DRenderer(ILogger<MonoGameRenderer> logger)
+    public Game3DRenderer(ILogger<MonoGameRenderer> logger, MonoGameRenderer parentRenderer)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _parentRenderer = parentRenderer ?? throw new ArgumentNullException(nameof(parentRenderer));
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
 
@@ -174,85 +150,126 @@ public class Game3DRenderer : Game
 
     protected override void Initialize()
     {
-        base.Initialize();
-
-        // Set up camera matrices
-        _view = XnaMatrix.CreateLookAt(new Vector3(0, 0, 5), Vector3.Zero, Vector3.Up);
-        UpdateProjection();
-
-        _logger.LogInformation("Game3DRenderer initialized successfully");
+        try
+        {
+            base.Initialize();
+            _logger.LogInformation("Game3DRenderer initialized successfully");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error in Game3DRenderer.Initialize");
+            throw;
+        }
     }
 
     protected override void LoadContent()
     {
-        // Create basic effect for rendering
-        _basicEffect = new BasicEffect(GraphicsDevice);
-        _basicEffect.VertexColorEnabled = true;
-
-        // Configure depth testing and backface culling
-        GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-        GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-
-        // Configure alpha blending for transparency
-        GraphicsDevice.BlendState = BlendState.AlphaBlend;
-
-        // Create vertex buffer
-        _vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), _vertices.Length, BufferUsage.WriteOnly);
-        _vertexBuffer.SetData(_vertices);
-
-        // Create index buffer
-        _indexBuffer = new IndexBuffer(GraphicsDevice, IndexElementSize.SixteenBits, _indices.Length, BufferUsage.WriteOnly);
-        _indexBuffer.SetData(_indices);
-
-        _logger.LogInformation("Game3DRenderer content loaded successfully");
-    }
-
-    private void UpdateProjection()
-    {
-        if (GraphicsDevice != null)
+        try
         {
-            var viewport = GraphicsDevice.Viewport;
-            var aspectRatio = viewport.Width / (float)viewport.Height;
-            _projection = XnaMatrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, aspectRatio, 0.1f, 100f);
+            // Ensure graphics device is ready
+            if (GraphicsDevice == null)
+            {
+                _logger.LogError("GraphicsDevice is null in LoadContent");
+                return;
+            }
+
+            // Create basic effect for rendering
+            _basicEffect = new BasicEffect(GraphicsDevice);
+            _basicEffect.VertexColorEnabled = true;
+            _basicEffect.LightingEnabled = true;
+
+            // Configure depth testing and backface culling
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+
+            // Configure alpha blending for transparency
+            GraphicsDevice.BlendState = BlendState.AlphaBlend;
+
+            // Create the 3D scene
+            _scene = new Scene3D(GraphicsDevice, Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { }).CreateLogger<Scene3D>());
+
+            // Add a demo rotating cube to the scene
+            var cube = _scene.AddObject("demo-cube", SceneObjectType.Cube, new Vector3(0, 0, 0));
+
+            // Set up basic lighting
+            _scene.Lighting.SetupSunLighting(
+                Microsoft.Xna.Framework.Color.White,
+                Vector3.Normalize(new Vector3(-1, -1, -1)),
+                new Microsoft.Xna.Framework.Color(0.2f, 0.2f, 0.3f)
+            );
+
+            _logger.LogInformation("Game3DRenderer content loaded successfully with scene system");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error loading Game3DRenderer content");
+            throw;
         }
     }
 
     protected override void Update(GameTime gameTime)
     {
-        // Rotate the cube
-        _rotation += (float)gameTime.ElapsedGameTime.TotalSeconds;
-        _world = XnaMatrix.CreateRotationY(_rotation) * XnaMatrix.CreateRotationX(_rotation * 0.5f);
+        try
+        {
+            // Only update the scene if it has been initialized and is valid
+            if (_scene != null && GraphicsDevice != null)
+            {
+                _scene.Update(gameTime);
+            }
+
+            // Fire the update animation event for external animations
+            // This is safe to call even if the scene isn't ready yet
+            _parentRenderer?.FireUpdateAnimation(gameTime);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error in Game3DRenderer.Update");
+        }
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        if (_basicEffect == null || _vertexBuffer == null || _indexBuffer == null)
-            return;
-
-        // Clear the screen and depth buffer with transparent background
-        GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Transparent);
-
-        // Ensure proper render states
-        GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-        GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-        GraphicsDevice.BlendState = BlendState.AlphaBlend;
-
-        // Set up the effect matrices
-        _basicEffect.World = _world;
-        _basicEffect.View = _view;
-        _basicEffect.Projection = _projection;
-
-        // Set vertex buffer and index buffer
-        GraphicsDevice.SetVertexBuffer(_vertexBuffer);
-        GraphicsDevice.Indices = _indexBuffer;
-
-        // Draw the cube
-        foreach (var pass in _basicEffect.CurrentTechnique.Passes)
+        try
         {
-            pass.Apply();
-            GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, _indices.Length / 3);
+            if (_basicEffect == null || _scene == null || GraphicsDevice == null)
+                return;
+
+            // Clear the screen and depth buffer with transparent background
+            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.Transparent);
+
+            // Ensure proper render states
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+            GraphicsDevice.BlendState = BlendState.AlphaBlend;
+
+            // Set up lighting on the effect
+            if (_scene.Lighting.LightingEnabled)
+            {
+                _basicEffect.LightingEnabled = true;
+                _basicEffect.AmbientLightColor = _scene.Lighting.AmbientColor.ToVector3();
+                _basicEffect.DirectionalLight0.Enabled = true;
+                _basicEffect.DirectionalLight0.DiffuseColor = _scene.Lighting.DirectionalColor.ToVector3();
+                _basicEffect.DirectionalLight0.Direction = _scene.Lighting.DirectionalDirection;
+            }
+            else
+            {
+                _basicEffect.LightingEnabled = false;
+            }
+
+            // Draw all visible objects in the scene
+            foreach (var obj in _scene.Objects.Where(o => o.Visible))
+            {
+                if (obj is SceneObject3D sceneObj)
+                {
+                    sceneObj.Draw(_basicEffect, _scene.Camera.ViewMatrix, _scene.Camera.ProjectionMatrix);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error in Game3DRenderer.Draw");
         }
 
         base.Draw(gameTime);
@@ -260,9 +277,16 @@ public class Game3DRenderer : Game
 
     protected override void UnloadContent()
     {
-        _basicEffect?.Dispose();
-        _vertexBuffer?.Dispose();
-        _indexBuffer?.Dispose();
+        try
+        {
+            _basicEffect?.Dispose();
+            _scene?.ClearScene();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error in Game3DRenderer.UnloadContent");
+        }
+
         base.UnloadContent();
     }
 }

@@ -5,6 +5,11 @@ namespace WheelWizard.Rendering3D.Domain;
 public interface IMonoGameRenderer
 {
     /// <summary>
+    /// Event fired during the update loop for custom animations
+    /// </summary>
+    event Action<GameTime>? UpdateAnimation;
+
+    /// <summary>
     /// Initializes the MonoGame renderer with the specified dimensions
     /// </summary>
     /// <param name="width">Width of the rendering area</param>
@@ -41,4 +46,9 @@ public interface IMonoGameRenderer
     /// Gets the current dimensions of the renderer
     /// </summary>
     Vector2 Dimensions { get; }
+
+    /// <summary>
+    /// Gets the 3D scene for easy object manipulation
+    /// </summary>
+    I3DScene? Scene { get; }
 }

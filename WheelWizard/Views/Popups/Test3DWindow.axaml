@@ -5,9 +5,174 @@
              xmlns:popup="clr-namespace:WheelWizard.Views.Popups"
              mc:Ignorable="d"
              x:Class="WheelWizard.Views.Popups.Test3DWindow"
-             Width="800" Height="600"
+             Width="1000" Height="700"
              Background="Transparent"
              x:DataType="popup:Test3DWindow">
 
-    <!-- The MonoGame control will be set programmatically -->
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Control Panel -->
+        <ScrollViewer Grid.Column="0" 
+                      Background="#80000000" 
+                      Margin="10"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="10" Spacing="15">
+                
+                <!-- Light Controls -->
+                <Border Background="#40FFFFFF" CornerRadius="5" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Lighting Controls" 
+                                   FontWeight="Bold" 
+                                   FontSize="14" 
+                                   Foreground="White"/>
+                        
+                        <TextBlock Text="Light Direction X:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="LightDirectionXSlider" 
+                                Minimum="-1" Maximum="1" Value="0" 
+                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnLightDirectionChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=LightDirectionXSlider, StringFormat='X: {0:F2}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                        
+                        <TextBlock Text="Light Direction Y:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="LightDirectionYSlider" 
+                                Minimum="-1" Maximum="1" Value="0" 
+                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnLightDirectionChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=LightDirectionYSlider, StringFormat='Y: {0:F2}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                        
+                        <TextBlock Text="Light Direction Z:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="LightDirectionZSlider" 
+                                Minimum="-1" Maximum="1" Value="-1" 
+                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnLightDirectionChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=LightDirectionZSlider, StringFormat='Z: {0:F2}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                        
+                        <TextBlock Text="Ambient Light Intensity:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="AmbientIntensitySlider" 
+                                Minimum="0" Maximum="1" Value="0.3" 
+                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnAmbientIntensityChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=AmbientIntensitySlider, StringFormat='Intensity: {0:F2}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Camera Controls -->
+                <Border Background="#40FFFFFF" CornerRadius="5" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Camera Controls" 
+                                   FontWeight="Bold" 
+                                   FontSize="14" 
+                                   Foreground="White"/>
+                        
+                        <TextBlock Text="Camera Distance:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="CameraDistanceSlider" 
+                                Minimum="2" Maximum="20" Value="8" 
+                                TickFrequency="1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnCameraDistanceChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=CameraDistanceSlider, StringFormat='Distance: {0:F1}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                        
+                        <TextBlock Text="Camera Height:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="CameraHeightSlider" 
+                                Minimum="-5" Maximum="10" Value="3" 
+                                TickFrequency="0.5" IsSnapToTickEnabled="True"
+                                ValueChanged="OnCameraHeightChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=CameraHeightSlider, StringFormat='Height: {0:F1}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Object Controls -->
+                <Border Background="#40FFFFFF" CornerRadius="5" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Object Controls" 
+                                   FontWeight="Bold" 
+                                   FontSize="14" 
+                                   Foreground="White"/>
+                        
+                        <TextBlock Text="Cube Rotation Speed:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="CubeRotationSpeedSlider" 
+                                Minimum="0" Maximum="5" Value="1" 
+                                TickFrequency="0.5" IsSnapToTickEnabled="True"
+                                ValueChanged="OnCubeRotationSpeedChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=CubeRotationSpeedSlider, StringFormat='Speed: {0:F1}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                        
+                        <TextBlock Text="Sphere Scale:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="SphereScaleSlider" 
+                                Minimum="0.1" Maximum="3" Value="1" 
+                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnSphereScaleChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=SphereScaleSlider, StringFormat='Scale: {0:F1}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                        
+                        <TextBlock Text="Pyramid Position Y:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="PyramidPositionYSlider" 
+                                Minimum="-3" Maximum="3" Value="-1.5" 
+                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnPyramidPositionChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=PyramidPositionYSlider, StringFormat='Y: {0:F1}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Color Controls -->
+                <Border Background="#40FFFFFF" CornerRadius="5" Padding="10">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Color Controls" 
+                                   FontWeight="Bold" 
+                                   FontSize="14" 
+                                   Foreground="White"/>
+                        
+                        <TextBlock Text="Cube Color Red:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="CubeColorRedSlider" 
+                                Minimum="0" Maximum="1" Value="1" 
+                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnCubeColorChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=CubeColorRedSlider, StringFormat='Red: {0:F2}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                        
+                        <TextBlock Text="Cube Color Green:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="CubeColorGreenSlider" 
+                                Minimum="0" Maximum="1" Value="0.5" 
+                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnCubeColorChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=CubeColorGreenSlider, StringFormat='Green: {0:F2}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                        
+                        <TextBlock Text="Cube Color Blue:" Foreground="White" FontSize="12"/>
+                        <Slider x:Name="CubeColorBlueSlider" 
+                                Minimum="0" Maximum="1" Value="0.2" 
+                                TickFrequency="0.1" IsSnapToTickEnabled="True"
+                                ValueChanged="OnCubeColorChanged"/>
+                        <TextBlock Text="{Binding Value, ElementName=CubeColorBlueSlider, StringFormat='Blue: {0:F2}'}" 
+                                   Foreground="LightGray" FontSize="10"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Reset Button -->
+                <Button Content="Reset Scene" 
+                        HorizontalAlignment="Stretch"
+                        Background="#40404040"
+                        Foreground="White"
+                        Click="OnResetSceneClicked"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- 3D Render Area -->
+        <Border Grid.Column="1" 
+                Background="#20000000" 
+                Margin="10"
+                x:Name="RenderArea">
+            <!-- The MonoGame control will be set programmatically -->
+        </Border>
+    </Grid>
 </UserControl>
