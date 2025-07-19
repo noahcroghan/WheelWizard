@@ -61,6 +61,9 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Testably.Abstractions" Version="9.0.0"/>
+        
+        <!-- Controller detection -->
+        <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.2.1105"/>
     </ItemGroup>
 
     <ItemGroup Label="Embedded Resources">
