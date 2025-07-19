@@ -32,6 +32,26 @@
         <Setter Property="Cursor" Value="Hand"/>
     </Style>
     
+    <!-- Secondary Button Style -->
+    <Style Selector="Button.SecondaryButton">
+        <Setter Property="Background" Value="{StaticResource Neutral700}" />
+        <Setter Property="Foreground" Value="{StaticResource Neutral300}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="CornerRadius" Value="{StaticResource ButtonCornerRadius}" />
+        <Setter Property="Padding" Value="12,8" />
+        <Setter Property="FontWeight" Value="Medium" />
+    </Style>
+    
+    <Style Selector="Button.SecondaryButton:pointerover">
+        <Setter Property="Background" Value="{StaticResource Neutral600}" />
+        <Setter Property="Foreground" Value="{StaticResource Neutral200}" />
+    </Style>
+    
+    <Style Selector="Button.SecondaryButton:pressed">
+        <Setter Property="Background" Value="{StaticResource Neutral500}" />
+        <Setter Property="Foreground" Value="{StaticResource Neutral200}" />
+    </Style>
+    
     <!-- Set foreground of objects in the style -->
     <!-- Add this to that object:  Foreground="{Binding $parent[Button].Foreground}" -->
     <!-- This is the alternative way to set the Foreground of the PathIcon -->

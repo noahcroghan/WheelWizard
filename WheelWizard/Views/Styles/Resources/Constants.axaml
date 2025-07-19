@@ -221,6 +221,19 @@
         <Color x:Key="Primary800">#08675A</Color>
         <Color x:Key="Primary900">#0C554A</Color>
         <Color x:Key="Primary950">#00342F</Color>
+
+        <!-- Success Scale (Green) -->
+        <Color x:Key="Success50">#F0FDF4</Color>
+        <Color x:Key="Success100">#DCFCE7</Color>
+        <Color x:Key="Success200">#BBF7D0</Color>
+        <Color x:Key="Success300">#86EFAC</Color>
+        <Color x:Key="Success400">#4ADE80</Color>
+        <Color x:Key="Success500">#22C55E</Color>
+        <Color x:Key="Success600">#16A34A</Color>
+        <Color x:Key="Success700">#15803D</Color>
+        <Color x:Key="Success800">#166534</Color>
+        <Color x:Key="Success900">#14532D</Color>
+        <Color x:Key="Success950">#052E16</Color>
     
         <Color x:Key="BlackIsh">#090A0C</Color>
     

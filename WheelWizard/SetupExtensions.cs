@@ -4,6 +4,7 @@ using Serilog;
 using Testably.Abstractions;
 using WheelWizard.AutoUpdating;
 using WheelWizard.Branding;
+using WheelWizard.ControllerSettings;
 using WheelWizard.CustomCharacters;
 using WheelWizard.CustomDistributions;
 using WheelWizard.GameBanana;
@@ -28,6 +29,7 @@ public static class SetupExtensions
         services.AddCustomCharacters();
         services.AddAutoUpdating();
         services.AddBranding();
+        services.AddControllerSettings();
         services.AddGitHub();
         services.AddRrRooms();
         services.AddWhWzData();

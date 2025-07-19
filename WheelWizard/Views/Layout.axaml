@@ -128,6 +128,9 @@
             <components:SidebarRadioButton IconData="{StaticResource Shirt}"
                                            PageType="{x:Type pages:MiiListPage}"
                                            Text="{x:Static lang:Common.PageTitle_MyMiis}" />
+            <components:SidebarRadioButton IconData="{StaticResource Grip}"
+                                           PageType="{x:Type pages:ControllerPage}"
+                                           Text="Controller" />
             <TextBlock Text="{x:Static lang:Common.Attribute_Status_Online}" Classes="SidebarSectionText" />
             <!-- Repurposing this translation from values -->
             <components:SidebarRadioButton IconData="{StaticResource RoomUsers}"

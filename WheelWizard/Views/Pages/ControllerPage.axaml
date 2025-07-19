@@ -1,0 +1,325 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+             x:Class="WheelWizard.Views.Pages.ControllerPage"
+             xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:controllers="clr-namespace:WheelWizard.ControllerSettings">
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Margin="20" Spacing="20">
+                <Grid ColumnDefinitions="*,Auto,Auto">
+                    <TextBlock Grid.Column="0" Text="Controllers" Classes="PageTitle" />
+                    <Button Grid.Column="1" 
+                            x:Name="DiagnosticButton"
+                            Content="Run Diagnostics" 
+                            Classes="SecondaryButton"
+                            Click="DiagnosticButton_Click"
+                            Margin="0,0,10,0" />
+                    <Button Grid.Column="2" 
+                            x:Name="RefreshButton"
+                            Content="Refresh" 
+                            Classes="SecondaryButton"
+                            Click="RefreshButton_Click" />
+                </Grid>
+                
+                <!-- Connected Controllers Section -->
+                <Border Background="{StaticResource Neutral800}" CornerRadius="{StaticResource GlobalCornerRadius}" Padding="20">
+                    <StackPanel Spacing="15">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Grid.Column="0" Text="Connected Controllers" Classes="SectionTitle" />
+                            <TextBlock Grid.Column="1" 
+                                       x:Name="ControllerCountText" 
+                                       Text="0 connected" 
+                                       Classes="TinyText" 
+                                       Foreground="{StaticResource Neutral400}" 
+                                       VerticalAlignment="Center" />
+                        </Grid>
+                        
+                        <ItemsControl x:Name="ControllersList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="controllers:ControllerInfo">
+                                    <Border Background="{StaticResource Neutral700}" 
+                                            CornerRadius="{StaticResource GlobalCornerRadius}" 
+                                            Padding="20" 
+                                            Margin="0,0,0,15">
+                                        <Grid ColumnDefinitions="Auto,*,Auto">
+                                            <!-- Controller Icon -->
+                                            <Border Grid.Column="0" 
+                                                    Background="{StaticResource Primary500}" 
+                                                    CornerRadius="8" 
+                                                    Width="48" 
+                                                    Height="48" 
+                                                    Margin="0,0,20,0">
+                                                <PathIcon Data="{StaticResource Grip}" 
+                                                          Width="24" 
+                                                          Height="24" 
+                                                          Foreground="White" />
+                                            </Border>
+                                            
+                                            <!-- Controller Info -->
+                                            <StackPanel Grid.Column="1" Spacing="8" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Name}" Classes="BodyText" FontWeight="Bold" />
+                                                <StackPanel Orientation="Horizontal" Spacing="15">
+                                                    <Border Background="{StaticResource Primary100}" 
+                                                            CornerRadius="12" 
+                                                            Padding="8,4">
+                                                        <TextBlock Text="Connected" 
+                                                                   Classes="TinyText" 
+                                                                   Foreground="{StaticResource Primary700}" 
+                                                                   FontWeight="Medium" />
+                                                    </Border>
+                                                    <TextBlock Text="{Binding ControllerType}" 
+                                                               Classes="TinyText" 
+                                                               Foreground="{StaticResource Neutral400}" />
+                                                    <TextBlock Text="{Binding Index, StringFormat='Player {0}'}" 
+                                                               Classes="TinyText" 
+                                                               Foreground="{StaticResource Neutral400}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                            
+                                            <!-- Status Indicator -->
+                                            <Border Grid.Column="2" 
+                                                    Background="{StaticResource Primary500}" 
+                                                    CornerRadius="6" 
+                                                    Width="12" 
+                                                    Height="12" 
+                                                    VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        
+                        <components:EmptyPageInfo x:Name="NoControllersInfo" 
+                                                  IsVisible="False"
+                                                  IconData="{StaticResource Grip}"
+                                                  Title="No Controllers Detected"
+                                                  BodyText="Connect a controller and click Refresh to detect it. Supports Xbox, PlayStation, Nintendo, and generic USB controllers." />
+                    </StackPanel>
+                </Border>
+
+                <!-- Controller Testing Section -->
+                <Border Background="{StaticResource Neutral800}" 
+                        CornerRadius="{StaticResource GlobalCornerRadius}" 
+                        Padding="20"
+                        x:Name="TestingSection">
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="Controller Testing" Classes="SectionTitle" />
+                        <TextBlock Text="Test your controllers by pressing buttons and moving sticks. Real-time feedback shows which inputs are active." 
+                                   Classes="BodyText" 
+                                   TextWrapping="Wrap" 
+                                   Foreground="{StaticResource Neutral400}" />
+                        
+                        <ItemsControl x:Name="ControllerTestList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="controllers:ControllerInfo">
+                                    <Border Background="{StaticResource Neutral700}" 
+                                            CornerRadius="{StaticResource GlobalCornerRadius}" 
+                                            Padding="25" 
+                                            Margin="0,0,0,20">
+                                        <StackPanel Spacing="20">
+                                            <!-- Controller Header -->
+                                            <Grid ColumnDefinitions="Auto,*">
+                                                <Border Grid.Column="0" 
+                                                        Background="{StaticResource Primary500}" 
+                                                        CornerRadius="6" 
+                                                        Width="32" 
+                                                        Height="32" 
+                                                        Margin="0,0,15,0">
+                                                    <PathIcon Data="{StaticResource Grip}" 
+                                                              Width="16" 
+                                                              Height="16" 
+                                                              Foreground="White" />
+                                                </Border>
+                                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding Name}" Classes="BodyText" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding Index, StringFormat='Player {0}'}" 
+                                                               Classes="TinyText" 
+                                                               Foreground="{StaticResource Neutral400}" />
+                                                </StackPanel>
+                                            </Grid>
+                                            
+                                            <!-- Visual Controller Display -->
+                                            <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                                                <!-- Left Side - D-Pad and Left Stick -->
+                                                <StackPanel Grid.Column="0" Grid.Row="0" Spacing="15" HorizontalAlignment="Center">
+                                                    <!-- D-Pad -->
+                                                    <StackPanel Spacing="8">
+                                                        <TextBlock Text="D-Pad" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                        <Grid Width="80" Height="80">
+                                                            <!-- D-Pad Cross Shape -->
+                                                            <Rectangle Fill="{StaticResource Neutral600}" Width="60" Height="20" VerticalAlignment="Center" />
+                                                            <Rectangle Fill="{StaticResource Neutral600}" Width="20" Height="60" HorizontalAlignment="Center" />
+                                                            
+                                                            <!-- D-Pad Buttons -->
+                                                            <Border x:Name="DPadUp" Background="{StaticResource Neutral600}" Width="18" Height="18" 
+                                                                    VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,1,0,0" CornerRadius="2" />
+                                                            <Border x:Name="DPadDown" Background="{StaticResource Neutral600}" Width="18" Height="18" 
+                                                                    VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,1" CornerRadius="2" />
+                                                            <Border x:Name="DPadLeft" Background="{StaticResource Neutral600}" Width="18" Height="18" 
+                                                                    VerticalAlignment="Center" HorizontalAlignment="Left" Margin="1,0,0,0" CornerRadius="2" />
+                                                            <Border x:Name="DPadRight" Background="{StaticResource Neutral600}" Width="18" Height="18" 
+                                                                    VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,1,0" CornerRadius="2" />
+                                                        </Grid>
+                                                    </StackPanel>
+                                                    
+                                                    <!-- Left Stick -->
+                                                    <StackPanel Spacing="8">
+                                                        <TextBlock Text="Left Stick" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                        <Border Background="{StaticResource Neutral600}" Width="60" Height="60" CornerRadius="30">
+                                                            <Border x:Name="LeftStickIndicator" 
+                                                                    Background="{StaticResource Primary400}" 
+                                                                    Width="20" 
+                                                                    Height="20" 
+                                                                    CornerRadius="10" />
+                                                        </Border>
+                                                        <TextBlock x:Name="LeftStickText" 
+                                                                   Text="(0.0, 0.0)" 
+                                                                   Classes="TinyText" 
+                                                                   HorizontalAlignment="Center" 
+                                                                   Foreground="{StaticResource Neutral400}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                
+                                                <!-- Center - Face Buttons and Triggers -->
+                                                <StackPanel Grid.Column="1" Grid.Row="0" Spacing="20" HorizontalAlignment="Center" Margin="40,0">
+                                                    <!-- Triggers -->
+                                                    <StackPanel Spacing="10">
+                                                        <TextBlock Text="Triggers" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                        <StackPanel Orientation="Horizontal" Spacing="15">
+                                                            <StackPanel Spacing="5">
+                                                                <TextBlock Text="LT" Classes="TinyText" HorizontalAlignment="Center" />
+                                                                <Border Background="{StaticResource Neutral600}" Width="30" Height="8" CornerRadius="4">
+                                                                    <Border x:Name="LeftTriggerBar" 
+                                                                            Background="{StaticResource Primary400}" 
+                                                                            Width="0" 
+                                                                            Height="8" 
+                                                                            CornerRadius="4" 
+                                                                            HorizontalAlignment="Left" />
+                                                                </Border>
+                                                                <TextBlock x:Name="LeftTriggerText" 
+                                                                           Text="0.0" 
+                                                                           Classes="TinyText" 
+                                                                           HorizontalAlignment="Center" 
+                                                                           Foreground="{StaticResource Neutral400}" />
+                                                            </StackPanel>
+                                                            <StackPanel Spacing="5">
+                                                                <TextBlock Text="RT" Classes="TinyText" HorizontalAlignment="Center" />
+                                                                <Border Background="{StaticResource Neutral600}" Width="30" Height="8" CornerRadius="4">
+                                                                    <Border x:Name="RightTriggerBar" 
+                                                                            Background="{StaticResource Primary400}" 
+                                                                            Width="0" 
+                                                                            Height="8" 
+                                                                            CornerRadius="4" 
+                                                                            HorizontalAlignment="Left" />
+                                                                </Border>
+                                                                <TextBlock x:Name="RightTriggerText" 
+                                                                           Text="0.0" 
+                                                                           Classes="TinyText" 
+                                                                           HorizontalAlignment="Center" 
+                                                                           Foreground="{StaticResource Neutral400}" />
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    
+                                                    <!-- Shoulder Buttons -->
+                                                    <StackPanel Spacing="8">
+                                                        <TextBlock Text="Shoulders" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                        <StackPanel Orientation="Horizontal" Spacing="20">
+                                                            <Border x:Name="LeftShoulder" 
+                                                                    Background="{StaticResource Neutral600}" 
+                                                                    Width="35" 
+                                                                    Height="20" 
+                                                                    CornerRadius="4">
+                                                                <TextBlock Text="LB" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                            </Border>
+                                                            <Border x:Name="RightShoulder" 
+                                                                    Background="{StaticResource Neutral600}" 
+                                                                    Width="35" 
+                                                                    Height="20" 
+                                                                    CornerRadius="4">
+                                                                <TextBlock Text="RB" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                            </Border>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                    
+                                                    <!-- Start/Back Buttons -->
+                                                    <StackPanel Spacing="8">
+                                                        <TextBlock Text="Menu" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                        <StackPanel Orientation="Horizontal" Spacing="15">
+                                                            <Border x:Name="BackButton" 
+                                                                    Background="{StaticResource Neutral600}" 
+                                                                    Width="30" 
+                                                                    Height="20" 
+                                                                    CornerRadius="4">
+                                                                <TextBlock Text="◀◀" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                            </Border>
+                                                            <Border x:Name="StartButton" 
+                                                                    Background="{StaticResource Neutral600}" 
+                                                                    Width="30" 
+                                                                    Height="20" 
+                                                                    CornerRadius="4">
+                                                                <TextBlock Text="☰" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                            </Border>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                
+                                                <!-- Right Side - Face Buttons and Right Stick -->
+                                                <StackPanel Grid.Column="2" Grid.Row="0" Spacing="15" HorizontalAlignment="Center">
+                                                    <!-- Face Buttons -->
+                                                    <StackPanel Spacing="8">
+                                                        <TextBlock Text="Face Buttons" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                        <Grid Width="80" Height="80">
+                                                            <!-- Face Button Layout -->
+                                                            <Border x:Name="YButton" Background="{StaticResource Neutral600}" Width="22" Height="22" 
+                                                                    VerticalAlignment="Top" HorizontalAlignment="Center" CornerRadius="11">
+                                                                <TextBlock Text="Y" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+                                                            </Border>
+                                                            <Border x:Name="AButton" Background="{StaticResource Neutral600}" Width="22" Height="22" 
+                                                                    VerticalAlignment="Bottom" HorizontalAlignment="Center" CornerRadius="11">
+                                                                <TextBlock Text="A" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+                                                            </Border>
+                                                            <Border x:Name="XButton" Background="{StaticResource Neutral600}" Width="22" Height="22" 
+                                                                    VerticalAlignment="Center" HorizontalAlignment="Left" CornerRadius="11">
+                                                                <TextBlock Text="X" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+                                                            </Border>
+                                                            <Border x:Name="BButton" Background="{StaticResource Neutral600}" Width="22" Height="22" 
+                                                                    VerticalAlignment="Center" HorizontalAlignment="Right" CornerRadius="11">
+                                                                <TextBlock Text="B" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+                                                            </Border>
+                                                        </Grid>
+                                                    </StackPanel>
+                                                    
+                                                    <!-- Right Stick -->
+                                                    <StackPanel Spacing="8">
+                                                        <TextBlock Text="Right Stick" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                        <Border Background="{StaticResource Neutral600}" Width="60" Height="60" CornerRadius="30">
+                                                            <Border x:Name="RightStickIndicator" 
+                                                                    Background="{StaticResource Primary400}" 
+                                                                    Width="20" 
+                                                                    Height="20" 
+                                                                    CornerRadius="10" />
+                                                        </Border>
+                                                        <TextBlock x:Name="RightStickText" 
+                                                                   Text="(0.0, 0.0)" 
+                                                                   Classes="TinyText" 
+                                                                   HorizontalAlignment="Center" 
+                                                                   Foreground="{StaticResource Neutral400}" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl> 
