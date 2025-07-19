@@ -1,0 +1,117 @@
+<base:PopupContent xmlns="https://github.com/avaloniaui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:components="clr-namespace:WheelWizard.Views.Components"
+                   xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
+                   xmlns:controllerManagement="clr-namespace:WheelWizard.Views.Popups.ControllerManagement"
+                   xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
+                   mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+                   x:Class="WheelWizard.Views.Popups.ControllerManagement.ProfileEditWindow"
+                   x:DataType="controllerManagement:ProfileEditWindow"
+                   ClipToBounds="False">
+    
+    <Grid Width="700" MinHeight="500" MaxHeight="700" RowDefinitions="Auto,Auto,*,Auto">
+        
+        <!-- Profile Information Section -->
+        <Border Grid.Row="0" Background="{StaticResource Neutral900}" 
+                CornerRadius="{StaticResource GlobalCornerRadius}" 
+                Padding="20" Margin="0,0,0,15">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                
+                <!-- Profile Name -->
+                <StackPanel Grid.Column="0" Grid.Row="0" Spacing="5">
+                    <TextBlock Classes="FormFieldLabel" Text="Profile Name" />
+                    <TextBox x:Name="ProfileNameTextBox" 
+                             Text="{Binding ProfileName, Mode=TwoWay}"
+                             Watermark="Enter profile name..."
+                             MaxLength="50"
+                             TextChanged="ProfileNameTextBox_TextChanged" />
+                </StackPanel>
+                
+                <!-- Controller Type -->
+                <StackPanel Grid.Column="1" Grid.Row="0" Spacing="5">
+                    <TextBlock Classes="FormFieldLabel" Text="Controller Type" />
+                    <Border Background="{StaticResource Neutral800}" 
+                            CornerRadius="4" Padding="10,8">
+                        <TextBlock Classes="BodyText" Text="{Binding ControllerTypeDisplay}" />
+                    </Border>
+                </StackPanel>
+                
+                <!-- Creation Date -->
+                <StackPanel Grid.Column="0" Grid.Row="1" Spacing="5" Margin="0,15,0,0">
+                    <TextBlock Classes="FormFieldLabel" Text="Created" />
+                    <Border Background="{StaticResource Neutral800}" 
+                            CornerRadius="4" Padding="10,8">
+                        <TextBlock Classes="BodyText" Text="{Binding CreatedAtDisplay}" />
+                    </Border>
+                </StackPanel>
+                
+                <!-- Active Status -->
+                <StackPanel Grid.Column="1" Grid.Row="1" Spacing="5" Margin="0,15,0,0">
+                    <TextBlock Classes="FormFieldLabel" Text="Active Status" />
+                    <ToggleButton x:Name="ActiveToggle" 
+                                  IsChecked="{Binding IsActive, Mode=TwoWay}"
+                                  Checked="ActiveToggle_Changed"
+                                  Unchecked="ActiveToggle_Changed">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <PathIcon Data="{StaticResource CheckMark}" 
+                                      Width="16" Height="16" 
+                                      Foreground="{Binding $parent[ToggleButton].Foreground}" />
+                            <TextBlock Classes="BodyText" Text="Active Profile" />
+                        </StackPanel>
+                    </ToggleButton>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Button Mappings Section -->
+        <Border Grid.Row="1" Background="{StaticResource Neutral900}" 
+                CornerRadius="{StaticResource GlobalCornerRadius}" 
+                Padding="20" Margin="0,0,0,15">
+            <StackPanel Spacing="15">
+                <TextBlock Classes="TitleText" Text="Button Mappings" />
+                <TextBlock Classes="BodyText" Text="Click on any button below to assign a new mapping. Press the desired input on your controller when prompted." />
+                
+                <!-- Button Mapping Editor -->
+                <controllerManagement:ButtonMappingEditor x:Name="MappingEditor" />
+            </StackPanel>
+        </Border>
+        
+        <!-- Action Buttons -->
+        <Border Grid.Row="3" Background="{StaticResource Neutral900}" 
+                CornerRadius="{StaticResource GlobalCornerRadius}" 
+                Padding="20">
+            <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                
+                <!-- Status Message -->
+                <TextBlock Grid.Column="0" x:Name="StatusMessage" 
+                           Classes="BodyText" VerticalAlignment="Center"
+                           Foreground="{StaticResource Warning400}"
+                           IsVisible="False" />
+                
+                <!-- Reset Button -->
+                <components:Button Grid.Column="1" x:Name="ResetButton"
+                                   Text="Reset Mappings"
+                                   Variant="Default"
+                                   IconData="{StaticResource ArrowPath}"
+                                   Click="ResetButton_Click" />
+                
+                <!-- Test Button -->
+                <components:Button Grid.Column="2" x:Name="TestButton"
+                                   Text="Test Mappings"
+                                   Variant="Warning"
+                                   IconData="{StaticResource Play}"
+                                   Click="TestButton_Click" />
+                
+                <!-- Save Button -->
+                <components:Button Grid.Column="3" x:Name="SaveButton"
+                                   Text="Save Changes"
+                                   Variant="Primary"
+                                   IconData="{StaticResource CheckMark}"
+                                   Click="SaveButton_Click"
+                                   IsEnabled="{Binding HasChanges}" />
+            </Grid>
+        </Border>
+    </Grid>
+</base:PopupContent> 

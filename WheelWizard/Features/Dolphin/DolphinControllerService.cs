@@ -113,6 +113,49 @@ public class DolphinControllerService
         }
     }
 
+    public bool UpdateProfile(string originalName, DolphinControllerProfile updatedProfile)
+    {
+        try
+        {
+            var existingProfile = _profiles.FirstOrDefault(p => p.Name == originalName);
+            if (existingProfile == null)
+            {
+                _logger.LogWarning("Profile '{Name}' not found for update", originalName);
+                return false;
+            }
+
+            // Check for name conflicts if name changed
+            if (originalName != updatedProfile.Name && _profiles.Any(p => p.Name == updatedProfile.Name))
+            {
+                _logger.LogWarning("Profile with name '{Name}' already exists", updatedProfile.Name);
+                return false;
+            }
+
+            // Update the profile
+            existingProfile.Name = updatedProfile.Name;
+            existingProfile.ControllerType = updatedProfile.ControllerType;
+            existingProfile.Mapping = updatedProfile.Mapping;
+            existingProfile.IsActive = updatedProfile.IsActive;
+
+            // Save to Dolphin
+            SaveProfileToDolphin(existingProfile);
+
+            // If this is now the active profile, apply it
+            if (existingProfile.IsActive)
+            {
+                ApplyProfileToDolphin(existingProfile, 1);
+            }
+
+            _logger.LogInformation("Updated controller profile '{Name}'", existingProfile.Name);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to update controller profile '{Name}'", originalName);
+            return false;
+        }
+    }
+
     public DolphinControllerMapping GetMappingForControllerType(ControllerType controllerType)
     {
         var key = controllerType.ToString();

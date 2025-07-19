@@ -1,0 +1,197 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:WheelWizard.Views.Components"
+             xmlns:local="clr-namespace:WheelWizard.Views.Popups.ControllerManagement"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+             x:Class="WheelWizard.Views.Popups.ControllerManagement.ButtonMappingEditor"
+             x:DataType="local:ButtonMappingEditor"
+             ClipToBounds="False">
+    
+    <Grid ColumnDefinitions="*,Auto">
+        
+        <!-- Visual Controller Layout -->
+        <Border Grid.Column="0" Background="{StaticResource Neutral800}" 
+                CornerRadius="{StaticResource GlobalCornerRadius}" 
+                Padding="20">
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto">
+                
+                <!-- Face Buttons -->
+                <StackPanel Grid.Row="0" Spacing="10">
+                    <TextBlock Classes="FormFieldLabel" Text="Face Buttons" />
+                    <UniformGrid Columns="4" HorizontalAlignment="Center">
+                        <Border x:Name="AButton" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="20" Width="40" Height="40" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="A" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <Border x:Name="BButton" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="20" Width="40" Height="40" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="B" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <Border x:Name="XButton" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="20" Width="40" Height="40" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="X" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <Border x:Name="YButton" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="20" Width="40" Height="40" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="Y" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </UniformGrid>
+                </StackPanel>
+                
+                <!-- Shoulder Buttons -->
+                <StackPanel Grid.Row="1" Spacing="10">
+                    <TextBlock Classes="FormFieldLabel" Text="Shoulder Buttons" />
+                    <UniformGrid Columns="2" HorizontalAlignment="Center">
+                        <Border x:Name="LeftShoulder" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="8" Width="60" Height="30" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="L" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <Border x:Name="RightShoulder" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="8" Width="60" Height="30" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="R" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </UniformGrid>
+                </StackPanel>
+                
+                <!-- D-Pad -->
+                <StackPanel Grid.Row="2" Spacing="10">
+                    <TextBlock Classes="FormFieldLabel" Text="D-Pad" />
+                    <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto" 
+                          HorizontalAlignment="Center">
+                        <Border Grid.Column="1" Grid.Row="0" x:Name="DPadUp" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="8" Width="30" Height="30" 
+                                Margin="2" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="↑" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <Border Grid.Column="0" Grid.Row="1" x:Name="DPadLeft" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="8" Width="30" Height="30" 
+                                Margin="2" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="←" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <Border Grid.Column="2" Grid.Row="1" x:Name="DPadRight" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="8" Width="30" Height="30" 
+                                Margin="2" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="→" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <Border Grid.Column="1" Grid.Row="2" x:Name="DPadDown" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="8" Width="30" Height="30" 
+                                Margin="2" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="↓" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </StackPanel>
+                
+                <!-- Sticks -->
+                <StackPanel Grid.Row="3" Spacing="10">
+                    <TextBlock Classes="FormFieldLabel" Text="Analog Sticks" />
+                    <UniformGrid Columns="2" HorizontalAlignment="Center">
+                        <Border x:Name="LeftStick" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="25" Width="50" Height="50" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="LS" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <Border x:Name="RightStick" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="25" Width="50" Height="50" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="RS" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </UniformGrid>
+                </StackPanel>
+                
+                <!-- Triggers -->
+                <StackPanel Grid.Row="4" Spacing="10">
+                    <TextBlock Classes="FormFieldLabel" Text="Triggers" />
+                    <UniformGrid Columns="2" HorizontalAlignment="Center">
+                        <Border x:Name="LeftTrigger" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="8" Width="60" Height="25" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="LT" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <Border x:Name="RightTrigger" Classes="MappingButton" 
+                                Background="{StaticResource Neutral700}" 
+                                CornerRadius="8" Width="60" Height="25" 
+                                Margin="5" PointerPressed="Button_PointerPressed">
+                            <TextBlock Text="RT" Classes="BodyText" 
+                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </UniformGrid>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
+        <!-- Mapping Details -->
+        <Border Grid.Column="1" Background="{StaticResource Neutral800}" 
+                CornerRadius="{StaticResource GlobalCornerRadius}" 
+                Padding="15" Width="200">
+            <StackPanel Spacing="15">
+                <TextBlock Classes="TitleText" Text="Mapping Details" />
+                
+                <!-- Selected Button Info -->
+                <StackPanel x:Name="SelectedButtonInfo" Spacing="5" IsVisible="False">
+                    <TextBlock Classes="FormFieldLabel" Text="Selected Button" />
+                    <Border Background="{StaticResource Neutral700}" 
+                            CornerRadius="4" Padding="8,6">
+                        <TextBlock x:Name="SelectedButtonText" Classes="BodyText" Text="None" />
+                    </Border>
+                    
+                    <TextBlock Classes="FormFieldLabel" Text="Current Mapping" />
+                    <Border Background="{StaticResource Neutral700}" 
+                            CornerRadius="4" Padding="8,6">
+                        <TextBlock x:Name="CurrentMappingText" Classes="BodyText" Text="None" />
+                    </Border>
+                    
+                    <TextBlock Classes="FormFieldLabel" Text="Instructions" />
+                    <TextBlock Classes="BodyText" Text="Press any button or move any stick on your controller to assign a new mapping." 
+                               TextWrapping="Wrap" />
+                    
+                    <!-- Detection Status -->
+                    <Border x:Name="DetectionStatus" Background="{StaticResource Warning700}" 
+                            CornerRadius="4" Padding="8,6" IsVisible="False">
+                        <TextBlock Classes="BodyText" Text="Waiting for input..." 
+                                   Foreground="{StaticResource Warning100}" />
+                    </Border>
+                </StackPanel>
+                
+                <!-- No Selection Info -->
+                <StackPanel x:Name="NoSelectionInfo" Spacing="5">
+                    <TextBlock Classes="BodyText" Text="Click on any button above to start mapping." 
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl> 

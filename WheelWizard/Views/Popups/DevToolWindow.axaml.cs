@@ -116,7 +116,9 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
             .SetMainText("Do you click yes or no")
             .AwaitAnswer();
 
-        YesNoPopupButton.Variant = yesNoWindow ? Button.ButtonsVariantType.Primary : Button.ButtonsVariantType.Danger;
+        YesNoPopupButton.Variant = yesNoWindow
+            ? WheelWizard.Views.Components.Button.ButtonsVariantType.Primary
+            : WheelWizard.Views.Components.Button.ButtonsVariantType.Danger;
     }
 
     private async void OptionsPopup_OnClick(object sender, RoutedEventArgs e)
@@ -129,7 +131,10 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
             .AddOption("Banana", "Not an Option", () => { }, false)
             .AwaitAnswer();
 
-        OptionsPopupButton.Variant = optionsWindow != null ? Button.ButtonsVariantType.Warning : Button.ButtonsVariantType.Danger;
+        OptionsPopupButton.Variant =
+            optionsWindow != null
+                ? WheelWizard.Views.Components.Button.ButtonsVariantType.Warning
+                : WheelWizard.Views.Components.Button.ButtonsVariantType.Danger;
         OptionsPopupButton.Text = optionsWindow ?? "Clicked away";
     }
 

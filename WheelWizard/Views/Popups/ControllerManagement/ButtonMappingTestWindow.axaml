@@ -1,0 +1,52 @@
+<base:PopupContent xmlns="https://github.com/avaloniaui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:components="clr-namespace:WheelWizard.Views.Components"
+                   xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
+                   mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="400"
+                   x:Class="WheelWizard.Views.Popups.ControllerManagement.ButtonMappingTestWindow"
+                   ClipToBounds="False">
+    
+    <Grid Width="450" MinHeight="300" RowDefinitions="Auto,*,Auto">
+        
+        <!-- Header -->
+        <Border Grid.Row="0" Background="{StaticResource Primary500}" 
+                CornerRadius="{StaticResource GlobalCornerRadius}" 
+                Padding="15" Margin="0,0,0,15">
+            <StackPanel>
+                <TextBlock Classes="TitleText" Text="Button Mapping Test" 
+                           Foreground="{StaticResource Primary50}" />
+                <TextBlock Classes="BodyText" Text="Press buttons on your controller to test the current mappings." 
+                           Foreground="{StaticResource Primary100}" Margin="0,5,0,0" />
+            </StackPanel>
+        </Border>
+        
+        <!-- Test Results -->
+        <ScrollViewer Grid.Row="1" Margin="0,0,0,15">
+            <StackPanel x:Name="TestResults" Spacing="10">
+                <!-- Results will be populated dynamically -->
+            </StackPanel>
+        </ScrollViewer>
+        
+        <!-- Action Buttons -->
+        <Border Grid.Row="2" Background="{StaticResource Neutral900}" 
+                CornerRadius="{StaticResource GlobalCornerRadius}" 
+                Padding="15">
+            <Grid ColumnDefinitions="*,Auto">
+                
+                <!-- Status -->
+                <TextBlock Grid.Column="0" x:Name="StatusText" 
+                           Classes="BodyText" VerticalAlignment="Center"
+                           Text="Ready to test mappings" />
+                
+                <!-- Close Button -->
+                <components:Button Grid.Column="1" x:Name="CloseButton"
+                                   Text="Close"
+                                   Variant="Primary"
+                                   IconData="{StaticResource XMark}"
+                                   Click="CloseButton_Click" />
+            </Grid>
+        </Border>
+    </Grid>
+</base:PopupContent> 
