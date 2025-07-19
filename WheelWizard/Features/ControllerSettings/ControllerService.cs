@@ -32,9 +32,7 @@ public class ControllerService : IDisposable
 
     public List<ControllerInfo> GetConnectedControllers()
     {
-        _logger.LogDebug("GetConnectedControllers called");
         var controllers = _detectionService.GetConnectedControllers();
-        _logger.LogInformation("Found {Count} connected controllers", controllers.Count);
         return controllers;
     }
 

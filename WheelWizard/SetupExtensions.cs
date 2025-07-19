@@ -7,6 +7,7 @@ using WheelWizard.Branding;
 using WheelWizard.ControllerSettings;
 using WheelWizard.CustomCharacters;
 using WheelWizard.CustomDistributions;
+using WheelWizard.Features.Dolphin;
 using WheelWizard.GameBanana;
 using WheelWizard.GitHub;
 using WheelWizard.MiiImages;
@@ -30,6 +31,7 @@ public static class SetupExtensions
         services.AddAutoUpdating();
         services.AddBranding();
         services.AddControllerSettings();
+        services.AddDolphin();
         services.AddGitHub();
         services.AddRrRooms();
         services.AddWhWzData();

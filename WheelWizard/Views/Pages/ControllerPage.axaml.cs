@@ -9,6 +9,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Microsoft.Extensions.Logging;
 using WheelWizard.ControllerSettings;
+using WheelWizard.Features.Dolphin;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Components;
 
@@ -20,9 +21,13 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
     private ControllerService ControllerService { get; set; } = null!;
 
     [Inject]
+    private DolphinControllerService DolphinControllerService { get; set; } = null!;
+
+    [Inject]
     private ILogger<ControllerPage> Logger { get; set; } = null!;
 
     private ObservableCollection<ControllerInfo> _controllers;
+    private ObservableCollection<DolphinControllerProfile> _profiles;
     private DispatcherTimer _updateTimer;
     private Dictionary<int, Border> _controllerButtonElements;
 
@@ -32,10 +37,17 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
         set => SetField(ref _controllers, value);
     }
 
+    public ObservableCollection<DolphinControllerProfile> Profiles
+    {
+        get => _profiles;
+        set => SetField(ref _profiles, value);
+    }
+
     public ControllerPage()
     {
         InitializeComponent();
         _controllers = new ObservableCollection<ControllerInfo>();
+        _profiles = new ObservableCollection<DolphinControllerProfile>();
         _controllerButtonElements = new Dictionary<int, Border>();
 
         // Set up timer to periodically refresh controller detection
@@ -53,6 +65,7 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
         base.OnLoaded(e);
         Logger.LogInformation("ControllerPage loaded - starting controller detection");
         RefreshControllers();
+        RefreshProfiles();
         _updateTimer.Start();
     }
 
@@ -294,14 +307,10 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
 
             // Get all items in the ControllerTestList
             var items = ControllerTestList.GetRealizedContainers();
-            Logger.LogDebug("Found {Count} realized containers in ControllerTestList", items.Count());
-
             foreach (var item in items)
             {
-                Logger.LogDebug("Checking container with DataContext: {DataContext}", item.DataContext);
                 if (item.DataContext == controller)
                 {
-                    Logger.LogDebug("Found matching container for controller {Index}", controllerIndex);
                     return item;
                 }
             }
@@ -349,23 +358,6 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
             var rightTriggerBar = FindControlRecursive<Border>(itemContainer, "RightTriggerBar");
             var leftTriggerText = FindControlRecursive<TextBlock>(itemContainer, "LeftTriggerText");
             var rightTriggerText = FindControlRecursive<TextBlock>(itemContainer, "RightTriggerText");
-
-            // Log which elements were found
-            Logger.LogDebug(
-                "Button elements found - A:{A} B:{B} X:{X} Y:{Y} Start:{Start} Back:{Back} LB:{LB} RB:{RB} DPad:{DPad} Sticks:{Sticks} Triggers:{Triggers}",
-                aButton != null,
-                bButton != null,
-                xButton != null,
-                yButton != null,
-                startButton != null,
-                backButton != null,
-                leftShoulder != null,
-                rightShoulder != null,
-                dPadUp != null && dPadDown != null && dPadLeft != null && dPadRight != null,
-                leftStickIndicator != null && rightStickIndicator != null,
-                leftTriggerBar != null && rightTriggerBar != null
-            );
-
             return new ControllerButtonElements
             {
                 AButton = aButton,
@@ -439,14 +431,12 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
         try
         {
             var connectedControllers = ControllerService.GetConnectedControllers();
-            Logger.LogDebug("RefreshControllers called - found {Count} connected controllers", connectedControllers.Count);
 
             // Update the observable collection
             Controllers.Clear();
             foreach (var controller in connectedControllers)
             {
                 Controllers.Add(controller);
-                Logger.LogDebug("Added controller to UI: {Name} at index {Index}", controller.Name, controller.Index);
             }
 
             // Set the ItemsControl items source
@@ -471,6 +461,281 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
         {
             Logger.LogError(ex, "Error refreshing controllers in UI");
         }
+    }
+
+    private void RefreshProfiles()
+    {
+        try
+        {
+            var profiles = DolphinControllerService.GetProfiles();
+            Logger.LogDebug("RefreshProfiles called - found {Count} controller profiles", profiles.Count);
+
+            // Update the observable collection
+            Profiles.Clear();
+            foreach (var profile in profiles)
+            {
+                Profiles.Add(profile);
+                Logger.LogDebug("Added profile to UI: {Name}", profile.Name);
+            }
+
+            // Set the ItemsControl items source
+            ProfilesList.ItemsSource = profiles;
+
+            // Update UI visibility
+            NoProfilesInfo.IsVisible = Profiles.Count == 0;
+
+            Logger.LogInformation("Refreshed {Count} controller profiles", Profiles.Count);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error refreshing controller profiles in UI");
+        }
+    }
+
+    // Event handlers for new controller profile functionality
+    private void TestControllerButton_Click(object? sender, RoutedEventArgs e)
+    {
+        Logger.LogInformation("Test controller button clicked - showing testing section");
+        TestingSection.IsVisible = true;
+    }
+
+    private void HideTestingButton_Click(object? sender, RoutedEventArgs e)
+    {
+        Logger.LogInformation("Hide testing button clicked - hiding testing section");
+        TestingSection.IsVisible = false;
+    }
+
+    private async void CreateProfileButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            Logger.LogInformation("Create profile button clicked");
+
+            if (Controllers.Count == 0)
+            {
+                await ShowMessageDialog("No Controllers", "Please connect a controller before creating a profile.");
+                return;
+            }
+
+            await ShowCreateProfileDialog();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error creating controller profile");
+            await ShowMessageDialog("Error", "Failed to create controller profile. Please try again.");
+        }
+    }
+
+    private async void ImportProfileButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            Logger.LogInformation("Import profile button clicked");
+            await ShowImportProfileDialog();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error importing controller profile");
+            await ShowMessageDialog("Error", "Failed to import controller profile. Please try again.");
+        }
+    }
+
+    private async void ActivateProfileButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is Avalonia.Controls.Button button && button.CommandParameter is string profileName)
+            {
+                Logger.LogInformation("Activating profile: {ProfileName}", profileName);
+
+                var success = DolphinControllerService.SetActiveProfile(profileName);
+                if (success)
+                {
+                    RefreshProfiles();
+                    await ShowMessageDialog("Success", $"Controller profile '{profileName}' has been activated for Mario Kart Wii.");
+                }
+                else
+                {
+                    await ShowMessageDialog("Error", $"Failed to activate profile '{profileName}'. Please try again.");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error activating controller profile");
+            await ShowMessageDialog("Error", "Failed to activate controller profile. Please try again.");
+        }
+    }
+
+    private async void EditProfileButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is Avalonia.Controls.Button button && button.CommandParameter is string profileName)
+            {
+                Logger.LogInformation("Editing profile: {ProfileName}", profileName);
+                await ShowEditProfileDialog(profileName);
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error editing controller profile");
+            await ShowMessageDialog("Error", "Failed to edit controller profile. Please try again.");
+        }
+    }
+
+    private async void DeleteProfileButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is Avalonia.Controls.Button button && button.CommandParameter is string profileName)
+            {
+                Logger.LogInformation("Deleting profile: {ProfileName}", profileName);
+
+                var result = await ShowConfirmDialog(
+                    "Delete Profile",
+                    $"Are you sure you want to delete the controller profile '{profileName}'? This action cannot be undone."
+                );
+
+                if (result)
+                {
+                    var success = DolphinControllerService.DeleteProfile(profileName);
+                    if (success)
+                    {
+                        RefreshProfiles();
+                        await ShowMessageDialog("Success", $"Controller profile '{profileName}' has been deleted.");
+                    }
+                    else
+                    {
+                        await ShowMessageDialog("Error", $"Failed to delete profile '{profileName}'. Please try again.");
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error deleting controller profile");
+            await ShowMessageDialog("Error", "Failed to delete controller profile. Please try again.");
+        }
+    }
+
+    private async void SetupGameCubeProfileButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            Logger.LogInformation("Setup GameCube profile button clicked");
+
+            if (Controllers.Count == 0)
+            {
+                await ShowMessageDialog("No Controllers", "Please connect a controller before setting up a profile.");
+                return;
+            }
+
+            await CreateQuickProfile("GameCube Controller", ControllerType.Xbox);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error setting up GameCube profile");
+            await ShowMessageDialog("Error", "Failed to setup GameCube profile. Please try again.");
+        }
+    }
+
+    private async void SetupWiiRemoteProfileButton_Click(object? sender, RoutedEventArgs e)
+    {
+        try
+        {
+            Logger.LogInformation("Setup Wii Remote profile button clicked");
+
+            if (Controllers.Count == 0)
+            {
+                await ShowMessageDialog("No Controllers", "Please connect a controller before setting up a profile.");
+                return;
+            }
+
+            await CreateQuickProfile("Wii Remote + Nunchuk", ControllerType.Generic, "Wiimote");
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error setting up Wii Remote profile");
+            await ShowMessageDialog("Error", "Failed to setup Wii Remote profile. Please try again.");
+        }
+    }
+
+    // Helper methods for dialogs and profile creation
+    private async Task ShowCreateProfileDialog()
+    {
+        // For now, create a simple profile with the first available controller
+        var controller = Controllers.First();
+        var profileName = $"{controller.ControllerType} Profile {DateTime.Now:HHmm}";
+
+        var mapping = DolphinControllerService.GetMappingForControllerType(controller.ControllerType);
+        var success = DolphinControllerService.CreateProfile(profileName, controller, mapping);
+
+        if (success)
+        {
+            RefreshProfiles();
+            await ShowMessageDialog("Success", $"Controller profile '{profileName}' has been created.");
+        }
+        else
+        {
+            await ShowMessageDialog("Error", "Failed to create controller profile. Please try again.");
+        }
+    }
+
+    private async Task ShowImportProfileDialog()
+    {
+        // TODO: Implement file picker for importing Dolphin controller profiles
+        await ShowMessageDialog("Import Profile", "Profile import functionality will be available in a future update.");
+    }
+
+    private async Task ShowEditProfileDialog(string profileName)
+    {
+        // TODO: Implement profile editing dialog
+        await ShowMessageDialog("Edit Profile", $"Profile editing for '{profileName}' will be available in a future update.");
+    }
+
+    private async Task CreateQuickProfile(string baseName, ControllerType controllerType, string? mappingKey = null)
+    {
+        var controller = Controllers.FirstOrDefault(c => c.ControllerType == controllerType) ?? Controllers.First();
+        var profileName = $"{baseName} - {DateTime.Now:MMdd HHmm}";
+
+        var mapping =
+            mappingKey != null
+                ? DolphinControllerService.GetMappingForControllerType(ControllerType.Generic) // Use generic for special mappings
+                : DolphinControllerService.GetMappingForControllerType(controller.ControllerType);
+
+        var success = DolphinControllerService.CreateProfile(profileName, controller, mapping);
+
+        if (success)
+        {
+            // Automatically activate the new profile
+            DolphinControllerService.SetActiveProfile(profileName);
+            RefreshProfiles();
+            await ShowMessageDialog("Success", $"Controller profile '{profileName}' has been created and activated for Mario Kart Wii.");
+        }
+        else
+        {
+            await ShowMessageDialog("Error", "Failed to create controller profile. Please try again.");
+        }
+    }
+
+    private async Task ShowMessageDialog(string title, string message)
+    {
+        // TODO: Implement proper dialog system
+        Logger.LogInformation("Dialog - {Title}: {Message}", title, message);
+
+        // For now, we'll just log the message
+        // In a real implementation, you'd show a proper dialog
+    }
+
+    private async Task<bool> ShowConfirmDialog(string title, string message)
+    {
+        // TODO: Implement proper confirmation dialog
+        Logger.LogInformation("Confirm Dialog - {Title}: {Message}", title, message);
+
+        // For now, return true (confirm)
+        // In a real implementation, you'd show a proper confirmation dialog
+        return true;
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

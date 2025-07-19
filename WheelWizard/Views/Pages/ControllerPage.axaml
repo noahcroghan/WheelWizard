@@ -6,22 +6,33 @@
              x:Class="WheelWizard.Views.Pages.ControllerPage"
              xmlns:lang="clr-namespace:WheelWizard.Resources.Languages"
              xmlns:components="clr-namespace:WheelWizard.Views.Components"
-             xmlns:controllers="clr-namespace:WheelWizard.ControllerSettings">
+             xmlns:controllers="clr-namespace:WheelWizard.ControllerSettings"
+             xmlns:dolphin="clr-namespace:WheelWizard.Features.Dolphin"
+             xmlns:converters="clr-namespace:WheelWizard.Views.Converters">
+    <UserControl.Resources>
+        <converters:BoolToActiveBrushConverter x:Key="BoolToActiveBrushConverter" />
+        <converters:BoolToActiveTextConverter x:Key="BoolToActiveTextConverter" />
+        <converters:BoolToActiveTextBrushConverter x:Key="BoolToActiveTextBrushConverter" />
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+    </UserControl.Resources>
     <Grid>
         <ScrollViewer>
             <StackPanel Margin="20" Spacing="20">
-                <Grid ColumnDefinitions="*,Auto,Auto">
-                    <TextBlock Grid.Column="0" Text="Controllers" Classes="PageTitle" />
+                <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+                    <TextBlock Grid.Column="0" Text="Controller Settings" Classes="PageTitle" />
                     <Button Grid.Column="1" 
-                            x:Name="DiagnosticButton"
-                            Content="Run Diagnostics" 
-                            Classes="SecondaryButton"
-                            Click="DiagnosticButton_Click"
+                            x:Name="TestControllerButton"
+                            Content="Test Controllers" 
+                            Click="TestControllerButton_Click"
                             Margin="0,0,10,0" />
                     <Button Grid.Column="2" 
+                            x:Name="DiagnosticButton"
+                            Content="Run Diagnostics" 
+                            Click="DiagnosticButton_Click"
+                            Margin="0,0,10,0" />
+                    <Button Grid.Column="3" 
                             x:Name="RefreshButton"
                             Content="Refresh" 
-                            Classes="SecondaryButton"
                             Click="RefreshButton_Click" />
                 </Grid>
                 
@@ -101,13 +112,202 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Controller Testing Section -->
+                <!-- Controller Profiles Section -->
+                <Border Background="{StaticResource Neutral800}" CornerRadius="{StaticResource GlobalCornerRadius}" Padding="20">
+                    <StackPanel Spacing="20">
+                        <Grid ColumnDefinitions="*,Auto,Auto">
+                            <TextBlock Grid.Column="0" Text="Controller Profiles" Classes="SectionTitle" />
+                            <Button Grid.Column="1" 
+                                    x:Name="CreateProfileButton"
+                                    Content="Create Profile" 
+                                    Click="CreateProfileButton_Click"
+                                    Margin="0,0,10,0" />
+                            <Button Grid.Column="2" 
+                                    x:Name="ImportProfileButton"
+                                    Content="Import Profile" 
+                                    Click="ImportProfileButton_Click" />
+                        </Grid>
+                        
+                        <TextBlock Text="Create and manage controller profiles for Mario Kart Wii. Profiles are automatically applied to Dolphin's controller configuration." 
+                                   Classes="BodyText" 
+                                   TextWrapping="Wrap" 
+                                   Foreground="{StaticResource Neutral400}" />
+
+                        <ItemsControl x:Name="ProfilesList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="dolphin:DolphinControllerProfile">
+                                    <Border Background="{StaticResource Neutral700}" 
+                                            CornerRadius="{StaticResource GlobalCornerRadius}" 
+                                            Padding="20" 
+                                            Margin="0,0,0,15">
+                                        <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto">
+                                            <!-- Profile Icon -->
+                                            <Border Grid.Column="0" 
+                                                    Background="{StaticResource Primary500}" 
+                                                    CornerRadius="8" 
+                                                    Width="48" 
+                                                    Height="48" 
+                                                    Margin="0,0,20,0">
+                                                <PathIcon Data="{StaticResource Grip}" 
+                                                          Width="24" 
+                                                          Height="24" 
+                                                          Foreground="White" />
+                                            </Border>
+                                            
+                                            <!-- Profile Info -->
+                                            <StackPanel Grid.Column="1" Spacing="8" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Name}" Classes="BodyText" FontWeight="Bold" />
+                                                <StackPanel Orientation="Horizontal" Spacing="15">
+                                                    <Border Background="{Binding IsActive, Converter={StaticResource BoolToActiveBrushConverter}}" 
+                                                            CornerRadius="12" 
+                                                            Padding="8,4">
+                                                        <TextBlock Text="{Binding IsActive, Converter={StaticResource BoolToActiveTextConverter}}" 
+                                                                   Classes="TinyText" 
+                                                                   Foreground="{Binding IsActive, Converter={StaticResource BoolToActiveTextBrushConverter}}" 
+                                                                   FontWeight="Medium" />
+                                                    </Border>
+                                                    <TextBlock Text="{Binding ControllerType}" 
+                                                               Classes="TinyText" 
+                                                               Foreground="{StaticResource Neutral400}" />
+                                                    <TextBlock Text="{Binding CreatedAt, StringFormat='Created {0:MMM dd}'}" 
+                                                               Classes="TinyText" 
+                                                               Foreground="{StaticResource Neutral400}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                            
+                                            <!-- Action Buttons -->
+                                            <Button Grid.Column="2" 
+                                                    Content="Activate" 
+                                                    Click="ActivateProfileButton_Click"
+                                                    CommandParameter="{Binding Name}"
+                                                    IsVisible="{Binding IsActive, Converter={StaticResource InverseBooleanConverter}}"
+                                                    Margin="0,0,10,0" />
+                                            <Button Grid.Column="3" 
+                                                    Content="Edit" 
+                                                    Click="EditProfileButton_Click"
+                                                    CommandParameter="{Binding Name}"
+                                                    Margin="0,0,10,0" />
+                                            <Button Grid.Column="4" 
+                                                    Content="Delete" 
+                                                    Click="DeleteProfileButton_Click"
+                                                    CommandParameter="{Binding Name}" />
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        
+                        <components:EmptyPageInfo x:Name="NoProfilesInfo" 
+                                                  IsVisible="False"
+                                                  IconData="{StaticResource Grip}"
+                                                  Title="No Controller Profiles"
+                                                  BodyText="Create your first controller profile to get started. Profiles make it easy to switch between different controller layouts for Mario Kart Wii." />
+                    </StackPanel>
+                </Border>
+
+                <!-- Quick Setup Section -->
+                <Border Background="{StaticResource Neutral800}" CornerRadius="{StaticResource GlobalCornerRadius}" Padding="20">
+                    <StackPanel Spacing="20">
+                        <TextBlock Text="Quick Setup" Classes="SectionTitle" />
+                        <TextBlock Text="Get started quickly with recommended controller configurations for Mario Kart Wii." 
+                                   Classes="BodyText" 
+                                   TextWrapping="Wrap" 
+                                   Foreground="{StaticResource Neutral400}" />
+
+                        <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Margin="0,10,0,0">
+                            <!-- GameCube Controller Setup -->
+                            <Border Grid.Column="0" Grid.Row="0" 
+                                    Background="{StaticResource Neutral700}" 
+                                    CornerRadius="{StaticResource GlobalCornerRadius}" 
+                                    Padding="20" 
+                                    Margin="0,0,10,10">
+                                <StackPanel Spacing="15">
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Border Grid.Column="0" 
+                                                Background="{StaticResource Primary500}" 
+                                                CornerRadius="6" 
+                                                Width="32" 
+                                                Height="32" 
+                                                Margin="0,0,15,0">
+                                            <PathIcon Data="{StaticResource Grip}" 
+                                                      Width="16" 
+                                                      Height="16" 
+                                                      Foreground="White" />
+                                        </Border>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock Text="GameCube Controller" Classes="BodyText" FontWeight="Bold" />
+                                            <TextBlock Text="Recommended for modern controllers" 
+                                                       Classes="TinyText" 
+                                                       Foreground="{StaticResource Neutral400}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    
+                                    <TextBlock Text="Uses standard GameCube controller layout. Perfect for Xbox, PlayStation, and generic USB controllers." 
+                                               Classes="TinyText" 
+                                               TextWrapping="Wrap" 
+                                               Foreground="{StaticResource Neutral400}" />
+                                    
+                                    <Button Content="Setup GameCube Profile" 
+                                            Click="SetupGameCubeProfileButton_Click"
+                                            HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Wii Remote Setup -->
+                            <Border Grid.Column="1" Grid.Row="0" 
+                                    Background="{StaticResource Neutral700}" 
+                                    CornerRadius="{StaticResource GlobalCornerRadius}" 
+                                    Padding="20" 
+                                    Margin="10,0,0,10">
+                                <StackPanel Spacing="15">
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Border Grid.Column="0" 
+                                                Background="{StaticResource Secondary500}" 
+                                                CornerRadius="6" 
+                                                Width="32" 
+                                                Height="32" 
+                                                Margin="0,0,15,0">
+                                            <PathIcon Data="{StaticResource Grip}" 
+                                                      Width="16" 
+                                                      Height="16" 
+                                                      Foreground="White" />
+                                        </Border>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock Text="Wii Remote + Nunchuk" Classes="BodyText" FontWeight="Bold" />
+                                            <TextBlock Text="Classic Mario Kart Wii experience" 
+                                                       Classes="TinyText" 
+                                                       Foreground="{StaticResource Neutral400}" />
+                                        </StackPanel>
+                                    </Grid>
+                                    
+                                    <TextBlock Text="Emulates Wii Remote with Nunchuk using your controller. Includes motion controls for authentic gameplay." 
+                                               Classes="TinyText" 
+                                               TextWrapping="Wrap" 
+                                               Foreground="{StaticResource Neutral400}" />
+                                    
+                                    <Button Content="Setup Wii Remote Profile" 
+                                            Click="SetupWiiRemoteProfileButton_Click"
+                                            HorizontalAlignment="Stretch" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Testing Section (Collapsible) -->
                 <Border Background="{StaticResource Neutral800}" 
                         CornerRadius="{StaticResource GlobalCornerRadius}" 
                         Padding="20"
-                        x:Name="TestingSection">
+                        x:Name="TestingSection"
+                        IsVisible="False">
                     <StackPanel Spacing="20">
-                        <TextBlock Text="Controller Testing" Classes="SectionTitle" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <TextBlock Grid.Column="0" Text="Controller Testing" Classes="SectionTitle" />
+                            <Button Grid.Column="1" 
+                                    x:Name="HideTestingButton"
+                                    Content="Hide Testing" 
+                                    Click="HideTestingButton_Click" />
+                        </Grid>
                         <TextBlock Text="Test your controllers by pressing buttons and moving sticks. Real-time feedback shows which inputs are active." 
                                    Classes="BodyText" 
                                    TextWrapping="Wrap" 
@@ -142,173 +342,96 @@
                                                 </StackPanel>
                                             </Grid>
                                             
-                                            <!-- Visual Controller Display -->
-                                            <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
-                                                <!-- Left Side - D-Pad and Left Stick -->
-                                                <StackPanel Grid.Column="0" Grid.Row="0" Spacing="15" HorizontalAlignment="Center">
-                                                    <!-- D-Pad -->
-                                                    <StackPanel Spacing="8">
-                                                        <TextBlock Text="D-Pad" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
-                                                        <Grid Width="80" Height="80">
-                                                            <!-- D-Pad Cross Shape -->
-                                                            <Rectangle Fill="{StaticResource Neutral600}" Width="60" Height="20" VerticalAlignment="Center" />
-                                                            <Rectangle Fill="{StaticResource Neutral600}" Width="20" Height="60" HorizontalAlignment="Center" />
-                                                            
-                                                            <!-- D-Pad Buttons -->
-                                                            <Border x:Name="DPadUp" Background="{StaticResource Neutral600}" Width="18" Height="18" 
-                                                                    VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,1,0,0" CornerRadius="2" />
-                                                            <Border x:Name="DPadDown" Background="{StaticResource Neutral600}" Width="18" Height="18" 
-                                                                    VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,1" CornerRadius="2" />
-                                                            <Border x:Name="DPadLeft" Background="{StaticResource Neutral600}" Width="18" Height="18" 
-                                                                    VerticalAlignment="Center" HorizontalAlignment="Left" Margin="1,0,0,0" CornerRadius="2" />
-                                                            <Border x:Name="DPadRight" Background="{StaticResource Neutral600}" Width="18" Height="18" 
-                                                                    VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,1,0" CornerRadius="2" />
-                                                        </Grid>
-                                                    </StackPanel>
-                                                    
-                                                    <!-- Left Stick -->
-                                                    <StackPanel Spacing="8">
-                                                        <TextBlock Text="Left Stick" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
-                                                        <Border Background="{StaticResource Neutral600}" Width="60" Height="60" CornerRadius="30">
-                                                            <Border x:Name="LeftStickIndicator" 
-                                                                    Background="{StaticResource Primary400}" 
-                                                                    Width="20" 
-                                                                    Height="20" 
-                                                                    CornerRadius="10" />
+                                            <!-- Simplified Controller Display -->
+                                            <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto">
+                                                <!-- Face Buttons -->
+                                                <StackPanel Grid.Column="0" Grid.Row="0" Spacing="8" HorizontalAlignment="Center">
+                                                    <TextBlock Text="Face Buttons" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                                        <Border x:Name="AButton" Background="{StaticResource Neutral600}" Width="20" Height="20" CornerRadius="10">
+                                                            <TextBlock Text="A" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
                                                         </Border>
-                                                        <TextBlock x:Name="LeftStickText" 
-                                                                   Text="(0.0, 0.0)" 
-                                                                   Classes="TinyText" 
-                                                                   HorizontalAlignment="Center" 
-                                                                   Foreground="{StaticResource Neutral400}" />
+                                                        <Border x:Name="BButton" Background="{StaticResource Neutral600}" Width="20" Height="20" CornerRadius="10">
+                                                            <TextBlock Text="B" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+                                                        </Border>
+                                                        <Border x:Name="XButton" Background="{StaticResource Neutral600}" Width="20" Height="20" CornerRadius="10">
+                                                            <TextBlock Text="X" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+                                                        </Border>
+                                                        <Border x:Name="YButton" Background="{StaticResource Neutral600}" Width="20" Height="20" CornerRadius="10">
+                                                            <TextBlock Text="Y" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+                                                        </Border>
                                                     </StackPanel>
                                                 </StackPanel>
                                                 
-                                                <!-- Center - Face Buttons and Triggers -->
-                                                <StackPanel Grid.Column="1" Grid.Row="0" Spacing="20" HorizontalAlignment="Center" Margin="40,0">
-                                                    <!-- Triggers -->
-                                                    <StackPanel Spacing="10">
-                                                        <TextBlock Text="Triggers" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
-                                                        <StackPanel Orientation="Horizontal" Spacing="15">
-                                                            <StackPanel Spacing="5">
-                                                                <TextBlock Text="LT" Classes="TinyText" HorizontalAlignment="Center" />
-                                                                <Border Background="{StaticResource Neutral600}" Width="30" Height="8" CornerRadius="4">
-                                                                    <Border x:Name="LeftTriggerBar" 
-                                                                            Background="{StaticResource Primary400}" 
-                                                                            Width="0" 
-                                                                            Height="8" 
-                                                                            CornerRadius="4" 
-                                                                            HorizontalAlignment="Left" />
-                                                                </Border>
-                                                                <TextBlock x:Name="LeftTriggerText" 
-                                                                           Text="0.0" 
-                                                                           Classes="TinyText" 
-                                                                           HorizontalAlignment="Center" 
-                                                                           Foreground="{StaticResource Neutral400}" />
-                                                            </StackPanel>
-                                                            <StackPanel Spacing="5">
-                                                                <TextBlock Text="RT" Classes="TinyText" HorizontalAlignment="Center" />
-                                                                <Border Background="{StaticResource Neutral600}" Width="30" Height="8" CornerRadius="4">
-                                                                    <Border x:Name="RightTriggerBar" 
-                                                                            Background="{StaticResource Primary400}" 
-                                                                            Width="0" 
-                                                                            Height="8" 
-                                                                            CornerRadius="4" 
-                                                                            HorizontalAlignment="Left" />
-                                                                </Border>
-                                                                <TextBlock x:Name="RightTriggerText" 
-                                                                           Text="0.0" 
-                                                                           Classes="TinyText" 
-                                                                           HorizontalAlignment="Center" 
-                                                                           Foreground="{StaticResource Neutral400}" />
-                                                            </StackPanel>
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                    
-                                                    <!-- Shoulder Buttons -->
-                                                    <StackPanel Spacing="8">
-                                                        <TextBlock Text="Shoulders" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
-                                                        <StackPanel Orientation="Horizontal" Spacing="20">
-                                                            <Border x:Name="LeftShoulder" 
-                                                                    Background="{StaticResource Neutral600}" 
-                                                                    Width="35" 
-                                                                    Height="20" 
-                                                                    CornerRadius="4">
+                                                <!-- D-Pad -->
+                                                <StackPanel Grid.Column="1" Grid.Row="0" Spacing="8" HorizontalAlignment="Center">
+                                                    <TextBlock Text="D-Pad" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                    <Grid Width="60" Height="60">
+                                                        <Rectangle Fill="{StaticResource Neutral600}" Width="40" Height="15" VerticalAlignment="Center" />
+                                                        <Rectangle Fill="{StaticResource Neutral600}" Width="15" Height="40" HorizontalAlignment="Center" />
+                                                        <Border x:Name="DPadUp" Background="{StaticResource Neutral600}" Width="12" Height="12" 
+                                                                VerticalAlignment="Top" HorizontalAlignment="Center" CornerRadius="2" />
+                                                        <Border x:Name="DPadDown" Background="{StaticResource Neutral600}" Width="12" Height="12" 
+                                                                VerticalAlignment="Bottom" HorizontalAlignment="Center" CornerRadius="2" />
+                                                        <Border x:Name="DPadLeft" Background="{StaticResource Neutral600}" Width="12" Height="12" 
+                                                                VerticalAlignment="Center" HorizontalAlignment="Left" CornerRadius="2" />
+                                                        <Border x:Name="DPadRight" Background="{StaticResource Neutral600}" Width="12" Height="12" 
+                                                                VerticalAlignment="Center" HorizontalAlignment="Right" CornerRadius="2" />
+                                                    </Grid>
+                                                </StackPanel>
+                                                
+                                                <!-- Triggers & Shoulders -->
+                                                <StackPanel Grid.Column="2" Grid.Row="0" Spacing="8" HorizontalAlignment="Center">
+                                                    <TextBlock Text="Triggers" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                    <StackPanel Spacing="5">
+                                                        <StackPanel Orientation="Horizontal" Spacing="10">
+                                                            <Border x:Name="LeftShoulder" Background="{StaticResource Neutral600}" Width="25" Height="15" CornerRadius="3">
                                                                 <TextBlock Text="LB" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                             </Border>
-                                                            <Border x:Name="RightShoulder" 
-                                                                    Background="{StaticResource Neutral600}" 
-                                                                    Width="35" 
-                                                                    Height="20" 
-                                                                    CornerRadius="4">
+                                                            <Border x:Name="RightShoulder" Background="{StaticResource Neutral600}" Width="25" Height="15" CornerRadius="3">
                                                                 <TextBlock Text="RB" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                             </Border>
                                                         </StackPanel>
-                                                    </StackPanel>
-                                                    
-                                                    <!-- Start/Back Buttons -->
-                                                    <StackPanel Spacing="8">
-                                                        <TextBlock Text="Menu" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
-                                                        <StackPanel Orientation="Horizontal" Spacing="15">
-                                                            <Border x:Name="BackButton" 
-                                                                    Background="{StaticResource Neutral600}" 
-                                                                    Width="30" 
-                                                                    Height="20" 
-                                                                    CornerRadius="4">
-                                                                <TextBlock Text="◀◀" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        <StackPanel Orientation="Horizontal" Spacing="10">
+                                                            <Border Background="{StaticResource Neutral600}" Width="25" Height="6" CornerRadius="3">
+                                                                <Border x:Name="LeftTriggerBar" Background="{StaticResource Primary400}" Width="0" Height="6" CornerRadius="3" HorizontalAlignment="Left" />
                                                             </Border>
-                                                            <Border x:Name="StartButton" 
-                                                                    Background="{StaticResource Neutral600}" 
-                                                                    Width="30" 
-                                                                    Height="20" 
-                                                                    CornerRadius="4">
-                                                                <TextBlock Text="☰" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                            <Border Background="{StaticResource Neutral600}" Width="25" Height="6" CornerRadius="3">
+                                                                <Border x:Name="RightTriggerBar" Background="{StaticResource Primary400}" Width="0" Height="6" CornerRadius="3" HorizontalAlignment="Left" />
                                                             </Border>
                                                         </StackPanel>
                                                     </StackPanel>
                                                 </StackPanel>
                                                 
-                                                <!-- Right Side - Face Buttons and Right Stick -->
-                                                <StackPanel Grid.Column="2" Grid.Row="0" Spacing="15" HorizontalAlignment="Center">
-                                                    <!-- Face Buttons -->
-                                                    <StackPanel Spacing="8">
-                                                        <TextBlock Text="Face Buttons" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
-                                                        <Grid Width="80" Height="80">
-                                                            <!-- Face Button Layout -->
-                                                            <Border x:Name="YButton" Background="{StaticResource Neutral600}" Width="22" Height="22" 
-                                                                    VerticalAlignment="Top" HorizontalAlignment="Center" CornerRadius="11">
-                                                                <TextBlock Text="Y" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+                                                <!-- Analog Sticks -->
+                                                <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Spacing="8" HorizontalAlignment="Center" Margin="0,15,0,0">
+                                                    <TextBlock Text="Analog Sticks" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                    <StackPanel Orientation="Horizontal" Spacing="20">
+                                                        <StackPanel Spacing="5">
+                                                            <Border Background="{StaticResource Neutral600}" Width="40" Height="40" CornerRadius="20">
+                                                                <Border x:Name="LeftStickIndicator" Background="{StaticResource Primary400}" Width="12" Height="12" CornerRadius="6" />
                                                             </Border>
-                                                            <Border x:Name="AButton" Background="{StaticResource Neutral600}" Width="22" Height="22" 
-                                                                    VerticalAlignment="Bottom" HorizontalAlignment="Center" CornerRadius="11">
-                                                                <TextBlock Text="A" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
+                                                            <TextBlock x:Name="LeftStickText" Text="(0.0, 0.0)" Classes="TinyText" HorizontalAlignment="Center" Foreground="{StaticResource Neutral400}" />
+                                                        </StackPanel>
+                                                        <StackPanel Spacing="5">
+                                                            <Border Background="{StaticResource Neutral600}" Width="40" Height="40" CornerRadius="20">
+                                                                <Border x:Name="RightStickIndicator" Background="{StaticResource Primary400}" Width="12" Height="12" CornerRadius="6" />
                                                             </Border>
-                                                            <Border x:Name="XButton" Background="{StaticResource Neutral600}" Width="22" Height="22" 
-                                                                    VerticalAlignment="Center" HorizontalAlignment="Left" CornerRadius="11">
-                                                                <TextBlock Text="X" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
-                                                            </Border>
-                                                            <Border x:Name="BButton" Background="{StaticResource Neutral600}" Width="22" Height="22" 
-                                                                    VerticalAlignment="Center" HorizontalAlignment="Right" CornerRadius="11">
-                                                                <TextBlock Text="B" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" />
-                                                            </Border>
-                                                        </Grid>
+                                                            <TextBlock x:Name="RightStickText" Text="(0.0, 0.0)" Classes="TinyText" HorizontalAlignment="Center" Foreground="{StaticResource Neutral400}" />
+                                                        </StackPanel>
                                                     </StackPanel>
-                                                    
-                                                    <!-- Right Stick -->
-                                                    <StackPanel Spacing="8">
-                                                        <TextBlock Text="Right Stick" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
-                                                        <Border Background="{StaticResource Neutral600}" Width="60" Height="60" CornerRadius="30">
-                                                            <Border x:Name="RightStickIndicator" 
-                                                                    Background="{StaticResource Primary400}" 
-                                                                    Width="20" 
-                                                                    Height="20" 
-                                                                    CornerRadius="10" />
+                                                </StackPanel>
+                                                
+                                                <!-- Menu Buttons -->
+                                                <StackPanel Grid.Column="2" Grid.Row="1" Spacing="8" HorizontalAlignment="Center" Margin="0,15,0,0">
+                                                    <TextBlock Text="Menu" Classes="TinyText" FontWeight="Bold" HorizontalAlignment="Center" />
+                                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                                        <Border x:Name="BackButton" Background="{StaticResource Neutral600}" Width="25" Height="15" CornerRadius="3">
+                                                            <TextBlock Text="◀◀" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                         </Border>
-                                                        <TextBlock x:Name="RightStickText" 
-                                                                   Text="(0.0, 0.0)" 
-                                                                   Classes="TinyText" 
-                                                                   HorizontalAlignment="Center" 
-                                                                   Foreground="{StaticResource Neutral400}" />
+                                                        <Border x:Name="StartButton" Background="{StaticResource Neutral600}" Width="25" Height="15" CornerRadius="3">
+                                                            <TextBlock Text="☰" Classes="TinyText" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                        </Border>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Grid>
