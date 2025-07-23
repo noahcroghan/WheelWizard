@@ -14,7 +14,7 @@ namespace WheelWizard.Views.Popups.ControllerManagement;
 public partial class ButtonMappingEditor : UserControlBase, INotifyPropertyChanged
 {
     [Inject]
-    private ControllerService ControllerService { get; set; } = null!;
+    private IControllerService ControllerService { get; set; } = null!;
 
     [Inject]
     private ILogger<ButtonMappingEditor> Logger { get; set; } = null!;

@@ -19,7 +19,7 @@ namespace WheelWizard.Views.Pages;
 public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
 {
     [Inject]
-    private ControllerService ControllerService { get; set; } = null!;
+    private IControllerService ControllerService { get; set; } = null!;
 
     [Inject]
     private DolphinControllerService DolphinControllerService { get; set; } = null!;
@@ -78,7 +78,7 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
     private void RefreshButton_Click(object? sender, RoutedEventArgs e)
     {
         Logger.LogInformation("Manual refresh button clicked");
-        ControllerService.RefreshControllers();
+        ControllerService.Update();
         RefreshControllers();
     }
 

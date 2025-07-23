@@ -8,6 +8,6 @@ public static class ControllerSettingsExtensions
 {
     public static void AddControllerSettings(this IServiceCollection services)
     {
-        services.AddSingleton<ControllerService>();
+        services.AddSingleton<IControllerService, MonogameControllerService>();
     }
 }

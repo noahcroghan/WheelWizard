@@ -13,7 +13,7 @@ namespace WheelWizard.Views.Popups.ControllerManagement;
 public partial class ButtonMappingTestWindow : PopupContent
 {
     [Inject]
-    private ControllerService ControllerService { get; set; } = null!;
+    private IControllerService ControllerService { get; set; } = null!;
 
     [Inject]
     private ILogger<ButtonMappingTestWindow> Logger { get; set; } = null!;
