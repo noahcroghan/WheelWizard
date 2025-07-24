@@ -11,22 +11,18 @@ public class UniplatformControllerService : IControllerService
     readonly Dictionary<int, ControllerState> _current = new();
     Timer? _pollTimer;
 
-    public event Action<ControllerInfo>? OnControllerConnected;
-    public event Action<ControllerInfo>? OnControllerDisconnected;
-
     public UniplatformControllerService()
     {
-        // Init SDL GameController + Joystick subsystems :contentReference[oaicite:1]{index=1}
         if (SDL.SDL_Init(SDL.SDL_INIT_GAMECONTROLLER | SDL.SDL_INIT_JOYSTICK) != 0)
+        {
             throw new InvalidOperationException($"SDL_Init failed: {SDL.SDL_GetError()}");
-
-        // Open any already‑attached controllers
-        var count = SDL.SDL_NumJoysticks();
-        for (int i = 0; i < count; i++)
-            if (SDL.SDL_IsGameController(i) == SDL.SDL_bool.SDL_TRUE)
+        }
+        
+        for (var i = 0; i < SDL.SDL_NumJoysticks(); i++)
+            if (SDL.SDL_IsGameController(i) == SDL.SDL_bool.SDL_TRUE) //SDL stupid bool
                 AddController(i);
         
-        _pollTimer = new Timer(_ => PollEvents(), null, 0, 16);
+        _pollTimer = new(_ => PollEvents(), null, 0, 16); // We update every 16ms (60 FPS)
     }
 
     void AddController(int sdlIndex)
@@ -52,7 +48,6 @@ public class UniplatformControllerService : IControllerService
             _infos[instanceId] = info;
             _previous[instanceId] = new ControllerState();
             _current[instanceId] = new ControllerState();
-            OnControllerConnected?.Invoke(info);
         }
     }
 
@@ -68,7 +63,6 @@ public class UniplatformControllerService : IControllerService
             _infos.Remove(instanceId);
             _previous.Remove(instanceId);
             _current.Remove(instanceId);
-            OnControllerDisconnected?.Invoke(info);
         }
     }
 
