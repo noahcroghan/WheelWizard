@@ -50,11 +50,7 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
         _controllers = new ObservableCollection<ControllerInfo>();
         _profiles = new ObservableCollection<DolphinControllerProfile>();
 
-        // Set up timer to periodically refresh controller detection
-        _updateTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(16), // Update at ~60fps for responsive button feedback
-        };
+        _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(500) };
         _updateTimer.Tick += UpdateTimer_Tick;
 
         DataContext = this;
@@ -63,7 +59,6 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
     protected override void OnLoaded(RoutedEventArgs e)
     {
         base.OnLoaded(e);
-        Logger.LogInformation("ControllerPage loaded - starting controller detection");
         RefreshControllers();
         RefreshProfiles();
         _updateTimer.Start();
@@ -76,22 +71,10 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
         _updateTimer.Stop();
     }
 
-    private void RefreshButton_Click(object? sender, RoutedEventArgs e)
-    {
-        Logger.LogInformation("Manual refresh button clicked");
-        ControllerService.Update();
-        RefreshControllers();
-    }
-
     private void UpdateTimer_Tick(object? sender, EventArgs e)
     {
         ControllerService.Update();
-
-        // Periodically refresh controllers (every 2 seconds) to detect new ones
-        if (DateTime.Now.Ticks % 125 == 0) // ~2 seconds at 60fps
-        {
-            RefreshControllers();
-        }
+        RefreshControllers();
     }
 
     private void RefreshControllers()
@@ -99,20 +82,19 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
         try
         {
             var connectedControllers = ControllerService.GetConnectedControllers();
+            if (connectedControllers.Count == 0)
+                return;
 
-            // Update the observable collection
             Controllers.Clear();
             foreach (var controller in connectedControllers)
             {
                 Controllers.Add(controller);
             }
-
-            // Set the ItemsControl items source
             ControllersList.ItemsSource = connectedControllers;
 
             // Update controller count text
             var count = Controllers.Count;
-            ControllerCountText.Text = count == 1 ? "1 connected" : $"{count} connected";
+            ControllerCountText.Text = $"{count} connected";
 
             // Update UI visibility
             NoControllersInfo.IsVisible = Controllers.Count == 0;
@@ -134,23 +116,17 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
         try
         {
             var profiles = DolphinControllerService.GetProfiles();
-            Logger.LogDebug("RefreshProfiles called - found {Count} controller profiles", profiles.Count);
 
-            // Update the observable collection
+            //todo: can probably do this better
             Profiles.Clear();
             foreach (var profile in profiles)
             {
                 Profiles.Add(profile);
-                Logger.LogDebug("Added profile to UI: {Name}", profile.Name);
             }
 
-            // Set the ItemsControl items source
             ProfilesList.ItemsSource = profiles;
 
-            // Update UI visibility
-            NoProfilesInfo.IsVisible = Profiles.Count == 0;
-
-            Logger.LogInformation("Refreshed {Count} controller profiles", Profiles.Count);
+            NoProfilesInfo.IsVisible = (Profiles.Count == 0);
         }
         catch (Exception ex)
         {
@@ -158,15 +134,10 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
         }
     }
 
-    // Event handlers for new controller profile functionality
-
-
     private async void CreateProfileButton_Click(object? sender, RoutedEventArgs e)
     {
         try
         {
-            Logger.LogInformation("Create profile button clicked");
-
             if (Controllers.Count == 0)
             {
                 await ShowMessageDialog("No Controllers", "Please connect a controller before creating a profile.");
@@ -186,7 +157,6 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
     {
         try
         {
-            Logger.LogInformation("Import profile button clicked");
             await ShowImportProfileDialog();
         }
         catch (Exception ex)
@@ -200,20 +170,17 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
     {
         try
         {
-            if (sender is Avalonia.Controls.Button button && button.CommandParameter is string profileName)
-            {
-                Logger.LogInformation("Activating profile: {ProfileName}", profileName);
+            if (sender is not Avalonia.Controls.Button button || button.CommandParameter is not string profileName)
+                return;
 
-                var success = DolphinControllerService.SetActiveProfile(profileName);
-                if (success)
-                {
-                    RefreshProfiles();
-                    await ShowMessageDialog("Success", $"Controller profile '{profileName}' has been activated for Mario Kart Wii.");
-                }
-                else
-                {
-                    await ShowMessageDialog("Error", $"Failed to activate profile '{profileName}'. Please try again.");
-                }
+            var success = DolphinControllerService.SetActiveProfile(profileName);
+            if (success)
+            {
+                RefreshProfiles();
+            }
+            else
+            {
+                await ShowMessageDialog("Error", $"Failed to activate profile '{profileName}'. Please try again.");
             }
         }
         catch (Exception ex)
@@ -227,11 +194,10 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
     {
         try
         {
-            if (sender is Avalonia.Controls.Button button && button.CommandParameter is string profileName)
-            {
-                Logger.LogInformation("Editing profile: {ProfileName}", profileName);
-                await ShowEditProfileDialog(profileName);
-            }
+            if (sender is not Avalonia.Controls.Button button || button.CommandParameter is not string profileName)
+                return;
+
+            await ShowEditProfileDialog(profileName);
         }
         catch (Exception ex)
         {
@@ -244,83 +210,35 @@ public partial class ControllerPage : UserControlBase, INotifyPropertyChanged
     {
         try
         {
-            if (sender is Avalonia.Controls.Button button && button.CommandParameter is string profileName)
+            if (sender is not Avalonia.Controls.Button button || button.CommandParameter is not string profileName)
+                return;
+
+            var result = await ShowConfirmDialog(
+                "Delete Profile",
+                $"Are you sure you want to delete the controller profile '{profileName}'? This action cannot be undone."
+            );
+
+            if (!result)
+                return;
+            var success = DolphinControllerService.DeleteProfile(profileName);
+
+            if (success)
             {
-                Logger.LogInformation("Deleting profile: {ProfileName}", profileName);
-
-                var result = await ShowConfirmDialog(
-                    "Delete Profile",
-                    $"Are you sure you want to delete the controller profile '{profileName}'? This action cannot be undone."
-                );
-
-                if (result)
-                {
-                    var success = DolphinControllerService.DeleteProfile(profileName);
-                    if (success)
-                    {
-                        RefreshProfiles();
-                        await ShowMessageDialog("Success", $"Controller profile '{profileName}' has been deleted.");
-                    }
-                    else
-                    {
-                        await ShowMessageDialog("Error", $"Failed to delete profile '{profileName}'. Please try again.");
-                    }
-                }
+                RefreshProfiles();
+            }
+            else
+            {
+                await ShowMessageDialog("Error", $"Failed to delete profile '{profileName}'. Please try again.");
             }
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex, "Error deleting controller profile");
             await ShowMessageDialog("Error", "Failed to delete controller profile. Please try again.");
         }
     }
 
-    private async void SetupGameCubeProfileButton_Click(object? sender, RoutedEventArgs e)
-    {
-        try
-        {
-            Logger.LogInformation("Setup GameCube profile button clicked");
-
-            if (Controllers.Count == 0)
-            {
-                await ShowMessageDialog("No Controllers", "Please connect a controller before setting up a profile.");
-                return;
-            }
-
-            await CreateQuickProfile("GameCube Controller", ControllerType.Xbox);
-        }
-        catch (Exception ex)
-        {
-            Logger.LogError(ex, "Error setting up GameCube profile");
-            await ShowMessageDialog("Error", "Failed to setup GameCube profile. Please try again.");
-        }
-    }
-
-    private async void SetupWiiRemoteProfileButton_Click(object? sender, RoutedEventArgs e)
-    {
-        try
-        {
-            Logger.LogInformation("Setup Wii Remote profile button clicked");
-
-            if (Controllers.Count == 0)
-            {
-                await ShowMessageDialog("No Controllers", "Please connect a controller before setting up a profile.");
-                return;
-            }
-
-            await CreateQuickProfile("Wii Remote + Nunchuk", ControllerType.Generic, "Wiimote");
-        }
-        catch (Exception ex)
-        {
-            Logger.LogError(ex, "Error setting up Wii Remote profile");
-            await ShowMessageDialog("Error", "Failed to setup Wii Remote profile. Please try again.");
-        }
-    }
-
-    // Helper methods for dialogs and profile creation
     private async Task ShowCreateProfileDialog()
     {
-        // For now, create a simple profile with the first available controller
         var controller = Controllers.First();
         var profileName = $"{controller.ControllerType} Profile {DateTime.Now:HHmm}";
 

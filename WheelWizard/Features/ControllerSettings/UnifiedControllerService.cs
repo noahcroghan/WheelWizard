@@ -25,8 +25,7 @@ public class UniplatformControllerService : IControllerService
         for (int i = 0; i < count; i++)
             if (SDL.SDL_IsGameController(i) == SDL.SDL_bool.SDL_TRUE)
                 AddController(i);
-
-        // Start pumping events ~60Hz
+        
         _pollTimer = new Timer(_ => PollEvents(), null, 0, 16);
     }
 
@@ -198,15 +197,7 @@ public class UniplatformControllerService : IControllerService
             AxisType.RightTrigger => _current[idx].RightTrigger,
             _ => 0f,
         };
-
-    public void RunDiagnostics()
-    {
-        Console.WriteLine("-- Controller Diagnostics --");
-        Console.WriteLine($"SDL Joysticks: {SDL.SDL_NumJoysticks()}");
-        foreach (var info in _infos.Values)
-            Console.WriteLine($"[{info.Index}] {info.Name} ({info.ControllerType})");
-    }
-
+    
     public void Dispose()
     {
         _pollTimer?.Dispose();
