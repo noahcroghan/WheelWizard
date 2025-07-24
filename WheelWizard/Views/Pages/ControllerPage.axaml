@@ -8,7 +8,8 @@
              xmlns:components="clr-namespace:WheelWizard.Views.Components"
              xmlns:controllers="clr-namespace:WheelWizard.ControllerSettings"
              xmlns:dolphin="clr-namespace:WheelWizard.Features.Dolphin"
-             xmlns:converters="clr-namespace:WheelWizard.Views.Converters">
+             xmlns:converters="clr-namespace:WheelWizard.Views.Converters"
+             xmlns:dolphin1="clr-namespace:WheelWizard.Dolphin">
     <UserControl.Resources>
         <converters:BoolToActiveBrushConverter x:Key="BoolToActiveBrushConverter" />
         <converters:BoolToActiveTextConverter x:Key="BoolToActiveTextConverter" />
@@ -125,7 +126,7 @@
 
                         <ItemsControl x:Name="ProfilesList">
                             <ItemsControl.ItemTemplate>
-                                <DataTemplate x:DataType="dolphin:DolphinControllerProfile">
+                                <DataTemplate x:DataType="dolphin1:DolphinControllerProfile">
                                     <Border Background="{StaticResource Neutral700}" 
                                             CornerRadius="{StaticResource GlobalCornerRadius}" 
                                             Padding="20" 

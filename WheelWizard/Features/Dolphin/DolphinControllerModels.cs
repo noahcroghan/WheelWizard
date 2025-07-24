@@ -1,6 +1,6 @@
 using WheelWizard.ControllerSettings;
 
-namespace WheelWizard.Features.Dolphin;
+namespace WheelWizard.Dolphin;
 
 public class DolphinControllerProfile
 {

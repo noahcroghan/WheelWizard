@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Microsoft.Extensions.Logging;
 using WheelWizard.ControllerSettings;
+using WheelWizard.Dolphin;
 using WheelWizard.Features.Dolphin;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Shared.MessageTranslations;

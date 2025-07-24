@@ -46,14 +46,9 @@ public class ControllerState
     public float LeftTrigger { get; set; }
     public float RightTrigger { get; set; }
 
-    /// <summary>
-    /// Default constructor.
-    /// </summary>
     public ControllerState() { }
 
-    /// <summary>
-    /// Copy constructor to create a deep copy of another state.
-    /// </summary>
+
     public ControllerState(ControllerState other)
     {
         A = other.A;

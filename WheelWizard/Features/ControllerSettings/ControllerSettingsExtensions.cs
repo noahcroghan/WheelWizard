@@ -6,8 +6,9 @@ namespace WheelWizard.ControllerSettings;
 
 public static class ControllerSettingsExtensions
 {
-    public static void AddControllerSettings(this IServiceCollection services)
+    public static IServiceCollection AddControllerSettings(this IServiceCollection services)
     {
         services.AddSingleton<IControllerService, UniplatformControllerService>();
+        return services;
     }
 }

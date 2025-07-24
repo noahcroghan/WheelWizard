@@ -1,10 +1,8 @@
 using Microsoft.Extensions.Logging;
 using WheelWizard.ControllerSettings;
-using WheelWizard.Helpers;
 using WheelWizard.Services;
-using WheelWizard.Services.Settings;
 
-namespace WheelWizard.Features.Dolphin;
+namespace WheelWizard.Dolphin;
 
 public class DolphinControllerService
 {
@@ -92,15 +90,12 @@ public class DolphinControllerService
                 _logger.LogWarning("Profile '{Name}' not found", profileName);
                 return false;
             }
-
-            // Deactivate all profiles
+            
             foreach (var p in _profiles)
                 p.IsActive = false;
-
-            // Activate selected profile
+            
             profile.IsActive = true;
-
-            // Apply to Dolphin configuration
+            
             ApplyProfileToDolphin(profile, playerIndex);
 
             _logger.LogInformation("Activated controller profile '{Name}' for player {Player}", profileName, playerIndex);
@@ -414,7 +409,6 @@ public class DolphinControllerService
     {
         try
         {
-            // Update the GameCube controller configuration
             var configPath = Path.Combine(PathManager.ConfigFolderPath, "GCPadNew.ini");
             var lines = File.Exists(configPath) ? File.ReadAllLines(configPath).ToList() : new List<string>();
 
@@ -430,8 +424,7 @@ public class DolphinControllerService
             );
 
             File.WriteAllLines(configPath, lines);
-
-            // Also update game-specific INI if we're configuring for Mario Kart
+            
             UpdateGameSpecificControllerConfig(profile, playerIndex);
 
             _logger.LogInformation("Applied profile '{Name}' to Dolphin for player {Player}", profile.Name, playerIndex);
@@ -452,24 +445,24 @@ public class DolphinControllerService
             foreach (var gameId in gameIds)
             {
                 var gameIniPath = Path.Combine(PathManager.ConfigFolderPath, "GameSettings", $"{gameId}.ini");
+                if (!File.Exists(gameIniPath))
+                    continue;
+                
 
-                if (File.Exists(gameIniPath))
-                {
-                    var lines = File.ReadAllLines(gameIniPath).ToList();
+                var lines = File.ReadAllLines(gameIniPath).ToList();
 
-                    UpdateOrAddSection(
-                        lines,
-                        "Controls",
-                        new Dictionary<string, string>
-                        {
-                            [$"PadProfile{playerIndex}"] = profile.Name,
-                            [$"PadType{playerIndex - 1}"] = "6", // Standard Controller
-                        }
-                    );
+                UpdateOrAddSection(
+                    lines,
+                    "Controls",
+                    new Dictionary<string, string>
+                    {
+                        [$"PadProfile{playerIndex}"] = profile.Name,
+                        [$"PadType{playerIndex - 1}"] = "6", // Standard Controller
+                    }
+                );
 
-                    File.WriteAllLines(gameIniPath, lines);
-                    _logger.LogDebug("Updated game-specific config for {GameId}", gameId);
-                }
+                File.WriteAllLines(gameIniPath, lines);
+                _logger.LogDebug("Updated game-specific config for {GameId}", gameId);
             }
         }
         catch (Exception ex)

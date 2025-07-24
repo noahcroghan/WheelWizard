@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using WheelWizard.Dolphin;
 
 namespace WheelWizard.Features.Dolphin;
 

@@ -93,7 +93,6 @@ public class UniplatformControllerService : IControllerService
     public void Update()
     {
         PollEvents();
-
         lock (_lock)
         {
             foreach (var kvp in _gamepads)
@@ -101,7 +100,7 @@ public class UniplatformControllerService : IControllerService
                 int id = kvp.Key;
                 var pad = kvp.Value;
 
-                // Slide current → previous
+                // Slide current -> previous
                 _previous[id] = new ControllerState(_current[id]);
 
                 var st = _current[id];

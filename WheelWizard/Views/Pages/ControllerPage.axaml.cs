@@ -9,6 +9,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using Microsoft.Extensions.Logging;
 using WheelWizard.ControllerSettings;
+using WheelWizard.Dolphin;
 using WheelWizard.Features.Dolphin;
 using WheelWizard.Shared.DependencyInjection;
 using WheelWizard.Views.Components;
