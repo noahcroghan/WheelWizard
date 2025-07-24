@@ -32,7 +32,7 @@ public class UniplatformControllerService : IControllerService
             return;
 
         var joy = SDL.SDL_GameControllerGetJoystick(pad);
-        int instanceId = SDL.SDL_JoystickInstanceID(joy);
+        var instanceId = SDL.SDL_JoystickInstanceID(joy);
 
         lock (_lock)
         {
@@ -90,7 +90,7 @@ public class UniplatformControllerService : IControllerService
         {
             foreach (var kvp in _gamepads)
             {
-                int id = kvp.Key;
+                var id = kvp.Key;
                 var pad = kvp.Value;
 
                 // Slide current -> previous
@@ -117,12 +117,12 @@ public class UniplatformControllerService : IControllerService
                 st.DPadRight = SDL.SDL_GameControllerGetButton(pad, SDL.SDL_GameControllerButton.SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == 1;
 
                 // Axes (normalize from [-32768,32767] → [-1,1] or [0,1] for triggers)
-                short lx = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_LEFTX);
-                short ly = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_LEFTY);
-                short rx = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_RIGHTX);
-                short ry = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_RIGHTY);
-                short lt = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_TRIGGERLEFT);
-                short rt = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
+                var lx = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_LEFTX);
+                var ly = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_LEFTY);
+                var rx = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_RIGHTX);
+                var ry = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_RIGHTY);
+                var lt = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_TRIGGERLEFT);
+                var rt = SDL.SDL_GameControllerGetAxis(pad, SDL.SDL_GameControllerAxis.SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
 
                 st.LeftThumbstickX = lx / 32767f;
                 st.LeftThumbstickY = ly / 32767f;
