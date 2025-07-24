@@ -53,6 +53,7 @@
         <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.4" />
         <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.4" />
         <PackageReference Include="Refit.HttpClientFactory" Version="8.0.0" />
+        <PackageReference Include="Sayers.SDL2.Core" Version="1.0.11" />
         <PackageReference Include="sdl2" Version="2.0.5" />
         <PackageReference Include="Semver" Version="3.0.0" />
         <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
