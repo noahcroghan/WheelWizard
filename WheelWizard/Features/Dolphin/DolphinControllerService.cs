@@ -1,3 +1,5 @@
+using IniParser;
+using IniParser.Model;
 using Microsoft.Extensions.Logging;
 using WheelWizard.ControllerSettings;
 using WheelWizard.Services;
@@ -13,8 +15,8 @@ public class DolphinControllerService
     public DolphinControllerService(ILogger<DolphinControllerService> logger)
     {
         _logger = logger;
-        _profiles = new List<DolphinControllerProfile>();
-        _mappings = new Dictionary<string, DolphinControllerMapping>();
+        _profiles = new();
+        _mappings = new();
 
         InitializeDefaultMappings();
         LoadExistingProfiles();
@@ -90,12 +92,12 @@ public class DolphinControllerService
                 _logger.LogWarning("Profile '{Name}' not found", profileName);
                 return false;
             }
-            
+
             foreach (var p in _profiles)
                 p.IsActive = false;
-            
+
             profile.IsActive = true;
-            
+
             ApplyProfileToDolphin(profile, playerIndex);
 
             _logger.LogInformation("Activated controller profile '{Name}' for player {Player}", profileName, playerIndex);
@@ -293,7 +295,19 @@ public class DolphinControllerService
     {
         try
         {
-            var lines = File.ReadAllLines(filePath);
+            var parser = new FileIniDataParser();
+            IniData data;
+
+            try
+            {
+                data = parser.ReadFile(filePath);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to read INI file {File}", filePath);
+                return null;
+            }
+
             var profile = new DolphinControllerProfile
             {
                 Name = profileName,
@@ -308,24 +322,13 @@ public class DolphinControllerService
                 IsActive = false,
             };
 
-            // Parse the INI file to extract button mappings
-            string currentSection = "";
-            foreach (var line in lines)
+            // Parse the INI data to extract button mappings
+            foreach (var section in data.Sections)
             {
-                var trimmedLine = line.Trim();
-                if (trimmedLine.StartsWith("[") && trimmedLine.EndsWith("]"))
+                foreach (var key in section.Keys)
                 {
-                    currentSection = trimmedLine.Substring(1, trimmedLine.Length - 2);
-                }
-                else if (trimmedLine.Contains("=") && !string.IsNullOrEmpty(currentSection))
-                {
-                    var parts = trimmedLine.Split('=', 2);
-                    if (parts.Length == 2)
-                    {
-                        var key = $"{currentSection}/{parts[0].Trim()}";
-                        var value = parts[1].Trim();
-                        profile.Mapping.ButtonMappings[key] = value;
-                    }
+                    var mappingKey = $"{section.SectionName}/{key.KeyName}";
+                    profile.Mapping.ButtonMappings[mappingKey] = key.Value;
                 }
             }
 
@@ -346,10 +349,11 @@ public class DolphinControllerService
             Directory.CreateDirectory(profilesPath);
 
             var filePath = Path.Combine(profilesPath, $"{profile.Name}.ini");
-            var lines = new List<string>();
+            var parser = new FileIniDataParser();
+            var data = new IniData();
 
             // Group mappings by section
-            var sections = new Dictionary<string, List<(string key, string value)>>();
+            var sections = new Dictionary<string, Dictionary<string, string>>();
 
             foreach (var mapping in profile.Mapping.ButtonMappings)
             {
@@ -360,24 +364,22 @@ public class DolphinControllerService
                     var key = parts[1];
 
                     if (!sections.ContainsKey(section))
-                        sections[section] = new List<(string, string)>();
+                        sections[section] = new Dictionary<string, string>();
 
-                    sections[section].Add((key, mapping.Value));
+                    sections[section][key] = mapping.Value;
                 }
             }
 
-            // Write sections to file
+            // Add sections to INI data
             foreach (var section in sections)
             {
-                lines.Add($"[{section.Key}]");
-                foreach (var (key, value) in section.Value)
+                foreach (var kvp in section.Value)
                 {
-                    lines.Add($"{key} = {value}");
+                    data[section.Key][kvp.Key] = kvp.Value;
                 }
-                lines.Add(""); // Empty line between sections
             }
 
-            File.WriteAllLines(filePath, lines);
+            parser.WriteFile(filePath, data);
             _logger.LogDebug("Saved profile '{Name}' to {Path}", profile.Name, filePath);
         }
         catch (Exception ex)
@@ -410,21 +412,29 @@ public class DolphinControllerService
         try
         {
             var configPath = Path.Combine(PathManager.ConfigFolderPath, "GCPadNew.ini");
-            var lines = File.Exists(configPath) ? File.ReadAllLines(configPath).ToList() : new List<string>();
+            var parser = new FileIniDataParser();
+            IniData data;
+
+            try
+            {
+                data = parser.ReadFile(configPath);
+            }
+            catch (FileNotFoundException)
+            {
+                data = new IniData();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to read existing GCPadNew.ini, creating new file");
+                data = new IniData();
+            }
 
             var sectionName = $"GCPad{playerIndex}";
-            UpdateOrAddSection(
-                lines,
-                sectionName,
-                new Dictionary<string, string>
-                {
-                    ["Device"] = "XInput/0/Gamepad", // Default to XInput, could be made configurable
-                    ["Profile"] = profile.Name,
-                }
-            );
+            data[sectionName]["Device"] = "XInput/0/Gamepad"; // Default to XInput, could be made configurable
+            data[sectionName]["Profile"] = profile.Name;
 
-            File.WriteAllLines(configPath, lines);
-            
+            parser.WriteFile(configPath, data);
+
             UpdateGameSpecificControllerConfig(profile, playerIndex);
 
             _logger.LogInformation("Applied profile '{Name}' to Dolphin for player {Player}", profile.Name, playerIndex);
@@ -447,71 +457,30 @@ public class DolphinControllerService
                 var gameIniPath = Path.Combine(PathManager.ConfigFolderPath, "GameSettings", $"{gameId}.ini");
                 if (!File.Exists(gameIniPath))
                     continue;
-                
 
-                var lines = File.ReadAllLines(gameIniPath).ToList();
+                var parser = new FileIniDataParser();
+                IniData data;
 
-                UpdateOrAddSection(
-                    lines,
-                    "Controls",
-                    new Dictionary<string, string>
-                    {
-                        [$"PadProfile{playerIndex}"] = profile.Name,
-                        [$"PadType{playerIndex - 1}"] = "6", // Standard Controller
-                    }
-                );
+                try
+                {
+                    data = parser.ReadFile(gameIniPath);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to read game config file {GameId}, skipping", gameId);
+                    continue;
+                }
 
-                File.WriteAllLines(gameIniPath, lines);
+                data["Controls"][$"PadProfile{playerIndex}"] = profile.Name;
+                data["Controls"][$"PadType{playerIndex - 1}"] = "6"; // Standard Controller
+
+                parser.WriteFile(gameIniPath, data);
                 _logger.LogDebug("Updated game-specific config for {GameId}", gameId);
             }
         }
         catch (Exception ex)
         {
             _logger.LogWarning(ex, "Failed to update game-specific controller config");
-        }
-    }
-
-    private void UpdateOrAddSection(List<string> lines, string sectionName, Dictionary<string, string> values)
-    {
-        var sectionIndex = lines.FindIndex(l => l.Trim() == $"[{sectionName}]");
-
-        if (sectionIndex == -1)
-        {
-            // Add new section
-            lines.Add($"[{sectionName}]");
-            foreach (var kvp in values)
-            {
-                lines.Add($"{kvp.Key} = {kvp.Value}");
-            }
-            return;
-        }
-
-        // Update existing section
-        var nextSectionIndex = lines.FindIndex(sectionIndex + 1, l => l.Trim().StartsWith("[") && l.Trim().EndsWith("]"));
-        if (nextSectionIndex == -1)
-            nextSectionIndex = lines.Count;
-
-        foreach (var kvp in values)
-        {
-            var keyIndex = -1;
-            for (int i = sectionIndex + 1; i < nextSectionIndex; i++)
-            {
-                if (lines[i].StartsWith($"{kvp.Key} =") || lines[i].StartsWith($"{kvp.Key}="))
-                {
-                    keyIndex = i;
-                    break;
-                }
-            }
-
-            if (keyIndex != -1)
-            {
-                lines[keyIndex] = $"{kvp.Key} = {kvp.Value}";
-            }
-            else
-            {
-                lines.Insert(sectionIndex + 1, $"{kvp.Key} = {kvp.Value}");
-                nextSectionIndex++;
-            }
         }
     }
 }

@@ -48,7 +48,6 @@ public class ControllerState
 
     public ControllerState() { }
 
-
     public ControllerState(ControllerState other)
     {
         A = other.A;
