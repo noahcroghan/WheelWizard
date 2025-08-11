@@ -17,11 +17,11 @@ public class UniplatformControllerService : IControllerService
         {
             throw new InvalidOperationException($"SDL_Init failed: {SDL.SDL_GetError()}");
         }
-        
+
         for (var i = 0; i < SDL.SDL_NumJoysticks(); i++)
             if (SDL.SDL_IsGameController(i) == SDL.SDL_bool.SDL_TRUE) //SDL stupid bool
                 AddController(i);
-        
+
         _pollTimer = new(_ => PollEvents(), null, 0, 16); // We update every 16ms (60 FPS)
     }
 
@@ -191,7 +191,7 @@ public class UniplatformControllerService : IControllerService
             AxisType.RightTrigger => _current[idx].RightTrigger,
             _ => 0f,
         };
-    
+
     public void Dispose()
     {
         _pollTimer?.Dispose();

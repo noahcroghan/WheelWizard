@@ -212,26 +212,6 @@ public partial class ProfileEditWindow : PopupContent, INotifyPropertyChanged
         }
     }
 
-    private async void TestButton_Click(object? sender, RoutedEventArgs e)
-    {
-        try
-        {
-            Logger.LogInformation("Testing mappings for profile: {ProfileName}", ProfileName);
-
-            // Get current mappings from editor
-            var mappings = MappingEditor.GetMappings();
-
-            // Show test dialog
-            var testWindow = new ButtonMappingTestWindow();
-            await testWindow.ShowDialog(mappings, ControllerType);
-        }
-        catch (Exception ex)
-        {
-            Logger.LogError(ex, "Error testing mappings for profile '{ProfileName}'", ProfileName);
-            await ShowErrorMessage("Error", "Failed to test mappings. Please try again.");
-        }
-    }
-
     private async void SaveButton_Click(object? sender, RoutedEventArgs e)
     {
         try

@@ -56,11 +56,9 @@ public partial class ButtonMappingEditor : UserControlBase, INotifyPropertyChang
         InitializeButtonElements();
 
         // Set up detection timer
-        _detectionTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMilliseconds(16), // ~60fps
-        };
+        _detectionTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) }; // ~60fps
         _detectionTimer.Tick += DetectionTimer_Tick;
+
     }
 
     private void InitializeButtonElements()
@@ -267,6 +265,7 @@ public partial class ButtonMappingEditor : UserControlBase, INotifyPropertyChang
         }
     }
 
+
     private string? DetectControllerInput()
     {
         try
@@ -395,15 +394,9 @@ public partial class ButtonMappingEditor : UserControlBase, INotifyPropertyChang
             {
                 var button = kvp.Value;
                 var isSelected = kvp.Key == selectedButton;
-
-                if (isSelected)
-                {
-                    button.Background = this.FindResource("Primary600") as Avalonia.Media.Brush;
-                }
-                else
-                {
-                    button.Background = this.FindResource("Neutral700") as Avalonia.Media.Brush;
-                }
+                button.Background = isSelected
+                    ? this.FindResource("Primary600") as Avalonia.Media.Brush
+                    : this.FindResource("Neutral700") as Avalonia.Media.Brush;
             }
         }
         catch (Exception ex)

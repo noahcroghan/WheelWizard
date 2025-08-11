@@ -11,7 +11,7 @@
                    x:DataType="controllerManagement:ProfileEditWindow"
                    ClipToBounds="False">
     
-    <Grid Width="700" MinHeight="500" MaxHeight="700" RowDefinitions="Auto,Auto,*,Auto">
+    <Grid Width="620" Height="520" RowDefinitions="Auto,*,Auto">
         
         <!-- Profile Information Section -->
         <Border Grid.Row="0" Background="{StaticResource Neutral900}" 
@@ -66,23 +66,24 @@
         </Border>
         
         <!-- Button Mappings Section -->
-        <Border Grid.Row="1" Background="{StaticResource Neutral900}" 
-                CornerRadius="{StaticResource GlobalCornerRadius}" 
-                Padding="20" Margin="0,0,0,15">
-            <StackPanel Spacing="15">
-                <TextBlock Classes="TitleText" Text="Button Mappings" />
-                <TextBlock Classes="BodyText" Text="Click on any button below to assign a new mapping. Press the desired input on your controller when prompted." />
-                
-                <!-- Button Mapping Editor -->
-                <controllerManagement:ButtonMappingEditor x:Name="MappingEditor" />
-            </StackPanel>
-        </Border>
+            <ScrollViewer Grid.Row="1" Margin="0,0,0,15" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <Border Background="{StaticResource Neutral900}" 
+                        CornerRadius="{StaticResource GlobalCornerRadius}" 
+                        Padding="20">
+                    <StackPanel Spacing="15">
+                        <TextBlock Classes="TitleText" Text="Button Mappings" />
+                        <TextBlock Classes="BodyText" Text="Click on any button below to assign a new mapping. Press the desired input on your controller when prompted." />
+                        <!-- Button Mapping Editor -->
+                        <controllerManagement:ButtonMappingEditor x:Name="MappingEditor" />
+                    </StackPanel>
+                </Border>
+            </ScrollViewer>
         
         <!-- Action Buttons -->
-        <Border Grid.Row="3" Background="{StaticResource Neutral900}" 
+            <Border Grid.Row="2" Background="{StaticResource Neutral900}" 
                 CornerRadius="{StaticResource GlobalCornerRadius}" 
                 Padding="20">
-            <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+            <Grid ColumnDefinitions="*,Auto,Auto">
                 
                 <!-- Status Message -->
                 <TextBlock Grid.Column="0" x:Name="StatusMessage" 
@@ -97,15 +98,8 @@
                                    IconData="{StaticResource ArrowPath}"
                                    Click="ResetButton_Click" />
                 
-                <!-- Test Button -->
-                <components:Button Grid.Column="2" x:Name="TestButton"
-                                   Text="Test Mappings"
-                                   Variant="Warning"
-                                   IconData="{StaticResource Play}"
-                                   Click="TestButton_Click" />
-                
                 <!-- Save Button -->
-                <components:Button Grid.Column="3" x:Name="SaveButton"
+                <components:Button Grid.Column="2" x:Name="SaveButton"
                                    Text="Save Changes"
                                    Variant="Primary"
                                    IconData="{StaticResource CheckMark}"
