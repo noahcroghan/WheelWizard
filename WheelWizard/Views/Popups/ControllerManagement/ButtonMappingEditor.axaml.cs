@@ -58,7 +58,6 @@ public partial class ButtonMappingEditor : UserControlBase, INotifyPropertyChang
         // Set up detection timer
         _detectionTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) }; // ~60fps
         _detectionTimer.Tick += DetectionTimer_Tick;
-
     }
 
     private void InitializeButtonElements()
@@ -264,7 +263,6 @@ public partial class ButtonMappingEditor : UserControlBase, INotifyPropertyChang
             Logger.LogError(ex, "Error in detection timer tick");
         }
     }
-
 
     private string? DetectControllerInput()
     {
