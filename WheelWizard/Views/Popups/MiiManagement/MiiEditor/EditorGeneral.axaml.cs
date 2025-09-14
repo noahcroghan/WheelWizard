@@ -91,7 +91,7 @@ public partial class EditorGeneral : MiiEditorBaseControl
     private OperationResult ValidateCreatorName(string newName)
     {
         if (newName.Length > 10)
-            return Fail(Phrases.HelperNote_CreatorNameLess10);
+            return Fail(Phrases.HelperNote_CreatorNameLess11);
 
         return Ok();
     }
