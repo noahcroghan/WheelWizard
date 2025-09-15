@@ -93,7 +93,7 @@ public partial class EditorGeneral : MiiEditorBaseControl
     {
         newName = newName?.Trim();
         if (newName.Length > 10)
-            return Fail(Phrases.HelperNote_CreatorNameLess10);
+            return Fail(Phrases.HelperNote_CreatorNameLess11);
 
         return Ok();
     }
