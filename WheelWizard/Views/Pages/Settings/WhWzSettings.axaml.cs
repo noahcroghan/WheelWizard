@@ -175,9 +175,13 @@ public partial class WhWzSettings : UserControl
 
             // Fallback to manual selection
             var folders = await FilePickerHelper.SelectFolderAsync("Select Dolphin.app");
-            if (folders.Count >= 1)
+            if (folders != null && folders.Count >= 1)
             {
-                var executablePath = Path.Combine(folders[0].Path.LocalPath, "Contents", "MacOS", "Dolphin");
+                var resolvedFolder = await ResolveSelectedFolderPathAsync(folders[0]);
+                if (string.IsNullOrWhiteSpace(resolvedFolder))
+                    return;
+
+                var executablePath = Path.Combine(resolvedFolder, "Contents", "MacOS", "Dolphin");
                 AssignWrappedDolphinExeInput(executablePath);
             }
 
@@ -246,8 +250,12 @@ public partial class WhWzSettings : UserControl
             var folder = await topLevel!.StorageProvider.TryGetFolderFromPathAsync(currentFolder);
             var folders = await FilePickerHelper.SelectFolderAsync("Select Dolphin User Path", folder);
 
-            if (folders.Count >= 1)
-                DolphinUserPathInput.Text = folders[0].Path.LocalPath;
+            if (folders != null && folders.Count >= 1)
+            {
+                var resolvedFolder = await ResolveSelectedFolderPathAsync(folders[0]);
+                if (!string.IsNullOrWhiteSpace(resolvedFolder))
+                    DolphinUserPathInput.Text = resolvedFolder;
+            }
             return;
         }
         else
@@ -255,8 +263,12 @@ public partial class WhWzSettings : UserControl
             // Let the user manually select a folder
             var manualFolders = await FilePickerHelper.SelectFolderAsync("Select Dolphin User Path");
 
-            if (manualFolders.Count >= 1)
-                DolphinUserPathInput.Text = manualFolders[0].Path.LocalPath;
+            if (manualFolders != null && manualFolders.Count >= 1)
+            {
+                var resolvedFolder = await ResolveSelectedFolderPathAsync(manualFolders[0]);
+                if (!string.IsNullOrWhiteSpace(resolvedFolder))
+                    DolphinUserPathInput.Text = resolvedFolder;
+            }
         }
     }
 
@@ -370,12 +382,30 @@ public partial class WhWzSettings : UserControl
 
         var trimmedTarget = targetPath.Trim();
 
-        if (FileHelper.PathsEqual(trimmedTarget, PathManager.WheelWizardAppdataPath))
+        var validationSuccessful = PathManager.TryValidateWheelWizardAppdataTarget(
+            trimmedTarget,
+            out var normalizedTarget,
+            out _,
+            out var validationError,
+            out var requiresMove
+        );
+
+        if (!validationSuccessful)
+        {
+            await new MessageBoxWindow()
+                .SetMessageType(MessageBoxWindow.MessageType.Error)
+                .SetTitleText(Phrases.MessageError_DataFolderMove_Title)
+                .SetInfoText(validationError)
+                .ShowDialog();
+            return false;
+        }
+
+        if (!requiresMove)
             return false;
 
         var extraText =
-            Humanizer.ReplaceDynamic(Phrases.Question_MoveData_Extra, trimmedTarget)
-            ?? $"Wheel Wizard will move its files to:\n{trimmedTarget}\nThis may take a while depending on the amount of data.";
+            Humanizer.ReplaceDynamic(Phrases.Question_MoveData_Extra, normalizedTarget)
+            ?? $"Wheel Wizard will move its files to:\n{normalizedTarget}\nThis may take a while depending on the amount of data.";
 
         var confirmed = await new YesNoWindow()
             .SetMainText(Phrases.Question_MoveData_Title)
@@ -386,7 +416,7 @@ public partial class WhWzSettings : UserControl
         if (!confirmed)
             return false;
 
-        await MoveWheelWizardDataAsync(trimmedTarget);
+        await MoveWheelWizardDataAsync(normalizedTarget);
         return true;
     }
 
@@ -478,10 +508,11 @@ public partial class WhWzSettings : UserControl
             return;
 
         var selected = folders[0];
-        if (selected == null)
+        var resolvedPath = await ResolveSelectedFolderPathAsync(selected);
+        if (string.IsNullOrWhiteSpace(resolvedPath))
             return;
 
-        await ConfirmAndMoveAppDataAsync(selected.Path.LocalPath);
+        await ConfirmAndMoveAppDataAsync(resolvedPath);
     }
 
     private async void AppDataLocationReset_OnClick(object sender, RoutedEventArgs e)
@@ -536,6 +567,28 @@ public partial class WhWzSettings : UserControl
         }
 
         _editingScale = false;
+    }
+
+    private async Task<string?> ResolveSelectedFolderPathAsync(IStorageFolder? folder)
+    {
+        if (folder == null)
+            return null;
+
+        var resolved = FilePickerHelper.TryResolveLocalPath(folder);
+        if (!string.IsNullOrWhiteSpace(resolved))
+            return resolved;
+
+        await ShowFolderSelectionErrorAsync();
+        return null;
+    }
+
+    private Task ShowFolderSelectionErrorAsync()
+    {
+        return new MessageBoxWindow()
+            .SetMessageType(MessageBoxWindow.MessageType.Error)
+            .SetTitleText(Phrases.MessageError_DataFolderMove_Title)
+            .SetInfoText("Wheel Wizard couldn't resolve the selected folder. Please choose a different location.")
+            .ShowDialog();
     }
 
     private async void WhWzLanguageDropdown_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)

@@ -21,6 +21,46 @@ public static class FileHelper
         return Path.TrimEndingDirectorySeparator(fullPath);
     }
 
+    public static bool IsRootDirectory(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+            return false;
+
+        string normalized;
+        try
+        {
+            normalized = NormalizePath(path);
+        }
+        catch
+        {
+            return false;
+        }
+
+        var root = Path.GetPathRoot(normalized);
+        if (string.IsNullOrEmpty(root))
+            return false;
+
+        try
+        {
+            return PathsEqual(normalized, root);
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public static bool IsDirectoryEmpty(string path)
+    {
+        if (!DirectoryExists(path))
+            return true;
+
+        foreach (var _ in Directory.EnumerateFileSystemEntries(path))
+            return false;
+
+        return true;
+    }
+
     public static string GetRelativePath(string relativeTo, string path) => Path.GetRelativePath(relativeTo, path);
 
     public static bool PathsEqual(string pathA, string pathB)

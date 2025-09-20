@@ -110,41 +110,35 @@ public static class PathManager
     {
         errorMessage = string.Empty;
 
-        if (string.IsNullOrWhiteSpace(requestedPath))
-        {
-            errorMessage = "Please select a valid folder.";
+        if (
+            !TryValidateWheelWizardAppdataTarget(
+                requestedPath,
+                out var normalizedTarget,
+                out var currentPath,
+                out errorMessage,
+                out var requiresMove
+            )
+        )
             return false;
-        }
 
-        string normalizedTarget;
-        try
-        {
-            normalizedTarget = FileHelper.NormalizePath(requestedPath);
-        }
-        catch (Exception ex)
-        {
-            errorMessage = $"Invalid folder path: {ex.Message}";
-            return false;
-        }
-
-        string currentPath;
-        lock (WheelWizardAppdataLock)
-        {
-            currentPath = _wheelWizardAppdataOverride ?? DefaultWheelWizardAppdataPath;
-        }
-
-        if (FileHelper.PathsEqual(currentPath, normalizedTarget))
+        if (!requiresMove)
             return true;
 
-        if (FileHelper.IsDescendantPath(normalizedTarget, currentPath))
+        if (!FileHelper.DirectoryExists(normalizedTarget))
         {
-            errorMessage = "The selected folder is inside the current Wheel Wizard data folder. Please choose a different folder.";
-            return false;
+            try
+            {
+                FileHelper.EnsureDirectory(normalizedTarget);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Unable to create the selected folder: {ex.Message}";
+                return false;
+            }
         }
-
-        if (FileHelper.IsDescendantPath(currentPath, normalizedTarget))
+        else if (!FileHelper.IsDirectoryEmpty(normalizedTarget))
         {
-            errorMessage = "The selected folder contains the current Wheel Wizard data folder. Please choose a different folder.";
+            errorMessage = "The selected folder must be empty. Please choose an empty folder.";
             return false;
         }
 
@@ -190,6 +184,77 @@ public static class PathManager
 
     public static bool TryResetWheelWizardAppdataPath(out string errorMessage) =>
         TrySetWheelWizardAppdataPath(DefaultWheelWizardAppdataPath, out errorMessage);
+
+    public static bool TryValidateWheelWizardAppdataTarget(
+        string requestedPath,
+        out string normalizedTarget,
+        out string currentPath,
+        out string errorMessage,
+        out bool requiresMove
+    )
+    {
+        normalizedTarget = string.Empty;
+        currentPath = string.Empty;
+        errorMessage = string.Empty;
+        requiresMove = false;
+
+        if (string.IsNullOrWhiteSpace(requestedPath))
+        {
+            errorMessage = "Please select a valid folder.";
+            return false;
+        }
+
+        try
+        {
+            normalizedTarget = FileHelper.NormalizePath(requestedPath);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Invalid folder path: {ex.Message}";
+            return false;
+        }
+
+        lock (WheelWizardAppdataLock)
+        {
+            currentPath = _wheelWizardAppdataOverride ?? DefaultWheelWizardAppdataPath;
+        }
+
+        if (FileHelper.PathsEqual(currentPath, normalizedTarget))
+            return true;
+
+        if (FileHelper.IsDescendantPath(normalizedTarget, currentPath))
+        {
+            errorMessage = "The selected folder is inside the current Wheel Wizard data folder. Please choose a different folder.";
+            return false;
+        }
+
+        if (FileHelper.IsDescendantPath(currentPath, normalizedTarget))
+        {
+            errorMessage = "The selected folder contains the current Wheel Wizard data folder. Please choose a different folder.";
+            return false;
+        }
+
+        if (FileHelper.FileExists(normalizedTarget))
+        {
+            errorMessage = "The selected path points to a file. Please choose an empty folder instead.";
+            return false;
+        }
+
+        if (FileHelper.IsRootDirectory(normalizedTarget))
+        {
+            errorMessage = "Selecting a drive or root directory is not allowed. Please choose an empty folder.";
+            return false;
+        }
+
+        if (FileHelper.DirectoryExists(normalizedTarget) && !FileHelper.IsDirectoryEmpty(normalizedTarget))
+        {
+            errorMessage = "The selected folder must be empty. Please choose an empty folder.";
+            return false;
+        }
+
+        requiresMove = true;
+        return true;
+    }
 
     private static void PersistWheelWizardAppdataOverride(string? overridePath)
     {
