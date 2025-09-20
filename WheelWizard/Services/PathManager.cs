@@ -73,6 +73,9 @@ public static class PathManager
     public static string ModConfigFilePath => Path.Combine(ModsFolderPath, "modconfig.json");
     public static string TempModsFolderPath => Path.Combine(ModsFolderPath, "Temp");
     public static string RetroRewindTempFile => Path.Combine(TempModsFolderPath, "RetroRewind.zip");
+    public static readonly string GameExtractionRootFolderPath = Path.Combine(WheelWizardAppdataPath, "ExtractedGame");
+    public static readonly string GameExtractionMetadataFilePath = Path.Combine(GameExtractionRootFolderPath, ".metadata.json");
+    public static readonly string ExtractedMainDolFilePath = Path.Combine(GameExtractionRootFolderPath, "DATA", "sys", "main.dol");
     public static string WiiDbFolder => Path.Combine(WiiFolderPath, "shared2", "menu", "FaceLib");
     public static string MiiDbFile => Path.Combine(WiiDbFolder, "RFL_DB.dat");
 
