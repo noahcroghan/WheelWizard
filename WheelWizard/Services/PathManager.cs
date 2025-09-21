@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
 using WheelWizard.Services.Settings;
-#if WINDOWS
+#if WINDOWS && DEBUG
 using Microsoft.Win32;
 #endif
 
@@ -13,7 +13,10 @@ public static class PathManager
     //            and either end with `FilePath` or `FolderPath`
 
     private const string WheelWizardFolderName = "CT-MKWII";
-    private const string AppDataOverrideFileName = "appdata-location.txt";
+#if WINDOWS && DEBUG
+    private const string WindowsAppDataOverrideRegistryKeyPath = @"Software\\WheelWizard";
+    private const string WindowsAppDataOverrideRegistryValueName = "AppDataLocation";
+#endif
     private static readonly object WheelWizardAppdataLock = new();
 
     // Portable WheelWizard config only makes sense on non-Flatpak WheelWizard
@@ -21,8 +24,6 @@ public static class PathManager
     private static readonly string DefaultWheelWizardAppdataPath = FileHelper.NormalizePath(
         FileHelper.Combine(IsPortableWhWz ? string.Empty : AppDataFolder, WheelWizardFolderName)
     );
-    private static readonly string AppDataOverrideDirectory = DetermineAppDataOverrideDirectory();
-    private static readonly string AppDataOverrideFilePath = Path.Combine(AppDataOverrideDirectory, AppDataOverrideFileName);
     private static string? _wheelWizardAppdataOverride;
 
     static PathManager()
@@ -39,6 +40,10 @@ public static class PathManager
 
     private static string AppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     private static string LocalAppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    private static string UnixAppDataOverrideFilePath =>
+        OperatingSystem.IsMacOS()
+            ? Path.Combine(HomeFolderPath, "Library", "Preferences", "com.wheelwizard.appdata-location")
+            : Path.Combine(HomeFolderPath, ".config", "wheelwizard-appdata-location");
 
     // Wheel wizard's appdata paths (don't have to be expressions since they don't depend on user input like the others)
     public static string WheelWizardAppdataPath
@@ -75,25 +80,11 @@ public static class PathManager
 
     #region Wheel Wizard Appdata Override
 
-    private static string DetermineAppDataOverrideDirectory()
-    {
-        var baseDirectory = IsPortableWhWz ? Environment.CurrentDirectory : Path.Combine(AppDataFolder, "WheelWizard");
-
-        try
-        {
-            return FileHelper.NormalizePath(baseDirectory);
-        }
-        catch
-        {
-            return baseDirectory;
-        }
-    }
-
     private static string? LoadSavedWheelWizardAppdataOverride()
     {
         try
         {
-            var storedPath = FileHelper.ReadAllTextSafe(AppDataOverrideFilePath);
+            var storedPath = LoadPersistedWheelWizardAppdataOverride();
             if (string.IsNullOrWhiteSpace(storedPath))
                 return null;
 
@@ -104,6 +95,38 @@ public static class PathManager
         {
             return null;
         }
+    }
+
+    private static string? LoadPersistedWheelWizardAppdataOverride()
+    {
+#if WINDOWS && DEBUG
+        if (OperatingSystem.IsWindows())
+        {
+            try
+            {
+                using var key = Registry.CurrentUser.OpenSubKey(WindowsAppDataOverrideRegistryKeyPath, writable: false);
+                if (key != null)
+                {
+                    var value = key.GetValue(WindowsAppDataOverrideRegistryValueName) as string;
+                    if (!string.IsNullOrWhiteSpace(value))
+                        return value;
+                }
+            }
+            catch
+            {
+                // ignored; fall back to other persistence mechanisms
+            }
+        }
+#endif
+
+        if (OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
+        {
+            var storedPath = FileHelper.ReadAllTextSafe(UnixAppDataOverrideFilePath);
+            if (!string.IsNullOrWhiteSpace(storedPath))
+                return storedPath;
+        }
+
+        return null;
     }
 
     public static bool TrySetWheelWizardAppdataPath(string requestedPath, out string errorMessage, IProgress<double>? progress = null)
@@ -260,12 +283,81 @@ public static class PathManager
     {
         if (string.IsNullOrWhiteSpace(overridePath) || FileHelper.PathsEqual(overridePath, DefaultWheelWizardAppdataPath))
         {
-            if (File.Exists(AppDataOverrideFilePath))
-                File.Delete(AppDataOverrideFilePath);
+            ClearWheelWizardAppdataOverride();
             return;
         }
 
-        FileHelper.WriteAllTextSafe(AppDataOverrideFilePath, overridePath);
+        try
+        {
+            var normalizedOverride = FileHelper.NormalizePath(overridePath);
+            SaveWheelWizardAppdataOverride(normalizedOverride);
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    private static void ClearWheelWizardAppdataOverride()
+    {
+#if WINDOWS && DEBUG
+        if (OperatingSystem.IsWindows())
+        {
+            try
+            {
+                using var key = Registry.CurrentUser.OpenSubKey(WindowsAppDataOverrideRegistryKeyPath, writable: true);
+                key?.DeleteValue(WindowsAppDataOverrideRegistryValueName, throwOnMissingValue: false);
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return;
+        }
+#endif
+
+        if (OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
+        {
+            TryDeleteFileSilently(UnixAppDataOverrideFilePath);
+        }
+    }
+
+    private static void SaveWheelWizardAppdataOverride(string overridePath)
+    {
+#if WINDOWS && DEBUG
+        if (OperatingSystem.IsWindows())
+        {
+            try
+            {
+                using var key = Registry.CurrentUser.CreateSubKey(WindowsAppDataOverrideRegistryKeyPath, writable: true);
+                key?.SetValue(WindowsAppDataOverrideRegistryValueName, overridePath, RegistryValueKind.String);
+                return;
+            }
+            catch
+            {
+                // Fall back to other persistence mechanisms
+            }
+        }
+#endif
+
+        if (OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
+        {
+            FileHelper.WriteAllTextSafe(UnixAppDataOverrideFilePath, overridePath);
+        }
+    }
+
+    private static void TryDeleteFileSilently(string path)
+    {
+        try
+        {
+            if (FileHelper.FileExists(path))
+                File.Delete(path);
+        }
+        catch
+        {
+            // ignored
+        }
     }
 
     private static void MoveWheelWizardAppdataContents(string sourcePath, string destinationPath) =>
@@ -470,7 +562,7 @@ public static class PathManager
 
     private static bool HasWindowsLocalUserConfigSet()
     {
-#if WINDOWS
+#if WINDOWS && DEBUG
         try
         {
             string dolphinRegistryPath = @"Software\Dolphin Emulator";
@@ -514,7 +606,7 @@ public static class PathManager
 
     private static string TryFindRegistryUserConfigPath()
     {
-#if WINDOWS
+#if WINDOWS && DEBUG
         try
         {
             string dolphinRegistryPath = @"Software\Dolphin Emulator";
