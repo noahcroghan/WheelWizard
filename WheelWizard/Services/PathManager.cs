@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using WheelWizard.Helpers;
 using WheelWizard.Services.Settings;
-#if WINDOWS && DEBUG
+#if WINDOWS
 using Microsoft.Win32;
 #endif
 
@@ -13,7 +13,7 @@ public static class PathManager
     //            and either end with `FilePath` or `FolderPath`
 
     private const string WheelWizardFolderName = "CT-MKWII";
-#if WINDOWS && DEBUG
+#if WINDOWS
     private const string WindowsAppDataOverrideRegistryKeyPath = @"Software\\WheelWizard";
     private const string WindowsAppDataOverrideRegistryValueName = "AppDataLocation";
 #endif
@@ -99,7 +99,7 @@ public static class PathManager
 
     private static string? LoadPersistedWheelWizardAppdataOverride()
     {
-#if WINDOWS && DEBUG
+#if WINDOWS
         if (OperatingSystem.IsWindows())
         {
             try
@@ -300,7 +300,7 @@ public static class PathManager
 
     private static void ClearWheelWizardAppdataOverride()
     {
-#if WINDOWS && DEBUG
+#if WINDOWS
         if (OperatingSystem.IsWindows())
         {
             try
@@ -325,7 +325,7 @@ public static class PathManager
 
     private static void SaveWheelWizardAppdataOverride(string overridePath)
     {
-#if WINDOWS && DEBUG
+#if WINDOWS
         if (OperatingSystem.IsWindows())
         {
             try
@@ -486,7 +486,7 @@ public static class PathManager
             {
                 try
                 {
-                    string determinedLinuxDolphinConfigDir = SplitLinuxDolphinConfigDir;
+                    var determinedLinuxDolphinConfigDir = SplitLinuxDolphinConfigDir;
                     if (!string.IsNullOrWhiteSpace(determinedLinuxDolphinConfigDir))
                         return determinedLinuxDolphinConfigDir;
                 }
@@ -519,8 +519,8 @@ public static class PathManager
             // Prioritize Flatpak Dolphin installation if no file path has been saved yet, so return true
             return true;
         }
-        string flatpakRunCommand = "flatpak run";
-        string dolphinAppId = "org.DolphinEmu.dolphin-emu";
+        var flatpakRunCommand = "flatpak run";
+        var dolphinAppId = "org.DolphinEmu.dolphin-emu";
         string[] possibleFlatpakDolphinCommands =
         [
             $"{flatpakRunCommand} {dolphinAppId}",
@@ -530,7 +530,7 @@ public static class PathManager
             $"{flatpakRunCommand} --system -p {dolphinAppId}",
             $"{flatpakRunCommand} --user -p {dolphinAppId}",
         ];
-        foreach (string possibleFlatpakDolphinCommand in possibleFlatpakDolphinCommands)
+        foreach (var possibleFlatpakDolphinCommand in possibleFlatpakDolphinCommands)
         {
             if (possibleFlatpakDolphinCommand.Equals(filePath, StringComparison.Ordinal))
                 return true;
@@ -547,7 +547,7 @@ public static class PathManager
     {
         try
         {
-            return Path.GetDirectoryName(Path.GetFullPath(path));
+            return Path.GetDirectoryName(Path.GetFullPath(path)) ?? string.Empty;
         }
         catch
         {
@@ -562,36 +562,34 @@ public static class PathManager
 
     private static bool HasWindowsLocalUserConfigSet()
     {
-#if WINDOWS && DEBUG
+#if WINDOWS
         try
         {
-            string dolphinRegistryPath = @"Software\Dolphin Emulator";
-            string localUserConfigValueName = "LocalUserConfig";
-            bool local = false;
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(dolphinRegistryPath))
+            var dolphinRegistryPath = @"Software\Dolphin Emulator";
+            var localUserConfigValueName = "LocalUserConfig";
+            var local = false;
+            using var key = Registry.CurrentUser.OpenSubKey(dolphinRegistryPath);
+            if (key == null)
+                return local;
+
+            var localUserConfigValue = key.GetValue(localUserConfigValueName);
+            if (localUserConfigValue == null)
+                return local;
+
+            if (localUserConfigValue is string localUserConfigValueString)
             {
-                if (key == null)
-                    return local;
-
-                object localUserConfigValue = key.GetValue(localUserConfigValueName);
-                if (localUserConfigValue == null)
-                    return local;
-
-                if (localUserConfigValue is string localUserConfigValueString)
-                {
-                    if (localUserConfigValueString.Equals("1", StringComparison.Ordinal))
-                        local = true;
-                }
-                else if (localUserConfigValue is int localUserConfigValueInt)
-                {
-                    if (localUserConfigValueInt == 1)
-                        local = true;
-                }
-                else if (localUserConfigValue is long localUserConfigValueLong)
-                {
-                    if (localUserConfigValueLong == 1)
-                        local = true;
-                }
+                if (localUserConfigValueString.Equals("1", StringComparison.Ordinal))
+                    local = true;
+            }
+            else if (localUserConfigValue is int localUserConfigValueInt)
+            {
+                if (localUserConfigValueInt == 1)
+                    local = true;
+            }
+            else if (localUserConfigValue is long localUserConfigValueLong)
+            {
+                if (localUserConfigValueLong == 1)
+                    local = true;
             }
             return local;
         }
@@ -606,25 +604,23 @@ public static class PathManager
 
     private static string TryFindRegistryUserConfigPath()
     {
-#if WINDOWS && DEBUG
+#if WINDOWS
         try
         {
-            string dolphinRegistryPath = @"Software\Dolphin Emulator";
-            string userConfigPathValueName = "UserConfigPath";
-            string userConfigPath = string.Empty;
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(dolphinRegistryPath))
-            {
-                if (key == null)
-                    return userConfigPath;
+            var dolphinRegistryPath = @"Software\Dolphin Emulator";
+            var userConfigPathValueName = "UserConfigPath";
+            var userConfigPath = string.Empty;
+            using var key = Registry.CurrentUser.OpenSubKey(dolphinRegistryPath);
+            if (key == null)
+                return userConfigPath;
 
-                string foundUserConfigPath = (string)key.GetValue(userConfigPathValueName);
-                // We need to replace `/` with `\` here since Dolphin writes mismatching separators to the registry
-                if (FileHelper.DirectoryExists(foundUserConfigPath))
-                    userConfigPath = foundUserConfigPath.Replace(
-                        Path.AltDirectorySeparatorChar.ToString(),
-                        Path.DirectorySeparatorChar.ToString()
-                    );
-            }
+            var foundUserConfigPath = key.GetValue(userConfigPathValueName) as string;
+            // We need to replace `/` with `\` here since Dolphin writes mismatching separators to the registry
+            if (!string.IsNullOrWhiteSpace(foundUserConfigPath) && FileHelper.DirectoryExists(foundUserConfigPath))
+                userConfigPath = foundUserConfigPath.Replace(
+                    Path.AltDirectorySeparatorChar.ToString(),
+                    Path.DirectorySeparatorChar.ToString()
+                );
             return userConfigPath;
         }
         catch
