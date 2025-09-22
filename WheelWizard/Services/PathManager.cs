@@ -41,9 +41,7 @@ public static class PathManager
     private static string AppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
     private static string LocalAppDataFolder => Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
     private static string UnixAppDataOverrideFilePath =>
-        OperatingSystem.IsMacOS()
-            ? Path.Combine(HomeFolderPath, "Library", "Preferences", "com.wheelwizard.appdata-location")
-            : Path.Combine(HomeFolderPath, ".config", "wheelwizard-appdata-location");
+        Path.Combine(AppDataFolder, "wheelwizard-appdata-location");
 
     // Wheel wizard's appdata paths (don't have to be expressions since they don't depend on user input like the others)
     public static string WheelWizardAppdataPath
