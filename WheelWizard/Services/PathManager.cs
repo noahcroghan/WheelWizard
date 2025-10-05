@@ -197,7 +197,8 @@ public static class PathManager
         // Inform user if the old folder couldn't be deleted
         if (!sourceDeletionSucceeded)
         {
-            var deletionWarning = $"Note: Files were moved successfully, but the old folder '{currentPath}' could not be deleted. You may need to remove it manually.";
+            var deletionWarning =
+                $"Note: Files were moved successfully, but the old folder '{currentPath}' could not be deleted. You may need to remove it manually.";
             if (string.IsNullOrEmpty(errorMessage))
                 errorMessage = deletionWarning;
             else
