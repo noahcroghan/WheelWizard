@@ -73,9 +73,9 @@ public static class PathManager
     public static string ModConfigFilePath => Path.Combine(ModsFolderPath, "modconfig.json");
     public static string TempModsFolderPath => Path.Combine(ModsFolderPath, "Temp");
     public static string RetroRewindTempFile => Path.Combine(TempModsFolderPath, "RetroRewind.zip");
-    public static readonly string GameExtractionRootFolderPath = Path.Combine(WheelWizardAppdataPath, "ExtractedGame");
-    public static readonly string GameExtractionMetadataFilePath = Path.Combine(GameExtractionRootFolderPath, ".metadata.json");
-    public static readonly string ExtractedMainDolFilePath = Path.Combine(GameExtractionRootFolderPath, "DATA", "sys", "main.dol");
+    public static string GameExtractionRootFolderPath => Path.Combine(WheelWizardAppdataPath, "ExtractedGame");
+    public static string GameExtractionMetadataFilePath => Path.Combine(GameExtractionRootFolderPath, ".metadata.json");
+    public static string ExtractedMainDolFilePath => Path.Combine(GameExtractionRootFolderPath, "DATA", "sys", "main.dol");
     public static string WiiDbFolder => Path.Combine(WiiFolderPath, "shared2", "menu", "FaceLib");
     public static string MiiDbFile => Path.Combine(WiiDbFolder, "RFL_DB.dat");
 
@@ -90,7 +90,29 @@ public static class PathManager
                 return null;
 
             var normalized = FileHelper.NormalizePath(storedPath);
-            return FileHelper.PathsEqual(normalized, DefaultWheelWizardAppdataPath) ? null : normalized;
+
+            // Check if the stored path is the same as the default path
+            if (FileHelper.PathsEqual(normalized, DefaultWheelWizardAppdataPath))
+                return null;
+
+            // Additional check: if the stored path doesn't exist but the default path does,
+            // and they would be the same if normalized, don't use the override
+            if (!FileHelper.DirectoryExists(normalized) && FileHelper.DirectoryExists(DefaultWheelWizardAppdataPath))
+            {
+                // If the default path contains a CT-MKWII folder, the user might have moved it manually
+                var defaultCtMkwiiPath = Path.Combine(DefaultWheelWizardAppdataPath, WheelWizardFolderName);
+                if (FileHelper.DirectoryExists(defaultCtMkwiiPath))
+                {
+                    // User might have moved the folder manually, check if the stored path matches
+                    var movedPath = FileHelper.NormalizePath(Path.Combine(normalized, WheelWizardFolderName));
+                    if (FileHelper.PathsEqual(movedPath, defaultCtMkwiiPath))
+                    {
+                        return null; // Don't use override since the folder was moved manually
+                    }
+                }
+            }
+
+            return normalized;
         }
         catch
         {
@@ -122,9 +144,28 @@ public static class PathManager
 
         if (OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
         {
+            // Try to read from the system appdata location first
             var storedPath = FileHelper.ReadAllTextSafe(UnixAppDataOverrideFilePath);
             if (!string.IsNullOrWhiteSpace(storedPath))
                 return storedPath;
+
+            // If not found in system appdata, try to read from the current Wheel Wizard appdata location
+            // (in case the user moved their data folder manually)
+            try
+            {
+                var currentWhWzPath = DefaultWheelWizardAppdataPath;
+                var customOverrideFile = Path.Combine(currentWhWzPath, "wheelwizard-appdata-location");
+                if (FileHelper.FileExists(customOverrideFile))
+                {
+                    var customStoredPath = FileHelper.ReadAllTextSafe(customOverrideFile);
+                    if (!string.IsNullOrWhiteSpace(customStoredPath))
+                        return customStoredPath;
+                }
+            }
+            catch
+            {
+                // ignored
+            }
         }
 
         return null;
@@ -450,6 +491,18 @@ public static class PathManager
         if (OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
         {
             TryDeleteFileSilently(UnixAppDataOverrideFilePath);
+
+            // Also try to delete from the current Wheel Wizard appdata location
+            try
+            {
+                var currentWhWzPath = DefaultWheelWizardAppdataPath;
+                var customOverrideFile = Path.Combine(currentWhWzPath, "wheelwizard-appdata-location");
+                TryDeleteFileSilently(customOverrideFile);
+            }
+            catch
+            {
+                // ignored
+            }
         }
     }
 
@@ -473,7 +526,20 @@ public static class PathManager
 
         if (OperatingSystem.IsMacOS() || OperatingSystem.IsLinux())
         {
+            // Save to system appdata location
             FileHelper.WriteAllTextSafe(UnixAppDataOverrideFilePath, overridePath);
+
+            // Also save to the current Wheel Wizard appdata location so it moves with the data if relocated
+            try
+            {
+                var currentWhWzPath = DefaultWheelWizardAppdataPath;
+                var customOverrideFile = Path.Combine(currentWhWzPath, "wheelwizard-appdata-location");
+                FileHelper.WriteAllTextSafe(customOverrideFile, overridePath);
+            }
+            catch
+            {
+                // ignored - this is a backup persistence mechanism
+            }
         }
     }
 
