@@ -127,9 +127,23 @@ public static class PathManager
         return null;
     }
 
-    public static bool TrySetWheelWizardAppdataPath(string requestedPath, out string errorMessage, IProgress<double>? progress = null)
+    public static bool TrySetWheelWizardAppdataPath(
+        string requestedPath,
+        out string errorMessage,
+        out DirectoryMoveContentsResult moveResult,
+        IProgress<double>? progress = null
+    )
     {
         errorMessage = string.Empty;
+        moveResult = new DirectoryMoveContentsResult(
+            DirectoryMoveOutcome.NoOp,
+            string.Empty,
+            string.Empty,
+            copyAttempted: false,
+            verificationAttempted: false,
+            deleteSourceRequested: false,
+            sourceDeletionSucceeded: true
+        );
 
         if (
             !TryValidateWheelWizardAppdataTarget(
@@ -143,7 +157,18 @@ public static class PathManager
             return false;
 
         if (!requiresMove)
+        {
+            moveResult = new DirectoryMoveContentsResult(
+                DirectoryMoveOutcome.NoOp,
+                currentPath,
+                normalizedTarget,
+                copyAttempted: false,
+                verificationAttempted: false,
+                deleteSourceRequested: false,
+                sourceDeletionSucceeded: true
+            );
             return true;
+        }
 
         if (!FileHelper.DirectoryExists(normalizedTarget))
         {
@@ -165,10 +190,9 @@ public static class PathManager
 
         var newOverrideValue = FileHelper.PathsEqual(normalizedTarget, DefaultWheelWizardAppdataPath) ? null : normalizedTarget;
 
-        bool sourceDeletionSucceeded;
         try
         {
-            sourceDeletionSucceeded = FileHelper.MoveDirectoryContents(currentPath, normalizedTarget, progress: progress);
+            moveResult = FileHelper.MoveDirectoryContents(currentPath, normalizedTarget, progress: progress);
         }
         catch (Exception ex)
         {
@@ -176,7 +200,27 @@ public static class PathManager
             return false;
         }
 
-        // Update the setting even if persistence fails, since files were successfully moved
+        switch (moveResult.Outcome)
+        {
+            case DirectoryMoveOutcome.CopyFailed:
+                errorMessage = moveResult.ErrorMessage ?? "Failed to copy Wheel Wizard files.";
+                return false;
+            case DirectoryMoveOutcome.VerificationFailed:
+                var failureMessage = moveResult.ErrorMessage ?? "Failed to verify Wheel Wizard files.";
+                if (moveResult.VerificationFailures.Count > 0)
+                    failureMessage += $"\n{string.Join("\n", moveResult.VerificationFailures)}";
+                errorMessage = failureMessage;
+                return false;
+            case DirectoryMoveOutcome.NoOp:
+            case DirectoryMoveOutcome.Success:
+            case DirectoryMoveOutcome.SourceDeletionFailed:
+                break;
+            default:
+                errorMessage = "Unknown outcome while moving Wheel Wizard files.";
+                return false;
+        }
+
+        // Update the setting even if persistence fails, since files were successfully moved or intentionally skipped
         lock (WheelWizardAppdataLock)
         {
             _wheelWizardAppdataOverride = newOverrideValue;
@@ -194,22 +238,102 @@ public static class PathManager
             // Still return true since the operation succeeded where it matters
         }
 
-        // Inform user if the old folder couldn't be deleted
-        if (!sourceDeletionSucceeded)
+        if (moveResult.Outcome == DirectoryMoveOutcome.SourceDeletionFailed)
         {
             var deletionWarning =
-                $"Note: Files were moved successfully, but the old folder '{currentPath}' could not be deleted. You may need to remove it manually.";
-            if (string.IsNullOrEmpty(errorMessage))
-                errorMessage = deletionWarning;
-            else
-                errorMessage += $" {deletionWarning}";
+                moveResult.ErrorMessage
+                ?? $"Files were moved successfully, but the old folder '{currentPath}' could not be deleted. You may need to remove it manually.";
+
+            errorMessage = string.IsNullOrEmpty(errorMessage) ? deletionWarning : $"{errorMessage} {deletionWarning}";
         }
 
         return true;
     }
 
     public static bool TryResetWheelWizardAppdataPath(out string errorMessage) =>
-        TrySetWheelWizardAppdataPath(DefaultWheelWizardAppdataPath, out errorMessage);
+        TrySetWheelWizardAppdataPath(DefaultWheelWizardAppdataPath, out errorMessage, out _);
+
+    public static bool TryRevertWheelWizardAppdataMove(string previousPath, string newPath, out string errorMessage)
+    {
+        errorMessage = string.Empty;
+
+        string normalizedPrevious;
+        string normalizedNew;
+
+        try
+        {
+            normalizedPrevious = FileHelper.NormalizePath(previousPath);
+            normalizedNew = FileHelper.NormalizePath(newPath);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Invalid folder path: {ex.Message}";
+            return false;
+        }
+
+        var previousOverrideValue = FileHelper.PathsEqual(normalizedPrevious, DefaultWheelWizardAppdataPath) ? null : normalizedPrevious;
+
+        lock (WheelWizardAppdataLock)
+        {
+            _wheelWizardAppdataOverride = previousOverrideValue;
+        }
+
+        try
+        {
+            PersistWheelWizardAppdataOverride(previousOverrideValue);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to persist Wheel Wizard data folder setting: {ex.Message}";
+            return false;
+        }
+
+        if (FileHelper.DirectoryExists(normalizedNew))
+        {
+            try
+            {
+                Directory.Delete(normalizedNew, true);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Reverted to the previous folder, but failed to remove the new folder '{normalizedNew}': {ex.Message}";
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static bool TryCleanupPartialWheelWizardAppdataMove(string destinationPath, out string errorMessage)
+    {
+        errorMessage = string.Empty;
+
+        string normalizedDestination;
+        try
+        {
+            normalizedDestination = FileHelper.NormalizePath(destinationPath);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Invalid folder path: {ex.Message}";
+            return false;
+        }
+
+        if (!FileHelper.DirectoryExists(normalizedDestination))
+            return true;
+
+        try
+        {
+            Directory.Delete(normalizedDestination, true);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to remove the partially copied folder '{normalizedDestination}': {ex.Message}";
+            return false;
+        }
+
+        return true;
+    }
 
     public static bool TryValidateWheelWizardAppdataTarget(
         string requestedPath,
@@ -363,7 +487,7 @@ public static class PathManager
         }
     }
 
-    private static bool MoveWheelWizardAppdataContents(string sourcePath, string destinationPath) =>
+    private static DirectoryMoveContentsResult MoveWheelWizardAppdataContents(string sourcePath, string destinationPath) =>
         FileHelper.MoveDirectoryContents(sourcePath, destinationPath);
 
     #endregion

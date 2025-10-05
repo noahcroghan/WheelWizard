@@ -436,13 +436,13 @@ public partial class WhWzSettings : UserControl
             progressWindow.UpdateProgress(percentage);
         });
 
-        (bool success, string errorMessage) moveResult;
+        (bool success, string errorMessage, DirectoryMoveContentsResult details) moveResult;
         try
         {
             moveResult = await Task.Run(() =>
             {
-                var moveSuccessful = PathManager.TrySetWheelWizardAppdataPath(targetPath, out var error, progress);
-                return (moveSuccessful, error);
+                var moveSuccessful = PathManager.TrySetWheelWizardAppdataPath(targetPath, out var error, out var moveDetails, progress);
+                return (moveSuccessful, error, moveDetails);
             });
         }
         catch (Exception ex)
@@ -467,27 +467,119 @@ public partial class WhWzSettings : UserControl
         SetAppDataLocationBusyState(false);
         UpdateAppDataLocationUi();
 
-        var (success, errorMessage) = moveResult;
+        var (success, errorMessage, details) = moveResult;
 
         if (success)
         {
-            var infoText =
-                Humanizer.ReplaceDynamic(Phrases.MessageSuccess_DataFolderMoved_Extra, PathManager.WheelWizardAppdataPath)
-                ?? $"Wheel Wizard data is now stored in:\n{PathManager.WheelWizardAppdataPath}";
-
-            await new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Message)
-                .SetTitleText(Phrases.MessageSuccess_DataFolderMoved_Title)
-                .SetInfoText(infoText)
-                .ShowDialog();
+            await HandleSuccessfulAppdataMoveAsync(details, errorMessage);
         }
         else
         {
-            var window = new MessageBoxWindow()
-                .SetMessageType(MessageBoxWindow.MessageType.Error)
-                .SetTitleText(Phrases.MessageError_DataFolderMove_Title)
-                .SetInfoText(errorMessage);
-            await window.ShowDialog();
+            await HandleFailedAppdataMoveAsync(details, errorMessage);
+        }
+    }
+
+    private async Task HandleSuccessfulAppdataMoveAsync(DirectoryMoveContentsResult moveDetails, string warningMessage)
+    {
+        if (moveDetails.Outcome == DirectoryMoveOutcome.SourceDeletionFailed)
+        {
+            var prompt = new YesNoWindow()
+                .SetMainText("Unable to delete old data folder")
+                .SetExtraText(
+                    "The previous Wheel Wizard data folder could not be removed."
+                        + $"\n\nOld location:\n{moveDetails.SourcePath}\n\n"
+                        + $"New location:\n{moveDetails.DestinationPath}\n\n"
+                        + "Select Revert to undo the move or Continue to keep using the new folder and leave the old files."
+                )
+                .SetButtonText("Revert", "Continue");
+
+            var revert = await prompt.AwaitAnswer();
+            if (revert)
+            {
+                var revertSucceeded = PathManager.TryRevertWheelWizardAppdataMove(
+                    moveDetails.SourcePath,
+                    moveDetails.DestinationPath,
+                    out var revertError
+                );
+                WheelWizard.Logging.RecreateStaticLogger();
+                UpdateAppDataLocationUi();
+
+                if (!revertSucceeded)
+                {
+                    await new MessageBoxWindow()
+                        .SetMessageType(MessageBoxWindow.MessageType.Error)
+                        .SetTitleText(Phrases.MessageError_DataFolderMove_Title)
+                        .SetInfoText(revertError)
+                        .ShowDialog();
+                }
+                else
+                {
+                    await new MessageBoxWindow()
+                        .SetMessageType(MessageBoxWindow.MessageType.Message)
+                        .SetTitleText("Data folder move reverted")
+                        .SetInfoText($"Wheel Wizard will continue using:\n{moveDetails.SourcePath}")
+                        .ShowDialog();
+                }
+
+                return;
+            }
+        }
+
+        var infoText =
+            Humanizer.ReplaceDynamic(Phrases.MessageSuccess_DataFolderMoved_Extra, PathManager.WheelWizardAppdataPath)
+            ?? $"Wheel Wizard data is now stored in:\n{PathManager.WheelWizardAppdataPath}";
+
+        if (!string.IsNullOrWhiteSpace(warningMessage))
+            infoText += $"\n\n{warningMessage}";
+
+        await new MessageBoxWindow()
+            .SetMessageType(MessageBoxWindow.MessageType.Message)
+            .SetTitleText(Phrases.MessageSuccess_DataFolderMoved_Title)
+            .SetInfoText(infoText)
+            .ShowDialog();
+    }
+
+    private async Task HandleFailedAppdataMoveAsync(DirectoryMoveContentsResult moveDetails, string errorMessage)
+    {
+        var infoText = string.IsNullOrWhiteSpace(errorMessage) ? "Failed to move the Wheel Wizard data folder." : errorMessage;
+
+        await new MessageBoxWindow()
+            .SetMessageType(MessageBoxWindow.MessageType.Error)
+            .SetTitleText(Phrases.MessageError_DataFolderMove_Title)
+            .SetInfoText(infoText)
+            .ShowDialog();
+
+        if (moveDetails.Outcome is DirectoryMoveOutcome.CopyFailed or DirectoryMoveOutcome.VerificationFailed)
+        {
+            var prompt = new YesNoWindow()
+                .SetMainText("Revert changes?")
+                .SetExtraText(
+                    $"Wheel Wizard left a partial copy in:\n{moveDetails.DestinationPath}\n\n"
+                        + "Choose Revert to delete it now, or Continue to leave the files in place."
+                )
+                .SetButtonText("Revert", "Continue");
+
+            var revert = await prompt.AwaitAnswer();
+            if (revert)
+            {
+                var cleaned = PathManager.TryCleanupPartialWheelWizardAppdataMove(moveDetails.DestinationPath, out var cleanupError);
+                if (!cleaned)
+                {
+                    await new MessageBoxWindow()
+                        .SetMessageType(MessageBoxWindow.MessageType.Error)
+                        .SetTitleText("Unable to remove partial files")
+                        .SetInfoText(cleanupError)
+                        .ShowDialog();
+                }
+                else
+                {
+                    await new MessageBoxWindow()
+                        .SetMessageType(MessageBoxWindow.MessageType.Message)
+                        .SetTitleText("Partial files removed")
+                        .SetInfoText($"Removed folder:\n{moveDetails.DestinationPath}")
+                        .ShowDialog();
+                }
+            }
         }
     }
 
