@@ -117,7 +117,7 @@ public static class FileHelper
 
     public static void EnsureDirectory(string path) => Directory.CreateDirectory(path);
 
-    public static void MoveDirectoryContents(
+    public static bool MoveDirectoryContents(
         string sourcePath,
         string destinationPath,
         bool deleteSource = true,
@@ -131,7 +131,7 @@ public static class FileHelper
         {
             EnsureDirectory(normalizedDestination);
             progress?.Report(1.0);
-            return;
+            return true;
         }
 
         EnsureDirectory(normalizedDestination);
@@ -139,7 +139,7 @@ public static class FileHelper
         if (!DirectoryExists(normalizedSource))
         {
             progress?.Report(1.0);
-            return;
+            return true;
         }
 
         progress?.Report(0.0);
@@ -187,10 +187,23 @@ public static class FileHelper
             ReportProgress();
         }
 
+        var sourceDeletionSucceeded = true;
         if (deleteSource && DirectoryExists(normalizedSource))
-            Directory.Delete(normalizedSource, true);
+        {
+            try
+            {
+                Directory.Delete(normalizedSource, true);
+            }
+            catch
+            {
+                // Deletion failed (e.g., Flatpak document-exported folders that can't be deleted)
+                // The important part is that the contents were successfully moved
+                sourceDeletionSucceeded = false;
+            }
+        }
 
         progress?.Report(1.0);
+        return sourceDeletionSucceeded;
     }
 
     public static void Touch(string path, string defaultValue = "")

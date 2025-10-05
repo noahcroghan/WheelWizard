@@ -165,14 +165,21 @@ public static class PathManager
 
         var newOverrideValue = FileHelper.PathsEqual(normalizedTarget, DefaultWheelWizardAppdataPath) ? null : normalizedTarget;
 
+        bool sourceDeletionSucceeded;
         try
         {
-            FileHelper.MoveDirectoryContents(currentPath, normalizedTarget, progress: progress);
+            sourceDeletionSucceeded = FileHelper.MoveDirectoryContents(currentPath, normalizedTarget, progress: progress);
         }
         catch (Exception ex)
         {
             errorMessage = $"Failed to move Wheel Wizard files: {ex.Message}";
             return false;
+        }
+
+        // Update the setting even if persistence fails, since files were successfully moved
+        lock (WheelWizardAppdataLock)
+        {
+            _wheelWizardAppdataOverride = newOverrideValue;
         }
 
         try
@@ -181,23 +188,20 @@ public static class PathManager
         }
         catch (Exception ex)
         {
-            try
-            {
-                FileHelper.MoveDirectoryContents(normalizedTarget, currentPath);
-            }
-            catch (Exception rollbackEx)
-            {
-                errorMessage = $"Failed to persist the new Wheel Wizard data location: {ex.Message}. Rollback failed: {rollbackEx.Message}";
-                return false;
-            }
-
-            errorMessage = $"Failed to persist the new Wheel Wizard data location: {ex.Message}";
-            return false;
+            // Log the persistence failure but don't fail the operation since files are already moved
+            // and the in-memory setting is updated
+            errorMessage = $"Warning: Files were moved successfully, but failed to persist the setting: {ex.Message}";
+            // Still return true since the operation succeeded where it matters
         }
 
-        lock (WheelWizardAppdataLock)
+        // Inform user if the old folder couldn't be deleted
+        if (!sourceDeletionSucceeded)
         {
-            _wheelWizardAppdataOverride = newOverrideValue;
+            var deletionWarning = $"Note: Files were moved successfully, but the old folder '{currentPath}' could not be deleted. You may need to remove it manually.";
+            if (string.IsNullOrEmpty(errorMessage))
+                errorMessage = deletionWarning;
+            else
+                errorMessage += $" {deletionWarning}";
         }
 
         return true;
@@ -358,7 +362,7 @@ public static class PathManager
         }
     }
 
-    private static void MoveWheelWizardAppdataContents(string sourcePath, string destinationPath) =>
+    private static bool MoveWheelWizardAppdataContents(string sourcePath, string destinationPath) =>
         FileHelper.MoveDirectoryContents(sourcePath, destinationPath);
 
     #endregion
