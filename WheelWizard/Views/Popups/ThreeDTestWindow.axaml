@@ -1,0 +1,18 @@
+<base:PopupContent x:Class="WheelWizard.Views.Popups.ThreeDTestWindow"
+                   xmlns="https://github.com/avaloniaui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:components="clr-namespace:WheelWizard.Views.Components"
+                   xmlns:base="clr-namespace:WheelWizard.Views.Popups.Base"
+                   mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="360">
+    <Grid Width="480" MinHeight="200" MaxHeight="540">
+        <StackPanel Spacing="8">
+            <TextBlock Text="3D Test Window" Classes="PageTitleText" />
+            <Border Background="{StaticResource BackgroundLineColor}" Height="1" Margin="-10,0" />
+            
+            <components:Button Variant="Default" Text="Close" Width="140" HorizontalAlignment="Left"
+                               Click="Close_OnClick" />
+        </StackPanel>
+    </Grid>
+</base:PopupContent>

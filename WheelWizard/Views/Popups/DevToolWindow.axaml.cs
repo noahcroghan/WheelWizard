@@ -61,6 +61,11 @@ public partial class DevToolWindow : PopupContent, IRepeatedTaskListener
 
     private void MiiChannel_OnClick(object? sender, RoutedEventArgs e) => DolphinLaunchHelper.LaunchDolphin(" -b -n 0001000248414341");
 
+    private void Open3DTestWindow_OnClick(object? sender, RoutedEventArgs e)
+    {
+        new ThreeDTestWindow().Show();
+    }
+
     #region Popup Tests
 
     private async void TestProgressPopup_OnClick(object sender, RoutedEventArgs e)
